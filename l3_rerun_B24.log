@@ -91,3 +91,4 @@ matched-parameter widths (depth 3, 11 -> 192):
    200,000 rbf_kan    w98   lr1e-03 seed 44: train=0.0583  novel=0.0835  (best@50/2050)  [342s]
    200,000 rbf_kan    w98   lr3e-04 seed 42: train=0.0468  novel=0.0753  (best@175/2175)  [180s]
    200,000 rbf_kan    w98   lr3e-04 seed 43: train=0.0510  novel=0.0754  (best@150/2150)  [198s]
+   200,000 rbf_kan    w98   lr3e-04 seed 44: train=0.0524  novel=0.0821  (best@150/2150)  [160s]
