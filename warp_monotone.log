@@ -1,0 +1,13 @@
+loaded c-channel (988, 128, 128)  (65 MB)
+
+TRUE trajectories: non-monotone in 0.0% (lo) and 0.0% (hi) of samples — the reference itself is not perfectly
+monotone because arrival_time reads a discrete grid, so this is the floor.
+  seed 42: non-monotone lo 55.1% hi  1.3% | R2 lo +0.868->+0.868 hi +0.920->+0.920 | nRMSE 0.04587 -> 0.04584 [547s]
+  seed 43: non-monotone lo 58.0% hi  1.3% | R2 lo +0.881->+0.881 hi +0.910->+0.910 | nRMSE 0.04861 -> 0.04914 [845s]
+  seed 44: non-monotone lo 52.6% hi  1.4% | R2 lo +0.851->+0.851 hi +0.913->+0.913 | nRMSE 0.04863 -> 0.04938 [1513s]
+
+Paired, cluster-robust, alpha = 0.005:
+  raw 0.04770 vs isotonic 0.04812 | diff -0.00041 CI [-0.00070, -0.00010]  SIGNIFICANT
+  -> Isotonic projection makes it WORSE — the unconstrained predictor is exploiting non-monotonicity to fit something real.
+
+wrote results/warp_monotone.json  [1514s]

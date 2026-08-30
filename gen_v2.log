@@ -36,3 +36,30 @@ workers=4
   800/4080  kept=771 rejected=29  3888s elapsed, 15942s left
   825/4080  kept=796 rejected=29  4040s elapsed, 15938s left
   850/4080  kept=820 rejected=30  4196s elapsed, 15944s left
+  875/4080  kept=844 rejected=31  4312s elapsed, 15794s left
+  900/4080  kept=869 rejected=31  4392s elapsed, 15519s left
+  925/4080  kept=894 rejected=31  4505s elapsed, 15365s left
+  950/4080  kept=919 rejected=31  4625s elapsed, 15237s left
+  975/4080  kept=943 rejected=32  4742s elapsed, 15101s left
+  1000/4080  kept=966 rejected=34  4825s elapsed, 14860s left
+  1025/4080  kept=991 rejected=34  4933s elapsed, 14704s left
+  1050/4080  kept=1015 rejected=35  4988s elapsed, 14394s left
+  1075/4080  kept=1038 rejected=37  5047s elapsed, 14109s left
+  1100/4080  kept=1061 rejected=39  5131s elapsed, 13899s left
+  1125/4080  kept=1082 rejected=43  5194s elapsed, 13644s left
+  1150/4080  kept=1106 rejected=44  5272s elapsed, 13432s left
+  1175/4080  kept=1129 rejected=46  5353s elapsed, 13234s left
+  1200/4080  kept=1153 rejected=47  5401s elapsed, 12961s left
+  1225/4080  kept=1178 rejected=47  5511s elapsed, 12845s left
+  1250/4080  kept=1203 rejected=47  5621s elapsed, 12726s left
+  1275/4080  kept=1228 rejected=47  5677s elapsed, 12489s left
+  1300/4080  kept=1253 rejected=47  5821s elapsed, 12449s left
+  1325/4080  kept=1278 rejected=47  5918s elapsed, 12304s left
+  1350/4080  kept=1302 rejected=48  6002s elapsed, 12138s left
+  1375/4080  kept=1326 rejected=49  6086s elapsed, 11972s left
+  1400/4080  kept=1351 rejected=49  6171s elapsed, 11813s left
+  1425/4080  kept=1376 rejected=49  6267s elapsed, 11677s left
+  1450/4080  kept=1401 rejected=49  6363s elapsed, 11542s left
+  1475/4080  kept=1426 rejected=49  6484s elapsed, 11451s left
+  1500/4080  kept=1450 rejected=50  6566s elapsed, 11294s left
+  1525/4080  kept=1473 rejected=52  6671s elapsed, 11177s left

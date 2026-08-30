@@ -1,0 +1,97 @@
+{
+  "levels": [
+    0.05,
+    0.95
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "true_nonmonotone_frac": {
+    "lo": 0.0,
+    "hi": 0.0
+  },
+  "per_seed": [
+    {
+      "seed": 42,
+      "nonmonotone_frac": {
+        "lo": 0.5506072874493927,
+        "hi": 0.013157894736842105
+      },
+      "backtrack_over_range": {
+        "lo_median": 0.0,
+        "hi_median": 0.0,
+        "lo_p95": 1.0
+      },
+      "r2_raw": {
+        "lo": 0.8682113065007471,
+        "hi": 0.9199026038407812
+      },
+      "r2_proj": {
+        "lo": 0.8682241247232418,
+        "hi": 0.9199026038407812
+      },
+      "nrmse_raw": 0.0458688959479332,
+      "nrmse_proj": 0.04584049433469772
+    },
+    {
+      "seed": 43,
+      "nonmonotone_frac": {
+        "lo": 0.5799595141700404,
+        "hi": 0.013157894736842105
+      },
+      "backtrack_over_range": {
+        "lo_median": 0.0,
+        "hi_median": 0.0,
+        "lo_p95": 1.0038238984004078
+      },
+      "r2_raw": {
+        "lo": 0.8812212985383481,
+        "hi": 0.9103795783602004
+      },
+      "r2_proj": {
+        "lo": 0.8814072927411385,
+        "hi": 0.9103795783602004
+      },
+      "nrmse_raw": 0.04861442744731903,
+      "nrmse_proj": 0.04913689196109772
+    },
+    {
+      "seed": 44,
+      "nonmonotone_frac": {
+        "lo": 0.5263157894736842,
+        "hi": 0.01417004048582996
+      },
+      "backtrack_over_range": {
+        "lo_median": 0.0,
+        "hi_median": 0.0,
+        "lo_p95": 1.0
+      },
+      "r2_raw": {
+        "lo": 0.85052722311174,
+        "hi": 0.9132798644325401
+      },
+      "r2_proj": {
+        "lo": 0.8505404073087092,
+        "hi": 0.9132798644325401
+      },
+      "nrmse_raw": 0.048629362136125565,
+      "nrmse_proj": 0.04937873035669327
+    }
+  ],
+  "comparison": {
+    "arm_a": "raw",
+    "arm_b": "isotonic",
+    "metric": "nrmse_c",
+    "mean_a": 0.047704226839329865,
+    "mean_b": 0.04811870628214174,
+    "mean_diff": -0.0004144794428118722,
+    "ci_low": -0.0006968200545210733,
+    "ci_high": -0.00010452228445160971,
+    "significant": true,
+    "verdict": "raw is better (lower nrmse_c)",
+    "n_materials": 12
+  },
+  "verdict": "Isotonic projection makes it WORSE \u2014 the unconstrained predictor is exploiting non-monotonicity to fit something real."
+}

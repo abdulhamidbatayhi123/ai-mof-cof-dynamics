@@ -342,6 +342,52 @@ field, which is the point.
 > front-locating model could buy, and it is reported here only to size the
 > remaining headroom.
 
+### Monotonicity is violated constantly, and enforcing it does not help
+
+`warp_monotone.py`. The obvious first attack on the front predictor is that it does
+not know the two constraints the true trajectories satisfy exactly: `t_lo(z)` and
+`t_hi(z)` are non-decreasing in z, and `t_hi > t_lo` everywhere. Nothing in a
+POD-plus-regressor pipeline can enforce either — POD modes are not monotone, so a
+reconstruction can double back. L4b measured that imposing a known physical bound
+*architecturally* was worth 11.5× while the same bound as a penalty was worth
+nothing, so this looked like the same lesson pointed at the warp.
+
+**It is not.** Measured over 3 seeds on held-out materials:
+
+| | true | predicted | after isotonic projection |
+|---|---|---|---|
+| non-monotone samples, `t_lo` | **0.0 %** | **52–58 %** | 0 % by construction |
+| non-monotone samples, `t_hi` | 0.0 % | 1.3–1.4 % | 0 % |
+| R² (`t_lo`) | — | +0.851…+0.881 | **+0.851…+0.881, unchanged to 3 dp** |
+| novel-material nRMSE | — | 0.04770 | **0.04812** |
+
+```
+raw 0.04770 vs isotonic 0.04812 | diff -0.00041 CI [-0.00070, -0.00010]  SIGNIFICANT
+```
+
+The predictor violates monotonicity in more than half of all samples, the true
+trajectories violate it in none — and projecting onto the constraint set changes R²
+by *nothing* and makes the reconstruction **significantly worse**. The violations
+are therefore frequent but negligible in magnitude: numerical wiggle that the warp
+was absorbing, not gross backtracking.
+
+**A monotone-by-construction front predictor is not worth building.** The remaining
+2.17× is not a constraint-violation problem; it is raw predictive accuracy of
+`t_lo(z)`. That points at material count, not architecture — the learning curve
+measured R²(`t_lo`) rising **+0.390 → +0.781 → +0.888 → +0.895** as training
+materials went 12 → 24 → 36 → 48, which is why the 240-material v2 dataset is the
+next experiment rather than a better warp network.
+
+> *Defect in this analysis, recorded on the same terms as the others.* The
+> diagnostic "total backtrack ÷ the trajectory's own range" is **degenerate**: for
+> a fast Henry wave that arrives almost simultaneously along the column, the range
+> is ~0 and any wiggle gives a ratio of 1.0. Median 0.00000 with p95 1.00000 is
+> that degeneracy, not a bimodal population. This is retraction **A15**'s error
+> class — never normalise by a quantity that can vanish — committed again, in a
+> diagnostic this time rather than a reported metric. The verdict does not depend
+> on it: it rests on R² being unchanged and the paired reconstruction CI excluding
+> zero. The diagnostic should be reported in absolute time units.
+
 ---
 
 ## L7 — the classical control is beaten, and that is a real finding
