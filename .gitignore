@@ -1,11 +1,14 @@
 # Generated data — regenerable from gen_parametric_dataset.py with the recorded seed.
 # The manifests ARE tracked: they carry the splits, the rejection tally and the
 # per-sample metadata that cannot be recovered from the .npy files.
-data/parametric/*.npy
-data/parametric_scale/*.npy
-data/_probe_resume/
+data/**/*.npy
+data/_probe*/
+data/_SUPERSEDED*/
 data/*.npz
 data/*.pth
+# ...but never the manifests.
+!data/**/manifest.json
+!data/**/_partial.json
 
 # Model checkpoints
 *.pth

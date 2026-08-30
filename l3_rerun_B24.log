@@ -26,3 +26,7 @@ matched-parameter widths (depth 3, 11 -> 192):
     50,000 mlp        w114  lr3e-03 seed 42: train=0.0636  novel=0.0645  (best@25/2025)  [204s]
     50,000 mlp        w114  lr3e-03 seed 43: train=0.0647  novel=0.0636  (best@25/2025)  [268s]
     50,000 mlp        w114  lr3e-03 seed 44: train=0.0548  novel=0.0593  (best@50/2050)  [291s]
+    50,000 mlp        w114  lr1e-03 seed 42: train=0.0586  novel=0.0584  (best@75/2075)  [143s]
+    50,000 mlp        w114  lr1e-03 seed 43: train=0.0600  novel=0.0589  (best@75/2075)  [244s]
+    50,000 mlp        w114  lr1e-03 seed 44: train=0.0541  novel=0.0581  (best@100/2100)  [292s]
+    50,000 mlp        w114  lr3e-04 seed 42: train=0.0574  novel=0.0574  (best@200/2200)  [275s]

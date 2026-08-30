@@ -1,0 +1,4 @@
+design v2: scrambled Sobol; k_LDF derived from d_p (Glueckauf)
+240 materials x 17 conditions = 4080 runs
+store 256x256 float32 -> 0.79 MB/sim, 3.21 GB total
+workers=4

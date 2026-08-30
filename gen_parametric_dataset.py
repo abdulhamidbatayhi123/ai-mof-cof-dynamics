@@ -430,28 +430,74 @@ def main():
                        "kept": kept, "rejected": rejected}, f)
         os.replace(tmp, part_path)          # atomic: never a half-written checkpoint
 
+    # POOL RESILIENCE (2026-08-30). The previous 4080-run generation died with
+    #
+    #     OSError: [WinError 87] The parameter is incorrect
+    #       File "multiprocessing/spawn.py", line 108, in spawn_main
+    #         source_process = _winapi.OpenProcess(...)
+    #
+    # A worker could not open a handle to its parent. On Windows this happens
+    # when a long-lived pool goes stale — a recycled handle, a sleep/resume, or a
+    # worker dying and its replacement spawning against an invalid parent handle.
+    # Submitting all ~4000 futures to ONE pool that must survive many hours makes
+    # it near-certain, and it also pins every completed-but-unconsumed 0.79 MB
+    # result in memory.
+    #
+    # The previous workaround was a bash loop that re-launched the whole process
+    # and let the resume logic pick up. That works but discards the in-flight
+    # chunk and needs a human to notice. Instead: run in CHUNKS, each with a
+    # fresh pool, and catch a broken pool so the chunk is retried rather than
+    # losing the run. The checkpoint means a retried chunk skips what is already
+    # on disk.
     n_prev = len(kept) + len(rejected)
-    if tasks:
-        with ProcessPoolExecutor(max_workers=args.workers) as ex:
-            futs = {ex.submit(run_one, t): t for t in tasks}
-            done = 0
-            for fut in as_completed(futs):
-                r = fut.result()
-                done += 1
-                if r["ok"]:
-                    np.save(os.path.join(args.out, f"m{r['mat']:04d}_c{r['cond']:04d}.npy"),
-                            r.pop("fields"))
-                    kept.append(r)
-                else:
-                    rejected.append(r)
-                if done % CHECKPOINT_EVERY == 0:
-                    save_partial()
-                if done % 25 == 0 or done == len(tasks):
-                    el = time.time() - t0
-                    print(f"  {n_prev + done}/{n_prev + len(tasks)}  kept={len(kept)} "
-                          f"rejected={len(rejected)}  {el:.0f}s elapsed, "
-                          f"{el / done * (len(tasks) - done):.0f}s left", flush=True)
+    total = n_prev + len(tasks)
+    done = 0
+    CHUNK = max(args.workers * 8, 32)
+
+    def consume(r):
+        nonlocal done
+        done += 1
+        if r["ok"]:
+            np.save(os.path.join(args.out, f"m{r['mat']:04d}_c{r['cond']:04d}.npy"),
+                    r.pop("fields"))
+            kept.append(r)
+        else:
+            rejected.append(r)
+        if done % CHECKPOINT_EVERY == 0:
+            save_partial()
+        if done % 25 == 0 or done == len(tasks):
+            el = time.time() - t0
+            print(f"  {n_prev + done}/{total}  kept={len(kept)} "
+                  f"rejected={len(rejected)}  {el:.0f}s elapsed, "
+                  f"{el / max(done, 1) * (len(tasks) - done):.0f}s left", flush=True)
+
+    i = 0
+    while i < len(tasks):
+        chunk = tasks[i:i + CHUNK]
+        for attempt in range(3):
+            try:
+                with ProcessPoolExecutor(max_workers=args.workers) as ex:
+                    futs = [ex.submit(run_one, t) for t in chunk]
+                    for fut in as_completed(futs):
+                        consume(fut.result())
+                break
+            except Exception as e:                      # BrokenProcessPool, OSError, ...
+                print(f"  ! pool failed on chunk {i}-{i+len(chunk)} "
+                      f"({type(e).__name__}: {e}); attempt {attempt + 1}/3", flush=True)
+                save_partial()
+                already = {(r["mat"], r["cond"]) for r in kept} | \
+                          {(r["mat"], r["cond"]) for r in rejected}
+                chunk = [(m, c) for m, c in chunk
+                         if (m["material_id"], c["condition_id"]) not in already]
+                if not chunk:
+                    break
+                time.sleep(5)
+        else:
+            raise RuntimeError(f"chunk {i} failed three times; aborting rather than "
+                               f"silently producing a partial dataset")
+        i += CHUNK
         save_partial()
+    save_partial()
 
     # splits — by material first, so novel-material is a real holdout
     mat_ids = sorted({k["mat"] for k in kept})
