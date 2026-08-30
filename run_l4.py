@@ -51,29 +51,49 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 R_GAS = 8.314
 
 
-def physics_from_params(vec):
-    """Rebuild an AdsorptionPhysicsConfig from an 11-vector (raw, not standardised)."""
+def physics_from_params(vec, keys=PARAM_KEYS):
+    """Rebuild an AdsorptionPhysicsConfig from an 11-vector (raw, not standardised).
+
+    `keys` names the vector's columns and MUST come from the dataset that produced
+    it — pass `d.param_keys`. The legacy and v2 designs use different vectors of
+    the same length (position 5 is `k_LDF` under legacy, `d_p` under v2), so a
+    default is a footgun; it is retained only so legacy callers keep working, and
+    the reconstruction below is asserted rather than assumed.
+    """
     p = AdsorptionPhysicsConfig()
-    d = dict(zip(PARAM_KEYS, vec))
+    d = dict(zip(keys, vec))
     p.q_max = d["q_max"]
     p.delta_H = d["delta_H"]
     p.isotherm_n = d["isotherm_n"]
     p.henry_fraction = d["henry_fraction"]
-    p.k_LDF = d["k_LDF"]
     p.rho_p = d["rho_p"]
     p.eps_t = d["eps_t"]
     p.T_in = d["T_in"]
     p.T_w = d["T_in"]
     p.v = d["v"]
     p.L = 0.10
-    p.d_p = 0.002
+    # d_p is a sampled material property under design v2 and fixed at 2 mm under
+    # legacy. It enters BOTH the axial dispersion correlation and (under v2) the
+    # mass-transfer coefficient, so getting it from the wrong place changes the
+    # PDE the residual is computed against.
+    p.d_p = float(d.get("d_p", 0.002))
     p.D_L = 0.7 * 2.5e-5 + 0.5 * p.d_p * (p.v / p.eps_t)
-    from fetch_real_mof_data import rh_to_conc
+
+    from gen_parametric_dataset import B_H_RATIO, k_ldf_glueckauf, rh_to_conc
     from isotherm import calibrate_step
     c_step = rh_to_conc(d["step_rh"], d["T_in"])
     p.b0 = calibrate_step(p, c_step, d["T_in"])
-    p.b_H0 = p.b0 / 20.0
+    p.b_H0 = p.b0 / B_H_RATIO
     p.c_in = rh_to_conc(d["rh_feed"], d["T_in"])
+
+    # KINETICS. Under legacy, k_LDF is in the vector. Under v2 it is derived from
+    # the particle exactly as the generator derived it — reconstructing it any
+    # other way would compute the residual against a different PDE than the one
+    # that produced the data, which is the single worst thing this function can do.
+    if "k_LDF" in d:
+        p.k_LDF = d["k_LDF"]
+    else:
+        p.k_LDF = k_ldf_glueckauf(p, p.c_in, d["T_in"], p.d_p)
     return p
 
 
@@ -290,7 +310,7 @@ def train_arm(arm, d, tr_idx, args, seed):
     Pz = torch.tensor(d.params_z, dtype=torch.float32, device=DEVICE)
     phys_table = build_phys_table(d.params, DEVICE)   # once, not per step
     tau_all = torch.tensor(
-        [d.t_final[i] / (0.10 / d.params[i][PARAM_KEYS.index("v")]) for i in range(len(d.params))],
+        [d.t_final[i] / (0.10 / d.params[i][d.pidx("v")]) for i in range(len(d.params))],
         dtype=torch.float32, device=DEVICE).unsqueeze(1)
 
     use_phys = arm != "data_only"

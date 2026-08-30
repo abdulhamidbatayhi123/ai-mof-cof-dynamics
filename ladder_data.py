@@ -27,6 +27,28 @@ PARAM_KEYS = (
     "rh_feed", "v", "T_in",                        # operating
 )
 
+# DESIGN v2 (2026-08-30). Same length, same ordering convention, one substitution:
+# `d_p` replaces `k_LDF`. In v2 the mass-transfer coefficient is DERIVED from the
+# particle through Glueckauf rather than sampled independently of it, so k_LDF is
+# no longer a material property — it is a function of (material, condition) and
+# lives on the sample record, not the material record.
+#
+# This is a REPARAMETERISATION, not a change of information: k_LDF is a
+# deterministic function of the eleven values below, so no arm loses anything it
+# had before. It is also the better variable for L6: the hidden kinetic object
+# becomes a true formulation constant that an experimentalist actually chooses,
+# rather than a coefficient that already encodes the isotherm slope.
+PARAM_KEYS_V2 = (
+    "q_max", "delta_H", "step_rh", "isotherm_n",
+    "henry_fraction", "d_p", "rho_p", "eps_t",     # material
+    "rh_feed", "v", "T_in",                        # operating
+)
+
+
+def param_keys_for(man):
+    """Which parameter vector this dataset uses. Read from the manifest, never guessed."""
+    return PARAM_KEYS_V2 if man.get("design") == "v2" else PARAM_KEYS
+
 
 @dataclass
 class LadderData:
@@ -40,9 +62,30 @@ class LadderData:
     mu: np.ndarray
     sigma: np.ndarray
     meta: dict
+    param_keys: tuple = PARAM_KEYS   # which vector THIS dataset uses; see pidx()
 
     def idx(self, split):
         return np.where(self.split == split)[0]
+
+    def pidx(self, name):
+        """Column of `name` in the parameter vector, or a loud failure.
+
+        Never write `PARAM_KEYS.index("k_LDF")`. The legacy and v2 designs use
+        DIFFERENT vectors at the same length: position 5 is `k_LDF` under legacy
+        and `d_p` under v2. A hard-coded index would silently read one as the
+        other, in a project whose entire premise is that silent substitutions are
+        what destroy results. This raises instead.
+        """
+        try:
+            return self.param_keys.index(name)
+        except ValueError:
+            raise KeyError(
+                f"'{name}' is not in this dataset's parameter vector "
+                f"({self.meta.get('design', 'legacy')} design: {list(self.param_keys)}). "
+                f"Under design v2 the kinetic degree of freedom is 'd_p' and k_LDF is "
+                f"derived per sample — read it from the manifest sample records, not "
+                f"from the parameter vector."
+            ) from None
 
     def subset(self, split):
         i = self.idx(split)
@@ -60,6 +103,7 @@ def load(root="data/parametric", verbose=True):
 
     mats = {m["material_id"]: m for m in man["materials"]}
     conds = {c["condition_id"]: c for c in man["conditions"]}
+    keys = param_keys_for(man)
 
     rows, fields = [], []
     for s in man["samples"]:
@@ -67,7 +111,7 @@ def load(root="data/parametric", verbose=True):
         if not os.path.exists(f):
             continue
         m, c = mats[s["mat"]], conds[s["cond"]]
-        vec = [(m if k in m else c)[k] for k in PARAM_KEYS]
+        vec = [(m if k in m else c)[k] for k in keys]
         rows.append((vec, s["mat"], s["cond"], s["split"], s["t_final"]))
         fields.append(np.load(f))
 
@@ -91,13 +135,14 @@ def load(root="data/parametric", verbose=True):
     params_z = (params - mu) / sigma
 
     d = LadderData(params, params_z, fields, material_ids, condition_ids,
-                   split, t_final, mu, sigma, man)
+                   split, t_final, mu, sigma, man, tuple(keys))
     if verbose:
         print(f"loaded {len(rows)} samples from {root}")
         print(f"  fields {fields.shape}  params {params.shape}")
         print(f"  splits {d.summary()}")
         print(f"  materials: {len(np.unique(material_ids))} "
               f"({len(np.unique(material_ids[split == 'novel_material']))} held out)")
+        print(f"  design: {man.get('design', 'legacy')}  params: {list(keys)}")
     return d
 
 
@@ -115,6 +160,7 @@ def load_slice(root="data/parametric", z_frac=0.5, verbose=True):
     man = json.load(open(man_path))
     mats = {m["material_id"]: m for m in man["materials"]}
     conds = {c["condition_id"]: c for c in man["conditions"]}
+    keys = param_keys_for(man)
 
     rows, slices = [], []
     for s in man["samples"]:
@@ -125,7 +171,7 @@ def load_slice(root="data/parametric", z_frac=0.5, verbose=True):
         zi = int(z_frac * (arr.shape[1] - 1))
         slices.append(np.array(arr[:, zi, :], dtype=np.float32))
         m, c = mats[s["mat"]], conds[s["cond"]]
-        rows.append(([(m if k in m else c)[k] for k in PARAM_KEYS],
+        rows.append(([(m if k in m else c)[k] for k in keys],
                      s["mat"], s["cond"], s["split"], s["t_final"]))
 
     params = np.array([r[0] for r in rows], dtype=np.float64)
@@ -139,7 +185,7 @@ def load_slice(root="data/parametric", z_frac=0.5, verbose=True):
     mu, sd = params[tr].mean(axis=0), params[tr].std(axis=0)
     sd[sd == 0] = 1.0
     d = LadderData(params, (params - mu) / sd, fields, material_ids,
-                   condition_ids, split, t_final, mu, sd, man)
+                   condition_ids, split, t_final, mu, sd, man, tuple(keys))
     if verbose:
         print(f"loaded {len(rows)} samples (z-slice at {z_frac:.2f}L) from {root}")
         print(f"  slices {fields.shape}  ({fields.nbytes / 1e6:.0f} MB, vs "
@@ -164,7 +210,7 @@ if __name__ == "__main__":
     print()
     print("parameter ranges (train split):")
     tr = d.idx("train")
-    for k, lo, hi in zip(PARAM_KEYS, d.params[tr].min(0), d.params[tr].max(0)):
+    for k, lo, hi in zip(d.param_keys, d.params[tr].min(0), d.params[tr].max(0)):
         print(f"  {k:<16} [{lo:12.4g}, {hi:12.4g}]")
     print()
     print("field ranges:", {n: (float(d.fields[:, i].min()), float(d.fields[:, i].max()))

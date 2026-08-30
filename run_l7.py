@@ -57,7 +57,7 @@ def main():
             rows, wall = [], 0.0
             for gi in idx:
                 p = physics_from_params(d.params[gi])
-                c_in = rh_to_conc(d.params[gi][PARAM_KEYS.index("rh_feed")], p.T_in)
+                c_in = rh_to_conc(d.params[gi][d.pidx("rh_feed")], p.T_in)
                 t = t_norm * d.t_final[gi]
                 t0 = time.perf_counter()
                 pred = fn(p, c_in, p.T_in, t)

@@ -63,7 +63,7 @@ def load_c_light(root="data/parametric"):
             ti = np.linspace(0, nt - 1, NT_S).astype(int)
         flds.append(np.array(arr[CHANNEL][np.ix_(zi, ti)], dtype=np.float32))
         m, c = mats[s["mat"]], conds[s["cond"]]
-        rows.append(([(m if k in m else c)[k] for k in ladder_data.PARAM_KEYS],
+        rows.append(([(m if k in m else c)[k] for k in ladder_data.param_keys_for(man)],
                      s["mat"], s["split"]))
     params = np.array([r[0] for r in rows], dtype=np.float64)
     material_ids = np.array([r[1] for r in rows])

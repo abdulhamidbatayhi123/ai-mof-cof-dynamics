@@ -107,7 +107,7 @@ def build(d, normalise_fingerprint=True):
             nms += [f"fp_T{int(dt):+d}_rh{int(100 * r):02d}"
                     for dt in FINGERPRINT_DT for r in FINGERPRINT_RH]
         for k in OBSERVABLE_KEYS:
-            feats.append(d.params[i][PARAM_KEYS.index(k)])
+            feats.append(d.params[i][d.pidx(k)])
             nms.append(k)
         rows.append(feats)
         names = nms
@@ -138,7 +138,7 @@ def check_non_degenerate(d, X, verbose=True):
         print(f"  {'withheld parameter':<18} {'R2 from descriptors':>21}  recoverable?")
         print("  " + "-" * 58)
     for k in WITHHELD_KEYS:
-        y = d.params[:, PARAM_KEYS.index(k)]
+        y = d.params[:, d.pidx(k)]
         m = RandomForestRegressor(n_estimators=200, random_state=0, n_jobs=-1)
         m.fit(X[tr], y[tr])
         r2 = float(r2_score(y[te], m.predict(X[te])))

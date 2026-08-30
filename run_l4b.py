@@ -105,7 +105,7 @@ def train(arm, d, tr_idx, args, seed, t_lo, t_hi):
     Pz = torch.tensor(d.params_z, dtype=torch.float32, device=DEVICE)
     table = build_phys_table(d.params, DEVICE)
     tau_all = torch.tensor(
-        [d.t_final[i] / (0.10 / d.params[i][PARAM_KEYS.index("v")]) for i in range(len(d.params))],
+        [d.t_final[i] / (0.10 / d.params[i][d.pidx("v")]) for i in range(len(d.params))],
         dtype=torch.float32, device=DEVICE).unsqueeze(1)
 
     use_phys = arm != "data_only"
