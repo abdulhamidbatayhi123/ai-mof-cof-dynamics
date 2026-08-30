@@ -34,9 +34,18 @@ from solver_fd import AdsorptionPhysicsConfig
 
 OUT = "figures"
 plt.rcParams.update({
-    "figure.dpi": 160, "savefig.dpi": 300, "font.size": 9,
+    "figure.dpi": 160, "savefig.dpi": 600, "font.size": 9,
     "axes.grid": True, "grid.alpha": 0.25, "axes.spines.top": False,
     "axes.spines.right": False, "legend.frameon": False,
+    # FONT EMBEDDING (audit 2026-08-30, defect B25). matplotlib's default is
+    # pdf.fonttype = 3, and Type 3 fonts are rejected outright by the artwork
+    # preflight at IEEE, Elsevier and ACS: they are not true fonts, cannot be
+    # subset reliably, and break text extraction and accessibility. Every PDF
+    # this project had shipped embedded them (Fig1 x1, Fig3 x1, Fig4 x2,
+    # Fig5 x2, Fig6 x1, Fig7 x2). 42 is Type 42 / TrueType, which is accepted.
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
+    "svg.fonttype": "none",
 })
 
 
@@ -112,7 +121,15 @@ def fig_ground_truth():
         ax.set_ylim(-0.02, 1.05)
 
         ax = axes[1][k]
-        im = ax.pcolormesh(t / 3600, z * 1e3, q, shading="auto", cmap="viridis")
+        # rasterized=True (audit 2026-08-30, defect B26). This mesh is
+        # 2000 z-cells x ~500 snapshots per panel. Left as vector it emitted
+        # 1,698,291 individual path-fill operations and a 39.2 MB PDF — which
+        # journal production systems reject or silently flatten, and which no
+        # reviewer's PDF viewer will scroll. matplotlib rasterises only the
+        # artist flagged here, so every axis, tick, label and the colorbar
+        # outline stay vector and stay sharp at any zoom.
+        im = ax.pcolormesh(t / 3600, z * 1e3, q, shading="auto", cmap="viridis",
+                           rasterized=True)
         ax.set_xlabel("time (h)")
         ax.set_ylabel("z (mm)")
         ax.set_title("solid loading q(z,t)  (mol kg$^{-1}$)")
@@ -155,7 +172,23 @@ def fig_parametric_coverage():
     m = json.load(open(man))
     S = m["samples"]
     mats = {mm["material_id"]: mm for mm in m["materials"]}
-    colours = {"train": "#3b6ea5", "novel_condition": "#e08b3a", "novel_material": "#b5423f"}
+    # DEFECT B27 (audit 2026-08-30). This loop used to iterate over SAMPLES while
+    # plotting MATERIAL descriptors. Each material appears in ~17 samples, and the
+    # novel_condition split holds out CONDITIONS for TRAINING materials — so every
+    # training material was drawn once in blue and then again in orange on top of
+    # it. The result shipped with a three-entry legend and not one blue point
+    # visible in any panel, telling the reader the training set was tiny. Same
+    # class as retraction A1: a figure showing something other than what it says.
+    #
+    # A material belongs to exactly one side of the material split. That is the
+    # only split this figure can honestly show, so it shows that and says so.
+    held_out = set(m["novel_materials"])
+    groups = {
+        "training materials": ("#3b6ea5", "o", [mm for mid, mm in sorted(mats.items())
+                                                if mid not in held_out]),
+        "held-out materials": ("#b5423f", "D", [mm for mid, mm in sorted(mats.items())
+                                                if mid in held_out]),
+    }
 
     fig, axes = plt.subplots(1, 3, figsize=(11, 3.2))
     for ax, (xk, yk, xl, yl) in zip(axes, [
@@ -163,16 +196,18 @@ def fig_parametric_coverage():
         ("q_max", "k_LDF", "q$_{max}$ (mol kg$^{-1}$)", "k$_{LDF}$ (s$^{-1}$)"),
         ("delta_H", "eps_t", "ΔH (J mol$^{-1}$)", "porosity ε"),
     ]):
-        for split, col in colours.items():
-            xs = [mats[s["mat"]][xk] for s in S if s["split"] == split]
-            ys = [mats[s["mat"]][yk] for s in S if s["split"] == split]
-            ax.scatter(xs, ys, s=9, alpha=0.55, c=col, label=split, edgecolors="none")
+        for label, (col, mk) in ((k, v[:2]) for k, v in groups.items()):
+            ms = groups[label][2]
+            ax.scatter([mm[xk] for mm in ms], [mm[yk] for mm in ms],
+                       s=26, alpha=0.85, c=col, marker=mk, label=f"{label} (n={len(ms)})",
+                       edgecolors="white", linewidths=0.4, zorder=3 if mk == "D" else 2)
         ax.set_xlabel(xl)
         ax.set_ylabel(yl)
-    axes[0].legend(fontsize=7, markerscale=1.6)
-    fig.suptitle(f"Parametric dataset: {len(S)} runs, "
-                 f"{len({s['mat'] for s in S})} materials  "
-                 f"(rejected {m['n_rejected']})", y=1.04)
+    axes[0].legend(fontsize=7, markerscale=1.1, loc="best")
+    n_mat = len(mats)
+    fig.suptitle(f"Parametric dataset: {n_mat} materials × {len(m['conditions'])} conditions "
+                 f"→ {len(S)} runs ({m['n_rejected']} rejected by the pre-declared screen); "
+                 f"{len(held_out)} materials held out", y=1.04)
     _save(fig, "Fig4_parametric_coverage")
 
 

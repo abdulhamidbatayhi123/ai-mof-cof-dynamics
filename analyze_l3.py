@@ -58,6 +58,36 @@ def assert_wellformed(r):
     for a in arms:
         if set(a["seeds"]) != {str(s) for s in r["seeds"]}:
             raise AssertionError(f"arm {a['family']}@{a['budget']} is missing seeds")
+
+    # THE NEVER-TRAINED GUARD (defect B24, audit 2026-08-30).
+    #
+    # `best_step == 0` means the validation loss never improved on the randomly
+    # initialised network, so the recorded error is the error of that
+    # initialisation. In the original 54-run sweep this happened 11 times, and
+    # `best_lr_arms` — which picks the LOWEST error per (budget, family) — had no
+    # way to see it. For cheby_kan at the 200k budget BOTH learning rates were
+    # untrained, so the published cell (0.1263) was 3/3 random initialisation
+    # presented as an architecture measurement.
+    #
+    # An untrained network losing to a trained one is an observation about
+    # optimisation, not about generalisation, and the two are not interchangeable.
+    # Refuse the file rather than let one through again.
+    bad = []
+    for a in arms:
+        for s, rec in a["seeds"].items():
+            if rec.get("never_trained"):
+                bad.append(f"{a['family']}@{a['budget']} lr={a.get('lr'):.0e} seed {s} (guard fired)")
+            elif rec.get("early_stop", {}).get("best_step") == 0:
+                bad.append(f"{a['family']}@{a['budget']} lr={a.get('lr'):.0e} seed {s} (best_step=0)")
+    if bad:
+        raise AssertionError(
+            "results file contains runs whose best checkpoint is the random "
+            "initialisation — their error is a property of the init scheme, not of "
+            "the architecture, and best_lr_arms cannot distinguish them from "
+            "trained runs:\n    " + "\n    ".join(bad) +
+            "\n  Re-run those configurations with a larger `steps`/`patience` "
+            "(defect B24). Do not analyse this file."
+        )
     return True
 
 

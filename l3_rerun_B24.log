@@ -1,0 +1,22 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+POD (64 modes/channel, train only) — identical to L1/L2:
+  c: 64 modes capture 99.9880% of variance | modes for 90/99/99.9%: 3/11/32
+  q: 64 modes capture 99.9899% of variance | modes for 90/99/99.9%: 2/8/27
+  T: 64 modes capture 99.9822% of variance | modes for 90/99/99.9%: 3/13/36
+POD floor (novel-material): 1.4554e-03
+
+matched-parameter widths (depth 3, 11 -> 192):
+  budget   50,000  mlp        width  114  params    49,668  (-0.7%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget   50,000  rbf_kan    width   45  params    49,737  (-0.5%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget   50,000  cheby_kan  width   48  params    50,496  (+1.0%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  200,000  mlp        width  269  params   200,328  (+0.2%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  200,000  rbf_kan    width   98  params   201,582  (+0.8%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  200,000  cheby_kan  width  103  params   198,776  (-0.6%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  800,000  mlp        width  583  params   800,068  (+0.0%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  800,000  rbf_kan    width  203  params   801,027  (+0.1%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+  budget  800,000  cheby_kan  width  215  params   799,992  (-0.0%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
+

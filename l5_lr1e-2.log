@@ -9,4 +9,6 @@ POD floor at each p (the n-width bound on ANY linear reconstruction):
   p=   8  novel-material 0.01440
   p=  16  novel-material 0.00731
   p=  32  novel-material 0.00331
+  p=  64  novel-material 0.00135
+  p= 128  novel-material 0.00050
 

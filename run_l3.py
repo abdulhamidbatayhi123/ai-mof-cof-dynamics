@@ -141,7 +141,7 @@ def solve_width(family, target, depth, n_in, n_out, **kw):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def train_one(family, width, depth, Xtr, Ytr, seed, steps=4000, lr=3e-3,
-              val_frac=0.12, patience=400, **kw):
+              val_frac=0.12, patience=2000, min_steps=1000, **kw):
     """Train to the best VALIDATION loss, not to convergence on the training set.
 
     Without this, 4000 unregularised steps on 691 samples overfit hard: measured
@@ -153,6 +153,30 @@ def train_one(family, width, depth, Xtr, Ytr, seed, steps=4000, lr=3e-3,
 
     The validation split is carved out of TRAIN. Selecting on novel-material
     would leak the test set into model selection.
+
+    PATIENCE, and why it was raised from 400 to 2000 (audit 2026-08-30, defect B24)
+    ------------------------------------------------------------------------------
+    `patience=400` counted in STEPS, with validation every 25 steps, is sixteen
+    non-improving evaluations. Measured over the original 54-run sweep, EVERY run
+    stopped between step 400 and 500 of a declared 6000, and `best_step` was 25-100
+    for almost all of them. Two things followed, both bad:
+
+      * The cosine schedule is built with `T_max=steps`. Stopping at ~450 of 6000
+        means the learning rate never anneals — every arm was scored at essentially
+        its initial lr.
+      * Eleven of 54 runs recorded `best_step == 0`: the reported error was the
+        error of the RANDOM INITIALISATION. Six of those were `cheby_kan` at the
+        200k budget, at BOTH learning rates, so the published 200k Chebyshev cell
+        (0.1263) was an untrained network reported as an architecture result.
+
+    A KAN with a richer per-edge basis is exactly the kind of model that starts
+    slowly, so an aggressive patience does not handicap the families equally — it
+    handicaps the family the rung exists to test. `min_steps` additionally forbids
+    stopping before the schedule has done anything at all.
+
+    Raises RuntimeError if the best checkpoint is the initialisation. A number
+    produced by an untrained network is not a measurement and must never reach a
+    results file, where it is indistinguishable from a trained one.
     """
     torch.manual_seed(seed)
     model = build(family, width, depth, Xtr.shape[1], Ytr.shape[1], **kw).to(DEVICE)
@@ -190,11 +214,25 @@ def train_one(family, width, depth, Xtr, Ytr, seed, steps=4000, lr=3e-3,
                 best_state = {k: t.detach().clone() for k, t in model.state_dict().items()}
             else:
                 since += 25
-                if since >= patience:
+                if since >= patience and step >= min_steps:
                     break
 
     if best_state is not None:
         model.load_state_dict(best_state)
+
+    # THE NEVER-TRAINED GUARD (defect B24). best_step == 0 means the validation
+    # loss never improved on the randomly initialised network, so the model being
+    # returned IS that initialisation. Its error is a property of the init scheme,
+    # not of the architecture, and it is indistinguishable from a trained number
+    # once it is written to JSON. Fail loudly instead.
+    if best_step == 0:
+        raise RuntimeError(
+            f"{family} width={width} seed={seed} lr={lr:.0e} NEVER TRAINED: "
+            f"best validation loss was at step 0 (the initialisation), stopped at "
+            f"step {step}. This is defect B24 — 11 of 54 runs in the original L3 "
+            f"sweep did this and one reached a published table. Raise `steps`, "
+            f"lower `lr`, or fix the initialisation; do not record this run."
+        )
     return model, {"best_val": best_val, "best_step": best_step, "stopped_at": step}
 
 
@@ -251,8 +289,21 @@ def main():
                "lr": lr, "seeds": {}}
         for seed in args.seeds:
             t1 = time.time()
-            model, info = train_one(fam, w, args.depth, d.params_z[tr], Y[tr],
-                                    seed, steps=args.steps, lr=lr)
+            try:
+                model, info = train_one(fam, w, args.depth, d.params_z[tr], Y[tr],
+                                        seed, steps=args.steps, lr=lr)
+            except RuntimeError as e:
+                # The never-trained guard fired (defect B24). Record the failure
+                # rather than the number: a config that cannot train is a real
+                # observation about optimisation, and it must be visible in the
+                # results file so the analyzer can refuse the arm.
+                if "NEVER TRAINED" not in str(e):
+                    raise
+                rec["seeds"][str(seed)] = {"never_trained": True, "error": str(e)}
+                print(f"  {budget:>8,} {fam:<10} w{w:<4} lr{lr:.0e} seed {seed}: "
+                      f"*** NEVER TRAINED — arm will be refused by the analyzer ***",
+                      flush=True)
+                continue
             model.eval()
             per = {}
             with torch.no_grad():

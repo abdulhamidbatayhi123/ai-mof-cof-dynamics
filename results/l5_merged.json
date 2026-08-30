@@ -1,0 +1,273 @@
+{
+  "encoding": {
+    "nz_s": 128,
+    "nt_s": 128,
+    "budget": 200000,
+    "steps": 8000
+  },
+  "sources": [
+    "l5_results.json",
+    "l5_fill1.json",
+    "l5_fill2.json",
+    "l5_refine.json"
+  ],
+  "pod_floor": {
+    "8": 0.014403234235942364,
+    "16": 0.007305723149329424,
+    "32": 0.0033055555541068316,
+    "64": 0.0013529009884223342,
+    "128": 0.000501581933349371
+  },
+  "selected": {
+    "deepokan_p8": {
+      "mean": 0.039172593504190445,
+      "lr": 0.001,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001
+      ],
+      "n_lr_tried": 5
+    },
+    "deepokan_p16": {
+      "mean": 0.03566839049259821,
+      "lr": 0.001,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001
+      ],
+      "n_lr_tried": 5
+    },
+    "deepokan_p32": {
+      "mean": 0.04979736606280009,
+      "lr": 0.0003,
+      "unbracketed": false,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001
+      ],
+      "n_lr_tried": 5
+    },
+    "deepokan_p64": {
+      "mean": 0.06518162786960602,
+      "lr": 0.0002,
+      "unbracketed": false,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001
+      ],
+      "n_lr_tried": 5
+    },
+    "deepokan_p128": {
+      "mean": 0.07104360560576121,
+      "lr": 0.0002,
+      "unbracketed": false,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001
+      ],
+      "n_lr_tried": 5
+    },
+    "deeponet_p8": {
+      "mean": 0.027597830941279728,
+      "lr": 0.003,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "n_lr_tried": 6
+    },
+    "deeponet_p16": {
+      "mean": 0.027983106051882107,
+      "lr": 0.003,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "n_lr_tried": 6
+    },
+    "deeponet_p32": {
+      "mean": 0.02903302324314912,
+      "lr": 0.003,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "n_lr_tried": 6
+    },
+    "deeponet_p64": {
+      "mean": 0.028425506005684536,
+      "lr": 0.003,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "n_lr_tried": 6
+    },
+    "deeponet_p128": {
+      "mean": 0.027475953102111816,
+      "lr": 0.003,
+      "unbracketed": true,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "n_lr_tried": 6
+    }
+  },
+  "paired_vs_smallest_p": {
+    "deepokan_p16": {
+      "arm_a": "deepokan p=8",
+      "arm_b": "p=16",
+      "metric": "nrmse_c",
+      "mean_a": 0.03917259455521037,
+      "mean_b": 0.03566839152353987,
+      "mean_diff": 0.0035042030316704935,
+      "ci_low": -0.002094843137105151,
+      "ci_high": 0.011352657198749536,
+      "significant": false,
+      "verdict": "no difference between deepokan p=8 and p=16",
+      "n_materials": 12
+    },
+    "deepokan_p32": {
+      "arm_a": "deepokan p=8",
+      "arm_b": "p=32",
+      "metric": "nrmse_c",
+      "mean_a": 0.03917259455521037,
+      "mean_b": 0.04979736383102377,
+      "mean_diff": -0.010624769275813406,
+      "ci_low": -0.020459496393358003,
+      "ci_high": -0.00011502784237216521,
+      "significant": true,
+      "verdict": "deepokan p=8 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    "deepokan_p64": {
+      "arm_a": "deepokan p=8",
+      "arm_b": "p=64",
+      "metric": "nrmse_c",
+      "mean_a": 0.03917259455521037,
+      "mean_b": 0.06518162649501714,
+      "mean_diff": -0.02600903193980678,
+      "ci_low": -0.03811233641568057,
+      "ci_high": -0.013225865274318863,
+      "significant": true,
+      "verdict": "deepokan p=8 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    "deepokan_p128": {
+      "arm_a": "deepokan p=8",
+      "arm_b": "p=128",
+      "metric": "nrmse_c",
+      "mean_a": 0.03917259455521037,
+      "mean_b": 0.07104360693092666,
+      "mean_diff": -0.0318710123757163,
+      "ci_low": -0.04390475974533474,
+      "ci_high": -0.01954509341927225,
+      "significant": true,
+      "verdict": "deepokan p=8 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    "deeponet_p16": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=16",
+      "metric": "nrmse_c",
+      "mean_a": 0.027597831477987184,
+      "mean_b": 0.02798310534914285,
+      "mean_diff": -0.00038527387115566887,
+      "ci_low": -0.0029325507958386644,
+      "ci_high": 0.0026875062489469794,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=16",
+      "n_materials": 12
+    },
+    "deeponet_p32": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=32",
+      "metric": "nrmse_c",
+      "mean_a": 0.027597831477987184,
+      "mean_b": 0.029033021367375875,
+      "mean_diff": -0.0014351898893886932,
+      "ci_low": -0.00362467317146399,
+      "ci_high": 0.00022762165043141314,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=32",
+      "n_materials": 12
+    },
+    "deeponet_p64": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=64",
+      "metric": "nrmse_c",
+      "mean_a": 0.027597831477987184,
+      "mean_b": 0.02842550707523824,
+      "mean_diff": -0.0008276755972510546,
+      "ci_low": -0.003086918269096883,
+      "ci_high": 0.0017071238625243862,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=64",
+      "n_materials": 12
+    },
+    "deeponet_p128": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=128",
+      "metric": "nrmse_c",
+      "mean_a": 0.027597831477987184,
+      "mean_b": 0.027475952502466726,
+      "mean_diff": 0.00012187897552045721,
+      "ci_low": -0.0016369658057883963,
+      "ci_high": 0.0031490901494048325,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=128",
+      "n_materials": 12
+    }
+  },
+  "grid_boundary_warnings": [
+    "deepokan p=8: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deepokan p=16: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deeponet p=8: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deeponet p=16: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deeponet p=32: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deeponet p=64: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
+    "deeponet p=128: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside"
+  ]
+}
