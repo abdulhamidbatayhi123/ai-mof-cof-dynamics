@@ -1,0 +1,31 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+POD (fitted on 691 training samples only), 64 modes/channel:
+  c: 64 modes capture 99.9881% of variance | modes for 90/99/99.9%: 3/11/32
+  q: 64 modes capture 99.9899% of variance | modes for 90/99/99.9%: 2/8/27
+  T: 64 modes capture 99.9822% of variance | modes for 90/99/99.9%: 3/13/36
+
+projecting all samples...
+  coefficients (988, 192)
+
+POD reconstruction floor (perfect coefficient prediction):
+  train            nRMSE c=1.0934e-03 q=2.5021e-03 T=3.0733e-03
+  novel_condition  nRMSE c=1.2558e-03 q=3.3985e-03 T=3.4957e-03
+  novel_material   nRMSE c=1.4554e-03 q=2.9248e-03 T=3.4350e-03
+  ridge  seed 42: novel-material nRMSE c=0.0676 q=0.1727 T=0.1140  dt_bt50=0.57h  [191s]
+  ridge  seed 43: novel-material nRMSE c=0.0676 q=0.1727 T=0.1140  dt_bt50=0.57h  [171s]
+  ridge  seed 44: novel-material nRMSE c=0.0676 q=0.1727 T=0.1140  dt_bt50=0.57h  [172s]
+  rf     seed 42: novel-material nRMSE c=0.0492 q=0.0993 T=0.0925  dt_bt50=0.40h  [179s]
+  rf     seed 43: novel-material nRMSE c=0.0489 q=0.0977 T=0.0925  dt_bt50=0.40h  [175s]
+  rf     seed 44: novel-material nRMSE c=0.0482 q=0.0994 T=0.0915  dt_bt50=0.40h  [181s]
+  xgb    seed 42: novel-material nRMSE c=0.0489 q=0.1159 T=0.0852  dt_bt50=0.35h  [36s]
+  xgb    seed 43: novel-material nRMSE c=0.0473 q=0.1120 T=0.0776  dt_bt50=0.39h  [33s]
+  xgb    seed 44: novel-material nRMSE c=0.0492 q=0.1230 T=0.0764  dt_bt50=0.51h  [31s]
+  mlp    seed 42: novel-material nRMSE c=0.1205 q=0.4016 T=0.2521  dt_bt50=1.75h  [174s]
+  mlp    seed 43: novel-material nRMSE c=0.1205 q=0.4011 T=0.2532  dt_bt50=1.76h  [177s]
+  mlp    seed 44: novel-material nRMSE c=0.1203 q=0.4018 T=0.2549  dt_bt50=1.77h  [177s]
+
+wrote results/l1_results.json  [1725s]

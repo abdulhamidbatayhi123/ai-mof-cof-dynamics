@@ -1,0 +1,326 @@
+{
+  "path": "results/l5_results.json + results/l5_refine.json",
+  "collapse_tol": 1e-05,
+  "collapsed": {
+    "deeponet": [],
+    "deepokan": [
+      {
+        "p": 32,
+        "lr": 0.001,
+        "seed": 42,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 64,
+        "lr": 0.001,
+        "seed": 42,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 64,
+        "lr": 0.001,
+        "seed": 43,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 64,
+        "lr": 0.001,
+        "seed": 44,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 64,
+        "lr": 0.0003,
+        "seed": 43,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 128,
+        "lr": 0.001,
+        "seed": 42,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 128,
+        "lr": 0.001,
+        "seed": 43,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 128,
+        "lr": 0.001,
+        "seed": 44,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 128,
+        "lr": 0.0003,
+        "seed": 42,
+        "novel": 0.3321312367916107
+      },
+      {
+        "p": 128,
+        "lr": 0.0003,
+        "seed": 44,
+        "novel": 0.3321312367916107
+      }
+    ]
+  },
+  "best_per_p": {
+    "deeponet": {
+      "8": {
+        "lr": 0.001,
+        "mean": 0.028123620957766302,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.011881229467689991
+      },
+      "16": {
+        "lr": 0.001,
+        "mean": 0.029254789565339268,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.011452516230444113
+      },
+      "32": {
+        "lr": 0.001,
+        "mean": 0.02908022829623365,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.011613132742544016
+      },
+      "64": {
+        "lr": 0.001,
+        "mean": 0.029624530155162268,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.012246758056183657
+      },
+      "128": {
+        "lr": 0.001,
+        "mean": 0.029600346988379014,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.013462099246680737
+      }
+    },
+    "deepokan": {
+      "8": {
+        "lr": 0.001,
+        "mean": 0.03917259455521036,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.016943476783732574
+      },
+      "16": {
+        "lr": 0.001,
+        "mean": 0.03566839152353987,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.020344873890280724
+      },
+      "32": {
+        "lr": 0.0003,
+        "mean": 0.04979736383102377,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.03963187585274378
+      },
+      "64": {
+        "lr": 0.0002,
+        "mean": 0.06518162649501714,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.05945652971665064
+      },
+      "128": {
+        "lr": 0.0002,
+        "mean": 0.07104360693092666,
+        "n_seeds": 3,
+        "n_collapsed": 0,
+        "train": 0.06770150115092595
+      }
+    }
+  },
+  "pod_floor": {
+    "8": {
+      "train": 0.013116822578012943,
+      "novel_material": 0.014403234235942364
+    },
+    "16": {
+      "train": 0.00672368286177516,
+      "novel_material": 0.007305723149329424
+    },
+    "32": {
+      "train": 0.0028768747579306364,
+      "novel_material": 0.0033055555541068316
+    },
+    "64": {
+      "train": 0.001007391489110887,
+      "novel_material": 0.0013529009884223342
+    },
+    "128": {
+      "train": 0.0002459866809658706,
+      "novel_material": 0.000501581933349371
+    }
+  },
+  "tests": [
+    {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=16",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.029254789565339268,
+      "mean_diff": -0.0011311686075729612,
+      "ci_low": -0.002976322362900585,
+      "ci_high": 0.0005628790384894928,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=16",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=32",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.02908022829623365,
+      "mean_diff": -0.0009566073384673438,
+      "ci_low": -0.0036250823626147025,
+      "ci_high": 0.001208324874291969,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=32",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=64",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.029624530155162268,
+      "mean_diff": -0.001500909197395961,
+      "ci_low": -0.004472841996735688,
+      "ci_high": 0.0006239476157950314,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=64",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=8",
+      "arm_b": "p=128",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.029600346988379014,
+      "mean_diff": -0.0014767260306127131,
+      "ci_low": -0.004750216523270301,
+      "ci_high": 0.0012095866813864229,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and p=128",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=8",
+      "arm_b": "deepokan p=8",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.03917259455521036,
+      "mean_diff": -0.011048973597444061,
+      "ci_low": -0.029237117892402176,
+      "ci_high": 0.005281702328801096,
+      "significant": false,
+      "verdict": "no difference between deeponet p=8 and deepokan p=8",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=16",
+      "arm_b": "deepokan p=16",
+      "metric": "nrmse_c",
+      "mean_a": 0.029254789565339268,
+      "mean_b": 0.03566839152353987,
+      "mean_diff": -0.006413601958200608,
+      "ci_low": -0.01840435107409338,
+      "ci_high": 0.005716057765898502,
+      "significant": false,
+      "verdict": "no difference between deeponet p=16 and deepokan p=16",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=32",
+      "arm_b": "deepokan p=32",
+      "metric": "nrmse_c",
+      "mean_a": 0.02908022829623365,
+      "mean_b": 0.04979736383102377,
+      "mean_diff": -0.020717135534790123,
+      "ci_low": -0.03070320871816031,
+      "ci_high": -0.010296410612003204,
+      "significant": true,
+      "verdict": "deeponet p=32 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=64",
+      "arm_b": "deepokan p=64",
+      "metric": "nrmse_c",
+      "mean_a": 0.029624530155162268,
+      "mean_b": 0.06518162649501714,
+      "mean_diff": -0.03555709633985488,
+      "ci_low": -0.046111510041790635,
+      "ci_high": -0.024992075857093465,
+      "significant": true,
+      "verdict": "deeponet p=64 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet p=128",
+      "arm_b": "deepokan p=128",
+      "metric": "nrmse_c",
+      "mean_a": 0.029600346988379014,
+      "mean_b": 0.07104360693092666,
+      "mean_diff": -0.041443259942547654,
+      "ci_low": -0.049076065813641455,
+      "ci_high": -0.03209496153388249,
+      "significant": true,
+      "verdict": "deeponet p=128 is better (lower nrmse_c)",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet BEST",
+      "arm_b": "deepokan BEST",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.03566839152353987,
+      "mean_diff": -0.007544770565773569,
+      "ci_low": -0.019723338943744693,
+      "ci_high": 0.004446295533511622,
+      "significant": false,
+      "verdict": "no difference between deeponet BEST and deepokan BEST",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet BEST",
+      "arm_b": "deepokan BEST",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.03566839152353987,
+      "mean_diff": -0.007544770565773569,
+      "ci_low": -0.019723338943744693,
+      "ci_high": 0.004446295533511622,
+      "significant": false,
+      "verdict": "no difference between deeponet BEST and deepokan BEST",
+      "n_materials": 12
+    },
+    {
+      "arm_a": "deeponet BEST",
+      "arm_b": "deepokan BEST",
+      "metric": "nrmse_c",
+      "mean_a": 0.028123620957766302,
+      "mean_b": 0.03566839152353987,
+      "mean_diff": -0.007544770565773569,
+      "ci_low": -0.019723338943744693,
+      "ci_high": 0.004446295533511622,
+      "significant": false,
+      "verdict": "no difference between deeponet BEST and deepokan BEST",
+      "n_materials": 12
+    }
+  ],
+  "scoring_variants_agree": true
+}

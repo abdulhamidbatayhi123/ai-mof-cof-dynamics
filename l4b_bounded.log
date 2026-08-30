@@ -1,0 +1,23 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+TIME axis     : train t* in [0, 0.5]   test t* in [0.5, 1]  (same materials)
+MATERIAL axis : train t* in [0, 1]     test = 201 held-out materials
+8000 steps, 3 seeds
+
+  [time    ] data_only    seed 42: seen=0.0134 held=323.4986  [350s]
+  [time    ] data_only    seed 43: seen=0.0148 held=2472.1383  [368s]
+  [time    ] data_only    seed 44: seen=0.0153 held=423.7393  [362s]
+  [time    ] pi_gradnorm  seed 42: seen=0.0245 held=397.9501  [2126s]
+  [time    ] pi_gradnorm  seed 43: seen=0.0248 held=136.9616  [2144s]
+  [time    ] pi_gradnorm  seed 44: seen=0.0250 held=513.8724  [2104s]
+  [material] data_only    seed 42: seen=0.0140 held=0.0476  [403s]
+  [material] data_only    seed 43: seen=0.0156 held=0.0591  [426s]
+  [material] data_only    seed 44: seen=0.0163 held=0.0546  [496s]
+  [material] pi_gradnorm  seed 42: seen=0.0241 held=0.0699  [2230s]
+  [material] pi_gradnorm  seed 43: seen=0.0244 held=0.0726  [2139s]
+  [material] pi_gradnorm  seed 44: seen=0.0226 held=0.0580  [3357s]
+
+wrote results/l4b_bounded.json  [16511s]

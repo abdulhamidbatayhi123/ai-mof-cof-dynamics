@@ -1,0 +1,40 @@
+loaded c-channel (988, 128, 128)  (65 MB)
+train 691 conds / 48 materials;  novel-material 201 conds
+
+  n_materials =  12   field nRMSE 0.09293   [1711s]
+    mode :      1      2      3      4      5      8     12     16     24     32
+    R^2  : +0.234 -0.042 +0.055 +0.076 +0.175 -0.142 -0.030 -0.014 -0.017 -0.069
+    modes with R^2>0.5: 0   >0.2: 1   >0: 6
+
+  n_materials =  24   field nRMSE 0.06944   [2071s]
+    mode :      1      2      3      4      5      8     12     16     24     32
+    R^2  : +0.759 +0.274 +0.157 +0.363 +0.332 -0.062 -0.181 +0.080 -0.030 +0.004
+    modes with R^2>0.5: 1   >0.2: 4   >0: 13
+
+  n_materials =  36   field nRMSE 0.05366   [2288s]
+    mode :      1      2      3      4      5      8     12     16     24     32
+    R^2  : +0.898 +0.491 +0.497 +0.493 +0.474 +0.005 +0.003 -0.095 -0.015 -0.073
+    modes with R^2>0.5: 1   >0.2: 7   >0: 19
+
+  n_materials =  48   field nRMSE 0.05099   [2601s]
+    mode :      1      2      3      4      5      8     12     16     24     32
+    R^2  : +0.946 +0.390 +0.580 +0.571 +0.460 +0.079 -0.162 -0.048 -0.014 -0.004
+    modes with R^2>0.5: 3   >0.2: 8   >0: 18
+
+==============================================================================
+TREND PER MODE  (is R^2 still climbing at 48 materials?)
+  mode   12mat   24mat   36mat   48mat    delta(36->48)   verdict
+     1  +0.234  +0.759  +0.898  +0.946    +0.047      STILL CLIMBING
+     2  -0.042  +0.274  +0.491  +0.390    -0.101      degrading
+     3  +0.055  +0.157  +0.497  +0.580    +0.083      STILL CLIMBING
+     4  +0.076  +0.363  +0.493  +0.571    +0.077      STILL CLIMBING
+     5  +0.175  +0.332  +0.474  +0.460    -0.014      saturated
+     8  -0.142  -0.062  +0.005  +0.079    +0.075      STILL CLIMBING
+    12  -0.030  -0.181  +0.003  -0.162    -0.165      degrading
+    16  -0.014  +0.080  -0.095  -0.048    +0.047      STILL CLIMBING
+    24  -0.017  -0.030  -0.015  -0.014    +0.002      saturated
+    32  -0.069  +0.004  -0.073  -0.004    +0.069      STILL CLIMBING
+
+  16 of 32 modes still climbing from 36 -> 48 materials
+
+done [2601s]

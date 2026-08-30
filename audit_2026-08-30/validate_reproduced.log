@@ -1,0 +1,63 @@
+==============================================================================
+VERIFICATION HARNESS — ai-mof-cof-dynamics
+==============================================================================
+
+── integrity ─────────────────────────────────────────────────────────────────
+  PASS  plotting code computes its curves
+        no synthesised series found in plotting code
+  PASS  plotting code loads a checkpoint
+        model curves are drawn from loaded checkpoints
+
+── checkpoint ────────────────────────────────────────────────────────────────
+  PASS  checkpoint parameters are finite
+        pikan_smoke_default_pikan_causal+rba_w24d2g8_s42.pth: clean (6408 params)
+
+── isotherm ──────────────────────────────────────────────────────────────────
+  PASS  isotherm is Type V (has an inflection)
+        1 inflection point(s); steepest uptake at c = 0.2348 mol/m3
+  PASS  isotherm obeys Henry's law as c -> 0
+        K_H = 0.2811 mol/kg per mol/m3; q/c constant to 1.00000x near zero
+  PASS  isotherm obeys Clausius-Clapeyron
+        default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 52.519 kJ/mol (0.004%); mof303@50%: 52.519 kJ/mol (0.004%); mof303@75%: 52.519 kJ/mol (0.004%)
+  PASS  isotherm operating point is informative
+        default: theta(c_in)=0.500, theta(0.05 c_in)=0.048 OK; mof303: theta(c_in)=0.877, theta(0.05 c_in)=0.000 OK
+
+── solver ────────────────────────────────────────────────────────────────────
+  PASS  breakthrough actually occurs
+        synthetic_breakthrough.npz: c_exit/c_in = 0.993 OK; mof303_breakthrough.npz: c_exit/c_in = 1.000 OK
+  PASS  mass-transfer zone is resolved in the data
+        synthetic_breakthrough.npz: sharpest front 555 cells, median 1214 OK; mof303_breakthrough.npz: sharpest front 265 cells, median 866 OK
+  PASS  solution is grid-converged
+        default: 0.055% change at N_z=2000 OK; mof303: 0.323% change at N_z=2000 OK
+  PASS  mass-transfer zone is resolvable at the chosen grid
+        default: MTZ 1.070 mm spans 21 cells at N_z=2000 OK; mof303: MTZ 1.247 mm spans 25 cells at N_z=2000 OK
+  PASS  global mass balance closes
+        default: closes to 0.050% OK; mof303: closes to 0.055% OK
+  PASS  solver matches closed-form solutions (L0)
+        tracer profile: 1.69e-03; tracer front: 2.28e-04; retarded front: 2.72e-04; thermal wave: 1.23e-04; LDF vs Anzelius: 3.00e-04
+  PASS  fields stay physical
+        default: OK; mof303: OK
+  PASS  velocity convention is consistent
+        tracer front 0.2495 m/s vs v/eps_t 0.25 m/s (0.2% off)
+
+── residual ──────────────────────────────────────────────────────────────────
+  PASS  each equation is normalised to its dominant term
+        dominant coefficient = 1 in every equation | default/mass_gas: [2.8e-05, 1.0]; default/kinetics: [1.9e-03, 1.0]; default/energy: [8.3e-03, 1.0] ...
+  PASS  residuals are finite across seeds
+        4 seeds finite; init-scale spread 5.8x–12.2x (not a scaling defect)
+  PASS  physics losses include boundary conditions
+        3 physics-training scripts checked: run_l4.py, run_l4b.py, train_pikan.py
+
+── model ─────────────────────────────────────────────────────────────────────
+  PASS  EVERY model bounds temperature away from zero
+        7 architectures | PIKAN: [182,406]K; PI_DeepONet: [275,302]K; PI_DeepOKAN: [197,446]K; WaveletNO: [258,339]K; FNO2d: [253,320]K; DataDrivenMLP: [279,325]K; DeepONet_base: [209,321]K
+  PASS  output head has a single definition
+        all models route through output_head.apply_output_head
+  PASS  network derivatives are non-singular
+        |dc/dz| p50=4.58e-01 max=5.65e+00; max|d2c/dz2|=2.09e+02 OK
+  PASS  input layer preserves coordinates
+        144 inputs -> 144 distinct activations OK
+
+==============================================================================
+22 passed, 0 failed, 0 skipped
+==============================================================================

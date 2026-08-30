@@ -1,0 +1,56 @@
+loaded c-channel (988, 128, 128)  (65 MB)
+
+1. THE TWO-WAVE GAP — measured, not invoked
+   at the outlet, t(0.9) - t(0.1) spans [0.025, 0.992] normalised time, median 0.640
+   relative spread across samples: 0.29
+   A single-level warp aligns ONE level exactly; the others move by this much.
+
+2. n-width, original frame:  {'0.9': 3, '0.99': 11, '0.999': 31, '0.9999': 65}
+
+==========================================================================
+3. ALIGNMENT LEVEL c = 0.1
+==========================================================================
+   interpolation floor (oracle warp + oracle shape): 0.002437
+   n-width in this frame: {'0.9': 4, '0.99': 15, '0.999': 42, '0.9999': 98}   (original: {'0.9': 3, '0.99': 11, '0.999': 31, '0.9999': 65})
+   R² of the warp t_L(z) on novel materials: +0.811
+       p   oracle warp   pred warp   (novel materials)
+       8       0.05961     0.06144
+      16       0.05954     0.06147
+      32       0.05931     0.06121
+      64       0.05929     0.06118
+     128       0.05944     0.06133
+
+==========================================================================
+3. ALIGNMENT LEVEL c = 0.5
+==========================================================================
+   interpolation floor (oracle warp + oracle shape): 0.002881
+   n-width in this frame: {'0.9': 5, '0.99': 27, '0.999': 102, '0.9999': 129}   (original: {'0.9': 3, '0.99': 11, '0.999': 31, '0.9999': 65})
+   R² of the warp t_L(z) on novel materials: +0.927
+       p   oracle warp   pred warp   (novel materials)
+       8       0.05391     0.06495
+      16       0.05355     0.06463
+      32       0.05343     0.06448
+      64       0.05337     0.06446
+     128       0.05344     0.06457
+
+==========================================================================
+3. ALIGNMENT LEVEL c = 0.9
+==========================================================================
+   interpolation floor (oracle warp + oracle shape): 0.002986
+   n-width in this frame: {'0.9': 3, '0.99': 20, '0.999': 84, '0.9999': 129}   (original: {'0.9': 3, '0.99': 11, '0.999': 31, '0.9999': 65})
+   R² of the warp t_L(z) on novel materials: +0.919
+       p   oracle warp   pred warp   (novel materials)
+       8       0.05764     0.07256
+      16       0.05723     0.07256
+      32       0.05725     0.07251
+      64       0.05728     0.07248
+     128       0.05721     0.07255
+
+==========================================================================
+4. VERDICT
+==========================================================================
+   best co-moving anywhere: 0.0612  (level 0.1, p = 64)
+   L5 fixed frame, same encoding, same regressor: 0.0510
+   co-moving is 0.83x the fixed frame — WORSE OR EQUAL
+
+wrote results/comoving.json  [585s]

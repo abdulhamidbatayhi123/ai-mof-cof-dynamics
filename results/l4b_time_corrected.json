@@ -1,0 +1,6 @@
+{
+  "unbounded/data_only": 0.1424829939575499,
+  "unbounded/pi_gradnorm": 0.06392055235828133,
+  "bounded/data_only": 0.012356041485140584,
+  "bounded/pi_gradnorm": 0.01936244476266608
+}

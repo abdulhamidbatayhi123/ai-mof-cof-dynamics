@@ -1,0 +1,29 @@
+# Generated data — regenerable from gen_parametric_dataset.py with the recorded seed.
+# The manifests ARE tracked: they carry the splits, the rejection tally and the
+# per-sample metadata that cannot be recovered from the .npy files.
+data/parametric/*.npy
+data/parametric_scale/*.npy
+data/_probe_resume/
+data/*.npz
+data/*.pth
+
+# Model checkpoints
+*.pth
+!data/_RETRACTED/*.pth
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Large figure PDFs are regenerable; PNGs are tracked for review convenience.
+figures/*.pdf
+
+# Packaging artefacts
+*.zip
+
+# OS
+Thumbs.db
+.DS_Store

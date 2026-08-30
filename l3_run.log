@@ -1,0 +1,81 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+POD (64 modes/channel, train only) — identical to L1/L2:
+  c: 64 modes capture 99.9881% of variance | modes for 90/99/99.9%: 3/11/32
+  q: 64 modes capture 99.9899% of variance | modes for 90/99/99.9%: 2/8/27
+  T: 64 modes capture 99.9822% of variance | modes for 90/99/99.9%: 3/13/36
+POD floor (novel-material): 1.4554e-03
+
+matched-parameter widths (depth 3, 11 -> 192):
+  budget   50,000  mlp        width  114  params    49,668  (-0.7%)  lrs [0.003, 0.001]
+  budget   50,000  rbf_kan    width   45  params    49,737  (-0.5%)  lrs [0.003, 0.001]
+  budget   50,000  cheby_kan  width   48  params    50,496  (+1.0%)  lrs [0.003, 0.001]
+  budget  200,000  mlp        width  269  params   200,328  (+0.2%)  lrs [0.003, 0.001]
+  budget  200,000  rbf_kan    width   98  params   201,582  (+0.8%)  lrs [0.003, 0.001]
+  budget  200,000  cheby_kan  width  103  params   198,776  (-0.6%)  lrs [0.003, 0.001]
+  budget  800,000  mlp        width  583  params   800,068  (+0.0%)  lrs [0.003, 0.001]
+  budget  800,000  rbf_kan    width  203  params   801,027  (+0.1%)  lrs [0.003, 0.001]
+  budget  800,000  cheby_kan  width  215  params   799,992  (-0.0%)  lrs [0.003, 0.001]
+
+    50,000 mlp        w114  lr3e-03 seed 42: train=0.0636  novel=0.0645  (best@25/425)  [24s]
+    50,000 mlp        w114  lr3e-03 seed 43: train=0.0647  novel=0.0635  (best@25/425)  [15s]
+    50,000 mlp        w114  lr3e-03 seed 44: train=0.0548  novel=0.0593  (best@50/450)  [15s]
+    50,000 mlp        w114  lr1e-03 seed 42: train=0.0586  novel=0.0584  (best@75/475)  [16s]
+    50,000 mlp        w114  lr1e-03 seed 43: train=0.0600  novel=0.0589  (best@75/475)  [16s]
+    50,000 mlp        w114  lr1e-03 seed 44: train=0.0541  novel=0.0581  (best@100/500)  [17s]
+    50,000 rbf_kan    w45   lr3e-03 seed 42: train=0.0555  novel=0.0733  (best@50/450)  [20s]
+    50,000 rbf_kan    w45   lr3e-03 seed 43: train=0.0626  novel=0.0757  (best@50/450)  [20s]
+    50,000 rbf_kan    w45   lr3e-03 seed 44: train=0.0585  novel=0.0814  (best@50/450)  [20s]
+    50,000 rbf_kan    w45   lr1e-03 seed 42: train=0.0664  novel=0.0815  (best@75/475)  [20s]
+    50,000 rbf_kan    w45   lr1e-03 seed 43: train=0.0618  novel=0.0737  (best@100/500)  [21s]
+    50,000 rbf_kan    w45   lr1e-03 seed 44: train=0.0572  novel=0.0825  (best@100/500)  [21s]
+    50,000 cheby_kan  w48   lr3e-03 seed 42: train=0.0931  novel=0.1283  (best@25/425)  [19s]
+    50,000 cheby_kan  w48   lr3e-03 seed 43: train=0.0951  novel=0.1204  (best@25/425)  [18s]
+    50,0   800,000 rbf_kan    w203  seed 42: train=0.0019  novel=0.0755  [614s]
+   800,000 rbf_kan    w203  seed 43: train=0.0022  novel=0.0811  [886s]
+   800,000 rbf_kan    w203  seed 44: train=0.0020  novel=0.0734  [771s]
+   800,000 cheby_kan  w215  seed 42: train=0.0026  novel=0.1145  [291s]
+   800,000 cheby_kan  w215  seed 43: train=0.0027  novel=0.1199  [325s]
+   800,000 cheby_kan  w215  seed 44: train=0.0022  novel=0.1118  [312s]
+
+wrote results/l3_results.json  [5120s]
+p        w269  lr3e-03 seed 43: train=0.0552  novel=0.0561  (best@25/425)  [21s]
+   200,000 mlp        w269  lr3e-03 seed 44: train=0.0558  novel=0.0621  (best@25/425)  [21s]
+   200,000 mlp        w269  lr1e-03 seed 42: train=0.0532  novel=0.0546  (best@50/450)  [20s]
+   200,000 mlp        w269  lr1e-03 seed 43: train=0.0547  novel=0.0560  (best@50/450)  [18s]
+   200,000 mlp        w269  lr1e-03 seed 44: train=0.0466  novel=0.0613  (best@75/475)  [20s]
+   200,000 rbf_kan    w98   lr3e-03 seed 42: train=0.0471  novel=0.0723  (best@50/450)  [31s]
+   200,000 rbf_kan    w98   lr3e-03 seed 43: train=0.0636  novel=0.0742  (best@25/425)  [28s]
+   200,000 rbf_kan    w98   lr3e-03 seed 44: train=0.0481  novel=0.0847  (best@50/450)  [33s]
+   200,000 rbf_kan    w98   lr1e-03 seed 42: train=0.0469  novel=0.0739  (best@75/475)  [27s]
+   200,000 rbf_kan    w98   lr1e-03 seed 43: train=0.0550  novel=0.0757  (best@50/450)  [26s]
+   200,000 rbf_kan    w98   lr1e-03 seed 44: train=0.0583  novel=0.0835  (best@50/450)  [26s]
+   200,000 cheby_kan  w103  lr3e-03 seed 42: train=0.1178  novel=0.1290  (best@0/400)  [27s]
+   200,000 cheby_kan  w103  lr3e-03 seed 43: train=0.1230  novel=0.1194  (best@0/400)  [27s]
+   200,000 cheby_kan  w103  lr3e-03 seed 44: train=0.1182  novel=0.1305  (best@0/400)  [33s]
+   200,000 cheby_kan  w103  lr1e-03 seed 42: train=0.1156  novel=0.1340  (best@0/400)  [30s]
+   200,000 cheby_kan  w103  lr1e-03 seed 43: train=0.1157  novel=0.1231  (best@0/400)  [30s]
+   200,000 cheby_kan  w103  lr1e-03 seed 44: train=0.1140  novel=0.1230  (best@0/400)  [28s]
+   800,000 mlp        w583  lr3e-03 seed 42: train=0.1049  novel=0.1137  (best@0/400)  [31s]
+   800,000 mlp        w583  lr3e-03 seed 43: train=0.1052  novel=0.1128  (best@0/400)  [31s]
+   800,000 mlp        w583  lr3e-03 seed 44: train=0.0264  novel=0.0653  (best@50/450)  [35s]
+   800,000 mlp        w583  lr1e-03 seed 42: train=0.0565  novel=0.0588  (best@25/425)  [32s]
+   800,000 mlp        w583  lr1e-03 seed 43: train=0.0554  novel=0.0577  (best@25/425)  [33s]
+   800,000 mlp        w583  lr1e-03 seed 44: train=0.0302  novel=0.0632  (best@75/475)  [36s]
+   800,000 rbf_kan    w203  lr3e-03 seed 42: train=0.0436  novel=0.0710  (best@50/450)  [107s]
+   800,000 rbf_kan    w203  lr3e-03 seed 43: train=0.0437  novel=0.0698  (best@50/450)  [110s]
+   800,000 rbf_kan    w203  lr3e-03 seed 44: train=0.0455  novel=0.0718  (best@50/450)  [109s]
+   800,000 rbf_kan    w203  lr1e-03 seed 42: train=0.0452  novel=0.0712  (best@50/450)  [47s]
+   800,000 rbf_kan    w203  lr1e-03 seed 43: train=0.0460  novel=0.0717  (best@50/450)  [45s]
+   800,000 rbf_kan    w203  lr1e-03 seed 44: train=0.0425  novel=0.0747  (best@50/450)  [44s]
+   800,000 cheby_kan  w215  lr3e-03 seed 42: train=0.0801  novel=0.1086  (best@25/425)  [44s]
+   800,000 cheby_kan  w215  lr3e-03 seed 43: train=0.0700  novel=0.1194  (best@25/425)  [44s]
+   800,000 cheby_kan  w215  lr3e-03 seed 44: train=0.0772  novel=0.1080  (best@25/425)  [44s]
+   800,000 cheby_kan  w215  lr1e-03 seed 42: train=0.1170  novel=0.1248  (best@0/400)  [45s]
+   800,000 cheby_kan  w215  lr1e-03 seed 43: train=0.1135  novel=0.1310  (best@0/400)  [42s]
+   800,000 cheby_kan  w215  lr1e-03 seed 44: train=0.1186  novel=0.1387  (best@0/400)  [42s]
+
+wrote results/l3_results.json  [1787s]

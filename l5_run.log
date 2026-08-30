@@ -1,0 +1,46 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+frozen encoding 128x128; fields (988, 3, 128, 128); coords (16384, 2)
+
+POD floor at each p (the n-width bound on ANY linear reconstruction):
+  p=   8  novel-material 0.01440
+  p=  16  novel-material 0.00731
+  p=  32  novel-material 0.00331
+  p=  64  novel-material 0.00135
+  p= 128  novel-material 0.00050
+
+  deeponet  p=   8 w216   201,147p seed 42: train=0.0116 novel=0.0286 [277s]
+  deeponet  p=   8 w216   201,147p seed 43: train=0.0119 novel=0.0284 [265s]
+  deeponet  p=   8 w216   201,147p seed 44: train=0.0122 novel=0.0274 [222s]
+  deeponet  p=  16 w210   200,649p seed 42: train=0.0115 novel=0.0302 [231s]
+  deeponet  p=  16 w210   200,649p seed 43: train=0.0113 novel=0.0273 [248s]
+  deeponet  p=  16 w210   200,649p seed 44: train=0.0116 novel=0.0302 [246s]
+  deeponet  p=  32 w198   198,789p seed 42: train=0.0115 novel=0.0298 [350s]
+  deeponet  p=  32 w198   198,789p seed 43: train=0.0121 novel=0.0306 [285s]
+  deeponet  p=  32 w198   198,789p seed 44: train=0.0113 novel=0.0268 [255s]
+  deeponet  p=  64 w178   198,857p seed 42: train=0.0125 novel=0.0313 [266s]
+  deeponet  p=  64 w178   198,857p seed 43: train=0.0123 novel=0.0302 [202s]
+  deeponet  p=  64 w178   198,857p seed 44: train=0.0119 novel=0.0273 [203s]
+  deeponet  p= 128 w146   200,937p seed 42: train=0.0137 novel=0.0294 [197s]
+  deeponet  p= 128 w146   200,937p seed 43: train=0.0132 novel=0.0305 [228s]
+  deeponet  p= 128 w146   200,937p seed 44: train=0.0135 novel=0.0289 [235s]
+  deepokan  p=   8 w92    197,343p seed 42: train=0.0173 novel=0.0370 [460s]
+  deepokan  p=   8 w92    197,343p seed 43: train=0.0181 novel=0.0404 [516s]
+  deepokan  p=   8 w92    197,343p seed 44: train=0.0155 novel=0.0401 [464s]
+  deepokan  p=  16 w88    202,843p seed 42: train=0.0179 novel=0.0354 [512s]
+  deepokan  p=  16 w88    202,843p seed 43: train=0.0258 novel=0.0394 [471s]
+  deepokan  p=  16 w88    202,843p seed 44: train=0.0173 novel=0.0322 [580s]
+  deepokan  p=  32 w78    201,633p seed 42: train=0.2899 novel=0.3321 [1055s]
+  deepokan  p=  32 w78    201,633p seed 43: train=0.0195 novel=0.0395 [1008s]
+  deepokan  p=  32 w78    201,633p seed 44: train=0.0180 novel=0.0337 [2115s]
+  deepokan  p=  64 w62    199,953p seed 42: train=0.2899 novel=0.3321 [2675s]
+  deepokan  p=  64 w62    199,953p seed 43: train=0.2899 novel=0.3321 [1385s]
+  deepokan  p=  64 w62    199,953p seed 44: train=0.2899 novel=0.3321 [3255s]
+  deepokan  p= 128 w42    199,293p seed 42: train=0.2899 novel=0.3321 [3793s]
+  deepokan  p= 128 w42    199,293p seed 43: train=0.2899 novel=0.3321 [490s]
+  deepokan  p= 128 w42    199,293p seed 44: train=0.2899 novel=0.3321 [465s]
+
+wrote results/l5_results.json  [22995s]

@@ -1,0 +1,30 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+frozen encoding 128x128; fields (988, 3, 128, 128); coords (16384, 2)
+
+POD floor at each p (the n-width bound on ANY linear reconstruction):
+  p=   8  novel-material 0.01440
+  p=  16  novel-material 0.00731
+  p=  32  novel-material 0.00331
+
+  deeponet  p=   8 w216  lr3e-03 seed 42: train=0.0081 novel=0.0274 [252s]
+  deeponet  p=   8 w216  lr3e-03 seed 43: train=0.0084 novel=0.0261 [300s]
+  deeponet  p=   8 w216  lr3e-03 seed 44: train=0.0085 novel=0.0292 [311s]
+  deeponet  p=   8 w216  lr2e-04 seed 42: train=0.0313 novel=0.0399 [260s]
+  deeponet  p=   8 w216  lr2e-04 seed 43: train=0.0297 novel=0.0371 [220s]
+  deeponet  p=   8 w216  lr2e-04 seed 44: train=0.0306 novel=0.0406 [201s]
+  deeponet  p=  16 w210  lr3e-03 seed 42: train=0.0069 novel=0.0292 [191s]
+  deeponet  p=  16 w210  lr3e-03 seed 43: train=0.0069 novel=0.0267 [189s]
+  deeponet  p=  16 w210  lr3e-03 seed 44: train=0.0070 novel=0.0281 [191s]
+  deeponet  p=  16 w210  lr2e-04 seed 42: train=0.0303 novel=0.0385 [192s]
+  deeponet  p=  16 w210  lr2e-04 seed 43: train=0.0302 novel=0.0397 [204s]
+  deeponet  p=  16 w210  lr2e-04 seed 44: train=0.0312 novel=0.0427 [193s]
+  deeponet  p=  32 w198  lr3e-03 seed 42: train=0.0069 novel=0.0297 [186s]
+  deeponet  p=  32 w198  lr3e-03 seed 43: train=0.0068 novel=0.0303 [189s]
+  deeponet  p=  32 w198  lr3e-03 seed 44: train=0.0067 novel=0.0271 [191s]
+  deeponet  p=  32 w198  lr2e-04 seed 42: train=0.0321 novel=0.0401 [206s]
+  deeponet  p=  32 w198  lr2e-04 seed 43: train=0.0328 novel=0.0407 [193s]
+  deeponet  p=  32 w198  lr2e-04 seed 44: train=0.0315 novel=0.0381 [193s]

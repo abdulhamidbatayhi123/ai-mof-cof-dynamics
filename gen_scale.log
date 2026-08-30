@@ -1,0 +1,78 @@
+240 materials x 17 conditions = 4080 runs
+store 256x256 float32 -> 0.79 MB/sim, 3.21 GB total
+workers=7
+  25/4080  kept=25 rejected=0  149s elapsed, 24133s left
+  50/4080  kept=50 rejected=0  283s elapsed, 22817s left
+  75/4080  kept=75 rejected=0  393s elapsed, 21007s left
+  100/4080  kept=99 rejected=1  501s elapsed, 19923s left
+  125/4080  kept=123 rejected=2  615s elapsed, 19447s left
+  150/4080  kept=148 rejected=2  780s elapsed, 20443s left
+  175/4080  kept=171 rejected=4  854s elapsed, 19047s left
+  200/4080  kept=195 rejected=5  922s elapsed, 17878s left
+  225/4080  kept=220 rejected=5  973s elapsed, 16666s left
+  250/4080  kept=242 rejected=8  1039s elapsed, 15914s left
+  275/4080  kept=266 rejected=9  1123s elapsed, 15535s left
+  300/4080  kept=288 rejected=12  1220s elapsed, 15368s left
+  325/4080  kept=313 rejected=12  1293s elapsed, 14945s left
+  350/4080  kept=338 rejected=12  1432s elapsed, 15266s left
+  375/4080  kept=362 rejected=13  1527s elapsed, 15089s left
+  400/4080  kept=387 rejected=13  1596s elapsed, 14683s left
+  425/4080  kept=410 rejected=15  1723s elapsed, 14822s left
+  450/4080  kept=434 rejected=16  1856s elapsed, 14976s left
+  475/4080  kept=459 rejected=16  1969s elapsed, 14943s left
+  500/4080  kept=482 rejected=18  57988s elapsed, 415197s left
+  525/4080  kept=507 rejected=18  58314s elapsed, 394870s left
+  550/4080  kept=532 rejected=18  58435s elapsed, 375048s left
+  575/4080  kept=557 rejected=18  58533s elapsed, 356798s left
+  600/4080  kept=580 rejected=20  58586s elapsed, 339798s left
+  625/4080  kept=604 rejected=21  58723s elapsed, 324622s left
+  650/4080  kept=629 rejected=21  58809s elapsed, 310331s left
+  675/4080  kept=654 rejected=21  58923s elapsed, 297234s left
+  700/4080  kept=678 rejected=22  59023s elapsed, 284996s left
+  725/4080  kept=703 rejected=22  59130s elapsed, 273631s left
+  750/4080  kept=727 rejected=23  59213s elapsed, 262906s left
+  775/4080  kept=750 rejected=25  59319s elapsed, 252967s left
+  800/4080  kept=775 rejected=25  59422s elapsed, 243630s left
+  825/4080  kept=799 rejected=26  59503s elapsed, 234765s left
+  850/4080  kept=824 rejected=26  59616s elapsed, 226541s left
+  875/4080  kept=849 rejected=26  59884s elapsed, 219345s left
+  900/4080  kept=873 rejected=27  60022s elapsed, 212079s left
+  925/4080  kept=897 rejected=28  60153s elapsed, 205171s left
+  950/4080  kept=922 rejected=28  60364s elapsed, 198883s left
+  975/4080  kept=947 rejected=28  60442s elapsed, 192483s left
+  1000/4080  kept=972 rejected=28  60549s elapsed, 186491s left
+  1025/4080  kept=996 rejected=29  60800s elapsed, 181212s left
+  1050/4080  kept=1020 rejected=30  60937s elapsed, 175846s left
+  1075/4080  kept=1044 rejected=31  61048s elapsed, 170652s left
+  1100/4080  kept=1069 rejected=31  61183s elapsed, 165749s left
+  1125/4080  kept=1093 rejected=32  61294s elapsed, 160999s left
+  1150/4080  kept=1115 rejected=35  61429s elapsed, 156511s left
+  1175/4080  kept=1140 rejected=35  61563s elapsed, 152205s left
+  1200/4080  kept=1163 rejected=37  61702s elapsed, 148084s left
+  1225/4080  kept=1188 rejected=37  61840s elapsed, 144126s left
+  1250/4080  kept=1213 rejected=37  61931s elapsed, 140211s left
+  1275/4080  kept=1238 rejected=37  62047s elapsed, 136504s left
+  1300/4080  kept=1261 rejected=39  62153s elapsed, 132913s left
+  1325/4080  kept=1286 rejected=39  62371s elapsed, 129684s left
+  1350/4080  kept=1311 rejected=39  62630s elapsed, 126651s left
+  1375/4080  kept=1335 rejected=40  62864s elapsed, 123671s left
+  1400/4080  kept=1357 rejected=43  62937s elapsed, 120479s left
+pass 1 ended without a manifest; retrying
+240 materials x 17 conditions = 4080 runs
+store 256x256 float32 -> 0.79 MB/sim, 3.21 GB total
+workers=7
+RESUMING: 1357 kept + 43 rejected already on disk; 2680 of 4080 runs remain
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\abdulhamid batayhi\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\spawn.py", line 108, in spawn_main
+    source_process = _winapi.OpenProcess(
+                     ^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 87] The parameter is incorrect
+240 materials x 17 conditions = 4080 runs
+store 256x256 float32 -> 0.79 MB/sim, 3.21 GB total
+workers=7
+RESUMING: 1357 kept + 43 rejected already on disk; 2680 of 4080 runs remain
+  1425/4080  kept=1382 rejected=43  100s elapsed, 10615s left
+  1450/4080  kept=1407 rejected=43  156s elapsed, 8205s left
+  1475/4080  kept=1431 rejected=44  240s elapsed, 8326s left
+  1500/4080  kept=1454 rejected=46  297s elapsed, 7654s left

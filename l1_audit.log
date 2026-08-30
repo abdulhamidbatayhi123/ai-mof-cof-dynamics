@@ -1,0 +1,34 @@
+988 samples, 60 materials, novel-material split holds out 12
+
+==============================================================================
+A. RANK SENSITIVITY — is 64 modes hiding a representation limit?
+==============================================================================
+   modes    POD floor   rf novel-mat    ratio
+  --------------------------------------------
+       8   1.4759e-02         0.0496     3.4x   [9s]
+      16   7.3249e-03         0.0492     6.7x   [13s]
+      32   3.4929e-03         0.0492    14.1x   [19s]
+      64   1.4554e-03         0.0492    33.8x   [33s]
+     128   5.4592e-04         0.0492    90.2x   [107s]
+
+  POD floor falls 27.0x from 8 to 128 modes (basis improves a lot)
+  arm error falls 1.01x over the same range
+  => arm error is FLAT in rank. The basis is not the constraint.
+     L1's diagnosis holds: it is a learning failure. L2 is the right next rung.
+
+==============================================================================
+C. SPLIT SENSITIVITY — does the answer depend on WHICH materials are held out?
+==============================================================================
+   repeat     held-out materials   POD floor   rf error   ratio
+  --------------------------------------------------------------
+        0     [0, 5, 7, 12, ...]   2.063e-03     0.0483   23.4x
+        1   [9, 11, 18, 24, ...]   1.495e-03     0.0491   32.9x
+        2  [12, 15, 23, 24, ...]   1.469e-03     0.0503   34.2x
+        3    [1, 5, 10, 11, ...]   1.514e-03     0.0539   35.6x
+        4     [0, 3, 4, 10, ...]   1.420e-03     0.0495   34.8x
+
+  rf novel-material error across splits: 0.0502 +- 0.0019  (min 0.0483, max 0.0539)
+  gap above floor:                       32.2x +- 4.5x
+  => the conclusion is stable across holdout sets. L1 is not a fluke of one split.
+
+wrote results/l1_audit.json

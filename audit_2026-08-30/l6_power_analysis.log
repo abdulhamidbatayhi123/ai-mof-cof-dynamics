@@ -1,0 +1,16 @@
+L6 reproduced: joint 0.0566 vs separate 0.0721 diff -0.0155 CI [-0.0436,+0.0153] sig=False n_mat=12
+
+POWER of the L6 design (12 held-out materials, 3 seeds, cluster bootstrap, alpha=0.005)
+   true improvement of separate over joint     power
+                                      0 %       4 %
+                                      5 %      24 %
+                                     10 %      60 %
+                                     20 %      96 %
+                                     30 %      98 %
+                                     40 %     100 %
+                                     50 %     100 %
+                                     60 %     100 %
+                                     70 %     100 %
+
+Context: prior conduction project's H1 effect was 16x (=94% improvement).
+L6 observed point estimate: separate is 26% WORSE.

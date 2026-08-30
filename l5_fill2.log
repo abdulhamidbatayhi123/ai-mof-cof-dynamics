@@ -1,0 +1,17 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+frozen encoding 128x128; fields (988, 3, 128, 128); coords (16384, 2)
+
+POD floor at each p (the n-width bound on ANY linear reconstruction):
+  p=  64  novel-material 0.00135
+  p= 128  novel-material 0.00050
+
+  deeponet  p=  64 w178  lr3e-03 seed 42: train=0.0078 novel=0.0267 [454s]
+  deeponet  p=  64 w178  lr3e-03 seed 43: train=0.0073 novel=0.0301 [823s]
+  deeponet  p=  64 w178  lr3e-03 seed 44: train=0.0073 novel=0.0285 [724s]
+  deeponet  p= 128 w146  lr3e-03 seed 42: train=0.0085 novel=0.0254 [694s]
+  deeponet  p= 128 w146  lr3e-03 seed 43: train=0.0080 novel=0.0263 [738s]
+  deeponet  p= 128 w146  lr3e-03 seed 44: train=0.0077 novel=0.0307 [680s]

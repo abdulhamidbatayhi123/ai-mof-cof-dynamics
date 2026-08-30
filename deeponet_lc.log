@@ -1,0 +1,8 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+DeepONet p=32 width=198 params=198789 lr=0.001 steps=8000 (matched at every data size)
+train pool: 691 conditions over 48 materials
+

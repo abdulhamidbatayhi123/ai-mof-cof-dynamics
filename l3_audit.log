@@ -1,0 +1,18 @@
+budget ~200,000, depth 3, 3 seeds, best of lr in (3e-3, 1e-3)
+config                      width    params    train    novel      sd
+----------------------------------------------------------------------
+mlp (reference)               269   200,328   0.0514   0.0573  0.0029
+rbf_kan grids=4               130   201,302   0.0553   0.0633  0.0010
+rbf_kan grids=8                98   201,582   0.0563   0.0766  0.0049
+rbf_kan grids=12               81   197,913   0.0577   0.0828  0.0009
+rbf_kan grids=16               71   198,495   0.0646   0.0943  0.0024
+rbf_kan grids=24               59   201,795   0.0688   0.1013  0.0017
+cheby_kan degree=3            144   200,064   0.0583   0.0889  0.0053
+cheby_kan degree=5            119   200,826   0.0614   0.1032  0.0047
+cheby_kan degree=7            103   198,776   0.1183   0.1238  0.0040
+cheby_kan degree=9             93   201,258   0.1187   0.1211  0.0042
+cheby_kan degree=11            85   201,132   0.1153   0.1250  0.0033
+
+best KAN anywhere : rbf_g4 = 0.0633
+mlp reference     : 0.0573
+=> MLP still ahead; L3 conclusion stands

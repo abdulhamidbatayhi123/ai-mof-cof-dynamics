@@ -1,0 +1,19 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+
+observable descriptors: 54 features (generative parameters WITHHELD)
+matched parameter budget ~120,000, depth 4
+
+  joint          w190   120,273p seed 42: train=0.0244 novel=0.0574 q=0.1120 exit=0.0511 dt50=0.28h  [543s]
+  joint          w190   120,273p seed 43: train=0.0254 novel=0.0609 q=0.1237 exit=0.0578 dt50=0.40h  [541s]
+  joint          w190   120,273p seed 44: train=0.0259 novel=0.0515 q=0.1117 exit=0.0550 dt50=0.30h  [523s]
+  separate       w168   118,948p seed 42: train=0.0300 novel=0.0815 q=0.1350 exit=0.0670 dt50=0.48h  [774s]
+  separate       w168   118,948p seed 43: train=0.0307 novel=0.0774 q=0.1292 exit=0.0628 dt50=0.35h  [774s]
+  separate       w168   118,948p seed 44: train=0.0281 novel=0.0575 q=0.1135 exit=0.0513 dt50=0.27h  [776s]
+  separate_noeq  w168   118,948p seed 42: train=0.0347 novel=0.0829 q=0.2892 exit=0.0670 dt50=0.49h  [507s]
+  separate_noeq  w168   118,948p seed 43: train=0.0316 novel=0.0697 q=0.3518 exit=0.0549 dt50=0.31h  [492s]
+  separate_noeq  w168   118,948p seed 44: train=0.0297 novel=0.0658 q=0.7282 exit=0.0556 dt50=0.29h  [691s]
+
+wrote results/l6_results.json  [5629s]

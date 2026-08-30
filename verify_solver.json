@@ -1,0 +1,39 @@
+{
+  "tracer_van_genuchten": {
+    "max_abs_err_vs_third_type": 0.0016854978391556783,
+    "z_at_max_err_m": 0.0999875,
+    "max_abs_err_vs_dirichlet": 0.035219109610028276,
+    "bc_difference_max": 0.03512644696240885,
+    "Pe": 93.45794392523365,
+    "front_num_m": 0.0699840528938057,
+    "front_analytic_m": 0.06999999999999999,
+    "front_rel_err": 0.00022781580277559627,
+    "N_z": 4000
+  },
+  "retarded_front": {
+    "K": 0.5,
+    "R": 901.0,
+    "u_interstitial": 0.25,
+    "u_front_analytic": 0.0002774694783573807,
+    "front_num_m": 0.05998368373406052,
+    "front_analytic_m": 0.06,
+    "rel_err": 0.00027193776565801836,
+    "N_z": 2000
+  },
+  "thermal_wave": {
+    "u_thermal_analytic": 0.00016655562958027982,
+    "front_num_m": 0.059992600327556336,
+    "front_analytic_m": 0.05999999999999999,
+    "rel_err": 0.00012332787406090878,
+    "N_z": 2000
+  },
+  "ldf_anzelius_schumann": {
+    "xi": 7.2,
+    "max_abs_err": 0.00029960565082975954,
+    "n_points": 199,
+    "N_z": 2000
+  },
+  "_meta": {
+    "elapsed_s": 2.782872438430786
+  }
+}

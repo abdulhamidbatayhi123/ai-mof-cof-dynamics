@@ -1,0 +1,50 @@
+loaded c-channel (988, 128, 128)  (65 MB)
+
+levels 0.05 -> 0.95;  span median 0.3485, range 0.00735-0.9994 (136x)
+interpolation floor: 0.001931
+shape basis fixed at p=128 (predicted)
+
+==============================================================================
+1. CAN THE WARP BE PREDICTED BETTER?
+==============================================================================
+  param           modes     reg  R2(t_lo)  R2(t_hi)
+  endpoints           4   ridge    +0.537    +0.889
+  endpoints           4     hgb    +0.895    +0.911
+  endpoints           8   ridge    +0.524    +0.888
+  endpoints           8     hgb    +0.895    +0.911
+  endpoints          16   ridge    +0.497    +0.888
+  endpoints          16     hgb    +0.895    +0.911
+  endpoints          32   ridge    +0.446    +0.886
+  endpoints          32     hgb    +0.895    +0.911
+  start_logspan       4   ridge    +0.537    +0.889
+  start_logspan       4     hgb    +0.895    +0.919
+  start_logspan       8   ridge    +0.524    +0.889
+  start_logspan       8     hgb    +0.895    +0.919
+  start_logspan      16   ridge    +0.497    +0.888
+  start_logspan      16     hgb    +0.895    +0.919
+  start_logspan      32   ridge    +0.446    +0.884
+  start_logspan      32     hgb    +0.895    +0.919
+
+  best warp predictor: start_logspan, 4 modes, hgb  (R2 +0.895 / +0.919)
+
+==============================================================================
+2. THE PAYOFF CURVE — what warp accuracy is worth
+==============================================================================
+  alpha = 1 is the predicted warp, alpha = 0 is the oracle warp.
+   alpha  R2(t_lo)  R2(t_hi)     nRMSE
+    0.00    +1.000    +1.000   0.02335
+    0.25    +0.993    +0.995   0.02692
+    0.50    +0.974    +0.980   0.03452
+    0.75    +0.941    +0.954   0.04266
+    1.00    +0.895    +0.919   0.05075
+
+==============================================================================
+3. VERDICT
+==============================================================================
+  oracle warp                : 0.0233
+  best predicted warp        : 0.0508
+  fixed frame (L5)           : 0.0510
+  headroom still on the table: 2.17x
+  -> two-wave frame now BEATS the fixed frame (1.00x)
+
+wrote results/warp_predict.json  [370s]

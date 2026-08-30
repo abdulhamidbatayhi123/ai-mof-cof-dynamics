@@ -1,0 +1,35 @@
+======================================================================
+[1/2] Generic Type I sorbent (baseline / ablation case)
+======================================================================
+  MTZ 1.070 mm -> N_z(20c)=1870 | t_stoich 2.00 h | K_H 20
+  N_z=2000  t_final=1.8e+04s  c_in=1  (stoichiometric 7200s)
+  21602 RHS evals, 1965 Jacobians, status 0
+  grid convergence...
+    exit-curve change 1000->2000: 0.055 %
+  exit c/c_in=0.9926 q_max=10.000 T_peak=337.55K [215s]
+
+======================================================================
+[2/2] MOF-303 Type V water harvesting
+======================================================================
+MOF-303 water harvesting, feed 30 % RH at 30 C
+  T = 303.15 K,  p_sat = 4236.7 Pa
+  Henry constant K_H       = 0.2811 mol/kg per mol/m3
+  inflection points        = 1   (Type V requires >= 1)
+  steepest uptake at RH    = 14.0 %
+    RH    5 %  ->  q* =  0.252 mol/kg   (  1.0 % of q_max)
+    RH   10 %  ->  q* =  3.243 mol/kg   ( 13.0 % of q_max)
+    RH   15 %  ->  q* = 10.492 mol/kg   ( 42.0 % of q_max)
+    RH   20 %  ->  q* = 16.912 mol/kg   ( 67.6 % of q_max)
+    RH   30 %  ->  q* = 21.921 mol/kg   ( 87.7 % of q_max)
+    RH   60 %  ->  q* = 23.624 mol/kg   ( 94.5 % of q_max)
+  feed c_in                = 0.5043 mol/m3
+  MTZ width                = 1.247 mm  -> N_z for 20 cells = 1605
+  stoichiometric time      = 8.63 h
+  N_z=2000  t_final=7.77e+04s  c_in=0.504285  (stoichiometric 3.108e+04s)
+  2986 RHS evals, 86 Jacobians, status 0
+  grid-convergence study (N_z/2 -> N_z)...
+    exit-curve change: 0.323 %
+  exit c/c_in = 1.0000 | q_max = 21.921 | T_peak = 316.49 K
+Saved data/mof303_breakthrough.npz
+
+ALL DONE in 226s

@@ -1,0 +1,77 @@
+60 materials x 17 conditions = 1020 runs
+store 512x256 float32 -> 1.57 MB/sim, 1.60 GB total
+workers=10
+  25/1020  kept=25 rejected=0  73s elapsed, 2911s left
+  50/1020  kept=50 rejected=0  140s elapsed, 2716s left
+  75/1020  kept=75 rejected=0  188s elapsed, 2373s left
+  100/1020  kept=100 rejected=0  265s elapsed, 2437s left
+  125/1020  kept=125 rejected=0  339s elapsed, 2425s left
+  150/1020  kept=150 rejected=0  424s elapsed, 2459s left
+  175/1020  kept=173 rejected=2  464s elapsed, 2242s left
+  200/1020  kept=198 rejected=2  630s elapsed, 2584s left
+  225/1020  kept=219 rejected=6  681s elapsed, 2406s left
+  250/1020  kept=244 rejected=6  727s elapsed, 2241s left
+  275/1020  kept=269 rejected=6  821s elapsed, 2224s left
+  300/1020  kept=292 rejected=8  866s elapsed, 2078s left
+  325/1020  kept=315 rejected=10  910s elapsed, 1947s left
+  350/1020  kept=340 rejected=10  992s elapsed, 1898s left
+  375/1020  kept=365 rejected=10  1055s elapsed, 1815s left
+  400/1020  kept=390 rejected=10  1138s elapsed, 1764s left
+  425/1020  kept=415 rejected=10  1192s elapsed, 1669s left
+  450/1020  kept=439 rejected=11  1225s elapsed, 1551s left
+  475/1020  kept=464 rejected=11  1285s elapsed, 1475s left
+  500/1020  kept=483 rejected=17  1335s elapsed, 1388s left
+  525/1020  kept=507 rejected=18  1411s elapsed, 1330s left
+  550/1020  kept=532 rejected=18  1539s elapsed, 1315s left
+  575/1020  kept=557 rejected=18  1595s elapsed, 1234s left
+  600/1020  kept=581 rejected=19  1632s elapsed, 1142s left
+  625/1020  kept=606 rejected=19  1684s elapsed, 1064s left
+  650/1020  kept=629 rejected=21  1757s elapsed, 1000s left
+  675/1020  kept=654 rejected=21  1847s elapsed, 944s left
+  700/1020  kept=678 rejected=22  1912s elapsed, 874s left
+  725/1020  kept=703 rejected=22  1954s elapsed, 795s left
+  750/1020  kept=728 rejected=22  2029s elapsed, 730s left
+  775/1020  kept=753 rejected=22  2067s elapsed, 653s left
+  800/1020  kept=777 rejected=23  2096s elapsed, 577s left
+  825/1020  kept=801 rejected=24  2136s elapsed, 505s left
+  850/1020  kept=826 rejected=24  2206s elapsed, 441s left
+  875/1020  kept=849 rejected=26  2263s elapsed, 375s left
+  900/1020  kept=874 rejected=26  2307s elapsed, 308s left
+  925/1020  kept=899 rejected=26  2437s elapsed, 250s left
+  950/1020  kept=924 rejected=26  2518s elapsed, 186s left
+  975/1020  kept=943 rejected=32  2567s elapsed, 118s left
+  1000/1020  kept=968 rejected=32  2634s elapsed, 53s left
+  1020/1020  kept=988 rejected=32  2691s elapsed, 0s left
+
+kept 988  rejected 32
+  splits: train=691  novel_condition=96  novel_material=201
+  rejections:
+        3  feed loads only 0.100 of capacity
+        2  feed loads only 0.018 of capacity
+        2  feed loads only 0.043 of capacity
+        1  feed loads only 0.044 of capacity
+        1  feed loads only 0.012 of capacity
+        1  feed loads only 0.058 of capacity
+        1  feed loads only 0.057 of capacity
+        1  feed loads only 0.016 of capacity
+        1  feed loads only 0.053 of capacity
+        1  feed loads only 0.094 of capacity
+        1  feed loads only 0.035 of capacity
+        1  feed loads only 0.050 of capacity
+        1  feed loads only 0.069 of capacity
+        1  feed loads only 0.093 of capacity
+        1  feed loads only 0.023 of capacity
+        1  feed loads only 0.005 of capacity
+        1  feed loads only 0.097 of capacity
+        1  feed loads only 0.042 of capacity
+        1  feed loads only 0.054 of capacity
+        1  feed loads only 0.060 of capacity
+        1  feed loads only 0.056 of capacity
+        1  feed loads only 0.031 of capacity
+        1  feed loads only 0.071 of capacity
+        1  feed loads only 0.099 of capacity
+        1  feed loads only 0.092 of capacity
+        1  feed loads only 0.027 of capacity
+        1  feed loads only 0.009 of capacity
+        1  feed loads only 0.096 of capacity
+wrote data/parametric/manifest.json  [2692s]
