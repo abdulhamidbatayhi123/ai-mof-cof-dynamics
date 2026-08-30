@@ -20,3 +20,9 @@ matched-parameter widths (depth 3, 11 -> 192):
   budget  800,000  rbf_kan    width  203  params   801,027  (+0.1%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
   budget  800,000  cheby_kan  width  215  params   799,992  (-0.0%)  lrs [0.01, 0.003, 0.001, 0.0003, 0.0001]
 
+    50,000 mlp        w114  lr1e-02 seed 42: train=0.0543  novel=0.0584  (best@25/2025)  [289s]
+    50,000 mlp        w114  lr1e-02 seed 43: train=0.0566  novel=0.0585  (best@25/2025)  [126s]
+    50,000 mlp        w114  lr1e-02 seed 44: train=0.0558  novel=0.0608  (best@25/2025)  [117s]
+    50,000 mlp        w114  lr3e-03 seed 42: train=0.0636  novel=0.0645  (best@25/2025)  [204s]
+    50,000 mlp        w114  lr3e-03 seed 43: train=0.0647  novel=0.0636  (best@25/2025)  [268s]
+    50,000 mlp        w114  lr3e-03 seed 44: train=0.0548  novel=0.0593  (best@50/2050)  [291s]
