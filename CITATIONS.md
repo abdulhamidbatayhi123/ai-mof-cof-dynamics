@@ -50,52 +50,75 @@ Two independent groups, different input types, different PDE families, same wall
 is a **stronger** scientific statement than either result alone. Frame it that
 way.
 
-### How to differentiate from Lee, Lee & Kim (2026) — and why they *help* us
+### Lee, Lee & Kim (2026) — full text read 2026-08-30, and the position is strong
 
-This is the closest prior art the review found, and it lands squarely on the
-warp. **"Decompose a breakthrough curve into a normalised shape and a
-characteristic timescale, predict each separately, recompose" is no longer a novel
-idea and must not be claimed as one.** An adsorption referee will know this paper.
+`refs/Lee2026_shape_timescale.pdf`, 37 pp. This is the closest prior art the review
+found and it lands on the warp. **"Decompose a breakthrough curve into a normalised
+shape and a characteristic timescale, learn each, recompose" is published and must
+not be claimed as new.** An adsorption referee will know it.
 
-But read what they actually do, and the position is strong rather than weak:
+**Exactly what they do** (their Eqs. 1–5):
+
+    theta      = t / EBCT                        dimensionless time
+    theta*     = theta / theta_end               normalised to the run's own duration
+    y_shape    = f_BiLSTM(theta*, [L/D, Re, C0]) the shape, on theta* in [0,1]
+    theta_0.9  = f_MLP([L/D, Re, C0, EBCT])      ONE SCALAR: dimensionless time at C/C0 = 0.9
+    alpha      = theta_0.9 / theta*_0.9
+    theta      = alpha * theta*                  a SINGLE MULTIPLICATIVE DILATION
+
+Their system is **Cu(II) onto functionalised cellulose adsorbents**, lab-to-pilot
+scale-up, benchmarked against Thomas / Yoon–Nelson / Bohart–Adams / Clark — all
+**single-sigmoid** BTC forms. They explicitly enforce *"monotonic increases in
+normalized concentration and stable saturation"*. There is no isotherm-shape
+discussion anywhere: no inflection, no Type IV/V, no multi-wave breakthrough.
+Result: R² = 0.975 on unseen pilot-scale, 3–5× better than end-to-end baselines.
+
+**The two differences that decide the framing:**
 
 | | Lee, Lee & Kim (2026) | this work |
 |---|---|---|
-| object predicted | the **exit curve**, 1-D in t | the full **field** c(z,t), 2-D |
-| decomposition | shape + **one scalar** characteristic time | shape + **two trajectories** `t_lo(z)`, `t_hi(z)` |
-| transfer axis | operating conditions / **scale-up** | held-out **materials**, cluster-robust |
-| isotherm | not specified as inflected | **Type V**, which is why one timescale is not enough |
-| what is measured | predictive accuracy | the **n-width** in each frame, and the basis/coefficient split |
+| object predicted | the **exit curve**, 1-D in t — no spatial dimension exists in their problem | the full **field** c(z,t) |
+| the time map | **one scalar dilation** `alpha`, uniform over the whole curve | **two z-dependent trajectories** `t_lo(z)`, `t_hi(z)` — an affine map per column position |
+| transfer axis | lab → pilot **scale-up** (geometry, flow, concentration) | held-out **materials**, cluster-robust |
+| isotherm | not considered; single-step BTCs assumed and enforced | **Type V**, two-wave, separation varying **40×** |
+| what is measured | predictive accuracy | the **n-width in each frame**, and the basis/coefficient error split |
 
-**The decisive point is that we already tested their decomposition and refuted it
-for this system.** A single characteristic timescale is exactly our *single-front*
-co-moving frame, and `comoving.py` measured that it makes the representation
-**worse**: modes for 99.9 % of training variance go **31 → 102** when aligning on
-the 0.5 crossing, and it loses to the fixed frame even when handed the exact front
-trajectory for free (0.0534 vs 0.0510). The reason was measured first, not
-invoked: with a Type V isotherm the separation between the fast Henry wave and the
-cooperative shock spans **40×** across the dataset, so one shift cannot straighten
-two waves.
+**And we have already measured that their map cannot work here.** A single scalar
+dilation is *weaker* than the single-front co-moving frame we tested and refuted:
+ours was a z-dependent additive shift, theirs is a z-independent multiplicative
+scale. `comoving.py` measured that even the stronger version makes the
+representation worse — modes for 99.9 % of training variance go **31 → 102** — and
+loses to the unwarped frame even when handed the exact front trajectory
+(0.0534 vs 0.0510). Our refutation therefore applies *a fortiori*.
 
-So the honest and much stronger claim is:
+The mechanism is the point: **a pure dilation cannot change a curve's shape.** When
+the separation between the fast Henry wave and the cooperative shock varies 40×
+across the dataset, no single `alpha` can align both. That is exactly the failure
+mode we measured before proposing the two-trajectory alternative.
 
-> Shape–timescale decomposition of breakthrough curves has been proposed for
-> scale-up prediction with a single characteristic time (Lee, Lee & Kim, 2026). We
-> show that for a **Type V (inflected) isotherm** that decomposition is
-> insufficient — a single alignment *increases* the Kolmogorov n-width from 31 to
-> 102 modes and loses to the unwarped frame even given an oracle trajectory — and
-> that a **two-trajectory** warp, which removes both the arrival time and the
-> transition width, instead collapses the n-width to 13–17 modes and cuts the
-> oracle reconstruction error 2.27×.
+**The sentence to write:**
 
-That is a sharper contribution than "we propose a decomposition", and it is only
-available *because* the prior art exists to be tested against.
+> Shape–timescale decomposition has been proposed for breakthrough-curve scale-up,
+> using a single characteristic time and a uniform rescaling of the time axis
+> (Lee, Lee & Kim, 2026), and is effective for the single-step breakthrough of
+> heavy-metal adsorption. We show that for an **inflected Type V isotherm** — where
+> the breakthrough carries a fast Henry wave and a slow cooperative shock whose
+> separation spans 40× across our parameter space — a one-parameter time map is
+> structurally insufficient: it *increases* the Kolmogorov n-width from 31 to 102
+> modes and loses to the unwarped frame even given an oracle trajectory. A
+> **two-trajectory** warp, which removes the arrival time and the transition width
+> independently and at every column position, instead collapses the n-width to
+> 13–17 modes and cuts the oracle reconstruction error 2.27×.
 
-**Still to do:** read the full 37-page PDF. Two things must be checked before the
-warp section is written — (a) whether they consider inflected/Type V isotherms or
-multi-wave breakthrough anywhere, and (b) whether the "scaling-based
-reconstruction" is a single scalar or something z-dependent. If either answer
-differs from the abstract's implication, this table changes.
+That is a sharper claim than "we propose a decomposition", and it exists **only
+because** their paper does. Cite them prominently and generously.
+
+*One methodological note, for our own use rather than criticism of theirs:*
+their `theta* = theta/theta_end` normalises by the **observation window**, so the
+representation depends on when the experiment was stopped. Our normalisation uses
+`t_final` from the stoichiometric time with a recorded adaptive horizon, which is a
+property of the physics rather than of the operator. Worth a sentence in Methods,
+since a referee comparing the two frames will ask.
 
 ---
 
