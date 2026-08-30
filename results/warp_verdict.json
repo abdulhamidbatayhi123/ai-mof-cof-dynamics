@@ -1,0 +1,69 @@
+{
+  "levels": [
+    0.05,
+    0.95
+  ],
+  "p_shape": 32,
+  "p_warp": 4,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "interp_floor": 0.001930897356942296,
+  "per_seed": {
+    "fixed": [
+      0.05032278969883919,
+      0.04967581480741501,
+      0.05015437677502632
+    ],
+    "two_wave": [
+      0.0458688959479332,
+      0.04861442744731903,
+      0.048629362136125565
+    ],
+    "two_wave_oracle": [
+      0.022289535030722618,
+      0.022076794877648354,
+      0.021720441058278084
+    ]
+  },
+  "means": {
+    "fixed": 0.05005099376042684,
+    "two_wave": 0.047704228510459266,
+    "two_wave_oracle": 0.022028923655549686
+  },
+  "sds": {
+    "fixed": 0.00033564886907911615,
+    "two_wave": 0.0015894621645493208,
+    "two_wave_oracle": 0.00028755126116414466
+  },
+  "fixed_vs_two_wave": {
+    "arm_a": "fixed",
+    "arm_b": "two_wave",
+    "metric": "nrmse_c",
+    "mean_a": 0.05005099148772175,
+    "mean_b": 0.047704226839329865,
+    "mean_diff": 0.002346764648391882,
+    "ci_low": -0.00812201747873439,
+    "ci_high": 0.011829546808109706,
+    "significant": false,
+    "verdict": "no difference between fixed and two_wave",
+    "n_materials": 12
+  },
+  "fixed_vs_oracle": {
+    "arm_a": "fixed",
+    "arm_b": "two_wave_oracle",
+    "metric": "nrmse_c",
+    "mean_a": 0.05005099148772175,
+    "mean_b": 0.022028922753572266,
+    "mean_diff": 0.028022068734149485,
+    "ci_low": 0.019904180307018144,
+    "ci_high": 0.03668198134986797,
+    "significant": true,
+    "verdict": "two_wave_oracle is better (lower nrmse_c)",
+    "n_materials": 12
+  },
+  "headroom_to_oracle": 2.165526979727912,
+  "verdict": "NO DIFFERENCE. The two-wave frame does not beat the fixed frame at the calibrated alpha. The frame's measured gain is entirely consumed by the error in locating the two fronts."
+}

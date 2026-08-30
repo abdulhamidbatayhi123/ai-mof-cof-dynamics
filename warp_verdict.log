@@ -2,3 +2,26 @@ loaded c-channel (988, 128, 128)  (65 MB)
 
 levels 0.05 -> 0.95; span median 0.3485, range 0.00735-0.9994 (136x)
 interpolation floor (oracle warp + oracle shape): 0.00193
+  seed 42: fixed 0.05032 | two-wave 0.04587 | oracle 0.02229 | warp R2 lo +0.868 hi +0.920 [4993s]
+  seed 43: fixed 0.04968 | two-wave 0.04861 | oracle 0.02208 | warp R2 lo +0.881 hi +0.910 [6736s]
+  seed 44: fixed 0.05015 | two-wave 0.04863 | oracle 0.02172 | warp R2 lo +0.851 hi +0.913 [7060s]
+
+arm                    mean       sd   (3 seeds, novel-material split)
+fixed               0.05005  0.00034
+two_wave            0.04770  0.00159
+two_wave_oracle     0.02203  0.00029
+
+Paired, cluster-robust by material, alpha = 0.005:
+  fixed 0.05005 vs two-wave 0.04770 | diff +0.00235 CI [-0.00812, +0.01183]
+  -> NO DIFFERENCE. The two-wave frame does not beat the fixed frame at the calibrated alpha. The frame's measured gain is entirely consumed by the error in locating the two fronts.
+
+  fixed 0.05005 vs ORACLE warp 0.02203 | diff +0.02802 CI [+0.01990, +0.03668]  significant
+  headroom between the honest arm and the oracle: 2.17x
+  NOTE: the oracle arm is handed the true front trajectories. It is an upper
+        bound on what a perfect front-locating model could buy, not a result,
+        and it may not be quoted against any arm that does not get the same.
+C:\Users\abdulhamid batayhi\Desktop\ai-mof-cof-dynamics\warp_verdict.py:206: ResourceWarning: unclosed file <_io.TextIOWrapper name='results/warp_verdict.json' mode='w' encoding='cp1252'>
+  json.dump(out, open("results/warp_verdict.json", "w"), indent=2)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+
+wrote results/warp_verdict.json  [7061s]

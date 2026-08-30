@@ -2,3 +2,37 @@ design v2: scrambled Sobol; k_LDF derived from d_p (Glueckauf)
 240 materials x 17 conditions = 4080 runs
 store 256x256 float32 -> 0.79 MB/sim, 3.21 GB total
 workers=4
+  25/4080  kept=24 rejected=1  176s elapsed, 28547s left
+  50/4080  kept=46 rejected=4  316s elapsed, 25465s left
+  75/4080  kept=71 rejected=4  438s elapsed, 23385s left
+  100/4080  kept=95 rejected=5  575s elapsed, 22904s left
+  125/4080  kept=119 rejected=6  655s elapsed, 20722s left
+  150/4080  kept=143 rejected=7  818s elapsed, 21424s left
+  175/4080  kept=168 rejected=7  923s elapsed, 20585s left
+  200/4080  kept=193 rejected=7  1060s elapsed, 20563s left
+  225/4080  kept=216 rejected=9  1180s elapsed, 20222s left
+  250/4080  kept=241 rejected=9  1252s elapsed, 19176s left
+  275/4080  kept=265 rejected=10  1399s elapsed, 19358s left
+  300/4080  kept=290 rejected=10  1515s elapsed, 19085s left
+  325/4080  kept=315 rejected=10  1610s elapsed, 18600s left
+  350/4080  kept=340 rejected=10  1707s elapsed, 18194s left
+  375/4080  kept=365 rejected=10  1813s elapsed, 17914s left
+  400/4080  kept=389 rejected=11  1942s elapsed, 17864s left
+  425/4080  kept=414 rejected=11  2047s elapsed, 17604s left
+  450/4080  kept=437 rejected=13  2190s elapsed, 17670s left
+  475/4080  kept=459 rejected=16  2274s elapsed, 17261s left
+  500/4080  kept=484 rejected=16  2403s elapsed, 17204s left
+  525/4080  kept=506 rejected=19  2582s elapsed, 17487s left
+  550/4080  kept=531 rejected=19  2680s elapsed, 17199s left
+  575/4080  kept=556 rejected=19  2802s elapsed, 17082s left
+  600/4080  kept=580 rejected=20  2918s elapsed, 16925s left
+  625/4080  kept=600 rejected=25  3020s elapsed, 16694s left
+  650/4080  kept=624 rejected=26  3106s elapsed, 16391s left
+  675/4080  kept=647 rejected=28  3212s elapsed, 16201s left
+  700/4080  kept=672 rejected=28  3305s elapsed, 15957s left
+  725/4080  kept=697 rejected=28  3465s elapsed, 16035s left
+  750/4080  kept=722 rejected=28  3604s elapsed, 16001s left
+  775/4080  kept=746 rejected=29  3746s elapsed, 15973s left
+  800/4080  kept=771 rejected=29  3888s elapsed, 15942s left
+  825/4080  kept=796 rejected=29  4040s elapsed, 15938s left
+  850/4080  kept=820 rejected=30  4196s elapsed, 15944s left

@@ -285,23 +285,62 @@ training variance:
 | **two-wave, 0.10–0.90** | **0.0203** | 0.0513 | +0.811 / +0.919 |
 | two-wave, 0.05–0.95 | 0.0233 | 0.0518 | +0.895 / +0.911 |
 
-**0.0203 beats DeepONet's 0.0281** — the best arm anywhere in the ladder — using
-only POD plus a gradient-boosted regressor, once the field is written in the right
+The oracle-warp arm reaches **0.0203**, below DeepONet's best (0.0276), using only
+POD plus a gradient-boosted regressor once the field is written in the right
 coordinates. Flat in shape-basis size again (0.02053 → 0.02027 over p = 8 → 128),
 so the shape is not the constraint either. The 0.20–0.80 pair is **excluded**: a
 narrow window divides by a small span and its interpolation floor reaches 29 % of
 the signal. The guard caught it; it is reported rather than dropped silently.
 
+> ⚠️ **The oracle arm is handed the true front trajectories, and DeepONet is not.**
+> This is not a like-for-like comparison and it may not be presented as one — a
+> reviewer reads a leaked-label comparison in one line, and this project's
+> credibility is the thing it cannot afford to spend. The comparable arm is the
+> **predicted** warp, and the powered verdict on it is below: no difference from
+> the fixed frame, with a significant 2.17× still on the table.
+
 ### The obstruction has moved — and that is the result
 
-Predicted-warp error (0.0513) ties the fixed frame (0.0510): **the entire 2.5× is
-consumed by the error in locating the two fronts.**
+Run to full protocol 2026-08-30 in `warp_verdict.py`: **3 seeds across every
+stochastic component, both arms computed in the same run** (the earlier comparison
+imported the fixed-frame number as a hard-coded literal), paired cluster bootstrap
+by material at the calibrated α = 0.005. `results/warp_verdict.json`.
+
+| arm | novel-material nRMSE(c) | sd (3 seeds) |
+|---|---|---|
+| fixed frame | 0.05005 | 0.00034 |
+| two-wave, **predicted** warp | **0.04770** | 0.00159 |
+| two-wave, **oracle** warp | **0.02203** | 0.00029 |
+
+```
+fixed vs two-wave (predicted) : diff +0.00235  CI [-0.00812, +0.01183]  NO DIFFERENCE
+fixed vs two-wave (oracle)    : diff +0.02802  CI [+0.01990, +0.03668]  SIGNIFICANT
+```
+
+**Two statements, and both are needed.** The honest arm does *not* beat the fixed
+frame — the 4.7 % improvement in the mean is inside the noise, and the earlier
+"two-wave now beats the fixed frame" line, computed from one seed and a 0.4 %
+margin, is withdrawn as defect **B28** before it reached this document. But the
+oracle gap **is** significant and large: given the true front trajectories, the
+same POD-plus-regressor arm is **2.27× better**, with a CI far from zero.
+
+So: **the entire gain is consumed by the error in locating the two fronts**, and
+that is now a measured, powered statement rather than an impression.
 
 This is a relocation, not a null. Through L1–L5 the obstruction was "the
 parameter → coefficient map is unlearnable beyond ~5 modes", which no architecture
 touched. It is now "**two smooth monotone 1-D curves are not located accurately
-enough**" — a far better-posed problem, with a measured prize of 2.5× and a target
-a front-locating model can be held to.
+enough**" — a far better-posed problem, with a **statistically established prize of
+2.17×** and a target a front-locating model can be held to. The current predictor
+reaches R² ≈ 0.85–0.88 on the lower trajectory and 0.91–0.92 on the upper; the
+payoff curve in `warp_predict.py` says R² ≈ 0.97 would already recover most of the
+gap. Two smooth monotone 1-D curves are a far easier object to attack than a 2-D
+field, which is the point.
+
+> **Do not quote the oracle number against any arm that is not also handed the
+> warp.** It leaks the answer. It is an upper bound on what a perfect
+> front-locating model could buy, and it is reported here only to size the
+> remaining headroom.
 
 ---
 
