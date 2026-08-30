@@ -263,7 +263,19 @@ it named its successor — and that successor works.
 
 ---
 
-## The two-wave warp — the right frame, and an unrealised 2.5×
+## The two-wave warp — an established frame, applied where the standard one fails
+
+> **Scope, and prior art (verified 2026-08-30).** Aligning multiple transports is
+> **not new.** The two-transport case is the founding worked example of shifted POD
+> (Reiss, Schulze, Sesterhenn & Mehrmann, *SIAM J. Sci. Comput.* 40:A1322, 2018),
+> whose general formulation covers arbitrary Nₛ independent transports; multi-front
+> variants follow in Nair & Balajewicz (2019), Mendible et al. (2020), Krah et al.
+> (2025) and Zucatti & Zahr (2025). Shape–timescale decomposition of breakthrough
+> curves specifically has been published with a *single* characteristic time (Lee,
+> Lee & Kim, SSRN 6874257, 2026). **This section claims none of that.** What is
+> ours is the measurement: the n-width in each frame for an inflected Type V
+> system, the refutation of single-front alignment under an oracle control, and the
+> localisation of the residual obstruction to front prediction. See `CITATIONS.md`.
 
 Use *two* shifts, one per wave, normalising the interval between them:
 `σ = (t − t_lo(z)) / (t_hi(z) − t_lo(z))`. This removes both the arrival time and
@@ -511,8 +523,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 21 Part-A withdrawals, 33 Part-B defects caught before
-  contamination. **15 of the Part-B defects are our own errors** — in the
+- **`RETRACTIONS.md`** — 21 Part-A , 36 Part-B  caught before
+  contamination. **18 of the Part-B defects are our own errors** — in the
   analysis, the validation gates, or the frozen protocol itself — recorded on the
   same terms as errors in the code. One Part-A retraction (**A17**) withdraws a
   claim the protocol had called its most important result.

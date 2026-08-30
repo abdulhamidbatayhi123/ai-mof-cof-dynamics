@@ -113,6 +113,55 @@ mode we measured before proposing the two-trajectory alternative.
 That is a sharper claim than "we propose a decomposition", and it exists **only
 because** their paper does. Cite them prominently and generously.
 
+### ⚠ C2 — THE TWO-WAVE WARP IS NOT NOVEL. Verified 2026-08-30.
+
+The differentiation table above was written against **Lee et al. alone** and is
+correct as far as it goes. It is also **not the binding prior art.** Independent
+verification found that multi-front alignment is the *founding worked example* of
+shifted POD:
+
+> Reiss, Schulze, Sesterhenn & **Mehrmann**, *The shifted proper orthogonal
+> decomposition: a mode decomposition for multiple transport phenomena*,
+> **SIAM J. Sci. Comput. 40(3), A1322–A1344 (2018)**, DOI 10.1137/17M1140571.
+
+Their opening example is a pressure pulse splitting into **two** waves (c⁺ = +1,
+c⁻ = −1), reconstructed with **two modes — one per co-moving frame — against 80+
+POD modes**. The general formulation is written for arbitrary Nₛ independent
+transports. Multi-front variants are further established by Nair & Balajewicz
+(*IJNME* 117:1234–1262, 2019), Mendible et al. (*TCFD* 2020), Zorawski et al.
+(arXiv:2407.17539, 2024), Krah et al. (*SISC* 47:A633–A656, 2025) and Zucatti &
+Zahr (arXiv:2503.17463).
+
+**Every sentence implying that aligning two waves is new must be deleted.**
+
+*One real distinction survives, and it is worth stating precisely rather than
+overclaiming.* sPOD is an **additive** decomposition — a sum of co-moving fields,
+one per wave, each with its own frame. Our map is **compositional**: a single
+reparameterisation `σ = (t − t_lo(z))/(t_hi(z) − t_lo(z))` that normalises the
+*interval between* two fronts rather than summing two transported fields. That
+places it in the registration/calibration family (Taddei, *SISC* 42:A997, 2020 —
+**note an erratum exists, DOI 10.1137/24M1639579, unread**) rather than the sPOD
+family. But registration ROM is itself established, so this distinction narrows the
+claim; it does not restore novelty.
+
+**What we may actually claim** — the measurement, not the map:
+
+1. The **n-width measured in each frame** for a Type V adsorption system: original
+   31 modes → single-front warp **102** → two-wave warp **13–17**, for 99.9 % of
+   training variance. Nobody has reported this for inflected-isotherm breakthrough.
+2. The **refutation of single-alignment under an oracle control** — it loses to the
+   unwarped frame *even given the exact front trajectory* (0.0534 vs 0.0510), with
+   the mechanism measured first (40× separation spread), not invoked afterwards.
+3. The **localisation of the obstruction**: oracle 0.02203 vs predicted 0.04770 vs
+   fixed 0.05005, so the entire gain is consumed by front-location error, with a
+   powered CI. That converts a representation question into a 1-D regression target.
+4. **Application** to MOF/COF water-adsorption breakthrough and to transfer across
+   held-out *materials*.
+
+Write the section as *"we apply an established transformation-based reduction to a
+system where its single-front form provably fails, and measure what it buys and
+what limits it"* — never as *"we propose a two-wave warp."*
+
 *One methodological note, for our own use rather than criticism of theirs:*
 their `theta* = theta/theta_end` normalises by the **observation window**, so the
 representation depends on when the experiment was stopped. Our normalisation uses
@@ -132,7 +181,7 @@ Priority order. Nothing below may be cited yet.
 4. Li et al. 2025, *RSC Adv* — MOF-303 breakthrough, **the experimental anchor**; open access, geometry matches ours
 5. Lassitter et al., *Chem. Eng. Sci.* 285:119430 (2024) — MOF-303 CSFR kinetics, LDF failure at the step
 6. Bozbiyik et al. 2017 — Al-fumarate stepped breakthrough
-7. Reiss, Schulze, Sesterhenn & Noack — shifted POD (the warp's prior-art lineage)
+7. ~~Reiss, Schulze, Sesterhenn & Noack~~ → **Reiss, Schulze, Sesterhenn & MEHRMANN** — see C1
 8. Krah et al., arXiv:2403.04313 — robust multi-transport sPOD
 9. Zorawski et al. 2024 — neural sPOD
 10. Taddei, *SISC* 2020 (arXiv:1906.11008) — registration ROM

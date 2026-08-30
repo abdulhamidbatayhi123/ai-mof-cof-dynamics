@@ -37,7 +37,7 @@ violating it has already cost us 17 retracted claims:
   When something looks wrong, stop hypothesising and measure the term directly.
 
   Record every withdrawn claim in RETRACTIONS.md, including your own analysis
-  errors, on the same terms as errors in the code. 15 of our 33 Part-B defects
+  errors, on the same terms as errors in the code. 15 of our 36 Part-B 
   are our own errors. That ledger is the project's main credibility asset.
 
 STATUS
