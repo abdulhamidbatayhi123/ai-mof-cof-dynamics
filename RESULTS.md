@@ -13,11 +13,11 @@ Last updated 2026-08-24.
 | rung | hypothesis tested | verdict |
 |---|---|---|
 | **L0** | "the reference is trustworthy" | ✅ verified against 4 closed-form solutions |
-| **L1** | "you just need more data" | ✅ **eliminated** |
+| **L1** | "you just need more data" | ⚠️ **NARROWED — see A18.** Conditions axis eliminated; **materials axis is NOT** (1.82×, unsaturated) |
 | **L2** | "the model is too small" | ✅ **eliminated** |
-| **L3** | "you need a better basis" | ✅ **eliminated** — and refuted, not null |
+| **L3** | "you need a better basis" | ✅ eliminated for RBF-KAN; ⚠️ the Chebyshev 200k cell is **withdrawn** (**A19**, **B24**) and the rung is being re-run |
 | **L4** | "add the PDE residual" | ✅ **no difference** on the material axis |
-| **L5** | "you need an operator" | ✅ **eliminated** — and the n-width prediction is **refuted** |
+| **L5** | "you need an operator" | ✅ eliminated *for linear-reconstruction operators*; n-width prediction **refuted**. ⚠️ FNO/WNO never run (**B33**); numbers superseded (**A20**) |
 | **L6** | **"joint fitting is fine"** | ✅ **H1 NOT SUPPORTED** — separate does not beat joint |
 | **L7** | "deep learning is needed at all" | ✅ **eliminated — learning is justified** |
 
@@ -426,8 +426,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 17 Part-A withdrawals, 23 Part-B defects caught before
-  contamination. **14 of the Part-B defects are our own errors** — in the
+- **`RETRACTIONS.md`** — 21 Part-A withdrawals, 33 Part-B defects caught before
+  contamination. **15 of the Part-B defects are our own errors** — in the
   analysis, the validation gates, or the frozen protocol itself — recorded on the
   same terms as errors in the code. One Part-A retraction (**A17**) withdraws a
   claim the protocol had called its most important result.

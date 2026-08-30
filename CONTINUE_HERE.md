@@ -29,8 +29,8 @@ own data, and L5 refuted our own n-width explanation.
 
 ```
 22 validate.py gates passing, 0 failing
-17 Part-A retractions (claims withdrawn) · 23 Part-B defects (caught pre-contamination)
-14 of the Part-B defects are our own errors — in analysis, gates, or the protocol
+21 Part-A retractions (claims withdrawn) · 33 Part-B defects (caught pre-contamination)
+15 of the Part-B defects are our own errors — in analysis, gates, or the protocol
 ALL 8 RUNGS COMPLETE
 ```
 

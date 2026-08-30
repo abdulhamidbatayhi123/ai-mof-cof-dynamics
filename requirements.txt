@@ -1,0 +1,28 @@
+# Exact versions every number in RESULTS.md was produced under.
+# Captured 2026-08-30 from the environment that ran the ladder.
+#
+# Install:
+#     python -m venv .venv
+#     .venv/Scripts/activate          # Windows;  source .venv/bin/activate on POSIX
+#     pip install -r requirements.txt
+#
+# Python 3.12.10. Earlier than 3.10 will not work (PEP 604 unions, match syntax
+# in places, and `numpy>=2` requires a recent interpreter).
+#
+# torch is pinned to the CPU wheel. Every result in this repository was produced
+# on CPU; nothing requires a GPU and nothing was ever run on one, so a CUDA build
+# would be an unverified change of numerics rather than a convenience. Install it
+# from the PyTorch CPU index:
+#     pip install torch==2.12.0 --index-url https://download.pytorch.org/whl/cpu
+
+numpy==2.4.6
+scipy==1.17.1
+scikit-learn==1.8.0
+torch==2.12.0
+xgboost==3.2.0
+matplotlib==3.10.9
+
+# Transitive, pinned because they affect determinism of the tree ensembles and
+# the BLAS thread count, which changes floating-point reduction order.
+joblib==1.5.3
+threadpoolctl==3.6.0

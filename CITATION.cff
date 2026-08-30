@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: >-
+  Where does physical knowledge belong in a surrogate? A pre-registered
+  falsification ladder for MOF/COF adsorption column dynamics
+message: If you use this software or its results, please cite it.
+type: software
+authors:
+  - given-names: Abdulhamid
+    family-names: Batayhi
+    email: abdulbatayhi@gmail.com
+repository-code: "https://github.com/REPLACE-ME/ai-mof-cof-dynamics"
+abstract: >-
+  A pre-registered falsification ladder testing seven candidate explanations for
+  the transfer gap in surrogate models of MOF/COF adsorption columns: more data,
+  more capacity, a richer edge basis (KAN), a PDE residual loss, operator
+  learning, structural identification, and whether learning is needed at all.
+  Six are eliminated. The binding constraint is measured directly — the
+  parameter-to-coefficient map — and the one intervention that moves it is a
+  two-wave change of coordinates that removes both front trajectories before
+  projection. Includes a verified finite-difference reference solver, a
+  cluster-robust calibrated inference protocol, and a public corrections ledger.
+keywords:
+  - metal-organic frameworks
+  - covalent organic frameworks
+  - atmospheric water harvesting
+  - breakthrough curves
+  - operator learning
+  - reduced-order modelling
+  - Kolmogorov n-width
+  - physics-informed machine learning
+  - negative results
+  - pre-registration
+license: MIT
