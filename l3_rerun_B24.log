@@ -95,3 +95,11 @@ matched-parameter widths (depth 3, 11 -> 192):
    200,000 rbf_kan    w98   lr1e-04 seed 42: train=0.0462  novel=0.0758  (best@450/2450)  [296s]
    200,000 rbf_kan    w98   lr1e-04 seed 43: train=0.0519  novel=0.0759  (best@350/2350)  [514s]
    200,000 rbf_kan    w98   lr1e-04 seed 44: train=0.0524  novel=0.0814  (best@375/2375)  [553s]
+   200,000 cheby_kan  w103  lr1e-02 seed 42: train=0.0901  novel=0.1289  (best@50/2050)  [534s]
+   200,000 cheby_kan  w103  lr1e-02 seed 43: train=0.0960  novel=0.1102  (best@50/2050)  [541s]
+   200,000 cheby_kan  w103  lr1e-02 seed 44: train=0.0866  novel=0.1244  (best@50/2050)  [132s]
+   200,000 cheby_kan  w103  lr3e-03 seed 42: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr3e-03 seed 43: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr3e-03 seed 44: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr1e-03 seed 42: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr1e-03 seed 43: *** NEVER TRAINED — arm will be refused by the analyzer ***

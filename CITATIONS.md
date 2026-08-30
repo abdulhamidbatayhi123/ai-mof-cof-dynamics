@@ -191,3 +191,38 @@ Priority order. Nothing below may be cited yet.
 14. Do & Do — the Type V water isotherm form
 15. Glueckauf — the LDF coefficient used in dataset design v2
 16. … remainder of the ~268 candidates in `audit_2026-08-30/literature_review_raw.json`
+
+---
+
+## Venue decision (2026-08-31)
+
+**Primary: Computer Methods in Applied Mechanics and Engineering (CMAME), Elsevier.**
+
+Chosen on three grounds, in this order:
+
+1. **Cost.** Subscription journal — publishing costs **nothing** if the optional
+   open-access upgrade is declined. The accepted manuscript may be posted to arXiv
+   (green OA), so the work stays freely readable. The author is a student without
+   APC funding, which rules out npj Computational Materials (~$3.5k),
+   Communications Engineering (~$3.5k) and MLST (~$2k) unless an institutional
+   read-and-publish agreement exists. **Action: confirm with the library.**
+2. **Topical fit — the strongest in the candidate set.** Every paper L3 argues with
+   is in CMAME: Shukla et al. **431**:117290, Abueidda et al. (DeepOKAN)
+   **436**:117699, Wang et al. (KINN) **433**:117518, Kiyani et al. **446**:118308,
+   Rigas et al. **452**:118761. A matched-parameter KAN result is a direct
+   contribution to an argument this journal is actively curating. CMAME also
+   publishes n-width analysis, registration ROM and operator-learning limits.
+3. **Scope.** Methods contribution with a domain application is CMAME's centre of
+   gravity, and it is what the evidence actually supports.
+
+**Sequence:** arXiv preprint first (free, establishes priority) → CMAME.
+**Fallbacks:** Separation and Purification Technology (Elsevier, IF ~8.6, also free
+to publish, domain framing) → TMLR (free, fully OA; its stated criteria forbid
+rejection for lack of novelty and require only that claims match evidence, which
+this paper satisfies unusually well).
+
+**Not pursued:** Nature Computational Science and Nature Machine Intelligence are
+out of reach without experimental data — unchanged since the audit.
+
+**Scope: ONE paper.** The falsification ladder is the story. With multi-front
+alignment established as prior art (B36), the warp is a section, not a paper.
