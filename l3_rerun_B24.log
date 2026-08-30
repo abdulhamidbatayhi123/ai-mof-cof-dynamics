@@ -59,3 +59,6 @@ matched-parameter widths (depth 3, 11 -> 192):
     50,000 cheby_kan  w48   lr1e-03 seed 42: train=0.1063  novel=0.1211  (best@25/2025)  [137s]
     50,000 cheby_kan  w48   lr1e-03 seed 43: train=0.1084  novel=0.1199  (best@25/2025)  [143s]
     50,000 cheby_kan  w48   lr1e-03 seed 44: train=0.1014  novel=0.1252  (best@25/2025)  [143s]
+    50,000 cheby_kan  w48   lr3e-04 seed 42: train=0.1090  novel=0.1204  (best@50/2050)  [170s]
+    50,000 cheby_kan  w48   lr3e-04 seed 43: train=0.1108  novel=0.1205  (best@50/2050)  [130s]
+    50,000 cheby_kan  w48   lr3e-04 seed 44: train=0.1045  novel=0.1269  (best@50/2050)  [88s]

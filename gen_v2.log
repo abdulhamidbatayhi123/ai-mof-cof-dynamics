@@ -63,3 +63,9 @@ workers=4
   1475/4080  kept=1426 rejected=49  6484s elapsed, 11451s left
   1500/4080  kept=1450 rejected=50  6566s elapsed, 11294s left
   1525/4080  kept=1473 rejected=52  6671s elapsed, 11177s left
+  1550/4080  kept=1496 rejected=54  6837s elapsed, 11160s left
+  1575/4080  kept=1521 rejected=54  6897s elapsed, 10969s left
+  1600/4080  kept=1543 rejected=57  6973s elapsed, 10808s left
+  1625/4080  kept=1567 rejected=58  7060s elapsed, 10666s left
+  1650/4080  kept=1590 rejected=60  7141s elapsed, 10517s left
+  1675/4080  kept=1615 rejected=60  7239s elapsed, 10393s left
