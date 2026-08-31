@@ -50,6 +50,8 @@ SOURCES = (
     "results/l5_fill2.json",
     "results/l5_refine.json",
     "results/l5_fill1b.json",     # may not exist; the chain that wrote it died
+    "results/l5_okan_hi.json",    # deepokan at 3e-3 and 1e-2 (guard: 30-35%% off)
+    "results/l5_onet_hi.json",    # deeponet at 1e-2
 )
 MIN_SEEDS = 3                      # protocol section 3 rule 5. Not negotiable.
 WITHDRAWN = "results/l5_singlelr_WITHDRAWN.json"
@@ -106,6 +108,39 @@ def n_seeds(a):
     return len(a["seeds"])
 
 
+def edge_is_binding(curve, best_lr, tol=0.02):
+    """Is an edge selection actually a problem, or has the metric saturated there?
+
+    A selected hyperparameter sitting on the boundary of its swept grid usually
+    means the search did not bracket the optimum — that is defects B14/B22/B23 and
+    retraction A20, five recurrences. But it is not ALWAYS a problem, and treating
+    it as one wastes compute on cells that are already converged.
+
+    The distinction is whether the metric is still MOVING at the edge. Measured on
+    L3 (2026-08-31), the two cases look completely different:
+
+        mlp@50k    bottom edge:  3e-5 0.0564  vs  1e-4 0.0566   -> 0.4 % apart
+        cheby@50k  top edge:     3e-2 0.1063  vs  1e-2 0.1189   -> 11.9 % apart
+
+    The MLP has saturated in learning rate and extending the grid downward cannot
+    materially help; the Chebyshev-KAN is still climbing and its number is a real
+    lower bound on what the family achieves. Reporting both as "unbracketed" is
+    true but not useful.
+
+    `curve` is {lr: score}; lower is better. Returns (binding, relative_change).
+    """
+    ok = {k: v for k, v in curve.items() if v is not None}
+    if len(ok) < 2:
+        return True, float("inf")
+    lrs = sorted(ok)
+    i = lrs.index(best_lr)
+    # the neighbour on the interior side — the direction the grid DOES cover
+    j = i + 1 if i == 0 else i - 1
+    nb = ok[lrs[j]]
+    rel = abs(nb - ok[best_lr]) / max(abs(ok[best_lr]), 1e-30)
+    return bool(rel > tol), float(rel)
+
+
 def select(arms, verbose=True):
     """Best lr per (family, p) at >= MIN_SEEDS, with the grid-boundary guard."""
     fams = sorted({f for f, _, _ in arms})
@@ -123,14 +158,28 @@ def select(arms, verbose=True):
             mean, lr, a = min(cands, key=lambda t: t[0])
             g = grid[f]
             at_edge = (lr == min(g) or lr == max(g)) and len(g) > 1
+            curve = {ll: (np.mean([aa["seeds"][s]["novel_material"]["c"]
+                                   for s in aa["seeds"]])
+                          if n_seeds(aa) >= MIN_SEEDS else None)
+                     for (ff, pp, ll), aa in arms.items() if ff == f and pp == p}
+            binding, rel = (edge_is_binding(curve, lr) if at_edge else (False, 0.0))
             chosen[(f, p)] = {"mean": float(mean), "lr": lr, "arm": a,
                               "unbracketed": bool(at_edge),
+                              "edge_binding": bool(binding),
+                              "edge_sensitivity": rel,
                               "grid": g, "n_lr_tried": len(g)}
-            if at_edge:
+            if at_edge and binding:
                 side = "BOTTOM" if lr == min(g) else "TOP"
                 warnings.append(
                     f"{f} p={p}: best lr {lr:.0e} is the {side} of the swept grid "
-                    f"{[f'{x:.0e}' for x in g]} — UNBRACKETED, optimum may lie outside"
+                    f"{[f'{x:.0e}' for x in g]} and the metric is STILL MOVING there "
+                    f"({rel*100:.1f} % to the next point) — UNBRACKETED, extend the grid"
+                )
+            elif at_edge:
+                warnings.append(
+                    f"{f} p={p}: best lr {lr:.0e} is on the grid edge but the metric "
+                    f"has SATURATED there ({rel*100:.1f} % to the next point) — "
+                    f"benign, no extension needed"
                 )
     return chosen, warnings
 
@@ -164,10 +213,11 @@ def main():
             if c is None:
                 row += f" | {'—':>10s} {'':>7s} {'':>8s}"
             else:
-                flag = "*" if c["unbracketed"] else " "
+                flag = ("*" if c["edge_binding"] else "~") if c["unbracketed"] else " "
                 row += f" | {c['mean']:10.5f}{flag} {c['lr']:7.0e} {c['mean']/floors[p]:8.1f}"
         print(row)
-    print("\n  * = best lr sits on the edge of the swept grid (unbracketed)")
+    print("\n  * = best lr on a grid edge AND still moving there (needs extension)")
+    print("  ~ = best lr on a grid edge but saturated there (benign)")
 
     # ── paired comparisons vs the smallest p, per family ─────────────────────
     print(f"\nPaired vs p = {ps[0]}, cluster-robust by material, alpha = {ALPHA_CALIBRATED}")

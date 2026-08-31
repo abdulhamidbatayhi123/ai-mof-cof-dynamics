@@ -1,0 +1,10 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+  design: legacy  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'k_LDF', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+
+frozen encoding 128x128; fields (988, 3, 128, 128)
+budget ~200,000 params, 8000 steps — identical to run_l5.py
+
+  modes   4: width  28, 205,243 params (+2.6%)

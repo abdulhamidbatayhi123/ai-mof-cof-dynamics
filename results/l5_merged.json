@@ -23,6 +23,8 @@
       "mean": 0.039172593504190445,
       "lr": 0.001,
       "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.301894896836008,
       "grid": [
         5e-05,
         0.0001,
@@ -36,6 +38,8 @@
       "mean": 0.03566839049259821,
       "lr": 0.001,
       "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.3543009113430025,
       "grid": [
         5e-05,
         0.0001,
@@ -49,6 +53,8 @@
       "mean": 0.04979736606280009,
       "lr": 0.0003,
       "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
@@ -62,6 +68,8 @@
       "mean": 0.06518162786960602,
       "lr": 0.0002,
       "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
@@ -75,6 +83,8 @@
       "mean": 0.07104360560576121,
       "lr": 0.0002,
       "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
@@ -88,6 +98,8 @@
       "mean": 0.027597830941279728,
       "lr": 0.003,
       "unbracketed": true,
+      "edge_binding": false,
+      "edge_sensitivity": 0.019051858001830346,
       "grid": [
         5e-05,
         0.0001,
@@ -102,6 +114,8 @@
       "mean": 0.027983106051882107,
       "lr": 0.003,
       "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.045444717296871946,
       "grid": [
         5e-05,
         0.0001,
@@ -116,6 +130,8 @@
       "mean": 0.02903302324314912,
       "lr": 0.003,
       "unbracketed": true,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0016259076990233542,
       "grid": [
         5e-05,
         0.0001,
@@ -130,6 +146,8 @@
       "mean": 0.028425506005684536,
       "lr": 0.003,
       "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.04218124303527271,
       "grid": [
         5e-05,
         0.0001,
@@ -144,6 +162,8 @@
       "mean": 0.027475953102111816,
       "lr": 0.003,
       "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.07731832241432916,
       "grid": [
         5e-05,
         0.0001,
@@ -262,12 +282,12 @@
     }
   },
   "grid_boundary_warnings": [
-    "deepokan p=8: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deepokan p=16: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deeponet p=8: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deeponet p=16: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deeponet p=32: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deeponet p=64: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside",
-    "deeponet p=128: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] \u2014 UNBRACKETED, optimum may lie outside"
+    "deepokan p=8: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] and the metric is STILL MOVING there (30.2 % to the next point) \u2014 UNBRACKETED, extend the grid",
+    "deepokan p=16: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] and the metric is STILL MOVING there (35.4 % to the next point) \u2014 UNBRACKETED, extend the grid",
+    "deeponet p=8: best lr 3e-03 is on the grid edge but the metric has SATURATED there (1.9 % to the next point) \u2014 benign, no extension needed",
+    "deeponet p=16: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (4.5 % to the next point) \u2014 UNBRACKETED, extend the grid",
+    "deeponet p=32: best lr 3e-03 is on the grid edge but the metric has SATURATED there (0.2 % to the next point) \u2014 benign, no extension needed",
+    "deeponet p=64: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (4.2 % to the next point) \u2014 UNBRACKETED, extend the grid",
+    "deeponet p=128: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (7.7 % to the next point) \u2014 UNBRACKETED, extend the grid"
   ]
 }
