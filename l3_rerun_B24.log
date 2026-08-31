@@ -103,3 +103,57 @@ matched-parameter widths (depth 3, 11 -> 192):
    200,000 cheby_kan  w103  lr3e-03 seed 44: *** NEVER TRAINED — arm will be refused by the analyzer ***
    200,000 cheby_kan  w103  lr1e-03 seed 42: *** NEVER TRAINED — arm will be refused by the analyzer ***
    200,000 cheby_kan  w103  lr1e-03 seed 43: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr1e-03 seed 44: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   200,000 cheby_kan  w103  lr3e-04 seed 42: train=0.1005  novel=0.1250  (best@25/2025)  [247s]
+   200,000 cheby_kan  w103  lr3e-04 seed 43: train=0.1003  novel=0.1254  (best@25/2025)  [379s]
+   200,000 cheby_kan  w103  lr3e-04 seed 44: train=0.1020  novel=0.1230  (best@25/2025)  [596s]
+   200,000 cheby_kan  w103  lr1e-04 seed 42: train=0.1043  novel=0.1265  (best@50/2050)  [386s]
+   200,000 cheby_kan  w103  lr1e-04 seed 43: train=0.1040  novel=0.1259  (best@50/2050)  [458s]
+   200,000 cheby_kan  w103  lr1e-04 seed 44: train=0.1051  novel=0.1231  (best@50/2050)  [498s]
+   800,000 mlp        w583  lr1e-02 seed 42: train=0.0553  novel=0.0672  (best@25/2025)  [449s]
+   800,000 mlp        w583  lr1e-02 seed 43: train=0.0542  novel=0.0699  (best@25/2025)  [425s]
+   800,000 mlp        w583  lr1e-02 seed 44: train=0.0064  novel=0.0781  (best@8250/10250)  [2079s]
+   800,000 mlp        w583  lr3e-03 seed 42: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   800,000 mlp        w583  lr3e-03 seed 43: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   800,000 mlp        w583  lr3e-03 seed 44: train=0.0264  novel=0.0653  (best@50/2050)  [439s]
+   800,000 mlp        w583  lr1e-03 seed 42: train=0.0565  novel=0.0588  (best@25/2025)  [637s]
+   800,000 mlp        w583  lr1e-03 seed 43: train=0.0554  novel=0.0577  (best@25/2025)  [295s]
+   800,000 mlp        w583  lr1e-03 seed 44: train=0.0302  novel=0.0632  (best@75/2075)  [125s]
+   800,000 mlp        w583  lr3e-04 seed 42: train=0.0589  novel=0.0590  (best@50/2050)  [101s]
+   800,000 mlp        w583  lr3e-04 seed 43: train=0.0590  novel=0.0598  (best@50/2050)  [114s]
+   800,000 mlp        w583  lr3e-04 seed 44: train=0.0316  novel=0.0578  (best@150/2150)  [112s]
+   800,000 mlp        w583  lr1e-04 seed 42: train=0.0570  novel=0.0579  (best@125/2125)  [129s]
+   800,000 mlp        w583  lr1e-04 seed 43: train=0.0537  novel=0.0560  (best@150/2150)  [112s]
+   800,000 mlp        w583  lr1e-04 seed 44: train=0.0331  novel=0.0579  (best@350/2350)  [139s]
+   800,000 rbf_kan    w203  lr1e-02 seed 42: train=0.0568  novel=0.0775  (best@100/2100)  [472s]
+   800,000 rbf_kan    w203  lr1e-02 seed 43: train=0.0734  novel=0.0854  (best@50/2050)  [372s]
+   800,000 rbf_kan    w203  lr1e-02 seed 44: train=0.0561  novel=0.0713  (best@100/2100)  [466s]
+   800,000 rbf_kan    w203  lr3e-03 seed 42: train=0.0461  novel=0.0694  (best@50/2050)  [306s]
+   800,000 rbf_kan    w203  lr3e-03 seed 43: train=0.0447  novel=0.0695  (best@50/2050)  [316s]
+   800,000 rbf_kan    w203  lr3e-03 seed 44: train=0.0455  novel=0.0718  (best@50/2050)  [304s]
+   800,000 rbf_kan    w203  lr1e-03 seed 42: train=0.0452  novel=0.0712  (best@50/2050)  [125s]
+   800,000 rbf_kan    w203  lr1e-03 seed 43: train=0.0460  novel=0.0717  (best@50/2050)  [130s]
+   800,000 rbf_kan    w203  lr1e-03 seed 44: train=0.0425  novel=0.0747  (best@50/2050)  [122s]
+   800,000 rbf_kan    w203  lr3e-04 seed 42: train=0.0431  novel=0.0716  (best@100/2100)  [123s]
+   800,000 rbf_kan    w203  lr3e-04 seed 43: train=0.0421  novel=0.0721  (best@100/2100)  [122s]
+   800,000 rbf_kan    w203  lr3e-04 seed 44: train=0.0408  novel=0.0740  (best@100/2100)  [121s]
+   800,000 rbf_kan    w203  lr1e-04 seed 42: train=0.0318  novel=0.0712  (best@325/2325)  [137s]
+   800,000 rbf_kan    w203  lr1e-04 seed 43: train=0.0374  novel=0.0725  (best@275/2275)  [145s]
+   800,000 rbf_kan    w203  lr1e-04 seed 44: train=0.0367  novel=0.0743  (best@275/2275)  [154s]
+   800,000 cheby_kan  w215  lr1e-02 seed 42: train=0.0553  novel=0.0994  (best@1200/3200)  [193s]
+   800,000 cheby_kan  w215  lr1e-02 seed 43: train=0.0623  novel=0.1136  (best@525/2525)  [142s]
+   800,000 cheby_kan  w215  lr1e-02 seed 44: train=0.0558  novel=0.0955  (best@450/2450)  [139s]
+   800,000 cheby_kan  w215  lr3e-03 seed 42: train=0.0808  novel=0.1093  (best@25/2025)  [114s]
+   800,000 cheby_kan  w215  lr3e-03 seed 43: train=0.0707  novel=0.1218  (best@25/2025)  [115s]
+   800,000 cheby_kan  w215  lr3e-03 seed 44: train=0.0773  novel=0.1093  (best@25/2025)  [122s]
+   800,000 cheby_kan  w215  lr1e-03 seed 42: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   800,000 cheby_kan  w215  lr1e-03 seed 43: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   800,000 cheby_kan  w215  lr1e-03 seed 44: *** NEVER TRAINED — arm will be refused by the analyzer ***
+   800,000 cheby_kan  w215  lr3e-04 seed 42: train=0.0756  novel=0.1235  (best@25/2025)  [121s]
+   800,000 cheby_kan  w215  lr3e-04 seed 43: train=0.0753  novel=0.1198  (best@25/2025)  [125s]
+   800,000 cheby_kan  w215  lr3e-04 seed 44: train=0.0773  novel=0.1190  (best@25/2025)  [127s]
+   800,000 cheby_kan  w215  lr1e-04 seed 42: train=0.0970  novel=0.1261  (best@25/2025)  [119s]
+   800,000 cheby_kan  w215  lr1e-04 seed 43: train=0.0975  novel=0.1222  (best@25/2025)  [128s]
+   800,000 cheby_kan  w215  lr1e-04 seed 44: train=0.1001  novel=0.1207  (best@25/2025)  [104s]
+
+wrote results/l3_results.json  [36775s]

@@ -155,9 +155,20 @@ def train_eval(F, d, args, modes, width, lr, seed):
     for step in range(args.steps):
         opt.zero_grad(set_to_none=True)
         bi = torch.tensor(tr[rng.integers(0, len(tr), args.batch)], device=DEVICE)
-        pi = torch.tensor(rng.integers(0, n_grid, args.n_pts), device=DEVICE)
-        pred = model(Pz[bi], pi)
-        loss = nn.functional.mse_loss(pred, Ft[bi][:, pi, :])
+        # FULL-GRID supervision, not a 2048-point gather. An FNO computes the whole
+        # field in one forward pass -- that is what a grid operator IS -- so scoring
+        # only a random subset would waste 87 %% of its compute and hand DeepONet an
+        # advantage. Protocol rule 4 requires the competitor's STRONGEST
+        # configuration, and full-grid training is standard practice for FNO.
+        # This gives FNO MORE supervision per step than DeepONet, which is stated
+        # openly: if FNO still plateaus, the conclusion is stronger for it.
+        if args.full_grid:
+            pred = model(Pz[bi])
+            loss = nn.functional.mse_loss(pred, Ft[bi])
+        else:
+            pi = torch.tensor(rng.integers(0, n_grid, args.n_pts), device=DEVICE)
+            pred = model(Pz[bi], pi)
+            loss = nn.functional.mse_loss(pred, Ft[bi][:, pi, :])
         if not torch.isfinite(loss):
             raise RuntimeError(f"non-finite loss at step {step}")
         loss.backward()
@@ -185,15 +196,34 @@ def train_eval(F, d, args, modes, width, lr, seed):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--modes", type=int, nargs="+", default=[4, 8, 16, 32])
+    # modes capped at 16, not 32. At a matched ~200k budget the spectral weights
+    # cost ~16*w^2*m^2, so width collapses as modes grow: w=28 at m=4, 14 at 8,
+    # 9 at 12, 7 at 16, and ~3 at 32. A 3-channel FNO is not a fair arm, it is a
+    # degenerate one, and reporting it as "FNO at 200k params" would be the
+    # weak-baseline failure this project audits for. The collapse is reported.
+    ap.add_argument("--modes", type=int, nargs="+", default=[4, 8, 12, 16])
     ap.add_argument("--lrs", type=float, nargs="+", default=[1e-2, 3e-3, 1e-3])
     ap.add_argument("--seeds", type=int, nargs="+", default=[42, 43, 44])
     ap.add_argument("--budget", type=int, default=200_000)
     ap.add_argument("--layers", type=int, default=4)
     ap.add_argument("--steps", type=int, default=8000)
-    ap.add_argument("--batch", type=int, default=32)
+    # BATCH 8, not DeepONet's 32, and the reason is stated rather than hidden.
+    # FNOArm computes the ENTIRE 128x128 field in one forward pass -- that is what a
+    # grid operator does -- so a point-gather saves nothing and only discards
+    # information. Full-grid supervision at batch 32 would hand FNO 8x DeepONet's
+    # points per step at 4x the wall-clock; at batch 8 it still gets 2x
+    # (8*16384 = 131k vs 32*2048 = 65k), which keeps protocol rule 4 satisfied --
+    # the competitor gets a configuration at least as strong as its rival -- while
+    # remaining affordable. Parameter budget and STEP COUNT, which are what
+    # protocol section 3 rules 1 and 3 actually fix, are matched exactly.
+    ap.add_argument("--batch", type=int, default=8)
     ap.add_argument("--n-pts", type=int, default=2048)
     ap.add_argument("--threads", type=int, default=0)
+    ap.add_argument("--full-grid", action="store_true", default=True,
+                    help="train on the whole field per step (FNO's native and "
+                         "strongest mode). --no-full-grid matches DeepONet's "
+                         "point-sampled loss exactly instead.")
+    ap.add_argument("--no-full-grid", dest="full_grid", action="store_false")
     ap.add_argument("--out", default="results/l5_fno.json")
     args = ap.parse_args()
     if args.threads > 0:

@@ -72,23 +72,43 @@ def assert_wellformed(r):
     # An untrained network losing to a trained one is an observation about
     # optimisation, not about generalisation, and the two are not interchangeable.
     # Refuse the file rather than let one through again.
-    bad = []
+    # A never-trained ARM is excluded by best_lr_arms (below). That is the right
+    # response: a learning rate at which a family cannot train is a real and
+    # informative observation about optimisation, and discarding the whole sweep
+    # because one configuration diverged would throw away the evidence.
+    #
+    # What is NOT survivable is a (budget, family) cell with no clean arm left,
+    # because then there is no honest number to report for it — which is exactly
+    # what produced A19, where BOTH of cheby_kan@200k's learning rates were
+    # untrained and `best_lr_arms` reported the initialisation error as a result.
+    cells = {}
     for a in arms:
-        for s, rec in a["seeds"].items():
-            if rec.get("never_trained"):
-                bad.append(f"{a['family']}@{a['budget']} lr={a.get('lr'):.0e} seed {s} (guard fired)")
-            elif rec.get("early_stop", {}).get("best_step") == 0:
-                bad.append(f"{a['family']}@{a['budget']} lr={a.get('lr'):.0e} seed {s} (best_step=0)")
-    if bad:
+        cells.setdefault((a["budget"], a["family"]), []).append(a)
+    empty = [f"{fam}@{bud:,}" for (bud, fam), v in cells.items()
+             if all(_is_untrained(a) for a in v)]
+    if empty:
         raise AssertionError(
-            "results file contains runs whose best checkpoint is the random "
-            "initialisation — their error is a property of the init scheme, not of "
-            "the architecture, and best_lr_arms cannot distinguish them from "
-            "trained runs:\n    " + "\n    ".join(bad) +
-            "\n  Re-run those configurations with a larger `steps`/`patience` "
-            "(defect B24). Do not analyse this file."
+            "these (budget, family) cells have NO configuration that trained — every "
+            "learning rate returned the random initialisation, so there is no honest "
+            "number to report for them:\n    " + "\n    ".join(sorted(empty)) +
+            "\n  This is the condition that produced retraction A19. Widen the "
+            "learning-rate grid or raise `steps` for these cells (defect B24)."
         )
     return True
+
+
+def _is_untrained(arm):
+    """True if ANY seed of this arm failed to improve on its initialisation."""
+    for rec in arm["seeds"].values():
+        if rec.get("never_trained") or rec.get("early_stop", {}).get("best_step") == 0:
+            return True
+    return False
+
+
+def untrained_report(r):
+    """Every arm excluded for never training, so exclusions are visible not silent."""
+    return [f"{a['family']}@{a['budget']:,} lr={a.get('lr'):.0e}"
+            for a in r["arms"] if _is_untrained(a)]
 
 
 def best_lr_arms(r):
@@ -100,6 +120,12 @@ def best_lr_arms(r):
     """
     best = {}
     for a in r["arms"]:
+        # EXCLUDE never-trained arms (defect B24 / retraction A19). Without this,
+        # an arm whose error IS its random initialisation can win the min() and be
+        # reported as an architecture result — which is what happened at
+        # cheby_kan@200k, where both learning rates were untrained.
+        if _is_untrained(a):
+            continue
         key = (a["budget"], a["family"])
         nv = np.mean([a["seeds"][s]["novel_material"]["c"] for s in a["seeds"]])
         if key not in best or nv < best[key][0]:
