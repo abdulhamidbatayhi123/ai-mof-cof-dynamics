@@ -1,0 +1,15 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+  design: legacy  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'k_LDF', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+
+frozen encoding 128x128; fields (988, 3, 128, 128); coords (16384, 2)
+
+POD floor at each p (the n-width bound on ANY linear reconstruction):
+  p=   8  novel-material 0.01440
+  p=  16  novel-material 0.00731
+  p=  32  novel-material 0.00331
+  p=  64  novel-material 0.00135
+  p= 128  novel-material 0.00050
+
