@@ -202,22 +202,80 @@ significantly behind the MLP (diff −0.0060, CI [−0.0120, −0.0008]).
 
 ## L5 — the operator rung, and the strongest mechanism in the project
 
-90 configurations (2 families × 5 basis sizes × 3 learning rates × 3 seeds), all
-at ~200 k parameters and 8000 steps. Each family scored at **its own best
-learning rate** per basis size. Novel-material nRMSE on c:
+**Re-scored 2026-09-01 over every learning rate ever run** — 8 files, 76 arms,
+learning rates 5e-5 to 1e-2, all at ~200 k parameters and 8000 steps on the same
+128×128 encoding. Each family at **its own best learning rate** per basis size,
+with `analyze_l5_merged.py`'s grid-boundary guard confirming each optimum is
+interior or saturated. Retraction **A20** withdrew the original numbers.
 
-| p | POD floor | DeepONet | × floor | DeepOKAN |
-|---|---|---|---|---|
-| 8 | 0.01440 | **0.0281** | 2.0× | 0.0392 |
-| 16 | 0.00731 | **0.0293** | 4.0× | 0.0357 |
-| 32 | 0.00331 | **0.0291** | 8.8× | 0.0498 |
-| 64 | 0.00135 | **0.0296** | 21.9× | 0.0818 |
-| 128 | 0.00050 | **0.0296** | **59.0×** | 0.0884 |
+Novel-material nRMSE on c:
 
-**The floor falls 28.7×. DeepONet moves 1.05×** — all four paired comparisons
-against p = 8 return *no difference* at the calibrated α. Train error is flat too
-(0.0119 → 0.0135), so this is not a generalisation artefact: the model cannot use
-the extra modes on data it has already seen.
+| p | POD floor | DeepONet | × floor | DeepOKAN | × floor |
+|---|---|---|---|---|---|
+| 8 | 0.01440 | **0.0265** | 1.8× | 0.0392 | 2.7× |
+| 16 | 0.00731 | **0.0265** | 3.6× | 0.0357 | 4.9× |
+| 32 | 0.00331 | **0.0290** | 8.8× | 0.0498 | 15.1× |
+| 64 | 0.00135 | **0.0284** | 21.0× | 0.0652 | 48.2× |
+| 128 | 0.00050 | **0.0275** | **55×** | 0.0710 | 142× |
+
+**The floor falls 28.7×. DeepONet moves 0.96×** — all four paired comparisons
+against p = 8 return *no difference* at the calibrated α:
+
+```
+p= 16  diff -0.00001  CI [-0.00289, +0.00288]   NO DIFFERENCE
+p= 32  diff -0.00258  CI [-0.00760, +0.00247]   NO DIFFERENCE
+p= 64  diff -0.00197  CI [-0.00738, +0.00374]   NO DIFFERENCE
+p=128  diff -0.00102  CI [-0.00585, +0.00491]   NO DIFFERENCE
+```
+
+The flat-in-p result **survives full re-tuning across three and a half decades of
+learning rate**, and is flatter than originally reported.
+
+---
+
+### FNO: the arm the theory names, and it moves the wall — partly
+
+Lanthaler, Molinaro, Hadorn & Mishra (ICLR 2023, **verified**) prove that operator
+architectures with a **linear reconstruction** step — DeepONet, PCA-Net, and
+POD-plus-regressor — are lower-bounded on advection-dominated problems, and that
+**FNO escapes that bound** via nonlinear reconstruction. L5 originally tested only
+the condemned family; the protocol named FNO and it was never run (**B33**).
+
+The prediction was pre-registered in `run_l5_fno.py` before the run: *plateau near
+0.028 → the wall belongs to the problem; break the plateau → L5 narrows to
+linear-reconstruction operators.* Matched exactly — same encoding, budget, steps,
+splits, seeds, and the same bounded output head.
+
+| arm | best config | novel-material nRMSE | × POD floor (p=128) |
+|---|---|---|---|
+| DeepOKAN | p=16, lr 1e-3 | 0.0357 | 71× |
+| DeepONet | p=8, lr 1e-2 | 0.0265 | 53× |
+| **FNO** | **modes=4, lr 3e-3** | **0.0216** | **43×** |
+
+```
+DeepONet 0.0265 vs FNO 0.0216 | diff +0.0049 CI [+0.0004, +0.0098]  SIGNIFICANT
+```
+
+**Both halves of this matter, and neither may be reported without the other.**
+
+**FNO wins, significantly — 23 % better than the best linear-reconstruction arm.**
+That is the direction the theory predicts, and it is the first measurement of what
+the escape is actually worth on a physical problem rather than in an approximation
+bound. L5's conclusion narrows accordingly: *"you need an operator" is eliminated
+for linear-reconstruction operators; for nonlinear reconstruction it is reduced,
+not eliminated.*
+
+**And FNO does not remove the wall.** It sits **43× above the POD floor** where
+DeepONet sits 53×. A 1.23× improvement against a bound 43× below it is a dent, not
+an escape. The obstruction measured in `l5_bottleneck.py` — the parameter →
+coefficient map — survives the architecture the theory names as its remedy.
+
+> **Caveat, stated because it is load-bearing.** FNO's `modes` sweep is confounded
+> with width at a matched budget: the spectral weights cost ~16·w²·m², so w = 28 at
+> modes 4 and w = 14 at modes 8. FNO scoring worse at modes 8 (0.0246) than modes 4
+> (0.0216) therefore **cannot** be read as "more Fourier modes do not help" — it is
+> modes traded against width. The flat-in-p statement is made for DeepONet, where p
+> and width are separately controlled, and is **not** claimed for FNO.
 
 ### What binds instead — measured, not inferred
 

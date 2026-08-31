@@ -9,7 +9,9 @@
     "l5_results.json",
     "l5_fill1.json",
     "l5_fill2.json",
-    "l5_refine.json"
+    "l5_refine.json",
+    "l5_okan_hi.json",
+    "l5_onet_hi.json"
   ],
   "pod_floor": {
     "8": 0.014403234235942364,
@@ -22,32 +24,36 @@
     "deepokan_p8": {
       "mean": 0.039172593504190445,
       "lr": 0.001,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.301894896836008,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
-        0.001
+        0.001,
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 5
+      "n_lr_tried": 7
     },
     "deepokan_p16": {
       "mean": 0.03566839049259821,
       "lr": 0.001,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.3543009113430025,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
-        0.001
+        0.001,
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 5
+      "n_lr_tried": 7
     },
     "deepokan_p32": {
       "mean": 0.04979736606280009,
@@ -60,9 +66,11 @@
         0.0001,
         0.0002,
         0.0003,
-        0.001
+        0.001,
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 5
+      "n_lr_tried": 7
     },
     "deepokan_p64": {
       "mean": 0.06518162786960602,
@@ -75,9 +83,11 @@
         0.0001,
         0.0002,
         0.0003,
-        0.001
+        0.001,
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 5
+      "n_lr_tried": 7
     },
     "deepokan_p128": {
       "mean": 0.07104360560576121,
@@ -90,89 +100,96 @@
         0.0001,
         0.0002,
         0.0003,
-        0.001
+        0.001,
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 5
+      "n_lr_tried": 7
     },
     "deeponet_p8": {
-      "mean": 0.027597830941279728,
-      "lr": 0.003,
-      "unbracketed": true,
-      "edge_binding": false,
-      "edge_sensitivity": 0.019051858001830346,
-      "grid": [
-        5e-05,
-        0.0001,
-        0.0002,
-        0.0003,
-        0.001,
-        0.003
-      ],
-      "n_lr_tried": 6
-    },
-    "deeponet_p16": {
-      "mean": 0.027983106051882107,
-      "lr": 0.003,
+      "mean": 0.026457446937759716,
+      "lr": 0.01,
       "unbracketed": true,
       "edge_binding": true,
-      "edge_sensitivity": 0.045444717296871946,
+      "edge_sensitivity": 0.04310257169570171,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
         0.001,
-        0.003
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 6
+      "n_lr_tried": 7
+    },
+    "deeponet_p16": {
+      "mean": 0.026465439548095066,
+      "lr": 0.01,
+      "unbracketed": true,
+      "edge_binding": true,
+      "edge_sensitivity": 0.05734522190833137,
+      "grid": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0003,
+        0.001,
+        0.003,
+        0.01
+      ],
+      "n_lr_tried": 7
     },
     "deeponet_p32": {
       "mean": 0.02903302324314912,
       "lr": 0.003,
-      "unbracketed": true,
+      "unbracketed": false,
       "edge_binding": false,
-      "edge_sensitivity": 0.0016259076990233542,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
         0.001,
-        0.003
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 6
+      "n_lr_tried": 7
     },
     "deeponet_p64": {
       "mean": 0.028425506005684536,
       "lr": 0.003,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.04218124303527271,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
         0.001,
-        0.003
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 6
+      "n_lr_tried": 7
     },
     "deeponet_p128": {
       "mean": 0.027475953102111816,
       "lr": 0.003,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.07731832241432916,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
         0.0002,
         0.0003,
         0.001,
-        0.003
+        0.003,
+        0.01
       ],
-      "n_lr_tried": 6
+      "n_lr_tried": 7
     }
   },
   "paired_vs_smallest_p": {
@@ -232,11 +249,11 @@
       "arm_a": "deeponet p=8",
       "arm_b": "p=16",
       "metric": "nrmse_c",
-      "mean_a": 0.027597831477987184,
-      "mean_b": 0.02798310534914285,
-      "mean_diff": -0.00038527387115566887,
-      "ci_low": -0.0029325507958386644,
-      "ci_high": 0.0026875062489469794,
+      "mean_a": 0.026457447418865822,
+      "mean_b": 0.026465440401807427,
+      "mean_diff": -7.992982941603976e-06,
+      "ci_low": -0.0028929296434145905,
+      "ci_high": 0.0028848012532351796,
       "significant": false,
       "verdict": "no difference between deeponet p=8 and p=16",
       "n_materials": 12
@@ -245,11 +262,11 @@
       "arm_a": "deeponet p=8",
       "arm_b": "p=32",
       "metric": "nrmse_c",
-      "mean_a": 0.027597831477987184,
+      "mean_a": 0.026457447418865822,
       "mean_b": 0.029033021367375875,
-      "mean_diff": -0.0014351898893886932,
-      "ci_low": -0.00362467317146399,
-      "ci_high": 0.00022762165043141314,
+      "mean_diff": -0.002575573948510053,
+      "ci_low": -0.007600691690876455,
+      "ci_high": 0.002465142214699444,
       "significant": false,
       "verdict": "no difference between deeponet p=8 and p=32",
       "n_materials": 12
@@ -258,11 +275,11 @@
       "arm_a": "deeponet p=8",
       "arm_b": "p=64",
       "metric": "nrmse_c",
-      "mean_a": 0.027597831477987184,
+      "mean_a": 0.026457447418865822,
       "mean_b": 0.02842550707523824,
-      "mean_diff": -0.0008276755972510546,
-      "ci_low": -0.003086918269096883,
-      "ci_high": 0.0017071238625243862,
+      "mean_diff": -0.001968059656372414,
+      "ci_low": -0.007377786768296595,
+      "ci_high": 0.003743529217469741,
       "significant": false,
       "verdict": "no difference between deeponet p=8 and p=64",
       "n_materials": 12
@@ -271,23 +288,18 @@
       "arm_a": "deeponet p=8",
       "arm_b": "p=128",
       "metric": "nrmse_c",
-      "mean_a": 0.027597831477987184,
+      "mean_a": 0.026457447418865822,
       "mean_b": 0.027475952502466726,
-      "mean_diff": 0.00012187897552045721,
-      "ci_low": -0.0016369658057883963,
-      "ci_high": 0.0031490901494048325,
+      "mean_diff": -0.0010185050836009025,
+      "ci_low": -0.0058479049665051555,
+      "ci_high": 0.004907418683814124,
       "significant": false,
       "verdict": "no difference between deeponet p=8 and p=128",
       "n_materials": 12
     }
   },
   "grid_boundary_warnings": [
-    "deepokan p=8: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] and the metric is STILL MOVING there (30.2 % to the next point) \u2014 UNBRACKETED, extend the grid",
-    "deepokan p=16: best lr 1e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03'] and the metric is STILL MOVING there (35.4 % to the next point) \u2014 UNBRACKETED, extend the grid",
-    "deeponet p=8: best lr 3e-03 is on the grid edge but the metric has SATURATED there (1.9 % to the next point) \u2014 benign, no extension needed",
-    "deeponet p=16: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (4.5 % to the next point) \u2014 UNBRACKETED, extend the grid",
-    "deeponet p=32: best lr 3e-03 is on the grid edge but the metric has SATURATED there (0.2 % to the next point) \u2014 benign, no extension needed",
-    "deeponet p=64: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (4.2 % to the next point) \u2014 UNBRACKETED, extend the grid",
-    "deeponet p=128: best lr 3e-03 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03'] and the metric is STILL MOVING there (7.7 % to the next point) \u2014 UNBRACKETED, extend the grid"
+    "deeponet p=8: best lr 1e-02 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03', '1e-02'] and the metric is STILL MOVING there (4.3 % to the next point) \u2014 UNBRACKETED, extend the grid",
+    "deeponet p=16: best lr 1e-02 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03', '1e-02'] and the metric is STILL MOVING there (5.7 % to the next point) \u2014 UNBRACKETED, extend the grid"
   ]
 }

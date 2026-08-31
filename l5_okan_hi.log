@@ -13,3 +13,18 @@ POD floor at each p (the n-width bound on ANY linear reconstruction):
   p=  64  novel-material 0.00135
   p= 128  novel-material 0.00050
 
+  deepokan  p=   8 w92   lr3e-03 seed 42: train=0.2899 novel=0.3321 [12125s]
+  deepokan  p=   8 w92   lr3e-03 seed 43: train=0.8753 novel=0.8684 [1012s]
+  deepokan  p=   8 w92   lr3e-03 seed 44: train=0.2899 novel=0.3321 [913s]
+  deepokan  p=   8 w92   lr1e-02 seed 42: train=0.2899 novel=0.3321 [2035s]
+  deepokan  p=   8 w92   lr1e-02 seed 43: train=0.2899 novel=0.3321 [1798s]
+  deepokan  p=   8 w92   lr1e-02 seed 44: train=0.2899 novel=0.3321 [3946s]
+  deepokan  p=  16 w88   lr3e-03 seed 42: train=0.2899 novel=0.3321 [5784s]
+  deepokan  p=  16 w88   lr3e-03 seed 43: train=0.8753 novel=0.8684 [1319s]
+  deepokan  p=  16 w88   lr3e-03 seed 44: train=0.8753 novel=0.8684 [1188s]
+  deepokan  p=  16 w88   lr1e-02 seed 42: train=0.8753 novel=0.8684 [1636s]
+  deepokan  p=  16 w88   lr1e-02 seed 43: train=0.8753 novel=0.8684 [6283s]
+  deepokan  p=  16 w88   lr1e-02 seed 44: train=0.2899 novel=0.3321 [3907s]
+  deepokan  p=  32 w78   lr3e-03 seed 42: train=0.8753 novel=0.8684 [1580s]
+  deepokan  p=  32 w78   lr3e-03 seed 43: train=0.8753 novel=0.8684 [863s]
+  deepokan  p=  32 w78   lr3e-03 seed 44: train=0.2899 novel=0.3321 [2177s]

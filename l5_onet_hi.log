@@ -23,3 +23,10 @@ POD floor at each p (the n-width bound on ANY linear reconstruction):
   deeponet  p=  32 w198  lr1e-02 seed 43: train=0.0062 novel=0.0243 [438s]
   deeponet  p=  32 w198  lr1e-02 seed 44: train=0.0062 novel=0.0228 [632s]
   deeponet  p=  64 w178  lr1e-02 seed 42: train=0.0060 novel=0.0256 [1031s]
+  deeponet  p=  64 w178  lr1e-02 seed 43: train=0.8753 novel=0.8684 [1512s]
+  deeponet  p=  64 w178  lr1e-02 seed 44: train=0.0060 novel=0.0265 [667s]
+  deeponet  p= 128 w146  lr1e-02 seed 42: train=0.0063 novel=0.0229 [1173s]
+  deeponet  p= 128 w146  lr1e-02 seed 43: train=0.0067 novel=0.0262 [1321s]
+  deeponet  p= 128 w146  lr1e-02 seed 44: train=0.2899 novel=0.3321 [846s]
+
+wrote results/l5_onet_hi.json  [10974s]
