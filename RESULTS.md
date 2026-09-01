@@ -602,9 +602,37 @@ separate − joint (c, novel-material):
   99.5 % CI: [−0.0155, +0.0450]  → CI INCLUDES ZERO → NOT SIGNIFICANT
 ```
 
-**Verdict: H1 is not supported.** Structural decomposition does not produce a
-statistically significant improvement on novel materials in this system. The
-point estimate goes in the *wrong direction*.
+**Verdict: H1 is not supported at this power.** Structural decomposition does not
+produce a statistically significant improvement on novel materials in this system,
+and the point estimate goes in the *wrong direction*.
+
+> ⚠️ **This null excludes far less than first reported — retraction A22.** The
+> design's power was recomputed with the material-level clustering preserved
+> (`results/l6_power_corrected.json`). At 12 held-out materials and α = 0.005:
+>
+> | true improvement | power |
+> |---|---|
+> | 20 % | **7 %** |
+> | 30 % | 16 % |
+> | 50 % | 45 % |
+> | 70 % | 77 % |
+>
+> The minimum detectable effect at 80 % power is roughly **70 %**. The difference
+> between the arms is strongly clustered by material — between-material sd
+> **0.0391, 69 % of the base error**, against a within-material sd of 0.0290 — and
+> that is what makes the test hard.
+>
+> So this null is real but weak: it excludes only very large structural benefits.
+> It is **not** evidence that a moderate one is absent, and it must never be quoted
+> without its MDE. An earlier claim that this design had 96 % power at a 20 %
+> effect is withdrawn; that figure came from a simulation that resampled residuals
+> i.i.d. and destroyed the clustering.
+>
+> **Consequences.** (i) The v2 re-test at 48 held-out materials is *necessary*, not
+> confirmatory. (ii) L6 should be estimated as an effect **as a function of
+> Damköhler** rather than as one pooled mean difference — a regression uses the
+> between-material structure instead of paying for it as noise, and the legacy
+> dataset could not do this at all because 98.9 % of it sat at Da > 60.
 
 ### Why the separate arm does not help here
 

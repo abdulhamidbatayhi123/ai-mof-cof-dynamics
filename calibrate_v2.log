@@ -17,3 +17,47 @@ legacy: 12 held-out materials, 201 conditions (per material: min 15, median 17, 
             5 %       5 %
            10 %       9 %
            15 %      17 %
+           20 %      26 %
+           30 %      56 %
+           50 %      96 %
+
+  => minimum detectable effect at 80 % power: 50 %
+  => a 'no difference' verdict on this split excludes improvements larger than ~50 %
+
+======================================================================
+v2: 48 held-out materials, 793 conditions (per material: min 13, median 17, max 17)
+======================================================================
+
+  SIZE — empirical false-positive rate under a clustered null
+   nominal alpha   empirical FPR
+           0.050            7.8 %
+           0.020            5.0 %   <- calibrated
+           0.010            3.5 %
+           0.005            2.5 %
+           0.002            1.8 %
+
+  POWER at alpha = 0.02 — what this design can actually detect
+   true effect    power
+            0 %       5 %
+            5 %       8 %
+           10 %      27 %
+           15 %      61 %
+           20 %      85 %
+           30 %     100 %
+           50 %     100 %
+
+  => minimum detectable effect at 80 % power: 20 %
+  => a 'no difference' verdict on this split excludes improvements larger than ~20 %
+
+wrote results/calibration_v2.json  [1043s]
+
+======================================================================
+WHAT v2 BUYS
+======================================================================
+  clusters       12  ->   48
+  alpha         0.01  ->  0.02
+  MDE @80%%      50 %  ->  20 %
+
+  Every 'no difference' verdict must be reported with its MDE. A null
+  without a power statement is an absence of evidence, not evidence of
+  absence, and this paper is largely made of nulls.
