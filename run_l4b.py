@@ -103,7 +103,7 @@ def train(arm, d, tr_idx, args, seed, t_lo, t_hi):
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     sch = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=args.steps, eta_min=args.lr * 1e-2)
     Pz = torch.tensor(d.params_z, dtype=torch.float32, device=DEVICE)
-    table = build_phys_table(d.params, DEVICE)
+    table = build_phys_table(d.params, DEVICE, d.param_keys)
     tau_all = torch.tensor(
         [d.t_final[i] / (0.10 / d.params[i][d.pidx("v")]) for i in range(len(d.params))],
         dtype=torch.float32, device=DEVICE).unsqueeze(1)

@@ -25,7 +25,7 @@ d = ladder_data.load_slice(z_frac=0.5, verbose=False)
 nt = d.fields.shape[2]
 rows = []
 for gi in range(len(d.params)):
-    p = physics_from_params(d.params[gi])
+    p = physics_from_params(d.params[gi], d.param_keys)
     c = d.fields[gi,0,:]*p.c_in; q = d.fields[gi,1,:]*p.q_max; T = d.fields[gi,2,:]*p.T_in
     drive = q_star_np(c, T, p) - q
     t_ref = p.L / p.v

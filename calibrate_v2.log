@@ -1,0 +1,19 @@
+
+======================================================================
+legacy: 12 held-out materials, 201 conditions (per material: min 15, median 17, max 17)
+======================================================================
+
+  SIZE — empirical false-positive rate under a clustered null
+   nominal alpha   empirical FPR
+           0.050            8.5 %
+           0.020            6.2 %
+           0.010            5.0 %   <- calibrated
+           0.005            4.2 %
+           0.002            3.8 %
+
+  POWER at alpha = 0.01 — what this design can actually detect
+   true effect    power
+            0 %       5 %
+            5 %       5 %
+           10 %       9 %
+           15 %      17 %

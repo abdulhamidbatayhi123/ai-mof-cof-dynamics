@@ -67,8 +67,38 @@ FINGERPRINT_RH = np.array([0.02, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30,
 # 0.80 % from the exact q*(c,T).
 FINGERPRINT_DT = np.array([0.0, +10.0, +25.0, +45.0])
 
+# WHAT AN EXPERIMENTALIST CAN MEASURE WITHOUT FITTING A MODEL.
+#
+# Design v2 changes one entry and it is the important one. Under the legacy design
+# the hidden kinetic object was `k_LDF`; under v2 the kinetics are DERIVED from the
+# particle through Glueckauf, so the hidden object is the particle diameter `d_p` —
+# a formulation choice an experimentalist actually makes, rather than a lumped
+# coefficient that already contains the isotherm slope.
+#
+# That substitution makes H1 a cleaner question. `k_LDF` is partly determined by
+# equilibrium (k ~ 1/K, K = q*/c), so "can you recover k_LDF from an isotherm
+# fingerprint?" was partly asking whether the fingerprint predicts itself. `d_p` is
+# thermodynamically independent of the isotherm, so a negative result on `d_p` is
+# unambiguously a statement about kinetic identifiability.
+#
+# `d_p` IS observable in the sense that you can measure a pellet with callipers —
+# but it is withheld here on purpose, because the question L6 asks is whether the
+# kinetic object can be recovered from the SAME dynamic measurements that give the
+# equilibrium object. Handing it over would answer a different question.
 OBSERVABLE_KEYS = ["rho_p", "eps_t", "v", "T_in", "rh_feed"]
-WITHHELD_KEYS = ["q_max", "delta_H", "step_rh", "isotherm_n", "henry_fraction", "k_LDF"]
+
+_WITHHELD_EQUILIBRIUM = ["q_max", "delta_H", "step_rh", "isotherm_n", "henry_fraction"]
+
+
+def withheld_keys_for(d):
+    """The withheld set for THIS dataset's design. Read from the data, never assumed."""
+    kinetic = "d_p" if "d_p" in d.param_keys else "k_LDF"
+    return _WITHHELD_EQUILIBRIUM + [kinetic]
+
+
+# Legacy module-level constant, kept so pre-v2 callers keep working. New code must
+# call withheld_keys_for(d) — under v2 this list names a column that does not exist.
+WITHHELD_KEYS = _WITHHELD_EQUILIBRIUM + ["k_LDF"]
 
 
 def fingerprint(physics, T, rh=FINGERPRINT_RH):
@@ -94,7 +124,7 @@ def build(d, normalise_fingerprint=True):
 
     rows, names = [], None
     for i in range(len(d.params)):
-        p = physics_from_params(d.params[i])
+        p = physics_from_params(d.params[i], d.param_keys)
         fp = multi_T_fingerprint(p, p.T_in)
         feats, nms = [], []
         if normalise_fingerprint:
@@ -137,7 +167,7 @@ def check_non_degenerate(d, X, verbose=True):
     if verbose:
         print(f"  {'withheld parameter':<18} {'R2 from descriptors':>21}  recoverable?")
         print("  " + "-" * 58)
-    for k in WITHHELD_KEYS:
+    for k in withheld_keys_for(d):
         y = d.params[:, d.pidx(k)]
         m = RandomForestRegressor(n_estimators=200, random_state=0, n_jobs=-1)
         m.fit(X[tr], y[tr])

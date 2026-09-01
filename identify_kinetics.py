@@ -147,7 +147,7 @@ def main():
 
     rows = []
     for gi in range(len(d.params)):
-        p = physics_from_params(d.params[gi])
+        p = physics_from_params(d.params[gi], d.param_keys)
         k_true = float(d.params[gi][d.pidx("k_LDF")])
         t = np.linspace(0.0, d.t_final[gi], nt)
         c = d.fields[gi, 0, :] * p.c_in

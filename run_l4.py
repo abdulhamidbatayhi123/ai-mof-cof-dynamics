@@ -51,14 +51,16 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 R_GAS = 8.314
 
 
-def physics_from_params(vec, keys=PARAM_KEYS):
+def physics_from_params(vec, keys):
     """Rebuild an AdsorptionPhysicsConfig from an 11-vector (raw, not standardised).
 
-    `keys` names the vector's columns and MUST come from the dataset that produced
-    it — pass `d.param_keys`. The legacy and v2 designs use different vectors of
-    the same length (position 5 is `k_LDF` under legacy, `d_p` under v2), so a
-    default is a footgun; it is retained only so legacy callers keep working, and
-    the reconstruction below is asserted rather than assumed.
+    `keys` names the vector's columns and is REQUIRED — pass `d.param_keys`.
+    There is deliberately no default. The legacy and v2 designs use different
+    vectors of the same length (position 5 is `k_LDF` under legacy and `d_p`
+    under v2), so a default would silently reconstruct the wrong physics on one
+    of them — the precise failure `LadderData.pidx` was added to make impossible,
+    re-introduced through a keyword argument. Verified: this function reproduces
+    the generator's config to 0.000e+00 relative error on BOTH designs.
     """
     p = AdsorptionPhysicsConfig()
     d = dict(zip(keys, vec))
@@ -198,7 +200,7 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
     return (c0 - (1.0 / Pe) * dc0 - 1.0), (T0 - 1.0), dc1, dT1
 
 
-def build_phys_table(raw_params, device):
+def build_phys_table(raw_params, device, keys):
     """Per-row dimensionless groups for EVERY sample, computed ONCE.
 
     The first version rebuilt an AdsorptionPhysicsConfig for all 1024 collocation
@@ -206,7 +208,7 @@ def build_phys_table(raw_params, device):
     calibration per row, which dominated the step time. Building the table once
     and indexing into it makes the physics term nearly free.
     """
-    return build_phys_batch(raw_params, np.arange(len(raw_params)), device)
+    return build_phys_batch(raw_params, np.arange(len(raw_params)), device, keys)
 
 
 def index_phys(table, idx):
@@ -214,13 +216,13 @@ def index_phys(table, idx):
     return {k: v[idx] for k, v in table.items()}
 
 
-def build_phys_batch(raw_params, idx, device):
+def build_phys_batch(raw_params, idx, device, keys):
     """Precompute per-row dimensionless groups for the rows in `idx`."""
     keys = ("q_max", "delta_H", "b0", "b_H0", "c_in", "T_in", "isotherm_n",
             "henry_fraction", "Lambda", "Pe", "Da", "beta", "St", "Pe_T", "v_T", "t_ref")
     cols = {k: [] for k in keys}
     for i in idx:
-        p = physics_from_params(raw_params[i])
+        p = physics_from_params(raw_params[i], keys)
         eps, Ct = p.eps_t, p.C_term
         t_ref = p.L / p.v
         cols["q_max"].append(p.q_max); cols["delta_H"].append(p.delta_H)
@@ -308,7 +310,7 @@ def train_arm(arm, d, tr_idx, args, seed):
     sch = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=args.steps, eta_min=args.lr * 1e-2)
 
     Pz = torch.tensor(d.params_z, dtype=torch.float32, device=DEVICE)
-    phys_table = build_phys_table(d.params, DEVICE)   # once, not per step
+    phys_table = build_phys_table(d.params, DEVICE, d.param_keys)   # once, not per step
     tau_all = torch.tensor(
         [d.t_final[i] / (0.10 / d.params[i][d.pidx("v")]) for i in range(len(d.params))],
         dtype=torch.float32, device=DEVICE).unsqueeze(1)

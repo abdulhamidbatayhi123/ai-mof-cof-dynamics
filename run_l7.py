@@ -56,7 +56,7 @@ def main():
             idx = d.idx(split)
             rows, wall = [], 0.0
             for gi in idx:
-                p = physics_from_params(d.params[gi])
+                p = physics_from_params(d.params[gi], d.param_keys)
                 c_in = rh_to_conc(d.params[gi][d.pidx("rh_feed")], p.T_in)
                 t = t_norm * d.t_final[gi]
                 t0 = time.perf_counter()
