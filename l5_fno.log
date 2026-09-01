@@ -24,3 +24,9 @@ budget ~200,000 params, 8000 steps — identical to run_l5.py
   modes  16: width   7, 201,106 params (+0.6%)
     modes= 16 w7   lr3e-03 seed 42: train=0.0256 novel=0.0281 [3062s]
     modes= 16 w7   lr3e-03 seed 43: train=0.0241 novel=0.0259 [4518s]
+    modes= 16 w7   lr3e-03 seed 44: train=0.0272 novel=0.0291 [16164s]
+    modes= 16 w7   lr1e-03 seed 42: train=0.0451 novel=0.0442 [1826s]
+    modes= 16 w7   lr1e-03 seed 43: train=0.0371 novel=0.0389 [1394s]
+    modes= 16 w7   lr1e-03 seed 44: train=0.0434 novel=0.0425 [1425s]
+
+wrote results/l5_fno.json  [163012s]

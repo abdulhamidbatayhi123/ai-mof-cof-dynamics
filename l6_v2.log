@@ -30,3 +30,18 @@ INVALIDATION CHECKS (PREREG_L6_v2.md section 5) — run before any verdict
   step_rh                           0.9838  YES - still degenerate
   isotherm_n                        0.9330  partly
   henry_fraction                    0.5364  no
+  d_p                              -0.2556  no
+
+  kinetic object 'd_p': R2 = -0.2556  -> HIDDEN, rung is valid
+
+  Damkohler per material: n=240  min 7.7  median 25.0  max 173.0  (1.35 decades)
+  -> sufficient spread for a slope test
+
+folds written BEFORE training: 5 folds over 240 materials -> results/l6_v2_folds.json
+   fold 0: 48 held-out materials, 797 conditions
+   fold 1: 48 held-out materials, 781 conditions
+   fold 2: 48 held-out materials, 794 conditions
+   fold 3: 48 held-out materials, 786 conditions
+   fold 4: 48 held-out materials, 789 conditions
+
+--- fold 0: train 3150 conds / 192 materials | held-out 797 conds / 48 materials ---

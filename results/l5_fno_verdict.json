@@ -1,0 +1,29 @@
+{
+  "fno_best": {
+    "mean": 0.021574223414063454,
+    "modes": 4,
+    "width": 28,
+    "lr": 0.003
+  },
+  "by_modes": {
+    "4": 0.021574223414063454,
+    "8": 0.02461533434689045,
+    "16": 0.027709672848383587
+  },
+  "deeponet_best": 0.026457446937759716,
+  "deepokan_best": 0.03566839049259821,
+  "pod_floor_p128": 0.000501581933349371,
+  "deeponet_vs_fno": {
+    "arm_a": "DeepONet",
+    "arm_b": "FNO",
+    "metric": "nrmse_c",
+    "mean_a": 0.026457447418865822,
+    "mean_b": 0.021574223621024027,
+    "mean_diff": 0.004883223797841798,
+    "ci_low": 0.00035059041915778093,
+    "ci_high": 0.009778258961546674,
+    "significant": true,
+    "verdict": "FNO is better (lower nrmse_c)",
+    "n_materials": 12
+  }
+}

@@ -270,12 +270,28 @@ DeepONet sits 53×. A 1.23× improvement against a bound 43× below it is a dent
 an escape. The obstruction measured in `l5_bottleneck.py` — the parameter →
 coefficient map — survives the architecture the theory names as its remedy.
 
+**The full FNO sweep** (each row at its own best learning rate, 3 seeds):
+
+| modes | width | novel-material nRMSE |
+|---|---|---|
+| 4 | 28 | **0.0216** |
+| 8 | 14 | 0.0246 |
+| 16 | 7 | 0.0277 |
+
 > **Caveat, stated because it is load-bearing.** FNO's `modes` sweep is confounded
-> with width at a matched budget: the spectral weights cost ~16·w²·m², so w = 28 at
-> modes 4 and w = 14 at modes 8. FNO scoring worse at modes 8 (0.0246) than modes 4
-> (0.0216) therefore **cannot** be read as "more Fourier modes do not help" — it is
-> modes traded against width. The flat-in-p statement is made for DeepONet, where p
-> and width are separately controlled, and is **not** claimed for FNO.
+> with width at a matched budget: the spectral weights cost ~16·w²·m², so width
+> falls 28 → 14 → 7 as modes go 4 → 8 → 16. The monotone degradation therefore
+> **cannot** be read as "more Fourier modes do not help" — it is modes traded
+> against width, and by modes 16 the network is seven channels wide. The flat-in-p
+> statement is made for DeepONet, where p and width are controlled separately, and
+> is **not** claimed for FNO.
+
+**One row is worth its own sentence.** At modes 16 the FNO is **seven channels
+wide** and still reaches 0.0277 — statistically indistinguishable from the best
+DeepONet anywhere (0.0265), which has width 216. A nonlinear reconstruction with a
+twentieth of the channel count matches the best linear one. That is the clearest
+single piece of evidence in the rung that the reconstruction, not the capacity, is
+what separates these families.
 
 ### What binds instead — measured, not inferred
 
