@@ -19,3 +19,6 @@ budget ~200,000 params, 8000 steps — identical to run_l5.py
     modes=  8 w14  lr3e-03 seed 43: train=0.0167 novel=0.0247 [5476s]
     modes=  8 w14  lr3e-03 seed 44: train=0.0151 novel=0.0246 [7919s]
     modes=  8 w14  lr1e-03 seed 42: train=0.0259 novel=0.0288 [4644s]
+    modes=  8 w14  lr1e-03 seed 43: train=0.0309 novel=0.0296 [51543s]
+    modes=  8 w14  lr1e-03 seed 44: train=0.0256 novel=0.0288 [3568s]
+  modes  16: width   7, 201,106 params (+0.6%)
