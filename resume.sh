@@ -68,11 +68,39 @@ else
 fi
 
 # 2. L6-v2. Aborts by itself if the kinetic object is recoverable (defect B19).
-if [ ! -f results/l6_v2_results.json ]; then
-  echo "-> L6-v2: 5-fold CV over 240 materials (the primary hypothesis)"
-  "$P" -u run_l6_v2.py --folds 5 --seeds 42 43 44 >> l6_v2.log 2>&1
+#
+#    Resumes FOLD BY FOLD. The first version of this script tested only whether
+#    l6_v2_results.json existed, which would have refused to continue a run that
+#    was killed after fold 0 — leaving four fifths of the primary hypothesis
+#    undone while reporting "already has results". Ask which folds are complete,
+#    and run exactly the ones that are not.
+MISSING=$("$P" - <<'PY'
+import json, os
+want = {"joint", "separate", "separate_noeq"}
+try:
+    d = json.load(open("results/l6_v2_results.json"))
+    folds, done = d.get("n_folds", 5), []
+    for f, rec in d.get("folds", {}).items():
+        arms = rec.get("arms", {})
+        if set(arms) >= want and all(
+            sum(1 for s in arms[a] if "per_sample_nrmse_c" in arms[a][s]) >= 3 for a in want):
+            done.append(int(f))
+except Exception:
+    folds, done = 5, []
+print(" ".join(str(f) for f in range(folds) if f not in done))
+PY
+)
+if [ -n "$MISSING" ]; then
+  echo "-> L6-v2: running folds [$MISSING] of 5 (the primary hypothesis)"
+  "$P" -u run_l6_v2.py --folds 5 --seeds 42 43 44 --only-folds $MISSING >> l6_v2.log 2>&1
 else
-  echo "-> L6-v2 already has results; inspect before re-running"
+  echo "-> L6-v2 complete, all 5 folds"
+fi
+
+# 3. The verdict, once every fold is in.
+if [ -f results/l6_v2_results.json ] && [ -z "$MISSING" ]; then
+  echo "-> L6-v2 slope test"
+  "$P" -u analyze_l6_v2.py 2>&1 | tee -a l6_v2_analysis.log
 fi
 
 echo

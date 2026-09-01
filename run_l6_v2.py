@@ -180,6 +180,28 @@ def main():
            "alpha": ALPHA_V2, "n_desc": X_raw.shape[1], "descriptor_names": names,
            "checks": checks, "folds": {}}
 
+    # RESUME, not overwrite. With --only-folds this script writes to the same file,
+    # so building a fresh `res` would silently discard every fold completed by an
+    # earlier invocation — losing hours of the primary hypothesis while appearing to
+    # succeed. Load what is there and merge, after asserting the configuration
+    # matches: merging folds trained under a different budget, step count or fold
+    # seed would violate information parity across the very comparison this rung is.
+    if os.path.exists(args.out):
+        try:
+            prev = json.load(open(args.out))
+        except Exception:
+            prev = None
+        if prev:
+            for k in ("budget", "depth", "steps", "n_folds", "fold_seed", "root", "seeds"):
+                if prev.get(k) != res[k]:
+                    raise SystemExit(
+                        f"ABORT: {args.out} was produced with {k}={prev.get(k)!r} but this "
+                        f"run uses {k}={res[k]!r}. Merging them would break information "
+                        f"parity across folds. Move the old file aside or match the config.")
+            res["folds"] = prev.get("folds", {})
+            if res["folds"]:
+                print(f"\nresuming: {sorted(res['folds'])} already complete in {args.out}")
+
     todo = args.only_folds if args.only_folds is not None else range(args.folds)
     for f in todo:
         te = np.where(fold_of == f)[0]
