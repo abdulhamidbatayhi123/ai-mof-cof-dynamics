@@ -142,12 +142,23 @@ def main():
     ap.add_argument("--n-t", type=int, default=32)
     ap.add_argument("--only-folds", type=int, nargs="+", default=None,
                     help="run a subset of folds; results merge by fold id")
+    ap.add_argument("--field-res", type=int, default=128,
+                    help="subsample the stored (nz, nt) grid to this square "
+                         "resolution on load. Applied once, before any arm sees "
+                         "the data, so it is identical across arms and folds and "
+                         "is recorded in the results. 0 disables.")
     ap.add_argument("--check-only", action="store_true")
     ap.add_argument("--out", default="results/l6_v2_results.json")
     args = ap.parse_args()
 
     t0 = time.time()
-    d = ladder_data.load(args.root)
+    d = ladder_data.load(args.root, field_res=(args.field_res or None))
+
+    # Memory: the subsample happens inside ladder_data.load, per file, because
+    # allocating the full 3.1 GB first is what runs a shared 16 GB machine out of
+    # RAM. It is applied identically to every sample -- an encoding choice made
+    # once, before any arm sees the data -- and is recorded in the results file.
+
     print(f"\nbuilding observable descriptors for {len(d.params)} samples "
           f"(generative parameters WITHHELD)...", flush=True)
     X_raw, names = DSC.build(d)
@@ -175,6 +186,7 @@ def main():
         print(f"   fold {f}: {n_mat} held-out materials, {(fold_of == f).sum()} conditions")
 
     res = {"root": args.root, "design": d.meta.get("design", "legacy"),
+           "field_res": args.field_res, "field_shape": list(d.fields.shape[2:]),
            "budget": args.budget, "depth": args.depth, "steps": args.steps,
            "seeds": args.seeds, "n_folds": args.folds, "fold_seed": args.fold_seed,
            "alpha": ALPHA_V2, "n_desc": X_raw.shape[1], "descriptor_names": names,

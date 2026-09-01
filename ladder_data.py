@@ -95,7 +95,7 @@ class LadderData:
         return {s: int((self.split == s).sum()) for s in SPLITS}
 
 
-def load(root="data/parametric", verbose=True):
+def load(root="data/parametric", verbose=True, field_res=None):
     man_path = os.path.join(root, "manifest.json")
     if not os.path.exists(man_path):
         raise FileNotFoundError(f"{man_path} missing — run gen_parametric_dataset.py")
@@ -105,7 +105,13 @@ def load(root="data/parametric", verbose=True):
     conds = {c["condition_id"]: c for c in man["conditions"]}
     keys = param_keys_for(man)
 
+    # `field_res` subsamples each field AS IT IS READ. Doing it after the fact is
+    # too late: dataset v2 is 3947 x 3 x 256 x 256 float32 = 3.1 GB, which on a
+    # shared 16 GB machine thrashes or dies before any downsampling code runs.
+    # The subsample is applied identically to every sample, so it is an encoding
+    # choice made once — record it wherever the result is used.
     rows, fields = [], []
+    zi = ti = None
     for s in man["samples"]:
         f = os.path.join(root, f"m{s['mat']:04d}_c{s['cond']:04d}.npy")
         if not os.path.exists(f):
@@ -113,7 +119,13 @@ def load(root="data/parametric", verbose=True):
         m, c = mats[s["mat"]], conds[s["cond"]]
         vec = [(m if k in m else c)[k] for k in keys]
         rows.append((vec, s["mat"], s["cond"], s["split"], s["t_final"]))
-        fields.append(np.load(f))
+        arr = np.load(f, mmap_mode="r" if field_res else None)
+        if field_res:
+            if zi is None:
+                zi = np.linspace(0, arr.shape[1] - 1, field_res).astype(int)
+                ti = np.linspace(0, arr.shape[2] - 1, field_res).astype(int)
+            arr = np.array(arr[:, zi][:, :, ti], dtype=np.float32)
+        fields.append(arr)
 
     if not rows:
         raise RuntimeError(f"no sample files found under {root}")
@@ -143,6 +155,9 @@ def load(root="data/parametric", verbose=True):
         print(f"  materials: {len(np.unique(material_ids))} "
               f"({len(np.unique(material_ids[split == 'novel_material']))} held out)")
         print(f"  design: {man.get('design', 'legacy')}  params: {list(keys)}")
+        if field_res:
+            print(f"  fields subsampled to {field_res}x{field_res} on load "
+                  f"({fields.nbytes / 1e9:.2f} GB resident)")
     return d
 
 

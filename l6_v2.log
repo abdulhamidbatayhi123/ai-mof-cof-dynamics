@@ -1,0 +1,13 @@
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 256, 256)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+
+building observable descriptors for 3947 samples (generative parameters WITHHELD)...
+
+========================================================================
+INVALIDATION CHECKS (PREREG_L6_v2.md section 5) — run before any verdict
+========================================================================
+  withheld parameter   R2 from descriptors  recoverable?
+  ----------------------------------------------------------
