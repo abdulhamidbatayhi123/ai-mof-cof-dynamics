@@ -1,0 +1,8 @@
+L6-v2 recorded: between 0.0104, within 0.0205, base 0.0562, 240 clusters; RESULTS.md quotes 22 / 68 / 97 / 100 % at 2 / 4 / 6 / 10 %
+    effect   power
+        0 %    2.0 %
+        2 %   20.2 %
+        4 %   67.8 %
+        6 %   96.2 %
+       10 %  100.0 %
+wrote results/l6_v2_mde_check.json

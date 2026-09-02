@@ -44,6 +44,16 @@ def cluster_sizes_from(root):
     return np.array(sorted(counts.values()))
 
 
+def cluster_sizes_all(root):
+    """Conditions-per-material for EVERY material — the 5-fold CV design, where each
+    material is held out exactly once and the pooled comparison has all 240 clusters."""
+    man = json.load(open(os.path.join(root, "manifest.json")))
+    counts = {}
+    for s in man["samples"]:
+        counts[s["mat"]] = counts.get(s["mat"], 0) + 1
+    return np.array(sorted(counts.values()))
+
+
 def simulate(sizes, alpha, effect=0.0, trials=400, seed0=0,
              between_sd=0.02, within_sd=0.003, base=0.05):
     """Rejection rate under a realistic null (effect=0) or alternative.
@@ -67,12 +77,20 @@ def simulate(sizes, alpha, effect=0.0, trials=400, seed0=0,
 
 def main():
     t0 = time.time()
+    fivefold = "--fivefold" in sys.argv
+    # --fivefold: calibrate the 240-cluster pooled design used by L6-v2 and by the
+    # v2 re-runs of L1/L2/L7 (PREREG_L1L2L7_v2.md). The existing 12- and 48-cluster
+    # calibrations are left untouched; the new design is MERGED into the file.
     out = {}
-    for tag, root in (("legacy", "data/parametric"), ("v2", "data/parametric_v2")):
+    if fivefold and os.path.exists("results/calibration_v2.json"):
+        out = json.load(open("results/calibration_v2.json"))
+    designs = ((("v2_5fold", "data/parametric_v2"),) if fivefold
+               else (("legacy", "data/parametric"), ("v2", "data/parametric_v2")))
+    for tag, root in designs:
         if not os.path.exists(os.path.join(root, "manifest.json")):
             print(f"  (absent: {root})")
             continue
-        sizes = cluster_sizes_from(root)
+        sizes = cluster_sizes_all(root) if tag == "v2_5fold" else cluster_sizes_from(root)
         print(f"\n{'='*70}\n{tag}: {len(sizes)} held-out materials, "
               f"{sizes.sum()} conditions "
               f"(per material: min {sizes.min()}, median {int(np.median(sizes))}, max {sizes.max()})")
@@ -118,6 +136,8 @@ def main():
     json.dump(out, open("results/calibration_v2.json", "w"), indent=2)
     print(f"\nwrote results/calibration_v2.json  [{time.time()-t0:.0f}s]")
 
+    if fivefold:
+        return
     if "legacy" in out and "v2" in out:
         l, v = out["legacy"], out["v2"]
         print(f"\n{'='*70}\nWHAT v2 BUYS\n{'='*70}")

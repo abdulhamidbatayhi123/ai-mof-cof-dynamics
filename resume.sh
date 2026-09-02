@@ -31,6 +31,25 @@ for label, f, want in (("L3 (merged)", "results/l3_results.json", 15),
                        ("L5 FNO", "results/l5_fno.json", 6)):
     n = n_arms(f)
     print(f"  {label:20s}: {'MISSING' if n is None else f'{n}/{want} arms complete'}")
+def n_cells(f, walker):
+    if not os.path.exists(f): return None
+    try: return walker(json.load(open(f)))
+    except Exception: return -1
+def l1_cells(d):
+    n = sum(1 for a in d.get("manifest", {}).get("arms", {}).values() for s in a)
+    n += sum(1 for fo in d.get("folds", {}).values() for a in fo.get("arms", {}).values() for s in a)
+    return n
+def lc_cells(d):
+    return sum(1 for fo in d.get("folds", {}).values() for ax in ("materials", "conditions")
+               for g in fo.get(ax, {}).values() for s in g)
+def l2_cells(d):
+    return sum(1 for k in d.get("cells", {}).values() for fo in k.values() for s in fo)
+for label, f, w, want in (("L1-v2 cells", "results/l1_v2_results.json", l1_cells, 12 + 60),
+                          ("LC-v2 cells", "results/learning_curve_v2.json", lc_cells, 5 * 9 * 3),
+                          ("L2-v2 cells", "results/l2_v2_results.json", l2_cells, 28 * 3 * 5)):
+    n = n_cells(f, w)
+    print(f"  {label:20s}: {'MISSING' if n is None else f'{n}/{want} cells complete'}")
+print(f"  {'L7-v2':20s}: {'present' if os.path.exists('results/l7_v2_results.json') else 'missing'}")
 for label, f in (("L6-v2 checks", "results/l6_v2_checks.json"),
                  ("L6-v2 folds", "results/l6_v2_folds.json"),
                  ("L6-v2 results", "results/l6_v2_results.json"),
@@ -102,6 +121,11 @@ if [ -f results/l6_v2_results.json ] && [ -z "$MISSING" ]; then
   echo "-> L6-v2 slope test"
   "$P" -u analyze_l6_v2.py 2>&1 | tee -a l6_v2_analysis.log
 fi
+
+# 4. L1, L2, L7 on dataset v2 (PREREG_L1L2L7_v2.md). Every runner resumes by
+#    skipping completed cells, so each is simply invoked; nothing is recomputed.
+echo "-> L1/L2/L7 on v2: running whatever is missing (see chain_v2_rungs.sh for the order)"
+bash chain_v2_rungs.sh >> chain_v2_rungs_outer.log 2>&1
 
 echo
 echo "RESUME_DONE"

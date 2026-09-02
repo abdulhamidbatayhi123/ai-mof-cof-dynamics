@@ -1,0 +1,27 @@
+
+======================================================================
+v2_5fold: 240 held-out materials, 3947 conditions (per material: min 13, median 17, max 17)
+======================================================================
+
+  SIZE — empirical false-positive rate under a clustered null
+   nominal alpha   empirical FPR
+           0.050            6.5 %
+           0.020            2.8 %   <- calibrated
+           0.010            1.0 %
+           0.005            0.8 %
+           0.002            0.8 %
+
+  POWER at alpha = 0.02 — what this design can actually detect
+   true effect    power
+            0 %       3 %
+            5 %      36 %
+           10 %      92 %
+           15 %     100 %
+           20 %     100 %
+           30 %     100 %
+           50 %     100 %
+
+  => minimum detectable effect at 80 % power: 10 %
+  => a 'no difference' verdict on this split excludes improvements larger than ~10 %
+
+wrote results/calibration_v2.json  [399s]
