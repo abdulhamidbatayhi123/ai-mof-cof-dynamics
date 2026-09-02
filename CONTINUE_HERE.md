@@ -1,6 +1,6 @@
 # CONTINUE HERE — session handoff
 
-Rewritten 2026-09-02. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
+Rewritten 2026-09-02, updated after L6-v2 completed. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
 `RETRACTIONS.md` is the record of everything withdrawn — **23 Part-A, 38 Part-B**.
 
 ---
@@ -53,7 +53,7 @@ Technology, then TMLR. Reasoning in `CITATIONS.md`. **One paper, not two.**
 | **L3** | **"better basis / KAN"** | ✅ **FINAL** — fully bracketed, 6/6 significant |
 | L4/L4b | "physics as a loss" | ⚠️ needs a w_pde sweep and test-time refinement |
 | **L5** | **"you need an operator"** | ✅ **FINAL** — narrowed by FNO |
-| **L6** | **"separate identification"** (H1, primary) | 🔄 **RUNNING** — v2, fold 3 of 5 |
+| **L6** | **"separate identification"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted, but separate beats joint 3.7 % |
 | L7 | "is learning needed" | ✅ done (legacy data; not re-run on v2) |
 
 ### The headline numbers, current
@@ -81,6 +81,22 @@ learning rate, which is itself a finding and pre-empts the strawman objection.
 DeepONet is **flat in p** (0.0265 → 0.0275 over p = 8→128, all four CIs span zero)
 while the POD floor falls 28.7×. **A seven-channel FNO matches the best DeepONet
 (width 216)** — the reconstruction, not the capacity, separates the families.
+
+**L6-v2 (the primary hypothesis, resolved)** — 45 runs, 5-fold CV over all 240
+materials, pre-registration committed to git *before* the first arm trained:
+
+- **PRIMARY, refuted:** the separate-vs-joint difference does **not** vary with
+  Damköhler. slope +0.00140, CI [−0.00329, +0.00618], r = 0.040, over 1.35 decades.
+- **SECONDARY, significant:** joint 0.0562 vs separate **0.0541** — separate is
+  **3.7 % better** (CI 1.0–6.5 %), consistent in all 5 folds and all 3 seeds.
+  Legacy had separate **26 % worse**. The sign reversed.
+- MDE: 68 % power at 4 %, 97 % at 6 %. Quote the **1.0 % lower bound** as the
+  conservative reading — the observed effect sits near the resolution limit.
+- Why it became answerable: between-material noise fell 0.0391 → **0.0104**
+  (69 % → 18 % of base), a 3.8× reduction from v2's Sobol sampling and
+  physically consistent kinetics.
+- **Verdict:** the structure acts as an **inductive bias, not a kinetic
+  identifier**. Outcome four of the four the pre-registration anticipated.
 
 **Two-wave warp** — 3 seeds, both arms in one run, paired cluster bootstrap:
 fixed 0.05005, predicted-warp 0.04770 (**no difference**), oracle 0.02203
@@ -137,9 +153,9 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ---
 
-## 6. Steps remaining — roughly 8–11 sessions
+## 6. Steps remaining — roughly 7–10 sessions
 
-1. **Finish L6-v2** and analyse (`analyze_l6_v2.py`). — running
+1. ~~Finish L6-v2~~ — ✅ **done 2026-09-02**
 2. **L1 learning curve, L2, L7 on v2.** — 2 sessions
 3. **L4b weighting sweep + test-time physics refinement.** — 1–2 sessions
 4. **Citations tranche 3+, and digitise Li et al. 2025.** — 2 sessions
