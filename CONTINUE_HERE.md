@@ -18,7 +18,7 @@ cd "C:/Users/abdulhamid batayhi/Desktop/ai-mof-cof-dynamics"
 (`chain_l4b_v2.sh`). Every runner writes after each completed cell and skips completed
 cells, so a shutdown loses at most one cell.
 
-**In flight as of 2026-09-03 ~00:40 (Istanbul):** `chain_v2_rungs.sh`, launched
+**In flight as of 2026-09-03 00:23 (Istanbul):** `chain_v2_rungs.sh`, launched
 detached (`nohup`), logs `l7_v2.log`, `l1_v2.log`, `learning_curve_v2.log`, `l2_v2.log`
 and the analyzers' `*_analysis.log`; step exit codes in `chain_v2_rungs_outer.log`.
 Design frozen in `PREREG_L1L2L7_v2.md` (committed before launch). L4b-v2
