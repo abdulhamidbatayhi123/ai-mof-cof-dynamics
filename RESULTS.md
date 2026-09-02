@@ -18,7 +18,7 @@ Last updated 2026-08-24.
 | **L3** | "you need a better basis" | ✅ eliminated for RBF-KAN; ⚠️ the Chebyshev 200k cell is **withdrawn** (**A19**, **B24**) and the rung is being re-run |
 | **L4** | "add the PDE residual" | ✅ **no difference** on the material axis |
 | **L5** | "you need an operator" | ✅ eliminated *for linear-reconstruction operators*; n-width prediction **refuted**. ⚠️ FNO/WNO never run (**B33**); numbers superseded (**A20**) |
-| **L6** | **"joint fitting is fine"** | ✅ **H1 NOT SUPPORTED** — separate does not beat joint |
+| **L6** | **"joint fitting is fine"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted (Da slope null), but separate **does** beat joint by 3.7 % (CI 1.0–6.5 %), reversing the legacy sign |
 | **L7** | "deep learning is needed at all" | ✅ **eliminated — learning is justified** |
 
 ---
@@ -525,6 +525,102 @@ next experiment rather than a better warp network.
 > diagnostic this time rather than a reported metric. The verdict does not depend
 > on it: it rests on R² being unchanged and the paired reconstruction CI excluding
 > zero. The diagnostic should be reported in absolute time units.
+
+---
+
+## L6-v2 — H1 resolved: the benefit is real, the mechanism is not
+
+**Run 2026-09-02 on dataset v2.** Design frozen in `PREREG_L6_v2.md`, **committed to
+git before the first arm trained** — the only rung in this project whose
+pre-registration ordering is externally verifiable. 5-fold cross-validation over
+all **240 materials** (every material held out exactly once), 3 arms × 3 seeds =
+45 runs, α = 0.02 calibrated for this cluster count. `results/l6_v2_results.json`.
+
+**Both invalidation checks passed before any verdict was computed:** the kinetic
+object `d_p` is unrecoverable from the observable descriptors (**R² = −0.256**,
+worse than the mean) while the equilibrium shape is recoverable (R² = 0.93–0.98);
+and Damköhler spans **1.35 decades** (7.7 → 173), enough for a slope test. The
+legacy dataset could not have supported this estimand at all — 98.9 % of it sat
+above Da 60.
+
+### PRIMARY (pre-registered): the Damköhler mechanism is refuted
+
+```
+slope of (separate − joint) on log10(Da), 240 materials
+  slope     +0.00140   CI [-0.00329, +0.00618]   NOT SIGNIFICANT
+  Pearson r +0.040
+```
+
+**The separate-vs-joint difference does not vary with Damköhler.** Correlation is
+essentially zero with a CI tight around it. H1-v2's mechanism — that separating the
+kinetic object should pay most where kinetics dominate — **is not supported**, and
+this time across the regime where it was supposed to work.
+
+### SECONDARY: separate wins, and it is a sign reversal
+
+| arm | mean nRMSE(c), 240 held-out materials |
+|---|---|
+| joint | 0.0562 |
+| **separate** | **0.0541** |
+| separate_noeq | 0.0557 |
+
+```
+joint 0.0562 vs separate 0.0541 | diff +0.00210  CI [+0.00056, +0.00363]  SIGNIFICANT
+```
+
+**Separate is 3.7 % better (CI 1.0 %–6.5 %).** In the legacy run it was **26 %
+worse** with a CI spanning zero. The direction has flipped.
+
+**Consistent across every fold and every seed** — not one cell driving it:
+
+| fold | joint | separate | diff |
+|---|---|---|---|
+| 0 | 0.0555 | 0.0521 | −0.0034 |
+| 1 | 0.0599 | 0.0566 | −0.0033 |
+| 2 | 0.0526 | 0.0510 | −0.0016 |
+| 3 | 0.0560 | 0.0549 | −0.0011 |
+| 4 | 0.0561 | 0.0551 | −0.0009 |
+
+seeds 42/43/44: −0.0008, −0.0026, −0.0029.
+
+### Why the test has power now, and what its MDE is
+
+The between-material sd of the arm difference fell from **0.0391 (69 % of the base
+error)** in legacy to **0.0104 (18 %)** — a **3.8× noise reduction**. That, with 240
+clusters instead of 12, is what turned an unanswerable question into an answerable
+one. Design v2's Sobol sampling and physically-consistent Glueckauf kinetics removed
+most of the material-to-material chaos.
+
+**MDE (required by A22; never quote this null without it):**
+
+| true effect | power |
+|---|---|
+| 2 % | 22 % |
+| **4 %** | **68 %** |
+| 6 % | 97 % |
+| 10 % | 100 % |
+
+The observed 3.7 % sits near the design's resolution limit, so the point estimate
+may be optimistic (winner's curse) even though the CI excludes zero — the lower
+bound, 1.0 %, is the conservative reading.
+
+### The verdict, in the pre-declared words
+
+This is outcome four of the four `PREREG_L6_v2.md` §4 anticipated: **pooled
+significant, slope null → a uniform benefit unrelated to Damköhler → the benefit is
+not kinetic in origin.**
+
+> **Structural decomposition of the equilibrium and kinetic objects gives a small
+> but real and reproducible improvement in transfer to unseen materials (3.7 %,
+> CI 1.0–6.5 %, consistent across five folds and three seeds). That improvement
+> does not depend on Damköhler (slope CI [−0.0033, +0.0062], r = 0.04) across a
+> range spanning kinetically-controlled to near-equilibrium operation. The
+> structure therefore acts as an inductive bias rather than as a kinetic
+> identifier — which is not what H1 predicted.**
+
+That is a more precise statement than either the legacy null or a naive positive,
+and it is only available because the mechanism was pre-registered as the primary
+estimand and could therefore fail on its own terms.
 
 ---
 

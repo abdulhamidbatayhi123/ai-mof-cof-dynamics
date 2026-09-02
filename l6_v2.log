@@ -81,3 +81,23 @@ folds written BEFORE training: 5 folds over 240 materials -> results/l6_v2_folds
   joint          w190   120,273p seed 42: novel=0.0551 q=0.0839 exit=0.0591  [503s]
   joint          w190   120,273p seed 43: novel=0.0561 q=0.0889 exit=0.0596  [499s]
   joint          w190   120,273p seed 44: novel=0.0572 q=0.0897 exit=0.0625  [540s]
+  separate       w168   118,948p seed 42: novel=0.0586 q=0.0921 exit=0.0599  [1077s]
+  separate       w168   118,948p seed 43: novel=0.0536 q=0.0969 exit=0.0586  [2348s]
+  separate       w168   118,948p seed 44: novel=0.0528 q=0.0952 exit=0.0579  [1459s]
+  separate_noeq  w168   118,948p seed 42: novel=0.0612 q=0.1406 exit=0.0622  [629s]
+  separate_noeq  w168   118,948p seed 43: novel=0.0542 q=0.1070 exit=0.0584  [542s]
+  separate_noeq  w168   118,948p seed 44: novel=0.0553 q=0.1247 exit=0.0602  [553s]
+
+--- fold 4: train 3158 conds / 192 materials | held-out 789 conds / 48 materials ---
+  joint          w190   120,273p seed 42: novel=0.0564 q=0.0860 exit=0.0625  [545s]
+  joint          w190   120,273p seed 43: novel=0.0571 q=0.0853 exit=0.0621  [522s]
+  joint          w190   120,273p seed 44: novel=0.0553 q=0.0832 exit=0.0592  [523s]
+  separate       w168   118,948p seed 42: novel=0.0555 q=0.0878 exit=0.0615  [744s]
+  separate       w168   118,948p seed 43: novel=0.0542 q=0.0890 exit=0.0613  [715s]
+  separate       w168   118,948p seed 44: novel=0.0565 q=0.0932 exit=0.0616  [699s]
+  separate_noeq  w168   118,948p seed 42: novel=0.0559 q=0.1103 exit=0.0604  [547s]
+  separate_noeq  w168   118,948p seed 43: novel=0.0573 q=0.1117 exit=0.0660  [542s]
+  separate_noeq  w168   118,948p seed 44: novel=0.0572 q=0.1115 exit=0.0605  [571s]
+
+wrote results/l6_v2_results.json  [31648s]
+Run analyze_l6_v2.py for the slope test and the pooled estimand.
