@@ -779,11 +779,13 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 21 Part-A , 36 Part-B  caught before
-  contamination. **18 of the Part-B defects are our own errors** — in the
-  analysis, the validation gates, or the frozen protocol itself — recorded on the
-  same terms as errors in the code. One Part-A retraction (**A17**) withdraws a
-  claim the protocol had called its most important result.
+- **`RETRACTIONS.md`** — 25 Part-A, 40 Part-B caught before
+  contamination. **26 of the 65 entries are marked "our own error"** — in the
+  analysis, the validation gates, the power simulations, or the frozen protocol
+  itself — recorded on the same terms as errors in the code. One Part-A
+  retraction (**A17**) withdraws a claim the protocol had called its most
+  important result; two (**A22**, **A25**) withdraw power statements, one in each
+  direction.
 - Figures are computed from data or loaded checkpoints; the harness forbids a
   plotting script from synthesising a series it labels as a model prediction.
 - Comparisons use the **calibrated** α = 0.005, chosen because the percentile

@@ -153,6 +153,11 @@ def main():
             r = compare(ArmResult(f"n={g0}", m, a), ArmResult(f"n={g1}", m, b), alpha=alpha, n_boot=4000)
             steps.append(r)
             print("    " + format_comparison(r))
+        if not steps:
+            print(f"  only one size on this axis — no last-step test possible; no verdict")
+            out["axes"][axis] = {"folds_done": folds, "complete": complete, "rows": rows,
+                                 "steps": [], "provisional": True, "verdict": "no verdict: single size"}
+            continue
         last = steps[-1]
         improving = bool(last["significant"] and last["mean_diff"] > 0)   # a is the smaller size
 

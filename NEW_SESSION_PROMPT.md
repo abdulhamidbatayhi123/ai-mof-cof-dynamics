@@ -16,7 +16,7 @@ If the literature says there is a better way, use it. Never trade rigour for spe
 Start by reading, in this order:
   CONTINUE_HERE.md        current status, every headline number, what to protect
   RESULTS.md              every result, current
-  RETRACTIONS.md          23 Part-A withdrawals, 38 Part-B defects caught pre-contamination
+  RETRACTIONS.md          25 Part-A withdrawals, 40 Part-B defects caught pre-contamination
   AUDIT_2026-08-30.md     the external audit and its evidence tags
   CITATIONS.md            the citation gate and the venue decision
   PREREG_L6_v2.md         a pre-registration committed to git before its run
@@ -84,8 +84,10 @@ NEXT ACTIONS, in order:
      turned inward. Add NTK weighting and self-adaptive weights, or withdraw the
      claim. Also add test-time physics refinement, which is the arm a modern referee
      will ask for.
-  3. Citation verification, tranche 3 onward (~260 remain), and digitise Li et al.
-     2025 RSC Adv Fig. 11 (CC BY, on PMC) as the experimental anchor.
+  3. Citation verification, tranche 3 onward (~230 remain). The experimental anchor
+     is Lassitter et al. 2024 (CES 285:119430) Fig. 10, fully specified in its SI and
+     already digitised (refs/Lassitter2024_fig10_digitised.csv); pre-register and run
+     the solver-vs-experiment comparison. Li 2025 is only a shape comparison.
   4. Rebuild the figure set for the current narrative. Nothing currently visualises
      the two strongest results: the coefficient-map bottleneck and the two-wave warp.
   5. Draft the manuscript as a falsification ladder. The negative results are the

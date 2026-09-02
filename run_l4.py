@@ -217,10 +217,18 @@ def index_phys(table, idx):
 
 
 def build_phys_batch(raw_params, idx, device, keys):
-    """Precompute per-row dimensionless groups for the rows in `idx`."""
-    keys = ("q_max", "delta_H", "b0", "b_H0", "c_in", "T_in", "isotherm_n",
-            "henry_fraction", "Lambda", "Pe", "Da", "beta", "St", "Pe_T", "v_T", "t_ref")
-    cols = {k: [] for k in keys}
+    """Precompute per-row dimensionless groups for the rows in `idx`.
+
+    `keys` names the columns of the PARAMETER VECTOR (`d.param_keys`) and is
+    passed straight to `physics_from_params`. The output column names live in
+    `out_keys`. The first version of the B37 fix threaded `keys` in and then
+    shadowed it with the output names on the next line, so every physics-table
+    build raised KeyError('rho_p') — loudly, so no number was affected, but the
+    fix had never been exercised (defect B40).
+    """
+    out_keys = ("q_max", "delta_H", "b0", "b_H0", "c_in", "T_in", "isotherm_n",
+                "henry_fraction", "Lambda", "Pe", "Da", "beta", "St", "Pe_T", "v_T", "t_ref")
+    cols = {k: [] for k in out_keys}
     for i in idx:
         p = physics_from_params(raw_params[i], keys)
         eps, Ct = p.eps_t, p.C_term

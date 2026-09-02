@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02, updated after L6-v2 completed. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **23 Part-A, 38 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **25 Part-A, 40 Part-B**.
 
 ---
 
@@ -111,7 +111,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 23 Part-A, 38 Part-B, 18 marked "our own error".
+1. **The retraction ledger.** 25 Part-A, 40 Part-B, 26 marked "our own error".
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
 2. **Guards that make recurring failures impossible**, each earned from a real
@@ -138,9 +138,17 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
    being argued against never got a `w_pde` sweep — this project's own rule 4,
    turned inward. Add NTK weighting and self-adaptive weights, or withdraw.
 3. **~260 citations still unverified.** Two tranches done (≈90 refs).
-4. **No experimental anchor yet.** Li et al. 2025 (*RSC Adv*, CC BY, on PMC,
-   Fig. 11) is the target — 0.6 cm ID, ~10 cm bed, 298 K, 300 sccm, geometry
-   matching ours. Digitising it is a submission-tier change.
+4. **Experimental anchor found and digitised, comparison not yet run.** Li et al.
+   2025 (*RSC Adv*) turned out to lack the feed humidity, bed mass and porosity, and
+   plots cumulative uptake — a shape comparison at best. **Lassitter et al. 2024
+   (*Chem. Eng. Sci.* 285:119430) Fig. 10 is fully specified in its SI** (Table S8:
+   bed 6.35 mm in a 38.1 mm tube, 670.8 cm³/min ambient air at 32.8 % RH, 298.15 K,
+   3.11 g, ρ_b 429.6 kg/m³, ε_b 0.4 estimated; Table S2: CSFR k_LDF vs RH). It shows
+   the two-wave breakthrough of §6c in a real MOF-303 bed. Digitised to
+   `refs/Lassitter2024_fig10_digitised.csv` (`digitise_lassitter.py`, QA overlay in
+   `figures/`). The solver-vs-experiment comparison is a separate, pre-registered
+   step; the 0.17 aspect ratio of their bed is the caveat to write first. See
+   `CITATIONS.md`, "Experimental anchor — status".
 5. **The figure set is built for the old narrative.** No figure exists for the
    two-wave warp or the coefficient-map bottleneck — the two strongest results.
 
@@ -158,7 +166,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 1. ~~Finish L6-v2~~ — ✅ **done 2026-09-02**
 2. **L1 learning curve, L2, L7 on v2.** — 2 sessions
 3. **L4b weighting sweep + test-time physics refinement.** — 1–2 sessions
-4. **Citations tranche 3+, and digitise Li et al. 2025.** — 2 sessions
+4. **Citations tranche 3+, and the solver-vs-Lassitter Fig. 10 comparison** (digitised; pre-register the comparison first). — 2 sessions
 5. **Figure set rebuilt for the current narrative.** — 1–2 sessions
 6. **Manuscript.** — 2–3 sessions
 
