@@ -1,78 +1,97 @@
 # Prompt for a new session
 
-Copy everything inside the block below into a fresh Claude Code session opened in
-`C:\Users\abdulhamid batayhi\Desktop\ai-mof-cof-dynamics`.
-
-Last refreshed 2026-08-24, after L5 completed.
+Paste the block below. It is written to be self-contained: a session with no prior
+context should be able to continue without losing standards or repeating settled work.
 
 ---
 
 ```
-We are continuing a computational adsorption-science project aimed at a top-tier
-journal paper. Please start by reading CONTINUE_HERE.md in full, then RESULTS.md,
-then 03_LADDER_PROTOCOL.md. RETRACTIONS.md is the ledger of every claim we have
-withdrawn — read it too, because it encodes the mistakes you must not repeat.
+This is a research project aiming at the best possible paper for a top-tier journal.
 
-THE GOAL
-A falsification-ladder study of physics-informed surrogates for MOF/COF adsorption
-column dynamics, at a standard that survives hostile peer review. The thesis the
-evidence produced is: "Where should physical knowledge enter a surrogate — as
-structure, or as a penalty — and when does structure actually pay?" Do NOT
-re-frame this as an architecture paper; we refuted the PIKAN/DeepOKAN premise on
-our own matched-parameter data (L3), and we refuted our own n-width explanation
-on our own operator data (L5, retraction A17).
+THE STANDING RULE, above everything else: QUALITY OVER EVERYTHING, WHATEVER IT TAKES.
+Time and compute are not constraints. Correctness and honesty are the only ones. If
+something is good but could be better, make it better. If something is broken, fix it.
+If the literature says there is a better way, use it. Never trade rigour for speed.
 
-THE RULE, above everything else
-Quality over speed, always. Specifically, and this is not negotiable because
-violating it has already cost us 17 retracted claims:
+Start by reading, in this order:
+  CONTINUE_HERE.md        current status, every headline number, what to protect
+  RESULTS.md              every result, current
+  RETRACTIONS.md          23 Part-A withdrawals, 38 Part-B defects caught pre-contamination
+  AUDIT_2026-08-30.md     the external audit and its evidence tags
+  CITATIONS.md            the citation gate and the venue decision
+  PREREG_L6_v2.md         a pre-registration committed to git before its run
 
-  VERIFY FIRST, REPORT SECOND. Before you state any number to me, it must have:
-  (1) matched training budget on both sides of every comparison,
-  (2) a metric whose reported value is ACHIEVABLE given the model's output range,
-  (3) at least 3 seeds — the frozen protocol minimum, checked against the WRITTEN
-      rule and not against your own rationale for departing from it (defect B23),
-  (4) a paired, cluster-robust CI at the calibrated alpha = 0.005,
-  (5) the competitor at its STRONGEST configuration, not its first.
+Then run:  ./resume.sh          (reports state, runs nothing)
+And:       git log --oneline    (30 commits; the messages carry the reasoning)
 
-  When something looks wrong, stop hypothesising and measure the term directly.
+WHAT THIS PROJECT IS. A pre-registered falsification ladder for surrogate models of
+MOF/COF adsorption column dynamics. The question is not "can a network fit
+breakthrough curves" — it is WHAT ACTUALLY BINDS THE ERROR when a surrogate must
+predict a material it has never seen, and which standard interventions move it.
 
-  Record every withdrawn claim in RETRACTIONS.md, including your own analysis
-  errors, on the same terms as errors in the code. 15 of our 36 Part-B 
-  are our own errors. That ledger is the project's main credibility asset.
+It is NOT an architecture paper. L3 refuted the KAN premise on our own data and L5
+refuted our own n-width explanation. Do not re-frame it as one.
 
-STATUS
-All 8 rungs are complete. 22/22 validate.py gates pass. The headline result is
-L5: the Kolmogorov n-width bound we had called "the load-bearing result of the
-ladder" is real and completely INACTIVE — DeepONet sits 59x above it and does not
-move as the bound falls 28.7x. We then measured what actually binds: the
-parameter -> POD-coefficient map carries about five modes' worth of generalisable
-information out of 128, so DeepONet at any basis size performs like a 4-mode
-reconstruction.
+WHAT IS SETTLED — do not redo, do not re-litigate:
+  L0  reference verified against 4 closed-form solutions
+  L3  FINAL. MLP beats both KAN families at matched parameters, 6/6 significant,
+      every optimum bracketed across 8 learning rates over 3.5 decades
+  L5  FINAL. DeepONet flat in basis size; FNO significantly better (0.0216 vs
+      0.0265) but still 43x above the POD floor — the wall survives nonlinear
+      reconstruction
+  L6  RESOLVED on dataset v2. The Damkohler mechanism is REFUTED (slope null,
+      r=0.04) but separate identification does beat joint by 3.7% (CI 1.0-6.5%),
+      reversing the legacy sign. Structure acts as an INDUCTIVE BIAS, not a
+      kinetic identifier
+  Dataset v2  3947 sims, 240 materials, Sobol sampling, Glueckauf kinetics
 
-IMMEDIATE ACTION
-One narrow confirmation run may still be in flight — check `tail -20
-l5_refine.log`. CONTINUE_HERE.md section 3 says exactly what it tests, what to do
-if it died, and why nothing else depends on it.
+NINE WORKING RULES. Each was earned by getting it wrong once; the retraction is named.
+  1. No number from a failing validate.py category. (22 gates, all passing.)
+  2. Matched training budget, ASSERTED not assumed. (A14, A16)
+  3. >=3 seeds. Single-seed numbers appear nowhere, appendices included.
+  4. Compare against the competitor's STRONGEST configuration. A selected
+     hyperparameter on a grid edge is acceptable only if the metric has SATURATED
+     there — measure it, never assume it. (B14, B22, B23, A20)
+  5. Never normalise by a quantity that can vanish. (A15, and again in B34)
+  6. A gate that can be bypassed is not a gate. (B37: a keyword default defeated one)
+  7. NO NULL WITHOUT ITS MINIMUM DETECTABLE EFFECT. (A22 exists because one was
+     quoted without one and the design turned out to have 7% power)
+  8. Nothing is cited until it has been FETCHED, not searched. (B35, A23)
+  9. Errors in the analysis are recorded on the same terms as errors in the code.
 
-ENVIRONMENT
-Use this interpreter for everything; the default `python` on PATH lacks numpy:
-  "C:/Users/abdulhamid batayhi/AppData/Local/Programs/Python/Python312/python.exe"
-Prefix long-output commands with PYTHONIOENCODING=utf-8 or em-dashes corrupt.
-Do NOT write Python files with bash heredocs — two attempts corrupted the file.
-Run `python validate.py` — 22 gates must pass. No number from a failing category
-may enter the manuscript.
+THINGS THAT WOULD DAMAGE THE PAPER — never do these:
+  * Do not claim the two-wave warp is novel. Multi-front alignment is the founding
+    example of shifted POD (Reiss, Schulze, Sesterhenn & MEHRMANN, SIAM J. Sci.
+    Comput. 40:A1322, 2018). Claim the MEASUREMENT, not the map. See A23.
+  * Do not quote the oracle-warp number (0.0203) against any arm not also handed
+    the warp. It leaks the answer.
+  * Do not present DeepONet branch-dominance as new — Heinlein & Taraz (arXiv:
+    2602.21910, Feb 2026) got there first. Cite them and differentiate on the four
+    axes written in CITATIONS.md.
+  * Do not describe results as "MOF-303" beyond the cited parameters. rho_p, eps_t
+    and C_ps are NOT MOF-303 measurements; C_ps has no citable source at all and
+    must be reported as a 900-2400 J/kg/K sensitivity band.
 
-Compute is CPU-only here plus Kaggle GPU (I can run things on Kaggle if useful —
-just tell me what to upload). Put long jobs in the background so we can work in
-parallel, and give each one its OWN output path (a stale background process once
-clobbered a results file — defect B15).
+VENUE: CMAME. Free to publish (subscription route, green OA to arXiv — the author is
+a student with no APC funding), IF ~7, and every paper L3 argues with is in CMAME.
+Fallbacks: Separation & Purification Technology, then TMLR. ONE paper, not two.
 
-WHAT COMES NEXT
-CONTINUE_HERE.md section 8 has the ordered list. The scientifically highest-value
-item is the co-moving frame experiment: it is the ONLY intervention the ladder has
-not eliminated, and L5 says precisely why it should work. It would turn a paper of
-six negative results into one with a positive result that the negatives motivate.
+NEXT ACTIONS, in order:
+  1. Re-run L1's material learning curve, L2 and L7 on dataset v2, so every rung
+     reports on the same data.
+  2. L4b weighting sweep. "Physics hurts once bounds exist" currently rests on ONE
+     weighting rule that the arm being argued against never got to optimise — rule 4
+     turned inward. Add NTK weighting and self-adaptive weights, or withdraw the
+     claim. Also add test-time physics refinement, which is the arm a modern referee
+     will ask for.
+  3. Citation verification, tranche 3 onward (~260 remain), and digitise Li et al.
+     2025 RSC Adv Fig. 11 (CC BY, on PMC) as the experimental anchor.
+  4. Rebuild the figure set for the current narrative. Nothing currently visualises
+     the two strongest results: the coefficient-map bottleneck and the two-wave warp.
+  5. Draft the manuscript as a falsification ladder. The negative results are the
+     contribution, not gaps.
 
-Please confirm you have read the four documents and give me your own summary of
-where the project stands before doing anything else.
+Work autonomously. Report what you find, including when it contradicts something I or
+a previous session believed — three headline verdicts have already been corrected that
+way, and the correction ledger is the paper's strongest asset.
 ```
