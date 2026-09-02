@@ -22,7 +22,7 @@ Start by reading, in this order:
   PREREG_L6_v2.md         a pre-registration committed to git before its run
 
 Then run:  ./resume.sh          (reports state, runs nothing)
-And:       git log --oneline    (30 commits; the messages carry the reasoning)
+And:       git log --oneline    (the messages carry the reasoning)
 
 WHAT THIS PROJECT IS. A pre-registered falsification ladder for surrogate models of
 MOF/COF adsorption column dynamics. The question is not "can a network fit

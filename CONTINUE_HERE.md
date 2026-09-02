@@ -1,6 +1,6 @@
 # CONTINUE HERE — session handoff
 
-Rewritten 2026-09-02, updated after L6-v2 completed. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
+Rewritten 2026-09-02; updated 2026-09-03 after the L1/L2/L7 v2 chain was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
 `RETRACTIONS.md` is the record of everything withdrawn — **25 Part-A, 40 Part-B**.
 
 ---
@@ -13,9 +13,18 @@ cd "C:/Users/abdulhamid batayhi/Desktop/ai-mof-cof-dynamics"
 ./resume.sh go       # continues only the missing work
 ```
 
-`resume.sh go` finishes any incomplete FNO arm, then runs L6-v2 **fold by fold**,
-then prints the L6-v2 verdict. Every runner writes after each completed arm, so a
-shutdown loses at most one configuration.
+`resume.sh go` finishes any incomplete FNO arm, runs L6-v2 fold by fold, then runs
+**whatever is missing of L1/L2/L7 on v2** (`chain_v2_rungs.sh`) and then **L4b on v2**
+(`chain_l4b_v2.sh`). Every runner writes after each completed cell and skips completed
+cells, so a shutdown loses at most one cell.
+
+**In flight as of 2026-09-03 ~00:40 (Istanbul):** `chain_v2_rungs.sh`, launched
+detached (`nohup`), logs `l7_v2.log`, `l1_v2.log`, `learning_curve_v2.log`, `l2_v2.log`
+and the analyzers' `*_analysis.log`; step exit codes in `chain_v2_rungs_outer.log`.
+Design frozen in `PREREG_L1L2L7_v2.md` (committed before launch). L4b-v2
+(`PREREG_L4b_v2.md`, also committed before any run) is queued behind it — never run the
+two concurrently on this 16 GB machine. Expected: L7 minutes, L1 ~2–3 h, learning curve
+~4–5 h, L2 ~10–15 h; L4b ~50 h.
 
 **The repository is under git as of 2026-08-30.** Everything before that commit is
 untracked history; everything after is timestamped and diffable. `git log --oneline`
@@ -48,13 +57,13 @@ Technology, then TMLR. Reasoning in `CITATIONS.md`. **One paper, not two.**
 | rung | verdict | state |
 |---|---|---|
 | L0 | reference verified vs 4 closed forms | ✅ done |
-| L1 | "more data" | ⚠️ **narrowed (A18)** — conditions axis eliminated, materials axis is **not** |
-| L2 | "more capacity" | ✅ done (legacy data; not re-run on v2) |
+| L1 | "more data" | ⚠️ **narrowed (A18)** on legacy; **re-running on v2 now** (arms, 5-fold; materials learning curve to 192 materials) |
+| L2 | "more capacity" | ✅ done on legacy; **re-running on v2 now** (5-fold) |
 | **L3** | **"better basis / KAN"** | ✅ **FINAL** — fully bracketed, 6/6 significant |
-| L4/L4b | "physics as a loss" | ⚠️ needs a w_pde sweep and test-time refinement |
+| L4/L4b | "physics as a loss" | ⚠️ **pre-registered and coded on v2** (`PREREG_L4b_v2.md`): weighting sweep, NTK, self-adaptive, refinement, L-BFGS polish — queued behind the v2 chain |
 | **L5** | **"you need an operator"** | ✅ **FINAL** — narrowed by FNO |
 | **L6** | **"separate identification"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted, but separate beats joint 3.7 % |
-| L7 | "is learning needed" | ✅ done (legacy data; not re-run on v2) |
+| L7 | "is learning needed" | ✅ done on legacy; **re-running on v2 now** (classical forms vs out-of-fold learned arm) |
 
 ### The headline numbers, current
 
@@ -132,11 +141,15 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 ## 5. What is not good yet
 
 **Blocking:**
-1. **L2, L7 have not been re-run on v2.** L1's material-axis learning curve has not
-   either. Every rung should report on the same dataset.
-2. **L4/L4b's "physics hurts once bounded" rests on one weighting rule.** The arm
-   being argued against never got a `w_pde` sweep — this project's own rule 4,
-   turned inward. Add NTK weighting and self-adaptive weights, or withdraw.
+1. **L1/L2/L7 on v2 are running** (see §1). When they finish: read the four
+   `*_analysis.log`s and `results/*_v2_verdict.json`, write the rungs into `RESULTS.md`
+   in the pre-declared words, and update this file. The learning-curve verdict
+   (materials axis eliminated or not at 192 materials) is the one that changes the
+   paper's framing.
+2. **L4b-v2 is pre-registered and smoke-tested but not run.** `chain_l4b_v2.sh`
+   after the v2 chain (~50 h). Its verdict decides whether "physics hurts once
+   bounded" is defended, withdrawn, or retracted — all three outcomes are written
+   in `PREREG_L4b_v2.md`.
 3. **~260 citations still unverified.** Two tranches done (≈90 refs).
 4. **Experimental anchor found and digitised, comparison not yet run.** Li et al.
    2025 (*RSC Adv*) turned out to lack the feed humidity, bed mass and porosity, and
@@ -164,13 +177,26 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 ## 6. Steps remaining — roughly 7–10 sessions
 
 1. ~~Finish L6-v2~~ — ✅ **done 2026-09-02**
-2. **L1 learning curve, L2, L7 on v2.** — 2 sessions
-3. **L4b weighting sweep + test-time physics refinement.** — 1–2 sessions
+2. **L1 learning curve, L2, L7 on v2.** — ✅ launched 2026-09-03; report when done
+3. **L4b weighting sweep + test-time physics refinement.** — pre-registered; run next
 4. **Citations tranche 3+, and the solver-vs-Lassitter Fig. 10 comparison** (digitised; pre-register the comparison first). — 2 sessions
 5. **Figure set rebuilt for the current narrative.** — 1–2 sessions
 6. **Manuscript.** — 2–3 sessions
 
 ---
+
+## 6b. What this session (2026-09-02/03) changed — read before trusting older text
+
+- **A25** (in our favour): the MDE simulation inflated within-material noise by √2;
+  L6-v2 has **82 % power at 4 %**, MDE 4 % (was 68 % / ~5 %). `mde.py` is now the single
+  MDE implementation, self-tested.
+- **A24**: the legacy learning curve's 48-material endpoint was a single deterministic
+  run; flagged, superseded by the v2 curve.
+- **B39/B40**: the L6-v2 MDE table had no script; the B37 fix had shadowed the key list
+  it threaded through (every PINN run would have crashed). Both fixed.
+- **Experimental anchor changed**: Lassitter 2024 Fig. 10 (fully specified in its SI,
+  digitised) replaces Li 2025 (under-specified). See §5 item 4.
+- Ledger counts: 25 Part-A, 40 Part-B.
 
 ## 7. Rules carried forward
 
