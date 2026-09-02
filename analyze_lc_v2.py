@@ -60,8 +60,16 @@ def power_law(ns, errs):
     return float(-b), float(np.exp(a))
 
 
-def bootstrap_exponent(res, axis, grid, folds, n_boot=2000, seed=0):
-    """Resample MATERIALS, recompute each size's pooled mean, refit the exponent."""
+def bootstrap_exponent(res, axis, grid, folds, ns, n_boot=2000, seed=0):
+    """Resample MATERIALS, recompute each size's pooled mean, refit the exponent.
+
+    `ns` is the x-axis the point estimate used (materials on the materials axis,
+    training conditions on the conditions axis). A constant x-axis would make
+    every fit rank-deficient, so it is refused rather than warned about.
+    """
+    ns = np.asarray(ns, dtype=float)
+    if np.ptp(np.log(ns)) < 1e-6:
+        raise ValueError("bootstrap_exponent: the x-axis is constant — no exponent can be fitted")
     per_size = {g: pooled(res, axis, g, "per_sample_refit", folds) for g in grid}
     mats = np.unique(per_size[grid[0]][1])
     idx_by_mat = {m: np.where(per_size[grid[0]][1] == m)[0] for m in mats}
@@ -69,8 +77,6 @@ def bootstrap_exponent(res, axis, grid, folds, n_boot=2000, seed=0):
         if not np.array_equal(per_size[g][1], per_size[grid[0]][1]):
             raise AssertionError("sizes were scored on different samples")
     rng = np.random.default_rng(seed)
-    ns = np.array([np.mean([res["folds"][f][axis][str(g)][s]["n_materials"]
-                            for f in folds for s in res["folds"][f][axis][str(g)]]) for g in grid])
     boots = np.empty(n_boot)
     for b in range(n_boot):
         drawn = rng.choice(mats, size=len(mats), replace=True)
@@ -80,16 +86,29 @@ def bootstrap_exponent(res, axis, grid, folds, n_boot=2000, seed=0):
     return boots
 
 
+def seed_sd(res, axis, g, key, folds, seeds):
+    """Seed spread of a scalar target: mean over folds per seed, then sd over seeds.
+
+    Flattening fold x seed cells would report between-fold variation (different
+    held-out materials) as if it were run-to-run reproducibility (rule 3, A24).
+    """
+    per_seed = [np.mean([res["folds"][f][axis][str(g)][str(s)][key] for f in folds]) for s in seeds]
+    return float(np.std(per_seed))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mde-trials", type=int, default=200)
     ap.add_argument("--no-mde", action="store_true")
+    ap.add_argument("--res", default=RES)
+    ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
-    if not os.path.exists(RES):
-        raise SystemExit(f"{RES} missing — run learning_curve_v2.py first")
-    res = json.load(open(RES))
+    res_path, out_path = args.res, args.out
+    if not os.path.exists(res_path):
+        raise SystemExit(f"{res_path} missing — run learning_curve_v2.py first")
+    res = json.load(open(res_path))
     alpha, ncl = alpha_for("folds")
-    out = {"source": RES, "alpha": alpha, "axes": {}}
+    out = {"source": res_path, "alpha": alpha, "axes": {}}
     print(f"learning curve v2 — {res['field_shape'][0]}x{res['field_shape'][1]} c-channel, "
           f"p_field {res['p_field']}, p_warp {res['p_warp']}, levels {res['levels']}, alpha {alpha}")
 
@@ -109,7 +128,7 @@ def main():
         for g in grid:
             v, m = pooled(res, axis, g, "per_sample_refit", folds)
             vf, _ = pooled(res, axis, g, "per_sample_fixed", folds)
-            _, sd = scalar_mean(res, axis, g, "field_refit", folds)
+            sd = seed_sd(res, axis, g, "field_refit", folds, res["seeds"])
             nm = np.mean([res["folds"][f][axis][str(g)][s]["n_materials"]
                           for f in folds for s in res["folds"][f][axis][str(g)]])
             nt = np.mean([res["folds"][f][axis][str(g)][s]["n_train"]
@@ -141,7 +160,7 @@ def main():
         ns = np.array([r["n_materials"] if axis == "materials" else r["n_train"] for r in rows])
         errs = np.array([r["refit"] for r in rows])
         beta, _ = power_law(ns, errs)
-        boots = bootstrap_exponent(res, axis, grid, folds)
+        boots = bootstrap_exponent(res, axis, grid, folds, ns)
         lo, hi = np.percentile(boots, [100 * alpha / 2, 100 * (1 - alpha / 2)])
         print(f"\n  power law err ~ n^-beta over the {len(grid)} sizes: beta = {beta:.3f}  "
               f"CI [{lo:.3f}, {hi:.3f}]  (x-axis: {'materials' if axis == 'materials' else 'training conditions'})")
@@ -155,25 +174,29 @@ def main():
             mde = mde_report(b - a, m, base=float(a.mean()), alpha=alpha, effects=MDE_EFFECTS,
                              trials=args.mde_trials, label=f"last step {grid[-2]} -> {grid[-1]}")
 
+        provisional = (not complete) or (not improving and mde is None)
+        prefix = "PROVISIONAL — " if provisional else ""
         if improving:
-            verdict = (f"NOT ELIMINATED at the largest size available ({grid[-1]}): the last step "
+            verdict = (f"{prefix}NOT ELIMINATED at the largest size available ({grid[-1]}): the last step "
                        f"{grid[-2]} -> {grid[-1]} is a significant improvement "
                        f"(diff {last['mean_diff']:+.5f}, CI [{last['ci_low']:+.5f}, {last['ci_high']:+.5f}]). "
                        f"Exponent beta = {beta:.3f} [{lo:.3f}, {hi:.3f}]; no extrapolation beyond 2x the measured range.")
         else:
-            verdict = (f"ELIMINATED: the last step {grid[-2]} -> {grid[-1]} is not a significant improvement "
+            verdict = (f"{prefix}ELIMINATED: the last step {grid[-2]} -> {grid[-1]} is not a significant improvement "
                        f"(diff {last['mean_diff']:+.5f}, CI [{last['ci_low']:+.5f}, {last['ci_high']:+.5f}])"
                        + (f"; MDE at 80 % power {100 * mde['mde_80']:.0f} %" if mde and mde['mde_80'] else
-                          "; MDE at 80 % power beyond the simulated range" if mde else ""))
+                          "; MDE at 80 % power beyond the simulated range" if mde else
+                          "; MDE PENDING (rule 7: this null may not be reported until it has one)"))
         print(f"\n  VERDICT ({axis}): {verdict}")
         out["axes"][axis] = {"folds_done": folds, "complete": complete, "rows": rows,
                              "steps": steps, "last_step_improving": improving,
                              "beta": beta, "beta_ci": [float(lo), float(hi)],
                              "ratio_first_to_last": float(rows[0]["refit"] / rows[-1]["refit"]),
-                             "mde_last_step": mde, "verdict": verdict}
+                             "mde_last_step": mde if mde is not None else ("PENDING" if not improving else None),
+                             "provisional": provisional, "verdict": verdict}
 
-    json.dump(out, open(OUT, "w"), indent=2)
-    print(f"\nwrote {OUT}")
+    json.dump(out, open(out_path, "w"), indent=2)
+    print(f"\nwrote {out_path}")
 
 
 if __name__ == "__main__":

@@ -90,7 +90,7 @@ materials, pre-registration committed to git *before* the first arm trained:
 - **SECONDARY, significant:** joint 0.0562 vs separate **0.0541** — separate is
   **3.7 % better** (CI 1.0–6.5 %), consistent in all 5 folds and all 3 seeds.
   Legacy had separate **26 % worse**. The sign reversed.
-- MDE: 68 % power at 4 %, 97 % at 6 %. Quote the **1.0 % lower bound** as the
+- MDE (corrected, A25): 82 % power at 4 %, 99 % at 6 %; MDE 4 %. Quote the **1.0 % lower bound** as the
   conservative reading — the observed effect sits near the resolution limit.
 - Why it became answerable: between-material noise fell 0.0391 → **0.0104**
   (69 % → 18 % of base), a 3.8× reduction from v2's Sobol sampling and

@@ -30,3 +30,7 @@ figures/*.pdf
 # OS
 Thumbs.db
 .DS_Store
+
+# Extracted journal figures used for digitisation: copyrighted, kept locally only.
+refs/*.png
+refs/*.docx

@@ -226,3 +226,165 @@ out of reach without experimental data — unchanged since the audit.
 
 **Scope: ONE paper.** The falsification ladder is the story. With multi-front
 alignment established as prior art (B36), the warp is a section, not a paper.
+
+---
+
+## Experimental anchor — status 2026-09-02
+
+**Li, Li, Yin, Shan, Tao & Wang, *RSC Adv.* 15:8867 (2025), PMC11931415, CC BY 3.0 —
+read in full from PMC.** The audit called this "the experimental anchor, with
+matching geometry", and the geometry does match: inner diameter **0.6 cm**, bed
+height **≈ 10 cm**, **298 K**, nitrogen carrier at **300 sccm**, MOF-303 formed
+into **2–5 mm cylindrical granules**. But three things the audit assumed are
+**not in the paper**, and they decide what the curve can be used for:
+
+| needed for a quantitative comparison | reported? |
+|---|---|
+| inlet water-vapour concentration / RH of the feed | **no** — not stated anywhere in the dynamic section |
+| mass of adsorbent in the column (or bulk density) | **no** — only the bed height |
+| bed void fraction, pellet density | **no** |
+| outlet signal definition | on-line mass spectrometer; m/z and calibration not given |
+| the plotted quantity in Fig. 11 | **"breakthrough adsorption capacity" in mg g⁻¹ vs time** — a cumulative uptake, not c/c_in; its formula is not given |
+
+Numbers the text does give (Table 3): MOF-303 granules (A0) breakthrough capacity
+**248.6 mg g⁻¹**, breakthrough time **134.3 min**; composites A1–A4 277–301 mg g⁻¹;
+13X 151.2 mg g⁻¹ / 80.8 min; silica gel 207.0 mg g⁻¹ / 110.0 min. Static uptake:
+powder 445 mg g⁻¹, granules 416 mg g⁻¹ at 298 K.
+
+**Consequence.** Without the feed concentration and the bed mass the
+stoichiometric time is undetermined, so a digitised Fig. 11 cannot fix the solver's
+absolute time axis; it can only be compared in **shape** (single-step vs stepped,
+and the ratio of the early leak to the main front) and in **breakthrough time
+relative to the capacity-derived stoichiometric estimate**. The honest use is a
+qualitative shape anchor with a stated one-parameter fit (feed concentration
+inferred from the reported capacity and the cited isotherm), never a
+solver-vs-experiment error budget. Whether this changes the venue tier as the
+audit hoped is doubtful; it must be written as a limitation, not a validation.
+
+Figure image (CC BY 3.0): `https://cdn.ncbi.nlm.nih.gov/pmc/blobs/9f9d/11931415/47ad8d5d2b89/d4ra08282f-f11.jpg`.
+Not yet downloaded or digitised.
+
+**Alternatives checked:** Lassitter et al. 2024 (CSFR kinetics, PDF at
+yaghi.berkeley.edu) — see the note that follows once read; Bozbiyik et al. 2017
+(Al-fumarate, three feed humidities, single-step → stepped transition; Springer,
+access not yet confirmed).
+
+**Lassitter, Hanikel, Coyle, … Yaghi & Glover, *Chem. Eng. Sci.* 285:119430 (2024) —
+main text read in full 2026-09-02 from the author-hosted PDF
+(`yaghi.berkeley.edu/pdfPublications/24MassTransfer.pdf`, text extracted with PyMuPDF).**
+
+The paper does contain a MOF-303 packed-bed breakthrough curve, **Fig. 10**
+("Experimental Breakthrough Curve (points) and COMSOL model (line)"): *"MOF-303
+was pressed into pellets, without a binder, and ambient air was pulled through
+the MOF-303 adsorption bed … This breakthrough test was conducted on 3.11 g of
+MOF-303 in a tube that was 1.5 in. in diameter with additional details in the
+SI."* The flow rate, inlet humidity, temperature, pellet size and bed length are
+**in the supplementary information, not the main text**; the SI is on
+ScienceDirect (10.1016/j.ces.2023.119430) and its accessibility is recorded
+below. The physics sentence we need is verbatim: *"the unique shape of the
+breakthrough curve shown in Fig. 10 occurs not because of mass transfer effects,
+but rather because of the shape of the adsorption isotherm … transitions from
+favorable to unfavorable adsorption that results in changes in the breakthrough
+curve from a more shock-like curve to a more dispersed curve (LeVan and Carta,
+2008)"*, with Bozbiyik et al. 2017 cited for the same behaviour on aluminium
+fumarate. **That is direct experimental support for §6c's two-wave
+mechanism**, and it should be cited for exactly that.
+
+Also confirmed: the LDF-vs-micropore comparison is on the CSFR data (LDF
+"fits the data reasonably well until the humidity approaches 20 %" for MOF-333,
+with deviations at high frequency near the step); **no solid heat capacity
+value** is given (Cs appears only as a symbol in the energy balance, Eq. 16), so
+the C_ps gap stands; the density/porosity numbers in the text (183.2 kg m⁻³,
+0.584, skeletal 440 kg m⁻³) refer to the **polymer composite coating**, not to
+MOF-303 pellets, and must not be used as pellet values.
+
+**Anchor status, honestly:** two published MOF-303 breakthrough curves exist
+(Li 2025 Fig. 11; Lassitter 2024 Fig. 10). Neither reports, in its main text,
+the full set {feed humidity, bed mass or bulk density, void fraction} a
+quantitative solver-vs-experiment comparison needs. Lassitter's SI may; until
+it is read, the experimental section of the paper is a **shape comparison**
+with the stated missing parameters, not an error budget.
+
+**Lassitter 2024 — supplementary information READ 2026-09-02** (Elsevier SI,
+`1-s2.0-S0009250923009867-mmc1.docx`, text extracted from the docx archive; the
+tables are embedded EMF images, converted and read). **This changes the anchor
+decision: the packed-bed test is fully specified.**
+
+Section S4: pellets pressed from NovoMOF MOF-303 at 2 US tons for ~30 s (BET
+839 → 814 m² g⁻¹, ~3 % loss); degassed 15 h at 120 °C; loaded under nitrogen;
+*"ambient air was drawn across the bed at 670.8 cm³/min"*; inlet and effluent RH by
+Honeywell HIH-4021-001 sensors. Table S8 (packed-bed COMSOL parameters), verbatim:
+
+| symbol | value | description |
+|---|---|---|
+| R | 0.01905 m | radius of tube |
+| **L** | **0.00635 m** | **height of bed** |
+| Q | 1.118 × 10⁻⁵ m³ s⁻¹ | volumetric flow rate of air, inlet |
+| v | 0.0098062 m s⁻¹ | inlet velocity of air |
+| A_c | 0.0011401 m² | cross-sectional area of bed |
+| D_H2O,air | 2.19 × 10⁻⁵ m² s⁻¹ | diffusivity of water in air |
+| T | 298.15 K | temperature |
+| **RH** | **32.8 %** | relative humidity |
+| C₀ | 0.42212 mol m⁻³ | inlet water concentration |
+| V_b | 7.2396 × 10⁻⁶ m³ | volume of bed |
+| M_b | 0.00311 kg | mass of bed |
+| **ρ_b** | **429.58 kg m⁻³** | MOF bulk density |
+| **ε_b** | **0.4** | porosity of bed (**estimated**) |
+| P_sat | 3190.1 Pa | saturation pressure of water |
+
+Model: 2-D axisymmetric porous domain, Brinkman flow, **isothermal** ("trace"
+adsorbate), LDF with k_LDF from CSFR (micropore rate; **no macropore resistance
+and no pellet size enters their model**), Bruggeman tortuosity, Eq. S1–S6.
+
+Table S2 (CSFR, MOF-303 powder, 25 °C), verbatim — the kinetic object as a
+function of humidity, **with its minimum at the isotherm step**:
+
+| RH % | η = D/r_s² (s⁻¹) | k_LDF (s⁻¹) |
+|---|---|---|
+| 5 | 1.09e-2 | 1.46e-1 |
+| 7 | 3.45e-3 | 5.22e-2 |
+| 10 | 8.16e-4 | 1.34e-2 |
+| **12** | **4.24e-4** | **1.14e-2** |
+| 15 | 3.23e-3 | 3.67e-2 |
+| 26 | 1.42e-2 | 2.44e-1 |
+| 40 | 1.44e-2 | 1.83e-1 |
+| 60 | 1.14e-2 | 1.43e-1 |
+| 80 | 1.82e-2 | 2.20e-1 |
+
+**What this buys, stated carefully.** Every input a 1-D solver-vs-experiment
+comparison needs is now on record for Fig. 10: L, v, T, RH, ρ_b, ε_b, M_b and the
+rate. Three caveats must be written next to any such comparison: (i) the bed is
+**6.35 mm tall in a 38.1 mm tube** — an aspect ratio of 0.17, far from the
+100 mm column of our dataset; axial dispersion, entrance effects and maldistribution
+are not small, and their own model is 2-D axisymmetric for that reason; (ii) the
+feed at 32.8 % RH sits **above** MOF-303's step (13–15 % RH), so the whole run is on
+the cooperative branch — the two-wave shape the main text attributes to the
+isotherm is exactly §6c's mechanism and is what to compare; (iii) ε_b is an
+estimate and the pellet size is not given, so the dispersion term is a
+sensitivity band, and C_ps remains uncited (their model is isothermal, so they
+did not need it). Fig. 10 is in the main-text PDF (points + COMSOL line) and is
+the curve to digitise; Li 2025 Fig. 11 is demoted to a qualitative
+shape comparison.
+
+**Fig. 10 digitised 2026-09-02** — `digitise_lassitter.py` → `refs/Lassitter2024_fig10_digitised.csv`
+(committed) from the figure image extracted from the main-text PDF (page 10,
+kept locally as `refs/Lassitter2024_fig10.png`, gitignored as copyrighted). QA
+overlay: `figures/qa_lassitter_fig10_digitised.png`. The frame corners are the
+axis limits (0–600 min, 0–35 % RH); markers are classified square (inlet) vs
+circle (effluent) by corner ink; the legend region is excluded by position.
+
+| series | points | notes |
+|---|---|---|
+| inlet squares | 39 | 31.5 → 33.3 % RH over the run (the ambient feed drifts ~2 %; Table S8's 32.8 % is the mean) |
+| effluent circles | 37 | 4 sit on the axis line at t = 18–67 min and are recorded at RH 0 (flagged); markers overlap the inlet series after ~330 min (flagged) |
+| COMSOL line | 625 columns | first rise at ≈ 128 min, plateau ≈ 9–10 % RH from 150 to 280 min, shock 300–330 min, 32.7 % after |
+
+Effluent, digitised: first leak at **83 min (1.2 % RH)**, plateau **7.4–10.5 %
+RH from 146 to 250 min** (≈ 0.25–0.32 of the inlet), rise through 11.9 (267 min),
+14.5 (283), 20.9 (296), 28.0 (319), 29.8 (333), 31.1 (350), then 32.1–32.3 %
+from 400 min. **A two-wave breakthrough with a Henry-branch plateau at roughly
+30 % of the feed and a cooperative shock ~150 min later** — §6c in a real MOF-303
+bed, at conditions that are fully on record. This is the curve the solver is
+compared against; the comparison itself is a separate, pre-registered step
+(bed 6.35 mm, v 0.0098 m s⁻¹, RH 32.8 %, 298.15 K, ρ_b 429.6, ε_b 0.4 ± band,
+k_LDF from Table S2 or Glueckauf, C_ps 900–2400 band).

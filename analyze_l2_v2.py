@@ -43,10 +43,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mde-trials", type=int, default=200)
     ap.add_argument("--no-mde", action="store_true")
+    ap.add_argument("--res", default=RES)
+    ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
-    if not os.path.exists(RES):
-        raise SystemExit(f"{RES} missing — run run_l2_v2.py first")
-    res = json.load(open(RES))
+    res_path, out_path = args.res, args.out
+    if not os.path.exists(res_path):
+        raise SystemExit(f"{res_path} missing — run run_l2_v2.py first")
+    res = json.load(open(res_path))
     alpha, ncl = alpha_for("folds")
     n_seeds = len(res["seeds"])
     keys = [f"{c['family']}/{c['label']}" for c in res["configs"]]
@@ -63,7 +66,7 @@ def main():
     for f in fams:
         fams[f].sort(key=lambda x: x[0]["capacity"])
 
-    out = {"source": RES, "alpha": alpha, "pod_floor_mean": float(floor), "families": {}}
+    out = {"source": res_path, "alpha": alpha, "pod_floor_mean": float(floor), "families": {}}
     all_saturated, any_incomplete = True, False
     best_overall = None
     for fam, items in fams.items():
@@ -122,25 +125,29 @@ def main():
         print(f"  largest vs smallest: " + format_comparison(r_end))
         all_saturated &= not improving
         out["families"][fam] = {"rows": rows, "shape": shape, "best": rows[best_i]["label"],
-                                "last_step": r, "last_step_improving": improving, "mde_last_step": mde,
+                                "last_step": r, "last_step_improving": improving,
+                                "mde_last_step": mde if mde is not None else ("PENDING" if not improving else None),
+                                "provisional": bool(not improving and mde is None),
                                 "largest_vs_smallest": r_end}
 
     print(f"\n{'=' * 80}\nL2-v2 VERDICT\n{'=' * 80}")
     if best_overall:
         print(f"  best configuration anywhere: {best_overall[1]}/{best_overall[2]} = {best_overall[0]:.4f} "
               f"({best_overall[0] / floor:.0f}x the POD floor)")
+    pending = [f for f, v in out["families"].items() if v.get("provisional")]
     if any_incomplete:
         verdict = "INCOMPLETE — no verdict may be reported yet"
     elif all_saturated:
-        verdict = "Every family has SATURATED at its last step. Capacity is ELIMINATED on dataset v2."
+        verdict = ("Every family has SATURATED at its last step. Capacity is ELIMINATED on dataset v2."
+                   + (f" PROVISIONAL: MDE pending for {pending} (rule 7)." if pending else ""))
     else:
         still = [f for f, v in out["families"].items() if v["last_step_improving"]]
         verdict = f"NOT ELIMINATED: families still improving at their last step: {still}. Extend their sweeps."
     print(f"  {verdict}")
     out["verdict"] = verdict
     out["best_overall"] = best_overall
-    json.dump(out, open(OUT, "w"), indent=2)
-    print(f"\nwrote {OUT}")
+    json.dump(out, open(out_path, "w"), indent=2)
+    print(f"\nwrote {out_path}")
 
 
 if __name__ == "__main__":

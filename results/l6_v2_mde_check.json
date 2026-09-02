@@ -1,11 +1,16 @@
 {
   "source": "results/l6_v2_mde.json",
   "alpha": 0.02,
+  "trials": 400,
   "power": {
-    "0.00": 2.0,
-    "0.02": 20.25,
-    "0.04": 67.75,
-    "0.06": 96.25,
+    "0.00": 2.5,
+    "0.01": 7.5,
+    "0.02": 24.25,
+    "0.03": 55.0,
+    "0.04": 82.25,
+    "0.06": 99.5,
     "0.10": 100.0
-  }
+  },
+  "mde_80": 0.04,
+  "note": "corrected simulation (A25): the difference is simulated directly with the measured between/within structure; the earlier table drew within noise for each arm separately"
 }

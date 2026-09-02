@@ -1,0 +1,14 @@
+self-test: input between 0.0104 within 0.0205 -> recovered between 0.0104 within 0.0199  OK
+L6-v2 pooled: joint 0.0562 separate 0.0541, 240 clusters, 11841 values
+  MDE L6-v2 separate vs joint (corrected): 240 clusters, base 0.0562, between sd 0.0104 (18 % of base), within sd 0.0197, alpha 0.02
+     true effect   power
+              0 %      2 %
+              1 %      8 %
+              2 %     26 %
+              3 %     55 %
+              4 %     82 %
+              6 %     99 %
+             10 %    100 %
+    -> size at the null 1.8 % (the calibrated level targets 5 %)
+    -> minimum detectable effect at 80 % power: 4 %
+wrote results/l6_v2_mde_corrected.json

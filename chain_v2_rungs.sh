@@ -9,10 +9,10 @@ export PYTHONIOENCODING=utf-8
 
 "$P" -u run_l7_v2.py                >> l7_v2.log 2>&1;              echo "L7_EXIT=$?"
 "$P" -u run_l1_v2.py --design both  >> l1_v2.log 2>&1;              echo "L1_EXIT=$?"
-"$P" -u analyze_l1_v2.py --no-mde   >> l1_v2_analysis.log 2>&1;     echo "L1A_EXIT=$?"
+"$P" -u analyze_l1_v2.py            >> l1_v2_analysis.log 2>&1;     echo "L1A_EXIT=$?"
 "$P" -u analyze_l7_v2.py            >> l7_v2_analysis.log 2>&1;     echo "L7A_EXIT=$?"
 "$P" -u learning_curve_v2.py        >> learning_curve_v2.log 2>&1;  echo "LC_EXIT=$?"
-"$P" -u analyze_lc_v2.py --no-mde   >> learning_curve_v2_analysis.log 2>&1; echo "LCA_EXIT=$?"
+"$P" -u analyze_lc_v2.py            >> learning_curve_v2_analysis.log 2>&1; echo "LCA_EXIT=$?"
 "$P" -u run_l2_v2.py                >> l2_v2.log 2>&1;              echo "L2_EXIT=$?"
-"$P" -u analyze_l2_v2.py --no-mde   >> l2_v2_analysis.log 2>&1;     echo "L2A_EXIT=$?"
+"$P" -u analyze_l2_v2.py            >> l2_v2_analysis.log 2>&1;     echo "L2A_EXIT=$?"
 echo V2_RUNGS_DONE

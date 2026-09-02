@@ -50,6 +50,11 @@ for label, f, w, want in (("L1-v2 cells", "results/l1_v2_results.json", l1_cells
     n = n_cells(f, w)
     print(f"  {label:20s}: {'MISSING' if n is None else f'{n}/{want} cells complete'}")
 print(f"  {'L7-v2':20s}: {'present' if os.path.exists('results/l7_v2_results.json') else 'missing'}")
+def l4b_cells(d):
+    return sum(1 for ax in d.get("sweep", {}).values() for a in ax.values() for s in a)
+n = n_cells("results/l4b_v2_results.json", l4b_cells)
+print(f"  {'L4b-v2 sweep cells':20s}: {'MISSING' if n is None else f'{n}/{11 * 2 * 3} cells complete'}")
+print(f"  {'L4b-v2 refine':20s}: {'present' if os.path.exists('results/l4b_v2_refine.json') else 'missing'}")
 for label, f in (("L6-v2 checks", "results/l6_v2_checks.json"),
                  ("L6-v2 folds", "results/l6_v2_folds.json"),
                  ("L6-v2 results", "results/l6_v2_results.json"),
@@ -126,6 +131,11 @@ fi
 #    skipping completed cells, so each is simply invoked; nothing is recomputed.
 echo "-> L1/L2/L7 on v2: running whatever is missing (see chain_v2_rungs.sh for the order)"
 bash chain_v2_rungs.sh >> chain_v2_rungs_outer.log 2>&1
+
+# 5. L4b on v2 (PREREG_L4b_v2.md): the weighting sweep, physics at inference, the
+#    L-BFGS polish. Runs only after the v2 rungs above, never concurrently.
+echo "-> L4b-v2: running whatever is missing (see chain_l4b_v2.sh for the order)"
+bash chain_l4b_v2.sh >> chain_l4b_v2_outer.log 2>&1
 
 echo
 echo "RESUME_DONE"

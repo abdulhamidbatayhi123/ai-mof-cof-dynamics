@@ -591,18 +591,24 @@ clusters instead of 12, is what turned an unanswerable question into an answerab
 one. Design v2's Sobol sampling and physically-consistent Glueckauf kinetics removed
 most of the material-to-material chaos.
 
-**MDE (required by A22; never quote this null without it):**
+**MDE (required by A22; never quote this null without it).** Corrected 2026-09-02
+(retraction **A25**: the first table, 22 / 68 / 97 / 100 %, came from a simulation
+that inflated the within-material noise by √2). From the real paired differences
+with `mde.py`, 400 trials, 240 clusters, α = 0.02
+(`results/l6_v2_mde_corrected.json`):
 
 | true effect | power |
 |---|---|
-| 2 % | 22 % |
-| **4 %** | **68 %** |
-| 6 % | 97 % |
+| 2 % | 26 % |
+| 3 % | 55 % |
+| **4 %** | **82 %** |
+| 6 % | 99 % |
 | 10 % | 100 % |
 
-The observed 3.7 % sits near the design's resolution limit, so the point estimate
-may be optimistic (winner's curse) even though the CI excludes zero — the lower
-bound, 1.0 %, is the conservative reading.
+Size at the null 1.8 %; **minimum detectable effect at 80 % power: 4 %**. The
+observed 3.7 % sits just under that, so the point estimate may still be optimistic
+(winner's curse) even though the CI excludes zero — the lower bound, 1.0 %, is the
+conservative reading.
 
 ### The verdict, in the pre-declared words
 
