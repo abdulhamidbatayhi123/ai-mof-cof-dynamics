@@ -177,8 +177,12 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
    sensitivity (Fig9b). Li 2025 is only a shape comparison. What remains: write the
    error budget in the paper as solver-vs-experiment (this) and surrogate-vs-solver
    (everything else).
-5. **The figure set is built for the old narrative.** No figure exists for the
-   two-wave warp or the coefficient-map bottleneck — the two strongest results.
+5. **Figures for the current narrative — partly done.** New this session, every series
+   read from results files: Fig8 (v2 learning curve), Fig9/9b (solver vs Lassitter),
+   Fig10 (the mechanism: floor vs arms, basis vs coefficient-map error, per-mode R²),
+   Fig11 (two-wave warp: n-width per frame, the powered verdict). Still to do: a
+   ladder schematic with each rung's verdict and power (F1), and re-authoring Fig1–7
+   to column width for the falsification-ladder story.
 
 **Known and scoped:**
 - `C_ps = 1000 J/kg/K` has **no citable source**. Report as a 900–2400 J/kg/K
