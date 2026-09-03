@@ -388,3 +388,14 @@ bed, at conditions that are fully on record. This is the curve the solver is
 compared against; the comparison itself is a separate, pre-registered step
 (bed 6.35 mm, v 0.0098 m s⁻¹, RH 32.8 %, 298.15 K, ρ_b 429.6, ε_b 0.4 ± band,
 k_LDF from Table S2 or Glueckauf, C_ps 900–2400 band).
+
+---
+
+## Tranche 3 (2026-09-03) — the weighting schemes cited in `PREREG_L4b_v2.md`
+
+| ref | state | notes |
+|---|---|---|
+| **Wang, Teng & Perdikaris**, *Understanding and mitigating gradient flow pathologies in physics-informed neural networks*, **SIAM J. Sci. Comput. 43(5), A3055–A3081 (2021)**, DOI 10.1137/20M1318043; arXiv:2001.04536 | ✅ **VERIFIED** (Crossref record + arXiv abstract) | The gradient-norm balancing rule L4 and L4b use: *"a learning rate annealing algorithm that utilizes gradient statistics during model training to balance the interplay between different terms in composite loss functions."* |
+| **Wang, Yu & Perdikaris**, *When and why PINNs fail to train: A neural tangent kernel perspective*, **J. Comput. Phys. 449, 110768 (2022)**, DOI 10.1016/j.jcp.2021.110768; arXiv:2007.14527 | ✅ **VERIFIED** (Crossref record + arXiv abstract; ScienceDirect page 403) | The NTK weighting arm: adaptive weights from the NTK eigenvalues to *"calibrate the convergence rate"* of the loss components. Our implementation uses per-point gradient norms as the diagonal (trace) estimate, per term, EMA-smoothed — a stated approximation, not their full eigen-decomposition. |
+| **McClenny & Braga-Neto**, *Self-adaptive physics-informed neural networks using a soft attention mechanism*, **J. Comput. Phys. 474, 111722 (2023)**, DOI 10.1016/j.jcp.2022.111722; arXiv:2009.04544 v5 (2024) | ✅ **VERIFIED** (arXiv record with the journal reference) | The self-adaptive arm: *"trainable weights applied to each training point individually"*, minimised in the network and maximised in the weights. Ours: softplus-parameterised per-point weights on a fixed collocation pool, minibatched. |
+| **Rathore, Lei, Frangella, Lu & Udell**, *Challenges in training PINNs: a loss landscape perspective*, **ICML 2024** (oral), arXiv:2402.01868 v2 | ✅ **VERIFIED** (arXiv record) | The optimiser robustness check: they *"compare gradient-based optimizers Adam, L-BFGS, and their combination Adam+L-BFGS, showing the superiority of Adam+L-BFGS"* and tie PINN ill-conditioning to the differential operator. Our Q4 polish is Adam → L-BFGS on both arms of a pair. |
