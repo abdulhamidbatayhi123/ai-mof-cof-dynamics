@@ -1,0 +1,5 @@
+  bruggeman_k0.2                               D_L 5.54e-06 Pe  11.24 | t05    3.9 t50  313.1 t95  329.3 | plateau 0.234 | nRMSE 0.0832
+  bruggeman_k0.011                             D_L 5.54e-06 Pe  11.24 | t05    2.2 t50  313.4 t95  334.4 | plateau 0.238 | nRMSE 0.0845
+  ruthven_dp3mm_k0.2 (primary, for reference)  D_L 5.43e-05 Pe   1.15 | t05    1.7 t50  303.3 t95  431.1 | plateau 0.336 | nRMSE 0.1281
+  experiment: t05 86 t50 287 t95 354, plateau 0.267; authors' COMSOL nRMSE 0.0694
+wrote results/lassitter_comparison_posthoc.json and figures/Fig9b_lassitter_posthoc.png/.pdf

@@ -172,7 +172,7 @@ def main():
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
     ax.set_xlabel("time (min)"); ax.set_ylabel("% RH")
     ax.set_title("MOF-303 bed, 6.35 mm, 32.8 % RH, 298 K — Lassitter et al. 2024 Fig. 10")
-    ax.legend(fontsize=7, loc="center right")
+    ax.legend(fontsize=7, loc="lower right")
     os.makedirs("figures", exist_ok=True)
     for ext in ("png", "pdf"):
         fig.savefig(f"figures/Fig9_lassitter_anchor.{ext}", dpi=600, bbox_inches="tight")

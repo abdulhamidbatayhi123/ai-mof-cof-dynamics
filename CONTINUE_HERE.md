@@ -122,6 +122,7 @@ L6-v2, 240 held-out materials, every comparison significant:
 | conditions axis | β = 0.122, last step significant but 2.6 %; not eliminated by the rule, half the material exponent |
 | L7 | mlp exit 0.0474 vs klinkenberg 0.1769 (3.7×), all three closed forms significantly worse |
 | B41 | `R²(t_lo)` is rule-5 degenerate on v2 (97 % of cells cross 5 % within 2 % of the run); only `t_hi` is a valid warp target there |
+| anchor | solver vs Lassitter 2024 Fig. 10: t50 303 vs 287 min, plateau 0.34 vs 0.27, no fitting; first wave ~80 min early (isotherm low-RH branch), shock too dispersed under Ruthven on a 1–2-pellet bed (Pe ≈ 1; Bruggeman post-hoc gives nRMSE 0.083 vs the fitted COMSOL's 0.069) |
 
 **Dataset v2** — 3947 sims, 240 materials, Sobol, Glueckauf kinetics.
 Da median **27.5** with **77.8 %** in the informative 5–60 band, against legacy's
@@ -164,17 +165,18 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
    bounded" is defended, withdrawn, or retracted — all three outcomes are written
    in `PREREG_L4b_v2.md`.
 3. **~260 citations still unverified.** Two tranches done (≈90 refs).
-4. **Experimental anchor found and digitised, comparison not yet run.** Li et al.
-   2025 (*RSC Adv*) turned out to lack the feed humidity, bed mass and porosity, and
-   plots cumulative uptake — a shape comparison at best. **Lassitter et al. 2024
-   (*Chem. Eng. Sci.* 285:119430) Fig. 10 is fully specified in its SI** (Table S8:
-   bed 6.35 mm in a 38.1 mm tube, 670.8 cm³/min ambient air at 32.8 % RH, 298.15 K,
-   3.11 g, ρ_b 429.6 kg/m³, ε_b 0.4 estimated; Table S2: CSFR k_LDF vs RH). It shows
-   the two-wave breakthrough of §6c in a real MOF-303 bed. Digitised to
-   `refs/Lassitter2024_fig10_digitised.csv` (`digitise_lassitter.py`, QA overlay in
-   `figures/`). The solver-vs-experiment comparison is a separate, pre-registered
-   step; the 0.17 aspect ratio of their bed is the caveat to write first. See
-   `CITATIONS.md`, "Experimental anchor — status".
+4. **Experimental anchor: done, pre-registered, no fitting.** Lassitter et al. 2024
+   (*Chem. Eng. Sci.* 285:119430) Fig. 10 — a 6.35 mm MOF-303 bed at 32.8 % RH, fully
+   specified in its SI — digitised and compared (`PREREG_LASSITTER.md`,
+   `compare_lassitter.py`, `results/lassitter_comparison.json`, Fig9). The cited
+   isotherm reproduces the two-wave shape and the 50 % arrival (303 vs 287 min) with
+   nothing tuned. Two named discrepancies: the first wave arrives ~80 min too early
+   (the isotherm's low-RH branch — the Henry fraction was never fitted to dynamics),
+   and the shock is too dispersed under the Ruthven closure on a 1–2-pellet bed
+   (Pe ≈ 1); the authors' Bruggeman closure fixes the second as a labelled post-hoc
+   sensitivity (Fig9b). Li 2025 is only a shape comparison. What remains: write the
+   error budget in the paper as solver-vs-experiment (this) and surrogate-vs-solver
+   (everything else).
 5. **The figure set is built for the old narrative.** No figure exists for the
    two-wave warp or the coefficient-map bottleneck — the two strongest results.
 
@@ -192,7 +194,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 1. ~~Finish L6-v2~~ — ✅ **done 2026-09-02**
 2. **L1 learning curve, L2, L7 on v2.** — ✅ launched 2026-09-03; report when done
 3. **L4b weighting sweep + test-time physics refinement.** — pre-registered; run next
-4. **Citations tranche 3+, and the solver-vs-Lassitter Fig. 10 comparison** (digitised; pre-register the comparison first). — 2 sessions
+4. **Citations tranche 3+.** The Lassitter comparison is done (2026-09-03). — 1–2 sessions
 5. **Figure set rebuilt for the current narrative.** — 1–2 sessions
 6. **Manuscript.** — 2–3 sessions
 

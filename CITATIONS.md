@@ -384,10 +384,10 @@ RH from 146 to 250 min** (≈ 0.25–0.32 of the inlet), rise through 11.9 (267 
 14.5 (283), 20.9 (296), 28.0 (319), 29.8 (333), 31.1 (350), then 32.1–32.3 %
 from 400 min. **A two-wave breakthrough with a Henry-branch plateau at roughly
 30 % of the feed and a cooperative shock ~150 min later** — §6c in a real MOF-303
-bed, at conditions that are fully on record. This is the curve the solver is
-compared against; the comparison itself is a separate, pre-registered step
-(bed 6.35 mm, v 0.0098 m s⁻¹, RH 32.8 %, 298.15 K, ρ_b 429.6, ε_b 0.4 ± band,
-k_LDF from Table S2 or Glueckauf, C_ps 900–2400 band).
+bed, at conditions that are fully on record. The comparison was pre-registered
+(`PREREG_LASSITTER.md`) and run 2026-09-03: see `RESULTS.md`, "The solver against a
+real MOF-303 bed". Reproduces the shape and the 50 % arrival with no fitting; the
+first-wave arrival and the shock width are the two named discrepancies.
 
 ---
 

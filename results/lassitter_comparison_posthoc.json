@@ -1,0 +1,44 @@
+{
+  "note": "POST-HOC sensitivity, chosen after seeing the pre-registered result; not a fit, not the result",
+  "runs": {
+    "bruggeman_k0.2": {
+      "t05_min": 3.890988767090454,
+      "t50_min": 313.09800423888146,
+      "t95_min": 329.34692343155456,
+      "plateau_150_250_frac": 0.2341536362438263,
+      "has_plateau": true,
+      "plateau_duration_min": 246.20517097581316,
+      "nrmse_vs_effluent": 0.0831930469563135,
+      "D_L": 5.540310460615001e-06,
+      "Pe": 11.2393286337762,
+      "k_LDF": 0.2,
+      "closure": "bruggeman"
+    },
+    "bruggeman_k0.011": {
+      "t05_min": 2.184567628978699,
+      "t50_min": 313.3924159444449,
+      "t95_min": 334.43915976183746,
+      "plateau_150_250_frac": 0.23774663775431576,
+      "has_plateau": true,
+      "plateau_duration_min": 249.20767306088408,
+      "nrmse_vs_effluent": 0.08450136814107863,
+      "D_L": 5.540310460615001e-06,
+      "Pe": 11.2393286337762,
+      "k_LDF": 0.011,
+      "closure": "bruggeman"
+    },
+    "ruthven_dp3mm_k0.2 (primary, for reference)": {
+      "t05_min": 1.7170990432999695,
+      "t50_min": 303.3252718412146,
+      "t95_min": 431.09455273375823,
+      "plateau_150_250_frac": 0.33591203415034715,
+      "has_plateau": true,
+      "plateau_duration_min": 253.21100917431193,
+      "nrmse_vs_effluent": 0.12813912188224044,
+      "D_L": 5.427324999999999e-05,
+      "Pe": 1.147330775289853,
+      "k_LDF": 0.2,
+      "closure": "ruthven"
+    }
+  }
+}

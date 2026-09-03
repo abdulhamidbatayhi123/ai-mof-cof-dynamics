@@ -1,0 +1,48 @@
+feed 32.8 % RH at 298.15 K -> c_in 0.4184 mol/m3 (SI: 0.42212)
+experiment: t05 86 t50 287 t95 354 min; plateau 0.267 of inlet; inlet drift 31.5-33.3 % RH
+authors' COMSOL line: t50 300 min, plateau 0.277, nRMSE vs points 0.0694
+stoichiometric time at the feed: 251 min; MTZ estimate: (0.0022138341049540086, 58)
+  N_z 250: t50 303.3 min  [2s]
+  N_z 500: t50 303.3 min  [5s]
+  N_z 1000: t50 303.4 min  [9s]
+  grid: max|Δ| 250→500 0.0005, 500→1000 0.0003
+  k0.011_dp1mm_isothermal      t05    0.7 t50  311.9 t95  394.3 | plateau 0.301 (yes) | nRMSE 0.1106 | ΔT 0.1 K
+  k0.011_dp1mm_hw10_cps900     t05    0.4 t50  222.1 t95    nan | plateau 0.482 (yes) | nRMSE 0.2363 | ΔT 9.0 K
+  k0.011_dp1mm_hw10_cps1000    t05    0.4 t50  222.0 t95    nan | plateau 0.482 (yes) | nRMSE 0.2363 | ΔT 8.9 K
+  k0.011_dp1mm_hw10_cps2400    t05    0.5 t50  220.4 t95    nan | plateau 0.483 (yes) | nRMSE 0.2365 | ΔT 8.5 K
+  k0.011_dp3mm_isothermal      t05    0.4 t50  302.9 t95  434.6 | plateau 0.338 (yes) | nRMSE 0.1302 | ΔT 0.0 K
+  k0.011_dp3mm_hw10_cps900     t05    0.4 t50  196.3 t95    nan | plateau 0.503 (yes) | nRMSE 0.2481 | ΔT 8.8 K
+  k0.011_dp3mm_hw10_cps1000    t05    0.4 t50  196.2 t95    nan | plateau 0.503 (yes) | nRMSE 0.2481 | ΔT 8.8 K
+  k0.011_dp3mm_hw10_cps2400    t05    0.4 t50  194.8 t95    nan | plateau 0.504 (yes) | nRMSE 0.2485 | ΔT 8.4 K
+  k0.011_dp5mm_isothermal      t05    0.4 t50  294.6 t95  461.5 | plateau 0.362 (yes) | nRMSE 0.1441 | ΔT 0.0 K
+  k0.011_dp5mm_hw10_cps900     t05    0.3 t50  180.7 t95    nan | plateau 0.515 (yes) | nRMSE 0.2553 | ΔT 8.8 K
+  k0.011_dp5mm_hw10_cps1000    t05    0.3 t50  180.6 t95    nan | plateau 0.516 (yes) | nRMSE 0.2553 | ΔT 8.7 K
+  k0.011_dp5mm_hw10_cps2400    t05    0.4 t50  179.2 t95    nan | plateau 0.517 (yes) | nRMSE 0.2557 | ΔT 8.3 K
+  k0.05_dp1mm_isothermal       t05    2.0 t50  312.1 t95  391.0 | plateau 0.299 (yes) | nRMSE 0.1087 | ΔT 0.1 K
+  k0.05_dp1mm_hw10_cps900      t05    1.0 t50  223.0 t95    nan | plateau 0.481 (yes) | nRMSE 0.2352 | ΔT 9.1 K
+  k0.05_dp1mm_hw10_cps1000     t05    1.0 t50  222.9 t95    nan | plateau 0.481 (yes) | nRMSE 0.2352 | ΔT 9.1 K
+  k0.05_dp1mm_hw10_cps2400     t05    1.4 t50  221.3 t95    nan | plateau 0.482 (yes) | nRMSE 0.2354 | ΔT 8.6 K
+  k0.05_dp3mm_isothermal       t05    1.4 t50  303.3 t95  431.7 | plateau 0.336 (yes) | nRMSE 0.1285 | ΔT 0.0 K
+  k0.05_dp3mm_hw10_cps900      t05    0.7 t50  197.1 t95    nan | plateau 0.502 (yes) | nRMSE 0.2472 | ΔT 9.0 K
+  k0.05_dp3mm_hw10_cps1000     t05    0.8 t50  197.0 t95    nan | plateau 0.502 (yes) | nRMSE 0.2472 | ΔT 8.9 K
+  k0.05_dp3mm_hw10_cps2400     t05    1.0 t50  195.5 t95    nan | plateau 0.503 (yes) | nRMSE 0.2476 | ΔT 8.4 K
+  k0.05_dp5mm_isothermal       t05    1.0 t50  294.9 t95  458.8 | plateau 0.360 (yes) | nRMSE 0.1427 | ΔT 0.0 K
+  k0.05_dp5mm_hw10_cps900      t05    0.6 t50  181.4 t95    nan | plateau 0.515 (yes) | nRMSE 0.2545 | ΔT 8.9 K
+  k0.05_dp5mm_hw10_cps1000     t05    0.6 t50  181.3 t95    nan | plateau 0.515 (yes) | nRMSE 0.2545 | ΔT 8.8 K
+  k0.05_dp5mm_hw10_cps2400     t05    0.8 t50  179.9 t95    nan | plateau 0.516 (yes) | nRMSE 0.2549 | ΔT 8.3 K
+  k0.2_dp1mm_isothermal        t05    2.4 t50  312.2 t95  390.3 | plateau 0.299 (yes) | nRMSE 0.1083 | ΔT 0.1 K
+  k0.2_dp1mm_hw10_cps900       t05    1.2 t50  223.2 t95    nan | plateau 0.481 (yes) | nRMSE 0.2349 | ΔT 9.2 K
+  k0.2_dp1mm_hw10_cps1000      t05    1.2 t50  223.1 t95    nan | plateau 0.481 (yes) | nRMSE 0.2350 | ΔT 9.1 K
+  k0.2_dp1mm_hw10_cps2400      t05    1.6 t50  221.5 t95    nan | plateau 0.482 (yes) | nRMSE 0.2351 | ΔT 8.6 K
+  k0.2_dp3mm_isothermal        t05    1.7 t50  303.3 t95  431.1 | plateau 0.336 (yes) | nRMSE 0.1281 | ΔT 0.0 K   <- PRIMARY
+  k0.2_dp3mm_hw10_cps900       t05    0.9 t50  197.2 t95    nan | plateau 0.502 (yes) | nRMSE 0.2470 | ΔT 9.0 K
+  k0.2_dp3mm_hw10_cps1000      t05    1.0 t50  197.1 t95    nan | plateau 0.502 (yes) | nRMSE 0.2470 | ΔT 9.0 K
+  k0.2_dp3mm_hw10_cps2400      t05    1.3 t50  195.7 t95    nan | plateau 0.503 (yes) | nRMSE 0.2474 | ΔT 8.5 K
+  k0.2_dp5mm_isothermal        t05    1.3 t50  295.0 t95  458.2 | plateau 0.360 (yes) | nRMSE 0.1424 | ΔT 0.0 K
+  k0.2_dp5mm_hw10_cps900       t05    0.8 t50  181.5 t95    nan | plateau 0.515 (yes) | nRMSE 0.2543 | ΔT 8.9 K
+  k0.2_dp5mm_hw10_cps1000      t05    0.8 t50  181.4 t95    nan | plateau 0.515 (yes) | nRMSE 0.2543 | ΔT 8.9 K
+  k0.2_dp5mm_hw10_cps2400      t05    1.0 t50  180.0 t95    nan | plateau 0.516 (yes) | nRMSE 0.2548 | ΔT 8.4 K
+
+PRIMARY (k0.2_dp3mm_isothermal): REPRODUCES the experiment under the pre-declared reading (plateau present, t50 within 20 %, plateau level within 1.5x), with no parameter fitted
+closest band member by nRMSE (a SENSITIVITY, not a fit): k0.2_dp1mm_isothermal nRMSE 0.1083
+wrote results/lassitter_comparison.json and figures/Fig9_lassitter_anchor.png/.pdf  [92s]

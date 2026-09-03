@@ -762,6 +762,79 @@ curve (135 cells) 55 min; L2 (420 cells) ≈ 10 h, dominated by `xgb md8/md10`.
 
 ---
 
+## The solver against a real MOF-303 bed — Lassitter et al. (2024) Fig. 10 (run 2026-09-03)
+
+**Design frozen in `PREREG_LASSITTER.md`, committed before the run.** This is not a
+rung and tests no surrogate: it asks whether the physics model that generated every
+dataset here reproduces a published MOF-303 packed-bed breakthrough with **no
+parameter fitted to the curve**. The experiment is the only MOF-303 breakthrough
+whose conditions are fully on record (their SI Table S8): a **6.35 mm** bed in a
+38.1 mm tube, 670.8 cm³/min of ambient air at **32.8 % RH**, 298.15 K, 3.11 g,
+bulk density 429.6 kg/m³, porosity 0.4 (their estimate). Digitised in
+`refs/Lassitter2024_fig10_digitised.csv`; results in
+`results/lassitter_comparison.json`; figure `figures/Fig9_lassitter_anchor`.
+
+Inputs: the cited MOF-303 isotherm (`get_mof303_physics`, A4), the SI bed, and three
+declared bands for what the source does not give — k_LDF ∈ {0.011, 0.05, 0.20} s⁻¹
+from their CSFR Table S2, pellet size ∈ {1, 3, 5} mm (dispersion only), and thermal
+coupling (isothermal, or the dataset's h_w = 10 with C_ps ∈ {900, 1000, 2400}).
+Primary: k = 0.20, d_p = 3 mm, isothermal. Grid converged: max change in c/c_in
+0.0005 (N_z 250 → 500) and 0.0003 (500 → 1000).
+
+| curve | first leak t05 (min) | t50 | t95 | Henry plateau, 150–250 min (fraction of inlet) | nRMSE vs the 37 effluent points |
+|---|---|---|---|---|---|
+| **experiment** (digitised) | **86** | **287** | **354** | **0.267** | — |
+| authors' COMSOL, 2-D, fitted CSFR kinetics | 128 | 300 | ~340 | 0.277 | 0.069 |
+| **this solver, primary, no fitting** | 1.7 | **303** | 431 | **0.336** | 0.128 |
+| band, isothermal members (k, d_p) | 0.4–2.4 | 295–312 | 390–462 | 0.30–0.36 | 0.108–0.144 |
+| band, non-isothermal members (h_w = 10, any C_ps) | 0.3–1.6 | 179–223 | — | 0.48–0.52 | 0.235–0.256 |
+
+**Under the pre-declared reading the primary run reproduces the experiment**: the
+intermediate plateau is present, the 50 % arrival is **5.6 %** off (303 vs 287 min),
+and the plateau level is within 1.26× (0.336 vs 0.267). The two-wave breakthrough of
+§6c — a Henry-branch leak to a plateau near 0.3 of the feed, then a cooperative
+shock — is what a real MOF-303 bed does, and the cited isotherm predicts it with
+nothing tuned. The kinetic rate barely matters (Da = k·t_st is 160–3000: the bed is
+near equilibrium, as in the legacy dataset); the thermal band is decisive in the
+other direction — coupling the bed to the dataset's wall coefficient heats it 9 K
+and breaks through 80–110 min early, so the thin bed is effectively isothermal, as
+the authors also assumed.
+
+**Two discrepancies, both attributable, both reported.**
+
+1. **The first wave arrives ~80 min too early in the model** (t05 = 0.4–2.4 min for
+   every band member against 86 min measured; the authors' fitted model gives 128).
+   Nothing in the declared band moves it, and the post-hoc dispersion change below
+   does not either. What sets it is the isotherm's **low-RH branch**: the Henry
+   fraction of the cited Do–Do fit (0.06) was fitted to the step position and the
+   capacity only (A4), and this is the first dynamic measurement that constrains
+   it. Our fit holds too little water below the step. It is a measured limitation of
+   the MOF-303 parameterisation, not of the solver, and the paper must say so.
+2. **The shock is too dispersed** (t95 − t50 = 128 min against 67 measured). The
+   cause is a closure, not the physics: the Ruthven correlation used for every
+   dataset, D_L = 0.7 D_m + 0.5 d_p u, gives a Péclet number **vL/D_L ≈ 1** on a bed
+   one or two pellets deep, where a packed-bed dispersion correlation does not
+   apply. The authors use the Bruggeman closure D_e = ε^1.5 D_m (Pe ≈ 11).
+
+> **Post-hoc sensitivity — labelled as such, chosen after seeing the result, not a
+> fit and not the result** (`compare_lassitter_posthoc.py`,
+> `results/lassitter_comparison_posthoc.json`, `figures/Fig9b_lassitter_posthoc`).
+> With the authors' Bruggeman closure and everything else unchanged: t50 313 min,
+> t95 **329** min (experiment 354), plateau 0.234 (experiment 0.267), nRMSE
+> **0.083** against the fitted COMSOL's 0.069. The shock width is recovered; the
+> first-wave arrival is not (3.9 min), which is what isolates discrepancy 1 to the
+> isotherm. On our 10 cm datasets the Ruthven closure is the appropriate one — the
+> column is 50 pellets deep and Pe is in the hundreds — so this changes nothing
+> upstream; it scopes the closure.
+
+**What this establishes, and what it does not.** Solver-vs-experiment at one
+condition, on a bed with an aspect ratio of 0.17 where a 1-D plug-flow model is at
+the edge of its validity, with one isotherm parameter now known to be off in the
+low-RH branch. Every surrogate number in this paper is surrogate-vs-solver, and the
+error budget must separate the two in exactly those words.
+
+---
+
 ## L7 — the classical control is beaten, and that is a real finding
 
 Scored like-for-like on the **exit curve** (the classical forms predict the curve,
@@ -930,8 +1003,9 @@ methodology that produced it, is the contribution.
 1. Every MOF-303 parameter is a literature-range placeholder. Until replaced with
    cited values and the isotherm refitted to a published water isotherm, **no
    result may be described as "MOF-303"**.
-2. No experimental validation exists. The error budget must separate
-   solver-vs-experiment from surrogate-vs-solver.
+2. ~~No experimental validation exists.~~ One solver-vs-experiment comparison now exists
+   (Lassitter 2024 Fig. 10, pre-registered, no fitting); the error budget must still
+   separate solver-vs-experiment from surrogate-vs-solver, in those words.
 3. No COF case exists; the title claims one.
 4. `kaggle_run/` is a stale duplicate carrying the original defects.
 5. The speed claim needs an honest reference — our own solver runs one condition
