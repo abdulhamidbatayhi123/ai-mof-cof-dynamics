@@ -99,8 +99,9 @@ NEXT ACTIONS, in order:
   3. Citation verification, tranche 3 onward (~225 remain). The anchor is done;
      the Henry-branch discrepancy it exposed is a limitation to write, not to fix by
      tuning.
-  4. Rebuild the figure set for the current narrative. Nothing currently visualises
-     the two strongest results: the coefficient-map bottleneck and the two-wave warp.
+  4. Figures: Fig8 (learning curve), Fig9/9b (anchor), Fig10 (mechanism) and Fig11
+     (two-wave warp) exist, every series from results files. Still to do: the ladder
+     schematic (F1, after L2/L4b) and re-authoring Fig1-7 to column width.
   5. Draft the manuscript as a falsification ladder. The negative results are the
      contribution, not gaps.
 
