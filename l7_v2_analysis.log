@@ -1,0 +1,18 @@
+L7-v2 — exit-curve nRMSE, 3947 samples over 240 materials, alpha 0.02
+  learned reference from the L1-v2 verdict: mlp (out-of-fold field nRMSE c = 0.0306); no tied arms
+
+  method                exit nRMSE  dt50 (h)  ms/curve  trained?
+  POD floor                 0.0009                             —
+  mlp (learned)             0.0474      0.34       ~ms       yes
+  equilibrium_shock         0.3146      1.35     0.192        no
+  klinkenberg               0.1769      1.27     0.377        no
+  constant_pattern          0.3878      1.00     0.827        no
+
+  paired, cluster-robust by material, alpha 0.02:
+    mlp 0.04742 vs equilibrium_shock 0.3146 | diff -0.2672 CI [-0.2725, -0.2616]
+    mlp 0.04742 vs klinkenberg 0.1769 | diff -0.1295 CI [-0.1384, -0.1203]
+    mlp 0.04742 vs constant_pattern 0.3878 | diff -0.3404 CI [-0.3579, -0.3215]
+
+  VERDICT: LEARNING IS JUSTIFIED on dataset v2: every classical form is significantly worse than the learned reference on the exit curve; the best closed form is 3.73x worse.
+
+wrote results/l7_v2_verdict.json

@@ -1,0 +1,10 @@
+loaded 3947 exit curves on a 128-point grid; design v2; params ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+k_LDF reconstruction asserted: max relative deviation 0.00e+00 over 3947 samples
+
+model                 exit nRMSE  dt50 (h)  ms/curve   (all 3947 samples)
+equilibrium_shock         0.3146      1.35     0.192
+klinkenberg               0.1769      1.27     0.377
+constant_pattern          0.3878      1.00     0.827
+
+wrote results/l7_v2_results.json  [35s]
+Run analyze_l7_v2.py once run_l1_v2.py's fold design is complete.

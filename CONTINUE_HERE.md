@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-03 after the L1/L2/L7 v2 chain was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **25 Part-A, 40 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **25 Part-A, 41 Part-B**.
 
 ---
 
@@ -57,13 +57,13 @@ Technology, then TMLR. Reasoning in `CITATIONS.md`. **One paper, not two.**
 | rung | verdict | state |
 |---|---|---|
 | L0 | reference verified vs 4 closed forms | ✅ done |
-| L1 | "more data" | ⚠️ **narrowed (A18)** on legacy; **re-running on v2 now** (arms, 5-fold; materials learning curve to 192 materials) |
-| L2 | "more capacity" | ✅ done on legacy; **re-running on v2 now** (5-fold) |
+| L1 | "more data" | ⚠️ **NOT ELIMINATED on v2** — still falling at 192 materials (β = 0.22), all of it in the coefficient map; the **MLP is now the best arm**, significantly |
+| L2 | "more capacity" | ✅ done on legacy; **v2 sweep finishing** (411/420 cells at 09:45 on 09-03) |
 | **L3** | **"better basis / KAN"** | ✅ **FINAL** — fully bracketed, 6/6 significant |
 | L4/L4b | "physics as a loss" | ⚠️ **pre-registered and coded on v2** (`PREREG_L4b_v2.md`): weighting sweep, NTK, self-adaptive, refinement, L-BFGS polish — queued behind the v2 chain |
 | **L5** | **"you need an operator"** | ✅ **FINAL** — narrowed by FNO |
 | **L6** | **"separate identification"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted, but separate beats joint 3.7 % |
-| L7 | "is learning needed" | ✅ done on legacy; **re-running on v2 now** (classical forms vs out-of-fold learned arm) |
+| L7 | "is learning needed" | ✅ **eliminated on v2 too** — best closed form 3.7× worse, paired over 240 materials |
 
 ### The headline numbers, current
 
@@ -112,6 +112,17 @@ fixed 0.05005, predicted-warp 0.04770 (**no difference**), oracle 0.02203
 (**significant, 2.27×**). The gain is entirely consumed by front-location error.
 **2.17× headroom, established.** Monotonicity is *not* the lever (tested, B34).
 
+**L1 / learning curve / L7 on v2 (2026-09-03)** — `PREREG_L1L2L7_v2.md`, same folds as
+L6-v2, 240 held-out materials, every comparison significant:
+
+| | result |
+|---|---|
+| L1 arms (5-fold) | **mlp 0.0306** < xgb 0.0361 < rf 0.0388 < ridge 0.0516, all significant; MLP ahead in every fold. Reverses legacy (trees ≥ MLP). 109× above the POD floor |
+| learning curve | 0.0654 → 0.0531 → 0.0465 → 0.0402 → **0.0348** at 12/24/48/96/192 materials, **every step significant, last step included**; β = 0.222 [0.205, 0.239]. **NOT ELIMINATED.** Fixed-basis curve identical → all of the gain is the coefficient map (A21 confirmed) |
+| conditions axis | β = 0.122, last step significant but 2.6 %; not eliminated by the rule, half the material exponent |
+| L7 | mlp exit 0.0474 vs klinkenberg 0.1769 (3.7×), all three closed forms significantly worse |
+| B41 | `R²(t_lo)` is rule-5 degenerate on v2 (97 % of cells cross 5 % within 2 % of the run); only `t_hi` is a valid warp target there |
+
 **Dataset v2** — 3947 sims, 240 materials, Sobol, Glueckauf kinetics.
 Da median **27.5** with **77.8 %** in the informative 5–60 band, against legacy's
 626 and 1.1 %.
@@ -120,7 +131,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 25 Part-A, 40 Part-B, 26 marked "our own error".
+1. **The retraction ledger.** 25 Part-A, 41 Part-B, 27 marked "our own error".
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
 2. **Guards that make recurring failures impossible**, each earned from a real
@@ -141,11 +152,13 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 ## 5. What is not good yet
 
 **Blocking:**
-1. **L1/L2/L7 on v2 are running** (see §1). When they finish: read the four
-   `*_analysis.log`s and `results/*_v2_verdict.json`, write the rungs into `RESULTS.md`
-   in the pre-declared words, and update this file. The learning-curve verdict
-   (materials axis eliminated or not at 192 materials) is the one that changes the
-   paper's framing.
+1. **L2 on v2 is finishing** (`xgb md10`, folds 2–4, ~3 h at 09:45 on 09-03); then
+   `analyze_l2_v2.py` runs automatically and `V2_RUNGS_DONE` appears in
+   `chain_v2_rungs_outer.log`. Write L2-v2 into `RESULTS.md` in the pre-declared words
+   (saturated per family, or extend the sweep). L1, the learning curve and L7 are
+   written up. **The framing change:** "more materials" is NOT eliminated — the paper
+   says every wall is scoped to its material count, and the one thing more data buys
+   is the coefficient map, never the basis.
 2. **L4b-v2 is pre-registered and smoke-tested but not run.** `chain_l4b_v2.sh`
    after the v2 chain (~50 h). Its verdict decides whether "physics hurts once
    bounded" is defended, withdrawn, or retracted — all three outcomes are written
@@ -196,7 +209,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
   it threaded through (every PINN run would have crashed). Both fixed.
 - **Experimental anchor changed**: Lassitter 2024 Fig. 10 (fully specified in its SI,
   digitised) replaces Li 2025 (under-specified). See §5 item 4.
-- Ledger counts: 25 Part-A, 40 Part-B.
+- Ledger counts: 25 Part-A, 41 Part-B.
 
 ## 7. Rules carried forward
 

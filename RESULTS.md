@@ -4,7 +4,7 @@ Every number here is reproduced by a script in this repository and gated by
 `validate.py`. Withdrawn numbers are in `RETRACTIONS.md`; the frozen experimental
 design is in `03_LADDER_PROTOCOL.md`.
 
-Last updated 2026-08-24.
+Last updated 2026-09-03.
 
 ---
 
@@ -13,13 +13,13 @@ Last updated 2026-08-24.
 | rung | hypothesis tested | verdict |
 |---|---|---|
 | **L0** | "the reference is trustworthy" | ✅ verified against 4 closed-form solutions |
-| **L1** | "you just need more data" | ⚠️ **NARROWED — see A18.** Conditions axis eliminated; **materials axis is NOT** (1.82×, unsaturated) |
-| **L2** | "the model is too small" | ✅ **eliminated** |
+| **L1** | "you just need more data" | ⚠️ **NOT ELIMINATED on v2** — the materials axis is still falling at 192 training materials (β = 0.22), and the basis needs none of that data: it is all coefficient map. Arms re-run on v2: the MLP is now the best fixed-basis arm, significantly |
+| **L2** | "the model is too small" | ✅ eliminated on legacy; **v2 sweep running** (5-fold, 420 cells) |
 | **L3** | "you need a better basis" | ✅ eliminated for RBF-KAN; ⚠️ the Chebyshev 200k cell is **withdrawn** (**A19**, **B24**) and the rung is being re-run |
 | **L4** | "add the PDE residual" | ✅ **no difference** on the material axis |
 | **L5** | "you need an operator" | ✅ eliminated *for linear-reconstruction operators*; n-width prediction **refuted**. ⚠️ FNO/WNO never run (**B33**); numbers superseded (**A20**) |
 | **L6** | **"joint fitting is fine"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted (Da slope null), but separate **does** beat joint by 3.7 % (CI 1.0–6.5 %), reversing the legacy sign |
-| **L7** | "deep learning is needed at all" | ✅ **eliminated — learning is justified** |
+| **L7** | "deep learning is needed at all" | ✅ **eliminated on legacy and on v2** — the best closed form is 3.7× worse than the learned arm on the exit curve, paired over 240 materials |
 
 ---
 
@@ -630,6 +630,138 @@ estimand and could therefore fail on its own terms.
 
 ---
 
+## The ladder on dataset v2 — L1, the learning curve, and L7 (run 2026-09-03)
+
+**Design frozen in `PREREG_L1L2L7_v2.md`, committed before any arm trained.** Every
+rung reuses the L6-v2 fold map (`results/l6_v2_folds.json`), so L1, L2, L6 and L7
+report over the **same 240 held-out materials in the same folds**. Encoding
+128 × 128 on load, as L5 and L6-v2. α = 0.02, calibrated for 240 clusters (empirical
+size 2.8 %). Per-sample scores averaged over 3 seeds, then the paired cluster-robust
+bootstrap. **Every comparison below is significant, so no MDE is owed**; the nulls
+this design was built to power did not occur. Headline comparisons were recomputed
+by a second, independent code path (different bootstrap seed) and agree to the
+fourth decimal.
+
+### L1-v2 — the arms: the MLP is now the best fixed-basis arm
+
+Pooled out-of-fold, 240 materials, 64 POD modes/channel (`results/l1_v2_results.json`,
+`results/l1_v2_verdict.json`):
+
+| arm | nRMSE c | nRMSE q | nRMSE T | exit nRMSE | dt50 (h) | train c | × POD floor |
+|---|---|---|---|---|---|---|---|
+| ridge | 0.0516 | 0.1832 | 0.1238 | 0.0782 | 0.73 | 0.0505 | 185× |
+| rf | 0.0388 | 0.0900 | 0.0888 | 0.0578 | 0.46 | 0.0157 | 139× |
+| xgb | 0.0361 | 0.0871 | 0.0752 | 0.0554 | 0.37 | 0.0193 | 129× |
+| **mlp** | **0.0306** ± 0.0010 | 0.0922 | 0.0768 | **0.0474** | **0.34** | 0.0244 | **109×** |
+
+```
+mlp 0.0306 vs xgb   0.0361 | diff -0.00548 CI [-0.00675, -0.00426]  SIGNIFICANT
+mlp 0.0306 vs rf    0.0388 | diff -0.00820 CI [-0.01061, -0.00597]  SIGNIFICANT
+mlp 0.0306 vs ridge 0.0516 | diff -0.02102 CI [-0.02257, -0.01959]  SIGNIFICANT
+```
+
+The MLP is ahead in every one of the five folds (0.0291–0.0321 against 0.0337–0.0371
+for XGBoost). The manifest split (48 held-out materials) gives the same ordering
+with every comparison significant (mlp 0.0326, xgb 0.0353, rf 0.0385, ridge 0.0519).
+Ridge carries the B14 flag (train ≈ held-out) as a *linear* model should; it is
+not best, so the flag does not bind.
+
+**This reverses legacy L1**, where xgb, rf and mlp were indistinguishable and the
+MLP had the worst point estimate. With four times the materials the MLP wins by
+15 % over XGBoost, significantly. The POD floor also moved: 2.8 × 10⁻⁴ on v2
+against 1.5 × 10⁻³ on legacy (a different encoding and 4.6× the training samples),
+while the best arm improved only from ~0.049 to 0.031 — the ratio above the floor
+*grew* from 33× to 109×. The basis is even less the constraint than before.
+
+### The materials learning curve — NOT ELIMINATED at 192 materials
+
+c-channel, POD p = 32 + per-mode gradient boosting (legacy A18's function class),
+5 folds × 3 seeds at every size, subsets drawn from each fold's own 192 training
+materials (`results/learning_curve_v2.json`, `results/learning_curve_v2_verdict.json`,
+`figures/Fig8_learning_curve_v2`):
+
+| training materials | 12 | 24 | 48 | 96 | 192 |
+|---|---|---|---|---|---|
+| field nRMSE, basis **refit** on the subset | 0.0654 | 0.0531 | 0.0465 | 0.0402 | **0.0348** |
+| field nRMSE, basis **fixed** on all 192 | 0.0657 | 0.0533 | 0.0466 | 0.0403 | 0.0348 |
+| sd over seeds | 0.0015 | 0.0011 | 0.0003 | 0.0009 | 0.0001 |
+| coefficient-map modes with R² > 0.5 | 1 | 1 | 2 | 2 | 3 |
+| coefficient-map modes with R² > 0.2 | 2 | 3 | 8 | 11 | 13 |
+| R² of `t_hi(z)` (the shock) | 0.79 | 0.80 | 0.83 | 0.85 | 0.87 |
+
+Every consecutive step is a significant improvement, including the last:
+
+```
+ 96 -> 192   diff +0.00534  CI [+0.00439, +0.00637]   SIGNIFICANT
+ 48 ->  96   diff +0.00633  CI [+0.00508, +0.00760]
+ 24 ->  48   diff +0.00655  CI [+0.00508, +0.00795]
+ 12 ->  24   diff +0.01238  CI [+0.01007, +0.01487]
+```
+
+**Verdict, in the pre-declared words: the materials axis is NOT ELIMINATED at the
+largest size available (192).** Error falls as **n^−0.222** (CI 0.205–0.239) over
+12–192 materials, 1.88× end to end; no extrapolation beyond twice the measured
+range is claimed. At that exponent, halving the error costs about **23× more
+materials**. L1's verdict for the paper is therefore: *more materials does help,
+slowly and without saturating in the range we can afford, and every "wall"
+measured elsewhere in the ladder is scoped to the material count it was measured
+at.*
+
+**What more materials buy, and what they do not.** The fixed-basis curve is
+*identical* to the refit curve at every size (0.0657 vs 0.0654 … 0.0348 vs 0.0348):
+a basis fitted on 12 materials reconstructs held-out fields as well as one fitted
+on 192, once the regressor sees the same data. **None of the gain is in the basis;
+all of it is in the parameter → coefficient map.** That is retraction A21's
+reading, now measured across five sizes instead of inferred from one: modes with
+R² > 0.2 grow 2 → 13 and are still climbing at 192.
+
+**The conditions axis** (fractions 0.25–1.0 of each material's conditions at the
+full 192 materials): 0.0414 → 0.0377 → 0.0358 → 0.0348, every step significant
+including the last (diff +0.00091, CI [+0.00050, +0.00128]), **β = 0.122** (CI
+0.108–0.137). By the pre-declared rule this axis is also *not* eliminated — legacy
+A18 had called it eliminated on a 12-cluster test — but its exponent is half the
+material axis's, and the last step is a 2.6 % gain for a third more conditions.
+Both axes are open; materials are the one that matters.
+
+> **Rule-5 note (defect B41).** `R²(t_lo)` — the lower-front arrival time the
+> two-wave warp uses — is **degenerate on v2** and is not reported: the 5 %
+> crossing happens within 2 % of the run time in 97 % of all (sample, z) cells
+> (mean 0.003, sd 0.012 in normalised time, against 0.014 / 0.038 on legacy), so its
+> variance is too small for an R² to mean anything. The shock arrival `t_hi` and the
+> span are well-posed (R² 0.87 at 192) and are what a v2 warp would have to predict.
+
+### L7-v2 — the classical control is beaten 3.7×, paired over 240 materials
+
+Exit-curve nRMSE on the 128-point grid, all 3947 samples; the learned reference is
+the L1-v2 best arm's **out-of-fold** prediction (`results/l7_v2_results.json`,
+`results/l7_v2_verdict.json`). The Glueckauf `k_LDF` rebuilt from the parameter
+vector matched the manifest record to 0.0 relative over every sample before any
+curve was scored.
+
+| method | exit nRMSE | dt50 (h) | cost/curve | trained? |
+|---|---|---|---|---|
+| POD floor | 0.0009 | — | — | — |
+| **mlp (learned, out-of-fold)** | **0.0474** | **0.34** | ~ms | yes |
+| klinkenberg | 0.1769 | 1.27 | 0.38 ms | no |
+| equilibrium_shock | 0.3146 | 1.35 | 0.19 ms | no |
+| constant_pattern | 0.3878 | 1.00 | 0.83 ms | no |
+
+```
+mlp 0.0474 vs klinkenberg       0.1769 | diff -0.1295 CI [-0.1384, -0.1203]  SIGNIFICANT
+mlp 0.0474 vs equilibrium_shock 0.3146 | diff -0.2672 CI [-0.2725, -0.2616]  SIGNIFICANT
+mlp 0.0474 vs constant_pattern  0.3878 | diff -0.3404 CI [-0.3579, -0.3215]  SIGNIFICANT
+```
+
+**Learning is justified on v2**: the best closed form is **3.73× worse** on the
+exit curve and 3.7× worse on the 50 % breakthrough time (legacy: 3.2× and 2.2×).
+The order of the closed forms is unchanged; the reasoning — every closed form
+linearises the physics the two-wave structure violates — carries over unchanged.
+
+Run times on this machine: L7 80 s, L1 (both designs, 72 cells) 65 min, learning
+curve (135 cells) 55 min; L2 (420 cells) ≈ 10 h, dominated by `xgb md8/md10`.
+
+---
+
 ## L7 — the classical control is beaten, and that is a real finding
 
 Scored like-for-like on the **exit curve** (the classical forms predict the curve,
@@ -779,8 +911,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 25 Part-A, 40 Part-B caught before
-  contamination. **26 of the 65 entries are marked "our own error"** — in the
+- **`RETRACTIONS.md`** — 25 Part-A, 41 Part-B caught before
+  contamination. **27 of the 66 entries are marked "our own error"** — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
   itself — recorded on the same terms as errors in the code. One Part-A
   retraction (**A17**) withdraws a claim the protocol had called its most

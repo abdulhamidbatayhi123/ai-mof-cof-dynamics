@@ -1,0 +1,118 @@
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+
+=== MANIFEST SPLIT: train 2770 / novel_condition 384 / novel_material 793 (48 materials) ===
+  c: 64 modes capture 99.9989% of variance | modes for 90/99/99.9%: 2/7/17
+  q: 64 modes capture 99.9994% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9984% of variance | modes for 90/99/99.9%: 2/8/20
+  POD floor train            c=2.4365e-04 q=5.0497e-04 T=6.6152e-04 exit=7.6914e-04
+  POD floor novel_condition  c=2.6636e-04 q=5.9341e-04 T=6.6515e-04 exit=7.7410e-04
+  POD floor novel_material   c=2.8855e-04 q=5.9286e-04 T=7.3633e-04 exit=8.5085e-04
+  ridge  seed 42: train c=0.0518 | novel-material c=0.0519 q=0.1737 T=0.1151 exit=0.0787 dt50=0.70h  [13s]
+  ridge  seed 43: train c=0.0518 | novel-material c=0.0519 q=0.1737 T=0.1151 exit=0.0787 dt50=0.70h  [13s]
+  ridge  seed 44: train c=0.0518 | novel-material c=0.0519 q=0.1737 T=0.1151 exit=0.0787 dt50=0.70h  [12s]
+  rf     seed 42: train c=0.0167 | novel-material c=0.0384 q=0.0877 T=0.0955 exit=0.0571 dt50=0.40h  [25s]
+  rf     seed 43: train c=0.0166 | novel-material c=0.0385 q=0.0883 T=0.0956 exit=0.0572 dt50=0.40h  [24s]
+  rf     seed 44: train c=0.0166 | novel-material c=0.0385 q=0.0885 T=0.0961 exit=0.0572 dt50=0.40h  [25s]
+  xgb    seed 42: train c=0.0196 | novel-material c=0.0351 q=0.0850 T=0.0740 exit=0.0537 dt50=0.31h  [593s]
+  xgb    seed 43: train c=0.0200 | novel-material c=0.0353 q=0.0861 T=0.0746 exit=0.0543 dt50=0.31h  [547s]
+  xgb    seed 44: train c=0.0198 | novel-material c=0.0354 q=0.0862 T=0.0731 exit=0.0541 dt50=0.34h  [199s]
+  mlp    seed 42: train c=0.0283 | novel-material c=0.0334 q=0.0931 T=0.0790 exit=0.0518 dt50=0.34h  [40s]
+  mlp    seed 43: train c=0.0250 | novel-material c=0.0297 q=0.0961 T=0.0715 exit=0.0460 dt50=0.32h  [40s]
+  mlp    seed 44: train c=0.0299 | novel-material c=0.0348 q=0.0964 T=0.0791 exit=0.0539 dt50=0.35h  [28s]
+
+=== FOLD 0: train 3150 conds / 192 materials | held-out 797 conds / 48 materials ===
+  c: 64 modes capture 99.9987% of variance | modes for 90/99/99.9%: 2/7/18
+  q: 64 modes capture 99.9992% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9982% of variance | modes for 90/99/99.9%: 2/8/20
+  POD floor test c=2.5732e-04 exit=8.2202e-04
+  ridge  seed 42: train c=0.0510 | held-out c=0.0519 q=0.1751 T=0.1229 exit=0.0792 dt50=0.76h  [3s]
+  ridge  seed 43: train c=0.0510 | held-out c=0.0519 q=0.1751 T=0.1229 exit=0.0792 dt50=0.76h  [3s]
+  ridge  seed 44: train c=0.0510 | held-out c=0.0519 q=0.1751 T=0.1229 exit=0.0792 dt50=0.76h  [2s]
+  rf     seed 42: train c=0.0164 | held-out c=0.0403 q=0.0897 T=0.0896 exit=0.0604 dt50=0.52h  [10s]
+  rf     seed 43: train c=0.0163 | held-out c=0.0405 q=0.0906 T=0.0902 exit=0.0607 dt50=0.52h  [10s]
+  rf     seed 44: train c=0.0163 | held-out c=0.0404 q=0.0904 T=0.0899 exit=0.0604 dt50=0.52h  [11s]
+  xgb    seed 42: train c=0.0201 | held-out c=0.0362 q=0.0801 T=0.0731 exit=0.0559 dt50=0.39h  [108s]
+  xgb    seed 43: train c=0.0198 | held-out c=0.0364 q=0.0788 T=0.0703 exit=0.0560 dt50=0.39h  [105s]
+  xgb    seed 44: train c=0.0205 | held-out c=0.0356 q=0.0804 T=0.0710 exit=0.0550 dt50=0.38h  [107s]
+  mlp    seed 42: train c=0.0246 | held-out c=0.0307 q=0.0826 T=0.0709 exit=0.0474 dt50=0.38h  [31s]
+  mlp    seed 43: train c=0.0229 | held-out c=0.0292 q=0.0866 T=0.0746 exit=0.0454 dt50=0.37h  [29s]
+  mlp    seed 44: train c=0.0291 | held-out c=0.0331 q=0.0882 T=0.0753 exit=0.0511 dt50=0.36h  [29s]
+
+=== FOLD 1: train 3166 conds / 192 materials | held-out 781 conds / 48 materials ===
+  c: 64 modes capture 99.9986% of variance | modes for 90/99/99.9%: 2/7/18
+  q: 64 modes capture 99.9992% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9983% of variance | modes for 90/99/99.9%: 2/8/19
+  POD floor test c=2.7103e-04 exit=8.0960e-04
+  ridge  seed 42: train c=0.0509 | held-out c=0.0506 q=0.1888 T=0.1249 exit=0.0769 dt50=0.53h  [6s]
+  ridge  seed 43: train c=0.0509 | held-out c=0.0506 q=0.1888 T=0.1249 exit=0.0769 dt50=0.53h  [5s]
+  ridge  seed 44: train c=0.0509 | held-out c=0.0506 q=0.1888 T=0.1249 exit=0.0769 dt50=0.53h  [6s]
+  rf     seed 42: train c=0.0149 | held-out c=0.0376 q=0.0935 T=0.0878 exit=0.0568 dt50=0.37h  [19s]
+  rf     seed 43: train c=0.0147 | held-out c=0.0377 q=0.0936 T=0.0878 exit=0.0571 dt50=0.37h  [14s]
+  rf     seed 44: train c=0.0148 | held-out c=0.0378 q=0.0934 T=0.0883 exit=0.0573 dt50=0.38h  [15s]
+  xgb    seed 42: train c=0.0190 | held-out c=0.0365 q=0.0917 T=0.0771 exit=0.0565 dt50=0.30h  [141s]
+  xgb    seed 43: train c=0.0190 | held-out c=0.0368 q=0.0911 T=0.0757 exit=0.0566 dt50=0.31h  [167s]
+  xgb    seed 44: train c=0.0189 | held-out c=0.0367 q=0.0926 T=0.0762 exit=0.0566 dt50=0.31h  [136s]
+  mlp    seed 42: train c=0.0213 | held-out c=0.0287 q=0.0947 T=0.0789 exit=0.0448 dt50=0.23h  [24s]
+  mlp    seed 43: train c=0.0224 | held-out c=0.0303 q=0.0934 T=0.0738 exit=0.0471 dt50=0.25h  [21s]
+  mlp    seed 44: train c=0.0212 | held-out c=0.0290 q=0.0932 T=0.0786 exit=0.0448 dt50=0.23h  [24s]
+
+=== FOLD 2: train 3153 conds / 192 materials | held-out 794 conds / 48 materials ===
+  c: 64 modes capture 99.9989% of variance | modes for 90/99/99.9%: 2/7/17
+  q: 64 modes capture 99.9993% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9986% of variance | modes for 90/99/99.9%: 2/8/19
+  POD floor test c=3.0091e-04 exit=9.3782e-04
+  ridge  seed 42: train c=0.0495 | held-out c=0.0532 q=0.1832 T=0.1235 exit=0.0804 dt50=0.80h  [3s]
+  ridge  seed 43: train c=0.0495 | held-out c=0.0532 q=0.1832 T=0.1235 exit=0.0804 dt50=0.80h  [3s]
+  ridge  seed 44: train c=0.0495 | held-out c=0.0532 q=0.1832 T=0.1235 exit=0.0804 dt50=0.80h  [3s]
+  rf     seed 42: train c=0.0162 | held-out c=0.0382 q=0.0851 T=0.0885 exit=0.0566 dt50=0.44h  [11s]
+  rf     seed 43: train c=0.0162 | held-out c=0.0381 q=0.0846 T=0.0888 exit=0.0563 dt50=0.44h  [11s]
+  rf     seed 44: train c=0.0160 | held-out c=0.0383 q=0.0852 T=0.0890 exit=0.0566 dt50=0.44h  [11s]
+  xgb    seed 42: train c=0.0193 | held-out c=0.0371 q=0.0881 T=0.0788 exit=0.0569 dt50=0.40h  [98s]
+  xgb    seed 43: train c=0.0192 | held-out c=0.0371 q=0.0871 T=0.0770 exit=0.0570 dt50=0.39h  [97s]
+  xgb    seed 44: train c=0.0193 | held-out c=0.0371 q=0.0876 T=0.0782 exit=0.0567 dt50=0.40h  [104s]
+  mlp    seed 42: train c=0.0271 | held-out c=0.0326 q=0.0948 T=0.0795 exit=0.0505 dt50=0.34h  [16s]
+  mlp    seed 43: train c=0.0218 | held-out c=0.0286 q=0.0888 T=0.0738 exit=0.0440 dt50=0.33h  [23s]
+  mlp    seed 44: train c=0.0281 | held-out c=0.0334 q=0.0986 T=0.0810 exit=0.0514 dt50=0.35h  [17s]
+
+=== FOLD 3: train 3161 conds / 192 materials | held-out 786 conds / 48 materials ===
+  c: 64 modes capture 99.9987% of variance | modes for 90/99/99.9%: 2/7/18
+  q: 64 modes capture 99.9993% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9984% of variance | modes for 90/99/99.9%: 2/8/19
+  POD floor test c=2.9733e-04 exit=8.6239e-04
+  ridge  seed 42: train c=0.0488 | held-out c=0.0527 q=0.1881 T=0.1245 exit=0.0797 dt50=0.80h  [3s]
+  ridge  seed 43: train c=0.0488 | held-out c=0.0527 q=0.1881 T=0.1245 exit=0.0797 dt50=0.80h  [3s]
+  ridge  seed 44: train c=0.0488 | held-out c=0.0527 q=0.1881 T=0.1245 exit=0.0797 dt50=0.80h  [3s]
+  rf     seed 42: train c=0.0154 | held-out c=0.0358 q=0.0908 T=0.0873 exit=0.0534 dt50=0.42h  [12s]
+  rf     seed 43: train c=0.0153 | held-out c=0.0357 q=0.0907 T=0.0870 exit=0.0532 dt50=0.42h  [11s]
+  rf     seed 44: train c=0.0153 | held-out c=0.0357 q=0.0910 T=0.0872 exit=0.0533 dt50=0.41h  [12s]
+  xgb    seed 42: train c=0.0183 | held-out c=0.0337 q=0.0874 T=0.0725 exit=0.0518 dt50=0.39h  [93s]
+  xgb    seed 43: train c=0.0183 | held-out c=0.0340 q=0.0862 T=0.0713 exit=0.0521 dt50=0.36h  [103s]
+  xgb    seed 44: train c=0.0185 | held-out c=0.0335 q=0.0881 T=0.0721 exit=0.0513 dt50=0.35h  [95s]
+  mlp    seed 42: train c=0.0240 | held-out c=0.0323 q=0.0948 T=0.0818 exit=0.0501 dt50=0.38h  [18s]
+  mlp    seed 43: train c=0.0238 | held-out c=0.0309 q=0.0911 T=0.0788 exit=0.0483 dt50=0.38h  [21s]
+  mlp    seed 44: train c=0.0260 | held-out c=0.0329 q=0.0926 T=0.0772 exit=0.0513 dt50=0.39h  [17s]
+
+=== FOLD 4: train 3158 conds / 192 materials | held-out 789 conds / 48 materials ===
+  c: 64 modes capture 99.9987% of variance | modes for 90/99/99.9%: 2/7/18
+  q: 64 modes capture 99.9992% of variance | modes for 90/99/99.9%: 2/5/14
+  T: 64 modes capture 99.9983% of variance | modes for 90/99/99.9%: 2/8/19
+  POD floor test c=2.7207e-04 exit=8.4510e-04
+  ridge  seed 42: train c=0.0523 | held-out c=0.0497 q=0.1807 T=0.1235 exit=0.0749 dt50=0.74h  [3s]
+  ridge  seed 43: train c=0.0523 | held-out c=0.0497 q=0.1807 T=0.1235 exit=0.0749 dt50=0.74h  [3s]
+  ridge  seed 44: train c=0.0523 | held-out c=0.0497 q=0.1807 T=0.1235 exit=0.0749 dt50=0.74h  [3s]
+  rf     seed 42: train c=0.0159 | held-out c=0.0419 q=0.0906 T=0.0902 exit=0.0618 dt50=0.54h  [10s]
+  rf     seed 43: train c=0.0160 | held-out c=0.0419 q=0.0907 T=0.0898 exit=0.0617 dt50=0.54h  [10s]
+  rf     seed 44: train c=0.0159 | held-out c=0.0418 q=0.0904 T=0.0903 exit=0.0617 dt50=0.53h  [10s]
+  xgb    seed 42: train c=0.0201 | held-out c=0.0369 q=0.0891 T=0.0791 exit=0.0564 dt50=0.38h  [88s]
+  xgb    seed 43: train c=0.0199 | held-out c=0.0368 q=0.0881 T=0.0765 exit=0.0560 dt50=0.40h  [75s]
+  xgb    seed 44: train c=0.0197 | held-out c=0.0370 q=0.0911 T=0.0793 exit=0.0566 dt50=0.37h  [75s]
+  mlp    seed 42: train c=0.0225 | held-out c=0.0281 q=0.0880 T=0.0780 exit=0.0433 dt50=0.35h  [17s]
+  mlp    seed 43: train c=0.0245 | held-out c=0.0283 q=0.0982 T=0.0732 exit=0.0440 dt50=0.33h  [15s]
+  mlp    seed 44: train c=0.0262 | held-out c=0.0309 q=0.0983 T=0.0764 exit=0.0479 dt50=0.36h  [15s]
+
+wrote results/l1_v2_results.json  [3880s]

@@ -1,0 +1,51 @@
+{
+  "alpha": 0.02,
+  "learned_reference": "mlp",
+  "tied_arms": [],
+  "comparisons": {
+    "mlp vs equilibrium_shock": {
+      "arm_a": "mlp",
+      "arm_b": "equilibrium_shock",
+      "metric": "nrmse_c",
+      "mean_a": 0.047424138595054594,
+      "mean_b": 0.31459862516467385,
+      "mean_diff": -0.2671744865696192,
+      "ci_low": -0.2724622085892824,
+      "ci_high": -0.26157991706783895,
+      "significant": true,
+      "verdict": "mlp is better (lower nrmse_c)",
+      "n_materials": 240
+    },
+    "mlp vs klinkenberg": {
+      "arm_a": "mlp",
+      "arm_b": "klinkenberg",
+      "metric": "nrmse_c",
+      "mean_a": 0.047424138595054594,
+      "mean_b": 0.1769256161328958,
+      "mean_diff": -0.12950147753784122,
+      "ci_low": -0.13836840501774542,
+      "ci_high": -0.1202687123224673,
+      "significant": true,
+      "verdict": "mlp is better (lower nrmse_c)",
+      "n_materials": 240
+    },
+    "mlp vs constant_pattern": {
+      "arm_a": "mlp",
+      "arm_b": "constant_pattern",
+      "metric": "nrmse_c",
+      "mean_a": 0.047424138595054594,
+      "mean_b": 0.3878129141373997,
+      "mean_diff": -0.3403887755423451,
+      "ci_low": -0.3578770421433031,
+      "ci_high": -0.3215126709893018,
+      "significant": true,
+      "verdict": "mlp is better (lower nrmse_c)",
+      "n_materials": 240
+    }
+  },
+  "mde": {},
+  "l1_verdict_sha1": "31778ba17249544b2f88b7637305ad1058d86757",
+  "mde_computed": true,
+  "verdict": "LEARNING IS JUSTIFIED on dataset v2: every classical form is significantly worse than the learned reference on the exit curve; the best closed form is 3.73x worse.",
+  "best_classical_over_learned": 3.7307080607963994
+}

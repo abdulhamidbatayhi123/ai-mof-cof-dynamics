@@ -1,0 +1,43 @@
+learning curve v2 — 128x128 c-channel, p_field 32, p_warp 8, levels [0.05, 0.95], alpha 0.02
+
+================================================================================================
+AXIS: more materials — folds complete ['0', '1', '2', '3', '4'] of 5
+================================================================================================
+    size n_mats  n_train   refit nRMSE  sd(seeds)  fixed nRMSE  R2 t_lo  R2 t_hi modes>0.5 modes>0.2
+      12     12      196       0.06544    0.00151      0.06574   -0.010   +0.787         1         2
+      24     24      395       0.05306    0.00112      0.05331   +0.301   +0.803         1         3
+      48     48      790       0.04651    0.00027      0.04656   +0.264   +0.829         2         8
+      96     96     1577       0.04018    0.00087      0.04026   +0.396   +0.847         2        11
+     192    192     3158       0.03484    0.00008      0.03484   +0.525   +0.866         3        13
+
+  consecutive steps (paired, cluster-robust by material, alpha 0.02):
+    n=12 0.06544 vs n=24 0.05306 | diff +0.01238 CI [+0.01007, +0.01487]
+    n=24 0.05306 vs n=48 0.04651 | diff +0.006554 CI [+0.005078, +0.007952]
+    n=48 0.04651 vs n=96 0.04018 | diff +0.006327 CI [+0.005081, +0.007601]
+    n=96 0.04018 vs n=192 0.03484 | diff +0.005343 CI [+0.00439, +0.006368]
+
+  power law err ~ n^-beta over the 5 sizes: beta = 0.222  CI [0.205, 0.239]  (x-axis: materials)
+  first -> last: 0.0654 -> 0.0348 (1.88x)
+
+  VERDICT (materials): NOT ELIMINATED at the largest size available (192): the last step 96 -> 192 is a significant improvement (diff +0.00534, CI [+0.00439, +0.00637]). Exponent beta = 0.222 [0.205, 0.239]; no extrapolation beyond 2x the measured range.
+
+================================================================================================
+AXIS: more conditions — folds complete ['0', '1', '2', '3', '4'] of 5
+================================================================================================
+    size n_mats  n_train   refit nRMSE  sd(seeds)  fixed nRMSE  R2 t_lo  R2 t_hi modes>0.5 modes>0.2
+    0.25    192      763       0.04137    0.00060      0.04122   +0.466   +0.834         2         9
+     0.5    192     1514       0.03772    0.00033      0.03770   +0.494   +0.851         2        12
+    0.75    192     2394       0.03575    0.00012      0.03575   +0.486   +0.860         3        13
+     1.0    192     3158       0.03484    0.00008      0.03484   +0.525   +0.866         3        13
+
+  consecutive steps (paired, cluster-robust by material, alpha 0.02):
+    n=0.25 0.04137 vs n=0.5 0.03772 | diff +0.00365 CI [+0.003083, +0.004217]
+    n=0.5 0.03772 vs n=0.75 0.03575 | diff +0.001968 CI [+0.001512, +0.002419]
+    n=0.75 0.03575 vs n=1.0 0.03484 | diff +0.0009068 CI [+0.0005032, +0.001279]
+
+  power law err ~ n^-beta over the 4 sizes: beta = 0.122  CI [0.108, 0.137]  (x-axis: training conditions)
+  first -> last: 0.0414 -> 0.0348 (1.19x)
+
+  VERDICT (conditions): NOT ELIMINATED at the largest size available (1.0): the last step 0.75 -> 1.0 is a significant improvement (diff +0.00091, CI [+0.00050, +0.00128]). Exponent beta = 0.122 [0.108, 0.137]; no extrapolation beyond 2x the measured range.
+
+wrote results/learning_curve_v2_verdict.json

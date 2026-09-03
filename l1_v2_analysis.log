@@ -1,0 +1,48 @@
+L1-v2 — 128x128 encoding, 64 POD modes/channel, seeds [42, 43, 44], skipped arms []
+
+============================================================================================
+MANIFEST SPLIT — 48 held-out materials, alpha 0.02
+============================================================================================
+POD floor: train: c=2.436e-04 exit=7.691e-04  novel_condition: c=2.664e-04 exit=7.741e-04  novel_material: c=2.886e-04 exit=8.508e-04
+  arm    split                      nRMSE c          nRMSE q          nRMSE T     exit  dt50 h  x floor
+  -----------------------------------------------------------------------------------------------------
+  ridge  train               0.0518+-0.0000    0.1878+-0.0000    0.1293+-0.0000    0.0786    0.70   212.7x
+  ridge  novel_condition     0.0513+-0.0000    0.1404+-0.0000    0.1012+-0.0000    0.0785    0.24   192.5x
+  ridge  novel_material      0.0519+-0.0000    0.1737+-0.0000    0.1151+-0.0000    0.0787    0.70   179.9x
+  rf     train               0.0167+-0.0000    0.0389+-0.0000    0.0613+-0.0001    0.0248    0.20    68.4x
+  rf     novel_condition     0.0423+-0.0003    0.1069+-0.0004    0.1925+-0.0009    0.0638    0.29   158.6x
+  rf     novel_material      0.0385+-0.0000    0.0881+-0.0003    0.0957+-0.0003    0.0572    0.40   133.3x
+  xgb    train               0.0198+-0.0002    0.0476+-0.0005    0.0497+-0.0002    0.0310    0.21    81.3x
+  xgb    novel_condition     0.0360+-0.0007    0.1005+-0.0009    0.0972+-0.0021    0.0563    0.12   135.1x
+  xgb    novel_material      0.0353+-0.0001    0.0858+-0.0005    0.0739+-0.0006    0.0540    0.32   122.2x
+  mlp    train               0.0277+-0.0021    0.0844+-0.0053    0.0668+-0.0048    0.0428    0.35   113.8x
+  mlp    novel_condition     0.0372+-0.0029    0.0927+-0.0009    0.0859+-0.0028    0.0584    0.11   139.7x
+  mlp    novel_material      0.0326+-0.0021    0.0952+-0.0015    0.0765+-0.0035    0.0506    0.34   113.1x
+
+  best arm on novel materials: mlp = 0.0326   (train ≈ held-out, low-capacity or under-trained: ['ridge'])
+    mlp 0.03263 vs ridge 0.05191 | diff -0.01928 CI [-0.02246, -0.01648]
+    mlp 0.03263 vs rf 0.03845 | diff -0.005822 CI [-0.009721, -0.002181]
+    mlp 0.03263 vs xgb 0.03526 | diff -0.002632 CI [-0.00472, -0.0005815]
+  -> ties with the best arm (may not be ranked): none
+  novel-condition split: 2 clusters — descriptive only, no verdict (PREREG §3.3)
+
+============================================================================================
+5-FOLD DESIGN — folds complete: ['0', '1', '2', '3', '4'] of 5, alpha 0.02 (calibrated for 240 clusters)
+============================================================================================
+  POD floor, pooled held-out: c=2.7972e-04  exit=8.5551e-04  (240 materials, 3947 samples)
+  arm             nRMSE c   nRMSE q   nRMSE T     exit  dt50 h  train c  x floor
+  ------------------------------------------------------------------------------
+  ridge    0.0516+-0.0000     0.1832    0.1238   0.0782    0.73   0.0505   184.6x
+  rf       0.0388+-0.0000     0.0900    0.0888   0.0578    0.46   0.0157   138.7x
+  xgb      0.0361+-0.0001     0.0871    0.0752   0.0554    0.37   0.0193   129.0x
+  mlp      0.0306+-0.0010     0.0922    0.0768   0.0474    0.34   0.0244   109.4x
+
+  best arm, pooled out-of-fold: mlp = 0.0306   (train ≈ held-out, low-capacity or under-trained: ['ridge'])
+    mlp 0.0306 vs ridge 0.05162 | diff -0.02102 CI [-0.02257, -0.01959]
+    mlp 0.0306 vs rf 0.0388 | diff -0.008199 CI [-0.01061, -0.005966]
+    mlp 0.0306 vs xgb 0.03608 | diff -0.005477 CI [-0.006748, -0.004258]
+  -> ties with the best arm (may not be ranked): none
+
+  VERDICT: best data-driven arm sits 109.4x above the POD floor on the field and 55.4x on the exit curve, over 240 held-out materials.
+
+wrote results/l1_v2_verdict.json
