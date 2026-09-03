@@ -100,7 +100,7 @@ coefficient map), the MLP is the best fixed-basis arm, and learning beats every
 closed form 3.7×. One solver-vs-experiment comparison exists
 (`PREREG_LASSITTER.md`, no parameter fitted). L4b on v2 is pre-registered
 (`PREREG_L4b_v2.md`) and queued. See `CONTINUE_HERE.md` for the current state and
-`RETRACTIONS.md` for everything withdrawn (25 Part-A, 41 Part-B).
+`RETRACTIONS.md` for everything withdrawn (25 Part-A, 42 Part-B).
 
 ## Licence
 

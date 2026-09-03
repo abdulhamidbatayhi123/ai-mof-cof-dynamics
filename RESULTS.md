@@ -984,8 +984,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 25 Part-A, 41 Part-B caught before
-  contamination. **27 of the 66 entries are marked "our own error"** — in the
+- **`RETRACTIONS.md`** — 25 Part-A, 42 Part-B caught before
+  contamination. **28 of the 67 entries are marked "our own error"** — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
   itself — recorded on the same terms as errors in the code. One Part-A
   retraction (**A17**) withdraws a claim the protocol had called its most
