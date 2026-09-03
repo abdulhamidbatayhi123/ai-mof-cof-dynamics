@@ -44,6 +44,18 @@ WHAT IS SETTLED — do not redo, do not re-litigate:
       reversing the legacy sign. Structure acts as an INDUCTIVE BIAS, not a
       kinetic identifier
   Dataset v2  3947 sims, 240 materials, Sobol sampling, Glueckauf kinetics
+  L1/LC/L7 on v2 (2026-09-03, PREREG_L1L2L7_v2.md, same folds as L6-v2): the
+      materials axis is NOT ELIMINATED at 192 materials (0.0654 -> 0.0348 at
+      12 -> 192, every step significant, beta 0.222 [0.205, 0.239]); the fixed-basis
+      curve is identical, so ALL of the gain is the coefficient map (A21 confirmed);
+      the MLP is now the best fixed-basis arm (0.0306, significant in every fold);
+      learning beats the best closed form 3.7x. Do not re-run.
+  Anchor: the solver with the cited MOF-303 isotherm reproduces Lassitter 2024
+      Fig. 10 (6.35 mm bed) with nothing fitted: t50 303 vs 287 min, plateau 0.34 vs
+      0.27. Two named discrepancies (early first wave = isotherm low-RH branch; shock
+      too dispersed = Ruthven closure on a 1-2-pellet bed). PREREG_LASSITTER.md.
+  MDE: A25 corrected the power simulation (sqrt 2 noise inflation); L6-v2 has 82 %
+      power at 4 %. mde.py is the only implementation; use it for every null.
 
 NINE WORKING RULES. Each was earned by getting it wrong once; the retraction is named.
   1. No number from a failing validate.py category. (22 gates, all passing.)
@@ -77,17 +89,16 @@ a student with no APC funding), IF ~7, and every paper L3 argues with is in CMAM
 Fallbacks: Separation & Purification Technology, then TMLR. ONE paper, not two.
 
 NEXT ACTIONS, in order:
-  1. Re-run L1's material learning curve, L2 and L7 on dataset v2, so every rung
-     reports on the same data.
-  2. L4b weighting sweep. "Physics hurts once bounds exist" currently rests on ONE
-     weighting rule that the arm being argued against never got to optimise — rule 4
-     turned inward. Add NTK weighting and self-adaptive weights, or withdraw the
-     claim. Also add test-time physics refinement, which is the arm a modern referee
-     will ask for.
-  3. Citation verification, tranche 3 onward (~230 remain). The experimental anchor
-     is Lassitter et al. 2024 (CES 285:119430) Fig. 10, fully specified in its SI and
-     already digitised (refs/Lassitter2024_fig10_digitised.csv); pre-register and run
-     the solver-vs-experiment comparison. Li 2025 is only a shape comparison.
+  1. L2 on v2: the sweep finishes automatically (chain_v2_rungs.sh); write it into
+     RESULTS.md in the pre-declared words. Provisional: every family's optimum is
+     bracketed, but depth is worth 21 % (8 layers, 0.0241) where legacy found 1 %
+     — record that the legacy "capacity is irrelevant" was scoped to 48 materials.
+  2. L4b on v2: pre-registered and smoke-tested (PREREG_L4b_v2.md, chain_l4b_v2.sh,
+     ~50 h). Run it after the v2 chain, never concurrently. Its verdict decides
+     whether "physics hurts once bounded" is defended, withdrawn or retracted.
+  3. Citation verification, tranche 3 onward (~225 remain). The anchor is done;
+     the Henry-branch discrepancy it exposed is a limitation to write, not to fix by
+     tuning.
   4. Rebuild the figure set for the current narrative. Nothing currently visualises
      the two strongest results: the coefficient-map bottleneck and the two-wave warp.
   5. Draft the manuscript as a falsification ladder. The negative results are the
