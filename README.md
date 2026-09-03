@@ -92,9 +92,15 @@ These exist because each one was learned by getting it wrong. See `RETRACTIONS.m
 
 ## Status
 
-All eight rungs have run. Three verdicts are currently under correction — see the
-`⚠️` rows in `RESULTS.md` and retractions **A18–A21**. The open items before
-submission are listed in `AUDIT_2026-08-30.md` §7.
+All eight rungs have run on the legacy dataset; L1, L2, L6 and L7 have been re-run
+on dataset v2 under pre-registrations committed before each run
+(`PREREG_L6_v2.md`, `PREREG_L1L2L7_v2.md`). On v2, "more materials" is **not**
+eliminated (error still falls as n^−0.22 at 192 training materials, all of it in the
+coefficient map), the MLP is the best fixed-basis arm, and learning beats every
+closed form 3.7×. One solver-vs-experiment comparison exists
+(`PREREG_LASSITTER.md`, no parameter fitted). L4b on v2 is pre-registered
+(`PREREG_L4b_v2.md`) and queued. See `CONTINUE_HERE.md` for the current state and
+`RETRACTIONS.md` for everything withdrawn (25 Part-A, 41 Part-B).
 
 ## Licence
 
