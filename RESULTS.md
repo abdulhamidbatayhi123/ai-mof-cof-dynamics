@@ -4,7 +4,7 @@ Every number here is reproduced by a script in this repository and gated by
 `validate.py`. Withdrawn numbers are in `RETRACTIONS.md`; the frozen experimental
 design is in `03_LADDER_PROTOCOL.md`.
 
-Last updated 2026-09-03.
+Last updated 2026-09-05.
 
 ---
 

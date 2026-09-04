@@ -1,6 +1,6 @@
 # CONTINUE HERE — session handoff
 
-Rewritten 2026-09-02; updated 2026-09-03 after the L1/L2/L7 v2 chain was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
+Rewritten 2026-09-02; updated 2026-09-05 after the L1/L2/L7 v2 chain completed and L4b-v2 was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
 `RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 42 Part-B**.
 
 ---
@@ -18,13 +18,11 @@ cd "C:/Users/abdulhamid batayhi/Desktop/ai-mof-cof-dynamics"
 (`chain_l4b_v2.sh`). Every runner writes after each completed cell and skips completed
 cells, so a shutdown loses at most one cell.
 
-**In flight as of 2026-09-03 00:23 (Istanbul):** `chain_v2_rungs.sh`, launched
-detached (`nohup`), logs `l7_v2.log`, `l1_v2.log`, `learning_curve_v2.log`, `l2_v2.log`
-and the analyzers' `*_analysis.log`; step exit codes in `chain_v2_rungs_outer.log`.
-Design frozen in `PREREG_L1L2L7_v2.md` (committed before launch). L4b-v2
-(`PREREG_L4b_v2.md`, also committed before any run) is queued behind it — never run the
-two concurrently on this 16 GB machine. Expected: L7 minutes, L1 ~2–3 h, learning curve
-~4–5 h, L2 ~10–15 h; L4b ~50 h.
+**In flight as of 2026-09-05 00:57 (Istanbul): `chain_l4b_v2.sh`** (L4b on v2, ~50 h), launched
+detached with `nohup`; logs `l4b_v2.log`, `l4b_v2_refine.log`, `l4b_v2_analysis.log`, step exit
+codes `chain_l4b_v2_outer.log`. Design frozen in `PREREG_L4b_v2.md`, committed before any run.
+The L1/L2/L7 v2 chain (`chain_v2_rungs.sh`) is **complete** (V2_RUNGS_DONE, 2026-09-03/04) and
+written up in `RESULTS.md`. Never run two training chains concurrently on this 16 GB machine.
 
 **The repository is under git as of 2026-08-30.** Everything before that commit is
 untracked history; everything after is timestamped and diffable. `git log --oneline`
@@ -60,7 +58,7 @@ Technology, then TMLR. Reasoning in `CITATIONS.md`. **One paper, not two.**
 | L1 | "more data" | ⚠️ **NOT ELIMINATED on v2** — still falling at 192 materials (β = 0.22), all of it in the coefficient map; the **MLP is now the best arm**, significantly |
 | L2 | "more capacity" | ✅ **done on v2** — every optimum bracketed, but it **moved**: 8-layer MLP beats the L1 setting by 21 % at 192 materials (legacy: 1 %). **A26** |
 | **L3** | **"better basis / KAN"** | ✅ **FINAL** — fully bracketed, 6/6 significant |
-| L4/L4b | "physics as a loss" | ⚠️ **pre-registered and coded on v2** (`PREREG_L4b_v2.md`): weighting sweep, NTK, self-adaptive, refinement, L-BFGS polish — queued behind the v2 chain |
+| L4/L4b | "physics as a loss" | ⏳ **RUNNING on v2** since 2026-09-05 00:57 (`PREREG_L4b_v2.md`: fixed-w sweep, gradient-norm targets, NTK, self-adaptive, test-time refinement, L-BFGS polish; ~50 h) |
 | **L5** | **"you need an operator"** | ✅ **FINAL** — narrowed by FNO |
 | **L6** | **"separate identification"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted, but separate beats joint 3.7 % |
 | L7 | "is learning needed" | ✅ **eliminated on v2 too** — best closed form 3.7× worse, paired over 240 materials |
