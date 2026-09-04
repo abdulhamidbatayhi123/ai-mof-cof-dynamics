@@ -96,11 +96,12 @@ All eight rungs have run on the legacy dataset; L1, L2, L6 and L7 have been re-r
 on dataset v2 under pre-registrations committed before each run
 (`PREREG_L6_v2.md`, `PREREG_L1L2L7_v2.md`). On v2, "more materials" is **not**
 eliminated (error still falls as n^−0.22 at 192 training materials, all of it in the
-coefficient map), the MLP is the best fixed-basis arm, and learning beats every
+coefficient map), the MLP is the best fixed-basis arm, its optimal depth grows with the material
+count (8 layers, 21 % better than the L1 setting: A26), and learning beats every
 closed form 3.7×. One solver-vs-experiment comparison exists
 (`PREREG_LASSITTER.md`, no parameter fitted). L4b on v2 is pre-registered
 (`PREREG_L4b_v2.md`) and queued. See `CONTINUE_HERE.md` for the current state and
-`RETRACTIONS.md` for everything withdrawn (25 Part-A, 42 Part-B).
+`RETRACTIONS.md` for everything withdrawn (26 Part-A, 42 Part-B).
 
 ## Licence
 

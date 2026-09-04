@@ -14,7 +14,7 @@ Last updated 2026-09-03.
 |---|---|---|
 | **L0** | "the reference is trustworthy" | ✅ verified against 4 closed-form solutions |
 | **L1** | "you just need more data" | ⚠️ **NOT ELIMINATED on v2** — the materials axis is still falling at 192 training materials (β = 0.22), and the basis needs none of that data: it is all coefficient map. Arms re-run on v2: the MLP is now the best fixed-basis arm, significantly |
-| **L2** | "the model is too small" | ✅ eliminated on legacy; **v2 sweep running** (5-fold, 420 cells) |
+| **L2** | "the model is too small" | ✅ every optimum bracketed on legacy **and on v2**; ⚠️ **but the optimum moves with the material count** — at 192 materials an 8-layer MLP beats the L1 setting by 21 % where legacy found 1 % (**A26**) |
 | **L3** | "you need a better basis" | ✅ eliminated for RBF-KAN; ⚠️ the Chebyshev 200k cell is **withdrawn** (**A19**, **B24**) and the rung is being re-run |
 | **L4** | "add the PDE residual" | ✅ **no difference** on the material axis |
 | **L5** | "you need an operator" | ✅ eliminated *for linear-reconstruction operators*; n-width prediction **refuted**. ⚠️ FNO/WNO never run (**B33**); numbers superseded (**A20**) |
@@ -762,6 +762,59 @@ curve (135 cells) 55 min; L2 (420 cells) ≈ 10 h, dominated by `xgb md8/md10`.
 
 ---
 
+## L2 on dataset v2 — every optimum is bracketed, and the optimum moves with the material count (run 2026-09-03/04)
+
+**Design frozen in `PREREG_L1L2L7_v2.md`.** The sweep is identical to legacy
+(28 configurations, both directions around the L1 setting), on the same 64-mode POD
+per fold, the same L6-v2 folds, 3 seeds — 420 cells, 10.6 h. Per-sample held-out
+values averaged over seeds and pooled over the five folds (each sample once); paired
+cluster bootstrap by material at α = 0.02 (240 clusters); every saturation null with
+its MDE. `results/l2_v2_results.json`, `results/l2_v2_verdict.json`.
+
+| family | optimum | held-out nRMSE(c) | train | last step (largest vs second-largest) | MDE at 80 % |
+|---|---|---|---|---|---|
+| `mlp_width` (depth 3) | **w64** (U-shaped) | 0.0298 | 0.0260 | w1024 vs w512: −0.0004, CI [−0.0009, +0.0001] → **saturated** | 5 % |
+| `mlp_depth` (width 256) | **d8** (U-shaped) | **0.0241** | 0.0175 | d10 vs d8: +0.0006, CI [+0.0001, +0.0011] → **saturated** (past the optimum) | 5 % |
+| `xgb_depth` | **md6** (U-shaped) | 0.0352 | 0.0133 | md10 vs md8: +0.0018, CI [+0.0014, +0.0022] → **saturated** (past the optimum; train 0.0009 vs held-out 0.0373 at md10, a 44× gap) | 2 % |
+| `rf_leaf` | leaf1 (monotone) | 0.0381 | 0.0094 | leaf1 vs leaf2: −0.0007, CI [−0.0009, −0.0006] → **still improving**, 1.9 % | — |
+
+**The pre-declared rule, applied literally:** three families have saturated with
+interior optima; the random-forest family is still improving at its last step, so by
+the letter of the rule L2 is *not eliminated* and the RF sweep "should be extended".
+It cannot be: `min_samples_leaf = 1` with unlimited depth is a fully grown forest,
+the ceiling of that family's capacity knob. Its last step is significant because 240
+clusters resolve 1.9 %, and the family sits **37 % behind the best MLP**
+(0.0381 vs 0.0241, CI [+0.0119, +0.0162]). The honest verdict is therefore:
+**capacity as an unbounded lever is eliminated — every optimum that can be bracketed
+is bracketed — but the optimum is not where the legacy sweep left it.**
+
+**What moved, and by how much** (paired, cluster-robust, α = 0.02):
+
+```
+mlp_depth/d8 0.0241 vs the L1 setting (256,256,256) 0.0306 | diff -0.00651 CI [-0.00726, -0.00573]   21.3 % better
+mlp_width/w64 0.0298 vs w256 (the L1 width)       0.0306 | diff -0.00085 CI [-0.00148, -0.00025]    2.8 % better
+mlp_depth/d8 vs xgb_depth/md6                      0.0352 | diff -0.01108 CI [-0.01244, -0.00976]   31.5 % better
+mlp_depth/d8 vs rf_leaf/leaf1                      0.0381 | diff -0.01397 CI [-0.01619, -0.01188]   36.7 % better
+```
+
+On legacy (48 training materials) the best configuration anywhere improved on the
+L1 setting by **~1 %** and the depth optimum was 6 layers; on v2 (192 training
+materials per fold) the depth optimum is **8 layers and the gain is 21 %**. The
+legacy sentence *"capacity is irrelevant"* was scoped to 48 materials without saying
+so — retraction **A26**, the A18/A21 class again: a saturation measured at one sample
+size stated as intrinsic. What survives unchanged: the shape of the evidence (every
+family U-shaped or at its ceiling; XGBoost's training error falls 43× while its
+held-out error passes through a minimum and rises), and the wall — the best
+fixed-basis surrogate on v2, an 8-layer MLP, still sits **86× above the POD floor**.
+
+Two consequences for the rest of the ladder. The L1-v2 arms table and the L7-v2
+reference used the L1 setting (0.0306); a deeper MLP would only widen L7's margin
+(the best closed form is already 3.7× worse). And the material learning curve's
+slope (β = 0.22 for POD + gradient boosting) was measured at a fixed capacity; the
+fact that the *optimal* capacity itself grows with the material count is the
+standard signature of a data-limited, not a representation-limited, regime — the
+same diagnosis the fixed-basis learning curve gave.
+
 ## The solver against a real MOF-303 bed — Lassitter et al. (2024) Fig. 10 (run 2026-09-03)
 
 **Design frozen in `PREREG_LASSITTER.md`, committed before the run.** This is not a
@@ -984,8 +1037,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 25 Part-A, 42 Part-B caught before
-  contamination. **28 of the 67 entries are marked "our own error"** — in the
+- **`RETRACTIONS.md`** — 26 Part-A, 42 Part-B caught before
+  contamination. **29 of the 68 entries are marked "our own error"** — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
   itself — recorded on the same terms as errors in the code. One Part-A
   retraction (**A17**) withdraws a claim the protocol had called its most

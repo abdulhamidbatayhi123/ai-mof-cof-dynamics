@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-03 after the L1/L2/L7 v2 chain was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **25 Part-A, 42 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 42 Part-B**.
 
 ---
 
@@ -58,7 +58,7 @@ Technology, then TMLR. Reasoning in `CITATIONS.md`. **One paper, not two.**
 |---|---|---|
 | L0 | reference verified vs 4 closed forms | ✅ done |
 | L1 | "more data" | ⚠️ **NOT ELIMINATED on v2** — still falling at 192 materials (β = 0.22), all of it in the coefficient map; the **MLP is now the best arm**, significantly |
-| L2 | "more capacity" | ✅ done on legacy; **v2 sweep finishing** (411/420 cells at 09:45 on 09-03) |
+| L2 | "more capacity" | ✅ **done on v2** — every optimum bracketed, but it **moved**: 8-layer MLP beats the L1 setting by 21 % at 192 materials (legacy: 1 %). **A26** |
 | **L3** | **"better basis / KAN"** | ✅ **FINAL** — fully bracketed, 6/6 significant |
 | L4/L4b | "physics as a loss" | ⚠️ **pre-registered and coded on v2** (`PREREG_L4b_v2.md`): weighting sweep, NTK, self-adaptive, refinement, L-BFGS polish — queued behind the v2 chain |
 | **L5** | **"you need an operator"** | ✅ **FINAL** — narrowed by FNO |
@@ -118,6 +118,7 @@ L6-v2, 240 held-out materials, every comparison significant:
 | | result |
 |---|---|
 | L1 arms (5-fold) | **mlp 0.0306** < xgb 0.0361 < rf 0.0388 < ridge 0.0516, all significant; MLP ahead in every fold. Reverses legacy (trees ≥ MLP). 109× above the POD floor |
+| L2 sweep (5-fold) | optima w64 / **d8 = 0.0241** / md6 / leaf1; d8 vs the L1 setting −21.3 % (CI 18.7–23.7 %); three families saturated, the forest at its ceiling; best fixed-basis arm on v2 is 86× the floor |
 | learning curve | 0.0654 → 0.0531 → 0.0465 → 0.0402 → **0.0348** at 12/24/48/96/192 materials, **every step significant, last step included**; β = 0.222 [0.205, 0.239]. **NOT ELIMINATED.** Fixed-basis curve identical → all of the gain is the coefficient map (A21 confirmed) |
 | conditions axis | β = 0.122, last step significant but 2.6 %; not eliminated by the rule, half the material exponent |
 | L7 | mlp exit 0.0474 vs klinkenberg 0.1769 (3.7×), all three closed forms significantly worse |
@@ -132,7 +133,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 25 Part-A, 42 Part-B, 28 marked "our own error".
+1. **The retraction ledger.** 26 Part-A, 42 Part-B, 29 marked "our own error".
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
 2. **Guards that make recurring failures impossible**, each earned from a real
@@ -153,13 +154,14 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 ## 5. What is not good yet
 
 **Blocking:**
-1. **L2 on v2 is finishing** (`xgb md10`, folds 2–4, ~3 h at 09:45 on 09-03); then
-   `analyze_l2_v2.py` runs automatically and `V2_RUNGS_DONE` appears in
-   `chain_v2_rungs_outer.log`. Write L2-v2 into `RESULTS.md` in the pre-declared words
-   (saturated per family, or extend the sweep). L1, the learning curve and L7 are
-   written up. **The framing change:** "more materials" is NOT eliminated — the paper
-   says every wall is scoped to its material count, and the one thing more data buys
-   is the coefficient map, never the basis.
+1. **L4b-v2 is RUNNING** — launched 2026-09-05 00:57 (Istanbul), detached: `chain_l4b_v2.sh`,
+   logs `l4b_v2.log`, `l4b_v2_refine.log`, exit codes `chain_l4b_v2_outer.log`; ~50 h.
+   Order: data_only both axes → refinement → physics arms (time, then material) →
+   refinement of the best physics arm → L-BFGS polish → `analyze_l4b_v2.py`. Resumable;
+   `./resume.sh go` continues it. When done: read `l4b_v2_analysis.log` and write the
+   verdict in the pre-declared words of `PREREG_L4b_v2.md` (defended / withdrawn /
+   retracted). **Two idle days were lost** between the v2 chain finishing (09-03 ~13:00)
+   and this launch — the session that was to launch it had ended.
 2. **L4b-v2 is pre-registered and smoke-tested but not run.** `chain_l4b_v2.sh`
    after the v2 chain (~50 h). Its verdict decides whether "physics hurts once
    bounded" is defended, withdrawn, or retracted — all three outcomes are written
@@ -215,7 +217,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
   it threaded through (every PINN run would have crashed). Both fixed.
 - **Experimental anchor changed**: Lassitter 2024 Fig. 10 (fully specified in its SI,
   digitised) replaces Li 2025 (under-specified). See §5 item 4.
-- Ledger counts: 25 Part-A, 42 Part-B.
+- Ledger counts: 26 Part-A, 42 Part-B.
 
 ## 7. Rules carried forward
 

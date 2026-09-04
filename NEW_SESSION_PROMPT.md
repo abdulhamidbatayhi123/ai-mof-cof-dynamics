@@ -16,7 +16,7 @@ If the literature says there is a better way, use it. Never trade rigour for spe
 Start by reading, in this order:
   CONTINUE_HERE.md        current status, every headline number, what to protect
   RESULTS.md              every result, current
-  RETRACTIONS.md          25 Part-A withdrawals, 42 Part-B defects caught pre-contamination
+  RETRACTIONS.md          26 Part-A withdrawals, 42 Part-B defects caught pre-contamination
   AUDIT_2026-08-30.md     the external audit and its evidence tags
   CITATIONS.md            the citation gate and the venue decision
   PREREG_L6_v2.md         a pre-registration committed to git before its run
@@ -56,6 +56,10 @@ WHAT IS SETTLED — do not redo, do not re-litigate:
       too dispersed = Ruthven closure on a 1-2-pellet bed). PREREG_LASSITTER.md.
   MDE: A25 corrected the power simulation (sqrt 2 noise inflation); L6-v2 has 82 %
       power at 4 %. mde.py is the only implementation; use it for every null.
+  L2 on v2 (2026-09-04, 420 cells): every optimum bracketed (w64, d8, md6; the forest
+      at its ceiling), but the optimum MOVED: an 8-layer MLP (0.0241) beats the L1
+      setting by 21 % (CI 19-24 %) where legacy found 1 % -- retraction A26 scopes
+      "capacity is irrelevant" to 48 materials. Wall stands: 86x the POD floor.
 
 NINE WORKING RULES. Each was earned by getting it wrong once; the retraction is named.
   1. No number from a failing validate.py category. (22 gates, all passing.)
@@ -89,13 +93,13 @@ a student with no APC funding), IF ~7, and every paper L3 argues with is in CMAM
 Fallbacks: Separation & Purification Technology, then TMLR. ONE paper, not two.
 
 NEXT ACTIONS, in order:
-  1. L2 on v2: the sweep finishes automatically (chain_v2_rungs.sh); write it into
-     RESULTS.md in the pre-declared words. Provisional: every family's optimum is
-     bracketed, but depth is worth 21 % (8 layers, 0.0241) where legacy found 1 %
-     — record that the legacy "capacity is irrelevant" was scoped to 48 materials.
-  2. L4b on v2: pre-registered and smoke-tested (PREREG_L4b_v2.md, chain_l4b_v2.sh,
-     ~50 h). Run it after the v2 chain, never concurrently. Its verdict decides
-     whether "physics hurts once bounded" is defended, withdrawn or retracted.
+  1. L4b on v2 is RUNNING (launched 2026-09-05 00:57 Istanbul; ~50 h; chain_l4b_v2.sh,
+     resumable with ./resume.sh go). When it finishes, read l4b_v2_analysis.log and write
+     the verdict in PREREG_L4b_v2.md's pre-declared words. Do not run anything else
+     CPU-heavy while it runs.
+  2. While L4b runs (I/O only): citation verification tranche 4 (see the list in
+     MANUSCRIPT_OUTLINE.md), the ladder schematic figure (F1), and the manuscript
+     draft from MANUSCRIPT_OUTLINE.md, in the voice of RESULTS.md.
   3. Citation verification, tranche 3 onward (~225 remain). The anchor is done;
      the Henry-branch discrepancy it exposed is a limitation to write, not to fix by
      tuning.
