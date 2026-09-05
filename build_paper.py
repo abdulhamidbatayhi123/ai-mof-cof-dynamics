@@ -54,7 +54,7 @@ ALLOWED = {
     "24": "the number of validate.py gates",
     "26": "Part-A ledger count",
     "27": "ledger entries carrying the words 'our own error'",
-    "61": "Part-B ledger count",
+    "62": "Part-B ledger count",
     "1": "ordinal / unity",
     "2": "ordinal / a term count",
     "3": "seed count and ordinal",
