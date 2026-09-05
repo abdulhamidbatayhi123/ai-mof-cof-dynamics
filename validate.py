@@ -399,6 +399,51 @@ def gate_isotherm_regime():
     return ok, "; ".join(rows)
 
 
+@gate("Henry's law holds across the WHOLE material space", "isotherm")
+def gate_isotherm_space():
+    """Every gate above evaluates TWO named configurations. Dataset v2 has 240
+    sampled materials, and A18/A21/A26 are all the same error: a property measured
+    at one point in a space, stated as a property of the space.
+
+    Checked here for every sampled material, not for two of them:
+      * isotherm_n > 1 strictly  -> the cooperative (Sips) term is o(c) at the
+        origin, so the primary (Langmuir) term alone sets the initial slope and
+        Henry's law holds. At n = 1 exactly the cooperative term becomes Langmuir
+        and contributes a finite slope, which is still a valid isotherm but is a
+        different claim; the sampler must never reach it.
+      * henry_fraction > 0       -> K_H = q_max f_H b_H is non-zero.
+      * K_H finite and positive for every material.
+
+    The gate also REPORTS the spread rather than a single value, because
+    `RESULTS.md` quoted one configuration's K_H for a family spanning ~2 decades.
+    """
+    import json as _json
+
+    path = ROOT / "results" / "isotherm_space.json"
+    if not path.exists():
+        raise Skip("results/isotherm_space.json not found — run isotherm_space.py")
+    d = _json.loads(path.read_text(encoding="utf-8"))
+    rows = d["rows"]
+    bad = []
+    for r in rows:
+        if not r["isotherm_n"] > 1.0:
+            bad.append(f"material {r['material_id']}: isotherm_n = {r['isotherm_n']:.4f} <= 1")
+        if not r["henry_fraction"] > 0.0:
+            bad.append(f"material {r['material_id']}: henry_fraction = {r['henry_fraction']}")
+        if not (np.isfinite(r["K_H"]) and r["K_H"] > 0.0):
+            bad.append(f"material {r['material_id']}: K_H = {r['K_H']}")
+    if bad:
+        return False, "Henry's law fails for:\n      " + "\n      ".join(bad[:8])
+    k, w = d["K_H"], d["log10_c_henry_over_c_in_median"]
+    return True, (
+        f"{len(rows)} materials, isotherm_n in ({min(r['isotherm_n'] for r in rows):.3f}, "
+        f"{max(r['isotherm_n'] for r in rows):.3f}]; K_H {k['min']:.3g}–{k['max']:.3g} "
+        f"({k['decades']:.1f} decades, median {k['median']:.3g}); the Henry region ends at "
+        f"1e{w['median']:.1f} of the feed (median), and below 1e-3 of it for "
+        f"{d['n_henry_region_below_1e3_of_feed']} materials — report the DISTRIBUTION, "
+        f"never one config's K_H")
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # solver
 # ─────────────────────────────────────────────────────────────────────────────

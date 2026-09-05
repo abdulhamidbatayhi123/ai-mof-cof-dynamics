@@ -16,8 +16,21 @@ so dq/dc -> 0 at the origin. Every real isotherm must be LINEAR as c -> 0
 (Henry's law). Violating it makes the low-loading limit unphysical and breaks
 the link between the isotherm and the Henry constant.
 
-We therefore use a dual-term Do--Do form: a Langmuir primary-site term that
-carries the Henry limit, plus a cooperative cluster term that produces the step.
+We therefore use a dual-term form **in the spirit of Do & Do (2000)**: a primary-site
+term that carries the Henry limit, plus a cooperative cluster term that produces the
+step.
+
+Say "in the spirit of", not "the Do--Do form" -- defect B56. Do & Do's published
+model superposes an **n-layer BET** primary term with a **Sips** cooperative term
+(verified through Buttersack, PCCP 21:5614, 2019, eqns 29-30). Ours superposes a
+**single-site Langmuir** primary term with a Sips cooperative term. What we take from
+them is the two-term construction and, crucially, the fact that **only the primary
+term carries the Henry slope** -- their Sips term, like ours, has slope exactly zero
+at the origin. A Langmuir is not an n-layer BET, and a referee who knows the model
+will open this equation and see the substitution. Their cluster exponent is also
+FIXED (a = 5, m = 6) whereas `isotherm_n` here is a sampled material parameter
+spanning 1.01-5.98, which is closer to Do, Junpirom & Do (2009). And "Type V" is our
+own IUPAC-grounded label: Buttersack calls this family type IV.
 
     q*(c,T) = q_max [ f_H * (b_H c)/(1 + b_H c)
                     + (1 - f_H) * (b_C c)^n / (1 + (b_C c)^n) ]

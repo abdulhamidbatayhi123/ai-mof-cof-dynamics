@@ -42,10 +42,41 @@ Global mass balance closes to **0.050 %**; grid convergence 0.055 % (generic) an
 **The isotherm must be Type V with Henry's law intact.** Single-site Langmuir has
 zero inflection points and predicts the largest uptake gradient at RH → 0 — the
 opposite of the mechanism AWH depends on. A bare Hill form gives the step but
-`q ∝ c^n` at the origin, violating Henry's law. The dual-term Do–Do form gives
-both: 1 inflection point, steepest uptake at **14 % RH**, finite
-`K_H = 0.281 mol/kg per mol/m³`, and `q_st = -ΔH + RT` reproduced to **0.004 %**
-identically at 25/50/75 % loading.
+`q ∝ c^n` at the origin, violating Henry's law. A **dual-term form in the spirit of
+Do & Do** — a Langmuir primary-site term plus a cooperative Sips term — gives both:
+1 inflection point, steepest uptake at **14 % RH**, a finite Henry constant, and
+`q_st = -ΔH + RT` reproduced to **0.004 %** identically at 25/50/75 % loading.
+
+> **Two corrections to how this used to be written.**
+> **(B56)** It is *not* "the Do–Do form". Do & Do superpose an **n-layer BET**
+> primary term with a Sips term; ours is a **Langmuir** primary term with a Sips
+> term. What we take from them is the two-term construction and the fact that **only
+> the primary term carries the Henry slope** — their Sips term, like ours, has slope
+> exactly zero at the origin. Their cluster exponent is fixed (a = 5); ours is a
+> sampled material parameter, closer to Do, Junpirom & Do (2009). "Type V" is our own
+> IUPAC-grounded label — Buttersack calls this family Type IV.
+> **(B57)** `K_H = 0.281` is **one configuration's** value. Across the 240 sampled
+> materials K_H spans **0.032–2.52 mol/kg per mol/m³, 1.9 decades**, median 0.359.
+
+**Henry's law holds for every one of the 240 materials, and the width of the region
+where it dominates does not** (`isotherm_space.py`, `results/isotherm_space.json`,
+gated). `isotherm_n > 1` strictly for every material (minimum 1.009), so the
+cooperative term is `o(c)` at the origin and `K_H` is finite and positive everywhere.
+But the concentration at which the cooperative term reaches 1 % of loading — the top
+of the accessible Henry region — spans **508 decades**:
+
+| | log₁₀(c_Henry / median feed c_in) |
+|---|---|
+| max (widest Henry region) | **−0.9** |
+| median | **−2.0** |
+| p05 | −15.8 |
+| min | −509 |
+
+**73 of 240 materials have no Henry region above 10⁻³ of the feed, and 34 none above
+10⁻⁶.** For those the isotherm is effectively Sips-like at every concentration the
+column visits. The design claim is therefore *thermodynamic validity by construction*,
+which holds everywhere — not *an experimentally accessible linear regime*, which does
+not. Report the distribution, never one configuration's number.
 
 **The Type V isotherm produces a two-wave breakthrough**, not a sigmoid:
 
@@ -1089,10 +1120,10 @@ methodology that produced it, is the contribution.
 
 ## Honesty infrastructure
 
-- **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
+- **`validate.py`** — 23 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 26 Part-A, 53 Part-B caught before
-  contamination. **27 of the 79 entries carry the words "our own error"**, and
+- **`RETRACTIONS.md`** — 26 Part-A, 59 Part-B caught before
+  contamination. **27 of the 85 entries carry the words "our own error"**, and
   several more are self-attributed in other words (A22, A23, A25, B39, B41, B42,
   B43, B45-B53) — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
