@@ -1,0 +1,915 @@
+%% ---------------------------------------------------------------------------
+%% What binds a surrogate — a pre-registered falsification ladder
+%% Target: Computer Methods in Applied Mechanics and Engineering (Elsevier)
+%%
+%% EVERY NUMBER IN THIS FILE IS A MACRO RESOLVED FROM A RESULTS FILE.
+%% Build with:  python paper/numbers.py && python build_paper.py
+%% A bare numeral in the prose is a build failure, not a style issue: defects
+%% B21 and B43 both began with a number that reached a document with no script
+%% behind it. See paper/numbers.py for the file and path behind each macro.
+%% ---------------------------------------------------------------------------
+\documentclass[preprint,11pt]{elsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+\input{numbers}
+
+\journal{Computer Methods in Applied Mechanics and Engineering}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{What binds a surrogate: a pre-registered falsification ladder for
+transfer to unseen materials in metal--organic framework adsorption columns}
+
+\author{Abdulhamid Batayhi}
+\ead{abdulbatayhi@gmail.com}
+
+\begin{abstract}
+Surrogate models for adsorption column dynamics are usually assessed by how well
+they fit. We ask instead what \emph{binds} their error when they are required to
+predict a material they have never seen, and which of the standard interventions
+moves it. Seven candidate explanations were named in advance, each with the
+evidence that would eliminate it, and tested on a reference solver verified against
+four closed-form solutions and against a published MOF-303 packed-bed breakthrough
+curve with nothing fitted. Six are eliminated. Model capacity is eliminated as an
+unbounded lever, though its optimum moves with the training-set size. Architecture
+family is eliminated: at matched parameters a multilayer perceptron beats both
+Kolmogorov--Arnold families in \(6/6\) comparisons, with every optimum bracketed
+across eight learning rates spanning three and a half decades. Linear-reconstruction
+operators are eliminated: DeepONet is flat in basis size while its own Kolmogorov
+\(n\)-width bound falls \(\nFloorDrop\times\) beneath it. A Fourier neural operator, the
+remedy the approximation theory names, is significantly better yet still sits \(\nFNOxFloor\times\) above the same floor. Structural decomposition of the equilibrium and
+kinetic objects gives a small, real and reproducible benefit
+(\nLsixDiff\ nRMSE, CI [\nLsixLo, \nLsixHi]) that does \emph{not} vary with
+Damk\"ohler number across \nLsixDaDecades\ decades, so it acts as an inductive bias
+rather than as a kinetic identifier. What is not eliminated is the number of
+training materials: error still falls as \(n^{-\nLCbeta}\) at the largest size we
+can afford, and all of that gain lies in the parameter-to-coefficient map rather
+than in the basis. We trace the wall to that map directly, and show that a change of
+coordinates which collapses the \(n\)-width from \nNwidthOriginal\ to
+\nNwidthTwoWaveA\ modes buys a significant \nWarpHeadroom{}\(\times\) under an
+oracle and nothing at all under a predictor --- relocating the obstruction from a
+two-dimensional field to two one-dimensional curves. Twenty-six withdrawn claims and
+sixty-one caught defects are reported as a numbered section rather than an appendix.
+\end{abstract}
+
+\begin{keyword}
+surrogate models \sep model order reduction \sep adsorption column dynamics \sep
+transfer to unseen materials \sep Kolmogorov \(n\)-width \sep pre-registration
+\end{keyword}
+
+\end{frontmatter}
+
+%% ===========================================================================
+\section{Introduction}
+\label{sec:intro}
+
+The case for a learned surrogate of a fixed-bed adsorption column is a screening
+case. A designer choosing among candidate metal--organic frameworks does not want
+one breakthrough curve faster; they want thousands of them, for materials that have
+not been simulated. The quantity that matters is therefore not fit but
+\emph{transfer}: the error on a material the model has never seen.
+
+That framing is unusual enough to be worth stating plainly, because it changes what
+counts as evidence. A surrogate cannot beat its own reference on accuracy --- the
+reference is exact by construction --- so a synthetic study can only measure
+accuracy per unit inference cost, or accuracy from less information. Two defects in
+our own frozen protocol came from forgetting this, and both are recorded in
+Section~\ref{sec:corrections}.
+
+It also changes what counts as a strong result. McGreivy and Hakim, surveying
+machine learning for fluid-related partial differential equations, determine that
+\emph{79\,\% (60 of 76)} of articles claiming to outperform a standard numerical
+method compare against a weak baseline, and find reporting biases widespread. That
+finding is the design brief for this study rather than a citation of convenience.
+Grossmann and co-workers, comparing physics-informed networks against the finite
+element method on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
+that the networks did not outperform FEM \emph{in their study} --- a scoped result,
+and we scope ours the same way.
+
+\paragraph{What this paper is not.} It is not an architecture paper. Rung L3
+refutes the premise that a richer per-edge basis helps here, on our own data; rung
+L5 refutes our own explanation of why the operators fail. The negative results are
+the contribution.
+
+\paragraph{Prior art, stated up front.} Transfer to held-out \emph{systems} is
+established in operator learning: Poseidon pretrains on fluid-dynamics equations and
+reports that it ``generalizes very well to new physics that is not seen during
+pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining
+reports transfer to ``systems with previously unseen physical components''.
+Held-out \emph{materials} is established for interatomic potentials: MOFSimBench
+evaluates twenty universal machine-learning interatomic potentials on
+metal--organic frameworks. The two have not been combined, and we find no
+operator-learning study that evaluates transfer to held-out materials --- a claim we
+state with the papers that would otherwise falsify it cited alongside it, because an
+earlier and broader version of it was falsified by exactly those papers
+(Section~\ref{sec:corrections}, A23).
+
+Heinlein and Taraz establish, for DeepONets on Korteweg--de~Vries and Burgers
+equations, that the error is branch-dominated at large internal dimension, that the
+learned trunk can be replaced by a classical basis, and that the branch exhibits
+mode-wise spectral bias. We reproduce that signature independently and extend it in
+four ways: the inputs are a finite-dimensional parameter vector describing a
+\emph{material} rather than a discretised input function; evaluation is transfer to
+held-out materials under a cluster-robust, calibrated test rather than
+in-distribution error; we show the plateau is invariant to basis size while the
+proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\), and calibrate
+the residual against an oracle to an equivalent mode count; and we trace it to a
+measurable physical cause. Two independent groups, different input types, different
+partial differential equations, the same wall is a stronger statement than either
+result alone.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item A pre-registered falsification ladder over seven named candidate explanations
+for the transfer error of an adsorption-column surrogate, with the eliminating
+evidence declared before each run and every null reported with its minimum
+detectable effect.
+\item A reference solver verified against four closed-form solutions
+(Section~\ref{sec:reference}) and against a published MOF-303 packed bed with no
+parameter fitted to the curve (Section~\ref{sec:physics}).
+\item A direct measurement of what binds the error --- the parameter-to-coefficient
+map, not the representation --- in the \emph{optimal} basis, so the conclusion
+cannot depend on the basis any particular method learned
+(Section~\ref{sec:mechanism}).
+\item A measurement of what an established change of coordinates buys on this
+system, and of exactly what consumes it (Section~\ref{sec:warp}).
+\item A correction record: \textbf{26} withdrawn claims and \textbf{61} caught
+defects, reported as Section~\ref{sec:corrections} rather than hidden.
+\end{enumerate}
+
+%% ===========================================================================
+\section{The reference and its verification}
+\label{sec:reference}
+
+Every surrogate number in this paper is \emph{surrogate-versus-solver}. The solver
+is therefore not a detail, and it is verified rather than asserted.
+
+The model is a one-dimensional non-isothermal packed bed with axial dispersion, a
+linear-driving-force kinetic closure and a coupled energy balance. The inlet is a
+third- or flux-type boundary condition. That choice is load-bearing and was
+initially made wrongly: our first verification compared the solver against Ogata and
+Banks, who solve the \emph{first-} or concentration-type inlet. Against the correct
+closed form --- van Genuchten and Alves, who give the third-type solution --- the
+error falls to \nLzeroTracer{} absolute, an improvement of more than an order of
+magnitude, with the residual maximum at the outlet where a finite column legitimately
+differs from a semi-infinite solution. The two boundary conditions differ by
+\nLzeroBCdiff\,\% of the inlet concentration at the front half-height at
+\(\mathrm{Pe} \approx \nLzeroTracerPe\); the difference does not stay confined to an
+inlet boundary layer, which is why using the wrong reference is not a small matter.
+
+The same choice is vindicated independently. Van Genuchten and Alves state that the
+flux-type condition conserves mass inside a column whereas the concentration-type
+condition causes mass-balance errors that grow with \(D/v\). That is precisely the
+defect we found numerically and separately: a Dirichlet ghost cell in the dispersion
+stencil drove an artificial dispersive influx and left global mass closure off by
+about one per cent, invariant across snapshot counts, until the inlet dispersive flux was
+set to zero, after which closure improved to \(\nMassClosure\,\%\)
+(Section~\ref{sec:corrections}, B8). A 1982 bulletin predicted the defect.
+
+Four closed-form solutions, each isolating one term:
+
+\begin{table}[t]
+\centering
+\caption{Verification of the reference solver. Each check isolates one term of the
+model against a closed form. Figure~\ref{fig:ladder}C.}
+\label{tab:l0}
+\begin{tabular}{llr}
+\toprule
+check & term isolated & error \\
+\midrule
+inert tracer vs.\ van Genuchten third-type & advection, dispersion, the inlet & \nLzeroTracer{} abs \\
+retarded front, \(R = \nLzeroRetardedR\) & isotherm coupling, equilibrium limit & \nLzeroRetarded\,\% \\
+thermal wave, adsorption off & the energy equation & \nLzeroThermal\,\% \\
+linear driving force vs.\ Anzelius--Schumann & kinetics & \nLzeroLDF{} abs \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Global mass balance closes to \(\nMassClosure\,\%\); grid convergence is \(\nGridConv\,\%\) at
+\(N_z = \nGridNz\) for the generic configuration and \(\nGridConvMof\,\%\) for the
+MOF-303-parameterised one.
+
+\paragraph{What we read, and what we read through.} The Anzelius and Schumann papers
+are closed and carry no abstract in any bibliographic service, so the \(J\)-function
+was verified through Perry's handbook rather than from either original; the same is
+true of Danckwerts's 1953 paper, for which we additionally cite Pearson's note.
+Section~\ref{sec:reproducibility} lists every reference cited through a secondary
+source rather than read at the primary. A study that audits its own numbers should
+audit its own reading.
+
+%% ===========================================================================
+\section{The physics that shapes everything downstream}
+\label{sec:physics}
+
+\subsection{The isotherm must be inflected, with a finite Henry slope}
+
+Water uptake in atmospheric-water-harvesting frameworks is negligible until a
+threshold relative humidity, then rises almost vertically as pore filling proceeds
+cooperatively, then saturates. That step is the entire reason these materials work.
+Single-site Langmuir cannot produce it: its second derivative is negative
+everywhere, verified numerically as zero inflection points, and it predicts the
+largest uptake gradient as \(c \to 0\) --- the opposite of the mechanism. A bare
+Hill form produces the step but gives \(q \propto c^{n}\) at the origin, so
+\(\mathrm{d}q/\mathrm{d}c \to 0\) and Henry's law is violated.
+
+We therefore use a dual-term form \emph{in the spirit of} Do and Do: a Langmuir
+primary-site term carrying the Henry limit, plus a cooperative Sips term producing
+the step,
+\begin{equation}
+q^{*}(c,T) = q_{\max}\left[
+f_H\,\frac{b_H c}{1 + b_H c}
++ (1-f_H)\,\frac{(b_C c)^{n}}{1 + (b_C c)^{n}} \right],
+\label{eq:isotherm}
+\end{equation}
+with \(b_H(T) = b_{H0}\exp(-\Delta H/RT)\) and \(b_C(T) = b_{C0}\exp(-\Delta H/RT)\).
+Both affinities carry the same \(\Delta H\), so \(q_{st} = -\Delta H + RT\) holds at
+every loading; it is reproduced to four thousandths of a per cent identically at a quarter, a half and three quarters of capacity.
+
+The phrase ``in the spirit of'' is deliberate. Do and Do superpose an \(n\)-layer
+BET primary term with a Sips term; ours is a Langmuir primary term with a Sips term.
+What we take from them is the two-term construction and the fact that \emph{only the
+primary term carries the Henry slope} --- their Sips term, like ours, has slope
+exactly zero at the origin. Their cluster exponent is fixed; ours is a sampled
+material parameter. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
+be wrong, and it is a correction we made to our own text
+(Section~\ref{sec:corrections}, B56). ``Type~V'' is likewise our own label on IUPAC
+grounds; the modelling literature calls this family Type~IV.
+
+\subsection{Henry's law holds everywhere; the region where it dominates does not}
+
+A property verified at one configuration is not a property of a parameter space ---
+this is the error class of A18, A21 and A26 applied to the isotherm rather than to a
+sample size. Measured across all \nIsoNmat\ sampled materials rather than at two
+named configurations: \(n > 1\) strictly for every material, so the cooperative term
+is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
+But \(K_H\) spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
+\si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. And the
+concentration at which the cooperative term reaches 1\,\% of loading --- the top of
+the accessible Henry region --- reaches \(10^{\nIsoHenryMax}\) of the feed at best
+and a median of \(10^{\nIsoHenryMed}\), but lies below \(10^{-3}\) of the feed for
+\nIsoHenryBelowMilli\ materials and below \(10^{-6}\) for \nIsoHenryBelowMicro. For
+those the isotherm is effectively Sips-like at every concentration the column
+visits. The design claim is thermodynamic validity by construction, which holds
+everywhere; it is not an experimentally accessible linear regime, which does not.
+
+\subsection{An inflected isotherm produces a two-wave breakthrough}
+
+The consequence is that breakthrough is not a sigmoid. A fast, spreading wave on the
+Henry branch arrives first and plateaus; a slow, self-sharpening cooperative shock
+follows. The two features move \emph{independently} with material parameters, and
+their separation at the outlet spans \nGapMin--\nGapMax\ in normalised time --- a factor of \nGapRange\ across our parameter space. Everything downstream is shaped by that
+number.
+
+This is established behaviour, not our observation. LeVan and Carta give the
+mechanism: an unfavourable dimensionless isotherm admits a simple wave because low
+concentrations travel faster than high ones, a favourable isotherm admits no simple
+wave and the solution is a shock, and a favourable isotherm with mass-transfer
+resistance approaches a constant pattern. Bozbiyik and co-workers measured a stepped
+breakthrough on aluminium fumarate, and report that it is feed-condition dependent
+--- a single step at low water partial pressure, a stepped profile at higher partial
+pressure.
+
+\subsection{The solver against a real MOF-303 bed, with nothing fitted}
+\label{sec:anchor}
+
+Lassitter and co-workers report a MOF-303 packed-bed breakthrough whose conditions
+are fully specified in their supplementary information: a \SI{6.35}{\milli\metre}
+bed in a \SI{38.1}{\milli\metre} tube, ambient air at \SI{32.8}{\percent} relative
+humidity, \SI{298.15}{\kelvin}, bulk density \SI{429.6}{\kilo\gram\per\metre\cubed}.
+The comparison was pre-registered before it was run. Inputs are the cited MOF-303
+isotherm, their bed, and declared bands for what the source does not give.
+
+The measured curve shows first leak at \nAnchorTfiveExp\ minutes, a Henry-branch
+plateau at \nAnchorPlateauExp{} of the inlet, and 50\,\% arrival at
+\nAnchorTfiftyExp\ minutes. Our solver, with nothing tuned, gives 50\,\% arrival at
+\nAnchorTfiftyModel\ minutes and a plateau at \nAnchorPlateauModel, with
+\(\mathrm{nRMSE} = \nAnchorNrmse\) against the digitised effluent points --- against
+\nAnchorNrmseComsol\ for the authors' own two-dimensional COMSOL model with fitted kinetics.
+The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 bed
+does, and the cited isotherm predicts it.
+
+Two discrepancies, both attributable, both reported. The first wave arrives
+\emph{too early} in the model (\nAnchorTfiveModel\ minutes against
+\nAnchorTfiveExp\ measured); nothing in the declared band moves it, and what sets it
+is the isotherm's low-relative-humidity branch, whose Henry fraction was fitted to
+the step position and the capacity only. This is the first dynamic measurement that
+constrains it, and it is a limitation of our MOF-303 parameterisation rather than of
+the solver. The shock is \emph{too dispersed}, because the axial-dispersion closure
+gives a P\'eclet number near unity on a bed one or two pellets deep, where a
+packed-bed correlation does not apply. Section~\ref{sec:limitations} returns to that
+closure, which turns out to need a more careful statement than we first gave it.
+
+%% ===========================================================================
+\section{Dataset, splits and statistics}
+\label{sec:dataset}
+
+\subsection{Design}
+
+The dataset contains 3947 accepted simulations over 240 materials and 17 operating
+conditions, sampled by scrambled Sobol sequence over eight material parameters and
+three condition parameters. The kinetic coefficient is not sampled independently: it
+is derived from particle size through a Glueckauf relation, so that kinetics and
+geometry stay physically consistent. Damk\"ohler number spans \nLsixDaMin\ to
+\nLsixDaMax, median \nLsixDaMedian, i.e.\ \nLsixDaDecades\ decades.
+
+That range is the reason this dataset exists. An earlier dataset placed almost all of its samples above a Damk\"ohler number of sixty, which made the primary hypothesis of rung L6
+--- that separating the kinetic object should pay most where kinetics dominate ---
+untestable in principle rather than merely underpowered.
+
+\subsection{The splits, and why the test is clustered}
+
+Materials are held out, not conditions. Every rung on this dataset reports over the
+same five-fold partition of the 240 materials, so that L1, L2, L6 and L7 are
+compared over the same held-out set in the same folds.
+
+Errors are strongly clustered by material, and a test that ignores that
+over-rejects. Measured under a realistic null, the percentile cluster bootstrap
+rejects \nFprLegacyNominal\,\% of the time at a nominal 5\,\% level with
+\nNclustLegacy\ clusters, and \nFprFoldsNominal\,\% with \nNclustFolds. We therefore
+use a calibrated level: \(\alpha = \nAlphaFolds\) at \nNclustFolds\ clusters, which
+achieves an empirical size of \nFprFoldsCal\,\%. One published verdict did not
+survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
+
+\subsection{Every null carries its minimum detectable effect}
+
+A null verdict without a power statement is not a result, and this project has the
+scar to prove it: an audit reported one of our nulls as well powered, at 96\,\%
+power against a 20\,\% effect, and the recomputation with material-level clustering
+preserved gave seven per cent (A22). A second correction, in the opposite direction,
+found that the corrected power simulation itself inflated within-material noise by
+\(\sqrt{2}\) (A25). Both are in Section~\ref{sec:corrections}. Every null reported
+below carries a minimum detectable effect computed by a single, self-tested
+implementation from the real paired differences.
+
+%% ===========================================================================
+\section{The ladder}
+\label{sec:ladder}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig1_ladder.pdf}
+\caption{The falsification ladder. \textbf{A}~Each rung's intervention as a
+percentage of that rung's own control, with its cluster-robust confidence interval;
+positive means the intervention reduces held-out error. Nulls carry their minimum
+detectable effect. The oracle arm is drawn hollow because it is handed the answer
+and is an upper bound, not a comparable result. \textbf{B}~The primary
+pre-registered estimand of rung L6, in its own units. \textbf{C}~Verification of the
+reference (Table~\ref{tab:l0}).}
+\label{fig:ladder}
+\end{figure}
+
+\subsection{L1 --- more data}
+
+\paragraph{The arms.} Pooled out of fold over 240 held-out materials, with 64
+proper-orthogonal-decomposition modes per channel, the multilayer perceptron is the
+best fixed-basis arm at \nLoneMLP, ahead of gradient boosting at \nLoneXGB, random
+forest at \nLoneRF\ and ridge at \nLoneRidge. Against gradient boosting the
+difference is \nLoneMLPvsXGBdiff\ with confidence interval
+[\nLoneMLPvsXGBlo, \nLoneMLPvsXGBhi] --- significant, and the perceptron is ahead in
+every one of the five folds. This reverses the earlier result at a quarter of the
+materials, where the three nonlinear arms were indistinguishable and the perceptron
+had the worst point estimate.
+
+The floor moved too. The proper-orthogonal-decomposition floor is \nLonePodFloor,
+and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave a ratio less than a third as large, so \emph{the basis is even less the constraint than it was}: four times the materials improved the arm, and improved the floor beneath it by more.
+
+\paragraph{The learning curve, and the rung's actual verdict.} Held-out error falls
+\nLCsmallest\ \(\to\) \nLClargest\ as training materials go 12 \(\to\) 192, a factor
+of \nLCratio. Every consecutive step is a significant improvement \emph{including
+the last}: 96 \(\to\) 192 gives \nLClastDiff\ with interval
+[\nLClastLo, \nLClastHi]. The exponent is \(n^{-\nLCbeta}\), interval
+[\nLCbetaLo, \nLCbetaHi]. At that exponent, halving the error costs about \(\nLCmaterialsForHalving\times\) more materials.
+
+\textbf{Verdict, in the pre-declared words: the materials axis is NOT ELIMINATED at
+the largest size available.} We claim no extrapolation beyond twice the measured
+range.
+
+\paragraph{What more materials buy, and what they do not.} Refitting the basis on
+each subset changes nothing: \nLCsmallestFixed\ against \nLCsmallest\ at 12
+materials, \nLClargestFixed\ against \nLClargest\ at 192. A basis fitted on twelve
+materials reconstructs held-out fields as well as one fitted on 192, once the
+regressor sees the same data. \emph{None of the gain is in the basis; all of it is
+in the parameter-to-coefficient map.} Modes whose coefficient map clears
+a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing.
+
+The conditions axis behaves differently: exponent \nLCcondBeta, half the material
+exponent. Both axes are open; materials are the one that matters.
+
+\subsection{L2 --- more capacity}
+
+Twenty-eight configurations in both directions around the L1 setting, on the same
+folds and basis. Three families are U-shaped with interior optima
+(\nLtwoWidthShape; \nLtwoDepthShape; \nLtwoXgbShape) and the random forest
+\nLtwoRfShape\ --- it is still improving at its last step, but that step is a fully
+grown forest, the ceiling of its capacity knob. The decisive evidence is decoupling:
+gradient boosting drops its training error by more than an order of magnitude across
+the depth sweep while held-out error passes through a minimum and then rises.
+
+\textbf{Verdict: capacity as an unbounded lever is eliminated} --- every optimum
+that can be bracketed is bracketed --- \textbf{but the optimum is not where the
+earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
+at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the L1 setting (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)); at 48 materials the same sweep found \(1\,\%\) and put the
+depth optimum two layers lower. The earlier sentence ``capacity is irrelevant'' was
+scoped to a material count without saying so, and is withdrawn as A26. The wall
+stands: the best fixed-basis surrogate still sits \(\nLtwoXfloor\times\) above the floor.
+
+That the \emph{optimal} capacity grows with the material count is the textbook
+signature of a data-limited rather than a representation-limited regime --- the same
+diagnosis the learning curve gives from the other side.
+
+\subsection{L3 --- a better basis}
+
+At matched parameter counts and each family at its own best learning rate, the
+multilayer perceptron beats both Kolmogorov--Arnold families at every budget, with
+all six pairwise comparisons significant. \nLthreeArms\ arms were trained across
+eight learning rates spanning \(3\times10^{-5}\) to \(10^{-1}\), three and a half
+decades, until every selected optimum was bracketed --- the strongest form of
+protocol rule~4 we achieve anywhere, and the rung where it matters most, because the
+Kolmogorov--Arnold arms are the ones being argued against.
+
+Comparing against the strongest configuration found anywhere rather than the
+matched-budget cell: the best Kolmogorov--Arnold network in the entire study is the
+\emph{least} Kolmogorov--Arnold-like one, and it reaches \nLthreeBestKan\ against
+the perceptron's \nLthreeBestKanMlp\ --- a difference of \nLthreeBestKanDiff,
+interval [\nLthreeBestKanLo, \nLthreeBestKanHi], still significant.
+
+\paragraph{The tuning envelope is itself a result.} The families optimise three
+orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
+perceptron at \nLthreeMlpLr. Six configurations failed to train entirely and are
+excluded and listed, never averaged in. We did not tune the perceptron and leave the
+Kolmogorov--Arnold arms at a default.
+
+\paragraph{The literature is split, and this result is worth more because of it.}
+Shukla and co-workers report that spline-based Kolmogorov--Arnold networks lack
+accuracy and efficiency while modified ones on low-order orthogonal polynomials are
+\emph{comparable} to perceptron baselines but not robust. But Wang and co-workers'
+KINN reports that it ``significantly outperforms MLP regarding accuracy and
+convergence speed'' on solid-mechanics problems, and Rigas and co-workers report
+that residual-gated adaptive Kolmogorov--Arnold networks ``consistently outperform
+parameter-matched cPIKANs and PirateNets'' --- and PirateNet is a perceptron
+architecture. An earlier draft of this section cited two of these papers for a
+consensus that does not exist (Section~\ref{sec:corrections}, B46). The honest
+statement is narrower and more useful: on \emph{this} problem, at matched
+parameters, with every optimum bracketed, the perceptron wins \(6/6\); and the
+papers that disagree are cited so a reader sees the disagreement rather than
+discovers it.
+
+\paragraph{Interpretation.} Not ``Kolmogorov--Arnold networks are bad''. At a fixed
+budget, parameters spent on per-edge basis richness buy training fit and not
+generalisation, while the same parameters spent on width buy both. The
+Kolmogorov--Arnold arms fit the training set as well as or better than the
+perceptron at every budget and are worse on held-out materials every time.
+
+\subsection{L4 --- the residual as a loss, and physics at inference}
+
+\textbf{[SECTION PENDING --- L4b-v2 is running. Its verdict text is
+\nLfourbVerdictMaterial\ on the material axis and \nLfourbVerdictTime\ on the time
+axis, and will be reported in the words pre-declared in the pre-registration.]}
+
+Two things are already fixed and reportable. First, the design: ten weighting
+schemes are compared against a data-only twin at matched architecture, matched
+optimiser steps and matched supervised budget --- fixed weights over four decades,
+gradient-norm balancing at three target ratios, neural-tangent-kernel weighting, and
+self-adaptive per-point weights --- because the earlier version of this rung rested
+on a single weighting rule, which is not a defensible basis for the claim that
+physics hurts.
+
+Second, a pre-declared invalidation condition has fired. Test-time refinement on the
+time axis was anchored to the frozen model's own prediction on the seen window, and
+the pre-registration declared that a seen-window error rising by more than 10\,\%
+means the anchor is insufficient and the result on that axis is scoped. It rose by more than five hundred per cent on all three seeds. The time-axis refinement result is therefore
+scoped, and the material axis --- which has no anchor by design, because nothing
+about an unseen material is known --- carries the reportable verdict. A labelled
+post-hoc sweep over refinement learning rate and step count tests whether that
+verdict is a property of physics at inference or of one configuration of it
+(Section~\ref{sec:corrections}, B60).
+
+\subsection{L5 --- you need an operator}
+
+At matched parameter counts and each family at its own best learning rate over three
+and a half decades, DeepONet is \textbf{flat in basis size}: \nLfiveFlatDiff\ from
+\(p = 8\) to \(p = 128\), interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero
+--- while its own proper-orthogonal-decomposition floor falls from
+\nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). At \(p = 128\) it
+sits fifty-five times above its own lower bound. \emph{Giving DeepONet 128 basis
+functions buys it the accuracy of four.}
+
+\paragraph{The arm the theory names.} Lanthaler and co-workers prove that operator
+architectures with a linear reconstruction step --- DeepONet, PCA-Net, and
+proper-orthogonal-decomposition-plus-regressor --- are lower-bounded on
+advection-dominated problems, and that the Fourier neural operator escapes that
+bound through nonlinear reconstruction. Our original rung tested only the family the
+theory condemns; that deviation from our own frozen protocol is recorded as B33. The
+prediction was pre-registered before the run.
+
+The Fourier neural operator is significantly better: \nLfiveFNO\ against DeepONet's
+\nLfiveONet, a difference of \nLfiveONetFNOdiff\ with interval
+[\nLfiveONetFNOlo, \nLfiveONetFNOhi]. \textbf{Both halves of this matter and neither
+may be reported without the other.} It is the direction the theory predicts, and it
+is the first measurement of what the escape is actually worth on a physical problem
+rather than in an approximation bound. \textbf{And it does not remove the wall}: it
+sits \(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A \(\nFNOgain\times\) improvement against a bound \(\nFNOxFloor\times\) below it is a dent, not an
+escape.
+
+One row deserves its own sentence. At the highest mode count the Fourier operator is
+\emph{\nLfiveFNOwidth\ channels wide} and still matches the best DeepONet found
+anywhere, which has width 216. A nonlinear reconstruction with a twentieth of the
+channel count matches the best linear one. That is the clearest single piece of
+evidence in the rung that the reconstruction, not the capacity, separates these
+families.
+
+\paragraph{Caveat, stated because it is load-bearing.} The Fourier operator's mode
+sweep is confounded with width at a matched budget --- the spectral weights cost
+\(\mathcal{O}(w^2 m^2)\), so width falls as modes rise. The monotone degradation
+across that sweep therefore \emph{cannot} be read as ``more Fourier modes do not
+help''. The flat-in-\(p\) statement is made for DeepONet, where \(p\) and width are
+controlled separately, and is not claimed for the Fourier operator.
+
+\subsection{L6 --- separate identification of the kinetic and equilibrium objects}
+
+This was the project's primary hypothesis, and its pre-registration was committed to
+version control before the first arm trained --- the one rung whose pre-registration
+ordering is externally verifiable.
+
+Both invalidation checks passed before any verdict was computed. The kinetic object
+is unrecoverable from observable descriptors (\(R^2 = \nLsixKineticRtwo\), worse than
+predicting the mean) while the equilibrium shape is recoverable
+(\(R^2 = \nLsixStepRtwo\) for the step position, \nLsixQmaxRtwo\ for the capacity).
+That asymmetry is exactly what the hypothesis needs.
+
+\paragraph{Primary estimand, refuted.} The separate-versus-joint difference does not
+vary with Damk\"ohler number: slope \nLsixSlope\ per decade, interval
+[\nLsixSlopeLo, \nLsixSlopeHi], Pearson \(r = \nLsixSlopeR\), over
+\nLsixDaDecades\ decades spanning kinetically-controlled to near-equilibrium
+operation (Figure~\ref{fig:ladder}B). \textbf{The mechanism is not supported.}
+
+\paragraph{Secondary estimand, significant, and a sign reversal.} Joint fitting
+gives \nLsixJoint\ and separate identification \nLsixSeparate: separate is better by
+\nLsixDiff, interval [\nLsixLo, \nLsixHi], consistent in all five folds and all
+three seeds. On the earlier dataset separate was 26\,\% \emph{worse} with an
+interval spanning zero. The direction has flipped.
+
+\paragraph{Why the test has power now, and its limit.} The between-material standard
+deviation of the arm difference fell to \nLsixBetweenSD, or
+\nLsixBetweenOverBase\,\% of the base error, from \nLsixLegacyBetweenOverBase\,\% previously --- a \(\nLsixNoiseDrop\times\) noise reduction from Sobol sampling and physically consistent
+kinetics. With 240 clusters instead of twelve, that is what turned an unanswerable
+question into an answerable one. Power is \nLsixPowerFour\,\% at a 4\,\% effect and
+\nLsixPowerTwo\,\% at 2\,\%, with size at the null \nLsixSizeNull\,\%; the minimum
+detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits just
+under it, so the point estimate may be optimistic and \textbf{the lower bound is the
+conservative reading}.
+
+\paragraph{Verdict, in the pre-declared words.} Structural decomposition gives a
+small but real and reproducible improvement in transfer to unseen materials, and
+that improvement does not depend on Damk\"ohler number. \textbf{The structure acts
+as an inductive bias rather than as a kinetic identifier} --- which is not what the
+hypothesis predicted. This is a more precise statement than either a null or a naive
+positive, and it is available only because the mechanism was pre-registered as the
+primary estimand and could therefore fail on its own terms.
+
+\subsection{L7 --- is learning needed at all}
+
+Scored like for like on the exit curve, because the closed forms predict a curve and
+not a field. The learned arm's out-of-fold prediction reaches \nLsevenLearned{}
+against \nLsevenKlinkenberg\ for the best closed form, \nLsevenShock\ for
+equilibrium theory and \nLsevenPattern\ for constant-pattern theory. The best closed
+form is \nLsevenRatio{}\(\times\) worse, with difference \nLsevenDiff\ and interval
+[\nLsevenLo, \nLsevenHi].
+
+The transferable statement is neither ``classical wins'' nor its reverse, but that
+\textbf{a classical model wins exactly when the physics it assumes is the physics
+that is there}. In a previous project on cyclic heat conduction --- linear and
+time-invariant, so a Green's function is the exact solution operator --- a
+128-number linear convolution beat every deep operator. Adsorption with an inflected
+isotherm is nonlinear, and the two-wave structure violates all three closed-form
+assumptions: a linear isotherm, a non-spreading favourable front, and infinitely
+fast kinetics.
+
+%% ===========================================================================
+\section{What binds the error}
+\label{sec:mechanism}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig10_mechanism.pdf}
+\caption{The mechanism. \textbf{A}~Held-out error against basis size: the floor
+falls \(\nFloorDrop\times\) while every arm is flat. \textbf{B}~The two terms of a linear
+reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
+\(R^2\) of the coefficient map on held-out materials.}
+\label{fig:mechanism}
+\end{figure}
+
+A linear reconstruction can fail in exactly two ways: the basis cannot represent the
+field, or the map from parameters to coefficients cannot be learned. We separate
+them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
+particular method happened to learn.
+
+The basis error falls from \nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes
+from 8 to 128. The coefficient-map error, with a strong regressor, moves from
+\nLfiveCoefSmall\ to \nLfiveCoefLarge\ --- flat to four decimal places. The
+per-mode reason is that on held-out materials the map predicts the leading mode
+well, modes two to five partially, and beyond about mode 24 has a median \(R^2\)
+below zero, worse than predicting the mean.
+
+Against an oracle reconstruction handed the true coefficients for its first \(k\)
+modes, the best DeepONet found anywhere performs like a four-mode oracle. Three
+independent function classes --- proper orthogonal decomposition plus random forest,
+plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together is worth a constant
+a constant factor and nothing more.
+
+\paragraph{And this is scoped to a sample size, which we learned the hard way.} An
+earlier version of this section stated the mode count as a property of the map. It
+is not: it is what a given number of training materials buys. Measured against
+material count, modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
+\nLCmodesLarge\ over 12 to 192 materials and are still climbing. The retraction is
+A21, and it withdrew the replacement text for an earlier retraction --- the same
+inference, made twice.
+
+\paragraph{The \(n\)-width is real and was not what binds.} The Kolmogorov
+\(n\)-width of this snapshot family is algebraic, \(n^{\nNwidthExpC}\) with
+\(R^2 = \nNwidthRtwoC\) over \(n = 8\)--64, so halving the error requires
+\(\nNwidthHalving\times\) the modes permanently. Any method whose output is a linear
+combination of a fixed basis is bounded below by it. Our frozen protocol called this
+the load-bearing result of the ladder and predicted that DeepONet would track it.
+The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
+A17. For transport-dominated problems the slow decay is established --- Ohlberger
+and Rave prove a \emph{lower} bound of \(\tfrac12 N^{-1/2}\) for linear advection
+with jump discontinuities, which is a bound and not a rate, and we state it that
+way.
+
+%% ===========================================================================
+\section{The coordinate change, and where the obstruction moved}
+\label{sec:warp}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig11_two_wave_warp.pdf}
+\caption{The two-wave frame. \textbf{A}~Modes for 99.9\,\% of training variance per
+frame. \textbf{B}~The powered verdict: the honest arm ties the fixed frame, the
+oracle arm is significantly better and is an upper bound.}
+\label{fig:warp}
+\end{figure}
+
+\subsection{Scope and prior art, stated before the result}
+
+Aligning multiple transports is \textbf{not new}, and none of it is claimed here.
+The two-transport case is the founding worked example of the shifted proper
+orthogonal decomposition, where a pressure pulse splitting into two waves is
+reconstructed with two modes --- one per co-moving frame --- against more than
+eighty ordinary modes; the general formulation covers arbitrary numbers of
+independent transports. Multi-front variants follow in several later works.
+Shape--timescale decomposition of breakthrough curves specifically has been
+published, with a \emph{single} characteristic time and a uniform rescaling.
+
+Nor is the map new mathematics. Piecewise landmark registration --- a monotone warp
+built by interpolating between identified landmark times --- is the standard
+alignment method in functional data analysis, and \textbf{our two-landmark linear
+case reduces exactly to it}. Zucatti and Zahr use landmark-based registration for
+reduced-order models of convection-dominated problems, which is the same primitive
+applied to shock features in space rather than to fronts in time; it is the nearest
+neighbour of this section and we name it as such.
+
+\textbf{What is ours is the measurement.}
+
+\subsection{One shift makes it worse; two make it much better}
+
+The textbook remedy for a transport-dominated \(n\)-width is to factor the front
+position out before projecting. We warped each field onto its own local arrival time
+and swept the alignment level. \emph{It makes the \(n\)-width worse}: aligning on
+the half-height crossing takes the modes needed for 99.9\,\% of training variance
+from \nNwidthOriginal\ to \nNwidthSingle. And it does not help accuracy even given
+the exact front trajectory for free --- handed the oracle warp, the co-moving frame
+still loses to the fixed frame. The reason was measured before it was invoked: the separation between the two waves spans a factor of \nGapRange, and one shift cannot align
+two waves whose separation varies that much.
+
+Using \emph{two} shifts, one per wave, and normalising the interval between them,
+\begin{equation}
+\sigma(z,t) = \frac{t - t_{\mathrm{lo}}(z)}{t_{\mathrm{hi}}(z) - t_{\mathrm{lo}}(z)},
+\label{eq:warp}
+\end{equation}
+collapses the \(n\)-width where one shift inflated it: \nNwidthOriginal\ \(\to\)
+\nNwidthTwoWaveA\ modes, or \nNwidthTwoWaveB\ for the wider landmark pair. A third
+pair was \textbf{excluded} because a narrow window divides by a small span and its
+interpolation floor reached almost a third of the signal --- the guard caught it, and it is
+reported rather than dropped silently.
+
+\subsection{The powered verdict, and the relocation}
+
+Three seeds across every stochastic component, both arms computed in the same run,
+paired cluster bootstrap by material:
+
+\begin{table}[t]
+\centering
+\caption{The two-wave frame. The oracle arm is handed the true front trajectories
+and is \emph{not} comparable with any arm that is not; it is reported to size the
+remaining headroom, never as a result.}
+\label{tab:warp}
+\begin{tabular}{lrl}
+\toprule
+arm & held-out nRMSE & verdict vs.\ the fixed frame \\
+\midrule
+fixed frame & \nWarpFixed & --- \\
+two-wave, predicted fronts & \nWarpPredicted & \nWarpPredDiff, CI [\nWarpPredLo, \nWarpPredHi]: no difference \\
+two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \nWarpOracleHi]: significant \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two statements, and both are needed. The honest arm does \emph{not} beat the fixed
+frame. But the oracle gap is significant and large: given the true front
+trajectories, the same proper-orthogonal-decomposition-plus-regressor arm is
+\nWarpHeadroom{}\(\times\) better.
+
+\textbf{So the entire gain is consumed by the error in locating the two fronts},
+and that is now a measured, powered statement rather than an impression. This is a
+relocation, not a null. Through L1--L5 the obstruction was ``the
+parameter-to-coefficient map is unlearnable beyond about five modes'', which no
+architecture touched. It is now ``two smooth monotone one-dimensional curves are not
+located accurately enough'' --- a far better-posed problem, with a statistically
+established prize and a target a front-locating model can be held to.
+
+\paragraph{Monotonicity is not the lever.} The obvious first attack is that the
+front predictor does not know the constraints the true trajectories satisfy exactly.
+It does violate them, in more than half of all samples, while the true trajectories
+violate them in none. But projecting onto the constraint set changes \(R^2\) by
+nothing to three decimal places and makes the reconstruction significantly
+\emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse. The violations are frequent
+but negligible in magnitude. A monotone-by-construction front predictor is not worth
+building; the remaining headroom is raw predictive accuracy, which points at
+material count rather than at architecture.
+
+\paragraph{A constant-pattern objection, pre-empted.} A referee may observe that
+constant-pattern behaviour --- a front propagating without changing shape --- is
+long established in fixed-bed adsorption, and that equation~\eqref{eq:warp} merely
+re-derives constant-pattern scaling. It does not, and the reason is the same
+measurement that killed the single-front frame: when the two fronts move at
+different rates, and their separation varies \nGapRange-fold, no single scale factor
+aligns both. That is precisely the regime a one-parameter dimensionless time cannot
+handle, and it is why the second landmark is doing the work.
+
+%% ===========================================================================
+\section{Corrections and retractions}
+\label{sec:corrections}
+
+This section is not an appendix. Twenty-six claims made in this project have been
+withdrawn, and sixty-one further defects were caught before they contaminated a
+reported number. Twenty-seven entries are marked ``our own error'' in the ledger and
+several more are self-attributed in other words --- in the analysis, in the
+validation gates, in the power simulations, in the citation ledger itself, and in
+the frozen protocol.
+
+We report this for two reasons. The first is that the corrections are load-bearing:
+three of them reversed headline verdicts, and a reader who does not know which
+numbers moved cannot evaluate the ones that did not. The second is evidential.
+Disclosed self-correction is received well, and the Loss-of-Confidence Project
+documents that; the alternative --- a paper in which nothing ever went wrong --- is
+less credible, not more.
+
+\paragraph{The classes that recur.} Five patterns account for most of the ledger.
+\begin{enumerate}
+\item \textbf{A property measured at one sample size, stated as intrinsic.} A18,
+A21 and A26 are the same error three times: the learning-curve verdict, the
+coefficient-map mode count, and the capacity optimum. Each was true at the size it
+was measured at and false as a general statement.
+\item \textbf{Normalising by a quantity that can vanish.} A15 destroyed every
+time-axis number in one rung when a window-local range collapsed after breakthrough;
+B34 and B41 repeated it in diagnostics; and the script written for this paper to
+check the isotherm did it again in its first version, dividing by a ceiling that
+underflows to zero.
+\item \textbf{Comparing against a weak configuration of the competitor.} B14, B22,
+B23 and A20 --- an unscaled target vector, a single learning rate that suits one
+family, a two-seed selection rule, and a recorded instruction to update a table that
+was never carried out.
+\item \textbf{Undertrained arms scored as architectures.} A19 and B24: eleven of
+fifty-four runs in one rung reported the error of a random initialisation, because
+an aggressive patience does not handicap architectures equally.
+\item \textbf{Power and calibration.} A22 withdrew a claim that a null was well
+powered when it had 7\,\% power; A25 corrected the correction in the opposite
+direction; A13 withdrew a positive verdict that did not survive the calibrated
+level.
+\end{enumerate}
+
+\paragraph{Three that reversed a headline.} A17 withdrew the explanatory role of the
+Kolmogorov \(n\)-width, which the frozen protocol had called the load-bearing result
+of the ladder --- the bound is real and inactive. A22 turned a null we had described
+as decisive into one that excludes only very large effects. A25 then corrected A22's
+replacement in our favour, and is recorded on the same terms.
+
+\paragraph{What remains open.} One entry is deliberately unresolved. The classical
+control in rung L7 uses an approximation attributed in our bibliography to
+Klinkenberg's 1948 paper, while the standard secondary source attributes that
+equation to a different Klinkenberg paper of 1954. Neither is retrievable
+electronically, and the ambiguity is recorded rather than settled by choosing the
+year that looks right.
+
+%% ===========================================================================
+\section{Limitations}
+\label{sec:limitations}
+
+\paragraph{One partial differential equation family.} Everything here is measured on
+one model of one process. The ladder is a method; its verdicts are not claimed
+beyond adsorption columns with inflected isotherms.
+
+\paragraph{Solver-versus-experiment and surrogate-versus-solver are different error
+budgets, and we keep them apart in those words.} Section~\ref{sec:anchor} is the only
+solver-versus-experiment comparison in this paper: one condition, on a bed whose
+aspect ratio is under a fifth, where a one-dimensional plug-flow model is at the edge of its
+validity. Every other number is surrogate-versus-solver.
+
+\paragraph{The dispersion closure needs a more careful statement than we first gave
+it.} Our datasets use \(D_L = 0.7 D_m + 0.5 d_p u\). Two corrections apply. The
+coefficients are attributable to Wakao and Funazkri rather than to the textbook we
+originally cited, and Perry's handbook presents that form as a \emph{lower bound}
+for \emph{nonporous} particles, noting that the leading coefficient rises to as much
+as \(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and
+that for strongly adsorbed species the effective axial dispersion is much larger.
+Our beds are porous, strongly adsorbing frameworks taking up water --- the case that
+statement excludes. Edwards and Richardson's alternative reduces to the same
+coefficient only at high particle P\'eclet number. This does not affect any
+surrogate result, because the solver is the reference whatever closure it uses, but
+it bounds how far the reference may be read as physical.
+
+\paragraph{The isotherm's low-humidity branch is wrong, and we know by how much.}
+The Henry fraction was fitted to the step position and the capacity, never to
+dynamics. The anchor comparison is the first measurement that constrains it and
+shows the model holds too little water below the step. Separately, the step position
+in real MOF-303 shifts with temperature, while ours is fixed.
+
+\paragraph{Two parameters are not measurements.} Pellet density and total porosity
+are packing values, not MOF-303 measurements. No citable measured heat capacity for
+MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
+constant.
+
+\paragraph{No covalent-organic-framework case exists.} We searched and did not find
+a published COF breakthrough measurement suitable for this comparison. The gap is
+closed by saying so, not by inventing one, and the title claims only frameworks of
+the class we actually model.
+
+\paragraph{Three rungs are measured on the smaller dataset.} L3, L5 and the
+coordinate change are measured over twelve held-out materials, while L1, L2, L6 and
+L7 are measured over 240. Given that A26 exists precisely because a verdict measured
+at one material count did not survive four times as many, those three verdicts must
+be read as scoped to the material count at which they were taken. Their effect sizes
+are large and their orderings are consistent across budgets, which is why we state
+them; re-measuring them on the larger dataset is the first item of further work.
+
+%% ===========================================================================
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+\paragraph{Which pre-registrations are verifiable, and which are self-attested.}
+The pre-registrations for rung L6, for rungs L1/L2/L7, for rung L4b and for the
+experimental anchor were committed to version control \emph{before} the first arm of
+each was trained, and the ordering is externally checkable from the repository
+history. The original protocol covering L0--L7 was not; it is self-attested, and we
+say so rather than presenting all of them as equivalent.
+
+\paragraph{Gates.} A verification harness of \nGates\ gates runs before any number is
+reported, and no number from a failing category may enter this manuscript. The gates
+encode defects that actually occurred: a plotting script that labels a model curve
+must load a checkpoint or read a recorded results file and demonstrably compute
+nothing itself; a training run whose best step is zero is a hard failure; a physics
+reconstruction must be handed the dataset's own parameter keys with no default.
+
+\paragraph{No number in this manuscript is typed by hand.} Every quantity above is a
+macro resolved at build time from a named results file through a declared path. A
+key whose file is missing, whose path does not exist, or whose value is not finite
+is a build failure. This exists because defect B43 found three quoted comparisons
+--- one of them the basis of a retraction --- that had no script behind them at all.
+
+\paragraph{Consistency across runners, asserted rather than assumed.} The
+configuration used as L1's arm appears twice more in L2's capacity sweep, trained by
+a different runner on the same folds, basis and seeds. Their per-sample held-out
+scores agree to \nLtwoIdentity. That is the strongest available evidence that
+the rungs reported over ``the same folds'' really are.
+
+\paragraph{Citations.} Nothing is cited until it has been retrieved, not searched.
+That gate has caught a fabricated co-author, a swapped arXiv identifier between two
+papers named in the same sentence, a publisher-supplied identifier pointing at a
+different paper, a missing co-author, two references that do not contain the claim
+they were cited for, and a correlation attributed to the wrong source. References
+that could not be retrieved at the primary and are cited through a verified
+secondary source are listed as such.
+
+%% ===========================================================================
+\section*{Data and code availability}
+The solver, every runner and analyser, the verification harness, the
+pre-registrations, the correction ledger and the citation ledger are in the project
+repository. Dataset manifests are tracked; the field arrays are regenerable from the
+generator with the recorded seed.
+
+\section*{Declaration of competing interest}
+The author declares no competing interests.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

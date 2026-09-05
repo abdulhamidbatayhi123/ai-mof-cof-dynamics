@@ -242,7 +242,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 7. Rules carried forward
 
-1. No number from a failing `validate.py` category. (23 gates, all passing.)
+1. No number from a failing `validate.py` category. (24 gates, all passing.)
 2. Matched training budget, **asserted** not assumed.
 3. ≥3 seeds. Single-seed numbers appear nowhere, appendices included.
 4. Compare against the competitor's **strongest** configuration. A selected

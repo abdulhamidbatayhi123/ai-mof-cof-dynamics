@@ -1120,7 +1120,7 @@ methodology that produced it, is the contribution.
 
 ## Honesty infrastructure
 
-- **`validate.py`** — 23 gates, all passing. No number enters the manuscript from
+- **`validate.py`** — 24 gates, all passing. No number enters the manuscript from
   a failing category.
 - **`RETRACTIONS.md`** — 26 Part-A, 61 Part-B caught before
   contamination. **27 of the 87 entries carry the words "our own error"**, and

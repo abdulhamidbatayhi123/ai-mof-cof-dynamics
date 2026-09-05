@@ -233,6 +233,51 @@ def gate_plot_loads_model():
     return True, "model curves come from a checkpoint or a recorded results file — " + "; ".join(ok)
 
 
+@gate("the manuscript contains no hand-typed number", "integrity")
+def gate_manuscript_numbers():
+    """Every numeral in the manuscript must be a macro resolved from a results file,
+    or a literal declared in build_paper.ALLOWED with a written reason.
+
+    B21 and B43 are the same defect at two scales: a number reached a document with
+    no script behind it. B43's was the quantitative basis of a retraction. This gate
+    makes the manuscript the one document where that cannot happen silently.
+    """
+    tex = ROOT / "paper" / "manuscript.tex"
+    if not tex.exists():
+        raise Skip("paper/manuscript.tex not written yet")
+    try:
+        sys.path.insert(0, str(ROOT))
+        import build_paper as bp
+        import importlib
+        importlib.reload(bp)
+    except Exception as e:
+        raise Skip(f"cannot import build_paper ({e})")
+    nums = ROOT / "paper" / "numbers.tex"
+    if not nums.exists():
+        raise Skip("paper/numbers.tex not built — run python paper/numbers.py")
+    body = bp.body(tex.read_text(encoding="utf-8"))
+    defined = set(bp.MACRO.findall(nums.read_text(encoding="utf-8")))
+    used = set(bp.MACRO.findall(body))
+    undefined = sorted(used - defined)
+    hits = []
+    for i, line in enumerate(body.splitlines(), 1):
+        for m in bp.NUMERAL.finditer(bp.strip_structural(line)):
+            if m.group(1) not in bp.ALLOWED:
+                hits.append(f"line {i}: {m.group(1)}")
+    if undefined or hits:
+        msg = []
+        if undefined:
+            msg.append("undefined macros: " + ", ".join("\n" + u for u in undefined[:6]))
+        if hits:
+            msg.append(f"{len(hits)} undeclared numeral(s): " + "; ".join(hits[:6]))
+        return False, " | ".join(msg)
+    import json as _json
+    pend = _json.loads((ROOT / "paper" / "numbers.json").read_text(encoding="utf-8")).get("pending", [])
+    note = f"; {len(pend)} value(s) PENDING a run still in flight" if pend else ""
+    return True, (f"{len(used)} macros used, all resolved from results files; "
+                  f"{len(bp.ALLOWED)} literals declared with reasons{note}")
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # checkpoint
 # ─────────────────────────────────────────────────────────────────────────────
@@ -533,7 +578,7 @@ def gate_grid_converged():
     The generator runs the study and stamps the result into the .npz.
     """
     TOL = 0.02
-    rows, ok = [], True
+    rows, ok, vals = [], True, {}
     for path, kind, _ in DATASETS:
         p = ROOT / path
         if not p.exists():
@@ -554,9 +599,10 @@ def gate_grid_converged():
             rows.append(f"{kind}: exit curve moves {100 * err:.2f}% on refinement at N_z={nz} (need <{100 * TOL:.0f}%)")
         else:
             rows.append(f"{kind}: {100 * err:.3f}% change at N_z={nz} OK")
+        vals[kind] = {"err": float(err), "N_z": nz}
     if not rows:
         raise Skip("no datasets present")
-    return ok, "; ".join(rows)
+    return ok, "; ".join(rows), vals
 
 
 @gate("mass-transfer zone is resolvable at the chosen grid", "solver")
@@ -583,7 +629,7 @@ def gate_mtz_resolvable():
 @gate("global mass balance closes", "solver")
 def gate_mass_closure():
     """Accumulated adsorbate must equal net influx to within 1%."""
-    rows, ok = [], True
+    rows, ok, vals = [], True, {}
     for path, kind, c_in in DATASETS:
         try:
             z, t, c, q, T = _load_field(path)
@@ -602,9 +648,10 @@ def gate_mass_closure():
             rows.append(f"{kind}: stored={accumulated:.4e} vs net-in={influx:.4e} ({100 * err:.2f}% gap)")
         else:
             rows.append(f"{kind}: closes to {100 * err:.3f}% OK")
+        vals[kind] = float(err)
     if not rows:
         raise Skip("no datasets present")
-    return ok, "; ".join(rows)
+    return ok, "; ".join(rows), vals
 
 
 @gate("solver matches closed-form solutions (L0)", "solver")
@@ -970,6 +1017,11 @@ def main() -> int:
     ap.add_argument("--only", help="run a single category")
     ap.add_argument("--list", action="store_true", help="list gates and exit")
     ap.add_argument("--no-color", action="store_true")
+    ap.add_argument("--json", nargs="?", const="results/validation.json", default=None,
+                    help="write every gate's verdict AND its evidence string to JSON. "
+                         "The manuscript reads numbers like the mass-closure and "
+                         "grid-convergence percentages from here; before this existed "
+                         "they were quoted from a terminal log, which is B43's defect.")
     args = ap.parse_args()
 
     if args.no_color or not sys.stdout.isatty():
@@ -988,13 +1040,23 @@ def main() -> int:
     print("=" * 78)
 
     n_pass = n_fail = n_skip = 0
+    records = []
     current = None
     for g in gates:
         if g.category != current:
             current = g.category
             print(f"\n── {current} " + "─" * (74 - len(current)))
         try:
-            ok, msg = g.fn()
+            res = g.fn()
+            ok, msg, vals = (res if len(res) == 3 else (res[0], res[1], None))
+            rec = {"gate": g.name, "category": g.category,
+                   "state": "PASS" if ok else "FAIL", "evidence": msg}
+            if vals:
+                # Structured values for paper/numbers.py. Parsing them back out of the
+                # evidence STRING would be exactly the fragility this project keeps
+                # finding, so a gate that carries a manuscript number emits it as data.
+                rec["values"] = vals
+            records.append(rec)
             if ok:
                 n_pass += 1
                 print(f"  {C_PASS}PASS{C_OFF}  {g.name}")
@@ -1004,10 +1066,14 @@ def main() -> int:
                 print(f"  {C_FAIL}FAIL{C_OFF}  {g.name}")
                 print(f"        {msg}")
         except Skip as e:
+            records.append({"gate": g.name, "category": g.category,
+                            "state": "SKIP", "evidence": str(e)})
             n_skip += 1
             print(f"  {C_SKIP}SKIP{C_OFF}  {g.name}")
             print(f"        {e}")
         except Exception:
+            records.append({"gate": g.name, "category": g.category,
+                            "state": "FAIL", "evidence": traceback.format_exc().strip()})
             n_fail += 1
             print(f"  {C_FAIL}FAIL{C_OFF}  {g.name}  (gate raised)")
             print("        " + traceback.format_exc().strip().replace("\n", "\n        "))
@@ -1016,6 +1082,17 @@ def main() -> int:
     verdict = f"{n_pass} passed, {n_fail} failed, {n_skip} skipped"
     print(f"{C_FAIL if n_fail else C_PASS}{verdict}{C_OFF}")
     print("=" * 78)
+    if args.json:
+        import json as _json
+
+        out = {"n_pass": n_pass, "n_fail": n_fail, "n_skip": n_skip,
+               "only": args.only, "gates": records,
+               "by_gate": {r["gate"]: r for r in records}}
+        path = ROOT / args.json
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(_json.dumps(out, indent=2), encoding="utf-8")
+        print(f"\nwrote {args.json}  ({len(records)} gates"
+              + (f", {args.only} only — NOT a full record" if args.only else "") + ")")
     if n_fail:
         print("\nNo result from a failing category may enter the manuscript.")
     return 1 if n_fail else 0

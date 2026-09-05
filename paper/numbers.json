@@ -1,0 +1,859 @@
+{
+  "values": {
+    "LzeroTracer": "1.69e-03",
+    "LzeroTracerFront": "0.0",
+    "LzeroTracerPe": "93",
+    "LzeroBCdiff": "3.5",
+    "LzeroRetarded": "0.0",
+    "LzeroRetardedR": "901",
+    "LzeroThermal": "0.0",
+    "LzeroLDF": "3.0e-04",
+    "IsoNmat": "240",
+    "IsoKHmin": "0.0322",
+    "IsoKHmed": "0.359",
+    "IsoKHmax": "2.52",
+    "IsoKHdec": "1.9",
+    "IsoHenryMed": "-2.0",
+    "IsoHenryMax": "-0.9",
+    "IsoHenryBelowMilli": "73",
+    "IsoHenryBelowMicro": "34",
+    "AlphaFolds": "0.02",
+    "NclustFolds": "240",
+    "FprFoldsNominal": "6.5",
+    "FprFoldsCal": "2.8",
+    "AlphaManifest": "0.02",
+    "NclustManifest": "48",
+    "FprLegacyNominal": "8.5",
+    "NclustLegacy": "12",
+    "LoneMLP": "0.0306",
+    "LoneXGB": "0.0361",
+    "LoneRF": "0.0388",
+    "LoneRidge": "0.0516",
+    "LonePodFloor": "2.80e-04",
+    "LoneMLPvsXGBdiff": "-0.00548",
+    "LoneMLPvsXGBlo": "-0.00675",
+    "LoneMLPvsXGBhi": "-0.00426",
+    "LCbeta": "0.222",
+    "LCbetaLo": "0.205",
+    "LCbetaHi": "0.239",
+    "LCsmallest": "0.0654",
+    "LClargest": "0.0348",
+    "LClargestFixed": "0.0348",
+    "LCsmallestFixed": "0.0657",
+    "LCratio": "1.88",
+    "LClastDiff": "0.00534",
+    "LClastLo": "0.00439",
+    "LClastHi": "0.00637",
+    "LCmodesSmall": "2",
+    "LCmodesLarge": "13",
+    "LCcondBeta": "0.122",
+    "LtwoBest": "0.0241",
+    "LtwoBestFam": "mlp_depth",
+    "LtwoBestCfg": "d8",
+    "LtwoPodFloor": "2.80e-04",
+    "LtwoDepthShape": "U-SHAPED, optimum at d8",
+    "LtwoWidthShape": "U-SHAPED, optimum at w64",
+    "LtwoXgbShape": "U-SHAPED, optimum at md6",
+    "LtwoRfShape": "falls monotonically with capacity",
+    "LtwoDepthMDE": "5.0",
+    "LtwoXgbMDE": "2.0",
+    "LthreeMlpSmall": "0.0564",
+    "LthreeMlpLarge": "0.0572",
+    "LthreeRbfLarge": "0.0702",
+    "LthreeChebyLarge": "0.1028",
+    "LthreeMlpLr": "3e-05",
+    "LthreeChebyLr": "0.03",
+    "LthreeArms": "63",
+    "LthreeBestKanMlp": "0.0573",
+    "LthreeBestKan": "0.0633",
+    "LthreeBestKanDiff": "-0.0060",
+    "LthreeBestKanLo": "-0.0120",
+    "LthreeBestKanHi": "-0.0008",
+    "LfiveFNO": "0.0216",
+    "LfiveFNOmodes": "4",
+    "LfiveFNOwidth": "28",
+    "LfiveONet": "0.0265",
+    "LfiveOKAN": "0.0357",
+    "LfiveFloor": "5.02e-04",
+    "LfiveONetFNOdiff": "0.00488",
+    "LfiveONetFNOlo": "0.00035",
+    "LfiveONetFNOhi": "0.00978",
+    "LfiveFlatDiff": "-0.00102",
+    "LfiveFlatLo": "-0.00585",
+    "LfiveFlatHi": "0.00491",
+    "LfiveFloorSmall": "1.44e-02",
+    "LfiveFloorLarge": "5.02e-04",
+    "LfiveBasisSmall": "0.01440",
+    "LfiveBasisLarge": "0.00050",
+    "LfiveCoefSmall": "0.0515",
+    "LfiveCoefLarge": "0.0510",
+    "LsixJoint": "0.0562",
+    "LsixSeparate": "0.0541",
+    "LsixDiff": "0.00210",
+    "LsixLo": "0.00056",
+    "LsixHi": "0.00363",
+    "LsixSlope": "0.00140",
+    "LsixSlopeLo": "-0.00329",
+    "LsixSlopeHi": "0.00618",
+    "LsixSlopeR": "0.040",
+    "LsixBetweenSD": "0.0104",
+    "LsixMDE": "4.0",
+    "LsixPowerFour": "82",
+    "LsixPowerTwo": "26",
+    "LsixSizeNull": "1.8",
+    "LsixBetweenOverBase": "18.5",
+    "LsixDaMin": "7.7",
+    "LsixDaMax": "173",
+    "LsixDaMedian": "25.0",
+    "LsixDaDecades": "1.35",
+    "LsixKineticRtwo": "-0.256",
+    "LsixStepRtwo": "0.98",
+    "LsixQmaxRtwo": "0.93",
+    "LsevenLearned": "0.0474",
+    "LsevenKlinkenberg": "0.1769",
+    "LsevenShock": "0.3146",
+    "LsevenPattern": "0.3878",
+    "LsevenDiff": "-0.1295",
+    "LsevenLo": "-0.1384",
+    "LsevenHi": "-0.1203",
+    "LsevenRatio": "3.73",
+    "WarpFixed": "0.05005",
+    "WarpPredicted": "0.04770",
+    "WarpOracle": "0.02203",
+    "WarpPredDiff": "0.00235",
+    "WarpPredLo": "-0.00812",
+    "WarpPredHi": "0.01183",
+    "WarpOracleDiff": "0.02802",
+    "WarpOracleLo": "0.01990",
+    "WarpOracleHi": "0.03668",
+    "WarpHeadroom": "2.17",
+    "NwidthOriginal": "31",
+    "NwidthSingle": "102",
+    "NwidthTwoWaveA": "17",
+    "NwidthTwoWaveB": "13",
+    "GapMin": "0.025",
+    "GapMax": "0.992",
+    "MonoRawNrmse": "0.04770",
+    "MonoProjNrmse": "0.04812",
+    "NwidthExpC": "-2.45",
+    "NwidthRtwoC": "0.9910",
+    "AnchorTfiftyExp": "287",
+    "AnchorTfiftyModel": "303",
+    "AnchorPlateauExp": "0.267",
+    "AnchorPlateauModel": "0.336",
+    "AnchorTfiveExp": "86",
+    "AnchorTfiveModel": "1.7",
+    "AnchorNrmse": "0.128",
+    "Gates": "23",
+    "MassClosure": "0.0",
+    "MassClosureMof": "0.1",
+    "GridConv": "0.1",
+    "GridConvMof": "0.3",
+    "GridNz": "2000",
+    "LoneXfloor": "109",
+    "LtwoXfloor": "86",
+    "LtwoVsLonePct": "21.3",
+    "LtwoVsLoneLo": "18.7",
+    "LtwoVsLoneHi": "23.7",
+    "LtwoIdentity": "0.00e+00",
+    "AnchorNrmseComsol": "0.069",
+    "LsixLegacyBetweenSD": "0.0391",
+    "LsixLegacyBase": "0.0566",
+    "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
+    "LfourbVerdictTime": "\\textbf{[PENDING]}",
+    "FloorDrop": "28.7",
+    "FNOxFloor": "43",
+    "ONetxFloor": "53",
+    "FNOgain": "1.23",
+    "NwidthHalving": "1.76",
+    "LsixNoiseDrop": "3.8",
+    "LsixLegacyBetweenOverBase": "69",
+    "GapRange": "40",
+    "LCmaterialsForHalving": "23"
+  },
+  "provenance": {
+    "LzeroTracer": {
+      "file": "verify_solver.json",
+      "path": "tracer_van_genuchten.max_abs_err_vs_third_type"
+    },
+    "LzeroTracerFront": {
+      "file": "verify_solver.json",
+      "path": "tracer_van_genuchten.front_rel_err"
+    },
+    "LzeroTracerPe": {
+      "file": "verify_solver.json",
+      "path": "tracer_van_genuchten.Pe"
+    },
+    "LzeroBCdiff": {
+      "file": "verify_solver.json",
+      "path": "tracer_van_genuchten.bc_difference_max"
+    },
+    "LzeroRetarded": {
+      "file": "verify_solver.json",
+      "path": "retarded_front.rel_err"
+    },
+    "LzeroRetardedR": {
+      "file": "verify_solver.json",
+      "path": "retarded_front.R"
+    },
+    "LzeroThermal": {
+      "file": "verify_solver.json",
+      "path": "thermal_wave.rel_err"
+    },
+    "LzeroLDF": {
+      "file": "verify_solver.json",
+      "path": "ldf_anzelius_schumann.max_abs_err"
+    },
+    "IsoNmat": {
+      "file": "results/isotherm_space.json",
+      "path": "n_materials"
+    },
+    "IsoKHmin": {
+      "file": "results/isotherm_space.json",
+      "path": "K_H.min"
+    },
+    "IsoKHmed": {
+      "file": "results/isotherm_space.json",
+      "path": "K_H.median"
+    },
+    "IsoKHmax": {
+      "file": "results/isotherm_space.json",
+      "path": "K_H.max"
+    },
+    "IsoKHdec": {
+      "file": "results/isotherm_space.json",
+      "path": "K_H.decades"
+    },
+    "IsoHenryMed": {
+      "file": "results/isotherm_space.json",
+      "path": "log10_c_henry_over_c_in_median.median"
+    },
+    "IsoHenryMax": {
+      "file": "results/isotherm_space.json",
+      "path": "log10_c_henry_over_c_in_median.max"
+    },
+    "IsoHenryBelowMilli": {
+      "file": "results/isotherm_space.json",
+      "path": "n_henry_region_below_1e3_of_feed"
+    },
+    "IsoHenryBelowMicro": {
+      "file": "results/isotherm_space.json",
+      "path": "n_henry_region_below_1e6_of_feed"
+    },
+    "AlphaFolds": {
+      "file": "results/calibration_v2.json",
+      "path": "v2_5fold.alpha"
+    },
+    "NclustFolds": {
+      "file": "results/calibration_v2.json",
+      "path": "v2_5fold.n_clusters"
+    },
+    "FprFoldsNominal": {
+      "file": "results/calibration_v2.json",
+      "path": "v2_5fold.fpr_by_alpha.0.05"
+    },
+    "FprFoldsCal": {
+      "file": "results/calibration_v2.json",
+      "path": "v2_5fold.fpr_by_alpha.0.02"
+    },
+    "AlphaManifest": {
+      "file": "results/calibration_v2.json",
+      "path": "v2.alpha"
+    },
+    "NclustManifest": {
+      "file": "results/calibration_v2.json",
+      "path": "v2.n_clusters"
+    },
+    "FprLegacyNominal": {
+      "file": "results/calibration_v2.json",
+      "path": "legacy.fpr_by_alpha.0.05"
+    },
+    "NclustLegacy": {
+      "file": "results/calibration_v2.json",
+      "path": "legacy.n_clusters"
+    },
+    "LoneMLP": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.table.mlp.c"
+    },
+    "LoneXGB": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.table.xgb.c"
+    },
+    "LoneRF": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.table.rf.c"
+    },
+    "LoneRidge": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.table.ridge.c"
+    },
+    "LonePodFloor": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.pod_floor_pooled.c"
+    },
+    "LoneMLPvsXGBdiff": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.comparisons.xgb.mean_diff"
+    },
+    "LoneMLPvsXGBlo": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.comparisons.xgb.ci_low"
+    },
+    "LoneMLPvsXGBhi": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.comparisons.xgb.ci_high"
+    },
+    "LCbeta": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.beta"
+    },
+    "LCbetaLo": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.beta_ci[0]"
+    },
+    "LCbetaHi": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.beta_ci[1]"
+    },
+    "LCsmallest": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[0].refit"
+    },
+    "LClargest": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[4].refit"
+    },
+    "LClargestFixed": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[4].fixed"
+    },
+    "LCsmallestFixed": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[0].fixed"
+    },
+    "LCratio": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.ratio_first_to_last"
+    },
+    "LClastDiff": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.steps[3].mean_diff"
+    },
+    "LClastLo": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.steps[3].ci_low"
+    },
+    "LClastHi": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.steps[3].ci_high"
+    },
+    "LCmodesSmall": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[0].modes_r2_gt_0.2"
+    },
+    "LCmodesLarge": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[4].modes_r2_gt_0.2"
+    },
+    "LCcondBeta": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.conditions.beta"
+    },
+    "LtwoBest": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "best_overall[0]"
+    },
+    "LtwoBestFam": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "best_overall[1]"
+    },
+    "LtwoBestCfg": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "best_overall[2]"
+    },
+    "LtwoPodFloor": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "pod_floor_mean"
+    },
+    "LtwoDepthShape": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_depth.shape"
+    },
+    "LtwoWidthShape": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_width.shape"
+    },
+    "LtwoXgbShape": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.xgb_depth.shape"
+    },
+    "LtwoRfShape": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.rf_leaf.shape"
+    },
+    "LtwoDepthMDE": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_depth.mde_last_step.mde_80"
+    },
+    "LtwoXgbMDE": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.xgb_depth.mde_last_step.mde_80"
+    },
+    "LthreeMlpSmall": {
+      "file": "results/l3_merged.json",
+      "path": "table.50000_mlp.novel"
+    },
+    "LthreeMlpLarge": {
+      "file": "results/l3_merged.json",
+      "path": "table.800000_mlp.novel"
+    },
+    "LthreeRbfLarge": {
+      "file": "results/l3_merged.json",
+      "path": "table.800000_rbf_kan.novel"
+    },
+    "LthreeChebyLarge": {
+      "file": "results/l3_merged.json",
+      "path": "table.800000_cheby_kan.novel"
+    },
+    "LthreeMlpLr": {
+      "file": "results/l3_merged.json",
+      "path": "table.800000_mlp.lr"
+    },
+    "LthreeChebyLr": {
+      "file": "results/l3_merged.json",
+      "path": "table.50000_cheby_kan.lr"
+    },
+    "LthreeArms": {
+      "file": "results/l3_merged.json",
+      "path": "n_arms"
+    },
+    "LthreeBestKanMlp": {
+      "file": "results/l3_final_pair.json",
+      "path": "mlp"
+    },
+    "LthreeBestKan": {
+      "file": "results/l3_final_pair.json",
+      "path": "rbf_g4"
+    },
+    "LthreeBestKanDiff": {
+      "file": "results/l3_final_pair.json",
+      "path": "diff"
+    },
+    "LthreeBestKanLo": {
+      "file": "results/l3_final_pair.json",
+      "path": "ci[0]"
+    },
+    "LthreeBestKanHi": {
+      "file": "results/l3_final_pair.json",
+      "path": "ci[1]"
+    },
+    "LfiveFNO": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "fno_best.mean"
+    },
+    "LfiveFNOmodes": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "fno_best.modes"
+    },
+    "LfiveFNOwidth": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "fno_best.width"
+    },
+    "LfiveONet": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_best"
+    },
+    "LfiveOKAN": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deepokan_best"
+    },
+    "LfiveFloor": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "pod_floor_p128"
+    },
+    "LfiveONetFNOdiff": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_vs_fno.mean_diff"
+    },
+    "LfiveONetFNOlo": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_vs_fno.ci_low"
+    },
+    "LfiveONetFNOhi": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_vs_fno.ci_high"
+    },
+    "LfiveFlatDiff": {
+      "file": "results/l5_merged.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.mean_diff"
+    },
+    "LfiveFlatLo": {
+      "file": "results/l5_merged.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.ci_low"
+    },
+    "LfiveFlatHi": {
+      "file": "results/l5_merged.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.ci_high"
+    },
+    "LfiveFloorSmall": {
+      "file": "results/l5_merged.json",
+      "path": "pod_floor.8"
+    },
+    "LfiveFloorLarge": {
+      "file": "results/l5_merged.json",
+      "path": "pod_floor.128"
+    },
+    "LfiveBasisSmall": {
+      "file": "results/l5_bottleneck.json",
+      "path": "rows[0].basis_floor_novel"
+    },
+    "LfiveBasisLarge": {
+      "file": "results/l5_bottleneck.json",
+      "path": "rows[4].basis_floor_novel"
+    },
+    "LfiveCoefSmall": {
+      "file": "results/l5_bottleneck.json",
+      "path": "rows[0].coef_pred_novel"
+    },
+    "LfiveCoefLarge": {
+      "file": "results/l5_bottleneck.json",
+      "path": "rows[4].coef_pred_novel"
+    },
+    "LsixJoint": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "pooled.mean_a"
+    },
+    "LsixSeparate": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "pooled.mean_b"
+    },
+    "LsixDiff": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "pooled.mean_diff"
+    },
+    "LsixLo": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "pooled.ci_low"
+    },
+    "LsixHi": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "pooled.ci_high"
+    },
+    "LsixSlope": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "slope_test.slope"
+    },
+    "LsixSlopeLo": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "slope_test.ci_low"
+    },
+    "LsixSlopeHi": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "slope_test.ci_high"
+    },
+    "LsixSlopeR": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "slope_test.pearson_r"
+    },
+    "LsixBetweenSD": {
+      "file": "results/l6_v2_verdict.json",
+      "path": "between_material_sd"
+    },
+    "LsixMDE": {
+      "file": "results/l6_v2_mde_corrected.json",
+      "path": "mde_80"
+    },
+    "LsixPowerFour": {
+      "file": "results/l6_v2_mde_corrected.json",
+      "path": "power.0.04"
+    },
+    "LsixPowerTwo": {
+      "file": "results/l6_v2_mde_corrected.json",
+      "path": "power.0.02"
+    },
+    "LsixSizeNull": {
+      "file": "results/l6_v2_mde_corrected.json",
+      "path": "size_at_null"
+    },
+    "LsixBetweenOverBase": {
+      "file": "results/l6_v2_mde_corrected.json",
+      "path": "between_over_base"
+    },
+    "LsixDaMin": {
+      "file": "results/l6_v2_checks.json",
+      "path": "da.min"
+    },
+    "LsixDaMax": {
+      "file": "results/l6_v2_checks.json",
+      "path": "da.max"
+    },
+    "LsixDaMedian": {
+      "file": "results/l6_v2_checks.json",
+      "path": "da.median"
+    },
+    "LsixDaDecades": {
+      "file": "results/l6_v2_checks.json",
+      "path": "da.decades"
+    },
+    "LsixKineticRtwo": {
+      "file": "results/l6_v2_checks.json",
+      "path": "descriptor_r2.d_p"
+    },
+    "LsixStepRtwo": {
+      "file": "results/l6_v2_checks.json",
+      "path": "descriptor_r2.step_rh"
+    },
+    "LsixQmaxRtwo": {
+      "file": "results/l6_v2_checks.json",
+      "path": "descriptor_r2.q_max"
+    },
+    "LsevenLearned": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs klinkenberg.mean_a"
+    },
+    "LsevenKlinkenberg": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs klinkenberg.mean_b"
+    },
+    "LsevenShock": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs equilibrium_shock.mean_b"
+    },
+    "LsevenPattern": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs constant_pattern.mean_b"
+    },
+    "LsevenDiff": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs klinkenberg.mean_diff"
+    },
+    "LsevenLo": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs klinkenberg.ci_low"
+    },
+    "LsevenHi": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "comparisons.mlp vs klinkenberg.ci_high"
+    },
+    "LsevenRatio": {
+      "file": "results/l7_v2_verdict.json",
+      "path": "best_classical_over_learned"
+    },
+    "WarpFixed": {
+      "file": "results/warp_verdict.json",
+      "path": "means.fixed"
+    },
+    "WarpPredicted": {
+      "file": "results/warp_verdict.json",
+      "path": "means.two_wave"
+    },
+    "WarpOracle": {
+      "file": "results/warp_verdict.json",
+      "path": "means.two_wave_oracle"
+    },
+    "WarpPredDiff": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_two_wave.mean_diff"
+    },
+    "WarpPredLo": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_two_wave.ci_low"
+    },
+    "WarpPredHi": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_two_wave.ci_high"
+    },
+    "WarpOracleDiff": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_oracle.mean_diff"
+    },
+    "WarpOracleLo": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_oracle.ci_low"
+    },
+    "WarpOracleHi": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_oracle.ci_high"
+    },
+    "WarpHeadroom": {
+      "file": "results/warp_verdict.json",
+      "path": "headroom_to_oracle"
+    },
+    "NwidthOriginal": {
+      "file": "results/comoving2.json",
+      "path": "spectrum_original.0.999"
+    },
+    "NwidthSingle": {
+      "file": "results/comoving.json",
+      "path": "levels_detail.0.5.spectrum.0.999"
+    },
+    "NwidthTwoWaveA": {
+      "file": "results/comoving2.json",
+      "path": "pairs_detail.0.10-0.90.spectrum.0.999"
+    },
+    "NwidthTwoWaveB": {
+      "file": "results/comoving2.json",
+      "path": "pairs_detail.0.05-0.95.spectrum.0.999"
+    },
+    "GapMin": {
+      "file": "results/comoving.json",
+      "path": "two_wave_gap.min"
+    },
+    "GapMax": {
+      "file": "results/comoving.json",
+      "path": "two_wave_gap.max"
+    },
+    "MonoRawNrmse": {
+      "file": "results/warp_monotone.json",
+      "path": "comparison.mean_a"
+    },
+    "MonoProjNrmse": {
+      "file": "results/warp_monotone.json",
+      "path": "comparison.mean_b"
+    },
+    "NwidthExpC": {
+      "file": "results/nwidth.json",
+      "path": "c.algebraic_exponent"
+    },
+    "NwidthRtwoC": {
+      "file": "results/nwidth.json",
+      "path": "c.algebraic_r2"
+    },
+    "AnchorTfiftyExp": {
+      "file": "results/lassitter_comparison.json",
+      "path": "experiment.t50_min"
+    },
+    "AnchorTfiftyModel": {
+      "file": "results/lassitter_comparison.json",
+      "path": "runs.k0.2_dp3mm_isothermal.t50_min"
+    },
+    "AnchorPlateauExp": {
+      "file": "results/lassitter_comparison.json",
+      "path": "experiment.plateau_150_250_frac"
+    },
+    "AnchorPlateauModel": {
+      "file": "results/lassitter_comparison.json",
+      "path": "runs.k0.2_dp3mm_isothermal.plateau_150_250_frac"
+    },
+    "AnchorTfiveExp": {
+      "file": "results/lassitter_comparison.json",
+      "path": "experiment.t05_min"
+    },
+    "AnchorTfiveModel": {
+      "file": "results/lassitter_comparison.json",
+      "path": "runs.k0.2_dp3mm_isothermal.t05_min"
+    },
+    "AnchorNrmse": {
+      "file": "results/lassitter_comparison.json",
+      "path": "runs.k0.2_dp3mm_isothermal.nrmse_vs_effluent"
+    },
+    "Gates": {
+      "file": "results/validation.json",
+      "path": "n_pass"
+    },
+    "MassClosure": {
+      "file": "results/validation.json",
+      "path": "by_gate.global mass balance closes.values.default"
+    },
+    "MassClosureMof": {
+      "file": "results/validation.json",
+      "path": "by_gate.global mass balance closes.values.mof303"
+    },
+    "GridConv": {
+      "file": "results/validation.json",
+      "path": "by_gate.solution is grid-converged.values.default.err"
+    },
+    "GridConvMof": {
+      "file": "results/validation.json",
+      "path": "by_gate.solution is grid-converged.values.mof303.err"
+    },
+    "GridNz": {
+      "file": "results/validation.json",
+      "path": "by_gate.solution is grid-converged.values.default.N_z"
+    },
+    "LoneXfloor": {
+      "file": "results/l1_v2_verdict.json",
+      "path": "folds.table.mlp.x_floor"
+    },
+    "LtwoXfloor": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_depth.rows[6].x_floor"
+    },
+    "LtwoVsLonePct": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "cross.comparisons.best (mlp_depth/d8) vs the L1 setting (mlp_depth/d3).relative_to_b.pct"
+    },
+    "LtwoVsLoneLo": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "cross.comparisons.best (mlp_depth/d8) vs the L1 setting (mlp_depth/d3).relative_to_b.pct_ci_low"
+    },
+    "LtwoVsLoneHi": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "cross.comparisons.best (mlp_depth/d8) vs the L1 setting (mlp_depth/d3).relative_to_b.pct_ci_high"
+    },
+    "LtwoIdentity": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "cross.identity.mlp_depth/d3 vs mlp_width/w256.max_abs_per_sample_diff"
+    },
+    "AnchorNrmseComsol": {
+      "file": "results/lassitter_comparison.json",
+      "path": "comsol_line.nrmse_vs_effluent"
+    },
+    "LsixLegacyBetweenSD": {
+      "file": "results/l6_power_corrected.json",
+      "path": "between_sd"
+    },
+    "LsixLegacyBase": {
+      "file": "results/l6_power_corrected.json",
+      "path": "base"
+    },
+    "LfourbVerdictMaterial": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.verdict"
+    },
+    "LfourbVerdictTime": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.verdict"
+    },
+    "FloorDrop": {
+      "derived": "POD floor at p=8 divided by the floor at p=128"
+    },
+    "FNOxFloor": {
+      "derived": "the best FNO divided by the POD floor at p=128"
+    },
+    "ONetxFloor": {
+      "derived": "the best DeepONet divided by the POD floor at p=128"
+    },
+    "FNOgain": {
+      "derived": "the best DeepONet divided by the best FNO"
+    },
+    "NwidthHalving": {
+      "derived": "modes needed to halve the error, 2^(1/|algebraic exponent|)"
+    },
+    "LsixNoiseDrop": {
+      "derived": "the legacy between-material sd divided by v2's"
+    },
+    "LsixLegacyBetweenOverBase": {
+      "derived": "the legacy between-material sd as a share of its base error"
+    },
+    "GapRange": {
+      "derived": "the outlet separation of the two waves, max divided by min"
+    },
+    "LCmaterialsForHalving": {
+      "derived": "materials needed to halve the error at the measured exponent"
+    }
+  },
+  "pending": [
+    {
+      "key": "LfourbVerdictMaterial",
+      "file": "results/l4b_v2_verdict.json",
+      "why": "L4b-v2 is still running"
+    },
+    {
+      "key": "LfourbVerdictTime",
+      "file": "results/l4b_v2_verdict.json",
+      "why": "L4b-v2 is still running"
+    }
+  ]
+}

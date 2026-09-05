@@ -1,0 +1,326 @@
+{
+  "n_pass": 24,
+  "n_fail": 0,
+  "n_skip": 0,
+  "only": null,
+  "gates": [
+    {
+      "gate": "plotting code computes its curves",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "no synthesised series found in plotting code"
+    },
+    {
+      "gate": "plotting code loads a checkpoint",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+    },
+    {
+      "gate": "the manuscript contains no hand-typed number",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "154 macros used, all resolved from results files; 44 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+    },
+    {
+      "gate": "checkpoint parameters are finite",
+      "category": "checkpoint",
+      "state": "PASS",
+      "evidence": "pikan_smoke_default_pikan_causal+rba_w24d2g8_s42.pth: clean (6408 params)"
+    },
+    {
+      "gate": "isotherm is Type V (has an inflection)",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "1 inflection point(s); steepest uptake at c = 0.2357 mol/m3"
+    },
+    {
+      "gate": "isotherm obeys Henry's law as c -> 0",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "K_H = 0.2801 mol/kg per mol/m3; q/c constant to 1.00000x near zero"
+    },
+    {
+      "gate": "isotherm obeys Clausius-Clapeyron",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)"
+    },
+    {
+      "gate": "isotherm operating point is informative",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "default: theta(c_in)=0.500, theta(0.05 c_in)=0.048 OK; mof303: theta(c_in)=0.876, theta(0.05 c_in)=0.000 OK"
+    },
+    {
+      "gate": "Henry's law holds across the WHOLE material space",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "240 materials, isotherm_n in (1.009, 5.982]; K_H 0.0322\u20132.52 (1.9 decades, median 0.359); the Henry region ends at 1e-2.0 of the feed (median), and below 1e-3 of it for 73 materials \u2014 report the DISTRIBUTION, never one config's K_H"
+    },
+    {
+      "gate": "breakthrough actually occurs",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "synthetic_breakthrough.npz: c_exit/c_in = 0.993 OK; mof303_breakthrough.npz: c_exit/c_in = 1.000 OK"
+    },
+    {
+      "gate": "mass-transfer zone is resolved in the data",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "synthetic_breakthrough.npz: sharpest front 555 cells, median 1214 OK; mof303_breakthrough.npz: sharpest front 265 cells, median 866 OK"
+    },
+    {
+      "gate": "solution is grid-converged",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: 0.055% change at N_z=2000 OK; mof303: 0.323% change at N_z=2000 OK",
+      "values": {
+        "default": {
+          "err": 0.0005496560975011925,
+          "N_z": 2000
+        },
+        "mof303": {
+          "err": 0.003226468164763367,
+          "N_z": 2000
+        }
+      }
+    },
+    {
+      "gate": "mass-transfer zone is resolvable at the chosen grid",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: MTZ 1.070 mm spans 21 cells at N_z=2000 OK; mof303: MTZ 1.245 mm spans 25 cells at N_z=2000 OK"
+    },
+    {
+      "gate": "global mass balance closes",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: closes to 0.050% OK; mof303: closes to 0.055% OK",
+      "values": {
+        "default": 0.000496726136092538,
+        "mof303": 0.0005457663320184538
+      }
+    },
+    {
+      "gate": "solver matches closed-form solutions (L0)",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "tracer profile: 1.69e-03; tracer front: 2.28e-04; retarded front: 2.72e-04; thermal wave: 1.23e-04; LDF vs Anzelius: 3.00e-04"
+    },
+    {
+      "gate": "fields stay physical",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: OK; mof303: OK"
+    },
+    {
+      "gate": "velocity convention is consistent",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "tracer front 0.2495 m/s vs v/eps_t 0.25 m/s (0.2% off)"
+    },
+    {
+      "gate": "each equation is normalised to its dominant term",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "dominant coefficient = 1 in every equation | default/mass_gas: [2.8e-05, 1.0]; default/kinetics: [1.9e-03, 1.0]; default/energy: [8.3e-03, 1.0] ..."
+    },
+    {
+      "gate": "residuals are finite across seeds",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "4 seeds finite; init-scale spread 5.8x\u201312.2x (not a scaling defect)"
+    },
+    {
+      "gate": "physics losses include boundary conditions",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "4 physics-training scripts checked: run_l4.py, run_l4b.py, run_l4b_v2.py, train_pikan.py"
+    },
+    {
+      "gate": "EVERY model bounds temperature away from zero",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "7 architectures | PIKAN: [182,406]K; PI_DeepONet: [275,302]K; PI_DeepOKAN: [197,446]K; WaveletNO: [258,339]K; FNO2d: [253,320]K; DataDrivenMLP: [279,325]K; DeepONet_base: [209,321]K"
+    },
+    {
+      "gate": "output head has a single definition",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "all models route through output_head.apply_output_head"
+    },
+    {
+      "gate": "network derivatives are non-singular",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "|dc/dz| p50=4.58e-01 max=5.65e+00; max|d2c/dz2|=2.09e+02 OK"
+    },
+    {
+      "gate": "input layer preserves coordinates",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "144 inputs -> 144 distinct activations OK"
+    }
+  ],
+  "by_gate": {
+    "plotting code computes its curves": {
+      "gate": "plotting code computes its curves",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "no synthesised series found in plotting code"
+    },
+    "plotting code loads a checkpoint": {
+      "gate": "plotting code loads a checkpoint",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+    },
+    "the manuscript contains no hand-typed number": {
+      "gate": "the manuscript contains no hand-typed number",
+      "category": "integrity",
+      "state": "PASS",
+      "evidence": "154 macros used, all resolved from results files; 44 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+    },
+    "checkpoint parameters are finite": {
+      "gate": "checkpoint parameters are finite",
+      "category": "checkpoint",
+      "state": "PASS",
+      "evidence": "pikan_smoke_default_pikan_causal+rba_w24d2g8_s42.pth: clean (6408 params)"
+    },
+    "isotherm is Type V (has an inflection)": {
+      "gate": "isotherm is Type V (has an inflection)",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "1 inflection point(s); steepest uptake at c = 0.2357 mol/m3"
+    },
+    "isotherm obeys Henry's law as c -> 0": {
+      "gate": "isotherm obeys Henry's law as c -> 0",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "K_H = 0.2801 mol/kg per mol/m3; q/c constant to 1.00000x near zero"
+    },
+    "isotherm obeys Clausius-Clapeyron": {
+      "gate": "isotherm obeys Clausius-Clapeyron",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)"
+    },
+    "isotherm operating point is informative": {
+      "gate": "isotherm operating point is informative",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "default: theta(c_in)=0.500, theta(0.05 c_in)=0.048 OK; mof303: theta(c_in)=0.876, theta(0.05 c_in)=0.000 OK"
+    },
+    "Henry's law holds across the WHOLE material space": {
+      "gate": "Henry's law holds across the WHOLE material space",
+      "category": "isotherm",
+      "state": "PASS",
+      "evidence": "240 materials, isotherm_n in (1.009, 5.982]; K_H 0.0322\u20132.52 (1.9 decades, median 0.359); the Henry region ends at 1e-2.0 of the feed (median), and below 1e-3 of it for 73 materials \u2014 report the DISTRIBUTION, never one config's K_H"
+    },
+    "breakthrough actually occurs": {
+      "gate": "breakthrough actually occurs",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "synthetic_breakthrough.npz: c_exit/c_in = 0.993 OK; mof303_breakthrough.npz: c_exit/c_in = 1.000 OK"
+    },
+    "mass-transfer zone is resolved in the data": {
+      "gate": "mass-transfer zone is resolved in the data",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "synthetic_breakthrough.npz: sharpest front 555 cells, median 1214 OK; mof303_breakthrough.npz: sharpest front 265 cells, median 866 OK"
+    },
+    "solution is grid-converged": {
+      "gate": "solution is grid-converged",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: 0.055% change at N_z=2000 OK; mof303: 0.323% change at N_z=2000 OK",
+      "values": {
+        "default": {
+          "err": 0.0005496560975011925,
+          "N_z": 2000
+        },
+        "mof303": {
+          "err": 0.003226468164763367,
+          "N_z": 2000
+        }
+      }
+    },
+    "mass-transfer zone is resolvable at the chosen grid": {
+      "gate": "mass-transfer zone is resolvable at the chosen grid",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: MTZ 1.070 mm spans 21 cells at N_z=2000 OK; mof303: MTZ 1.245 mm spans 25 cells at N_z=2000 OK"
+    },
+    "global mass balance closes": {
+      "gate": "global mass balance closes",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: closes to 0.050% OK; mof303: closes to 0.055% OK",
+      "values": {
+        "default": 0.000496726136092538,
+        "mof303": 0.0005457663320184538
+      }
+    },
+    "solver matches closed-form solutions (L0)": {
+      "gate": "solver matches closed-form solutions (L0)",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "tracer profile: 1.69e-03; tracer front: 2.28e-04; retarded front: 2.72e-04; thermal wave: 1.23e-04; LDF vs Anzelius: 3.00e-04"
+    },
+    "fields stay physical": {
+      "gate": "fields stay physical",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "default: OK; mof303: OK"
+    },
+    "velocity convention is consistent": {
+      "gate": "velocity convention is consistent",
+      "category": "solver",
+      "state": "PASS",
+      "evidence": "tracer front 0.2495 m/s vs v/eps_t 0.25 m/s (0.2% off)"
+    },
+    "each equation is normalised to its dominant term": {
+      "gate": "each equation is normalised to its dominant term",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "dominant coefficient = 1 in every equation | default/mass_gas: [2.8e-05, 1.0]; default/kinetics: [1.9e-03, 1.0]; default/energy: [8.3e-03, 1.0] ..."
+    },
+    "residuals are finite across seeds": {
+      "gate": "residuals are finite across seeds",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "4 seeds finite; init-scale spread 5.8x\u201312.2x (not a scaling defect)"
+    },
+    "physics losses include boundary conditions": {
+      "gate": "physics losses include boundary conditions",
+      "category": "residual",
+      "state": "PASS",
+      "evidence": "4 physics-training scripts checked: run_l4.py, run_l4b.py, run_l4b_v2.py, train_pikan.py"
+    },
+    "EVERY model bounds temperature away from zero": {
+      "gate": "EVERY model bounds temperature away from zero",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "7 architectures | PIKAN: [182,406]K; PI_DeepONet: [275,302]K; PI_DeepOKAN: [197,446]K; WaveletNO: [258,339]K; FNO2d: [253,320]K; DataDrivenMLP: [279,325]K; DeepONet_base: [209,321]K"
+    },
+    "output head has a single definition": {
+      "gate": "output head has a single definition",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "all models route through output_head.apply_output_head"
+    },
+    "network derivatives are non-singular": {
+      "gate": "network derivatives are non-singular",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "|dc/dz| p50=4.58e-01 max=5.65e+00; max|d2c/dz2|=2.09e+02 OK"
+    },
+    "input layer preserves coordinates": {
+      "gate": "input layer preserves coordinates",
+      "category": "model",
+      "state": "PASS",
+      "evidence": "144 inputs -> 144 distinct activations OK"
+    }
+  }
+}

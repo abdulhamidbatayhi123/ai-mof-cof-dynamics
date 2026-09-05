@@ -31,3 +31,4 @@ ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | ti
   [time    ] pi_fixed_w1e-3     seed 44: seen=0.0165 held=0.0198 w_pde=1.00e-03  [2558s]
   [time    ] pi_fixed_w1e-2     seed 42: seen=0.0282 held=0.0484 w_pde=1.00e-02  [1793s]
   [time    ] pi_fixed_w1e-2     seed 43: seen=0.0284 held=0.0489 w_pde=1.00e-02  [2122s]
+  [time    ] pi_fixed_w1e-2     seed 44: seen=0.0274 held=0.0365 w_pde=1.00e-02  [4032s]
