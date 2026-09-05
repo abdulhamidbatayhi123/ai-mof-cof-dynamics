@@ -1,0 +1,15 @@
+==============================================================================
+VERIFICATION HARNESS — ai-mof-cof-dynamics
+==============================================================================
+
+── integrity ─────────────────────────────────────────────────────────────────
+  PASS  plotting code computes its curves
+        no synthesised series found in plotting code
+  FAIL  plotting code loads a checkpoint
+        fig_ladder.py — reads model series from files that do not exist: results/l4b_v2_verdict.json
+
+==============================================================================
+1 passed, 1 failed, 0 skipped
+==============================================================================
+
+No result from a failing category may enter the manuscript.

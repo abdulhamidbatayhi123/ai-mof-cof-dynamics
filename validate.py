@@ -155,24 +155,82 @@ def gate_no_fabricated_curves():
     return True, "no synthesised series found in plotting code"
 
 
+# A plotting script may not invent a model series. There are exactly TWO legitimate
+# provenances and the gate below admits only those:
+#
+#   (A) CHECKPOINT — the script loads trained weights and evaluates them
+#       (`load_state_dict`). This was the original rule, written for A1.
+#   (B) RECORDED   — the script reads a number a RUNNER already wrote to a results
+#       file and never touches a model itself. Every figure in the current set is of
+#       this kind, and it is the safer of the two: the number is the one the verdict
+#       was computed from, not a re-run that might differ.
+#
+# (B) is admitted only on proof, never on assertion (B37: a gate that can be bypassed
+# is not a gate). The script must contain NO machinery capable of producing a
+# prediction, and every results path it names must actually exist on disk — so it
+# cannot cite a file nobody wrote.
+_MODEL_MACHINERY = [
+    (r"\bimport\s+torch\b|\bfrom\s+torch\b", "imports torch"),
+    (r"\bfrom\s+sklearn\b|\bimport\s+sklearn\b", "imports sklearn"),
+    (r"\bimport\s+xgboost\b|\bfrom\s+xgboost\b", "imports xgboost"),
+    (r"\.predict\s*\(", "calls .predict()"),
+    (r"\.fit\s*\(", "calls .fit()"),
+    (r"\bnn\.[A-Z]", "constructs a torch module"),
+]
+_RESULTS_PATH = re.compile(r"[\"'](results/[\w./-]+\.json|verify_solver\.json)[\"']")
+
+
 @gate("plotting code loads a checkpoint", "integrity")
 def gate_plot_loads_model():
-    """Any script that draws a model curve must actually load and call a model."""
-    bad = []
+    """Any script that draws a model curve must load a checkpoint, or read a
+    recorded results file and demonstrably compute nothing itself."""
+    bad, ok = [], []
     for path in sorted(ROOT.glob("*.py")):
         if path.name == "validate.py":
             continue
         src = path.read_text(encoding="utf-8", errors="replace")
         if "plt." not in src:
             continue
-        draws_model = re.search(r"label\s*=\s*[\"'][^\"']*(PIKAN|MLP|DeepONet|FNO|WNO|DeepOKAN)", src, re.I)
+        # Gating on labels alone can be defeated by renaming a label, so EVERY figure
+        # script must declare a provenance whatever its labels say.
+        draws_model = path.name.startswith("fig") or re.search(
+            r"label\s*=\s*(?:rf|fr|[rbfu])?[\"'][^\"']*(PIKAN|MLP|DeepONet|FNO|WNO|DeepOKAN|POD)",
+            src, re.I)
         if not draws_model:
             continue
-        if "load_state_dict" not in src:
-            bad.append(f"{path.name} — labels a model curve but never calls load_state_dict()")
+        if "load_state_dict" in src:
+            ok.append(f"{path.name}: checkpoint")
+            continue
+        machinery = [why for pat, why in _MODEL_MACHINERY if re.search(pat, src)]
+        named = sorted({m.group(1) for m in _RESULTS_PATH.finditer(src)})
+        # A run still in flight has not written its verdict file yet. A script may
+        # name such a file ONLY by declaring it in a PENDING_RESULTS tuple, which the
+        # gate polices both ways: a declared file must NOT exist (a stale declaration
+        # would let a figure keep drawing "in flight" over a result that has landed),
+        # and an undeclared missing file is still a failure.
+        pend_m = re.search(r"PENDING_RESULTS\s*=\s*\((.*?)\)", src, re.S)
+        pending = sorted({m.group(1) for m in _RESULTS_PATH.finditer(pend_m.group(1))}) if pend_m else []
+        stale = [p for p in pending if (ROOT / p).exists()]
+        if stale:
+            bad.append(f"{path.name} — declares {', '.join(stale)} as PENDING_RESULTS but the file "
+                       f"exists: the run has landed and the figure must read it")
+            continue
+        missing = [p for p in named if not (ROOT / p).exists() and p not in pending]
+        if machinery:
+            bad.append(f"{path.name} — labels a model curve, loads no checkpoint, and "
+                       f"{machinery[0]}, so it could compute the series itself")
+        elif not named:
+            bad.append(f"{path.name} — labels a model curve but neither loads a checkpoint "
+                       f"nor names a results file to read it from")
+        elif missing:
+            bad.append(f"{path.name} — reads model series from files that do not exist: "
+                       + ", ".join(missing))
+        else:
+            ok.append(f"{path.name}: recorded ({len(named)} file{'s' if len(named) > 1 else ''}"
+                      + (f", {len(pending)} pending" if pending else "") + ")")
     if bad:
         return False, "\n      ".join(bad)
-    return True, "model curves are drawn from loaded checkpoints"
+    return True, "model curves come from a checkpoint or a recorded results file — " + "; ".join(ok)
 
 
 # ─────────────────────────────────────────────────────────────────────────────

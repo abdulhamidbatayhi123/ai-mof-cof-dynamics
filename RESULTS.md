@@ -15,9 +15,9 @@ Last updated 2026-09-05.
 | **L0** | "the reference is trustworthy" | ✅ verified against 4 closed-form solutions |
 | **L1** | "you just need more data" | ⚠️ **NOT ELIMINATED on v2** — the materials axis is still falling at 192 training materials (β = 0.22), and the basis needs none of that data: it is all coefficient map. Arms re-run on v2: the MLP is now the best fixed-basis arm, significantly |
 | **L2** | "the model is too small" | ✅ every optimum bracketed on legacy **and on v2**; ⚠️ **but the optimum moves with the material count** — at 192 materials an 8-layer MLP beats the L1 setting by 21 % where legacy found 1 % (**A26**) |
-| **L3** | "you need a better basis" | ✅ eliminated for RBF-KAN; ⚠️ the Chebyshev 200k cell is **withdrawn** (**A19**, **B24**) and the rung is being re-run |
-| **L4** | "add the PDE residual" | ✅ **no difference** on the material axis |
-| **L5** | "you need an operator" | ✅ eliminated *for linear-reconstruction operators*; n-width prediction **refuted**. ⚠️ FNO/WNO never run (**B33**); numbers superseded (**A20**) |
+| **L3** | "you need a better basis" | ✅ **FINAL** — re-run and fully re-tuned after **A19**/**B24**; MLP beats both KAN families at matched parameters, 6/6 significant, every optimum bracketed over 8 learning rates spanning 3.5 decades |
+| **L4** | "add the PDE residual" | ✅ **no difference** on the material axis (legacy). ⏳ **L4b re-running on v2** since 2026-09-05 (`PREREG_L4b_v2.md`): a weighting sweep, NTK and self-adaptive arms, physics at inference, an L-BFGS polish |
+| **L5** | "you need an operator" | ✅ **FINAL** — eliminated *for linear-reconstruction operators*; n-width prediction **refuted** (**A17**). FNO **was** run (**B33** discharged) and is significantly better, 0.0216 vs 0.0265, but still 43× above the POD floor; legacy numbers superseded (**A20**) |
 | **L6** | **"joint fitting is fine"** (H1, primary) | ✅ **RESOLVED on v2** — mechanism refuted (Da slope null), but separate **does** beat joint by 3.7 % (CI 1.0–6.5 %), reversing the legacy sign |
 | **L7** | "deep learning is needed at all" | ✅ **eliminated on legacy and on v2** — the best closed form is 3.7× worse than the learned arm on the exit curve, paired over 240 materials |
 
@@ -80,7 +80,13 @@ beyond, and 691 samples cannot resolve a tail at their own limit.
 
 ---
 
-## L1 — data-driven interpolation does not transfer
+## L1 on the legacy dataset — data-driven interpolation does not transfer
+
+> ⚠️ **Superseded on v2 in its ordering.** With four times the materials the MLP
+> becomes the best arm and beats XGBoost significantly (0.0306 vs 0.0361); the
+> "xgb, rf and mlp are indistinguishable" reading below is a 12-cluster result. See
+> "L1-v2 — the arms" below. What survives unchanged is the *size* of the transfer
+> gap relative to the POD floor, which grew from 33× to 109×.
 
 nRMSE on c, novel-material split, 64 POD modes, 3 seeds:
 
@@ -102,7 +108,13 @@ did not survive (A13). Splits: 0.0502 ± 0.0019 across 5 independent holdout set
 
 ---
 
-## L2 — capacity is eliminated
+## L2 on the legacy dataset — capacity is eliminated *at 48 training materials*
+
+> ⚠️ **Scoped by retraction A26.** This section is the legacy (48-material) result and
+> its "~1 %" conclusion holds only there. On dataset v2, with 192 training materials
+> per fold, the same pre-registered sweep puts the depth optimum at **8 layers** and
+> the gain at **21 %**. See "L2 on dataset v2" below; do not quote the ~1 % without
+> the material count it was measured at.
 
 26 configurations × 3 seeds. Every family **saturated** at its last step:
 mlp_width (optimum w128), mlp_depth (d6), xgb_depth (md5), rf_leaf (at RF's
@@ -788,14 +800,35 @@ clusters resolve 1.9 %, and the family sits **37 % behind the best MLP**
 **capacity as an unbounded lever is eliminated — every optimum that can be bracketed
 is bracketed — but the optimum is not where the legacy sweep left it.**
 
-**What moved, and by how much** (paired, cluster-robust, α = 0.02):
+**What moved, and by how much.** These five comparisons are **post-hoc and
+descriptive** — the pre-registered rule is the per-family saturation test above, and
+"how far the optimum moved" is a description of the sweep, not a test it was designed
+for. They are labelled as such in the code and in the verdict file. Paired,
+cluster-robust, α = 0.02, from `results/l2_v2_verdict.json` → `cross`:
 
 ```
-mlp_depth/d8 0.0241 vs the L1 setting (256,256,256) 0.0306 | diff -0.00651 CI [-0.00726, -0.00573]   21.3 % better
-mlp_width/w64 0.0298 vs w256 (the L1 width)       0.0306 | diff -0.00085 CI [-0.00148, -0.00025]    2.8 % better
-mlp_depth/d8 vs xgb_depth/md6                      0.0352 | diff -0.01108 CI [-0.01244, -0.00976]   31.5 % better
-mlp_depth/d8 vs rf_leaf/leaf1                      0.0381 | diff -0.01397 CI [-0.01619, -0.01188]   36.7 % better
+mlp_depth/d8 0.0241 vs the L1 setting mlp_depth/d3 (256,256,256) 0.0306
+                                   | diff -0.006507 CI [-0.007255, -0.005730]  +21.3 % [+18.7, +23.7]
+mlp_width/w64 0.0298 vs w256 (the L1 width)  0.0306
+                                   | diff -0.000851 CI [-0.001482, -0.000250]   +2.8 % [ +0.8,  +4.8]
+mlp_depth/d8 vs mlp_width/w64      0.0298 | diff -0.005656 CI [-0.006394, -0.004881]  +19.0 % [+16.4, +21.5]
+mlp_depth/d8 vs xgb_depth/md6      0.0352 | diff -0.011080 CI [-0.012440, -0.009764]  +31.5 % [+27.8, +35.4]
+mlp_depth/d8 vs rf_leaf/leaf1      0.0381 | diff -0.013970 CI [-0.016190, -0.011880]  +36.7 % [+31.2, +42.5]
 ```
+
+> **These four numbers had no script behind them until 2026-09-05 — defect B43**,
+> B39's class, in the rung whose retraction (A26) rests on the first of them. They are
+> now computed by `analyze_l2_v2.cross_comparisons` and stored in the verdict file;
+> every quoted digit reproduced, so A26 stands, and the rest of the verdict file
+> (MDEs included) is byte-identical.
+
+**One identity, asserted rather than assumed (B44).** `mlp_width/w256`,
+`mlp_depth/d3` and L1-v2's `mlp` arm are the *same* estimator — `(256, 256, 256)`
+under a standardised target transform — trained by **two different runners** on the
+same folds, the same per-fold POD and the same three seeds. Their per-sample held-out
+scores agree to **0.00e+00**, means 0.030601 / 0.030601 / 0.030601. That is the
+strongest available evidence that L1-v2, L2-v2, L6-v2 and L7-v2 really are reported
+over one shared design, and the analyzer now raises if it ever stops being true.
 
 On legacy (48 training materials) the best configuration anywhere improved on the
 L1 setting by **~1 %** and the depth optimum was 6 layers; on v2 (192 training
@@ -1037,8 +1070,9 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 26 Part-A, 42 Part-B caught before
-  contamination. **29 of the 68 entries are marked "our own error"** — in the
+- **`RETRACTIONS.md`** — 26 Part-A, 44 Part-B caught before
+  contamination. **27 of the 70 entries carry the words "our own error"**, and
+  several more are self-attributed in other words (A22, A23, A25, B39, B41, B42, B43) — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
   itself — recorded on the same terms as errors in the code. One Part-A
   retraction (**A17**) withdraws a claim the protocol had called its most

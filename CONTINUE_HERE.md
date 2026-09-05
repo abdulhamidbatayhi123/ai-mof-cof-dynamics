@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-05 after the L1/L2/L7 v2 chain completed and L4b-v2 was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 42 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 44 Part-B**.
 
 ---
 
@@ -23,6 +23,26 @@ detached with `nohup`; logs `l4b_v2.log`, `l4b_v2_refine.log`, `l4b_v2_analysis.
 codes `chain_l4b_v2_outer.log`. Design frozen in `PREREG_L4b_v2.md`, committed before any run.
 The L1/L2/L7 v2 chain (`chain_v2_rungs.sh`) is **complete** (V2_RUNGS_DONE, 2026-09-03/04) and
 written up in `RESULTS.md`. Never run two training chains concurrently on this 16 GB machine.
+
+**Early L4b-v2 result already on disk (2026-09-05, stages D0 and R0 complete):** the
+pre-registered test-time refinement (Q3: residual + BC + IC, 300 Adam steps at 1e-4,
+zero data) makes transfer **much worse** — material axis 0.020 → 0.10–0.12, time axis
+held-out 0.011 → 0.06–0.08, and the seen window degrades too despite the anchor
+(`l4b_v2_refine.log`, `results/l4b_v2_refine.json`). This is a reportable pre-declared
+outcome ("physics at inference makes transfer worse"). Before writing it, check the
+B16-class diagnosis first: an unscaled residual overwhelming a good initialisation.
+The loss trajectory per unit was **not saved** (`refine_unit` returns `hist` and the
+runner drops it) — add that before any post-hoc, labelled sensitivity (e.g. lr 1e-5,
+or a gradient-norm-balanced residual). Do not tune anything to rescue Q3.
+
+**Two sessions touched this repository on 2026-09-05.** A parallel session (01:24–01:48)
+added B43 (my L2 cross-comparisons had no script; now `analyze_l2_v2.cross_comparisons`,
+post-hoc, labelled), B44 (the (256,256,256) estimator agrees to the bit across the L1
+and L2 runners), hardened the plotting gate, drew Fig1 (`fig_ladder.py`) and fixed
+three stale status rows; it ended without committing and its work was committed by
+this session. The gate now accepts a results path a running chain has not written
+only if the script declares it in `PENDING_RESULTS`, and fails once that file
+exists: **remove the declaration in `fig_ladder.py` when L4b-v2 lands.**
 
 **The repository is under git as of 2026-08-30.** Everything before that commit is
 untracked history; everything after is timestamped and diffable. `git log --oneline`
@@ -131,7 +151,8 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 26 Part-A, 42 Part-B, 29 marked "our own error".
+1. **The retraction ledger.** 26 Part-A, 44 Part-B; 27 entries carry the words
+   "our own error" and several more are self-attributed in other words.
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
 2. **Guards that make recurring failures impossible**, each earned from a real
@@ -215,7 +236,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
   it threaded through (every PINN run would have crashed). Both fixed.
 - **Experimental anchor changed**: Lassitter 2024 Fig. 10 (fully specified in its SI,
   digitised) replaces Li 2025 (under-specified). See §5 item 4.
-- Ledger counts: 26 Part-A, 42 Part-B.
+- Ledger counts: 26 Part-A, 44 Part-B (B43/B44 added 2026-09-05).
 
 ## 7. Rules carried forward
 

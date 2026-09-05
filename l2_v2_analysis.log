@@ -80,6 +80,17 @@ xgb_depth: 7/7 configurations complete on all folds
   largest vs smallest: md10 0.03729 vs md2 0.04417 | diff -0.006881 CI [-0.008333, -0.00543]
 
 ================================================================================
+CROSS-CONFIGURATION (post-hoc, descriptive — not the frozen rule)
+================================================================================
+  best (mlp_depth/d8) vs the L1 setting (mlp_depth/d3): mlp_depth/d8 0.0241 vs mlp_depth/d3 0.0306 | diff -0.006507 CI [-0.007255, -0.00573]   +21.3 % [+18.7, +23.7]
+  mlp_width/w64 vs the L1 width (mlp_width/w256): mlp_width/w64 0.02975 vs mlp_width/w256 0.0306 | diff -0.0008511 CI [-0.001482, -0.0002497]   +2.8 % [+0.8, +4.8]
+  best (mlp_depth/d8) vs mlp_width best (mlp_width/w64): mlp_depth/d8 0.0241 vs mlp_width/w64 0.02975 | diff -0.005656 CI [-0.006394, -0.004881]   +19.0 % [+16.4, +21.5]
+  best (mlp_depth/d8) vs rf_leaf best (rf_leaf/leaf1): mlp_depth/d8 0.0241 vs rf_leaf/leaf1 0.03807 | diff -0.01397 CI [-0.01619, -0.01188]   +36.7 % [+31.2, +42.5]
+  best (mlp_depth/d8) vs xgb_depth best (xgb_depth/md6): mlp_depth/d8 0.0241 vs xgb_depth/md6 0.03518 | diff -0.01108 CI [-0.01244, -0.009764]   +31.5 % [+27.8, +35.4]
+  identity mlp_depth/d3 vs mlp_width/w256 (the same estimator): max |per-sample diff| 0.00e+00  means 0.03060 / 0.03060
+  identity L1-v2 'mlp' vs mlp_depth/d3 (the same estimator, different runner): max |per-sample diff| 0.00e+00  means 0.03060 / 0.03060
+
+================================================================================
 L2-v2 VERDICT
 ================================================================================
   best configuration anywhere: mlp_depth/d8 = 0.0241 (86x the POD floor)

@@ -456,6 +456,115 @@
       }
     }
   },
+  "cross": {
+    "note": "POST-HOC, descriptive. The pre-registered rule is the per-family saturation test above; these contextualise where the optimum sits.",
+    "comparisons": {
+      "best (mlp_depth/d8) vs the L1 setting (mlp_depth/d3)": {
+        "arm_a": "mlp_depth/d8",
+        "arm_b": "mlp_depth/d3",
+        "metric": "nrmse_c",
+        "mean_a": 0.024097212429288854,
+        "mean_b": 0.03060395470056882,
+        "mean_diff": -0.006506742271279964,
+        "ci_low": -0.007255089492558303,
+        "ci_high": -0.005730057477330947,
+        "significant": true,
+        "verdict": "mlp_depth/d8 is better (lower nrmse_c)",
+        "n_materials": 240,
+        "relative_to_b": {
+          "pct": 21.261115875194477,
+          "pct_ci_low": 18.723258263169644,
+          "pct_ci_high": 23.706379007362262
+        }
+      },
+      "mlp_width/w64 vs the L1 width (mlp_width/w256)": {
+        "arm_a": "mlp_width/w64",
+        "arm_b": "mlp_width/w256",
+        "metric": "nrmse_c",
+        "mean_a": 0.029752887718423396,
+        "mean_b": 0.03060395470056882,
+        "mean_diff": -0.0008510669821454245,
+        "ci_low": -0.0014819747008061332,
+        "ci_high": -0.00024969097844854625,
+        "significant": true,
+        "verdict": "mlp_width/w64 is better (lower nrmse_c)",
+        "n_materials": 240,
+        "relative_to_b": {
+          "pct": 2.780905247286901,
+          "pct_ci_low": 0.8158781467674352,
+          "pct_ci_high": 4.842428749179231
+        }
+      },
+      "best (mlp_depth/d8) vs mlp_width best (mlp_width/w64)": {
+        "arm_a": "mlp_depth/d8",
+        "arm_b": "mlp_width/w64",
+        "metric": "nrmse_c",
+        "mean_a": 0.024097212429288854,
+        "mean_b": 0.029752887718423396,
+        "mean_diff": -0.00565567528913454,
+        "ci_low": -0.006394257301722969,
+        "ci_high": -0.004880740229367007,
+        "significant": true,
+        "verdict": "mlp_depth/d8 is better (lower nrmse_c)",
+        "n_materials": 240,
+        "relative_to_b": {
+          "pct": 19.008828126731604,
+          "pct_ci_low": 16.404257212132006,
+          "pct_ci_high": 21.491215784623005
+        }
+      },
+      "best (mlp_depth/d8) vs rf_leaf best (rf_leaf/leaf1)": {
+        "arm_a": "mlp_depth/d8",
+        "arm_b": "rf_leaf/leaf1",
+        "metric": "nrmse_c",
+        "mean_a": 0.024097212429288854,
+        "mean_b": 0.03806605077772629,
+        "mean_diff": -0.013968838348437432,
+        "ci_low": -0.01619285310895732,
+        "ci_high": -0.011882307294718347,
+        "significant": true,
+        "verdict": "mlp_depth/d8 is better (lower nrmse_c)",
+        "n_materials": 240,
+        "relative_to_b": {
+          "pct": 36.69631617423015,
+          "pct_ci_low": 31.214972533139893,
+          "pct_ci_high": 42.5388312633479
+        }
+      },
+      "best (mlp_depth/d8) vs xgb_depth best (xgb_depth/md6)": {
+        "arm_a": "mlp_depth/d8",
+        "arm_b": "xgb_depth/md6",
+        "metric": "nrmse_c",
+        "mean_a": 0.024097212429288854,
+        "mean_b": 0.03518135886469257,
+        "mean_diff": -0.011084146435403718,
+        "ci_low": -0.012438645135101796,
+        "ci_high": -0.009764312105717737,
+        "significant": true,
+        "verdict": "mlp_depth/d8 is better (lower nrmse_c)",
+        "n_materials": 240,
+        "relative_to_b": {
+          "pct": 31.50573710934055,
+          "pct_ci_low": 27.754221044364034,
+          "pct_ci_high": 35.35578367777322
+        }
+      }
+    },
+    "identity": {
+      "mlp_depth/d3 vs mlp_width/w256": {
+        "max_abs_per_sample_diff": 0.0,
+        "mean_a": 0.03060395470056882,
+        "mean_b": 0.03060395470056882,
+        "tol": 0.005
+      },
+      "L1-v2 mlp vs mlp_depth/d3": {
+        "max_abs_per_sample_diff": 0.0,
+        "mean_l1": 0.03060395470056882,
+        "mean_l2": 0.03060395470056882,
+        "tol": 0.005
+      }
+    }
+  },
   "verdict": "NOT ELIMINATED: families still improving at their last step: ['rf_leaf']. Extend their sweeps.",
   "best_overall": [
     0.024097212429288854,
