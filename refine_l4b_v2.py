@@ -72,7 +72,7 @@ def refine_unit(model0, d, unit_idx, Pz, table, tau_all, args, rng, anchor_windo
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         opt.step()
         if step % 50 == 0 or step == args.refine_steps - 1:
-            hist.append({"step": step, "loss": float(loss)})
+            hist.append({"step": step, "loss": float(loss.detach())})
     model.eval()
     return model, hist
 
@@ -151,7 +151,7 @@ def main():
                 model0.load_state_dict(torch.load(ckpt_path(axis, arm, seed), map_location=DEVICE))
                 model0.eval()
                 rng = np.random.default_rng(seed)
-                before, after, seen_b, seen_a, ids, cids, fails = [], [], [], [], [], [], 0
+                before, after, seen_b, seen_a, ids, cids, fails, hists = [], [], [], [], [], [], 0, {}
                 for m, uidx in units:
                     if axis == "time":
                         b = eval_window(model0, d, uidx, d.params_z, args.t_cut, 1.0)
@@ -160,6 +160,7 @@ def main():
                         b = eval_window(model0, d, uidx, d.params_z, 0.0, 1.0)
                         sb = b
                     model, hist = refine_unit(model0, d, uidx, Pz, table, tau_all, args, rng, anchor_window=win)
+                    hists[str(m)] = hist                     # the residual-loss trajectory, per unit
                     if model is None:
                         fails += 1
                         a, sa_ = b, sb
@@ -176,7 +177,8 @@ def main():
                        "seen_before": float(np.mean(seen_b)), "seen_after": float(np.mean(seen_a)),
                        "per_sample_before": before, "per_sample_after": after,
                        "per_sample_seen_before": seen_b, "per_sample_seen_after": seen_a,
-                       "material_ids": ids, "condition_ids": cids, "n_failed_units": fails}
+                       "material_ids": ids, "condition_ids": cids, "n_failed_units": fails,
+                       "loss_hist_per_unit": hists}
                 set_path(res, rec, axis, arm, str(seed))
                 write_atomic(res, args.out)
                 print(f"  [{axis:<8}] {arm:<18} seed {seed}: held {rec['before']:.4f} -> {rec['after']:.4f} | "
