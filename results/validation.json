@@ -20,7 +20,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "154 macros used, all resolved from results files; 44 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+      "evidence": "156 macros used, all resolved from results files; 40 literals declared with reasons; 2 value(s) PENDING a run still in flight"
     },
     {
       "gate": "checkpoint parameters are finite",
@@ -180,7 +180,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "154 macros used, all resolved from results files; 44 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+      "evidence": "156 macros used, all resolved from results files; 40 literals declared with reasons; 2 value(s) PENDING a run still in flight"
     },
     "checkpoint parameters are finite": {
       "gate": "checkpoint parameters are finite",

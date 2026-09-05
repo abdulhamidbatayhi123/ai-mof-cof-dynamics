@@ -258,6 +258,12 @@ SPEC = [
     ("LsixLegacyBetweenSD", "results/l6_power_corrected.json", "between_sd", "{:.4f}"),
     ("LsixLegacyBase", "results/l6_power_corrected.json", "base", "{:.4f}"),
 
+    # ---------------------------------------- the correction ledger, counted not typed
+    ("LedgerA", "results/ledger_counts.json", "n_part_a", "{:d}"),
+    ("LedgerB", "results/ledger_counts.json", "n_part_b", "{:d}"),
+    ("LedgerTotal", "results/ledger_counts.json", "n_total", "{:d}"),
+    ("LedgerOwn", "results/ledger_counts.json", "n_own_error_phrase", "{:d}"),
+
     # ---------------------------------------------------------------- L4b-v2
     ("LfourbVerdictMaterial", "results/l4b_v2_verdict.json", "axes.material.verdict", "{}"),
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),

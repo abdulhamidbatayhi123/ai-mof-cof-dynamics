@@ -159,6 +159,10 @@
     "AnchorNrmseComsol": "0.069",
     "LsixLegacyBetweenSD": "0.0391",
     "LsixLegacyBase": "0.0566",
+    "LedgerA": "26",
+    "LedgerB": "62",
+    "LedgerTotal": "88",
+    "LedgerOwn": "30",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbVerdictTime": "\\textbf{[PENDING]}",
     "FloorDrop": "28.7",
@@ -807,6 +811,22 @@
     "LsixLegacyBase": {
       "file": "results/l6_power_corrected.json",
       "path": "base"
+    },
+    "LedgerA": {
+      "file": "results/ledger_counts.json",
+      "path": "n_part_a"
+    },
+    "LedgerB": {
+      "file": "results/ledger_counts.json",
+      "path": "n_part_b"
+    },
+    "LedgerTotal": {
+      "file": "results/ledger_counts.json",
+      "path": "n_total"
+    },
+    "LedgerOwn": {
+      "file": "results/ledger_counts.json",
+      "path": "n_own_error_phrase"
     },
     "LfourbVerdictMaterial": {
       "file": "results/l4b_v2_verdict.json",

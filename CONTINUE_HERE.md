@@ -151,7 +151,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 26 Part-A, 62 Part-B; 27 entries carry the words
+1. **The retraction ledger.** 26 Part-A, 62 Part-B; 30 entries carry the words
    "our own error" and several more are self-attributed in other words.
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.

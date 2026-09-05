@@ -1123,7 +1123,7 @@ methodology that produced it, is the contribution.
 - **`validate.py`** — 24 gates, all passing. No number enters the manuscript from
   a failing category.
 - **`RETRACTIONS.md`** — 26 Part-A, 62 Part-B caught before
-  contamination. **28 of the 88 entries carry the words "our own error"**, and
+  contamination. **30 of the 88 entries carry the words "our own error"** (counted by `ledger_counts.py`, never typed), and
   several more are self-attributed in other words (A22, A23, A25, B39, B41, B42,
   B43, B45-B53) — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
