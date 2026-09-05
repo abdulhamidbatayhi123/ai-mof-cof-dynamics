@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-05 after the L1/L2/L7 v2 chain completed and L4b-v2 was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 44 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 53 Part-B**.
 
 ---
 
@@ -151,7 +151,7 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 26 Part-A, 44 Part-B; 27 entries carry the words
+1. **The retraction ledger.** 26 Part-A, 53 Part-B; 27 entries carry the words
    "our own error" and several more are self-attributed in other words.
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
@@ -236,7 +236,8 @@ Da median **27.5** with **77.8 %** in the informative 5–60 band, against legac
   it threaded through (every PINN run would have crashed). Both fixed.
 - **Experimental anchor changed**: Lassitter 2024 Fig. 10 (fully specified in its SI,
   digitised) replaces Li 2025 (under-specified). See §5 item 4.
-- Ledger counts: 26 Part-A, 44 Part-B (B43/B44 added 2026-09-05).
+- Ledger counts: 26 Part-A, 53 Part-B (B43/B44 from the figure pass and B45-B53 from
+  citation tranche 4, all 2026-09-05).
 
 ## 7. Rules carried forward
 

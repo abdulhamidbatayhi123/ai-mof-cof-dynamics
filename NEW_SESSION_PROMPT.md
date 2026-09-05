@@ -16,7 +16,7 @@ If the literature says there is a better way, use it. Never trade rigour for spe
 Start by reading, in this order:
   CONTINUE_HERE.md        current status, every headline number, what to protect
   RESULTS.md              every result, current
-  RETRACTIONS.md          26 Part-A withdrawals, 44 Part-B defects caught pre-contamination
+  RETRACTIONS.md          26 Part-A withdrawals, 53 Part-B defects caught pre-contamination
   AUDIT_2026-08-30.md     the external audit and its evidence tags
   CITATIONS.md            the citation gate and the venue decision
   PREREG_L6_v2.md         a pre-registration committed to git before its run

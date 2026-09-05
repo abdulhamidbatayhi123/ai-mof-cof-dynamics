@@ -183,11 +183,32 @@ optimises at 1e-2–3e-2 while the MLP optimises at 3e-5, and `mlp`@200k *diverg
 at exactly the rate `cheby_kan`@200k needs. Six configurations failed to train
 entirely and are excluded and listed, not averaged in.
 
-This is direct evidence for the KAN literature's own central claim — that KANs
-require different optimisation (Rigas et al., *CMAME* 452:118761, 2026; Kiyani et
-al., *CMAME* 446:118308, 2025) — and it is reported rather than smoothed over.
-It also pre-empts the obvious attack: we did not tune the MLP and leave the KANs
-at a default; we tuned both to their own interior optima and the ordering held.
+That is **our measurement**, and it is reported rather than smoothed over. It sits in
+a literature which says that optimisation treatment dominates accuracy for
+physics-informed models, KANs included (Kiyani et al., *CMAME* 446:118308, 2025 — who
+find that **both** PINNs and PIKANs improve by orders of magnitude under the **same**
+self-scaled quasi-Newton schemes, not that KANs need different ones), and that deep
+PIKANs are unstable without KAN-specific initialisation and architecture (Rigas et al.,
+*CMAME* 452:118761, 2026). It also pre-empts the obvious attack: we did not tune the
+MLP and leave the KANs at a default; we tuned both to their own interior optima and the
+ordering held.
+
+> **The literature is split, and this result is worth more because of it — B46.** An
+> earlier version of this section cited Rigas and Kiyani for "the KAN literature's own
+> central claim that KANs require different optimisation". **Neither paper says that**,
+> and three of the four KAN papers we cite do not support a general "MLPs win":
+> Wang et al.'s KINN (*CMAME* 433:117518) reports that *"KINN significantly outperforms
+> MLP regarding accuracy and convergence speed"* on solid-mechanics PDEs; Rigas's
+> Residual-Gated Adaptive KANs *"consistently outperform parameter-matched cPIKANs and
+> PirateNets"*, and PirateNet is an MLP architecture; and Shukla et al.'s conclusion is
+> two-tiered — original B-spline KANs lack accuracy and efficiency, while *modified*
+> KANs on low-order orthogonal polynomials are **comparable** to PINNs and DeepONet but
+> not robust. A matched-parameter, fully-bracketed measurement is worth **more** in a
+> split literature than in a settled one. The honest sentence is that on **this**
+> problem — transfer to unseen materials in a stiff two-wave adsorption column, at
+> matched parameters, with every optimum bracketed over 3.5 decades of learning rate —
+> the MLP wins 6/6, and the papers that disagree with us are cited so a reader can see
+> the disagreement rather than discover it.
 
 Seed robustness still favours the MLP by an order of magnitude
 (sd 0.0003–0.0023 vs 0.0013–0.0041 and 0.0095–0.0186).
@@ -1070,9 +1091,10 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 22 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 26 Part-A, 44 Part-B caught before
-  contamination. **27 of the 70 entries carry the words "our own error"**, and
-  several more are self-attributed in other words (A22, A23, A25, B39, B41, B42, B43) — in the
+- **`RETRACTIONS.md`** — 26 Part-A, 53 Part-B caught before
+  contamination. **27 of the 79 entries carry the words "our own error"**, and
+  several more are self-attributed in other words (A22, A23, A25, B39, B41, B42,
+  B43, B45-B53) — in the
   analysis, the validation gates, the power simulations, or the frozen protocol
   itself — recorded on the same terms as errors in the code. One Part-A
   retraction (**A17**) withdraws a claim the protocol had called its most

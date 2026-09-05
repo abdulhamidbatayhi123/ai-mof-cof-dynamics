@@ -1,0 +1,33 @@
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+
+ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | time-axis eval 768 samples / 192 materials | material-axis eval 793 / 48
+  [time    ] data_only          seed 42: seen=0.0127 held=0.0112 w_pde=0.00e+00  [494s]
+  [time    ] data_only          seed 43: seen=0.0151 held=0.0143 w_pde=0.00e+00  [457s]
+  [time    ] data_only          seed 44: seen=0.0157 held=0.0138 w_pde=0.00e+00  [594s]
+  [material] data_only          seed 42: seen=0.0115 held=0.0200 w_pde=0.00e+00  [606s]
+  [material] data_only          seed 43: seen=0.0148 held=0.0244 w_pde=0.00e+00  [531s]
+  [material] data_only          seed 44: seen=0.0148 held=0.0250 w_pde=0.00e+00  [446s]
+
+wrote results/l4b_v2_results.json  [3179s]
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+  resuming results/l4b_v2_results.json
+
+ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | time-axis eval 768 samples / 192 materials | material-axis eval 793 / 48
+  [time    ] pi_fixed_w1e-4     seed 42: seen=0.0118 held=0.0120 w_pde=1.00e-04  [3247s]
+  [time    ] pi_fixed_w1e-4     seed 43: seen=0.0160 held=0.0170 w_pde=1.00e-04  [3171s]
+  [time    ] pi_fixed_w1e-4     seed 44: seen=0.0144 held=0.0148 w_pde=1.00e-04  [2924s]
+  [time    ] pi_fixed_w1e-3     seed 42: seen=0.0156 held=0.0218 w_pde=1.00e-03  [2195s]
+  [time    ] pi_fixed_w1e-3     seed 43: seen=0.0171 held=0.0197 w_pde=1.00e-03  [2674s]
+  [time    ] pi_fixed_w1e-3     seed 44: seen=0.0165 held=0.0198 w_pde=1.00e-03  [2558s]
+  [time    ] pi_fixed_w1e-2     seed 42: seen=0.0282 held=0.0484 w_pde=1.00e-02  [1793s]
+  [time    ] pi_fixed_w1e-2     seed 43: seen=0.0284 held=0.0489 w_pde=1.00e-02  [2122s]

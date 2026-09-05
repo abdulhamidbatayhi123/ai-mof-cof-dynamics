@@ -38,7 +38,7 @@ belongs in a surrogate".)
    whose 2.17× headroom is consumed entirely by front-location error.
 5. The physics model reproduces a published MOF-303 bed's two-wave breakthrough
    with nothing fitted (t50 303 vs 287 min); two discrepancies named.
-6. 26 withdrawn claims and 44 caught defects are reported as a numbered section.
+6. 26 withdrawn claims and 53 caught defects are reported as a numbered section.
 
 ## Sections
 
@@ -86,7 +86,7 @@ belongs in a surrogate".)
    oracle sizes the 2.17× headroom; monotonicity is not the lever (B34); B41 on
    why the 0.05 level is degenerate on v2. *Fig11.*
 8. **Corrections and retractions** — numbered section, not an appendix: the
-   26 Part-A and 44 Part-B entries, grouped by class (split drift, normalisation
+   26 Part-A and 53 Part-B entries, grouped by class (split drift, normalisation
    by a vanishing quantity, undertrained arms scored, power simulations, citation
    errors), with the three that reversed headline verdicts (A17, A18, A25) told
    in full. Rohrer et al. 2021 on disclosed self-correction.
