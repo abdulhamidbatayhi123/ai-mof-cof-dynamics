@@ -18,7 +18,16 @@ cd "C:/Users/abdulhamid batayhi/Desktop/ai-mof-cof-dynamics"
 (`chain_l4b_v2.sh`). Every runner writes after each completed cell and skips completed
 cells, so a shutdown loses at most one cell.
 
-**In flight as of 2026-09-05 00:57 (Istanbul): `chain_l4b_v2.sh`** (L4b on v2, ~50 h), launched
+**The chain DIED once already. Check that it is alive before assuming progress.**
+`./resume.sh` now says so at the top of its state report: it asks Windows for the
+actual command line of every python process (Git Bash's `ps -ef` shows only the
+interpreter path, so grepping it for a runner name always returns zero) and prints
+how stale the results file is. On **2026-09-06 the machine rebooted at 22:54** with
+the sweep at 41/66; nothing noticed until 00:23 the next day and **about twelve
+hours were lost**. That is the second such loss. A stall looks exactly like progress
+unless something checks.
+
+**In flight as of 2026-09-05 00:57, relaunched 2026-09-07 00:24 (Istanbul): `chain_l4b_v2.sh`** (L4b on v2, ~50 h), launched
 detached with `nohup`; logs `l4b_v2.log`, `l4b_v2_refine.log`, `l4b_v2_analysis.log`, step exit
 codes `chain_l4b_v2_outer.log`. Design frozen in `PREREG_L4b_v2.md`, committed before any run.
 The L1/L2/L7 v2 chain (`chain_v2_rungs.sh`) is **complete** (V2_RUNGS_DONE, 2026-09-03/04) and

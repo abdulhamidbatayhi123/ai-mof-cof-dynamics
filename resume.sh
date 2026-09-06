@@ -63,6 +63,51 @@ for label, f in (("L6-v2 checks", "results/l6_v2_checks.json"),
     print(f"  {label:20s}: {'present' if os.path.exists(f) else 'missing'}")
 PY
 
+# ---------------------------------------------------------------------------
+# Is a chain incomplete AND not running? That combination has cost this project
+# real time twice: two idle days once, and twelve hours to an overnight reboot on
+# 2026-09-06 while the L4b-v2 sweep sat at 41/66. Both times the state report said
+# "41/66 cells complete" and said nothing about the fact that nothing was working
+# on the remaining 25. A stall that looks identical to progress is the problem, so
+# say it loudly, at the top of every state report, whether or not "go" was passed.
+# ---------------------------------------------------------------------------
+# `ps -ef` under Git Bash shows only the interpreter path, never the script, so
+# grepping it for a runner name always returns zero and the check would cry wolf on
+# a perfectly healthy chain -- it did, the first time this was written. Ask Windows
+# for the actual command line instead, and report how stale the results file is as
+# corroboration.
+RUNNING=$(powershell -NoProfile -Command "@(Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | Where-Object { \$_.CommandLine -match 'run_l4b_v2|refine_l4b_v2|run_l6_v2|run_l1_v2|run_l2_v2|run_l5_fno' }).Count" 2>/dev/null | tr -d '\r ')
+RUNNING=${RUNNING:-0}
+STALE=$(powershell -NoProfile -Command "if (Test-Path 'results\l4b_v2_results.json') { [int]((Get-Date) - (Get-Item 'results\l4b_v2_results.json').LastWriteTime).TotalMinutes } else { -1 }" 2>/dev/null | tr -d '\r ')
+INCOMPLETE=$("$P" - <<'PY'
+import json, os
+def cells(path, want):
+    if not os.path.exists(path):
+        return 0, want
+    d = json.load(open(path))
+    n = sum(1 for axis in d.get("sweep", {}).values()
+            for arm in axis.values() for s in arm.values() if "held" in s)
+    return n, want
+n, want = cells("results/l4b_v2_results.json", 66)
+print("1" if n < want else "0")
+PY
+)
+if [ "$INCOMPLETE" = "1" ] && [ "$RUNNING" -eq 0 ]; then
+  echo
+  echo "  ############################################################"
+  echo "  #  A CHAIN IS INCOMPLETE AND NOTHING IS RUNNING."
+  echo "  #  Nothing is working on the missing cells. This is what a"
+  echo "  #  reboot or a killed process looks like, and it is"
+  echo "  #  indistinguishable from progress unless you look here."
+  echo "  #     ./resume.sh go        continues where it stopped"
+  echo "  #  last results write was ${STALE} minutes ago."
+  echo "  ############################################################"
+elif [ "$INCOMPLETE" = "1" ]; then
+  echo
+  echo "  (incomplete, and $RUNNING runner process(es) alive — in flight;"
+  echo "   last results write ${STALE} min ago, cells take roughly 50)"
+fi
+
 if [ "$1" != "go" ]; then
   echo
   echo "  (nothing run. use  ./resume.sh go  to continue the work)"

@@ -72,3 +72,14 @@ ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | ti
   [material] pi_fixed_w1e-4     seed 44: seen=0.0153 held=0.0263 w_pde=1.00e-04  [2629s]
   [material] pi_fixed_w1e-3     seed 42: seen=0.0167 held=0.0252 w_pde=1.00e-03  [2316s]
   [material] pi_fixed_w1e-3     seed 43: seen=0.0178 held=0.0258 w_pde=1.00e-03  [3028s]
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+  resuming results/l4b_v2_results.json
+
+ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | time-axis eval 768 samples / 192 materials | material-axis eval 793 / 48
+
+wrote results/l4b_v2_results.json  [127s]
