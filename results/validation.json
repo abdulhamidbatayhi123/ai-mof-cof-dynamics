@@ -14,7 +14,7 @@
       "gate": "plotting code loads a checkpoint",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
     },
     {
       "gate": "the manuscript contains no hand-typed number",
@@ -174,7 +174,7 @@
       "gate": "plotting code loads a checkpoint",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
     },
     "the manuscript contains no hand-typed number": {
       "gate": "the manuscript contains no hand-typed number",

@@ -83,12 +83,12 @@ accuracy per unit inference cost, or accuracy from less information. Two defects
 our own frozen protocol came from forgetting this, and both are recorded in
 Section~\ref{sec:corrections}.
 
-It also changes what counts as a strong result. McGreivy and Hakim, surveying
+It also changes what counts as a strong result. McGreivy and Hakim \cite{mcgreivy2024weak}, surveying
 machine learning for fluid-related partial differential equations, determine that
 \emph{79\,\% (60 of 76)} of articles claiming to outperform a standard numerical
 method compare against a weak baseline, and find reporting biases widespread. That
 finding is the design brief for this study rather than a citation of convenience.
-Grossmann and co-workers, comparing physics-informed networks against the finite
+Grossmann and co-workers \cite{grossmann2024pinn}, comparing physics-informed networks against the finite
 element method on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
 that the networks did not outperform FEM \emph{in their study} --- a scoped result,
 and we scope ours the same way.
@@ -99,11 +99,11 @@ L5 refutes our own explanation of why the operators fail. The negative results a
 the contribution.
 
 \paragraph{Prior art, stated up front.} Transfer to held-out \emph{systems} is
-established in operator learning: Poseidon pretrains on fluid-dynamics equations and
+established in operator learning: Poseidon \cite{herde2024poseidon} pretrains on fluid-dynamics equations and
 reports that it ``generalizes very well to new physics that is not seen during
-pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining
+pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining \cite{mccabe2023multiple}
 reports transfer to ``systems with previously unseen physical components''.
-Held-out \emph{materials} is established for interatomic potentials: MOFSimBench
+Held-out \emph{materials} is established for interatomic potentials: MOFSimBench \cite{krass2025mofsimbench}
 evaluates twenty universal machine-learning interatomic potentials on
 metal--organic frameworks. The two have not been combined, and we find no
 operator-learning study that evaluates transfer to held-out materials --- a claim we
@@ -111,7 +111,7 @@ state with the papers that would otherwise falsify it cited alongside it, becaus
 earlier and broader version of it was falsified by exactly those papers
 (Section~\ref{sec:corrections}, A23).
 
-Heinlein and Taraz establish, for DeepONets on Korteweg--de~Vries and Burgers
+Heinlein and Taraz \cite{heinlein2026error} establish, for DeepONets on Korteweg--de~Vries and Burgers
 equations, that the error is branch-dominated at large internal dimension, that the
 learned trunk can be replaced by a classical basis, and that the branch exhibits
 mode-wise spectral bias. We reproduce that signature independently and extend it in
@@ -123,7 +123,10 @@ proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\), an
 the residual against an oracle to an equivalent mode count; and we trace it to a
 measurable physical cause. Two independent groups, different input types, different
 partial differential equations, the same wall is a stronger statement than either
-result alone.
+result alone. A separate line of work formalises how a neural
+operator relates to its own discretisation \cite{bartolucci2023reno};
+our encoding is held fixed across every arm, so that axis is controlled rather
+than studied here.
 
 \paragraph{Contributions.}
 \begin{enumerate}
@@ -155,8 +158,8 @@ The model is a one-dimensional non-isothermal packed bed with axial dispersion, 
 linear-driving-force kinetic closure and a coupled energy balance. The inlet is a
 third- or flux-type boundary condition. That choice is load-bearing and was
 initially made wrongly: our first verification compared the solver against Ogata and
-Banks, who solve the \emph{first-} or concentration-type inlet. Against the correct
-closed form --- van Genuchten and Alves, who give the third-type solution --- the
+Banks \cite{ogata1961solution}, who solve the \emph{first-} or concentration-type inlet. Against the correct
+closed form --- van Genuchten and Alves \cite{vangenuchten1982analytical}, who give the third-type solution --- the
 error falls to \nLzeroTracer{} absolute, an improvement of more than an order of
 magnitude, with the residual maximum at the outlet where a finite column legitimately
 differs from a semi-infinite solution. The two boundary conditions differ by
@@ -187,7 +190,7 @@ check & term isolated & error \\
 inert tracer vs.\ van Genuchten third-type & advection, dispersion, the inlet & \nLzeroTracer{} abs \\
 retarded front, \(R = \nLzeroRetardedR\) & isotherm coupling, equilibrium limit & \nLzeroRetarded\,\% \\
 thermal wave, adsorption off & the energy equation & \nLzeroThermal\,\% \\
-linear driving force vs.\ Anzelius--Schumann & kinetics & \nLzeroLDF{} abs \\
+linear driving force vs.\ Anzelius--Schumann \cite{anzelius1926uber,schumann1929heat} & kinetics & \nLzeroLDF{} abs \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -198,8 +201,9 @@ MOF-303-parameterised one.
 
 \paragraph{What we read, and what we read through.} The Anzelius and Schumann papers
 are closed and carry no abstract in any bibliographic service, so the \(J\)-function
-was verified through Perry's handbook rather than from either original; the same is
-true of Danckwerts's 1953 paper, for which we additionally cite Pearson's note.
+was verified through Perry's handbook \cite{levan2019adsorption} rather than from either original; the same is
+true of Danckwerts's 1953 paper \cite{danckwerts1953continuous}, for which we
+additionally cite Pearson's note \cite{pearson1959note}.
 Section~\ref{sec:reproducibility} lists every reference cited through a secondary
 source rather than read at the primary. A study that audits its own numbers should
 audit its own reading.
@@ -219,7 +223,7 @@ largest uptake gradient as \(c \to 0\) --- the opposite of the mechanism. A bare
 Hill form produces the step but gives \(q \propto c^{n}\) at the origin, so
 \(\mathrm{d}q/\mathrm{d}c \to 0\) and Henry's law is violated.
 
-We therefore use a dual-term form \emph{in the spirit of} Do and Do: a Langmuir
+We therefore use a dual-term form \emph{in the spirit of} Do and Do \cite{dodo2000model}: a Langmuir
 primary-site term carrying the Henry limit, plus a cooperative Sips term producing
 the step,
 \begin{equation}
@@ -236,8 +240,8 @@ The phrase ``in the spirit of'' is deliberate. Do and Do superpose an \(n\)-laye
 BET primary term with a Sips term; ours is a Langmuir primary term with a Sips term.
 What we take from them is the two-term construction and the fact that \emph{only the
 primary term carries the Henry slope} --- their Sips term, like ours, has slope
-exactly zero at the origin. Their cluster exponent is fixed; ours is a sampled
-material parameter. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
+exactly zero at the origin \cite{buttersack2019modeling}. Their cluster exponent is fixed; ours is a sampled
+material parameter, which is the later model's treatment \cite{dodo2009new}. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
 be wrong, and it is a correction we made to our own text
 (Section~\ref{sec:corrections}, B56). ``Type~V'' is likewise our own label on IUPAC
 grounds; the modelling literature calls this family Type~IV.
@@ -267,11 +271,11 @@ follows. The two features move \emph{independently} with material parameters, an
 their separation at the outlet spans \nGapMin--\nGapMax\ in normalised time --- a factor of \nGapRange\ across our parameter space. Everything downstream is shaped by that
 number.
 
-This is established behaviour, not our observation. LeVan and Carta give the
+This is established behaviour, not our observation. LeVan and Carta \cite{levan2019adsorption} give the
 mechanism: an unfavourable dimensionless isotherm admits a simple wave because low
 concentrations travel faster than high ones, a favourable isotherm admits no simple
 wave and the solution is a shock, and a favourable isotherm with mass-transfer
-resistance approaches a constant pattern. Bozbiyik and co-workers measured a stepped
+resistance approaches a constant pattern. Bozbiyik and co-workers \cite{bozbiyik2017stepped} measured a stepped
 breakthrough on aluminium fumarate, and report that it is feed-condition dependent
 --- a single step at low water partial pressure, a stepped profile at higher partial
 pressure.
@@ -279,12 +283,12 @@ pressure.
 \subsection{The solver against a real MOF-303 bed, with nothing fitted}
 \label{sec:anchor}
 
-Lassitter and co-workers report a MOF-303 packed-bed breakthrough whose conditions
+Lassitter and co-workers \cite{lassitter2024mass} report a MOF-303 packed-bed breakthrough whose conditions
 are fully specified in their supplementary information: a \SI{6.35}{\milli\metre}
 bed in a \SI{38.1}{\milli\metre} tube, ambient air at \SI{32.8}{\percent} relative
 humidity, \SI{298.15}{\kelvin}, bulk density \SI{429.6}{\kilo\gram\per\metre\cubed}.
 The comparison was pre-registered before it was run. Inputs are the cited MOF-303
-isotherm, their bed, and declared bands for what the source does not give.
+isotherm \cite{hanikel2021evolution,fathieh2018practical}, their bed, and declared bands for what the source does not give.
 
 The measured curve shows first leak at \nAnchorTfiveExp\ minutes, a Henry-branch
 plateau at \nAnchorPlateauExp{} of the inlet, and 50\,\% arrival at
@@ -310,6 +314,13 @@ closure, which turns out to need a more careful statement than we first gave it.
 \section{Dataset, splits and statistics}
 \label{sec:dataset}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig2_dataset_v2.pdf}
+\caption{Dataset v2. \textbf{A}~The material space, \emph{one point per material} --- the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
+\label{fig:dataset}
+\end{figure}
+
 \subsection{Design}
 
 The dataset contains \nDataNsamples\ accepted simulations over \nDataNmaterials\
@@ -317,7 +328,8 @@ materials and \nDataNconditions\ operating conditions, sampled by a scrambled So
 sequence over eight material parameters and three condition parameters;
 \nDataNrejected\ candidates were rejected by a screen before being solved. The
 kinetic coefficient is not sampled independently: it is derived from particle size
-through a Glueckauf relation, so kinetics and geometry stay physically consistent.
+through a Glueckauf relation \cite{glueckauf1947theory,glueckauf1955theory}, so kinetics
+and geometry stay physically consistent.
 
 Damk\"ohler number is reported with its denominator attached, because the two useful
 summaries differ, and quoting either unlabelled is how a reader ends up unable to
@@ -376,6 +388,13 @@ and is an upper bound, not a comparable result. \textbf{B}~The primary
 pre-registered estimand of rung L6, in its own units. \textbf{C}~Verification of the
 reference (Table~\ref{tab:l0}).}
 \label{fig:ladder}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
+\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the proper-orthogonal-decomposition floor. \textbf{B}~The materials learning curve with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls monotonically. \textbf{D}~L3 at three matched budgets, each family at its own best learning rate --- the in-bar labels are those rates, and they span three orders of magnitude.}
+\label{fig:rungs}
 \end{figure}
 
 \subsection{L1 --- more data}
@@ -460,11 +479,12 @@ excluded and listed, never averaged in. We did not tune the perceptron and leave
 Kolmogorov--Arnold arms at a default.
 
 \paragraph{The literature is split, and this result is worth more because of it.}
-Shukla and co-workers report that spline-based Kolmogorov--Arnold networks lack
+Shukla and co-workers \cite{shukla2024comprehensive} report that spline-based
+Kolmogorov--Arnold networks lack
 accuracy and efficiency while modified ones on low-order orthogonal polynomials are
 \emph{comparable} to perceptron baselines but not robust. But Wang and co-workers'
-KINN reports that it ``significantly outperforms MLP regarding accuracy and
-convergence speed'' on solid-mechanics problems, and Rigas and co-workers report
+KINN \cite{wang2025kinn} reports that it ``significantly outperforms MLP regarding accuracy and
+convergence speed'' on solid-mechanics problems, and Rigas and co-workers \cite{rigas2026training} report
 that residual-gated adaptive Kolmogorov--Arnold networks ``consistently outperform
 parameter-matched cPIKANs and PirateNets'' --- and PirateNet is a perceptron
 architecture. An earlier draft of this section cited two of these papers for a
@@ -514,7 +534,7 @@ and a half decades, DeepONet is \textbf{flat in basis size}: \nLfiveFlatDiff\ fr
 sits fifty-five times above its own lower bound. \emph{Giving DeepONet 128 basis
 functions buys it the accuracy of four.}
 
-\paragraph{The arm the theory names.} Lanthaler and co-workers prove that operator
+\paragraph{The arm the theory names.} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
 architectures with a linear reconstruction step --- DeepONet, PCA-Net, and
 proper-orthogonal-decomposition-plus-regressor --- are lower-bounded on
 advection-dominated problems, and that the Fourier neural operator escapes that
@@ -653,7 +673,7 @@ combination of a fixed basis is bounded below by it. Our frozen protocol called 
 the load-bearing result of the ladder and predicted that DeepONet would track it.
 The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
 A17. For transport-dominated problems the slow decay is established --- Ohlberger
-and Rave prove a \emph{lower} bound of \(\tfrac12 N^{-1/2}\) for linear advection
+and Rave \cite{ohlberger2016reduced} prove a \emph{lower} bound of \(\tfrac12 N^{-1/2}\) for linear advection
 with jump discontinuities, which is a bound and not a rate, and we state it that
 way.
 
@@ -674,20 +694,23 @@ oracle arm is significantly better and is an upper bound.}
 
 Aligning multiple transports is \textbf{not new}, and none of it is claimed here.
 The two-transport case is the founding worked example of the shifted proper
-orthogonal decomposition, where a pressure pulse splitting into two waves is
+orthogonal decomposition \cite{reiss2018shifted}, where a pressure pulse splitting into two waves is
 reconstructed with two modes --- one per co-moving frame --- against more than
 eighty ordinary modes; the general formulation covers arbitrary numbers of
-independent transports. Multi-front variants follow in several later works.
+independent transports. Multi-front variants follow in several later works \cite{nair2019transported,mendible2020dimensionality,krah2025robust,krah2023front,zorawski2024neural}.
 Shape--timescale decomposition of breakthrough curves specifically has been
-published, with a \emph{single} characteristic time and a uniform rescaling.
+published \cite{lee2026scaleup}, with a \emph{single} characteristic time and a
+uniform rescaling.
 
 Nor is the map new mathematics. Piecewise landmark registration --- a monotone warp
 built by interpolating between identified landmark times --- is the standard
-alignment method in functional data analysis, and \textbf{our two-landmark linear
-case reduces exactly to it}. Zucatti and Zahr use landmark-based registration for
+alignment method in functional data analysis \cite{kneip1992statistical,ramsay1998curve}, and \textbf{our two-landmark linear
+case reduces exactly to it}. Zucatti and Zahr \cite{zucatti2026model} use landmark-based registration for
 reduced-order models of convection-dominated problems, which is the same primitive
 applied to shock features in space rather than to fronts in time; it is the nearest
-neighbour of this section and we name it as such.
+neighbour of this section and we name it as such. Registration-based reduction is
+itself an established family \cite{taddei2020registration,taddei2026erratum}, so this
+narrows our claim rather than restoring novelty.
 
 \textbf{What is ours is the measurement.}
 
@@ -760,7 +783,7 @@ material count rather than at architecture.
 
 \paragraph{A constant-pattern objection, pre-empted.} A referee may observe that
 constant-pattern behaviour --- a front propagating without changing shape --- is
-long established in fixed-bed adsorption, and that equation~\eqref{eq:warp} merely
+long established in fixed-bed adsorption \cite{knox2016limitations}, and that equation~\eqref{eq:warp} merely
 re-derives constant-pattern scaling. It does not, and the reason is the same
 measurement that killed the single-front frame: when the two fronts move at
 different rates, and their separation varies \nGapRange-fold, no single scale factor
@@ -782,7 +805,7 @@ We report this for two reasons. The first is that the corrections are load-beari
 three of them reversed headline verdicts, and a reader who does not know which
 numbers moved cannot evaluate the ones that did not. The second is evidential.
 Disclosed self-correction is received well, and the Loss-of-Confidence Project
-documents that; the alternative --- a paper in which nothing ever went wrong --- is
+documents that \cite{rohrer2021loss}; the alternative --- a paper in which nothing ever went wrong --- is
 less credible, not more.
 
 \paragraph{The classes that recur.} Five patterns account for most of the ledger.
@@ -817,8 +840,9 @@ replacement in our favour, and is recorded on the same terms.
 
 \paragraph{What remains open.} One entry is deliberately unresolved. The classical
 control in rung L7 uses an approximation attributed in our bibliography to
-Klinkenberg's 1948 paper, while the standard secondary source attributes that
-equation to a different Klinkenberg paper of 1954. Neither is retrievable
+Klinkenberg's 1948 paper \cite{klinkenberg1948numerical}, while the standard
+secondary source attributes that equation to a different Klinkenberg paper of 1954
+\cite{klinkenberg1954heat}. Neither is retrievable
 electronically, and the ambiguity is recorded rather than settled by choosing the
 year that looks right.
 
@@ -838,13 +862,13 @@ validity. Every other number is surrogate-versus-solver.
 
 \paragraph{The dispersion closure needs a more careful statement than we first gave
 it.} Our datasets use \(D_L = 0.7 D_m + 0.5 d_p u\). Two corrections apply. The
-coefficients are attributable to Wakao and Funazkri rather than to the textbook we
-originally cited, and Perry's handbook presents that form as a \emph{lower bound}
+coefficients are attributable to Wakao and Funazkri \cite{wakao1978effect}
+rather than to the textbook we originally cited, and Perry's handbook presents that form as a \emph{lower bound}
 for \emph{nonporous} particles, noting that the leading coefficient rises to as much
 as \(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and
 that for strongly adsorbed species the effective axial dispersion is much larger.
 Our beds are porous, strongly adsorbing frameworks taking up water --- the case that
-statement excludes. Edwards and Richardson's alternative reduces to the same
+statement excludes. Edwards and Richardson's alternative \cite{edwards1968gas} reduces to the same
 coefficient only at high particle P\'eclet number. This does not affect any
 surrogate result, because the solver is the reference whatever closure it uses, but
 it bounds how far the reference may be read as physical.
@@ -853,10 +877,11 @@ it bounds how far the reference may be read as physical.
 The Henry fraction was fitted to the step position and the capacity, never to
 dynamics. The anchor comparison is the first measurement that constrains it and
 shows the model holds too little water below the step. Separately, the step position
-in real MOF-303 shifts with temperature, while ours is fixed.
+in real MOF-303 shifts with temperature \cite{hastings2024high},
+while ours is fixed.
 
 \paragraph{Two parameters are not measurements.} Pellet density and total porosity
-are packing values, not MOF-303 measurements. No citable measured heat capacity for
+are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for
 MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
 constant.
 
