@@ -280,6 +280,13 @@ breakthrough on aluminium fumarate, and report that it is feed-condition depende
 --- a single step at low water partial pressure, a stepped profile at higher partial
 pressure.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig7_anchor.pdf}
+\caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. The measured effluent shows a Henry-branch leak to an intermediate plateau near a third of the feed, then a cooperative shock much later in the run --- the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed one or two pellets deep.}
+\label{fig:anchor}
+\end{figure}
+
 \subsection{The solver against a real MOF-303 bed, with nothing fitted}
 \label{sec:anchor}
 
@@ -297,7 +304,7 @@ plateau at \nAnchorPlateauExp{} of the inlet, and 50\,\% arrival at
 \(\mathrm{nRMSE} = \nAnchorNrmse\) against the digitised effluent points --- against
 \nAnchorNrmseComsol\ for the authors' own two-dimensional COMSOL model with fitted kinetics.
 The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 bed
-does, and the cited isotherm predicts it.
+does, and the cited isotherm predicts it (Figure~\ref{fig:anchor}).
 
 Two discrepancies, both attributable, both reported. The first wave arrives
 \emph{too early} in the model (\nAnchorTfiveModel\ minutes against
@@ -316,7 +323,7 @@ closure, which turns out to need a more careful statement than we first gave it.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/Fig2_dataset_v2.pdf}
+\includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
 \caption{Dataset v2. \textbf{A}~The material space, \emph{one point per material} --- the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
 \label{fig:dataset}
 \end{figure}
@@ -524,10 +531,17 @@ post-hoc sweep over refinement learning rate and step count tests whether that
 verdict is a property of physics at inference or of one configuration of it
 (Section~\ref{sec:corrections}, B60).
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig4_operators.pdf}
+\caption{The operator rung. \textbf{A}~Held-out error against basis size, with the proper-orthogonal-decomposition floor. The floor falls by more than an order of magnitude and no arm follows it; the Fourier operator has no basis size and is drawn as a horizontal line. \textbf{B}~What ``flat'' means: the paired differences against \(p = 8\), every interval spanning zero across a sixteenfold change in basis size. \textbf{C}~Per-mode \(R^2\) of the parameter-to-coefficient map on held-out materials at the largest basis --- the leading mode is predicted well, a handful partially, and beyond about the twenty-fourth the median is below zero, worse than predicting the mean.}
+\label{fig:operators}
+\end{figure}
+
 \subsection{L5 --- you need an operator}
 
 At matched parameter counts and each family at its own best learning rate over three
-and a half decades, DeepONet is \textbf{flat in basis size}: \nLfiveFlatDiff\ from
+and a half decades, DeepONet is \textbf{flat in basis size} (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from
 \(p = 8\) to \(p = 128\), interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero
 --- while its own proper-orthogonal-decomposition floor falls from
 \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). At \(p = 128\) it
@@ -631,7 +645,7 @@ fast kinetics.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/Fig10_mechanism.pdf}
+\includegraphics[width=\textwidth]{../figures/Fig5_mechanism.pdf}
 \caption{The mechanism. \textbf{A}~Held-out error against basis size: the floor
 falls \(\nFloorDrop\times\) while every arm is flat. \textbf{B}~The two terms of a linear
 reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
@@ -683,7 +697,7 @@ way.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/Fig11_two_wave_warp.pdf}
+\includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
 \caption{The two-wave frame. \textbf{A}~Modes for 99.9\,\% of training variance per
 frame. \textbf{B}~The powered verdict: the honest arm ties the fixed frame, the
 oracle arm is significantly better and is an upper bound.}

@@ -19,3 +19,16 @@ Consider using tensor.detach() first. (Triggered internally at C:\actions-runner
   [time    ] data_only          seed 44: held 0.0138 -> 0.0777 | seen 0.0157 -> 0.1040 | failed units 0  [11736s]
 
 wrote results/l4b_v2_refine.json  [39338s]
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+  resuming results/l4b_v2_refine.json
+
+[material] arms ['data_only']; 48 units
+
+[time] arms ['data_only']; 192 units
+
+wrote results/l4b_v2_refine.json  [56s]

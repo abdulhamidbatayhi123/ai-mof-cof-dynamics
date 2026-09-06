@@ -79,9 +79,9 @@ def main():
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"{OUT}/Fig11_two_wave_warp.{ext}", bbox_inches="tight")
+        fig.savefig(f"{OUT}/Fig6_warp.{ext}", bbox_inches="tight")
     plt.close(fig)
-    print(f"wrote {OUT}/Fig11_two_wave_warp.png/.pdf")
+    print(f"wrote {OUT}/Fig6_warp.png/.pdf")
 
 
 if __name__ == "__main__":

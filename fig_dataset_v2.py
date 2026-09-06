@@ -97,7 +97,6 @@ def main():
     b.set_xscale("log")
     b.set_xlabel("Damkohler number (median per material)")
     b.set_ylabel("materials")
-    lo, hi = iso and da.min(), da.max()
     b.set_title(f"B. Da spans {np.log10(da.max() / da.min()):.2f} decades — "
                 f"why L6 is testable", fontsize=9.5, loc="left")
     b.legend(fontsize=7.5, loc="upper right")
@@ -129,9 +128,9 @@ def main():
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"{OUT}/Fig2_dataset_v2.{ext}", bbox_inches="tight")
+        fig.savefig(f"{OUT}/Fig2_dataset.{ext}", bbox_inches="tight")
     plt.close(fig)
-    print(f"wrote {OUT}/Fig2_dataset_v2.png/.pdf  "
+    print(f"wrote {OUT}/Fig2_dataset.png/.pdf  "
           f"({len(mats)} materials: {n_train} training, {n_held} held out; "
           f"Da {da.min():.1f}-{da.max():.0f}; {n_clipped} Henry outliers clipped)")
 

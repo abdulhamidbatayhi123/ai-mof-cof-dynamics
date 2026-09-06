@@ -743,7 +743,7 @@ while the best arm improved only from ~0.049 to 0.031 — the ratio above the fl
 c-channel, POD p = 32 + per-mode gradient boosting (legacy A18's function class),
 5 folds × 3 seeds at every size, subsets drawn from each fold's own 192 training
 materials (`results/learning_curve_v2.json`, `results/learning_curve_v2_verdict.json`,
-`figures/Fig8_learning_curve_v2`):
+`figures/FigS1_learning_curve`):
 
 | training materials | 12 | 24 | 48 | 96 | 192 |
 |---|---|---|---|---|---|
@@ -911,7 +911,7 @@ whose conditions are fully on record (their SI Table S8): a **6.35 mm** bed in a
 38.1 mm tube, 670.8 cm³/min of ambient air at **32.8 % RH**, 298.15 K, 3.11 g,
 bulk density 429.6 kg/m³, porosity 0.4 (their estimate). Digitised in
 `refs/Lassitter2024_fig10_digitised.csv`; results in
-`results/lassitter_comparison.json`; figure `figures/Fig9_lassitter_anchor`.
+`results/lassitter_comparison.json`; figure `figures/Fig7_anchor`.
 
 Inputs: the cited MOF-303 isotherm (`get_mof303_physics`, A4), the SI bed, and three
 declared bands for what the source does not give — k_LDF ∈ {0.011, 0.05, 0.20} s⁻¹
@@ -957,7 +957,7 @@ the authors also assumed.
 
 > **Post-hoc sensitivity — labelled as such, chosen after seeing the result, not a
 > fit and not the result** (`compare_lassitter_posthoc.py`,
-> `results/lassitter_comparison_posthoc.json`, `figures/Fig9b_lassitter_posthoc`).
+> `results/lassitter_comparison_posthoc.json`, `figures/Fig7b_anchor_posthoc`).
 > With the authors' Bruggeman closure and everything else unchanged: t50 313 min,
 > t95 **329** min (experiment 354), plateau 0.234 (experiment 0.267), nRMSE
 > **0.083** against the fitted COMSOL's 0.069. The shock width is recovered; the

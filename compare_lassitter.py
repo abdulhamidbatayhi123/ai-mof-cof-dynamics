@@ -175,8 +175,8 @@ def main():
     ax.legend(fontsize=7, loc="lower right")
     os.makedirs("figures", exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"figures/Fig9_lassitter_anchor.{ext}", dpi=600, bbox_inches="tight")
-    print(f"wrote results/lassitter_comparison.json and figures/Fig9_lassitter_anchor.png/.pdf  [{time.time() - t0:.0f}s]")
+        fig.savefig(f"figures/Fig7_anchor.{ext}", dpi=600, bbox_inches="tight")
+    print(f"wrote results/lassitter_comparison.json and figures/Fig7_anchor.png/.pdf  [{time.time() - t0:.0f}s]")
 
 
 if __name__ == "__main__":

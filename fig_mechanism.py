@@ -85,9 +85,9 @@ def main():
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"{OUT}/Fig10_mechanism.{ext}", bbox_inches="tight")
+        fig.savefig(f"{OUT}/Fig5_mechanism.{ext}", bbox_inches="tight")
     plt.close(fig)
-    print(f"wrote {OUT}/Fig10_mechanism.png/.pdf")
+    print(f"wrote {OUT}/Fig5_mechanism.png/.pdf")
 
 
 if __name__ == "__main__":

@@ -73,8 +73,8 @@ def main():
     ax.set_title("post-hoc dispersion sensitivity — labelled as such, not the result")
     ax.legend(fontsize=7, loc="lower right")
     for ext in ("png", "pdf"):
-        fig.savefig(f"figures/Fig9b_lassitter_posthoc.{ext}", dpi=600, bbox_inches="tight")
-    print("wrote results/lassitter_comparison_posthoc.json and figures/Fig9b_lassitter_posthoc.png/.pdf")
+        fig.savefig(f"figures/Fig7b_anchor_posthoc.{ext}", dpi=600, bbox_inches="tight")
+    print("wrote results/lassitter_comparison_posthoc.json and figures/Fig7b_anchor_posthoc.png/.pdf")
 
 
 if __name__ == "__main__":
