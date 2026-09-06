@@ -159,9 +159,25 @@
     "AnchorNrmseComsol": "0.069",
     "LsixLegacyBetweenSD": "0.0391",
     "LsixLegacyBase": "0.0566",
+    "DataNsamples": "3947",
+    "DataNmaterials": "240",
+    "DataNconditions": "17",
+    "DataNrejected": "133",
+    "DataNheldout": "48",
+    "DaSampleMedian": "27.5",
+    "DaSampleBand": "77.8",
+    "DaSampleMin": "3.8",
+    "DaSampleMax": "689",
+    "DaMatMedian": "25.0",
+    "DaMatBand": "85.0",
+    "DaMatMin": "7.7",
+    "DaMatMax": "173",
+    "DaMatDecades": "1.35",
+    "DaLegacyMedian": "625.6",
+    "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "62",
-    "LedgerTotal": "88",
+    "LedgerB": "63",
+    "LedgerTotal": "89",
     "LedgerOwn": "30",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbVerdictTime": "\\textbf{[PENDING]}",
@@ -811,6 +827,70 @@
     "LsixLegacyBase": {
       "file": "results/l6_power_corrected.json",
       "path": "base"
+    },
+    "DataNsamples": {
+      "file": "results/dataset_summary.json",
+      "path": "n_samples"
+    },
+    "DataNmaterials": {
+      "file": "results/dataset_summary.json",
+      "path": "n_materials"
+    },
+    "DataNconditions": {
+      "file": "results/dataset_summary.json",
+      "path": "n_conditions"
+    },
+    "DataNrejected": {
+      "file": "results/dataset_summary.json",
+      "path": "n_rejected"
+    },
+    "DataNheldout": {
+      "file": "results/dataset_summary.json",
+      "path": "n_held_out_materials"
+    },
+    "DaSampleMedian": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_sample.median"
+    },
+    "DaSampleBand": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_sample.frac_in_band"
+    },
+    "DaSampleMin": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_sample.min"
+    },
+    "DaSampleMax": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_sample.max"
+    },
+    "DaMatMedian": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_material.median"
+    },
+    "DaMatBand": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_material.frac_in_band"
+    },
+    "DaMatMin": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_material.min"
+    },
+    "DaMatMax": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_material.max"
+    },
+    "DaMatDecades": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_per_material.decades"
+    },
+    "DaLegacyMedian": {
+      "file": "results/dataset_summary_legacy.json",
+      "path": "damkohler_per_sample.median"
+    },
+    "DaLegacyAbove": {
+      "file": "results/dataset_summary_legacy.json",
+      "path": "frac_above_band_per_sample"
     },
     "LedgerA": {
       "file": "results/ledger_counts.json",

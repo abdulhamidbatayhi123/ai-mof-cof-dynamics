@@ -258,6 +258,24 @@ SPEC = [
     ("LsixLegacyBetweenSD", "results/l6_power_corrected.json", "between_sd", "{:.4f}"),
     ("LsixLegacyBase", "results/l6_power_corrected.json", "base", "{:.4f}"),
 
+    # ---------------------------------------- the dataset, both denominators named (B63)
+    ("DataNsamples", "results/dataset_summary.json", "n_samples", "{:d}"),
+    ("DataNmaterials", "results/dataset_summary.json", "n_materials", "{:d}"),
+    ("DataNconditions", "results/dataset_summary.json", "n_conditions", "{:d}"),
+    ("DataNrejected", "results/dataset_summary.json", "n_rejected", "{:d}"),
+    ("DataNheldout", "results/dataset_summary.json", "n_held_out_materials", "{:d}"),
+    ("DaSampleMedian", "results/dataset_summary.json", "damkohler_per_sample.median", "{:.1f}"),
+    ("DaSampleBand", "results/dataset_summary.json", "damkohler_per_sample.frac_in_band", pct),
+    ("DaSampleMin", "results/dataset_summary.json", "damkohler_per_sample.min", "{:.1f}"),
+    ("DaSampleMax", "results/dataset_summary.json", "damkohler_per_sample.max", "{:.0f}"),
+    ("DaMatMedian", "results/dataset_summary.json", "damkohler_per_material.median", "{:.1f}"),
+    ("DaMatBand", "results/dataset_summary.json", "damkohler_per_material.frac_in_band", pct),
+    ("DaMatMin", "results/dataset_summary.json", "damkohler_per_material.min", "{:.1f}"),
+    ("DaMatMax", "results/dataset_summary.json", "damkohler_per_material.max", "{:.0f}"),
+    ("DaMatDecades", "results/dataset_summary.json", "damkohler_per_material.decades", "{:.2f}"),
+    ("DaLegacyMedian", "results/dataset_summary_legacy.json", "damkohler_per_sample.median", "{:.1f}"),
+    ("DaLegacyAbove", "results/dataset_summary_legacy.json", "frac_above_band_per_sample", pct),
+
     # ---------------------------------------- the correction ledger, counted not typed
     ("LedgerA", "results/ledger_counts.json", "n_part_a", "{:d}"),
     ("LedgerB", "results/ledger_counts.json", "n_part_b", "{:d}"),

@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-05 after the L1/L2/L7 v2 chain completed and L4b-v2 was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 62 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 63 Part-B**.
 
 ---
 
@@ -144,14 +144,16 @@ L6-v2, 240 held-out materials, every comparison significant:
 | anchor | solver vs Lassitter 2024 Fig. 10: t50 303 vs 287 min, plateau 0.34 vs 0.27, no fitting; first wave ~80 min early (isotherm low-RH branch), shock too dispersed under Ruthven on a 1–2-pellet bed (Pe ≈ 1; Bruggeman post-hoc gives nRMSE 0.083 vs the fitted COMSOL's 0.069) |
 
 **Dataset v2** — 3947 sims, 240 materials, Sobol, Glueckauf kinetics.
-Da median **27.5** with **77.8 %** in the informative 5–60 band, against legacy's
-626 and 1.1 %.
+Da **per sample** (n = 3947): median **27.5**, **77.8 %** in the informative 5–60 band,
+range 3.8–689. Da **per material** (n = 240, a median of medians — the axis L6's slope
+test uses): median **25.0**, **85.0 %** in band, 1.35 decades. Legacy per sample: median
+**625.6**, **98.9 %** ABOVE the band. Name the denominator (**B63**); `dataset_summary.py`.
 
 ---
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 26 Part-A, 62 Part-B; 30 entries carry the words
+1. **The retraction ledger.** 26 Part-A, 63 Part-B; 30 entries carry the words
    "our own error" and several more are self-attributed in other words.
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.

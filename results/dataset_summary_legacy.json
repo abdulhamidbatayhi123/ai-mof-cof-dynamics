@@ -1,0 +1,39 @@
+{
+  "root": "data/parametric",
+  "design": "legacy",
+  "n_samples": 988,
+  "n_materials": 60,
+  "n_conditions": 17,
+  "n_rejected": 32,
+  "n_held_out_materials": 12,
+  "split_counts": {
+    "train": 691,
+    "novel_condition": 96,
+    "novel_material": 201
+  },
+  "band": [
+    5.0,
+    60.0
+  ],
+  "damkohler_source": "RECONSTRUCTED as k_LDF * t_final, the definition v2 uses (gen_parametric_dataset.py). Not recorded in this manifest.",
+  "frac_above_band_per_sample": 0.9888663967611336,
+  "damkohler_per_sample": {
+    "denominator": "one value per SAMPLE",
+    "n": 988,
+    "min": 20.84728939302431,
+    "median": 625.6393639917043,
+    "max": 15107.51241598692,
+    "decades": 2.8601433647135632,
+    "frac_in_band": 0.011133603238866396
+  },
+  "damkohler_per_material": {
+    "denominator": "the MEDIAN over each material's own samples, one value per MATERIAL -- this is the axis L6's slope test regresses on",
+    "n": 60,
+    "min": 70.74943481482961,
+    "median": 596.0235538045779,
+    "max": 1973.584689857538,
+    "decades": 1.445532792613874,
+    "frac_in_band": 0.0
+  },
+  "note": "The two Damkohler summaries are different quantities, not a discrepancy. Any document quoting either must name its denominator."
+}

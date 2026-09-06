@@ -315,16 +315,29 @@ closure, which turns out to need a more careful statement than we first gave it.
 
 \subsection{Design}
 
-The dataset contains 3947 accepted simulations over 240 materials and 17 operating
-conditions, sampled by scrambled Sobol sequence over eight material parameters and
-three condition parameters. The kinetic coefficient is not sampled independently: it
-is derived from particle size through a Glueckauf relation, so that kinetics and
-geometry stay physically consistent. Damk\"ohler number spans \nLsixDaMin\ to
-\nLsixDaMax, median \nLsixDaMedian, i.e.\ \nLsixDaDecades\ decades.
+The dataset contains \nDataNsamples\ accepted simulations over \nDataNmaterials\
+materials and \nDataNconditions\ operating conditions, sampled by a scrambled Sobol
+sequence over eight material parameters and three condition parameters;
+\nDataNrejected\ candidates were rejected by a screen before being solved. The
+kinetic coefficient is not sampled independently: it is derived from particle size
+through a Glueckauf relation, so kinetics and geometry stay physically consistent.
 
-That range is the reason this dataset exists. An earlier dataset placed almost all of its samples above a Damk\"ohler number of sixty, which made the primary hypothesis of rung L6
---- that separating the kinetic object should pay most where kinetics dominate ---
-untestable in principle rather than merely underpowered.
+Damk\"ohler number is reported with its denominator attached, because the two useful
+summaries differ, and quoting either unlabelled is how a reader ends up unable to
+reconcile them. \textbf{Per sample} (\nDataNsamples\ values): median
+\nDaSampleMedian, range \nDaSampleMin--\nDaSampleMax, \nDaSampleBand\,\% in the
+informative band. \textbf{Per material} (\nDataNmaterials\ values, each the median
+over that material's own conditions --- and the axis rung L6's slope test regresses
+on): median \nDaMatMedian, range \nDaMatMin--\nDaMatMax, spanning \nDaMatDecades{}
+decades, \nDaMatBand\,\% in band.
+
+That range is the reason this dataset exists. An earlier dataset had a per-sample
+median of \nDaLegacyMedian\ and placed \nDaLegacyAbove\,\% of its samples
+\emph{above} the band, which made the primary hypothesis of rung L6 --- that
+separating the kinetic object should pay most where kinetics dominate --- untestable
+in principle rather than merely underpowered. That figure had itself lived only in a
+comment in the generator until it was recomputed for this paper
+(Section~\ref{sec:corrections}, B63); it reproduces exactly.
 
 \subsection{The splits, and why the test is clustered}
 

@@ -603,9 +603,10 @@ all **240 materials** (every material held out exactly once), 3 arms × 3 seeds 
 **Both invalidation checks passed before any verdict was computed:** the kinetic
 object `d_p` is unrecoverable from the observable descriptors (**R² = −0.256**,
 worse than the mean) while the equilibrium shape is recoverable (R² = 0.93–0.98);
-and Damköhler spans **1.35 decades** (7.7 → 173), enough for a slope test. The
-legacy dataset could not have supported this estimand at all — 98.9 % of it sat
-above Da 60.
+and Damköhler **per material** — the median over each material's own samples, which is
+the axis this slope test regresses on — spans **1.35 decades** (7.7 → 173), enough for a
+slope test. The legacy dataset could not have supported this estimand at all: **98.9 % of
+its samples** sat above Da 60 (reconstructed as `k_LDF × t_final`, **B63**).
 
 ### PRIMARY (pre-registered): the Damköhler mechanism is refuted
 
@@ -1093,7 +1094,7 @@ and the point estimate goes in the *wrong direction*.
 > confirmatory. (ii) L6 should be estimated as an effect **as a function of
 > Damköhler** rather than as one pooled mean difference — a regression uses the
 > between-material structure instead of paying for it as noise, and the legacy
-> dataset could not do this at all because 98.9 % of it sat at Da > 60.
+> dataset could not do this at all because **98.9 % of its samples** sat at Da > 60.
 
 ### Why the separate arm does not help here
 
@@ -1122,8 +1123,8 @@ methodology that produced it, is the contribution.
 
 - **`validate.py`** — 24 gates, all passing. No number enters the manuscript from
   a failing category.
-- **`RETRACTIONS.md`** — 26 Part-A, 62 Part-B caught before
-  contamination. **30 of the 88 entries carry the words "our own error"** (counted by `ledger_counts.py`, never typed), and
+- **`RETRACTIONS.md`** — 26 Part-A, 63 Part-B caught before
+  contamination. **30 of the 89 entries carry the words "our own error"** (counted by `ledger_counts.py`, never typed), and
   several more are self-attributed in other words (A22, A23, A25, B39, B41, B42,
   B43, B45-B53) — in the
   analysis, the validation gates, the power simulations, or the frozen protocol

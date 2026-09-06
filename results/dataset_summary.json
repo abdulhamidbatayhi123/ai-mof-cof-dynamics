@@ -1,0 +1,37 @@
+{
+  "root": "data/parametric_v2",
+  "design": "v2",
+  "n_samples": 3947,
+  "n_materials": 240,
+  "n_conditions": 17,
+  "n_rejected": 133,
+  "n_held_out_materials": 48,
+  "split_counts": {
+    "train": 2770,
+    "novel_condition": 384,
+    "novel_material": 793
+  },
+  "band": [
+    5.0,
+    60.0
+  ],
+  "damkohler_per_sample": {
+    "denominator": "one value per SAMPLE",
+    "n": 3947,
+    "min": 3.824607488340196,
+    "median": 27.531051862239213,
+    "max": 688.7408997297326,
+    "decades": 2.255469002584259,
+    "frac_in_band": 0.7780592855333165
+  },
+  "damkohler_per_material": {
+    "denominator": "the MEDIAN over each material's own samples, one value per MATERIAL -- this is the axis L6's slope test regresses on",
+    "n": 240,
+    "min": 7.674276783564445,
+    "median": 25.033291100391775,
+    "max": 172.97337465186396,
+    "decades": 1.3529417998521436,
+    "frac_in_band": 0.85
+  },
+  "note": "The two Damkohler summaries are different quantities, not a discrepancy. Any document quoting either must name its denominator."
+}
