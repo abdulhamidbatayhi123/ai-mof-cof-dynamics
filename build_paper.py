@@ -35,55 +35,104 @@ NUMBERS_TEX = os.path.join(ROOT, "paper", "numbers.tex")
 
 # Literals that may appear in the prose, each with the reason it is not a result.
 # A number that IS a result does not belong here -- it belongs in numbers.py.
-ALLOWED = {
+#
+# The REASONS are the audit trail, so the list is built as pairs and checked for
+# duplicate keys rather than written as a dict literal: a repeated key in a dict
+# literal silently keeps the last value and throws the other justification away,
+# which happened twice here ("24" as a mode index and as the gate count; "2000" as a
+# grid size and as a citation year). A justification that vanishes without a word is
+# the same failure as a number without a script.
+_ALLOWED_PAIRS = [
     # structural constants of the experimental design, which name axes rather than
     # report outcomes; they are fixed by the protocol, not measured
-    "8": "basis size p, an axis label",
-    "12": "the smallest training-material count, an axis label",
-    "24": "a mode index naming where per-mode R^2 crosses zero",
-    "48": "a training-material count, an axis label",
-    "64": "POD modes per channel, a fixed encoding choice",
-    "96": "a training-material count, an axis label",
-    "128": "basis size p / the field encoding, an axis label",
-    "192": "training materials per fold, fixed by the 5-fold design",
-    "216": "the width of the best DeepONet, an architecture description",
-    "240": "the material count of the dataset, fixed by design",
-    "17": "operating conditions per material, fixed by design",
-    "3947": "accepted simulations, a dataset size",
-    "2000": "N_z, a grid size",
-    "24": "the number of validate.py gates",
-    "1": "ordinal / unity",
-    "2": "ordinal / a term count",
-    "3": "seed count and ordinal",
-    "4": "ordinal, and the oracle-equivalent mode count",
-    "5": "ordinal / fold count",
-    "6": "ordinal",
-    "10": "a percentage threshold declared in the pre-registration",
-    "20": "a factor in a cited correlation's coefficient",
-    "29": "an interpolation-floor percentage from a reported exclusion",
-    "80": "the power level at which every MDE is quoted",
-    "99.9": "the training-variance level at which n-widths are counted",
+    ("8", "basis size p, an axis label"),
+    ("12", "the smallest training-material count, an axis label"),
+    ("24", "a mode index naming where per-mode R^2 crosses zero"),
+    ("48", "a training-material count, an axis label"),
+    ("64", "POD modes per channel, a fixed encoding choice"),
+    ("96", "a training-material count, an axis label"),
+    ("128", "basis size p / the field encoding, an axis label"),
+    ("192", "training materials per fold, fixed by the 5-fold design"),
+    ("216", "the width of the best DeepONet, an architecture description"),
+    ("240", "the material count of the dataset, fixed by design"),
+    ("17", "operating conditions per material, fixed by design"),
+    ("3947", "accepted simulations, a dataset size"),
+    ("2000", "N_z, a grid size"),
+    # the validate.py gate count used to be allow-listed here as "24"; it is a RESULT
+    # and is now the macro \nGates, read from results/validation.json
+    ("1", "ordinal / unity"),
+    ("2", "ordinal / a term count"),
+    ("3", "seed count and ordinal"),
+    ("4", "ordinal, and the oracle-equivalent mode count"),
+    ("5", "ordinal / fold count"),
+    ("6", "ordinal"),
+    ("10", "a percentage threshold declared in the pre-registration"),
+    ("20", "a factor in a cited correlation's coefficient"),
+    ("29", "an interpolation-floor percentage from a reported exclusion"),
+    ("80", "the power level at which every MDE is quoted"),
+    ("99.9", "the training-variance level at which n-widths are counted"),
     # citation years and identifiers
-    "1948": "citation year", "1954": "citation year", "1953": "citation year",
-    "1959": "citation year", "1982": "citation year", "2000": "citation year",
-    "1908": "citation year",
+    ("1948", "citation year"),
+    ("1954", "citation year"),
+    ("1953", "citation year"),
+    ("1959", "citation year"),
+    ("1982", "citation year"),
+    ("1908", "citation year"),
     # figures, sections, document structure
-    "11": "documentclass font size", "0": "zero",
+    ("11", "documentclass font size"),
+    ("0", "zero"),
     # numbers reported BY a cited paper, quoted as that paper's finding
-    "79": "McGreivy & Hakim's reported percentage",
-    "60": "the numerator of McGreivy & Hakim's 60-of-76",
-    "76": "the denominator of McGreivy & Hakim's 60-of-76",
-    "0.7": "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited",
-    "0.5": "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited",
-    "7": "the power of an earlier null, as recorded in retraction A22",
+    ("79", "McGreivy & Hakim's reported percentage"),
+    ("60", "the numerator of McGreivy & Hakim's 60-of-76"),
+    ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
+    ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
+    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
+    ("7", "the power of an earlier null, as recorded in retraction A22"),
     # thresholds and definitions fixed by the protocol, not measured
-    "50": "the 50 % crossing, which DEFINES the t50 breakthrough time",
-    "0.2": "the R-squared threshold at which usable coefficient modes are counted",
-}
+    ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
+    ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),]
+
+# Merge with a duplicate check: a repeated literal means two different justifications
+# were written for the same number and one of them would be lost.
+ALLOWED = {}
+for _k, _why in _ALLOWED_PAIRS:
+    if _k in ALLOWED:
+        raise SystemExit(
+            f"build_paper.py: literal {_k!r} is declared twice in _ALLOWED_PAIRS, with "
+            f"reasons {ALLOWED[_k]!r} and {_why!r}. Keep one, or the other reason is "
+            f"silently discarded.")
+    ALLOWED[_k] = _why
 
 MACRO = re.compile(r"\\n([A-Za-z]+)")
 # a numeral not immediately preceded by a backslash-command or a letter
 NUMERAL = re.compile(r"(?<![\\A-Za-z0-9.])(\d+(?:\.\d+)?)")
+
+
+def mangled(body, defined):
+    """Macro names appearing WITHOUT their leading backslash-n.
+
+    The third check, and it exists because the first two both missed a real break.
+    An editing pass that loses the backslash turns `\\nLedgerA` into the literal word
+    `LedgerA`: it is no longer a macro reference, so check 1 cannot see it, and it is
+    not a numeral, so check 2 cannot either. The manuscript then renders a stray
+    identifier where a number should be, and the build reports success.
+
+    That is precisely B37's shape -- a gate defeated by the absence of something --
+    committed inside the gate written to prevent hand-typed numbers.
+
+    The mangling has a signature: only the leading `\\n` is lost, so the TRAILING
+    LaTeX spacing survives and the wreck reads `LedgerA\\ withdrawn` or `Gates{}`.
+    Keying on that trailing token rather than on the bare name is what keeps the
+    check from firing on ordinary English -- `\\paragraph{Gates.}` is a heading, not a
+    broken macro, and an earlier version of this function flagged it.
+    """
+    out = []
+    for i, line in enumerate(body.splitlines(), 1):
+        for name in defined:
+            for m in re.finditer(re.escape(name) + r"(\\|\{\})", line):
+                if line[max(0, m.start() - 2):m.start()] != "\\n":
+                    out.append((i, name, line.strip()[:100]))
+    return out
 
 
 def body(src):
@@ -139,10 +188,14 @@ def main():
                 continue
             hits.append((i, tok, line.strip()[:110]))
 
+    broken = mangled(b, defined)
+
     print(f"\nmacros: {len(used)} used, {len(undefined)} undefined, "
-          f"{len(unused)} declared but unused")
+          f"{len(broken)} mangled, {len(unused)} declared but unused")
     for k in undefined:
         print(f"  UNDEFINED  \\n{k}")
+    for ln, name, ctx in broken:
+        print(f"  MANGLED    {name} lost its backslash at line {ln}: {ctx}")
     if args.report or hits:
         print(f"\nbare numerals in the body: {len(hits)}")
         seen = {}
@@ -152,7 +205,7 @@ def main():
             ln, ctx = seen[tok][0]
             print(f"  {tok:>8}  x{len(seen[tok]):<3} line {ln}: {ctx}")
 
-    if undefined or hits:
+    if undefined or hits or broken:
         print("\nBUILD REFUSED. Every number in the manuscript must be a macro resolved "
               "from a\nresults file, or an ALLOWED literal with a written reason. "
               "See build_paper.py.")

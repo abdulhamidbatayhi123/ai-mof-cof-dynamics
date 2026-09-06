@@ -43,3 +43,32 @@ ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | ti
   [time    ] pi_gradnorm_t0.1   seed 44: seen=0.0158 held=0.0137 w_pde=6.92e-06  [2929s]
   [time    ] pi_gradnorm_t1.0   seed 42: seen=0.0196 held=0.0204 w_pde=2.67e-04  [2140s]
   [time    ] pi_gradnorm_t1.0   seed 43: seen=0.0179 held=0.0177 w_pde=1.77e-04  [2019s]
+  [time    ] pi_gradnorm_t1.0   seed 44: seen=0.0171 held=0.0161 w_pde=1.91e-04  [2816s]
+  [time    ] pi_gradnorm_t10    seed 42: seen=0.0622 held=0.1068 w_pde=1.04e+00  [2181s]
+  [time    ] pi_gradnorm_t10    seed 43: seen=0.0633 held=0.1151 w_pde=7.62e-01  [1821s]
+  [time    ] pi_gradnorm_t10    seed 44: seen=0.0645 held=0.1120 w_pde=8.34e-01  [1753s]
+  [time    ] pi_ntk             seed 42: seen=0.0318 held=0.0323 w_pde=7.70e-05  [2064s]
+  [time    ] pi_ntk             seed 43: seen=0.0283 held=0.0293 w_pde=8.79e-05  [3481s]
+  [time    ] pi_ntk             seed 44: seen=0.0267 held=0.0298 w_pde=6.85e-05  [2058s]
+C:\Users\abdulhamid batayhi\Desktop\ai-mof-cof-dynamics\run_l4b_v2.py:241: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  final = {"w_pde": float(nn.functional.softplus(sa["s_pde"]).mean()),
+  [time    ] pi_sa              seed 42: seen=0.1837 held=0.0915 w_pde=5.33e+00  [1764s]
+  [time    ] pi_sa              seed 43: seen=0.1581 held=0.1043 w_pde=5.31e+00  [1883s]
+  [time    ] pi_sa              seed 44: seen=0.1619 held=0.1101 w_pde=5.20e+00  [1818s]
+
+wrote results/l4b_v2_results.json  [71220s]
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+  resuming results/l4b_v2_results.json
+
+ParametricPINN (bounded) width 192 depth 4: 114,435 parameters | 8000 steps | time-axis eval 768 samples / 192 materials | material-axis eval 793 / 48
+  [material] pi_fixed_w1e-4     seed 42: seen=0.0124 held=0.0208 w_pde=1.00e-04  [2338s]
+  [material] pi_fixed_w1e-4     seed 43: seen=0.0130 held=0.0209 w_pde=1.00e-04  [2635s]
+  [material] pi_fixed_w1e-4     seed 44: seen=0.0153 held=0.0263 w_pde=1.00e-04  [2629s]
+  [material] pi_fixed_w1e-3     seed 42: seen=0.0167 held=0.0252 w_pde=1.00e-03  [2316s]
+  [material] pi_fixed_w1e-3     seed 43: seen=0.0178 held=0.0258 w_pde=1.00e-03  [3028s]

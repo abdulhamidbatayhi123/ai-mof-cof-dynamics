@@ -1,7 +1,7 @@
 # CONTINUE HERE — session handoff
 
 Rewritten 2026-09-02; updated 2026-09-05 after the L1/L2/L7 v2 chain completed and L4b-v2 was launched. Read this, then `RESULTS.md`, then `AUDIT_2026-08-30.md`.
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 63 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 64 Part-B**.
 
 ---
 
@@ -153,7 +153,7 @@ test uses): median **25.0**, **85.0 %** in band, 1.35 decades. Legacy per sample
 
 ## 4. What is genuinely good — do not undo
 
-1. **The retraction ledger.** 26 Part-A, 63 Part-B; 30 entries carry the words
+1. **The retraction ledger.** 26 Part-A, 64 Part-B; 31 entries carry the words
    "our own error" and several more are self-attributed in other words.
    Several corrections *weaken* headline claims that nobody would have questioned.
    This is the paper's strongest asset; make it a numbered section, not an appendix.
