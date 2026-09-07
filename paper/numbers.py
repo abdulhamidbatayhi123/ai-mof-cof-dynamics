@@ -228,6 +228,41 @@ SPEC = [
     ("AnchorTfiveModel", "results/lassitter_comparison.json", "runs.k0.2_dp3mm_isothermal.t05_min", "{:.1f}"),
     ("AnchorNrmse", "results/lassitter_comparison.json", "runs.k0.2_dp3mm_isothermal.nrmse_vs_effluent", "{:.3f}"),
 
+    # ------------------------ B53: the dispersion closure against the correlation it
+    # truncates.  dispersion_check.py measures where in particle Peclet this study
+    # actually sits; the anchor rows below are a LABELLED POST-HOC re-solve of the
+    # anchor under the untruncated form, from compare_lassitter_posthoc.json.
+    ("PePartMin", "results/dispersion_check.json", "pe_particle_interstitial.min", "{:.1f}"),
+    ("PePartMed", "results/dispersion_check.json", "pe_particle_interstitial.median", "{:.0f}"),
+    ("PePartMax", "results/dispersion_check.json", "pe_particle_interstitial.max", "{:.0f}"),
+    ("PePartDecades", "results/dispersion_check.json", "pe_particle_interstitial.decades", "{:.2f}"),
+    ("DispRatioMed", "results/dispersion_check.json", "dl_ratio_ours_over_er.median", "{:.2f}"),
+    ("DispRatioMax", "results/dispersion_check.json", "dl_ratio_ours_over_er.max", "{:.2f}"),
+    ("DispFracAboveTenPct", "results/dispersion_check.json", "frac_ratio_above_1p10", pct),
+    ("DispFracAboveHalf", "results/dispersion_check.json", "frac_ratio_above_1p50", pct),
+    ("DispWorstPe", "results/dispersion_check.json", "disagreement_peak.pe", "{:.1f}"),
+    ("DispWorstRatio", "results/dispersion_check.json", "disagreement_peak.ratio", "{:.2f}"),
+    ("AnchorPePart", "results/dispersion_check.json", "anchor.cases.dp3mm_primary.pe_particle", "{:.1f}"),
+    ("AnchorDispRatio", "results/dispersion_check.json", "anchor.cases.dp3mm_primary.ratio_ours_over_er", "{:.2f}"),
+    ("AnchorPeCol", "results/dispersion_check.json",
+     "anchor.cases.dp3mm_primary.pe_column_ours_superficial", "{:.2f}"),
+    ("AnchorPeColER", "results/dispersion_check.json",
+     "anchor.cases.dp3mm_primary.pe_column_er_superficial", "{:.2f}"),
+
+    # the labelled post-hoc re-solve of the anchor (compare_lassitter_posthoc.py)
+    ("AnchorTninetyfiveExp", "results/lassitter_comparison.json", "experiment.t95_min", "{:.0f}"),
+    ("AnchorTninetyfiveModel", "results/lassitter_comparison_posthoc.json",
+     "runs.wakao_dp3mm_k0.2 (primary, for reference).t95_min", "{:.0f}"),
+    ("AnchorTninetyfiveER", "results/lassitter_comparison_posthoc.json",
+     "runs.edwards_richardson_k0.2.t95_min", "{:.0f}"),
+    ("AnchorTninetyfiveBrug", "results/lassitter_comparison_posthoc.json",
+     "runs.bruggeman_k0.2.t95_min", "{:.0f}"),
+    ("AnchorNrmseER", "results/lassitter_comparison_posthoc.json",
+     "runs.edwards_richardson_k0.2.nrmse_vs_effluent", "{:.3f}"),
+    ("AnchorNrmseBrug", "results/lassitter_comparison_posthoc.json",
+     "runs.bruggeman_k0.2.nrmse_vs_effluent", "{:.3f}"),
+    ("AnchorPlateauER", "results/lassitter_comparison_posthoc.json",
+     "runs.edwards_richardson_k0.2.plateau_150_250_frac", "{:.3f}"),
 
     # ------------------------------------ the harness's own evidence (results/validation.json)
     ("Gates", "results/validation.json", "n_pass", "{:d}"),

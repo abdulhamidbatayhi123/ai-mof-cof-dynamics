@@ -1,0 +1,145 @@
+{
+ "_what": "B53: particle Peclet range of dataset v2 and of the Lassitter anchor, and the disagreement between our axial-dispersion closure and the Edwards & Richardson form it is the high-Peclet limit of.",
+ "_closure_ours": "D_L = 0.7 D_m + 0.5 d_p u, u = v/eps_t (gen_parametric_dataset.py:238, solver_fd.axial_dispersion)",
+ "_closure_er": "D_L = 0.73 D_m + [0.5/(1 + 9.7 D_m/(d_p u))] d_p u (Edwards & Richardson 1968, read through Perry's; CITATIONS.md tranche 4e, VERIFIED)",
+ "_velocity_convention": "interstitial u = v/eps_t, matching the closure as written; the superficial-velocity Peclet is reported alongside because the two conventions differ by 1/eps_t ~ 2-3x",
+ "D_m_dispersion": 2.5e-05,
+ "D_m_glueckauf": 2.6e-05,
+ "D_m_discrepancy_pct": 3.9999999999999885,
+ "n_samples": 3947,
+ "pe_particle_interstitial": {
+  "n": 3947,
+  "min": 4.563895160444064,
+  "median": 48.91162901258116,
+  "max": 190.45318053393353,
+  "mean": 55.366398098746664,
+  "decades": 1.6204525702359978,
+  "_name": "Pe_p (interstitial)"
+ },
+ "pe_particle_superficial": {
+  "n": 3947,
+  "min": 2.11326216041505,
+  "median": 18.944565091338557,
+  "max": 58.731428343205394,
+  "mean": 21.204123942662658,
+  "decades": 1.443917186245119,
+  "_name": "Pe_p (superficial)"
+ },
+ "frac_below_ER_constant": 0.025842411958449454,
+ "ER_constant": 9.7,
+ "dl_ratio_ours_over_er": {
+  "n": 3947,
+  "min": 1.0501956748339238,
+  "median": 1.1900489207746319,
+  "max": 2.042240970459766,
+  "mean": 1.2481908939390878,
+  "decades": 0.2888367592116903,
+  "_name": "D_L ours / D_L E&R"
+ },
+ "mechanical_suppression": {
+  "n": 3947,
+  "min": 0.3199613506064202,
+  "median": 0.8345038320310486,
+  "max": 0.9515371178508178,
+  "mean": 0.8022771098228696,
+  "decades": 0.4733282127007961,
+  "_name": "gamma_2(E&R)/0.5 -- the factor the full form applies to the mechanical coefficient"
+ },
+ "frac_ratio_above_1p10": 0.8634405877881935,
+ "frac_ratio_above_1p25": 0.3438054218393717,
+ "frac_ratio_above_1p50": 0.09906257917405624,
+ "frac_ratio_above_2": 0.0015201418799087915,
+ "disagreement_band_10pct": {
+  "pe_lo": 0.21094051403705816,
+  "pe_hi": 94.7283559479697
+ },
+ "disagreement_band_25pct": {
+  "pe_lo": 0.4499352301824563,
+  "pe_hi": 36.64966421667678
+ },
+ "disagreement_peak": {
+  "pe": 3.8358357282533233,
+  "ratio": 2.0556764989687357
+ },
+ "pe_column_ours": {
+  "n": 3947,
+  "min": 36.66426363834689,
+  "median": 59.28508215150504,
+  "max": 128.42590313142907,
+  "mean": 65.90674239918066,
+  "decades": 0.5444096614134672,
+  "_name": "Pe_L = uL/D_L (ours, interstitial u)"
+ },
+ "pe_column_er": {
+  "n": 3947,
+  "min": 41.724863990518614,
+  "median": 72.40645827407666,
+  "max": 211.9292030082673,
+  "mean": 83.62423109913142,
+  "decades": 0.7057958752060619,
+  "_name": "Pe_L = uL/D_L (E&R, interstitial u)"
+ },
+ "pe_column_ours_superficial": {
+  "n": 3947,
+  "min": 11.62266146815983,
+  "median": 23.063433746831254,
+  "max": 59.46622171714631,
+  "mean": 25.69038609274577,
+  "decades": 0.7089647574258328,
+  "_name": "Pe_L = vL/D_L (ours, superficial v)"
+ },
+ "pe_column_er_superficial": {
+  "n": 3947,
+  "min": 12.860745078399896,
+  "median": 28.254457499971636,
+  "max": 98.131519165027,
+  "mean": 32.700233638608275,
+  "decades": 0.8825423923011689,
+  "_name": "Pe_L = vL/D_L (E&R, superficial v)"
+ },
+ "anchor": {
+  "_bed": "Lassitter 2024 Fig. 10 as set up in compare_lassitter.py:34-46",
+  "v": 0.0098062,
+  "eps_t": 0.4,
+  "L": 0.00635,
+  "u_interstitial": 0.024515499999999996,
+  "cases": {
+   "dp1mm": {
+    "d_p_m": 0.001,
+    "pe_particle": 0.9806199999999998,
+    "D_L_ours": 2.9757749999999998e-05,
+    "D_L_er": 1.9375421071529556e-05,
+    "ratio_ours_over_er": 1.5358504927527146,
+    "pe_column_ours": 5.231357377489896,
+    "pe_column_er": 8.034582805983407,
+    "pe_column_ours_superficial": 2.092542950995959,
+    "pe_column_er_superficial": 3.213833122393363,
+    "pellets_deep": 6.35
+   },
+   "dp3mm_primary": {
+    "d_p_m": 0.003,
+    "pe_particle": 2.9418599999999993,
+    "D_L_ours": 5.427324999999999e-05,
+    "D_L_er": 2.6807423768733398e-05,
+    "ratio_ours_over_er": 2.0245604526646503,
+    "pe_column_ours": 2.8683269382246315,
+    "pe_column_er": 5.80710128444227,
+    "pe_column_ours_superficial": 1.147330775289853,
+    "pe_column_er_superficial": 2.3228405137769084,
+    "pellets_deep": 2.1166666666666667
+   },
+   "dp5mm": {
+    "d_p_m": 0.005,
+    "pe_particle": 4.9030999999999985,
+    "D_L_ours": 7.878874999999998e-05,
+    "D_L_er": 3.8828156016530724e-05,
+    "ratio_ours_over_er": 2.02916538108213,
+    "pe_column_ours": 1.9758331614602338,
+    "pe_column_er": 4.009292250029166,
+    "pe_column_ours_superficial": 0.7903332645840937,
+    "pe_column_er_superficial": 1.6037169000116667,
+    "pellets_deep": 1.27
+   }
+  }
+ }
+}

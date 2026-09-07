@@ -27,7 +27,20 @@
       "k_LDF": 0.011,
       "closure": "bruggeman"
     },
-    "ruthven_dp3mm_k0.2 (primary, for reference)": {
+    "edwards_richardson_k0.2": {
+      "t05_min": 2.493921138603582,
+      "t50_min": 313.06306839999314,
+      "t95_min": 384.14761548280694,
+      "plateau_150_250_frac": 0.2928002291318466,
+      "has_plateau": true,
+      "plateau_duration_min": 259.2160133444537,
+      "nrmse_vs_effluent": 0.10540987323723791,
+      "D_L": 2.6807423768733398e-05,
+      "Pe": 2.3228405137769084,
+      "k_LDF": 0.2,
+      "closure": "edwards_richardson"
+    },
+    "wakao_dp3mm_k0.2 (primary, for reference)": {
       "t05_min": 1.7170990432999695,
       "t50_min": 303.3252718412146,
       "t95_min": 431.09455273375823,
@@ -38,7 +51,7 @@
       "D_L": 5.427324999999999e-05,
       "Pe": 1.147330775289853,
       "k_LDF": 0.2,
-      "closure": "ruthven"
+      "closure": "wakao_high_pe_limit"
     }
   }
 }

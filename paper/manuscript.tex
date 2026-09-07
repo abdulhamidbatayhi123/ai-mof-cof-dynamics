@@ -312,10 +312,11 @@ Two discrepancies, both attributable, both reported. The first wave arrives
 is the isotherm's low-relative-humidity branch, whose Henry fraction was fitted to
 the step position and the capacity only. This is the first dynamic measurement that
 constrains it, and it is a limitation of our MOF-303 parameterisation rather than of
-the solver. The shock is \emph{too dispersed}, because the axial-dispersion closure
-gives a P\'eclet number near unity on a bed one or two pellets deep, where a
-packed-bed correlation does not apply. Section~\ref{sec:limitations} returns to that
-closure, which turns out to need a more careful statement than we first gave it.
+the solver. The shock is \emph{too dispersed}: the axial-dispersion closure gives a
+column P\'eclet number of \nAnchorPeCol\ on a bed one or two pellets deep, where a
+packed-bed correlation does not apply. That discrepancy is now measured rather than
+attributed --- Section~\ref{sec:limitations} shows that about half of it comes from
+evaluating one correlation at a limit this bed does not satisfy.
 
 %% ===========================================================================
 \section{Dataset, splits and statistics}
@@ -875,17 +876,59 @@ aspect ratio is under a fifth, where a one-dimensional plug-flow model is at the
 validity. Every other number is surrogate-versus-solver.
 
 \paragraph{The dispersion closure needs a more careful statement than we first gave
-it.} Our datasets use \(D_L = 0.7 D_m + 0.5 d_p u\). Two corrections apply. The
-coefficients are attributable to Wakao and Funazkri \cite{wakao1978effect}
-rather than to the textbook we originally cited, and Perry's handbook presents that form as a \emph{lower bound}
-for \emph{nonporous} particles, noting that the leading coefficient rises to as much
-as \(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and
-that for strongly adsorbed species the effective axial dispersion is much larger.
-Our beds are porous, strongly adsorbing frameworks taking up water --- the case that
-statement excludes. Edwards and Richardson's alternative \cite{edwards1968gas} reduces to the same
-coefficient only at high particle P\'eclet number. This does not affect any
-surrogate result, because the solver is the reference whatever closure it uses, but
-it bounds how far the reference may be read as physical.
+it, and we have measured how much.} Our datasets use
+\(D_L = 0.7 D_m + 0.5 d_p u\). The coefficients are attributable to Wakao and
+Funazkri \cite{wakao1978effect} rather than to the textbook we originally cited, and
+Perry's handbook presents that form as a \emph{lower bound} for \emph{nonporous}
+particles, noting that the leading coefficient rises to as much as
+\(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and that
+for strongly adsorbed species the effective axial dispersion is much larger. Our beds
+are porous, strongly adsorbing frameworks taking up water --- the case that statement
+excludes.
+
+That form is also the high-particle-P\'eclet \emph{limit} of Edwards and Richardson's
+correlation \cite{edwards1968gas}, whose mechanical coefficient carries an extra
+factor \(\left[1 + 9.7\,D_m/(d_p u)\right]^{-1}\). Whether the limit applies is a
+question about our own parameter space, so we measured it rather than assuming it.
+On the interstitial velocity the particle P\'eclet number \(d_p u / D_m\) runs
+\nPePartMin--\nPePartMax\ across the dataset, median \nPePartMed, spanning
+\nPePartDecades{} decades. Over that range the two published forms disagree by a
+median factor of \nDispRatioMed, exceeding \(1.1\times\) for \nDispFracAboveTenPct\,\%
+of samples and \(1.5\times\) for \nDispFracAboveHalf\,\%, with a worst case of
+\nDispRatioMax. The disagreement is bounded and modest for the dataset --- but it is
+not modest for the anchor.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig7b_anchor_posthoc.pdf}
+\caption{Post-hoc dispersion sensitivity on the anchor bed, labelled as such and
+reported as a limitation rather than as a result. The pre-registered primary uses the
+high-P\'eclet limit of the correlation; the second curve is the \emph{same}
+correlation without that truncation, at the same particle size, velocity and
+molecular diffusivity; the third is the authors' own Bruggeman closure. The measured
+95\,\% arrival time is bracketed by the last two.}
+\label{fig:anchorposthoc}
+\end{figure}
+
+The anchor bed sits at a particle P\'eclet number of \nAnchorPePart, and the
+disagreement between the two forms is maximised at \nDispWorstPe, where it reaches
+\nDispWorstRatio\(\times\). In other words the one bed in this paper that is compared
+against an experiment is also the one place where the truncation matters most: there
+our closure disperses \nAnchorDispRatio\(\times\) more than the correlation it is the
+limit of, taking the column P\'eclet number from \nAnchorPeColER\ to \nAnchorPeCol.
+Re-solving that bed under the untruncated form --- a labelled post-hoc sensitivity,
+not a fit, and not the pre-registered result --- moves the 95\,\% arrival time from
+\nAnchorTninetyfiveModel\ to \nAnchorTninetyfiveER\ minutes against
+\nAnchorTninetyfiveExp\ measured, the plateau from \nAnchorPlateauModel\ to
+\nAnchorPlateauER\ against \nAnchorPlateauExp, and the error against the digitised
+effluent from \nAnchorNrmse\ to \nAnchorNrmseER\ (Figure~\ref{fig:anchorposthoc}).
+The authors' own Bruggeman closure goes further, to \nAnchorNrmseBrug, but overshoots
+in the other direction at \nAnchorTninetyfiveBrug\ minutes; the measured value is
+bracketed by the two closures. \textbf{So roughly half of the anchor's second named
+discrepancy is not the solver and not the bed geometry, but one term evaluated at its
+limit.} None of this affects a surrogate result, because the solver is the reference
+whatever closure it uses and every arm sees the same reference; it bounds how far the
+reference may be read as physical, which is exactly what a limitation should do.
 
 \paragraph{The isotherm's low-humidity branch is wrong, and we know by how much.}
 The Henry fraction was fitted to the step position and the capacity, never to

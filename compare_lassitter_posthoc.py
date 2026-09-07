@@ -1,7 +1,7 @@
 """POST-HOC sensitivity for the Lassitter comparison — declared as such, kept apart.
 
 `compare_lassitter.py` is the pre-registered run and is not modified. After seeing
-its result, one closure stood out: the Ruthven axial-dispersion correlation used
+its result, one closure stood out: the axial-dispersion correlation used
 for every dataset in this project, D_L = 0.7 D_m + 0.5 d_p u, gives Pe = vL/D_L of
 order 1 on a bed 6.35 mm tall (one to two pellets deep), where the correlation has
 no business being applied. The authors' COMSOL model uses the Bruggeman closure
@@ -9,6 +9,22 @@ D_e = eps^1.5 D_m (SI Eq. S2-S3), about ten times less dispersion. This script r
 the primary configuration under that closure, and under it with the step-minimum
 CSFR rate, and reports the same descriptive quantities. It is a sensitivity chosen
 AFTER the data were seen; it is not a fit and may not be reported as the result.
+
+SECOND CLOSURE, ADDED 2026-09-07 (B53). The Bruggeman arm answers "what if the bed
+disperses like a stagnant porous medium". It does not answer the narrower question
+the citation ledger actually raised: our closure is the HIGH-PARTICLE-PECLET LIMIT
+of Edwards & Richardson's correlation, and `dispersion_check.py` measures that this
+bed sits at a particle Peclet of 2.94 — within a factor of 1.3 of where the two
+published forms disagree most (2.06x at Pe_p = 3.84). So the third arm here is the
+same correlation our datasets already use, evaluated at its full form rather than
+at its limit:
+
+    D_L = 0.73 D_m + [0.5 / (1 + 9.7 D_m/(d_p u))] d_p u
+
+That is not a different model of the bed; it is the same model without the
+approximation, and it is the arm that says whether "the shock is too dispersed"
+is a statement about the solver or about one term's high-Peclet truncation.
+Still post-hoc, still not the result.
 
     python compare_lassitter_posthoc.py
 """
@@ -21,6 +37,7 @@ import numpy as np
 
 from compare_lassitter import (DIGITISED, HORIZON_MIN, N_SNAP, RH_IN, T_K, describe,
                                load_digitised, physics, solve)
+from dispersion_check import d_l_edwards_richardson
 from fetch_real_mof_data import rh_to_conc
 
 D_M_SI = 2.19e-5      # their Table S8 diffusivity of water in air
@@ -34,10 +51,16 @@ def main():
            "runs": {}}
     curves = {}
     for label, k, closure in (("bruggeman_k0.2", 0.20, "bruggeman"), ("bruggeman_k0.011", 0.011, "bruggeman"),
-                              ("ruthven_dp3mm_k0.2 (primary, for reference)", 0.20, "ruthven")):
+                              ("edwards_richardson_k0.2", 0.20, "edwards_richardson"),
+                              ("wakao_dp3mm_k0.2 (primary, for reference)", 0.20, "wakao_high_pe_limit")):
         p = physics(k, 3e-3, 1e4, 1000.0)
         if closure == "bruggeman":
             p.D_L = p.eps_t ** 1.5 * D_M_SI
+        elif closure == "edwards_richardson":
+            # the full form of the correlation our closure truncates, at this bed's
+            # own particle Peclet number; same d_p, same velocity, same molecular
+            # diffusivity as the primary arm, so the ONLY change is the truncation
+            p.D_L = float(d_l_edwards_richardson(p.d_p, p.v / p.eps_t))
         pe = p.v * p.L / p.D_L
         t_min, frac, T_exit = solve(p, c_in, 500)
         d = describe(t_min, frac, eff)
@@ -58,11 +81,18 @@ def main():
                          "grid.alpha": 0.25, "axes.spines.top": False, "axes.spines.right": False,
                          "legend.frameon": False})
     fig, ax = plt.subplots(figsize=(6.2, 3.8))
-    t_min, frac = curves["ruthven_dp3mm_k0.2 (primary, for reference)"]
-    ax.plot(t_min, frac * RH_IN * 100, color="#3b6ea5", lw=2.0, label="pre-registered primary (Ruthven D_L, Pe ≈ 1)")
+    prim = out["runs"]["wakao_dp3mm_k0.2 (primary, for reference)"]
+    er = out["runs"]["edwards_richardson_k0.2"]
+    brg = out["runs"]["bruggeman_k0.2"]
+    t_min, frac = curves["wakao_dp3mm_k0.2 (primary, for reference)"]
+    ax.plot(t_min, frac * RH_IN * 100, color="#3b6ea5", lw=2.0,
+            label=f"pre-registered primary (high-Pe limit, Pe = {prim['Pe']:.1f})")
+    t_min, frac = curves["edwards_richardson_k0.2"]
+    ax.plot(t_min, frac * RH_IN * 100, color="#8c5ea8", lw=1.6, ls="--",
+            label=f"POST-HOC: same correlation, full form (Pe = {er['Pe']:.1f})")
     t_min, frac = curves["bruggeman_k0.2"]
     ax.plot(t_min, frac * RH_IN * 100, color="#e08b3a", lw=1.6, ls="-.",
-            label="POST-HOC: authors' Bruggeman D_e (Pe ≈ 11), k = 0.2")
+            label=f"POST-HOC: authors' Bruggeman D_e (Pe = {brg['Pe']:.1f}), k = 0.2")
     t_min, frac = curves["bruggeman_k0.011"]
     ax.plot(t_min, frac * RH_IN * 100, color="#6a994e", lw=1.2, ls=":",
             label="POST-HOC: Bruggeman D_e, k = 0.011 (step minimum)")

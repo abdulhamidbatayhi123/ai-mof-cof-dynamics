@@ -144,6 +144,27 @@
     "AnchorTfiveExp": "86",
     "AnchorTfiveModel": "1.7",
     "AnchorNrmse": "0.128",
+    "PePartMin": "4.6",
+    "PePartMed": "49",
+    "PePartMax": "190",
+    "PePartDecades": "1.62",
+    "DispRatioMed": "1.19",
+    "DispRatioMax": "2.04",
+    "DispFracAboveTenPct": "86.3",
+    "DispFracAboveHalf": "9.9",
+    "DispWorstPe": "3.8",
+    "DispWorstRatio": "2.06",
+    "AnchorPePart": "2.9",
+    "AnchorDispRatio": "2.02",
+    "AnchorPeCol": "1.15",
+    "AnchorPeColER": "2.32",
+    "AnchorTninetyfiveExp": "354",
+    "AnchorTninetyfiveModel": "431",
+    "AnchorTninetyfiveER": "384",
+    "AnchorTninetyfiveBrug": "329",
+    "AnchorNrmseER": "0.105",
+    "AnchorNrmseBrug": "0.083",
+    "AnchorPlateauER": "0.293",
     "Gates": "24",
     "MassClosure": "0.0",
     "MassClosureMof": "0.1",
@@ -767,6 +788,90 @@
     "AnchorNrmse": {
       "file": "results/lassitter_comparison.json",
       "path": "runs.k0.2_dp3mm_isothermal.nrmse_vs_effluent"
+    },
+    "PePartMin": {
+      "file": "results/dispersion_check.json",
+      "path": "pe_particle_interstitial.min"
+    },
+    "PePartMed": {
+      "file": "results/dispersion_check.json",
+      "path": "pe_particle_interstitial.median"
+    },
+    "PePartMax": {
+      "file": "results/dispersion_check.json",
+      "path": "pe_particle_interstitial.max"
+    },
+    "PePartDecades": {
+      "file": "results/dispersion_check.json",
+      "path": "pe_particle_interstitial.decades"
+    },
+    "DispRatioMed": {
+      "file": "results/dispersion_check.json",
+      "path": "dl_ratio_ours_over_er.median"
+    },
+    "DispRatioMax": {
+      "file": "results/dispersion_check.json",
+      "path": "dl_ratio_ours_over_er.max"
+    },
+    "DispFracAboveTenPct": {
+      "file": "results/dispersion_check.json",
+      "path": "frac_ratio_above_1p10"
+    },
+    "DispFracAboveHalf": {
+      "file": "results/dispersion_check.json",
+      "path": "frac_ratio_above_1p50"
+    },
+    "DispWorstPe": {
+      "file": "results/dispersion_check.json",
+      "path": "disagreement_peak.pe"
+    },
+    "DispWorstRatio": {
+      "file": "results/dispersion_check.json",
+      "path": "disagreement_peak.ratio"
+    },
+    "AnchorPePart": {
+      "file": "results/dispersion_check.json",
+      "path": "anchor.cases.dp3mm_primary.pe_particle"
+    },
+    "AnchorDispRatio": {
+      "file": "results/dispersion_check.json",
+      "path": "anchor.cases.dp3mm_primary.ratio_ours_over_er"
+    },
+    "AnchorPeCol": {
+      "file": "results/dispersion_check.json",
+      "path": "anchor.cases.dp3mm_primary.pe_column_ours_superficial"
+    },
+    "AnchorPeColER": {
+      "file": "results/dispersion_check.json",
+      "path": "anchor.cases.dp3mm_primary.pe_column_er_superficial"
+    },
+    "AnchorTninetyfiveExp": {
+      "file": "results/lassitter_comparison.json",
+      "path": "experiment.t95_min"
+    },
+    "AnchorTninetyfiveModel": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.wakao_dp3mm_k0.2 (primary, for reference).t95_min"
+    },
+    "AnchorTninetyfiveER": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.edwards_richardson_k0.2.t95_min"
+    },
+    "AnchorTninetyfiveBrug": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.bruggeman_k0.2.t95_min"
+    },
+    "AnchorNrmseER": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.edwards_richardson_k0.2.nrmse_vs_effluent"
+    },
+    "AnchorNrmseBrug": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.bruggeman_k0.2.nrmse_vs_effluent"
+    },
+    "AnchorPlateauER": {
+      "file": "results/lassitter_comparison_posthoc.json",
+      "path": "runs.edwards_richardson_k0.2.plateau_150_250_frac"
     },
     "Gates": {
       "file": "results/validation.json",

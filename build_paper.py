@@ -87,6 +87,10 @@ _ALLOWED_PAIRS = [
     ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
     ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
+    ("9.7", "the constant in Edwards & Richardson's mechanical coefficient, as cited"),
+    ("1.1", "a disagreement threshold the text declares, not a measured value"),
+    ("1.5", "a disagreement threshold the text declares, not a measured value"),
+    ("95", "the 95 % crossing, which DEFINES the t95 breakthrough time"),
     ("7", "the power of an earlier null, as recorded in retraction A22"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
