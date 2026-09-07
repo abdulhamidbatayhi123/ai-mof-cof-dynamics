@@ -184,37 +184,35 @@ test uses): median **25.0**, **85.0 %** in band, 1.35 decades. Legacy per sample
 ## 5. What is not good yet
 
 **Blocking:**
-1. **L4b-v2 is RUNNING** — launched 2026-09-05 00:57 (Istanbul), detached: `chain_l4b_v2.sh`,
-   logs `l4b_v2.log`, `l4b_v2_refine.log`, exit codes `chain_l4b_v2_outer.log`; ~50 h.
-   Order: data_only both axes → refinement → physics arms (time, then material) →
-   refinement of the best physics arm → L-BFGS polish → `analyze_l4b_v2.py`. Resumable;
-   `./resume.sh go` continues it. When done: read `l4b_v2_analysis.log` and write the
-   verdict in the pre-declared words of `PREREG_L4b_v2.md` (defended / withdrawn /
-   retracted). **Two idle days were lost** between the v2 chain finishing (09-03 ~13:00)
-   and this launch — the session that was to launch it had ended.
-2. **L4b-v2 is pre-registered and smoke-tested but not run.** `chain_l4b_v2.sh`
-   after the v2 chain (~50 h). Its verdict decides whether "physics hurts once
-   bounded" is defended, withdrawn, or retracted — all three outcomes are written
-   in `PREREG_L4b_v2.md`.
-3. **~260 citations still unverified.** Two tranches done (≈90 refs).
-4. **Experimental anchor: done, pre-registered, no fitting.** Lassitter et al. 2024
-   (*Chem. Eng. Sci.* 285:119430) Fig. 10 — a 6.35 mm MOF-303 bed at 32.8 % RH, fully
-   specified in its SI — digitised and compared (`PREREG_LASSITTER.md`,
-   `compare_lassitter.py`, `results/lassitter_comparison.json`, Fig9). The cited
-   isotherm reproduces the two-wave shape and the 50 % arrival (303 vs 287 min) with
-   nothing tuned. Two named discrepancies: the first wave arrives ~80 min too early
-   (the isotherm's low-RH branch — the Henry fraction was never fitted to dynamics),
-   and the shock is too dispersed under the Ruthven closure on a 1–2-pellet bed
-   (Pe ≈ 1); the authors' Bruggeman closure fixes the second as a labelled post-hoc
-   sensitivity (Fig9b). Li 2025 is only a shape comparison. What remains: write the
-   error budget in the paper as solver-vs-experiment (this) and surrogate-vs-solver
-   (everything else).
-5. **Figures for the current narrative — partly done.** New this session, every series
-   read from results files: Fig8 (v2 learning curve), Fig9/9b (solver vs Lassitter),
-   Fig10 (the mechanism: floor vs arms, basis vs coefficient-map error, per-mode R²),
-   Fig11 (two-wave warp: n-width per frame, the powered verdict). Still to do: a
-   ladder schematic with each rung's verdict and power (F1), and re-authoring Fig1–7
-   to column width for the falsification-ladder story.
+1. **L4b-v2 is IN FLIGHT at 44/66 sweep cells** and has **died once** — the machine
+   rebooted 2026-09-06 22:54 and about twelve hours were lost before anyone noticed.
+   `./resume.sh` now reports, at the top, whether a chain is incomplete *and* nothing
+   is running. **Check it every time.** When `chain_l4b_v2_outer.log` ends with
+   `L4B_V2_DONE`, run `./chain_l4b_v2_followup.sh` — it refuses to start before then,
+   and it does three things the pre-registration requires: the fixed-weight extension
+   to w=1e-5 (PREREG §4.2 binds, the optimum is on the bottom edge and unsaturated),
+   the analyser **with** its MDEs (the chain ends with `--no-mde`, and rule 7 admits
+   no null without one), and the labelled post-hoc refinement sweep for **B60**.
+   A pre-declared invalidation condition has already fired: **B61**, the time-axis
+   anchor moved 643 % against a 10 % tolerance, so that axis is scoped and the
+   material axis carries the reportable Q3 verdict.
+2. **Three rungs are still on the small dataset — the biggest unaddressed risk.**
+   L3, L5 and the two-wave warp are measured over **12** held-out materials while
+   L1, L2, L6 and L7 use **240**. Retraction **A26** exists precisely because a
+   verdict measured at one material count did not survive four times as many. A
+   referee will ask why the headline positive result is the one rung still on the old
+   data. Re-measure L5's flat-in-p (the most load-bearing legacy number) and the warp
+   (whose "no difference" is the weakest inference in the paper). **B41**: `t_lo` is
+   degenerate on v2, so a v2 warp needs a non-degenerate lower landmark.
+3. **Five primaries need library access.** **B54 is LIVE on a reported result**:
+   L7's classical control uses an erf approximation our bibliography attributes to
+   Klinkenberg 1948, while the standard secondary source attributes that equation to
+   Klinkenberg 1954. Neither is retrievable electronically. Also Glueckauf 1955,
+   Do & Do (*Carbon* 2000), Danckwerts 1953, Anzelius 1926 / Schumann 1929 — all
+   currently cited through named secondary sources, which is honest but weaker.
+4. **Citations:** four tranches done. Verify everything the drafted bibliography
+   actually cites; `paper/references.py` refuses anything not VERIFIED and reports
+   one refusal on every run.
 
 **Known and scoped:**
 - `C_ps = 1000 J/kg/K` has **no citable source**. Report as a 900–2400 J/kg/K
@@ -225,16 +223,31 @@ test uses): median **25.0**, **85.0 %** in band, 1.35 decades. Legacy per sample
 
 ---
 
-## 6. Steps remaining — roughly 7–10 sessions
+## 6. Steps remaining
 
-1. ~~Finish L6-v2~~ — ✅ **done 2026-09-02**
-2. **L1 learning curve, L2, L7 on v2.** — ✅ launched 2026-09-03; report when done
-3. **L4b weighting sweep + test-time physics refinement.** — pre-registered; run next
-4. **Citations tranche 3+.** The Lassitter comparison is done (2026-09-03). — 1–2 sessions
-5. **Figure set rebuilt for the current narrative.** — 1–2 sessions
-6. **Manuscript.** — 2–3 sessions
+1. ~~Finish L6-v2~~ — done. ~~L1/L2/L7 on v2~~ — done. ~~The manuscript draft~~ — done
+   (`paper/manuscript.tex`, ten sections, one placeholder).
+2. **L4b-v2 lands** -> `./chain_l4b_v2_followup.sh` -> the verdict in the pre-declared
+   words -> regenerate `fig_ladder.py` and `paper/numbers.py`.
+3. **Re-measure L5's flat-in-p and the warp on v2.** See Blocking 2 — this is the
+   biggest structural risk in the paper and it is the one nobody has costed.
+4. **Build the front-locating model.** The warp's 2.17x headroom is a target nobody
+   has shot at; hitting it converts the best negative into a positive.
+5. Citations the bibliography actually uses; the five primaries need library access.
+6. Housekeeping: the C_ps 900-2400 band as a real sensitivity; the particle Peclet
+   range against Edwards & Richardson (**B53**); the amortised cost accounting that
+   is CMAME's whole premise; remove `kaggle_run/` and SINDy; decide the COF framing.
 
----
+**The paper and its build system now exist. Read `paper/numbers.py` before writing a
+number anywhere.** 161 keys from 24 results files plus 9 derived ratios; `build_paper.py`
+refuses an undefined macro, a mangled one, or an undeclared numeral, and it caught 57
+hand-typed numbers on its first run. Check its EXIT CODE, not its output: a pipe to
+`tail` reports tail's status, and that let one commit through with the gate red.
+
+Figures are F1-F7 plus FigS1, renumbered to the manuscript's order; the seven
+superseded legacy figures are quarantined in `figures/superseded/` because the
+directory previously had real name collisions (`Fig4_operators` beside
+`Fig4_parametric_coverage`, which is the B27-defective one).
 
 ## 6b. What this session (2026-09-02/03) changed — read before trusting older text
 
