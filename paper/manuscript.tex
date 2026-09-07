@@ -806,6 +806,94 @@ aligns both. That is precisely the regime a one-parameter dimensionless time can
 handle, and it is why the second landmark is doing the work.
 
 %% ===========================================================================
+\section{What the surrogate costs, and when it repays}
+\label{sec:cost}
+
+A surrogate that is never asked enough questions is more expensive than the solver it
+replaces, and the crossing point is a number, not an attitude. The introduction argued
+that a synthetic study can only measure accuracy per unit cost; this section pays that
+debt, because a ladder of accuracy verdicts with no cost axis is only half an argument
+for a screening tool.
+
+\paragraph{The unit.} All costs are given in \emph{solve-equivalents}: multiples of one
+reference simulation at production settings. That removes the machine, the thread count
+and the wall clock from the comparison and leaves a ratio a reader can carry to their own
+hardware. On ours, the \nCostNSolves\ accepted simulations of the dataset took
+\nCostGenWall\ hours on \nCostWorkers\ workers, so one solve-equivalent is
+\nCostSolveSec\ worker-seconds and the whole training set cost about
+\nCostGenCoreHours\ core-hours. We report worker-seconds rather than
+core-seconds and say why: a worker's own numerical libraries may use more than one
+thread, so this is an upper bound on the serial cost of a solve and a lower bound on
+what it occupies of a machine.
+
+\paragraph{The accounting.} Against \(n\) screening queries the reference costs \(n\)
+solve-equivalents. The surrogate costs its training set, plus its fit, plus \(n\) times
+whatever a query costs:
+\begin{equation}
+n_{\mathrm{be}} \;=\; \frac{n_{\mathrm{train}} + c_{\mathrm{fit}}}{1 - r},
+\qquad r \;=\; \frac{\text{cost of one query}}{\text{cost of one solve}} .
+\label{eq:breakeven}
+\end{equation}
+Fitting the reported arm takes \nCostTrainSec\ seconds, median over
+\nCostTrainSeeds\ recorded fits --- \nCostTrainEq\ solve-equivalents, which is noise
+next to the data. And because \(r \ll 1\) --- a forward pass through three
+256-unit layers and three 64-mode reconstructions, against an implicit solve on
+\nGridNz\ cells carried to breakthrough --- equation~\eqref{eq:breakeven} is bounded
+below by \(n_{\mathrm{train}} + c_{\mathrm{fit}}\) \emph{without measuring \(r\) at
+all}. We report the bound, because a bound that needs no timing cannot be argued with
+by pointing at the hardware.
+
+\begin{table}[t]
+\centering
+\caption{The accuracy--cost frontier of the reported arm, in solve-equivalents. Each
+row is a point on the learning curve of Section~\ref{sec:ladder}, priced. The last
+column is a \emph{lower} bound on the number of screening queries at which the
+surrogate becomes cheaper than the reference, and it holds whatever a query costs.}
+\label{tab:cost}
+\begin{tabular}{rrrr}
+\toprule
+training materials & training simulations & held-out nRMSE & break-even queries \(\geq\) \\
+\midrule
+12  & \nCostSmallSims & \nLCsmallest & \nCostSmallBreakEven \\
+24  & \nCostSimsB     & \nCostErrB   & \nCostBeB \\
+48  & \nCostSimsC     & \nCostErrC   & \nCostBeC \\
+96  & \nCostSimsD     & \nCostErrD   & \nCostBeD \\
+192 & \nCostLargeSims & \nLClargest  & \nCostBreakEven \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What the table says.} Three things, and the third is the one that matters.
+
+First, the surrogate at its best accuracy cannot repay its own construction in fewer
+than \nCostBreakEven\ screening queries. Below that the solver is both cheaper
+\emph{and} exact, and building a surrogate is a mistake. Above it --- and a materials
+screen over a framework database is far above it --- the surrogate is the only option
+that finishes. This is not a criticism of the approach; it is the condition under which
+the approach is the right one, stated in the units the decision is actually made in.
+
+Second, the learning curve is a price list. Going from 12 training materials to 192
+multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
+\nLCratio{}\(\times\) --- which is the exponent \(n^{-\nLCbeta}\) of
+Section~\ref{sec:ladder} restated as money. A practitioner who needs
+\nLCsmallest\ nRMSE should buy \nCostSmallSims\ simulations and stop.
+
+Third, and this is why the negative results in this paper are worth their space: every
+rung that was \emph{eliminated} is an intervention that would have added cost without
+buying accuracy. Capacity, architecture family, and a linear-reconstruction operator all
+cost fit time and nothing else; the residual-as-a-loss arms cost several times the
+data-only twin's training budget by construction. The one lever that is not eliminated
+is the one with a price tag attached to it, and the frontier is where that price is
+paid. The coordinate change of Section~\ref{sec:warp} is the only route on the table
+that would move the accuracy \emph{without} moving the data cost --- which is precisely
+why its remaining \nWarpHeadroom{}\(\times\) is worth chasing.
+
+\paragraph{What this is not.} It is not a claim that the surrogate and the reference are
+interchangeable. They are not: the reference answers exactly and the surrogate answers
+with the held-out error in the third column. Every statement here is cost \emph{at a
+stated accuracy}, and the accuracy travels with the cost in every row.
+
+%% ===========================================================================
 \section{Corrections and retractions}
 \label{sec:corrections}
 

@@ -264,6 +264,35 @@ SPEC = [
     ("AnchorPlateauER", "results/lassitter_comparison_posthoc.json",
      "runs.edwards_richardson_k0.2.plateau_150_250_frac", "{:.3f}"),
 
+    # ------------------------------------------- the amortised cost accounting
+    ("CostSolveSec", "results/cost_accounting.json", "generation.worker_seconds_per_solve", "{:.1f}"),
+    ("CostNSolves", "results/cost_accounting.json", "generation.n_solves", "{:d}"),
+    ("CostGenWall", "results/cost_accounting.json", "generation.wall_s", lambda x: f"{x / 3600:.1f}"),
+    ("CostWorkers", "results/cost_accounting.json", "generation.workers", "{:d}"),
+    ("CostTrainSec", "results/cost_accounting.json", "training.median_seconds", "{:.0f}"),
+    ("CostTrainEq", "results/cost_accounting.json", "training.solve_equivalents", "{:.1f}"),
+    ("CostTrainSeeds", "results/cost_accounting.json", "training.seconds_per_seed",
+     lambda v: f"{len(v):d}"),
+    ("CostBreakEven", "results/cost_accounting.json",
+     "headline.break_even_queries_lower_bound", "{:.0f}"),
+    ("CostSmallSims", "results/cost_accounting.json",
+     "frontier[0].n_train_sims_mean_over_folds", "{:.0f}"),
+    ("CostSmallBreakEven", "results/cost_accounting.json",
+     "frontier[0].break_even_queries_lower_bound", "{:.0f}"),
+    ("CostLargeSims", "results/cost_accounting.json",
+     "frontier[4].n_train_sims_mean_over_folds", "{:.0f}"),
+    # the frontier's middle rows, so the table is built from the file rather than
+    # from three macros and two typed numerals
+    ("CostSimsB", "results/cost_accounting.json", "frontier[1].n_train_sims_mean_over_folds", "{:.0f}"),
+    ("CostSimsC", "results/cost_accounting.json", "frontier[2].n_train_sims_mean_over_folds", "{:.0f}"),
+    ("CostSimsD", "results/cost_accounting.json", "frontier[3].n_train_sims_mean_over_folds", "{:.0f}"),
+    ("CostErrB", "results/cost_accounting.json", "frontier[1].held_out_nrmse", "{:.4f}"),
+    ("CostErrC", "results/cost_accounting.json", "frontier[2].held_out_nrmse", "{:.4f}"),
+    ("CostErrD", "results/cost_accounting.json", "frontier[3].held_out_nrmse", "{:.4f}"),
+    ("CostBeB", "results/cost_accounting.json", "frontier[1].break_even_queries_lower_bound", "{:.0f}"),
+    ("CostBeC", "results/cost_accounting.json", "frontier[2].break_even_queries_lower_bound", "{:.0f}"),
+    ("CostBeD", "results/cost_accounting.json", "frontier[3].break_even_queries_lower_bound", "{:.0f}"),
+
     # ------------------------------------ the harness's own evidence (results/validation.json)
     ("Gates", "results/validation.json", "n_pass", "{:d}"),
     ("MassClosure", "results/validation.json", "by_gate.global mass balance closes.values.default", pct),
@@ -347,6 +376,10 @@ DERIVED = [
      lambda r: r["GapMax"] / r["GapMin"], "{:.0f}"),
     ("LCmaterialsForHalving", "materials needed to halve the error at the measured exponent",
      lambda r: 2.0 ** (1.0 / r["LCbeta"]), "{:.0f}"),
+    ("CostDataRatio", "training simulations at 192 materials divided by those at 12",
+     lambda r: r["CostLargeSims"] / r["CostSmallSims"], "{:.0f}"),
+    ("CostGenCoreHours", "the training set's cost in core-hours: solves x worker-seconds",
+     lambda r: r["CostNSolves"] * r["CostSolveSec"] / 3600.0, "{:.0f}"),
 ]
 
 def dig(obj, path):

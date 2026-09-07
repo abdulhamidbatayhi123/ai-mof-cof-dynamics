@@ -1,0 +1,90 @@
+{
+ "_what": "amortised cost of the L1-v2 surrogate against its own reference, in solve-equivalents",
+ "_unit": "one solve-equivalent = the cost of one reference simulation at production settings (solve_nz=2000, stored 256x256)",
+ "_accuracy_caveat": "every cost below is cost AT A STATED ACCURACY. The surrogate does not reproduce the solver; its held-out error is carried in the frontier rows.",
+ "generation": {
+  "n_solves": 3947,
+  "n_rejected_before_solving": 133,
+  "wall_s": 16393.59726881981,
+  "workers": 4,
+  "worker_seconds_per_solve": 16.613729180460915,
+  "_caveat": "worker-seconds, not CPU-seconds: a worker's own numerical libraries may use more than one thread, so this is an upper bound on the serial cost and a lower bound on the machine cost."
+ },
+ "training": {
+  "arm": "MLPRegressor(256,256,256) on 64 POD modes/channel, L1-v2's arm",
+  "seconds_per_seed": [
+   40,
+   40,
+   28,
+   31,
+   29,
+   29,
+   24,
+   21,
+   24,
+   16,
+   23,
+   17,
+   18,
+   21,
+   17,
+   17,
+   15,
+   15
+  ],
+  "median_seconds": 22.0,
+  "solve_equivalents": 1.3242060082376794
+ },
+ "frontier": [
+  {
+   "n_materials": 12,
+   "n_train_sims_mean_over_folds": 196.4,
+   "held_out_nrmse": 0.0654406169910066,
+   "data_cost_solve_equivalents": 196.4,
+   "total_amortised_cost_solve_equivalents": 197.72420600823767,
+   "break_even_queries_lower_bound": 197.72420600823767
+  },
+  {
+   "n_materials": 24,
+   "n_train_sims_mean_over_folds": 395.4,
+   "held_out_nrmse": 0.05306470953097169,
+   "data_cost_solve_equivalents": 395.4,
+   "total_amortised_cost_solve_equivalents": 396.7242060082377,
+   "break_even_queries_lower_bound": 396.7242060082377
+  },
+  {
+   "n_materials": 48,
+   "n_train_sims_mean_over_folds": 789.8,
+   "held_out_nrmse": 0.04651061158470202,
+   "data_cost_solve_equivalents": 789.8,
+   "total_amortised_cost_solve_equivalents": 791.1242060082376,
+   "break_even_queries_lower_bound": 791.1242060082376
+  },
+  {
+   "n_materials": 96,
+   "n_train_sims_mean_over_folds": 1576.8,
+   "held_out_nrmse": 0.04018315673157599,
+   "data_cost_solve_equivalents": 1576.8,
+   "total_amortised_cost_solve_equivalents": 1578.1242060082377,
+   "break_even_queries_lower_bound": 1578.1242060082377
+  },
+  {
+   "n_materials": 192,
+   "n_train_sims_mean_over_folds": 3157.6,
+   "held_out_nrmse": 0.034840433249133176,
+   "data_cost_solve_equivalents": 3157.6,
+   "total_amortised_cost_solve_equivalents": 3158.9242060082374,
+   "break_even_queries_lower_bound": 3158.9242060082374
+  }
+ ],
+ "headline": {
+  "n_train_at_largest": 3157.6,
+  "nrmse_at_largest": 0.034840433249133176,
+  "break_even_queries_lower_bound": 3158.9242060082374,
+  "_reading": "the surrogate cannot repay its own construction in fewer than this many screening queries, whatever the per-query cost is, because that is what its training set and its fit cost."
+ },
+ "query": {
+  "measured": false,
+  "_note": "run with --time on an idle machine to measure it"
+ }
+}

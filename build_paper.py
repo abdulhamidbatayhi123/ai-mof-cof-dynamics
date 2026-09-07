@@ -54,6 +54,7 @@ _ALLOWED_PAIRS = [
     ("128", "basis size p / the field encoding, an axis label"),
     ("192", "training materials per fold, fixed by the 5-fold design"),
     ("216", "the width of the best DeepONet, an architecture description"),
+    ("256", "the hidden-layer width of the reported arm, a fixed architecture choice"),
     ("240", "the material count of the dataset, fixed by design"),
     ("17", "operating conditions per material, fixed by design"),
     ("3947", "accepted simulations, a dataset size"),
