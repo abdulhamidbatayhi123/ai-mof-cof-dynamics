@@ -1,12 +1,12 @@
 {
   "values": {
     "LzeroTracer": "1.69e-03",
-    "LzeroTracerFront": "0.0",
+    "LzeroTracerFront": "0.023",
     "LzeroTracerPe": "93",
     "LzeroBCdiff": "3.5",
-    "LzeroRetarded": "0.0",
+    "LzeroRetarded": "0.027",
     "LzeroRetardedR": "901",
-    "LzeroThermal": "0.0",
+    "LzeroThermal": "0.012",
     "LzeroLDF": "3.0e-04",
     "IsoNmat": "240",
     "IsoKHmin": "0.0322",
@@ -72,15 +72,24 @@
     "LfiveFNO": "0.0216",
     "LfiveFNOmodes": "4",
     "LfiveFNOwidth": "28",
+    "LfiveONetWidth": "216",
+    "LfiveONetP": "8",
+    "LfiveWidthRatio": "7.7",
+    "LfiveNclust": "12",
+    "LfiveAlpha": "0.005",
     "LfiveONet": "0.0265",
     "LfiveOKAN": "0.0357",
     "LfiveFloor": "5.02e-04",
     "LfiveONetFNOdiff": "0.00488",
-    "LfiveONetFNOlo": "0.00035",
-    "LfiveONetFNOhi": "0.00978",
+    "LfiveONetFNOlo": "0.00015",
+    "LfiveONetFNOhi": "0.00984",
     "LfiveFlatDiff": "-0.00102",
     "LfiveFlatLo": "-0.00585",
     "LfiveFlatHi": "0.00491",
+    "LfiveFlatBase": "0.02646",
+    "LegacyMDE": "50.0",
+    "AlphaLegacySel": "0.01",
+    "FprLegacyUsed": "4.25",
     "LfiveFloorSmall": "1.44e-02",
     "LfiveFloorLarge": "5.02e-04",
     "LfiveBasisSmall": "0.01440",
@@ -135,6 +144,9 @@
     "GapMax": "0.992",
     "MonoRawNrmse": "0.04770",
     "MonoProjNrmse": "0.04812",
+    "MonoDiff": "-0.00041",
+    "MonoLo": "-0.00070",
+    "MonoHi": "-0.00010",
     "NwidthExpC": "-2.45",
     "NwidthRtwoC": "0.9910",
     "AnchorTfiftyExp": "287",
@@ -165,6 +177,8 @@
     "AnchorNrmseER": "0.105",
     "AnchorNrmseBrug": "0.083",
     "AnchorPlateauER": "0.293",
+    "DaPelletForUnity": "9.5",
+    "DaPelletsAcross": "11",
     "CostSolveSec": "16.6",
     "CostNSolves": "3947",
     "CostGenWall": "4.6",
@@ -186,10 +200,10 @@
     "CostBeC": "791",
     "CostBeD": "1578",
     "Gates": "24",
-    "MassClosure": "0.0",
-    "MassClosureMof": "0.1",
-    "GridConv": "0.1",
-    "GridConvMof": "0.3",
+    "MassClosure": "0.050",
+    "MassClosureMof": "0.055",
+    "GridConv": "0.055",
+    "GridConvMof": "0.32",
     "GridNz": "2000",
     "LoneXfloor": "109",
     "LtwoXfloor": "86",
@@ -226,7 +240,14 @@
     "FNOxFloor": "43",
     "ONetxFloor": "53",
     "FNOgain": "1.23",
+    "NwidthExpErr": "-1.23",
     "NwidthHalving": "1.76",
+    "LfiveCoefChangePct": "0.9",
+    "WarpHeadroomFixed": "2.27",
+    "AnchorTcutPct": "61",
+    "AnchorNrmseCutPct": "18",
+    "LfiveFlatImproveMax": "19",
+    "LfiveFlatDegradeMax": "22",
     "LsixNoiseDrop": "3.8",
     "LsixLegacyBetweenOverBase": "69",
     "GapRange": "40",
@@ -523,6 +544,26 @@
       "file": "results/l5_fno_verdict.json",
       "path": "fno_best.width"
     },
+    "LfiveONetWidth": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_best_width"
+    },
+    "LfiveONetP": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "deeponet_best_p"
+    },
+    "LfiveWidthRatio": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "width_ratio_onet_over_fno"
+    },
+    "LfiveNclust": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "_n_clusters"
+    },
+    "LfiveAlpha": {
+      "file": "results/l5_fno_verdict.json",
+      "path": "_alpha"
+    },
     "LfiveONet": {
       "file": "results/l5_fno_verdict.json",
       "path": "deeponet_best"
@@ -558,6 +599,22 @@
     "LfiveFlatHi": {
       "file": "results/l5_merged.json",
       "path": "paired_vs_smallest_p.deeponet_p128.ci_high"
+    },
+    "LfiveFlatBase": {
+      "file": "results/l5_merged.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.mean_a"
+    },
+    "LegacyMDE": {
+      "file": "results/calibration_v2.json",
+      "path": "legacy.mde_at_80pct"
+    },
+    "AlphaLegacySel": {
+      "file": "results/calibration_v2.json",
+      "path": "legacy.alpha"
+    },
+    "FprLegacyUsed": {
+      "file": "results/calibration_v2.json",
+      "path": "legacy.fpr_by_alpha.0.005"
     },
     "LfiveFloorSmall": {
       "file": "results/l5_merged.json",
@@ -775,6 +832,18 @@
       "file": "results/warp_monotone.json",
       "path": "comparison.mean_b"
     },
+    "MonoDiff": {
+      "file": "results/warp_monotone.json",
+      "path": "comparison.mean_diff"
+    },
+    "MonoLo": {
+      "file": "results/warp_monotone.json",
+      "path": "comparison.ci_low"
+    },
+    "MonoHi": {
+      "file": "results/warp_monotone.json",
+      "path": "comparison.ci_high"
+    },
     "NwidthExpC": {
       "file": "results/nwidth.json",
       "path": "c.algebraic_exponent"
@@ -894,6 +963,14 @@
     "AnchorPlateauER": {
       "file": "results/lassitter_comparison_posthoc.json",
       "path": "runs.edwards_richardson_k0.2.plateau_150_250_frac"
+    },
+    "DaPelletForUnity": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_floor.d_p_for_Da_unity_mm"
+    },
+    "DaPelletsAcross": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_floor.pellets_across_bed_at_that_d_p"
     },
     "CostSolveSec": {
       "file": "results/cost_accounting.json",
@@ -1135,8 +1212,29 @@
     "FNOgain": {
       "derived": "the best DeepONet divided by the best FNO"
     },
+    "NwidthExpErr": {
+      "derived": "the n-width (error) exponent: half the fitted energy exponent"
+    },
     "NwidthHalving": {
-      "derived": "modes needed to halve the error, 2^(1/|algebraic exponent|)"
+      "derived": "modes needed to halve the ERROR, 2^(1/|energy exponent / 2|)"
+    },
+    "LfiveCoefChangePct": {
+      "derived": "the coefficient-map error's change from p=8 to p=128, per cent"
+    },
+    "WarpHeadroomFixed": {
+      "derived": "the fixed frame divided by the oracle two-wave arm"
+    },
+    "AnchorTcutPct": {
+      "derived": "the share of the 95 % arrival-time EXCESS over experiment that the untruncated dispersion closure removes"
+    },
+    "AnchorNrmseCutPct": {
+      "derived": "the share of the anchor nRMSE the untruncated closure removes"
+    },
+    "LfiveFlatImproveMax": {
+      "derived": "the largest improvement from p=8 to p=128 the interval admits, per cent"
+    },
+    "LfiveFlatDegradeMax": {
+      "derived": "the largest degradation the interval admits, per cent"
     },
     "LsixNoiseDrop": {
       "derived": "the legacy between-material sd divided by v2's"

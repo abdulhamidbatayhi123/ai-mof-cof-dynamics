@@ -37,14 +37,19 @@ they fit. We ask instead what \emph{binds} their error when they are required to
 predict a material they have never seen, and which of the standard interventions
 moves it. Seven candidate explanations were named in advance, each with the
 evidence that would eliminate it, and tested on a reference solver verified against
-four closed-form solutions and against a published MOF-303 packed-bed breakthrough
-curve with nothing fitted. Six are eliminated. Model capacity is eliminated as an
+four closed-form solutions and compared, with nothing fitted, against a published
+MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
+it reproduces and whose first-wave timing it does not. Six are eliminated, three of
+them on a smaller design of twelve held-out materials and three on 240, and we mark
+which throughout. Model capacity is eliminated as an
 unbounded lever, though its optimum moves with the training-set size. Architecture
-family is eliminated: at matched parameters a multilayer perceptron beats both
+family is eliminated on the smaller design: at matched parameters a multilayer
+perceptron beats both
 Kolmogorov--Arnold families in \(6/6\) comparisons, with every optimum bracketed
 across eight learning rates spanning three and a half decades. Linear-reconstruction
-operators are eliminated: DeepONet is flat in basis size while its own Kolmogorov
-\(n\)-width bound falls \(\nFloorDrop\times\) beneath it. A Fourier neural operator, the
+operators are eliminated: over a sixteenfold increase in basis size DeepONet
+improves by no more than \nLfiveFlatImproveMax\,\% of its own error, while the
+proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\). A Fourier neural operator, the
 remedy the approximation theory names, is significantly better yet still sits \(\nFNOxFloor\times\) above the same floor. Structural decomposition of the equilibrium and
 kinetic objects gives a small, real and reproducible benefit
 (\nLsixDiff\ nRMSE, CI [\nLsixLo, \nLsixHi]) that does \emph{not} vary with
@@ -54,8 +59,9 @@ training materials: error still falls as \(n^{-\nLCbeta}\) at the largest size w
 can afford, and all of that gain lies in the parameter-to-coefficient map rather
 than in the basis. We trace the wall to that map directly, and show that a change of
 coordinates which collapses the \(n\)-width from \nNwidthOriginal\ to
-\nNwidthTwoWaveA\ modes buys a significant \nWarpHeadroom{}\(\times\) under an
-oracle and nothing at all under a predictor --- relocating the obstruction from a
+\nNwidthTwoWaveA\ modes buys a significant \nWarpHeadroomFixed{}\(\times\) under an
+oracle and nothing at all under a predictor, again on the smaller design ---
+relocating the obstruction from a
 two-dimensional field to two one-dimensional curves. \nLedgerA\ withdrawn claims and \nLedgerB\ caught defects are reported as a numbered section rather than an appendix.
 \end{abstract}
 
@@ -78,7 +84,8 @@ not been simulated. The quantity that matters is therefore not fit but
 
 That framing is unusual enough to be worth stating plainly, because it changes what
 counts as evidence. A surrogate cannot beat its own reference on accuracy --- the
-reference is exact by construction --- so a synthetic study can only measure
+reference defines the target, and Section~\ref{sec:reference} measures rather than
+assumes how good it is --- so a synthetic study can only measure
 accuracy per unit inference cost, or accuracy from less information. Two defects in
 our own frozen protocol came from forgetting this, and both are recorded in
 Section~\ref{sec:corrections}.
@@ -304,7 +311,8 @@ plateau at \nAnchorPlateauExp{} of the inlet, and 50\,\% arrival at
 \(\mathrm{nRMSE} = \nAnchorNrmse\) against the digitised effluent points --- against
 \nAnchorNrmseComsol\ for the authors' own two-dimensional COMSOL model with fitted kinetics.
 The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 bed
-does, and the cited isotherm predicts it (Figure~\ref{fig:anchor}).
+does, and the cited isotherm produces it --- though, as the next paragraph says,
+not its first-wave timing (Figure~\ref{fig:anchor}).
 
 Two discrepancies, both attributable, both reported. The first wave arrives
 \emph{too early} in the model (\nAnchorTfiveModel\ minutes against
@@ -315,8 +323,9 @@ constrains it, and it is a limitation of our MOF-303 parameterisation rather tha
 the solver. The shock is \emph{too dispersed}: the axial-dispersion closure gives a
 column P\'eclet number of \nAnchorPeCol\ on a bed one or two pellets deep, where a
 packed-bed correlation does not apply. That discrepancy is now measured rather than
-attributed --- Section~\ref{sec:limitations} shows that about half of it comes from
-evaluating one correlation at a limit this bed does not satisfy.
+attributed --- Section~\ref{sec:limitations} shows that \nAnchorTcutPct\,\% of the
+excess arrival time comes from evaluating one correlation at a limit this bed does
+not satisfy.
 
 %% ===========================================================================
 \section{Dataset, splits and statistics}
@@ -369,6 +378,25 @@ rejects \nFprLegacyNominal\,\% of the time at a nominal 5\,\% level with
 use a calibrated level: \(\alpha = \nAlphaFolds\) at \nNclustFolds\ clusters, which
 achieves an empirical size of \nFprFoldsCal\,\%. One published verdict did not
 survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
+
+\paragraph{Two designs, two levels, both stated.} Rungs L1, L2, L6 and L7 and the
+cost accounting run on the \nNclustFolds-material folds at
+\(\alpha = \nAlphaFolds\). Rungs L3 and L5 and the coordinate change run on the
+earlier \nNclustLegacy-material design and report at \(\alpha = \nLfiveAlpha\),
+which achieves an empirical size of \nFprLegacyUsed\,\% there --- stricter than the
+\(\alpha = \nAlphaLegacySel\) the calibration selected for that design, and four
+times stricter than the larger design's level. We state both because a reader
+cannot otherwise tell which test produced which interval.
+
+And we state the cost of the smaller design, because it is the weakest statistical
+statement in the paper. At \nNclustLegacy\ clusters the design's minimum detectable
+effect at 80\,\% power is \nLegacyMDE\,\%: a ``no difference'' verdict from it
+excludes only very large effects, and the calibration script says so in those words.
+Where a null is reported on that design below, the interval itself is quoted in
+relative terms, because the observed paired interval is much tighter than the
+design-level figure --- the arms being compared are trained on the same data and
+their errors are correlated, which the generic power simulation cannot know.
+Section~\ref{sec:limitations} says what else follows.
 
 \subsection{Every null carries its minimum detectable effect}
 
@@ -425,7 +453,9 @@ and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset th
 of \nLCratio. Every consecutive step is a significant improvement \emph{including
 the last}: 96 \(\to\) 192 gives \nLClastDiff\ with interval
 [\nLClastLo, \nLClastHi]. The exponent is \(n^{-\nLCbeta}\), interval
-[\nLCbetaLo, \nLCbetaHi]. At that exponent, halving the error costs about \(\nLCmaterialsForHalving\times\) more materials.
+[\nLCbetaLo, \nLCbetaHi]. Extrapolated at that exponent --- \emph{outside} the range
+we claim, and stated as an extrapolation because the next sentence forbids it ---
+halving the error would cost about \(\nLCmaterialsForHalving\times\) more materials.
 
 \textbf{Verdict, in the pre-declared words: the materials axis is NOT ELIMINATED at
 the largest size available.} We claim no extrapolation beyond twice the measured
@@ -543,10 +573,14 @@ verdict is a property of physics at inference or of one configuration of it
 
 At matched parameter counts and each family at its own best learning rate over three
 and a half decades, DeepONet is \textbf{flat in basis size} (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from
-\(p = 8\) to \(p = 128\), interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero
+\(p = 8\) to \(p = 128\), interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero.
+Stated as what it excludes, which is the honest form for a null: a sixteenfold
+increase in basis size cannot have improved this arm by more than
+\nLfiveFlatImproveMax\,\% or degraded it by more than \nLfiveFlatDegradeMax\,\% of
+its own error. That is the bound we claim, and it is not the same as ``no effect''
 --- while its own proper-orthogonal-decomposition floor falls from
 \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). At \(p = 128\) it
-sits fifty-five times above its own lower bound. \emph{Giving DeepONet 128 basis
+sits \(\nONetxFloor\times\) above its own lower bound. \emph{Giving DeepONet 128 basis
 functions buys it the accuracy of four.}
 
 \paragraph{The arm the theory names.} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
@@ -566,12 +600,15 @@ rather than in an approximation bound. \textbf{And it does not remove the wall}:
 sits \(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A \(\nFNOgain\times\) improvement against a bound \(\nFNOxFloor\times\) below it is a dent, not an
 escape.
 
-One row deserves its own sentence. At the highest mode count the Fourier operator is
-\emph{\nLfiveFNOwidth\ channels wide} and still matches the best DeepONet found
-anywhere, which has width 216. A nonlinear reconstruction with a twentieth of the
-channel count matches the best linear one. That is the clearest single piece of
+One row deserves its own sentence. At a matched parameter budget the winning Fourier
+operator spends it on spectral weights rather than on channels: it is
+\emph{\nLfiveFNOwidth\ channels wide} against the best DeepONet's
+\nLfiveONetWidth, a factor of \nLfiveWidthRatio, and it is the arm that wins. A
+nonlinear reconstruction beats the best linear one with a fraction of the channel
+count, at the same parameter count --- which is the clearest single piece of
 evidence in the rung that the reconstruction, not the capacity, separates these
-families.
+families. Note that this is the \emph{matched-budget} comparison and not a reading
+of the mode sweep, for the reason the next paragraph gives.
 
 \paragraph{Caveat, stated because it is load-bearing.} The Fourier operator's mode
 sweep is confounded with width at a matched budget --- the spectral weights cost
@@ -595,14 +632,35 @@ That asymmetry is exactly what the hypothesis needs.
 \paragraph{Primary estimand, refuted.} The separate-versus-joint difference does not
 vary with Damk\"ohler number: slope \nLsixSlope\ per decade, interval
 [\nLsixSlopeLo, \nLsixSlopeHi], Pearson \(r = \nLsixSlopeR\), over
-\nLsixDaDecades\ decades spanning kinetically-controlled to near-equilibrium
-operation (Figure~\ref{fig:ladder}B). \textbf{The mechanism is not supported.}
+\nLsixDaDecades\ decades of the informative band, Damk\"ohler
+\nDaMatMin--\nDaMatMax\ per material (Figure~\ref{fig:ladder}B). \textbf{The
+mechanism is not supported.}
+
+\paragraph{The scope of that refutation, stated because it is the strongest attack
+on it.} Kinetic control means Damk\"ohler well below unity, and this dataset never
+goes there: its lowest per-material value is \nDaMatMin. The hypothesis predicted
+that separating the kinetic object pays most where kinetics dominate, and we have
+refuted it over a range whose slow-kinetics end is merely \emph{less fast}, not
+slow. A design that sampled \(\mathrm{Da} < 1\) could in principle recover the
+interaction. We did not sample it, and the reason is structural rather than an
+oversight: the kinetic coefficient is not a free parameter in this dataset but is
+derived from particle size through the Glueckauf relation, so
+\(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
+bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
+\nDaPelletsAcross\ pellets across the \SI{10}{\centi\metre} column, where a
+one-dimensional plug-flow model is no longer the right description --- the same
+objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
+\(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
+physical inconsistency this dataset was built to remove. The refutation therefore
+holds across the range a physically consistent bed of this kind can occupy, and is
+not a statement about the kinetically-controlled limit.
 
 \paragraph{Secondary estimand, significant, and a sign reversal.} Joint fitting
 gives \nLsixJoint\ and separate identification \nLsixSeparate: separate is better by
 \nLsixDiff, interval [\nLsixLo, \nLsixHi], consistent in all five folds and all
 three seeds. On the earlier dataset separate was \emph{worse}, with an
-interval spanning zero. The direction has flipped, and the earlier number is not quoted here because it belongs to a design that could not test the estimand at all. The direction has flipped.
+interval spanning zero. The direction has flipped, and the earlier number is not
+quoted here because it belongs to a design that could not test the estimand at all.
 
 \paragraph{Why the test has power now, and its limit.} The between-material standard
 deviation of the arm difference fell to \nLsixBetweenSD, or
@@ -661,7 +719,9 @@ particular method happened to learn.
 
 The basis error falls from \nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes
 from 8 to 128. The coefficient-map error, with a strong regressor, moves from
-\nLfiveCoefSmall\ to \nLfiveCoefLarge\ --- flat to four decimal places. The
+\nLfiveCoefSmall\ to \nLfiveCoefLarge\ --- a change of \nLfiveCoefChangePct\,\%
+across a sixteenfold change in basis size, against a basis error that falls by
+\(\nFloorDrop\times\) over the same range. The
 per-mode reason is that on held-out materials the map predicts the leading mode
 well, modes two to five partially, and beyond about mode 24 has a median \(R^2\)
 below zero, worse than predicting the mean.
@@ -670,7 +730,7 @@ Against an oracle reconstruction handed the true coefficients for its first \(k\
 modes, the best DeepONet found anywhere performs like a four-mode oracle. Three
 independent function classes --- proper orthogonal decomposition plus random forest,
 plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together is worth a constant
-a constant factor and nothing more.
+factor and nothing more.
 
 \paragraph{And this is scoped to a sample size, which we learned the hard way.} An
 earlier version of this section stated the mode count as a property of the map. It
@@ -680,17 +740,26 @@ material count, modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
 A21, and it withdrew the replacement text for an earlier retraction --- the same
 inference, made twice.
 
-\paragraph{The \(n\)-width is real and was not what binds.} The Kolmogorov
-\(n\)-width of this snapshot family is algebraic, \(n^{\nNwidthExpC}\) with
-\(R^2 = \nNwidthRtwoC\) over \(n = 8\)--64, so halving the error requires
-\(\nNwidthHalving\times\) the modes permanently. Any method whose output is a linear
+\paragraph{The \(n\)-width is real and was not what binds.} The residual
+\emph{energy} of this snapshot family decays algebraically, as
+\(n^{\nNwidthExpC}\) with \(R^2 = \nNwidthRtwoC\) over \(n = 8\)--64. The
+Kolmogorov \(n\)-width is the residual \emph{norm}, the square root of that, so it
+decays as \(n^{\nNwidthExpErr}\) and halving the error requires
+\(\nNwidthHalving\times\) the modes permanently. We separate the two because an
+earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
+halving factor computed correctly from the norm --- two numbers in one sentence
+that disagreed by a factor of two in the exponent. Any method whose output is a linear
 combination of a fixed basis is bounded below by it. Our frozen protocol called this
 the load-bearing result of the ladder and predicted that DeepONet would track it.
 The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
 A17. For transport-dominated problems the slow decay is established --- Ohlberger
 and Rave \cite{ohlberger2016reduced} prove a \emph{lower} bound of \(\tfrac12 N^{-1/2}\) for linear advection
 with jump discontinuities, which is a bound and not a rate, and we state it that
-way.
+way. Our measured decay is faster than that bound, and the reason is the
+hypothesis: their fields carry jump discontinuities, ours are smoothed by axial
+dispersion and by finite-rate kinetics, so the worst case their theorem
+constructs does not occur here. That is also why the bound can be simultaneously
+real and inactive --- the two statements this paragraph has to hold together.
 
 %% ===========================================================================
 \section{The coordinate change, and where the obstruction moved}
@@ -776,7 +845,11 @@ two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \
 Two statements, and both are needed. The honest arm does \emph{not} beat the fixed
 frame. But the oracle gap is significant and large: given the true front
 trajectories, the same proper-orthogonal-decomposition-plus-regressor arm is
-\nWarpHeadroom{}\(\times\) better.
+\nWarpHeadroomFixed{}\(\times\) better \emph{than the fixed frame}, and
+\nWarpHeadroom{}\(\times\) better than the same arm with predicted fronts. The two
+denominators differ and we name which is which, because the quantity a reader
+wants --- what the coordinate change would buy if the fronts were located
+perfectly --- is the first.
 
 \textbf{So the entire gain is consumed by the error in locating the two fronts},
 and that is now a measured, powered statement rather than an impression. This is a
@@ -791,7 +864,13 @@ front predictor does not know the constraints the true trajectories satisfy exac
 It does violate them, in more than half of all samples, while the true trajectories
 violate them in none. But projecting onto the constraint set changes \(R^2\) by
 nothing to three decimal places and makes the reconstruction significantly
-\emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse. The violations are frequent
+\emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
+\nMonoDiff\ with interval [\nMonoLo, \nMonoHi]. That interval is much tighter than
+Table~\ref{tab:warp}'s, and the reason is pairing rather than power: the projected
+arm is a deterministic transformation of the raw arm's own predictions, so almost
+all of the between-material variance cancels, whereas the two-wave and fixed frames
+are separately fitted arms. A smaller difference can therefore be resolved here
+than there, and the two intervals are not comparable. The violations are frequent
 but negligible in magnitude. A monotone-by-construction front predictor is not worth
 building; the remaining headroom is raw predictive accuracy, which points at
 material count rather than at architecture.
@@ -898,8 +977,11 @@ stated accuracy}, and the accuracy travels with the cost in every row.
 \label{sec:corrections}
 
 This section is not an appendix. \nLedgerA\ claims made in this project have been
-withdrawn, and \nLedgerB\ further defects were caught before they contaminated a
-reported number. \nLedgerOwn\ of the \nLedgerTotal\ entries are marked ``our own error'' and
+withdrawn, and \nLedgerB\ further defects were caught and corrected --- most, but
+not all, before they reached a reported number. B43 is the exception and is named
+as one: three quoted comparisons, including the quantitative basis of a retraction,
+had no script behind them at all, and the numbers had already been written down
+before anyone could check them. \nLedgerOwn\ of the \nLedgerTotal\ entries are marked ``our own error'' and
 several more are self-attributed in other words --- in the analysis, in the
 validation gates, in the power simulations, in the citation ledger itself, and in
 the frozen protocol.
@@ -1012,9 +1094,14 @@ not a fit, and not the pre-registered result --- moves the 95\,\% arrival time f
 effluent from \nAnchorNrmse\ to \nAnchorNrmseER\ (Figure~\ref{fig:anchorposthoc}).
 The authors' own Bruggeman closure goes further, to \nAnchorNrmseBrug, but overshoots
 in the other direction at \nAnchorTninetyfiveBrug\ minutes; the measured value is
-bracketed by the two closures. \textbf{So roughly half of the anchor's second named
-discrepancy is not the solver and not the bed geometry, but one term evaluated at its
-limit.} None of this affects a surrogate result, because the solver is the reference
+bracketed by the two closures. \textbf{So a substantial part of the anchor's second
+named discrepancy is not the solver and not the bed geometry, but one term evaluated
+at its limit}: removing the truncation removes \nAnchorTcutPct\,\% of the model's
+excess 95\,\% arrival time over the measurement, and \nAnchorNrmseCutPct\,\% of its
+error against the digitised effluent. Those two shares differ because the error is
+dominated by the first-wave timing, which no dispersion closure touches --- which is
+itself the reason to quote both rather than an average of them. None of this affects
+a surrogate result, because the solver is the reference
 whatever closure it uses and every arm sees the same reference; it bounds how far the
 reference may be read as physical, which is exactly what a limitation should do.
 

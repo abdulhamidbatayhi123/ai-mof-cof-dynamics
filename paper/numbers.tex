@@ -2,12 +2,12 @@
 % Every value below is read from a results file; see SPEC in numbers.py
 % for the file and path behind each one.
 \newcommand{\nLzeroTracer}{1.69e-03}
-\newcommand{\nLzeroTracerFront}{0.0}
+\newcommand{\nLzeroTracerFront}{0.023}
 \newcommand{\nLzeroTracerPe}{93}
 \newcommand{\nLzeroBCdiff}{3.5}
-\newcommand{\nLzeroRetarded}{0.0}
+\newcommand{\nLzeroRetarded}{0.027}
 \newcommand{\nLzeroRetardedR}{901}
-\newcommand{\nLzeroThermal}{0.0}
+\newcommand{\nLzeroThermal}{0.012}
 \newcommand{\nLzeroLDF}{3.0e-04}
 \newcommand{\nIsoNmat}{240}
 \newcommand{\nIsoKHmin}{0.0322}
@@ -73,15 +73,24 @@
 \newcommand{\nLfiveFNO}{0.0216}
 \newcommand{\nLfiveFNOmodes}{4}
 \newcommand{\nLfiveFNOwidth}{28}
+\newcommand{\nLfiveONetWidth}{216}
+\newcommand{\nLfiveONetP}{8}
+\newcommand{\nLfiveWidthRatio}{7.7}
+\newcommand{\nLfiveNclust}{12}
+\newcommand{\nLfiveAlpha}{0.005}
 \newcommand{\nLfiveONet}{0.0265}
 \newcommand{\nLfiveOKAN}{0.0357}
 \newcommand{\nLfiveFloor}{5.02e-04}
 \newcommand{\nLfiveONetFNOdiff}{0.00488}
-\newcommand{\nLfiveONetFNOlo}{0.00035}
-\newcommand{\nLfiveONetFNOhi}{0.00978}
+\newcommand{\nLfiveONetFNOlo}{0.00015}
+\newcommand{\nLfiveONetFNOhi}{0.00984}
 \newcommand{\nLfiveFlatDiff}{-0.00102}
 \newcommand{\nLfiveFlatLo}{-0.00585}
 \newcommand{\nLfiveFlatHi}{0.00491}
+\newcommand{\nLfiveFlatBase}{0.02646}
+\newcommand{\nLegacyMDE}{50.0}
+\newcommand{\nAlphaLegacySel}{0.01}
+\newcommand{\nFprLegacyUsed}{4.25}
 \newcommand{\nLfiveFloorSmall}{1.44e-02}
 \newcommand{\nLfiveFloorLarge}{5.02e-04}
 \newcommand{\nLfiveBasisSmall}{0.01440}
@@ -136,6 +145,9 @@
 \newcommand{\nGapMax}{0.992}
 \newcommand{\nMonoRawNrmse}{0.04770}
 \newcommand{\nMonoProjNrmse}{0.04812}
+\newcommand{\nMonoDiff}{-0.00041}
+\newcommand{\nMonoLo}{-0.00070}
+\newcommand{\nMonoHi}{-0.00010}
 \newcommand{\nNwidthExpC}{-2.45}
 \newcommand{\nNwidthRtwoC}{0.9910}
 \newcommand{\nAnchorTfiftyExp}{287}
@@ -166,6 +178,8 @@
 \newcommand{\nAnchorNrmseER}{0.105}
 \newcommand{\nAnchorNrmseBrug}{0.083}
 \newcommand{\nAnchorPlateauER}{0.293}
+\newcommand{\nDaPelletForUnity}{9.5}
+\newcommand{\nDaPelletsAcross}{11}
 \newcommand{\nCostSolveSec}{16.6}
 \newcommand{\nCostNSolves}{3947}
 \newcommand{\nCostGenWall}{4.6}
@@ -187,10 +201,10 @@
 \newcommand{\nCostBeC}{791}
 \newcommand{\nCostBeD}{1578}
 \newcommand{\nGates}{24}
-\newcommand{\nMassClosure}{0.0}
-\newcommand{\nMassClosureMof}{0.1}
-\newcommand{\nGridConv}{0.1}
-\newcommand{\nGridConvMof}{0.3}
+\newcommand{\nMassClosure}{0.050}
+\newcommand{\nMassClosureMof}{0.055}
+\newcommand{\nGridConv}{0.055}
+\newcommand{\nGridConvMof}{0.32}
 \newcommand{\nGridNz}{2000}
 \newcommand{\nLoneXfloor}{109}
 \newcommand{\nLtwoXfloor}{86}
@@ -232,8 +246,22 @@
 \newcommand{\nONetxFloor}{53}
 % FNOgain: the best DeepONet divided by the best FNO
 \newcommand{\nFNOgain}{1.23}
-% NwidthHalving: modes needed to halve the error, 2^(1/|algebraic exponent|)
+% NwidthExpErr: the n-width (error) exponent: half the fitted energy exponent
+\newcommand{\nNwidthExpErr}{-1.23}
+% NwidthHalving: modes needed to halve the ERROR, 2^(1/|energy exponent / 2|)
 \newcommand{\nNwidthHalving}{1.76}
+% LfiveCoefChangePct: the coefficient-map error's change from p=8 to p=128, per cent
+\newcommand{\nLfiveCoefChangePct}{0.9}
+% WarpHeadroomFixed: the fixed frame divided by the oracle two-wave arm
+\newcommand{\nWarpHeadroomFixed}{2.27}
+% AnchorTcutPct: the share of the 95 % arrival-time EXCESS over experiment that the untruncated dispersion closure removes
+\newcommand{\nAnchorTcutPct}{61}
+% AnchorNrmseCutPct: the share of the anchor nRMSE the untruncated closure removes
+\newcommand{\nAnchorNrmseCutPct}{18}
+% LfiveFlatImproveMax: the largest improvement from p=8 to p=128 the interval admits, per cent
+\newcommand{\nLfiveFlatImproveMax}{19}
+% LfiveFlatDegradeMax: the largest degradation the interval admits, per cent
+\newcommand{\nLfiveFlatDegradeMax}{22}
 % LsixNoiseDrop: the legacy between-material sd divided by v2's
 \newcommand{\nLsixNoiseDrop}{3.8}
 % LsixLegacyBetweenOverBase: the legacy between-material sd as a share of its base error

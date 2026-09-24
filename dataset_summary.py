@@ -26,6 +26,7 @@ import os
 
 import numpy as np
 
+BED_LENGTH_M = 0.10      # gen_parametric_dataset.py: p.L = 0.10 for every parametric run
 BAND = (5.0, 60.0)   # the informative Damkohler band, fixed by the design
 
 
@@ -86,6 +87,32 @@ def summarise(root):
         "note": "The two Damkohler summaries are different quantities, not a discrepancy. "
                 "Any document quoting either must name its denominator.",
     }
+
+    # ---- why this dataset never reaches Da < 1, with the number ------------
+    # L6's primary estimand is refuted over a Damkohler range whose slow end is
+    # merely LESS FAST, never slow, and that is the strongest attack on the
+    # refutation. The reason is structural: k_LDF is not sampled, it is derived
+    # from particle size through Glueckauf, so Da ~ d_p^-2 and reaching Da = 1
+    # needs a pellet that makes the bed only a few particles across -- the same
+    # regime where the 1-D plug-flow description stops applying, which is the
+    # objection the anchor section already raises against a real bed.
+    if by and "d_p" in man["materials"][0]:
+        dp_by_mat = {m["material_id"]: m["d_p"] for m in man["materials"]}
+        i_lo = int(np.argmin(da_sample))
+        s_lo = with_da[i_lo]
+        dp_lo = float(dp_by_mat[s_lo["mat"]])
+        dp_for_unity = dp_lo * float(np.sqrt(da_sample[i_lo] / 1.0))
+        out["damkohler_floor"] = {
+            "_why": "Da = k_LDF * t_final and k_LDF ~ 1/R_p^2 via Glueckauf, so "
+                    "Da ~ d_p^-2 at otherwise fixed conditions.",
+            "lowest_Da_sample": {"Da": float(da_sample[i_lo]), "d_p_m": dp_lo,
+                                 "k_LDF": float(s_lo["k_LDF"])},
+            "d_p_sampled_min_m": float(min(dp_by_mat.values())),
+            "d_p_sampled_max_m": float(max(dp_by_mat.values())),
+            "d_p_for_Da_unity_mm": 1e3 * dp_for_unity,
+            "pellets_across_bed_at_that_d_p": float(BED_LENGTH_M / dp_for_unity),
+            "bed_length_m": BED_LENGTH_M,
+        }
     return out
 
 

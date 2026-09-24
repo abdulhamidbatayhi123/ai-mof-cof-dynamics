@@ -15,6 +15,8 @@
     5.0,
     60.0
   ],
+  "damkohler_source": "recorded per sample in the manifest",
+  "frac_above_band_per_sample": 0.21662021788700278,
   "damkohler_per_sample": {
     "denominator": "one value per SAMPLE",
     "n": 3947,
@@ -33,5 +35,18 @@
     "decades": 1.3529417998521436,
     "frac_in_band": 0.85
   },
-  "note": "The two Damkohler summaries are different quantities, not a discrepancy. Any document quoting either must name its denominator."
+  "note": "The two Damkohler summaries are different quantities, not a discrepancy. Any document quoting either must name its denominator.",
+  "damkohler_floor": {
+    "_why": "Da = k_LDF * t_final and k_LDF ~ 1/R_p^2 via Glueckauf, so Da ~ d_p^-2 at otherwise fixed conditions.",
+    "lowest_Da_sample": {
+      "Da": 3.824607488340196,
+      "d_p_m": 0.004845188138075173,
+      "k_LDF": 0.0009534315885721445
+    },
+    "d_p_sampled_min_m": 0.0015021345256827773,
+    "d_p_sampled_max_m": 0.004999604505952448,
+    "d_p_for_Da_unity_mm": 9.475542433704879,
+    "pellets_across_bed_at_that_d_p": 10.553485533904217,
+    "bed_length_m": 0.1
+  }
 }

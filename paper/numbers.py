@@ -79,6 +79,24 @@ def pct(x):
     return f"{100 * x:.1f}"
 
 
+def pct_sig(x, n=2):
+    """A percentage to `n` significant figures, not to one decimal place.
+
+    `pct` destroyed exactly the numbers the paper most needs. The solver
+    verification table quotes a retarded-front error of 0.0272 %, a thermal-wave
+    error of 0.0123 % and a mass closure of 0.0497 %, and one decimal place prints
+    all three as "0.0 %" -- which reads either as a broken macro or as an
+    implausible claim of exact agreement, in the one table the rest of the paper
+    rests on. Three significant digits of a verification error are the evidence;
+    rounding them away is not a formatting choice.
+    """
+    v = 100.0 * x
+    if v == 0:
+        return "0"
+    d = max(0, n - 1 - int(math.floor(math.log10(abs(v)))))
+    return f"{v:.{d}f}"
+
+
 def sig(x, n=3):
     if x == 0:
         return "0"
@@ -90,12 +108,12 @@ def sig(x, n=3):
 SPEC = [
     # ---------------------------------------------------------------- L0
     ("LzeroTracer", "verify_solver.json", "tracer_van_genuchten.max_abs_err_vs_third_type", "{:.2e}"),
-    ("LzeroTracerFront", "verify_solver.json", "tracer_van_genuchten.front_rel_err", pct),
+    ("LzeroTracerFront", "verify_solver.json", "tracer_van_genuchten.front_rel_err", pct_sig),
     ("LzeroTracerPe", "verify_solver.json", "tracer_van_genuchten.Pe", "{:.0f}"),
     ("LzeroBCdiff", "verify_solver.json", "tracer_van_genuchten.bc_difference_max", pct),
-    ("LzeroRetarded", "verify_solver.json", "retarded_front.rel_err", pct),
+    ("LzeroRetarded", "verify_solver.json", "retarded_front.rel_err", pct_sig),
     ("LzeroRetardedR", "verify_solver.json", "retarded_front.R", "{:.0f}"),
-    ("LzeroThermal", "verify_solver.json", "thermal_wave.rel_err", pct),
+    ("LzeroThermal", "verify_solver.json", "thermal_wave.rel_err", pct_sig),
     ("LzeroLDF", "verify_solver.json", "ldf_anzelius_schumann.max_abs_err", "{:.1e}"),
 
     # ------------------------------------------------- the isotherm, whole space
@@ -175,6 +193,14 @@ SPEC = [
     ("LfiveFNO", "results/l5_fno_verdict.json", "fno_best.mean", "{:.4f}"),
     ("LfiveFNOmodes", "results/l5_fno_verdict.json", "fno_best.modes", "{:d}"),
     ("LfiveFNOwidth", "results/l5_fno_verdict.json", "fno_best.width", "{:d}"),
+    # the best DeepONet's width, which the prose used to type as a bare "216" and
+    # build_paper.py used to launder through ALLOWED as "an architecture
+    # description". It is the selected cell of a sweep, i.e. a result.
+    ("LfiveONetWidth", "results/l5_fno_verdict.json", "deeponet_best_width", "{:d}"),
+    ("LfiveONetP", "results/l5_fno_verdict.json", "deeponet_best_p", "{:d}"),
+    ("LfiveWidthRatio", "results/l5_fno_verdict.json", "width_ratio_onet_over_fno", "{:.1f}"),
+    ("LfiveNclust", "results/l5_fno_verdict.json", "_n_clusters", "{:d}"),
+    ("LfiveAlpha", "results/l5_fno_verdict.json", "_alpha", "{:g}"),
     ("LfiveONet", "results/l5_fno_verdict.json", "deeponet_best", "{:.4f}"),
     ("LfiveOKAN", "results/l5_fno_verdict.json", "deepokan_best", "{:.4f}"),
     ("LfiveFloor", "results/l5_fno_verdict.json", "pod_floor_p128", "{:.2e}"),
@@ -184,6 +210,19 @@ SPEC = [
     ("LfiveFlatDiff", "results/l5_merged.json", "paired_vs_smallest_p.deeponet_p128.mean_diff", "{:.5f}"),
     ("LfiveFlatLo", "results/l5_merged.json", "paired_vs_smallest_p.deeponet_p128.ci_low", "{:.5f}"),
     ("LfiveFlatHi", "results/l5_merged.json", "paired_vs_smallest_p.deeponet_p128.ci_high", "{:.5f}"),
+    ("LfiveFlatBase", "results/l5_merged.json", "paired_vs_smallest_p.deeponet_p128.mean_a", "{:.5f}"),
+    # the legacy 12-cluster design's own 80 %-power MDE, as a RELATIVE effect.
+    # calibrate_v2.py's own printout reads "a 'no difference' verdict on this split
+    # excludes improvements larger than ~50 %". That is the weakest design in the
+    # paper and the number appeared nowhere in it.
+    ("LegacyMDE", "results/calibration_v2.json", "legacy.mde_at_80pct", pct),
+    # calibrate_v2 SELECTED alpha = 0.01 for the 12-cluster design, but
+    # metrics.ALPHA_CALIBRATED -- the default every legacy-design rung actually ran
+    # at -- is 0.005, which is stricter. Declare the level that was USED and its
+    # measured size, and the selected one alongside, rather than implying they are
+    # the same number.
+    ("AlphaLegacySel", "results/calibration_v2.json", "legacy.alpha", "{:g}"),
+    ("FprLegacyUsed", "results/calibration_v2.json", "legacy.fpr_by_alpha.0.005", "{:.2f}"),
     ("LfiveFloorSmall", "results/l5_merged.json", "pod_floor.8", "{:.2e}"),
     ("LfiveFloorLarge", "results/l5_merged.json", "pod_floor.128", "{:.2e}"),
     ("LfiveBasisSmall", "results/l5_bottleneck.json", "rows[0].basis_floor_novel", "{:.5f}"),
@@ -244,6 +283,9 @@ SPEC = [
     ("GapMax", "results/comoving.json", "two_wave_gap.max", "{:.3f}"),
     ("MonoRawNrmse", "results/warp_monotone.json", "comparison.mean_a", "{:.5f}"),
     ("MonoProjNrmse", "results/warp_monotone.json", "comparison.mean_b", "{:.5f}"),
+    ("MonoDiff", "results/warp_monotone.json", "comparison.mean_diff", "{:.5f}"),
+    ("MonoLo", "results/warp_monotone.json", "comparison.ci_low", "{:.5f}"),
+    ("MonoHi", "results/warp_monotone.json", "comparison.ci_high", "{:.5f}"),
 
     # ----------------------------------------------------------- the n-width
     ("NwidthExpC", "results/nwidth.json", "c.algebraic_exponent", "{:.2f}"),
@@ -294,6 +336,10 @@ SPEC = [
     ("AnchorPlateauER", "results/lassitter_comparison_posthoc.json",
      "runs.edwards_richardson_k0.2.plateau_150_250_frac", "{:.3f}"),
 
+    ("DaPelletForUnity", "results/dataset_summary.json", "damkohler_floor.d_p_for_Da_unity_mm", "{:.1f}"),
+    ("DaPelletsAcross", "results/dataset_summary.json",
+     "damkohler_floor.pellets_across_bed_at_that_d_p", "{:.0f}"),
+
     # ------------------------------------------- the amortised cost accounting
     ("CostSolveSec", "results/cost_accounting.json", "generation.worker_seconds_per_solve", "{:.1f}"),
     ("CostNSolves", "results/cost_accounting.json", "generation.n_solves", "{:d}"),
@@ -325,10 +371,10 @@ SPEC = [
 
     # ------------------------------------ the harness's own evidence (results/validation.json)
     ("Gates", "results/validation.json", "n_pass", "{:d}"),
-    ("MassClosure", "results/validation.json", "by_gate.global mass balance closes.values.default", pct),
-    ("MassClosureMof", "results/validation.json", "by_gate.global mass balance closes.values.mof303", pct),
-    ("GridConv", "results/validation.json", "by_gate.solution is grid-converged.values.default.err", pct),
-    ("GridConvMof", "results/validation.json", "by_gate.solution is grid-converged.values.mof303.err", pct),
+    ("MassClosure", "results/validation.json", "by_gate.global mass balance closes.values.default", pct_sig),
+    ("MassClosureMof", "results/validation.json", "by_gate.global mass balance closes.values.mof303", pct_sig),
+    ("GridConv", "results/validation.json", "by_gate.solution is grid-converged.values.default.err", pct_sig),
+    ("GridConvMof", "results/validation.json", "by_gate.solution is grid-converged.values.mof303.err", pct_sig),
     ("GridNz", "results/validation.json", "by_gate.solution is grid-converged.values.default.N_z", "{:d}"),
 
     # ------------------------------------------------- how far above the floor each arm sits
@@ -396,8 +442,45 @@ DERIVED = [
      lambda r: r["LfiveONet"] / r["LfiveFloor"], "{:.0f}"),
     ("FNOgain", "the best DeepONet divided by the best FNO",
      lambda r: r["LfiveONet"] / r["LfiveFNO"], "{:.2f}"),
-    ("NwidthHalving", "modes needed to halve the error, 2^(1/|algebraic exponent|)",
+    # nwidth.py fits the RESIDUAL ENERGY -- 1 minus the cumulative explained-variance
+    # ratio -- against n, so `algebraic_exponent` is an ENERGY exponent. The
+    # Kolmogorov n-width is the residual NORM, the square root of that, so its
+    # exponent is half. The prose used to quote the energy exponent and call it the
+    # n-width while quoting a halving factor computed correctly from the norm, so
+    # the two numbers in one sentence disagreed by a factor of two in the exponent
+    # and anybody recomputing 2^(1/2.45) found the mismatch at once. The code was
+    # right and both its own docstring and the prose were wrong.
+    ("NwidthExpErr", "the n-width (error) exponent: half the fitted energy exponent",
+     lambda r: r["NwidthExpC"] / 2.0, "{:.2f}"),
+    ("NwidthHalving", "modes needed to halve the ERROR, 2^(1/|energy exponent / 2|)",
      lambda r: 2.0 ** (1.0 / abs(r["NwidthExpC"] / 2.0)), "{:.2f}"),
+    ("LfiveCoefChangePct", "the coefficient-map error's change from p=8 to p=128, per cent",
+     lambda r: 100.0 * abs(r["LfiveCoefLarge"] - r["LfiveCoefSmall"]) / r["LfiveCoefSmall"],
+     "{:.1f}"),
+    # WarpHeadroom (results/warp_verdict.json headroom_to_oracle) is the oracle
+    # against the PREDICTED two-wave arm. The abstract's "buys ... under an oracle"
+    # is necessarily relative to NOT applying the coordinate change at all, i.e. to
+    # the fixed frame, which is a different denominator. Both are declared, and the
+    # prose now names which one it means in each place.
+    ("WarpHeadroomFixed", "the fixed frame divided by the oracle two-wave arm",
+     lambda r: r["WarpFixed"] / r["WarpOracle"], "{:.2f}"),
+    # How much of the anchor's shock-dispersion discrepancy the untruncated closure
+    # removes. This was a bolded "roughly half" -- a hedge doing work two numbers
+    # should do, and wrong in both of them (61 % on the arrival time, 18 % on the
+    # error), in a limitations paragraph whose whole purpose is to quantify.
+    ("AnchorTcutPct", "the share of the 95 % arrival-time EXCESS over experiment that "
+                      "the untruncated dispersion closure removes",
+     lambda r: 100.0 * (1.0 - (r["AnchorTninetyfiveER"] - r["AnchorTninetyfiveExp"])
+                        / (r["AnchorTninetyfiveModel"] - r["AnchorTninetyfiveExp"])), "{:.0f}"),
+    ("AnchorNrmseCutPct", "the share of the anchor nRMSE the untruncated closure removes",
+     lambda r: 100.0 * (1.0 - r["AnchorNrmseER"] / r["AnchorNrmse"]), "{:.0f}"),
+    # The flat-in-p null in RELATIVE terms. An absolute interval of +/- 0.005 on a
+    # base of 0.0265 is not interpretable on sight, and "flat" is an elimination
+    # claim in the abstract, so what the interval actually EXCLUDES has to be said.
+    ("LfiveFlatImproveMax", "the largest improvement from p=8 to p=128 the interval admits, per cent",
+     lambda r: 100.0 * r["LfiveFlatHi"] / r["LfiveFlatBase"], "{:.0f}"),
+    ("LfiveFlatDegradeMax", "the largest degradation the interval admits, per cent",
+     lambda r: 100.0 * abs(r["LfiveFlatLo"]) / r["LfiveFlatBase"], "{:.0f}"),
     ("LsixNoiseDrop", "the legacy between-material sd divided by v2's",
      lambda r: r["LsixLegacyBetweenSD"] / r["LsixBetweenSD"], "{:.1f}"),
     ("LsixLegacyBetweenOverBase", "the legacy between-material sd as a share of its base error",
