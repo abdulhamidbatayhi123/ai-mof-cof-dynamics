@@ -42,10 +42,20 @@ It is NOT an architecture paper. L3 refuted the KAN premise on our own data and 
 refuted our own n-width explanation. Do not re-frame it as one. The negative results
 are the contribution, and the correction ledger is the paper's strongest asset.
 
-A CHAIN IS PROBABLY STILL RUNNING. `chain_l4b_v2_followup.sh`, ~20 h, five stages.
-Do not run anything CPU-heavy beside it — both L4b runners rewrite the whole results
-dict, so two writers lose all 66 completed cells. CONTINUE_HERE.md §2 has the stage
-table and how to check it is alive.
+COMPUTE IS RUNNING ITSELF. `autorun.sh` is a queue that survives this session
+dying, a job being killed, and a reboot (a launcher in the Startup folder, which
+removes itself when the queue completes). Check it, do not restart it:
+
+    cat autorun_state.json     # heartbeat: what is running, since when
+    tail -30 autorun.log       # per-job START/DONE/FAIL with exit codes
+    ./resume.sh                # the project's own state report
+
+The queue is: (1) chain_l4b_v2_followup.sh, ~20 h, five stages; (2)
+l5_bottleneck_v2.py, ~1-2 h; (3) regenerate figures + numbers + build gate. It runs
+ONE job at a time on purpose -- both L4b runners rewrite the whole results dict, so
+two writers lose all 66 completed cells. DO NOT launch a training job by hand while
+it is alive; add it to the queue in autorun.sh instead, with a done-test.
+`AUTORUN_QUEUE_DONE` in autorun.log means the queue finished. Check every FAIL line.
 
 THE IMMEDIATE JOB, in order (CONTINUE_HERE.md §4 has the full list):
   1. When the follow-up lands, write the manuscript's L4b section. It is PROSE, not
