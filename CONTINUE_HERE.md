@@ -4,7 +4,7 @@ Rewritten **2026-09-24**, after the session that landed L4b-v2, launched its
 pre-registered follow-up, ran a six-agent audit of the whole manuscript, and fixed
 the twenty-two defects that audit found which were verifiable on the spot.
 Read this, then `RESULTS.md`, then `audit_2026-09-24/` (the open findings).
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 64 Part-B**.
+`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 67 Part-B** (counted by `ledger_counts.py`; B65–B67 added 2026-09-25).
 
 ---
 
@@ -174,16 +174,24 @@ Each finding carries file, line, the offending text, why it matters, and the fix
    verdict in the pre-declared words, note the Q4 flip honestly (both arms
    degraded), and record the time-axis verdict change as a **retraction** if the
    extension moves it. Then the abstract's "Six are eliminated" must be recounted.
-2. **`audit_citations.md` #2 — B62 recurrence, working rule 11.** Thirteen given
-   names in `references.bib` appear in no project record. Either verify each
-   against a fetched source or reduce to the form CITATIONS.md actually recorded.
-   **This is the rule the project states most emphatically and it is currently
-   broken.**
-3. **`audit_hygiene.md` — six solver gates pass when their data is absent.** Both
-   ground-truth `.npz` files are gitignored, so this is the state of *every clone*.
-   A gate that passes on missing data is not a gate (working rule 6).
-4. **Add the Conclusions section.** CMAME expects one, and the paper's central
-   claim is never assembled in one place.
+2. ~~B62 recurrence~~ **DONE 2026-09-25 (B65)** — every given name now gated against
+   `paper/author_provenance.md` (fetched by `paper/fetch_author_provenance.py`);
+   the build runs the citation gate. Heinlein's co-author is **Johannes** Taraz.
+3. ~~Solver gates pass on absent data~~ **DONE (B66)**. Still open from that audit:
+   decide whether to TRACK the two ground-truth `.npz` files — a clone now SKIPs,
+   and `numbers.py` then refuses to build, which is correct but means no clone
+   can build the paper without regenerating them. Document the command or track.
+4. ~~Conclusions~~ **DONE** (`\section{Conclusions}`). Its L4 sentence reads the
+   verdict macros; re-read it once the L4b section is written.
+4b. **NEW, from B67: autorun job 2b** closes L5's DeepONet learning-rate bracket
+   (p=8,16 at 3e-2). When it lands: `analyze_l5_merged.py` and `analyze_l5_fno.py`
+   re-run inside the job. Then REWRITE the caveat in the L5 section that ends
+   "the grid is being extended to close it" into the result — and if DeepONet's
+   best improves, the FNO margin, the abstract's FNO sentence and `
+FNOgain`
+   move. Check `grid_boundary_warnings` in `results/l5_merged.json` is empty.
+4c. **`audit_2026-09-24/STATUS.md`** records which of the 133 findings are closed.
+   Update it as you close things; do not re-derive.
 5. **The three rungs still on 12 materials** — the biggest structural risk.
    `audit_risk.md` says the cheapest high-value experiment is **`l5_bottleneck` on
    v2 in the same five folds (~1–2 h, <600 MB)**, which moves L5's load-bearing

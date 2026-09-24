@@ -27,6 +27,16 @@ ROW = re.compile(r"^\| \*\*([AB])(\d+)\*\* \|(.*)$", re.M)
 
 def main():
     text = open(SRC, encoding="utf-8").read()
+    # A ledger row broken across lines -- a "\n" meant literally that a script wrote
+    # as a newline (B64's hazard; it hit B66 and B67 too) -- silently truncates the
+    # row this counter reads, and did change the own-error count once. Inside the
+    # two tables every non-blank line must be a table row.
+    # A broken row shows as a non-table line directly after a table row.
+    lines = text.splitlines()
+    stray = [ln[:70] for prev, ln in zip(lines, lines[1:])
+             if prev.startswith("| **") and ln.strip() and not ln.startswith(("|", "---"))]
+    if stray:
+        raise SystemExit("ledger table rows broken across lines:\n  " + "\n  ".join(stray))
     rows = ROW.findall(text)
     part = {"A": [], "B": []}
     own = []
