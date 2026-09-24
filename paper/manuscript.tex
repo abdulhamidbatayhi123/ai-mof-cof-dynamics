@@ -208,7 +208,10 @@ MOF-303-parameterised one.
 
 \paragraph{What we read, and what we read through.} The Anzelius and Schumann papers
 are closed and carry no abstract in any bibliographic service, so the \(J\)-function
-was verified through Perry's handbook \cite{levan2019adsorption} rather than from either original; the same is
+was verified through Perry's handbook \cite{levan2019adsorption} rather than from either original.
+That is a two-step chain, and we state both steps: Perry's carries the integral
+definition of \(J\) and itself attributes it to a later chemical-engineering source we
+could not verify, so our check rests on Perry's transcription. The same is
 true of Danckwerts's 1953 paper \cite{danckwerts1953continuous}, for which we
 additionally cite Pearson's note \cite{pearson1959note}.
 Section~\ref{sec:reproducibility} lists every reference cited through a secondary
@@ -247,7 +250,7 @@ The phrase ``in the spirit of'' is deliberate. Do and Do superpose an \(n\)-laye
 BET primary term with a Sips term; ours is a Langmuir primary term with a Sips term.
 What we take from them is the two-term construction and the fact that \emph{only the
 primary term carries the Henry slope} --- their Sips term, like ours, has slope
-exactly zero at the origin \cite{buttersack2019modeling}. Their cluster exponent is fixed; ours is a sampled
+exactly zero at the origin \cite{buttersack2019modeling}. We read the Do--Do functional form itself through Buttersack's transcription, because the original paper could not be retrieved; Buttersack proposes a competing isotherm, so his transcription is not an endorsement of the form. Their cluster exponent is fixed; ours is a sampled
 material parameter, which is the later model's treatment \cite{dodo2009new}. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
 be wrong, and it is a correction we made to our own text
 (Section~\ref{sec:corrections}, B56). ``Type~V'' is likewise our own label on IUPAC
@@ -298,9 +301,9 @@ pressure.
 \label{sec:anchor}
 
 Lassitter and co-workers \cite{lassitter2024mass} report a MOF-303 packed-bed breakthrough whose conditions
-are fully specified in their supplementary information: a \SI{6.35}{\milli\metre}
-bed in a \SI{38.1}{\milli\metre} tube, ambient air at \SI{32.8}{\percent} relative
-humidity, \SI{298.15}{\kelvin}, bulk density \SI{429.6}{\kilo\gram\per\metre\cubed}.
+are fully specified in their supplementary information: a \nAnchorBedLenMm\,\si{\milli\metre}
+bed in a \nAnchorTubeMm\,\si{\milli\metre} tube, ambient air at \nAnchorRH\,\% relative
+humidity, \nAnchorTK\,\si{\kelvin}, bulk density \nAnchorRhoB\,\si{\kilo\gram\per\metre\cubed}.
 The comparison was pre-registered before it was run. Inputs are the cited MOF-303
 isotherm \cite{hanikel2021evolution,fathieh2018practical}, their bed, and declared bands for what the source does not give.
 
@@ -346,7 +349,10 @@ sequence over eight material parameters and three condition parameters;
 \nDataNrejected\ candidates were rejected by a screen before being solved. The
 kinetic coefficient is not sampled independently: it is derived from particle size
 through a Glueckauf relation \cite{glueckauf1947theory,glueckauf1955theory}, so kinetics
-and geometry stay physically consistent.
+and geometry stay physically consistent. The later of those two papers is closed at the
+publisher and was not read; the linear-driving-force factor is verified through Perry's
+handbook \cite{levan2019adsorption}, and the earlier paper is cited because the plain
+factor is attributed to it (Section~\ref{sec:reproducibility}).
 
 Damk\"ohler number is reported with its denominator attached, because the two useful
 summaries differ, and quoting either unlabelled is how a reader ends up unable to
@@ -490,9 +496,10 @@ depth optimum two layers lower. The earlier sentence ``capacity is irrelevant'' 
 scoped to a material count without saying so, and is withdrawn as A26. The wall
 stands: the best fixed-basis surrogate still sits \(\nLtwoXfloor\times\) above the floor.
 
-That the \emph{optimal} capacity grows with the material count is the textbook
-signature of a data-limited rather than a representation-limited regime --- the same
-diagnosis the learning curve gives from the other side.
+We read the growth of the \emph{optimal} capacity with the material count as the
+signature of a data-limited rather than a representation-limited regime: were the
+representation binding, extra materials would not change which capacity is best. It is
+the same diagnosis the learning curve gives from the other side.
 
 \subsection{L3 --- a better basis}
 
@@ -525,7 +532,14 @@ KINN \cite{wang2025kinn} reports that it ``significantly outperforms MLP regardi
 convergence speed'' on solid-mechanics problems, and Rigas and co-workers \cite{rigas2026training} report
 that residual-gated adaptive Kolmogorov--Arnold networks ``consistently outperform
 parameter-matched cPIKANs and PirateNets'' --- and PirateNet is a perceptron
-architecture. An earlier draft of this section cited two of these papers for a
+architecture. Kiyani and co-workers \cite{kiyani2025optimizing} find that optimiser
+choice dominates accuracy for physics-informed models, Kolmogorov--Arnold networks
+included, and that both families improve by orders of magnitude under the \emph{same}
+quasi-Newton schemes --- which is why every optimum here is bracketed rather than
+left at a default. Nor is a Kolmogorov--Arnold operator new: DeepOKAN
+\cite{abueidda2025deepokan} is published, data-driven, with the same Gaussian
+radial basis, and our claim for that arm is the application to column-scale transfer
+and nothing more (A12). An earlier draft of this section cited two of these papers for a
 consensus that does not exist (Section~\ref{sec:corrections}, B46). The honest
 statement is narrower and more useful: on \emph{this} problem, at matched
 parameters, with every optimum bracketed, the perceptron wins \(6/6\); and the
@@ -547,8 +561,10 @@ axis, and will be reported in the words pre-declared in the pre-registration.]}
 Two things are already fixed and reportable. First, the design: ten weighting
 schemes are compared against a data-only twin at matched architecture, matched
 optimiser steps and matched supervised budget --- fixed weights over four decades,
-gradient-norm balancing at three target ratios, neural-tangent-kernel weighting, and
-self-adaptive per-point weights --- because the earlier version of this rung rested
+gradient-norm balancing at three target ratios \cite{wang2021understanding},
+neural-tangent-kernel weighting \cite{wang2022when} (with per-point gradient norms as a
+trace estimate, a stated approximation to their eigen-decomposition), and
+self-adaptive per-point weights \cite{mcclenny2023self} --- because the earlier version of this rung rested
 on a single weighting rule, which is not a defensible basis for the claim that
 physics hurts.
 
@@ -595,7 +611,7 @@ The Fourier neural operator is significantly better: \nLfiveFNO\ against DeepONe
 \nLfiveONet, a difference of \nLfiveONetFNOdiff\ with interval
 [\nLfiveONetFNOlo, \nLfiveONetFNOhi]. \textbf{Both halves of this matter and neither
 may be reported without the other.} It is the direction the theory predicts, and it
-is the first measurement of what the escape is actually worth on a physical problem
+is a measurement of what the escape is actually worth on this physical problem
 rather than in an approximation bound. \textbf{And it does not remove the wall}: it
 sits \(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A \(\nFNOgain\times\) improvement against a bound \(\nFNOxFloor\times\) below it is a dent, not an
 escape.
@@ -647,7 +663,7 @@ oversight: the kinetic coefficient is not a free parameter in this dataset but i
 derived from particle size through the Glueckauf relation, so
 \(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
 bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
-\nDaPelletsAcross\ pellets across the \SI{10}{\centi\metre} column, where a
+\nDaPelletsAcross\ pellets across the \nDataBedLenCm\,\si{\centi\metre} column, where a
 one-dimensional plug-flow model is no longer the right description --- the same
 objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
 \(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
@@ -788,7 +804,8 @@ uniform rescaling.
 
 Nor is the map new mathematics. Piecewise landmark registration --- a monotone warp
 built by interpolating between identified landmark times --- is the standard
-alignment method in functional data analysis \cite{kneip1992statistical,ramsay1998curve}, and \textbf{our two-landmark linear
+alignment method in functional data analysis \cite{kneip1992statistical}, with a
+landmark-free alternative in Ramsay and Li \cite{ramsay1998curve}, and \textbf{our two-landmark linear
 case reduces exactly to it}. Zucatti and Zahr \cite{zucatti2026model} use landmark-based registration for
 reduced-order models of convection-dominated problems, which is the same primitive
 applied to shock features in space rather than to fronts in time; it is the nearest
@@ -800,8 +817,8 @@ narrows our claim rather than restoring novelty.
 
 \subsection{One shift makes it worse; two make it much better}
 
-The textbook remedy for a transport-dominated \(n\)-width is to factor the front
-position out before projecting. We warped each field onto its own local arrival time
+The standard remedy for a transport-dominated \(n\)-width is to factor the front
+position out before projecting \cite{reiss2018shifted}. We warped each field onto its own local arrival time
 and swept the alignment level. \emph{It makes the \(n\)-width worse}: aligning on
 the half-height crossing takes the modes needed for 99.9\,\% of training variance
 from \nNwidthOriginal\ to \nNwidthSingle. And it does not help accuracy even given
@@ -1049,7 +1066,7 @@ validity. Every other number is surrogate-versus-solver.
 it, and we have measured how much.} Our datasets use
 \(D_L = 0.7 D_m + 0.5 d_p u\). The coefficients are attributable to Wakao and
 Funazkri \cite{wakao1978effect} rather than to the textbook we originally cited, and
-Perry's handbook presents that form as a \emph{lower bound} for \emph{nonporous}
+Perry's handbook \cite{levan2019adsorption} presents that form as a \emph{lower bound} for \emph{nonporous}
 particles, noting that the leading coefficient rises to as much as
 \(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and that
 for strongly adsorbed species the effective axial dispersion is much larger. Our beds
@@ -1131,6 +1148,60 @@ are large and their orderings are consistent across budgets, which is why we sta
 them; re-measuring them on the larger dataset is the first item of further work.
 
 %% ===========================================================================
+\section{Conclusions}
+\label{sec:conclusions}
+
+We asked what binds the error of a surrogate for adsorption column dynamics when it
+must predict a material it has never seen, and we asked it as a ladder of
+pre-registered falsification tests rather than as a search for the best-fitting
+network. The answer is assembled here in one place, because each piece of it was
+earned on a different rung.
+
+\paragraph{What does not bind.} Capacity is not an unbounded lever: its optimum
+exists, and moves with the number of training materials. Architecture family is not
+the lever either --- at matched parameters a perceptron beats both
+Kolmogorov--Arnold families on held-out materials in every comparison, so the
+premise that motivated this study is refuted on our own data. Basis size is not the
+lever: the proper-orthogonal-decomposition floor falls \(\nFloorDrop\times\) while
+DeepONet stays flat, and a Fourier neural operator, the remedy the approximation
+theory names, is better and still sits \(\nFNOxFloor\times\) above that floor. The
+Kolmogorov \(n\)-width is real, and it is inactive; our own frozen protocol named it
+as the load-bearing explanation and was wrong (A17). Structural decomposition of the
+equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, but as an inductive bias
+and not as a kinetic identifier, since the benefit does not track Damk\"ohler number.
+The physics residual as a training loss gives the verdict \nLfourbVerdictMaterial\
+on the material axis and \nLfourbVerdictTime\ on the time axis.
+
+\paragraph{What binds.} The number of training materials. Error still falls as
+\(n^{-\nLCbeta}\) at the largest size we can afford, and the whole of that gain lies in
+the map from material parameters to reconstruction coefficients, not in the basis
+that map feeds. A change of coordinates that aligns the two fronts collapses the
+\(n\)-width and buys \nWarpHeadroomFixed{}\(\times\) under an oracle and nothing under a
+predictor --- it does not remove the obstruction, it relocates it, from a
+two-dimensional field to two one-dimensional curves that must still be predicted
+from the same parameters.
+
+\paragraph{What this means for a practitioner.} For a screening surrogate over
+unseen frameworks, the next unit of effort belongs to more, and more diverse,
+training materials, and to the parameter-to-coefficient map, rather than to a new
+architecture, a larger basis or a heavier physics penalty. The cost accounting of
+Section~\ref{sec:cost} gives the exchange rate for that effort.
+
+\paragraph{What is scoped.} Three verdicts --- L3, L5 and the coordinate change ---
+were measured on twelve held-out materials rather than 240, and must be read at that
+material count until they are re-measured. The reference solver reproduces the
+published MOF-303 bed's two-wave shape and its half-breakthrough time with nothing
+fitted, and misses its first-wave timing; of the excess in its late arrival time,
+\nAnchorTcutPct\,\% is one dispersion term evaluated at a limit this bed does not
+satisfy.
+
+\paragraph{What we got wrong.} \nLedgerA\ claims were withdrawn and \nLedgerB\
+defects caught in the course of this work, and they are reported in
+Section~\ref{sec:corrections} on the same terms as the results. Several of the
+paper's headline verdicts exist in their present form only because an earlier form
+of them was falsified by a larger measurement. We regard that ledger as a result.
+
+%% ===========================================================================
 \section{Reproducibility}
 \label{sec:reproducibility}
 
@@ -1165,8 +1236,10 @@ That gate has caught a fabricated co-author, a swapped arXiv identifier between 
 papers named in the same sentence, a publisher-supplied identifier pointing at a
 different paper, a missing co-author, two references that do not contain the claim
 they were cited for, and a correlation attributed to the wrong source. References
-that could not be retrieved at the primary and are cited through a verified
-secondary source are listed as such.
+that could not be retrieved at the primary, and what each was read through instead, are
+listed below; the list is generated by the same script that decides which references
+are emitted, so it cannot disagree with the bibliography.
+\input{secondary_sources}
 
 %% ===========================================================================
 \section*{Data and code availability}

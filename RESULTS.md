@@ -1148,8 +1148,8 @@ methodology that produced it, is the contribution.
    (Lassitter 2024 Fig. 10, pre-registered, no fitting); the error budget must still
    separate solver-vs-experiment from surrogate-vs-solver, in those words.
 3. No COF case exists; the title claims one.
-4. `kaggle_run/` is a stale duplicate carrying the original defects.
+4. ~~`kaggle_run/` is a stale duplicate carrying the original defects.~~ **Closed 2026-09-25:** removed with `deploy_kaggle.py`, `build_kaggle_pkg.py` and the package zip; in git history at `81295d4`.
 5. The speed claim needs an honest reference — our own solver runs one condition
    in 4.2 s (MOF-303 config, N_z = 2000).
-6. SINDy needs something to discover: its library currently contains `q*`,
+6. **Closed 2026-09-25:** `sindy_discovery.py` removed (git `81295d4`; evidence kept in A7); `identify_kinetics.py` replaced it. Original item: SINDy needs something to discover: its library currently contains `q*`,
    computed from the law that generated the data.

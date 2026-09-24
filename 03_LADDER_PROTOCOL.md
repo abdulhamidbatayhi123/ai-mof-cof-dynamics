@@ -1489,12 +1489,12 @@ quantifies how accurate the warp must be.
    is. Digitising one published breakthrough curve would change the venue tier.
 3. **COF case does not exist.** The title says MOF *and* COF. Either add a COF
    framework or remove it from the title.
-4. **`kaggle_run/` is a stale duplicate** carrying every original defect. Delete it
+4. **CLOSED 2026-09-25 -- `kaggle_run/` was a stale duplicate** carrying every original defect; removed, in git history at `81295d4`. Delete it
    and deploy from a single source, or it will eventually be the thing that runs.
 5. **Speed claim needs an honest reference.** Our own solver runs one condition in
    ~150 s. "Hours per simulation" describes 3-D FEM, not this. The defensible
    framing is amortised throughput across a screen, not per-simulation speedup.
-6. **SINDy needs something to discover.** Its library currently contains `q*`,
+6. **CLOSED 2026-09-25 -- `sindy_discovery.py` removed** (git `81295d4`, evidence in A7; replaced by `identify_kinetics.py`). Original item: **SINDy needs something to discover.** Its library currently contains `q*`,
    computed from the exact law that generated the data — regression onto the
    answer. And no breathing/flexible-framework physics exists anywhere in the
    data, so no breathing kinetics can be recovered from it.

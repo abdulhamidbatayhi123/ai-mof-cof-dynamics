@@ -1,0 +1,8 @@
+{
+  "_source": "compare_lassitter.physics() and module constants; Lassitter et al. 2024 SI",
+  "bed_length_mm": 6.35,
+  "tube_diameter_mm": 38.1,
+  "rh_percent": 32.800000000000004,
+  "T_K": 298.15,
+  "bulk_density_kg_m3": 429.58
+}

@@ -87,7 +87,7 @@ def _load_field(path: str):
 def _physics(kind: str = "default"):
     try:
         from solver_fd import AdsorptionPhysicsConfig
-    except Exception as e:  # pragma: no cover
+    except ImportError as e:  # pragma: no cover -- ImportError only: a broken module must FAIL
         raise Skip(f"cannot import solver_fd ({e})")
     if kind == "default":
         return AdsorptionPhysicsConfig()
@@ -155,8 +155,8 @@ def gate_no_fabricated_curves():
     return True, "no synthesised series found in plotting code"
 
 
-# A plotting script may not invent a model series. There are exactly TWO legitimate
-# provenances and the gate below admits only those:
+# A plotting script may not invent a model series. There are FOUR legitimate
+# provenances (A, B here; C SOLVER and D DIGITISED in the gate body) and it admits only those:
 #
 #   (A) CHECKPOINT — the script loads trained weights and evaluates them
 #       (`load_state_dict`). This was the original rule, written for A1.
@@ -193,14 +193,29 @@ def gate_plot_loads_model():
             continue
         # Gating on labels alone can be defeated by renaming a label, so EVERY figure
         # script must declare a provenance whatever its labels say.
+        # "EVERY" used to be implemented as a filename prefix plus a label keyword
+        # list, which the anchor figure's own script escaped (audit_hygiene #9). The
+        # trigger is now what the rule says: any script that SAVES a figure.
         draws_model = path.name.startswith("fig") or re.search(
             r"label\s*=\s*(?:rf|fr|[rbfu])?[\"'][^\"']*(PIKAN|MLP|DeepONet|FNO|WNO|DeepOKAN|POD)",
             src, re.I)
-        if not draws_model:
+        if not (draws_model or "savefig" in src):
             continue
         if "load_state_dict" in src:
             ok.append(f"{path.name}: checkpoint")
             continue
+        learned = [why for pat, why in _MODEL_MACHINERY if re.search(pat, src)]
+        if not draws_model and not learned:
+            # Two further provenances, admitted only for a script that draws no model
+            # curve and holds no learning machinery: (C) SOLVER -- it runs the verified
+            # reference solver itself; (D) DIGITISED -- it plots a published figure's
+            # digitised points from refs/.
+            if re.search(r"\bgenerate_breakthrough_data\s*\(", src):
+                ok.append(f"{path.name}: solver")
+                continue
+            if re.search(r"[\"']refs/[\w./-]+\.(csv|png)[\"']", src):
+                ok.append(f"{path.name}: digitised")
+                continue
         machinery = [why for pat, why in _MODEL_MACHINERY if re.search(pat, src)]
         named = sorted({m.group(1) for m in _RESULTS_PATH.finditer(src)})
         # A run still in flight has not written its verdict file yet. A script may
@@ -250,7 +265,7 @@ def gate_manuscript_numbers():
         import build_paper as bp
         import importlib
         importlib.reload(bp)
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"cannot import build_paper ({e})")
     nums = ROOT / "paper" / "numbers.tex"
     if not nums.exists():
@@ -264,8 +279,13 @@ def gate_manuscript_numbers():
         for m in bp.NUMERAL.finditer(bp.strip_structural(line)):
             if m.group(1) not in bp.ALLOWED:
                 hits.append(f"line {i}: {m.group(1)}")
-    if undefined or hits:
+    # build_paper's third check (B64). It lived only in build_paper.main(), so this
+    # gate -- the one rule 1 sends people to -- passed a manuscript of mangled macros.
+    broken = bp.mangled(body, defined)
+    if undefined or hits or broken:
         msg = []
+        if broken:
+            msg.append(f"{len(broken)} mangled macro(s): " + "; ".join(map(str, broken[:6])))
         if undefined:
             msg.append("undefined macros: " + ", ".join("\n" + u for u in undefined[:6]))
         if hits:
@@ -287,7 +307,7 @@ def gate_checkpoint_finite():
     """A saved model must contain no NaN or Inf in any learnable tensor."""
     try:
         import torch
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"torch unavailable ({e})")
     ckpts = sorted(ROOT.glob("data/*.pth"))
     if not ckpts:
@@ -493,15 +513,28 @@ def gate_isotherm_space():
 # solver
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _missing_datasets(skipped, ok):
+    """Rule 6: a gate whose data is absent has not passed.
+
+    All datasets absent -> SKIP (the gate could not run). Some absent -> FAIL (a
+    partial check must not report a whole PASS). Before 2026-09-25 each solver gate
+    appended a 'SKIP' row and returned PASS, which on every fresh clone (the .npz
+    files are gitignored) printed six green lines about data that was not there.
+    """
+    if skipped and len(skipped) == len(DATASETS):
+        raise Skip("no dataset present: " + ", ".join(Path(p).name for p in skipped))
+    return ok and not skipped
+
 @gate("breakthrough actually occurs", "solver")
 def gate_breakthrough_occurs():
     """A 'breakthrough curve' dataset must contain a breakthrough."""
-    rows, ok = [], True
+    rows, ok, skipped = [], True, []
     for path, _, c_in in DATASETS:
         try:
             z, t, c, q, T = _load_field(path)
         except Skip as e:
             rows.append(f"{Path(path).name}: SKIP ({e})")
+            skipped.append(path)
             continue
         ratio = c[-1, -1] / c_in
         if ratio < 0.95:
@@ -509,8 +542,7 @@ def gate_breakthrough_occurs():
             rows.append(f"{Path(path).name}: c_exit/c_in = {ratio:.3e} at t_final (need >0.95)")
         else:
             rows.append(f"{Path(path).name}: c_exit/c_in = {ratio:.3f} OK")
-    if not rows:
-        raise Skip("no datasets present")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows)
 
 
@@ -524,12 +556,13 @@ def gate_front_resolved():
     resolved run.
     """
     MIN_CELLS = 20
-    rows, ok = [], True
+    rows, ok, skipped = [], True, []
     for path, _, _ in DATASETS:
         try:
             z, t, c, q, T = _load_field(path)
         except Skip as e:
             rows.append(f"{Path(path).name}: SKIP ({e})")
+            skipped.append(path)
             continue
         if q.max() <= 0:
             ok = False
@@ -564,8 +597,7 @@ def gate_front_resolved():
         else:
             rows.append(f"{Path(path).name}: sharpest front {sharpest} cells, "
                         f"median {int(np.median(widths))} OK")
-    if not rows:
-        raise Skip("no datasets present")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows)
 
 
@@ -578,11 +610,12 @@ def gate_grid_converged():
     The generator runs the study and stamps the result into the .npz.
     """
     TOL = 0.02
-    rows, ok, vals = [], True, {}
+    rows, ok, vals, skipped = [], True, {}, []
     for path, kind, _ in DATASETS:
         p = ROOT / path
         if not p.exists():
             rows.append(f"{Path(path).name}: SKIP (absent)")
+            skipped.append(path)
             continue
         d = np.load(p)
         if "grid_convergence_err" not in d:
@@ -600,15 +633,14 @@ def gate_grid_converged():
         else:
             rows.append(f"{kind}: {100 * err:.3f}% change at N_z={nz} OK")
         vals[kind] = {"err": float(err), "N_z": nz}
-    if not rows:
-        raise Skip("no datasets present")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows), vals
 
 
 @gate("mass-transfer zone is resolvable at the chosen grid", "solver")
 def gate_mtz_resolvable():
     """The MTZ width is a property of the parameters; the grid must be able to see it."""
-    rows, ok = [], True
+    rows, ok, skipped = [], True, []
     for path, kind, c_in in DATASETS:
         phys = _physics(kind)
         p = ROOT / path
@@ -618,23 +650,26 @@ def gate_mtz_resolvable():
         cells = (width / (phys.L / nz)) if nz else float("nan")
         if nz is None:
             rows.append(f"{kind}: MTZ {width * 1e3:.3f} mm needs N_z>={need} (no dataset)")
+            skipped.append(path)
         elif cells < 10:
             ok = False
             rows.append(f"{kind}: MTZ {width * 1e3:.3f} mm spans {cells:.1f} cells at N_z={nz} (need >=10; use N_z>={need})")
         else:
             rows.append(f"{kind}: MTZ {width * 1e3:.3f} mm spans {cells:.0f} cells at N_z={nz} OK")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows)
 
 
 @gate("global mass balance closes", "solver")
 def gate_mass_closure():
     """Accumulated adsorbate must equal net influx to within 1%."""
-    rows, ok, vals = [], True, {}
+    rows, ok, vals, skipped = [], True, {}, []
     for path, kind, c_in in DATASETS:
         try:
             z, t, c, q, T = _load_field(path)
         except Skip as e:
             rows.append(f"{Path(path).name}: SKIP ({e})")
+            skipped.append(path)
             continue
         phys = _physics(kind)
         dz = float(np.mean(np.diff(z)))
@@ -649,8 +684,7 @@ def gate_mass_closure():
         else:
             rows.append(f"{kind}: closes to {100 * err:.3f}% OK")
         vals[kind] = float(err)
-    if not rows:
-        raise Skip("no datasets present")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows), vals
 
 
@@ -689,12 +723,13 @@ def gate_analytic_verification():
 @gate("fields stay physical", "solver")
 def gate_no_negative():
     """Concentration and loading must remain non-negative and bounded by capacity."""
-    rows, ok = [], True
+    rows, ok, skipped = [], True, []
     for path, kind, c_in in DATASETS:
         try:
             z, t, c, q, T = _load_field(path)
         except Skip as e:
             rows.append(f"{Path(path).name}: SKIP ({e})")
+            skipped.append(path)
             continue
         phys = _physics(kind)
         tol = 1e-8 * max(c_in, 1.0)
@@ -712,8 +747,7 @@ def gate_no_negative():
             rows.append(f"{kind}: " + ", ".join(problems))
         else:
             rows.append(f"{kind}: OK")
-    if not rows:
-        raise Skip("no datasets present")
+    ok = _missing_datasets(skipped, ok)
     return ok, "; ".join(rows)
 
 
@@ -727,7 +761,7 @@ def gate_velocity_convention():
     """
     try:
         from solver_fd import generate_breakthrough_data
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     import copy
@@ -770,7 +804,7 @@ def gate_equation_normalisation():
     """
     try:
         from pde_adsorption import NondimConfig, _normalisers, term_coefficients
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     rows, ok = [], []
@@ -797,7 +831,7 @@ def gate_residual_finite():
         import torch
         from pde_adsorption import NondimConfig, compute_adsorption_pde_residuals
         from kan_model import PIKAN_Adsorption
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     phys = _physics("default")
@@ -871,7 +905,7 @@ def gate_temperature_bounded():
         from baseline_models import DataDrivenMLP, DeepONet_Adsorption
         from fno_model_adsorption import FNO2d_Adsorption
         from operator_models import PI_DeepOKAN, PI_DeepONet, WaveletNeuralOperator
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     phys = _physics("default")
@@ -956,7 +990,7 @@ def gate_derivative_smoothness():
     try:
         import torch
         from kan_model import PIKAN_Adsorption
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     torch.manual_seed(0)
@@ -984,7 +1018,7 @@ def gate_input_not_collapsed():
     try:
         import torch
         from kan_model import RBFKANLayer
-    except Exception as e:
+    except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
     torch.manual_seed(0)
@@ -1028,6 +1062,15 @@ def main() -> int:
         global C_PASS, C_FAIL, C_SKIP, C_OFF
         C_PASS = C_FAIL = C_SKIP = C_OFF = ""
 
+    cats = sorted({g.category for g in REGISTRY})
+    if args.only and args.only not in cats:
+        # A typo used to select zero gates and exit 0: a green hook that ran nothing.
+        print(f"--only {args.only!r} is not a category; valid: {', '.join(cats)}")
+        return 2
+    if args.only and args.json == "results/validation.json":
+        # The authoritative record is a FULL run. A partial run written there made
+        # nGates report a third of the harness (audit_hygiene #8).
+        args.json = f"results/validation_{args.only}.json"
     gates = [g for g in REGISTRY if not args.only or g.category == args.only]
 
     if args.list:
@@ -1085,7 +1128,7 @@ def main() -> int:
     if args.json:
         import json as _json
 
-        out = {"n_pass": n_pass, "n_fail": n_fail, "n_skip": n_skip,
+        out = {"n_gates": len(records), "n_pass": n_pass, "n_fail": n_fail, "n_skip": n_skip,
                "only": args.only, "gates": records,
                "by_gate": {r["gate"]: r for r in records}}
         path = ROOT / args.json
@@ -1095,6 +1138,9 @@ def main() -> int:
               + (f", {args.only} only — NOT a full record" if args.only else "") + ")")
     if n_fail:
         print("\nNo result from a failing category may enter the manuscript.")
+    if n_pass == 0:
+        print("\nNo gate passed -- a run that verified nothing is not a success.")
+        return 1
     return 1 if n_fail else 0
 
 

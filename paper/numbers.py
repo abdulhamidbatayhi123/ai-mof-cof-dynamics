@@ -336,6 +336,16 @@ SPEC = [
     ("AnchorPlateauER", "results/lassitter_comparison_posthoc.json",
      "runs.edwards_richardson_k0.2.plateau_150_250_frac", "{:.3f}"),
 
+    # The anchor bed's conditions, as compare_lassitter.py runs them (anchor_bed.py).
+    # These rode through build_paper inside \SI{}{}, which the gate stripped whole.
+    ("AnchorBedLenMm", "results/anchor_bed.json", "bed_length_mm", "{:.2f}"),
+    ("AnchorTubeMm", "results/anchor_bed.json", "tube_diameter_mm", "{:.1f}"),
+    ("AnchorRH", "results/anchor_bed.json", "rh_percent", "{:.1f}"),
+    ("AnchorTK", "results/anchor_bed.json", "T_K", "{:.2f}"),
+    ("AnchorRhoB", "results/anchor_bed.json", "bulk_density_kg_m3", "{:.1f}"),
+    ("DataBedLenCm", "results/dataset_summary.json", "damkohler_floor.bed_length_m",
+     lambda x: f"{100 * x:.0f}"),
+
     ("DaPelletForUnity", "results/dataset_summary.json", "damkohler_floor.d_p_for_Da_unity_mm", "{:.1f}"),
     ("DaPelletsAcross", "results/dataset_summary.json",
      "damkohler_floor.pellets_across_bed_at_that_d_p", "{:.0f}"),
@@ -370,7 +380,7 @@ SPEC = [
     ("CostBeD", "results/cost_accounting.json", "frontier[3].break_even_queries_lower_bound", "{:.0f}"),
 
     # ------------------------------------ the harness's own evidence (results/validation.json)
-    ("Gates", "results/validation.json", "n_pass", "{:d}"),
+    ("Gates", "results/validation.json", "n_gates", "{:d}"),
     ("MassClosure", "results/validation.json", "by_gate.global mass balance closes.values.default", pct_sig),
     ("MassClosureMof", "results/validation.json", "by_gate.global mass balance closes.values.mof303", pct_sig),
     ("GridConv", "results/validation.json", "by_gate.solution is grid-converged.values.default.err", pct_sig),
@@ -529,6 +539,16 @@ def resolve(verbose=False):
         if fname not in cache:
             cache[fname] = json.load(open(full)) if os.path.exists(full) else None
         doc = cache[fname]
+        if fname == "results/validation.json" and doc is not None:
+            # The harness record is only a source if it is a clean, FULL run. Reading
+            # n_pass let a failing or skipped gate shrink the reported harness instead
+            # of stopping the build (audit_hygiene #4, #8).
+            bad = [f"{g['gate']} [{g['state']}]" for g in doc.get("gates", []) if g["state"] != "PASS"]
+            if doc.get("only") is not None or bad or "n_gates" not in doc:
+                failures.append(f"{key}: {fname} is not a clean full harness run "
+                                f"(only={doc.get('only')!r}; not passing: {', '.join(bad) or 'none'}"
+                                f"{'; no n_gates -- re-run validate.py --json' if 'n_gates' not in doc else ''})")
+                continue
         if doc is None:
             if fname in PENDING:
                 out[key] = PENDING_TEXT

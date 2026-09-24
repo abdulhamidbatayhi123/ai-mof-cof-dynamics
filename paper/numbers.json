@@ -177,6 +177,12 @@
     "AnchorNrmseER": "0.105",
     "AnchorNrmseBrug": "0.083",
     "AnchorPlateauER": "0.293",
+    "AnchorBedLenMm": "6.35",
+    "AnchorTubeMm": "38.1",
+    "AnchorRH": "32.8",
+    "AnchorTK": "298.15",
+    "AnchorRhoB": "429.6",
+    "DataBedLenCm": "10",
     "DaPelletForUnity": "9.5",
     "DaPelletsAcross": "11",
     "CostSolveSec": "16.6",
@@ -231,9 +237,9 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "64",
-    "LedgerTotal": "90",
-    "LedgerOwn": "31",
+    "LedgerB": "66",
+    "LedgerTotal": "92",
+    "LedgerOwn": "32",
     "LfourbVerdictMaterial": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
     "LfourbVerdictTime": "PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1) \u2014 the legacy claim stands, now defended.",
     "FloorDrop": "28.7",
@@ -964,6 +970,30 @@
       "file": "results/lassitter_comparison_posthoc.json",
       "path": "runs.edwards_richardson_k0.2.plateau_150_250_frac"
     },
+    "AnchorBedLenMm": {
+      "file": "results/anchor_bed.json",
+      "path": "bed_length_mm"
+    },
+    "AnchorTubeMm": {
+      "file": "results/anchor_bed.json",
+      "path": "tube_diameter_mm"
+    },
+    "AnchorRH": {
+      "file": "results/anchor_bed.json",
+      "path": "rh_percent"
+    },
+    "AnchorTK": {
+      "file": "results/anchor_bed.json",
+      "path": "T_K"
+    },
+    "AnchorRhoB": {
+      "file": "results/anchor_bed.json",
+      "path": "bulk_density_kg_m3"
+    },
+    "DataBedLenCm": {
+      "file": "results/dataset_summary.json",
+      "path": "damkohler_floor.bed_length_m"
+    },
     "DaPelletForUnity": {
       "file": "results/dataset_summary.json",
       "path": "damkohler_floor.d_p_for_Da_unity_mm"
@@ -1054,7 +1084,7 @@
     },
     "Gates": {
       "file": "results/validation.json",
-      "path": "n_pass"
+      "path": "n_gates"
     },
     "MassClosure": {
       "file": "results/validation.json",

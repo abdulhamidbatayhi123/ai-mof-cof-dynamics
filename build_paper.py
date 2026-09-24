@@ -160,7 +160,9 @@ def strip_structural(text):
     text = re.sub(r"\\(label|ref|eqref|cite|input|bibliographystyle|bibliography)"
                   r"\{[^}]*\}", " ", text)
     text = re.sub(r"\\(begin|end)\{[^}]*\}", " ", text)
-    text = re.sub(r"\\SI\{[^}]*\}\{[^}]*\}", " ", text)   # \SI carries its own units
+    # Drop the UNIT, keep the VALUE. Stripping both let six experimental inputs reach
+    # the paper ungated (audit_hygiene #2).
+    text = re.sub(r"\\SI\{([^}]*)\}\{[^}]*\}", r" \1 ", text)
     text = re.sub(r"\\[A-Za-z]+", " ", text)              # any remaining command name
     return text
 
@@ -175,6 +177,18 @@ def main():
     print(r.stdout.strip())
     if r.returncode != 0:
         print(r.stderr.strip())
+        sys.exit(1)
+
+    # The citation gate. It regenerates references.bib and refuses an unverified
+    # entry, a cited-but-missing key, or a given name with no fetched provenance
+    # (rule 11). Until 2026-09-25 nothing in the build ran it, so a bibliography
+    # that violated rule 11 built green.
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "paper", "references.py")],
+                       capture_output=True, text=True)
+    print(r.stdout.strip())
+    if r.returncode != 0:
+        print(r.stderr.strip())
+        print("\nThe citation gate refused. The manuscript may not be built.")
         sys.exit(1)
 
     src = open(TEX, encoding="utf-8").read()

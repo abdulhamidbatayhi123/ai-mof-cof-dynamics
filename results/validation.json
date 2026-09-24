@@ -1,4 +1,5 @@
 {
+  "n_gates": 24,
   "n_pass": 24,
   "n_fail": 0,
   "n_skip": 0,
@@ -14,13 +15,13 @@
       "gate": "plotting code loads a checkpoint",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_operators.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 compare_lassitter.py: solver; compare_lassitter_posthoc.py: recorded (2 files); digitise_lassitter.py: digitised; fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_operators.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
     },
     {
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "170 macros used, all resolved from results files; 40 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+      "evidence": "237 macros used, all resolved from results files; 45 literals declared with reasons"
     },
     {
       "gate": "checkpoint parameters are finite",
@@ -174,13 +175,13 @@
       "gate": "plotting code loads a checkpoint",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files, 1 pending); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_operators.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
+      "evidence": "model curves come from a checkpoint or a recorded results file \u2014 compare_lassitter.py: solver; compare_lassitter_posthoc.py: recorded (2 files); digitise_lassitter.py: digitised; fig_dataset_v2.py: recorded (1 file); fig_ladder.py: recorded (12 files); fig_learning_curve_v2.py: recorded (1 file); fig_mechanism.py: recorded (3 files); fig_operators.py: recorded (3 files); fig_rungs.py: recorded (4 files); fig_warp.py: recorded (3 files); make_figures.py: checkpoint"
     },
     "the manuscript contains no hand-typed number": {
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "170 macros used, all resolved from results files; 40 literals declared with reasons; 2 value(s) PENDING a run still in flight"
+      "evidence": "237 macros used, all resolved from results files; 45 literals declared with reasons"
     },
     "checkpoint parameters are finite": {
       "gate": "checkpoint parameters are finite",

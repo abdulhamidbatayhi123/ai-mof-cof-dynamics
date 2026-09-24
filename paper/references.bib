@@ -19,7 +19,7 @@
 %   Partial priority on L5's mechanism. Cite prominently and differentiate on
 %   the four axes in CITATIONS.md.
 @article{heinlein2026error,
-  author = {Alexander Heinlein and Tim Taraz},
+  author = {Alexander Heinlein and Johannes Taraz},
   title = {The error of deep operator networks is the sum of its parts: branch--trunk and mode error decompositions},
   journal = {arXiv preprint},
   year = {2026},
@@ -74,6 +74,57 @@
   pages = {4},
   year = {2025},
   doi = {10.1038/s41524-025-01872-3},
+}
+
+% [VERIFIED]
+%   The gradient-norm balancing arm.
+@article{wang2021understanding,
+  author = {Sifan Wang and Yujun Teng and Paris Perdikaris},
+  title = {Understanding and mitigating gradient flow pathologies in physics-informed neural networks},
+  journal = {SIAM Journal on Scientific Computing},
+  volume = {43},
+  number = {5},
+  pages = {A3055--A3081},
+  year = {2021},
+  doi = {10.1137/20M1318043},
+}
+
+% [VERIFIED]
+%   The NTK arm. Ours uses per-point gradient norms as a trace estimate,
+%   EMA-smoothed -- a stated approximation, not their eigen-decomposition.
+@article{wang2022when,
+  author = {Sifan Wang and Xinling Yu and Paris Perdikaris},
+  title = {When and why {PINNs} fail to train: a neural tangent kernel perspective},
+  journal = {Journal of Computational Physics},
+  volume = {449},
+  pages = {110768},
+  year = {2022},
+  doi = {10.1016/j.jcp.2021.110768},
+}
+
+% [VERIFIED]
+%   The self-adaptive arm. The JOURNAL title (Crossref) drops the arXiv
+%   title's 'using a soft attention mechanism' -- do not copy the arXiv title.
+@article{mcclenny2023self,
+  author = {Levi D. McClenny and Ulisses M. Braga-Neto},
+  title = {Self-adaptive physics-informed neural networks},
+  journal = {Journal of Computational Physics},
+  volume = {474},
+  pages = {111722},
+  year = {2023},
+  doi = {10.1016/j.jcp.2022.111722},
+}
+
+% [VERIFIED]
+%   The Adam-then-L-BFGS polish (Q4). Surnames only until the arXiv record is
+%   fetched into author_provenance.md -- rule 11.
+@inproceedings{rathore2024challenges,
+  author = {Rathore and Lei and Frangella and Lu and Udell},
+  title = {Challenges in training {PINNs}: a loss landscape perspective},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year = {2024},
+  eprint = {2402.01868},
+  archiveprefix = {arXiv},
 }
 
 % [VERIFIED]
@@ -301,19 +352,6 @@
 }
 
 % [VERIFIED]
-%   A NEGATIVE result in our favour: registration ROM has not been taken into
-%   separation-process column fields. A search summary claimed otherwise and
-%   was wrong.
-@article{gowrachari2025cross,
-  author = {Harshith Gowrachari and Giovanni Stabile and Gianluigi Rozza},
-  title = {Model reduction for transport-dominated problems via cross-correlation based snapshot registration},
-  journal = {arXiv preprint},
-  year = {2025},
-  eprint = {2501.01299},
-  archiveprefix = {arXiv},
-}
-
-% [VERIFIED]
 %   B47: THIS is the slow-n-width citation, not their 2013 paper. It proves a
 %   LOWER bound d_N >= (1/2) N^-1/2 -- write 'decays no faster than', never
 %   'decays like'.
@@ -325,34 +363,6 @@
   year = {2016},
   eprint = {1511.02021},
   archiveprefix = {arXiv},
-}
-
-% [VERIFIED]
-%   B47: does NOT contain the n-width claim -- the words 'Kolmogorov' and
-%   'n-width' appear nowhere in it. Cite ONLY for nonlinear/freezing
-%   transformations.
-@article{ohlberger2013nonlinear,
-  author = {Mario Ohlberger and Stephan Rave},
-  title = {Nonlinear reduced basis approximation of parameterized evolution equations via the method of freezing},
-  journal = {Comptes Rendus Math{\'e}matique},
-  volume = {351},
-  number = {23--24},
-  pages = {901--906},
-  year = {2013},
-  doi = {10.1016/j.crma.2013.10.028},
-}
-
-% [VERIFIED]
-%   For the WAVE equation, not linear transport. A companion, not a
-%   substitute.
-@article{greif2019decay,
-  author = {Constantin Greif and Karsten Urban},
-  title = {Decay of the {Kolmogorov} {N}-width for wave problems},
-  journal = {Applied Mathematics Letters},
-  volume = {96},
-  pages = {216--222},
-  year = {2019},
-  doi = {10.1016/j.aml.2019.05.013},
 }
 
 % [VERIFIED]
@@ -524,7 +534,7 @@
 %   BET -- ours is 'in the spirit of', not their form. Verified through
 %   Buttersack (2019).
 @article{dodo2000model,
-  author = {Duong D. Do and Ha D. Do},
+  author = {D. D. Do and H. D. Do},
   title = {A model for water adsorption in activated carbon},
   journal = {Carbon},
   volume = {38},
@@ -538,7 +548,7 @@
 %   Our cluster exponent is a free (sampled) parameter, which is the 2009
 %   model's treatment, not the 2000 one's. Do not drop Junpirom.
 @article{dodo2009new,
-  author = {Duong D. Do and S. Junpirom and Ha D. Do},
+  author = {D. D. Do and S. Junpirom and H. D. Do},
   title = {A new adsorption--desorption model for water adsorption in activated carbon},
   journal = {Carbon},
   volume = {47},
@@ -595,7 +605,7 @@
 %   9th is the only one whose authorship was verified from a publisher
 %   document.
 @incollection{levan2019adsorption,
-  author = {M. Douglas LeVan and Giorgio Carta},
+  author = {LeVan and Carta},
   title = {Adsorption and ion exchange},
   booktitle = {Perry's Chemical Engineers' Handbook},
   edition = {9},

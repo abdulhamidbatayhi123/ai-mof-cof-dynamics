@@ -43,6 +43,43 @@ TEX = os.path.join(ROOT, "paper", "manuscript.tex")
 
 V, P = "VERIFIED", "PARTIAL"
 
+# Where a fetched author string may be recorded. The given-name gate reads these.
+PROVENANCE = [os.path.join("paper", "author_provenance.md"), "CITATIONS.md", os.path.join("audit_2026-08-30", "citation_verification.md")]
+
+# For every PARTIAL emitted as citable: what the claim was actually read through.
+# references.py writes these to paper/secondary_sources.tex, which the manuscript's
+# reproducibility section \input's -- so the list the paper promises is generated
+# from the same records that decide what is emitted, and cannot drift from them
+# (audit_citations #1: the manuscript promised this list and did not contain it).
+VIA = {
+    "danckwerts1953continuous":
+        r"the boundary conditions, read through Pearson~\cite{pearson1959note}",
+    "glueckauf1955theory":
+        r"the linear-driving-force factor, read through Perry's handbook~\cite{levan2019adsorption} "
+        r"and Cruz, Magalh\~aes and Mendes, who attribute the plain factor to the companion "
+        r"paper~\cite{glueckauf1947theory}, which is why both are cited",
+    "klinkenberg1948numerical":
+        r"the breakthrough approximation, read through Seader, Henley and Roper's "
+        r"\emph{Separation Process Principles}, which attributes it to the later "
+        r"paper~\cite{klinkenberg1954heat}; neither primary could be retrieved, so both are cited",
+    "anzelius1926uber":
+        r"the Anzelius--Schumann solution, read through Perry's handbook~\cite{levan2019adsorption}",
+    "schumann1929heat":
+        r"the Anzelius--Schumann solution, read through Perry's handbook~\cite{levan2019adsorption}",
+    "dodo2000model":
+        r"the two-term functional form, read through Buttersack~\cite{buttersack2019modeling}, "
+        r"who proposes a competing isotherm",
+}
+
+# Verified records kept for their history but NOT emitted, because no sentence in the
+# manuscript cites them (audit_citations #9). elsarticle-num drops an uncited entry
+# silently anyway; excluding it here makes the decision visible and deliberate.
+NOT_EMITTED = {
+    "gowrachari2025cross": "no sentence in the manuscript needs it",
+    "ohlberger2013nonlinear": "the 2016 companion carries the bound we state",
+    "greif2019decay": "CITATIONS.md conditions it on wave problems being discussed; they are not",
+}
+
 # key, state, bibtex type, fields, note, allow_partial
 REFS = [
     # ------------------------------------------------------------ operator learning
@@ -54,7 +91,7 @@ REFS = [
      "Proves the lower bound on linear-reconstruction operators and that FNO escapes it. "
      "This is why running FNO was not optional.", False),
     ("heinlein2026error", V, "article", dict(
-        author="Alexander Heinlein and Tim Taraz",
+        author="Alexander Heinlein and Johannes Taraz",
         title="The error of deep operator networks is the sum of its parts: branch--trunk and "
               "mode error decompositions",
         journal="arXiv preprint", year="2026", eprint="2602.21910", archiveprefix="arXiv"),
@@ -87,6 +124,39 @@ REFS = [
         doi="10.1038/s41524-025-01872-3"),
      "Held-out MATERIALS, but for interatomic potentials, not operator learning. Cite it "
      "as the falsifier of the broad novelty claim A23 withdrew.", False),
+
+    # --------------------------------------------- the L4 weighting schemes (audit #6)
+    # VERIFIED in CITATIONS.md since tranche 1 and named in PREREG_L4b_v2.md against the
+    # arm each implements, but never carried into this file -- so the manuscript named
+    # four methods from the literature and could cite none of them.
+    ("wang2021understanding", V, "article", dict(
+        author="Sifan Wang and Yujun Teng and Paris Perdikaris",
+        title="Understanding and mitigating gradient flow pathologies in physics-informed "
+              "neural networks",
+        journal="SIAM Journal on Scientific Computing", volume="43", number="5",
+        pages="A3055--A3081", year="2021", doi="10.1137/20M1318043"),
+     "The gradient-norm balancing arm.", False),
+    ("wang2022when", V, "article", dict(
+        author="Sifan Wang and Xinling Yu and Paris Perdikaris",
+        title="When and why {PINNs} fail to train: a neural tangent kernel perspective",
+        journal="Journal of Computational Physics", volume="449", pages="110768", year="2022",
+        doi="10.1016/j.jcp.2021.110768"),
+     "The NTK arm. Ours uses per-point gradient norms as a trace estimate, EMA-smoothed -- a "
+     "stated approximation, not their eigen-decomposition.", False),
+    ("mcclenny2023self", V, "article", dict(
+        author="Levi D. McClenny and Ulisses M. Braga-Neto",
+        title="Self-adaptive physics-informed neural networks",
+        journal="Journal of Computational Physics", volume="474", pages="111722", year="2023",
+        doi="10.1016/j.jcp.2022.111722"),
+     "The self-adaptive arm. The JOURNAL title (Crossref) drops the arXiv title's "
+     "'using a soft attention mechanism' -- do not copy the arXiv title.", False),
+    ("rathore2024challenges", V, "inproceedings", dict(
+        author="Rathore and Lei and Frangella and Lu and Udell",
+        title="Challenges in training {PINNs}: a loss landscape perspective",
+        booktitle="International Conference on Machine Learning (ICML)", year="2024",
+        eprint="2402.01868", archiveprefix="arXiv"),
+     "The Adam-then-L-BFGS polish (Q4). Surnames only until the arXiv record is fetched "
+     "into author_provenance.md -- rule 11.", False),
 
     # -------------------------------------------------------- the critique literature
     ("mcgreivy2024weak", V, "article", dict(
@@ -348,7 +418,7 @@ REFS = [
         pages="405--416", year="1929", doi="10.1016/S0016-0032(29)91186-8"),
      "B58: our entry previously carried no title at all.", True),
     ("dodo2000model", P, "article", dict(
-        author="Duong D. Do and Ha D. Do",
+        author="D. D. Do and H. D. Do",
         title="A model for water adsorption in activated carbon",
         journal="Carbon", volume="38", number="5", pages="767--773", year="2000",
         doi="10.1016/S0008-6223(99)00159-1"),
@@ -356,7 +426,7 @@ REFS = [
      "Henry slope. Our primary term is a Langmuir, theirs an n-layer BET -- ours is 'in the "
      "spirit of', not their form. Verified through Buttersack (2019).", True),
     ("dodo2009new", V, "article", dict(
-        author="Duong D. Do and S. Junpirom and Ha D. Do",
+        author="D. D. Do and S. Junpirom and H. D. Do",
         title="A new adsorption--desorption model for water adsorption in activated carbon",
         journal="Carbon", volume="47", number="6", pages="1466--1473", year="2009",
         doi="10.1016/j.carbon.2009.01.039"),
@@ -383,7 +453,7 @@ REFS = [
         year="1968", doi="10.1016/0009-2509(68)87056-3"),
      "Reduces to the 0.5 coefficient only at high particle Peclet number.", False),
     ("levan2019adsorption", V, "incollection", dict(
-        author="M. Douglas LeVan and Giorgio Carta",
+        author="LeVan and Carta",
         title="Adsorption and ion exchange",
         booktitle="Perry's Chemical Engineers' Handbook", edition="9", publisher="McGraw-Hill",
         year="2019", chapter="16"),
@@ -464,6 +534,8 @@ def main():
 
     emitted, refused = [], []
     for key, state, kind, fields, note, allow in REFS:
+        if key in NOT_EMITTED:
+            continue
         if state == V or (state == P and allow):
             emitted.append((key, state, kind, fields, note, allow))
         else:
@@ -475,6 +547,50 @@ def main():
         cited = {k.strip() for group in cited for k in group.split(",")}
     known = {r[0] for r in REFS}
     uncited_in_bib = sorted(cited - {e[0] for e in emitted})
+    wrongly_withheld = sorted(cited & set(NOT_EMITTED))
+    if wrongly_withheld:
+        print("REFUSED -- cited but listed in NOT_EMITTED: " + ", ".join(wrongly_withheld))
+        sys.exit(1)
+
+    # B62, twice: a spelled-out given name is an assertion about a real person, so it
+    # must occur in a record of what was FETCHED. Initials and surnames pass; a full
+    # given name absent from every provenance file refuses the build.
+    prov = ""
+    for rel in PROVENANCE:
+        p = os.path.join(ROOT, rel)
+        if os.path.exists(p):
+            prov += open(p, encoding="utf-8").read()
+    import unicodedata
+    prov = "".join(c for c in unicodedata.normalize("NFKD", prov) if not unicodedata.combining(c))
+    if not prov:
+        sys.exit("no provenance record found -- the given-name gate cannot run, refusing")
+    unprovenanced = []
+    for key, _, _, fields, _, _ in emitted:
+        for name in re.split(r"\s+and\s+", fields.get("author", "")):
+            toks = re.sub(r"[{}\\\"'`^~]", "", name).split()
+            for tok in toks[:-1]:
+                if len(tok) > 1 and not tok.endswith(".") and tok[0].isupper() \
+                        and not re.search(rf"\b({re.escape(tok)}|{re.escape(tok.upper())})\b", prov):
+                    unprovenanced.append(f"{key}: {tok}")
+    if unprovenanced:
+        print("REFUSED -- given names with no fetched provenance (rule 11, B62):")
+        for u in unprovenanced:
+            print(f"  {u}")
+        sys.exit(1)
+    uncited_emitted = sorted({e[0] for e in emitted} - cited)
+
+    partial = [e for e in emitted if e[1] == P]
+    no_via = [e[0] for e in partial if e[0] not in VIA]
+    if no_via:
+        print("REFUSED -- PARTIAL entries emitted with no VIA (what they were read through): "
+              + ", ".join(no_via))
+        sys.exit(1)
+    with open(os.path.join(ROOT, "paper", "secondary_sources.tex"), "w", encoding="utf-8") as fh:
+        fh.write("% GENERATED BY paper/references.py from VIA -- DO NOT EDIT.\n"
+                 "\\begin{itemize}\n")
+        for e in partial:
+            fh.write(f"\\item \\cite{{{e[0]}}}: {VIA[e[0]]}.\n")
+        fh.write("\\end{itemize}\n")
 
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write("% GENERATED BY paper/references.py -- DO NOT EDIT.\n"
@@ -494,6 +610,9 @@ def main():
           f"{sum(1 for e in emitted if e[1] == P)} PARTIAL cited through a secondary source)")
     for key, state, note in refused:
         print(f"  REFUSED  {key} [{state}] -- {note.splitlines()[0][:90] if note else ''}")
+    if uncited_emitted:
+        print(f"  NOTE  {len(uncited_emitted)} emitted entr(y/ies) cited by no citation "
+              f"(elsarticle-num drops them silently): {', '.join(uncited_emitted)}")
     if uncited_in_bib:
         print(f"\n  {len(uncited_in_bib)} key(s) cited in the manuscript are NOT in the "
               f"bibliography: {', '.join(uncited_in_bib)}")

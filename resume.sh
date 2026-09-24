@@ -108,6 +108,33 @@ elif [ "$INCOMPLETE" = "1" ]; then
   echo "   last results write ${STALE} min ago, cells take roughly 50)"
 fi
 
+# The check above tests ONE artefact, the 66-cell sweep. Since 2026-09-24 the work in
+# flight is the autorun QUEUE (follow-up chain, l5_bottleneck-v2, build), and the
+# sweep reads 69/66 -- "complete" -- so the banner above could never fire for it: a
+# dead queue would have been reported as nothing at all (found 2026-09-25). Test the
+# queue itself: not finished, and neither its own PID nor any runner is alive.
+QDONE=0; grep -q "AUTORUN_QUEUE_DONE" autorun.log 2>/dev/null && QDONE=1
+QPID=$(cat autorun.lock 2>/dev/null)
+QALIVE=0; [ -n "$QPID" ] && ps -p "$QPID" >/dev/null 2>&1 && QALIVE=1
+ANYPY=$(powershell -NoProfile -Command "@(Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | Where-Object { \$_.CommandLine -match '(run|refine|refine_sweep|analyze|learning_curve)_\w*v2|run_l5_fno|l5_bottleneck' }).Count" 2>/dev/null | tr -d '\r ')
+ANYPY=${ANYPY:-0}
+if [ -f autorun.log ] && [ "$QDONE" = "0" ]; then
+  if [ "$QALIVE" = "0" ] && [ "$ANYPY" -eq 0 ]; then
+    echo
+    echo "  ############################################################"
+    echo "  #  THE AUTORUN QUEUE IS UNFINISHED AND NOTHING IS RUNNING."
+    echo "  #  No AUTORUN_QUEUE_DONE in autorun.log, the queue's PID"
+    echo "  #  (${QPID:-none}) is gone, and no runner is alive."
+    echo "  #     tail -30 autorun.log                    what it last did"
+    echo "  #     nohup bash autorun.sh >> autorun_outer.log 2>&1 &"
+    echo "  ############################################################"
+  else
+    echo
+    echo "  (autorun queue in flight: queue PID ${QPID:-?} alive=$QALIVE, $ANYPY runner(s) alive;"
+    echo "   $(tail -1 autorun.log 2>/dev/null | cut -c1-100))"
+  fi
+fi
+
 if [ "$1" != "go" ]; then
   echo
   echo "  (nothing run. use  ./resume.sh go  to continue the work)"
