@@ -28,6 +28,8 @@ import os
 import time
 
 import numpy as np
+
+from v2_common import best_physics_arm
 import torch
 import torch.nn as nn
 
@@ -126,10 +128,11 @@ def main():
         S = sw.get("sweep", {}).get(axis, {})
         arms = args.arms
         if arms is None:
-            ok = {a: v for a, v in S.items() if a != "data_only" and len(v) >= len(args.seeds)
-                  and all(v[str(s)].get("failed") is None for s in args.seeds)}
-            arms = ["data_only"] + ([min(ok, key=lambda a: np.mean([ok[a][str(s)]["held"] for s in args.seeds]))]
-                                    if ok else [])
+            # PREREG §4.1's eligibility, shared with the analyser and the polish.
+            # This site used to apply only the non-finite-loss half, so it could
+            # refine an arm the analyser simultaneously reports as failed-to-train.
+            bp = best_physics_arm(S, args.seeds)
+            arms = ["data_only"] + ([bp] if bp else [])
         units = ([(int(m), nm[d.material_ids[nm] == m]) for m in np.unique(d.material_ids[nm])]
                  if axis == "material" else
                  [(int(m), tr_eval[d.material_ids[tr_eval] == m]) for m in np.unique(d.material_ids[tr_eval])])

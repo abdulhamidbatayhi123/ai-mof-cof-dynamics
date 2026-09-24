@@ -39,10 +39,40 @@ OUT_JSON = os.path.join(ROOT, "paper", "numbers.json")
 # reports how many are pending, so a manuscript can never be finalised while any
 # remain. Remove an entry the moment its run lands; a PENDING file that EXISTS is a
 # hard failure, exactly as in validate.py's figure gate.
-PENDING = {
-    "results/l4b_v2_verdict.json": "L4b-v2 is still running",
-}
+PENDING = {}          # L4b-v2 landed 2026-09-08; nothing is in flight
 PENDING_TEXT = r"\textbf{[PENDING]}"
+
+
+# LaTeX specials that are a HARD ERROR in text mode, and the escapes for them.
+# Every macro VALUE goes through this. The build gate already refused an undefined
+# macro, a mangled macro and a bare numeral, but it never looked at what a macro
+# EXPANDED TO -- so the macro nLtwoBestFam, resolving to the literal string
+# "mlp_depth", passed every check and produced a manuscript that cannot compile
+# ("Missing $ inserted"). Three of the four L4b verdict branches interpolate an arm name and
+# every arm name carries an underscore, so the document built only because the
+# branch that happened to fire was the one string with no arm name in it.
+_TEX_ESCAPES = {"_": r"\_", "%": r"\%", "&": r"\&", "#": r"\#"}
+_TEX_FORBIDDEN = "$^~"
+
+
+def tex_safe(key, value):
+    """Escape what can be escaped; refuse what cannot."""
+    v = str(value)
+    if "\\" in v:
+        # a value that already contains a control sequence is either deliberate
+        # (PENDING_TEXT) or a sign that a results file is carrying LaTeX, which is
+        # not something a results file should ever do.
+        if v.strip().startswith(r"\textbf{") or v.strip().startswith(r"\emph{"):
+            return v
+        raise ValueError(f"{key}: value contains a backslash and is not a known "
+                         f"markup wrapper: {v!r}")
+    bad = [c for c in _TEX_FORBIDDEN if c in v]
+    if bad:
+        raise ValueError(f"{key}: value contains LaTeX-special {bad} that cannot be "
+                         f"escaped automatically: {v!r}. Fix it at the source.")
+    for ch, esc in _TEX_ESCAPES.items():
+        v = v.replace(ch, esc)
+    return v
 
 
 def pct(x):
@@ -435,7 +465,7 @@ def resolve(verbose=False):
         if isinstance(v, float) and not math.isfinite(v):
             failures.append(f"{key}: {fname}:{path} is not finite ({v})")
             continue
-        out[key] = fmt(v) if callable(fmt) else fmt.format(v)
+        out[key] = tex_safe(key, fmt(v) if callable(fmt) else fmt.format(v))
         raw[key] = v
         if verbose:
             print(f"  {key:<26} {out[key]:<28} <- {fname}:{path}")
@@ -449,7 +479,7 @@ def resolve(verbose=False):
         if not math.isfinite(v):
             failures.append(f"{key}: derived ({formula}) is not finite")
             continue
-        out[key] = fmt.format(v)
+        out[key] = tex_safe(key, fmt.format(v))
         raw[key] = v
         if verbose:
             print(f"  {key:<26} {out[key]:<28} <- derived: {formula}")

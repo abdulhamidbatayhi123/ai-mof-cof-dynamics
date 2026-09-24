@@ -48,7 +48,7 @@
     "LCmodesLarge": "13",
     "LCcondBeta": "0.122",
     "LtwoBest": "0.0241",
-    "LtwoBestFam": "mlp_depth",
+    "LtwoBestFam": "mlp\\_depth",
     "LtwoBestCfg": "d8",
     "LtwoPodFloor": "2.80e-04",
     "LtwoDepthShape": "U-SHAPED, optimum at d8",
@@ -220,8 +220,8 @@
     "LedgerB": "64",
     "LedgerTotal": "90",
     "LedgerOwn": "31",
-    "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
-    "LfourbVerdictTime": "\\textbf{[PENDING]}",
+    "LfourbVerdictMaterial": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "LfourbVerdictTime": "PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1) \u2014 the legacy claim stands, now defended.",
     "FloorDrop": "28.7",
     "FNOxFloor": "43",
     "ONetxFloor": "53",
@@ -1157,16 +1157,5 @@
       "derived": "the training set's cost in core-hours: solves x worker-seconds"
     }
   },
-  "pending": [
-    {
-      "key": "LfourbVerdictMaterial",
-      "file": "results/l4b_v2_verdict.json",
-      "why": "L4b-v2 is still running"
-    },
-    {
-      "key": "LfourbVerdictTime",
-      "file": "results/l4b_v2_verdict.json",
-      "why": "L4b-v2 is still running"
-    }
-  ]
+  "pending": []
 }

@@ -58,7 +58,7 @@ C_LEAK = "#6a994e"       # an oracle arm: handed the answer; an upper bound only
 # Results files a run still in flight has not written. validate.py's integrity gate
 # accepts a missing results path ONLY if it is declared here, and FAILS if a declared
 # file exists — so this line must be removed the moment L4b-v2 lands.
-PENDING_RESULTS = ("results/l4b_v2_verdict.json",)
+PENDING_RESULTS = ()          # L4b-v2 landed 2026-09-08; nothing is in flight
 
 def load(path):
     return json.load(open(path)) if os.path.exists(path) else None

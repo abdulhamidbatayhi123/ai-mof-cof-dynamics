@@ -32,3 +32,22 @@ loaded 3947 samples from data/parametric_v2
 [time] arms ['data_only']; 192 units
 
 wrote results/l4b_v2_refine.json  [56s]
+loaded 3947 samples from data/parametric_v2
+  fields (3947, 3, 128, 128)  params (3947, 11)
+  splits {'train': 2770, 'novel_condition': 384, 'novel_material': 793}
+  materials: 240 (48 held out)
+  design: v2  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'd_p', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+  fields subsampled to 128x128 on load (0.78 GB resident)
+  resuming results/l4b_v2_refine.json
+
+[material] arms ['data_only', 'pi_fixed_w1e-4']; 48 units
+  [material] pi_fixed_w1e-4     seed 42: held 0.0208 -> 0.1599 | seen 0.0208 -> 0.1599 | failed units 0  [3054s]
+  [material] pi_fixed_w1e-4     seed 43: held 0.0209 -> 0.1800 | seen 0.0209 -> 0.1800 | failed units 0  [2200s]
+  [material] pi_fixed_w1e-4     seed 44: held 0.0263 -> 0.1684 | seen 0.0263 -> 0.1684 | failed units 0  [2186s]
+
+[time] arms ['data_only', 'pi_fixed_w1e-4']; 192 units
+  [time    ] pi_fixed_w1e-4     seed 42: held 0.0120 -> 0.0838 | seen 0.0118 -> 0.1010 | failed units 0  [7628s]
+  [time    ] pi_fixed_w1e-4     seed 43: held 0.0170 -> 0.0954 | seen 0.0160 -> 0.1090 | failed units 0  [11821s]
+  [time    ] pi_fixed_w1e-4     seed 44: held 0.0148 -> 0.1042 | seen 0.0144 -> 0.1113 | failed units 0  [12841s]
+
+wrote results/l4b_v2_refine.json  [39784s]

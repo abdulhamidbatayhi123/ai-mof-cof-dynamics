@@ -235,3 +235,56 @@ def set_path(obj, value, *keys):
     for k in keys[:-1]:
         obj = obj.setdefault(k, {})
     obj[keys[-1]] = value
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L4b: ONE definition of "which physics arm may be chosen as best_pi"
+# ─────────────────────────────────────────────────────────────────────────────
+
+def eligible_physics_arms(axis_sweep, seeds, seen_ratio=3.0):
+    """The arms PREREG_L4b_v2.md §4.1 permits `best_pi` to be selected from.
+
+    Two exclusions, and BOTH are the pre-registration's, not one of them:
+
+    * `failed` — a non-finite loss. Excluded everywhere already.
+    * the **B16 signature**: a seen-window error more than `seen_ratio`x the
+      data-only twin's, which is an optimiser that abandoned the data fit.
+      "Reported as failed-to-train and EXCLUDED FROM best_pi SELECTION, never
+      averaged in."
+
+    This lived in three places with two different rules: `analyze_l4b_v2` applied
+    both criteria, while `refine_l4b_v2` and `run_l4b_v2 --stage polish` applied
+    only the first. So the analyser could report an arm as failed-to-train while
+    the refinement and the L-BFGS polish were being run on that same arm as the
+    best physics arm -- the two halves of the rung disagreeing about which arm the
+    verdict is about. It does not bite on the numbers as they stand, but the
+    w=1e-5 extension re-opens the selection, which is exactly when a latent
+    disagreement becomes a reported one.
+
+    Returns (eligible, abandoned, failed) with `eligible` ordered as given.
+    """
+    ss = [str(s) for s in seeds]
+    complete = {a: v for a, v in axis_sweep.items() if all(s in v for s in ss)}
+    if "data_only" not in complete:
+        return [], [], {}
+    failed = {a: [s for s in ss if v[s].get("failed")] for a, v in complete.items()}
+    usable = [a for a in complete if not failed[a]]
+    d0_seen = float(np.mean([complete["data_only"][s]["seen"] for s in ss]))
+    abandoned = [a for a in usable if a != "data_only"
+                 and float(np.mean([complete[a][s]["seen"] for s in ss])) > seen_ratio * d0_seen]
+    eligible = [a for a in usable if a != "data_only" and a not in abandoned]
+    return eligible, abandoned, {a: f for a, f in failed.items() if f}
+
+
+def best_physics_arm(axis_sweep, seeds):
+    """`best_pi`: lowest mean held-out error among the eligible arms, or None.
+
+    Chosen on the HELD-OUT error -- the generous direction for the arm being
+    argued against (rule 4) -- as the pre-registration states and as the verdict
+    text says out loud.
+    """
+    eligible, _, _ = eligible_physics_arms(axis_sweep, seeds)
+    if not eligible:
+        return None
+    ss = [str(s) for s in seeds]
+    return min(eligible, key=lambda a: float(np.mean([axis_sweep[a][s]["held"] for s in ss])))

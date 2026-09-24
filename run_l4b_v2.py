@@ -52,9 +52,14 @@ from run_l4 import (DEVICE, ParametricPINN, boundary_residual, build_phys_table,
                     index_phys, pde_residual)
 from run_l4b import eval_window, sample_supervised_window
 from v2_common import FIELD_RES, ROOT_V2, get_path, load_or_init, set_path, write_atomic
+from v2_common import best_physics_arm
 
 CKPT_DIR = "data/l4b_v2_ckpt"
 ARMS = ["data_only",
+        # w1e-5 is the PREREG §4.2 extension: the fixed-weight optimum sat on the
+        # bottom edge of the original four-decade grid and was NOT saturated
+        # against the data-only twin on the time axis, so the rule binds.
+        "pi_fixed_w1e-5",
         "pi_fixed_w1e-4", "pi_fixed_w1e-3", "pi_fixed_w1e-2", "pi_fixed_w1e-1", "pi_fixed_w1",
         "pi_gradnorm_t0.1", "pi_gradnorm_t1.0", "pi_gradnorm_t10",
         "pi_ntk", "pi_sa"]
@@ -368,6 +373,12 @@ def main():
                                                    "eval_per_material"))
     if resumed:
         print(f"  resuming {args.out}")
+        # load_or_init returns the PREVIOUS header on resume, so `arms_all` would
+        # stay the eleven-arm list after the PREREG §4.2 extension adds a twelfth
+        # and the analyser would print "12/11 arms complete". `arms_all` is the
+        # only machine-readable record of what the sweep was meant to contain, so
+        # any completeness assertion built on it has to see the extension.
+        res["arms_all"] = sorted(set(res.get("arms_all", [])) | set(ARMS))
     os.makedirs(CKPT_DIR, exist_ok=True)
     print(f"\nParametricPINN (bounded) width {args.width} depth {args.depth}: {n_par:,} parameters | "
           f"{args.steps} steps | time-axis eval {len(tr_eval)} samples / "
@@ -401,12 +412,10 @@ def main():
         for axis in args.axes:
             lo, hi = (0.0, args.t_cut) if axis == "time" else (0.0, 1.0)
             sw = res.get("sweep", {}).get(axis, {})
-            ok = {a: v for a, v in sw.items() if a != "data_only" and len(v) >= len(args.seeds)
-                  and all(v[str(s)].get("failed") is None for s in args.seeds)}
-            if "data_only" not in sw or len(sw["data_only"]) < len(args.seeds) or not ok:
+            best_pi = best_physics_arm(sw, args.seeds)
+            if "data_only" not in sw or len(sw["data_only"]) < len(args.seeds) or not best_pi:
                 print(f"  [{axis}] sweep incomplete; polish skipped")
                 continue
-            best_pi = min(ok, key=lambda a: np.mean([ok[a][str(s)]["held"] for s in args.seeds]))
             print(f"  [{axis}] polishing data_only and best physics arm {best_pi}")
             for arm in ("data_only", best_pi):
                 for seed in args.seeds:
