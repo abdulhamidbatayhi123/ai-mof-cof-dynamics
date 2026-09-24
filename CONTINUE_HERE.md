@@ -187,8 +187,7 @@ Each finding carries file, line, the offending text, why it matters, and the fix
    (p=8,16 at 3e-2). When it lands: `analyze_l5_merged.py` and `analyze_l5_fno.py`
    re-run inside the job. Then REWRITE the caveat in the L5 section that ends
    "the grid is being extended to close it" into the result — and if DeepONet's
-   best improves, the FNO margin, the abstract's FNO sentence and `
-FNOgain`
+   best improves, the FNO margin, the abstract's FNO sentence and `\nFNOgain`
    move. Check `grid_boundary_warnings` in `results/l5_merged.json` is empty.
 4c. **`audit_2026-09-24/STATUS.md`** records which of the 133 findings are closed.
    Update it as you close things; do not re-derive.
