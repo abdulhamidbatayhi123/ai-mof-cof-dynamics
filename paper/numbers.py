@@ -183,6 +183,12 @@ SPEC = [
     ("LthreeMlpLr", "results/l3_merged.json", "table.800000_mlp.lr", "{:g}"),
     ("LthreeChebyLr", "results/l3_merged.json", "table.50000_cheby_kan.lr", "{:g}"),
     ("LthreeArms", "results/l3_merged.json", "n_arms", "{:d}"),
+    # l3_edges.py: the grid as actually run across three files, and how far the
+    # perceptron's bottom-edge selection is from saturated (rule 4 needs it measured).
+    ("LthreeNrates", "results/l3_edges.json", "n_rates", "{:d}"),
+    ("LthreeDecades", "results/l3_edges.json", "decades", "{:.1f}"),
+    ("LthreeEdgeSatMin", "results/l3_edges.json", "edge_saturation_min", lambda x: f"{100 * x:.2f}"),
+    ("LthreeEdgeSatMax", "results/l3_edges.json", "edge_saturation_max", lambda x: f"{100 * x:.2f}"),
     ("LthreeBestKanMlp", "results/l3_final_pair.json", "mlp", "{:.4f}"),
     ("LthreeBestKan", "results/l3_final_pair.json", "rbf_g4", "{:.4f}"),
     ("LthreeBestKanDiff", "results/l3_final_pair.json", "diff", "{:.4f}"),
@@ -198,6 +204,13 @@ SPEC = [
     # description". It is the selected cell of a sweep, i.e. a result.
     ("LfiveONetWidth", "results/l5_fno_verdict.json", "deeponet_best_width", "{:d}"),
     ("LfiveONetP", "results/l5_fno_verdict.json", "deeponet_best_p", "{:d}"),
+    # L5's learning-rate envelope for DeepONet, as run. The prose said "three and a
+    # half decades" -- L3's envelope; L5's was 2.3 (audit_numbers #7).
+    ("LfiveNrates", "results/l5_merged.json", "selected.deeponet_p8.n_lr_tried", "{:d}"),
+    ("LfiveDecades", "results/l5_merged.json", "selected.deeponet_p8.grid",
+     lambda g: f"{__import__('math').log10(max(g) / min(g)):.1f}"),
+    ("LfiveONetEdgeMove", "results/l5_merged.json", "selected.deeponet_p16.edge_sensitivity",
+     lambda x: f"{100 * x:.1f}"),
     ("LfiveWidthRatio", "results/l5_fno_verdict.json", "width_ratio_onet_over_fno", "{:.1f}"),
     ("LfiveNclust", "results/l5_fno_verdict.json", "_n_clusters", "{:d}"),
     ("LfiveAlpha", "results/l5_fno_verdict.json", "_alpha", "{:g}"),
@@ -448,7 +461,7 @@ DERIVED = [
      lambda r: r["LfiveFloorSmall"] / r["LfiveFloorLarge"], "{:.1f}"),
     ("FNOxFloor", "the best FNO divided by the POD floor at p=128",
      lambda r: r["LfiveFNO"] / r["LfiveFloor"], "{:.0f}"),
-    ("ONetxFloor", "the best DeepONet divided by the POD floor at p=128",
+    ("ONetxFloor", "the best DeepONet found anywhere (the p=8 arm) divided by the POD floor at p=128",
      lambda r: r["LfiveONet"] / r["LfiveFloor"], "{:.0f}"),
     ("FNOgain", "the best DeepONet divided by the best FNO",
      lambda r: r["LfiveONet"] / r["LfiveFNO"], "{:.2f}"),

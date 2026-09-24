@@ -52,6 +52,7 @@ SOURCES = (
     "results/l5_fill1b.json",     # may not exist; the chain that wrote it died
     "results/l5_okan_hi.json",    # deepokan at 3e-3 and 1e-2 (guard: 30-35%% off)
     "results/l5_onet_hi.json",    # deeponet at 1e-2
+    "results/l5_onet_3e2.json",   # deeponet p=8,16 at 3e-2: 1e-2 was still the TOP edge and moving 4-6 %
 )
 MIN_SEEDS = 3                      # protocol section 3 rule 5. Not negotiable.
 WITHDRAWN = "results/l5_singlelr_WITHDRAWN.json"

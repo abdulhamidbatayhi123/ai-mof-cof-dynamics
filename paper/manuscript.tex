@@ -45,8 +45,10 @@ which throughout. Model capacity is eliminated as an
 unbounded lever, though its optimum moves with the training-set size. Architecture
 family is eliminated on the smaller design: at matched parameters a multilayer
 perceptron beats both
-Kolmogorov--Arnold families in \(6/6\) comparisons, with every optimum bracketed
-across eight learning rates spanning three and a half decades. Linear-reconstruction
+Kolmogorov--Arnold families in \(6/6\) comparisons, across \nLthreeNrates\ learning
+rates spanning \nLthreeDecades\ decades; every Kolmogorov--Arnold optimum is
+bracketed, and the perceptron's sits at the grid's lower edge, where its error has
+saturated. Linear-reconstruction
 operators are eliminated: over a sixteenfold increase in basis size DeepONet
 improves by no more than \nLfiveFlatImproveMax\,\% of its own error, while the
 proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\). A Fourier neural operator, the
@@ -506,9 +508,12 @@ the same diagnosis the learning curve gives from the other side.
 At matched parameter counts and each family at its own best learning rate, the
 multilayer perceptron beats both Kolmogorov--Arnold families at every budget, with
 all six pairwise comparisons significant. \nLthreeArms\ arms were trained across
-eight learning rates spanning \(3\times10^{-5}\) to \(10^{-1}\), three and a half
-decades, until every selected optimum was bracketed --- the strongest form of
-protocol rule~4 we achieve anywhere, and the rung where it matters most, because the
+\nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
+Kolmogorov--Arnold optimum was bracketed on both sides. The perceptron selects the
+lowest rate at every budget, which is an edge; rule~4 admits an edge only where the
+metric has saturated, and it has: the next rate up is worse by only
+\nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%, and a better-tuned perceptron could only
+widen its lead. This is the strongest form of protocol rule~4 we achieve anywhere, and the rung where it matters most, because the
 Kolmogorov--Arnold arms are the ones being argued against.
 
 Comparing against the strongest configuration found anywhere rather than the
@@ -535,14 +540,14 @@ parameter-matched cPIKANs and PirateNets'' --- and PirateNet is a perceptron
 architecture. Kiyani and co-workers \cite{kiyani2025optimizing} find that optimiser
 choice dominates accuracy for physics-informed models, Kolmogorov--Arnold networks
 included, and that both families improve by orders of magnitude under the \emph{same}
-quasi-Newton schemes --- which is why every optimum here is bracketed rather than
-left at a default. Nor is a Kolmogorov--Arnold operator new: DeepOKAN
+quasi-Newton schemes --- which is why every competitor optimum here is bracketed
+rather than left at a default. Nor is a Kolmogorov--Arnold operator new: DeepOKAN
 \cite{abueidda2025deepokan} is published, data-driven, with the same Gaussian
 radial basis, and our claim for that arm is the application to column-scale transfer
 and nothing more (A12). An earlier draft of this section cited two of these papers for a
 consensus that does not exist (Section~\ref{sec:corrections}, B46). The honest
 statement is narrower and more useful: on \emph{this} problem, at matched
-parameters, with every optimum bracketed, the perceptron wins \(6/6\); and the
+parameters, with every competitor optimum bracketed, the perceptron wins \(6/6\); and the
 papers that disagree are cited so a reader sees the disagreement rather than
 discovers it.
 
@@ -587,16 +592,22 @@ verdict is a property of physics at inference or of one configuration of it
 
 \subsection{L5 --- you need an operator}
 
-At matched parameter counts and each family at its own best learning rate over three
-and a half decades, DeepONet is \textbf{flat in basis size} (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from
+At matched parameter counts and each family at its own best learning rate over
+\nLfiveNrates\ rates spanning \nLfiveDecades\ decades, DeepONet is \textbf{flat in basis size} (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from
 \(p = 8\) to \(p = 128\), interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero.
 Stated as what it excludes, which is the honest form for a null: a sixteenfold
 increase in basis size cannot have improved this arm by more than
 \nLfiveFlatImproveMax\,\% or degraded it by more than \nLfiveFlatDegradeMax\,\% of
 its own error. That is the bound we claim, and it is not the same as ``no effect''
 --- while its own proper-orthogonal-decomposition floor falls from
-\nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). At \(p = 128\) it
-sits \(\nONetxFloor\times\) above its own lower bound. \emph{Giving DeepONet 128 basis
+\nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). The best
+DeepONet found anywhere, at the smallest basis, sits \(\nONetxFloor\times\) above the
+floor of the largest. One caveat on tuning, stated because rule~4 is the rule this
+rung is most exposed on: at the two smallest bases DeepONet's best learning rate is
+still the top of the grid, moving by up to \nLfiveONetEdgeMove\,\% to the next point
+down. For the flatness above that bias is conservative --- a better-tuned small
+basis only makes a larger one look less useful --- but it would flatter the Fourier
+operator's advantage below, and the grid is being extended to close it. \emph{Giving DeepONet 128 basis
 functions buys it the accuracy of four.}
 
 \paragraph{The arm the theory names.} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator

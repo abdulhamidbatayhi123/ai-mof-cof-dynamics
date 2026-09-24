@@ -64,6 +64,10 @@
     "LthreeMlpLr": "3e-05",
     "LthreeChebyLr": "0.03",
     "LthreeArms": "63",
+    "LthreeNrates": "8",
+    "LthreeDecades": "3.5",
+    "LthreeEdgeSatMin": "0.12",
+    "LthreeEdgeSatMax": "0.60",
     "LthreeBestKanMlp": "0.0573",
     "LthreeBestKan": "0.0633",
     "LthreeBestKanDiff": "-0.0060",
@@ -74,6 +78,9 @@
     "LfiveFNOwidth": "28",
     "LfiveONetWidth": "216",
     "LfiveONetP": "8",
+    "LfiveNrates": "7",
+    "LfiveDecades": "2.3",
+    "LfiveONetEdgeMove": "5.7",
     "LfiveWidthRatio": "7.7",
     "LfiveNclust": "12",
     "LfiveAlpha": "0.005",
@@ -237,8 +244,8 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "66",
-    "LedgerTotal": "92",
+    "LedgerB": "67",
+    "LedgerTotal": "93",
     "LedgerOwn": "32",
     "LfourbVerdictMaterial": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
     "LfourbVerdictTime": "PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1) \u2014 the legacy claim stands, now defended.",
@@ -518,6 +525,22 @@
       "file": "results/l3_merged.json",
       "path": "n_arms"
     },
+    "LthreeNrates": {
+      "file": "results/l3_edges.json",
+      "path": "n_rates"
+    },
+    "LthreeDecades": {
+      "file": "results/l3_edges.json",
+      "path": "decades"
+    },
+    "LthreeEdgeSatMin": {
+      "file": "results/l3_edges.json",
+      "path": "edge_saturation_min"
+    },
+    "LthreeEdgeSatMax": {
+      "file": "results/l3_edges.json",
+      "path": "edge_saturation_max"
+    },
     "LthreeBestKanMlp": {
       "file": "results/l3_final_pair.json",
       "path": "mlp"
@@ -557,6 +580,18 @@
     "LfiveONetP": {
       "file": "results/l5_fno_verdict.json",
       "path": "deeponet_best_p"
+    },
+    "LfiveNrates": {
+      "file": "results/l5_merged.json",
+      "path": "selected.deeponet_p8.n_lr_tried"
+    },
+    "LfiveDecades": {
+      "file": "results/l5_merged.json",
+      "path": "selected.deeponet_p8.grid"
+    },
+    "LfiveONetEdgeMove": {
+      "file": "results/l5_merged.json",
+      "path": "selected.deeponet_p16.edge_sensitivity"
     },
     "LfiveWidthRatio": {
       "file": "results/l5_fno_verdict.json",
@@ -1237,7 +1272,7 @@
       "derived": "the best FNO divided by the POD floor at p=128"
     },
     "ONetxFloor": {
-      "derived": "the best DeepONet divided by the POD floor at p=128"
+      "derived": "the best DeepONet found anywhere (the p=8 arm) divided by the POD floor at p=128"
     },
     "FNOgain": {
       "derived": "the best DeepONet divided by the best FNO"

@@ -150,6 +150,18 @@ d=json.load(open(\"results/l5_bottleneck_v2.json\"))
 sys.exit(0 if len(d.get(\"cells\",{}))>=75 and \"summary\" in d else 1)"' \
   '"$P" -u l5_bottleneck_v2.py >> l5_bottleneck_v2.log 2>&1'
 
+# --- 2b. close L5's DeepONet learning-rate bracket (rule 4) -------------------
+# analyze_l5_merged.py flags deeponet p=8 and p=16 UNBRACKETED: best lr 1e-2 is the
+# top of the grid and still moving 4.3 / 5.7 %. DeepONet is the arm the FNO is
+# said to beat, so an under-tuned DeepONet would inflate that result. One more
+# rate up, three seeds, same budget and steps as l5_onet_hi. ~1.5 h. Added
+# 2026-09-25, AFTER job 2 so the bytes bash has already read are unchanged.
+run_job "L5 DeepONet bracket at 3e-2 (p=8,16)"   '"$P" -c "
+import json,sys
+d=json.load(open(\"results/l5_onet_3e2.json\"))
+n=sum(1 for a in d[\"arms\"] for s in a[\"seeds\"].values())
+sys.exit(0 if n>=6 else 1)"'   '"$P" -u run_l5.py --ps 8 16 --seeds 42 43 44 --lrs 3e-2 --families deeponet --steps 8000 --budget 200000 --threads 6 --out results/l5_onet_3e2.json >> l5_onet_3e2.log 2>&1 && "$P" -u analyze_l5_merged.py >> l5_onet_3e2.log 2>&1 && "$P" -u analyze_l5_fno.py >> l5_onet_3e2.log 2>&1 && "$P" -u fig_operators.py >> l5_onet_3e2.log 2>&1'
+
 # --- 3. regenerate everything the above feeds --------------------------------
 run_job "figures + numbers + build gate" \
   'false' \
