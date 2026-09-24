@@ -74,8 +74,12 @@ THE IMMEDIATE JOB, in order (CONTINUE_HERE.md §4 has the full list):
   5. The three rungs still on 12 materials (L3, L5, the warp) while L1/L2/L6/L7 use
      240 — the biggest structural risk, because retraction A26 exists precisely
      because a verdict measured at one material count did not survive four times as
-     many. audit_risk.md says the cheapest high-value experiment is l5_bottleneck on
-     v2 in the same five folds (~1-2 h). Do that one first.
+     many. The cheapest of the three (l5_bottleneck on v2) is ALREADY QUEUED as
+     autorun job 2 — do not launch it by hand, just read its result when it lands
+     and write it up. The other two (DeepONet flat-in-p on v2, 26-39 h; the warp
+     verdict, 10-30 h and needing a non-degenerate lower landmark because B41 makes
+     t_lo rule-5 degenerate on v2) still need their runners PORTED, which is the
+     real work. audit_risk.md scopes both, with file:line for every change.
 
 ELEVEN WORKING RULES — each earned by getting it wrong once, all in CONTINUE_HERE.md
 §6. The two that bite hardest: NO NULL WITHOUT ITS MINIMUM DETECTABLE EFFECT, and NO
