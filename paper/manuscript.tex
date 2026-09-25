@@ -40,7 +40,7 @@ evidence that would eliminate it, and tested on a reference solver verified agai
 four closed-form solutions and compared, with nothing fitted, against a published
 MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
 it reproduces and whose first-wave timing it does not. Six are eliminated, three of
-them on a smaller design of twelve held-out materials and three on 240, and we mark
+them on a smaller design of \nNclustLegacy\ held-out materials and three on \nNclustFolds, and we mark
 which throughout. Model capacity is eliminated as an
 unbounded lever, though its optimum moves with the training-set size. Architecture
 family is eliminated on the smaller design: at matched parameters a multilayer
@@ -471,7 +471,7 @@ range.
 
 \paragraph{What more materials buy, and what they do not.} Refitting the basis on
 each subset changes nothing: \nLCsmallestFixed\ against \nLCsmallest\ at 12
-materials, \nLClargestFixed\ against \nLClargest\ at 192. A basis fitted on twelve
+materials, \nLClargestFixed\ against \nLClargest\ at 192. A basis fitted on 12
 materials reconstructs held-out fields as well as one fitted on 192, once the
 regressor sees the same data. \emph{None of the gain is in the basis; all of it is
 in the parameter-to-coefficient map.} Modes whose coefficient map clears
@@ -692,7 +692,7 @@ quoted here because it belongs to a design that could not test the estimand at a
 \paragraph{Why the test has power now, and its limit.} The between-material standard
 deviation of the arm difference fell to \nLsixBetweenSD, or
 \nLsixBetweenOverBase\,\% of the base error, from \nLsixLegacyBetweenOverBase\,\% previously --- a \(\nLsixNoiseDrop\times\) noise reduction from Sobol sampling and physically consistent
-kinetics. With 240 clusters instead of twelve, that is what turned an unanswerable
+kinetics. With \nNclustFolds\ clusters instead of \nNclustLegacy, that is what turned an unanswerable
 question into an answerable one. Power is \nLsixPowerFour\,\% at a 4\,\% effect and
 \nLsixPowerTwo\,\% at 2\,\%, with size at the null \nLsixSizeNull\,\%; the minimum
 detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits just
@@ -1151,7 +1151,7 @@ closed by saying so, not by inventing one, and the title claims only frameworks 
 the class we actually model.
 
 \paragraph{Three rungs are measured on the smaller dataset.} L3, L5 and the
-coordinate change are measured over twelve held-out materials, while L1, L2, L6 and
+coordinate change are measured over \nNclustLegacy\ held-out materials, while L1, L2, L6 and
 L7 are measured over 240. Given that A26 exists precisely because a verdict measured
 at one material count did not survive four times as many, those three verdicts must
 be read as scoped to the material count at which they were taken. Their effect sizes
@@ -1199,7 +1199,7 @@ architecture, a larger basis or a heavier physics penalty. The cost accounting o
 Section~\ref{sec:cost} gives the exchange rate for that effort.
 
 \paragraph{What is scoped.} Three verdicts --- L3, L5 and the coordinate change ---
-were measured on twelve held-out materials rather than 240, and must be read at that
+were measured on \nNclustLegacy\ held-out materials rather than \nNclustFolds, and must be read at that
 material count until they are re-measured. The reference solver reproduces the
 published MOF-303 bed's two-wave shape and its half-breakthrough time with nothing
 fitted, and misses its first-wave timing; of the excess in its late arrival time,

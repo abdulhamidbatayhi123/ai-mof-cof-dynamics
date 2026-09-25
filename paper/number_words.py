@@ -25,6 +25,9 @@ the stale entry.
 
     python paper/number_words.py            # report
     python paper/number_words.py --prune    # drop entries whose text is gone
+    python paper/number_words.py --classify SUBSTRING CLASS "reason"
+                                            # review UNREVIEWED occurrences whose
+                                            # key contains SUBSTRING
 """
 from __future__ import annotations
 
@@ -93,6 +96,21 @@ def main():
     import build_paper as bp
     body_text = bp.body(open(TEX, encoding="utf-8").read())
     unreviewed, owed, stale = check(body_text, bp.strip_structural)
+    if "--classify" in sys.argv:
+        i = sys.argv.index("--classify")
+        sub, cls, why = sys.argv[i + 1], sys.argv[i + 2], sys.argv[i + 3]
+        if cls not in CLASSES:
+            raise SystemExit(f"class must be one of {sorted(CLASSES)}")
+        hits = [(ln, w, k) for ln, w, k in unreviewed if sub in k]
+        if not hits:
+            raise SystemExit(f"no UNREVIEWED occurrence contains {sub!r}")
+        rev = load()
+        for ln, w, k in hits:
+            rev[k] = {"key": k, "word": w, "class": cls, "reason": why, "line_at_review": ln}
+            print(f"classified {cls}: line {ln}: {k}")
+        json.dump(list(rev.values()), open(REVIEWED, "w", encoding="utf-8"), indent=1,
+                  ensure_ascii=False)
+        unreviewed, owed, stale = check(body_text, bp.strip_structural)
     if "--prune" in sys.argv and stale:
         rev = load()
         keep = [e for k, e in rev.items() if k not in set(stale)]

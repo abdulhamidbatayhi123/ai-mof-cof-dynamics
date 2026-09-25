@@ -28,20 +28,6 @@
   "line_at_review": 19
  },
  {
-  "key": "them on a smaller design of [twelve] held-out materials and three",
-  "word": "twelve",
-  "class": "OWED",
-  "reason": "material count of the smaller design -- \nNclustLegacy exists",
-  "line_at_review": 20
- },
- {
-  "key": "twelve held-out materials and [three] on 240, and we mark",
-  "word": "three",
-  "class": "OWED",
-  "reason": "tally split by design",
-  "line_at_review": 20
- },
- {
   "key": "rators are eliminated: over a [sixteenfold] increase in basis size DeepON",
   "word": "sixteenfold",
   "class": "DESIGN",
@@ -262,7 +248,7 @@
   "key": "n intermediate plateau near a [third] of the feed, then a cooperati",
   "word": "third",
   "class": "OWED",
-  "reason": "experimental plateau level -- \nAnchorPlateauExp exists",
+  "reason": "experimental plateau level -- \\nAnchorPlateauExp exists",
   "line_at_review": 275
  },
  {
@@ -453,13 +439,6 @@
   "class": "OWED",
   "reason": "extrapolation bound, twice the range -- derived",
   "line_at_review": 446
- },
- {
-  "key": "\\ at 192. A basis fitted on [twelve] ",
-  "word": "twelve",
-  "class": "OWED",
-  "reason": "material count, needs macro",
-  "line_at_review": 451
  },
  {
   "key": "ts held-out fields as well as [one] fitted on 192, once the",
@@ -677,13 +656,6 @@
   "class": "DESIGN",
   "reason": "seeds",
   "line_at_review": 665
- },
- {
-  "key": "With 240 clusters instead of [twelve] , that is what turned an unans",
-  "word": "twelve",
-  "class": "OWED",
-  "reason": "\nNclustLegacy",
-  "line_at_review": 672
  },
  {
   "key": "question into an answerable [one] . Power is \\,\\% at a 4\\,\\% ef",
@@ -1207,7 +1179,7 @@
   "key": "aspect ratio is under a [fifth] , where a plug",
   "word": "fifth",
   "class": "OWED",
-  "reason": "anchor aspect ratio -- derive from \nAnchorBedLenMm/\nAnchorTubeMm",
+  "reason": "anchor aspect ratio -- derive from \\nAnchorBedLenMm/\\nAnchorTubeMm",
   "line_at_review": 1050
  },
  {
@@ -1281,13 +1253,6 @@
   "line_at_review": 1130
  },
  {
-  "key": "nate change are measured over [twelve] held-out materials, while L1,",
-  "word": "twelve",
-  "class": "OWED",
-  "reason": "\nNclustLegacy",
-  "line_at_review": 1131
- },
- {
   "key": "at [one] material count did not surviv",
   "word": "one",
   "class": "PROSE",
@@ -1337,13 +1302,6 @@
   "line_at_review": 1178
  },
  {
-  "key": "were measured on [twelve] held-out materials rather tha",
-  "word": "twelve",
-  "class": "OWED",
-  "reason": "\nNclustLegacy",
-  "line_at_review": 1179
- },
- {
   "key": "bed's shape and its [half] -breakthrough time with nothin",
   "word": "half",
   "class": "PROSE",
@@ -1384,5 +1342,12 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 1225
+ },
+ {
+  "key": "of \\ held-out materials and [three] on , and we mark",
+  "word": "three",
+  "class": "OWED",
+  "reason": "ladder tally split by design; changes with L4b -- macro with the tally",
+  "line_at_review": 20
  }
 ]
