@@ -6,7 +6,10 @@ Authors are written exactly as the fetched record shows them (initials kept as i
 "Crossref record" means only metadata (title/authors/year/journal) was confirmed, not content, unless an
 abstract is stated.
 
-Status: IN PROGRESS (appended source by source; synthesis sections at the end).
+Status: COMPLETE for this pass (62 source entries S01-S62; synthesis sections after the source log).
+Fetch routes used: Crossref API, OpenAlex API, Europe PMC REST (full text where OA), Semantic Scholar API, arXiv API,
+Zenodo API, GitHub API, NIST ISODB API, publisher pages via curl. ACS, ScienceDirect, cell.com and nature.com (some)
+returned 403/login to automated fetches, so several entries are "metadata only" and say so.
 
 ## Source log (appended as fetched)
 
@@ -22,8 +25,8 @@ Status: IN PROGRESS (appended source by source; synthesis sections at the end).
 - DOI opened: https://api.crossref.org/works/10.1126/science.aam8743
 - Authors (as shown): Hyunho Kim, Sungwoo Yang, Sameer R. Rao, Shankar Narayanan, Eugene A. Kapustin, Hiroyasu Furukawa, Ari S. Umans, Omar M. Yaghi, Evelyn N. Wang. Year 2017. Science.
 - Content (abstract): MOF-801 [zirconium fumarate] device driven by natural sunlight; steep uptake over a narrow RH window;
-  abstract states 2.8 L water per kg MOF per day at 20% RH. (Later commentary questioned this figure as a
-  projection; see S-notes below if fetched.)
+  abstract states 2.8 L water per kg MOF per day at 20% RH. Two Technical Comments in Science (S53 Meunier; S54 Bui,
+  Chua, Gordon) dispute the deliverable amount and the efficiency - do not cite 2.8 L/kg/day as measured performance.
 - Data form: not verified from this record. SI contents not opened.
 
 ### S03. Fathieh et al. 2018, Sci. Adv. - MOF-801 / MOF-303 desert harvester (Q1) - FETCHED (full text via Europe PMC PMC5993474)
@@ -66,10 +69,19 @@ Status: IN PROGRESS (appended source by source; synthesis sections at the end).
 - Relevance: the canonical COF water-harvesting sorbent; paper is a material paper (isotherms + cycling stability), not a
   device demonstration (no L/kg/day device number in the abstract). OA author copy exists (air.unimi.it, per OpenAlex).
 
-### S07. Song, Zheng, Alawadhi, Yaghi 2023, Nature Water - Death Valley harvester (Q1) - FETCHED (Crossref METADATA ONLY)
+### S07. Song, Zheng, Alawadhi, Yaghi 2023, Nature Water - Death Valley passive harvester (Q1) - FETCHED (full-text PDF + Zenodo record)
 - DOI: 10.1038/s44221-023-00103-7. Authors (Crossref): Woochul Song, Zhiling Zheng, Ali H. Alawadhi, Omar M. Yaghi. 2023.
-- Title only confirmed: MOF water harvester produces water from Death Valley desert air in ambient sunlight. No abstract in
-  Crossref/OpenAlex; nature.com redirected to login. Content NOT verified -> treat numbers as unverified.
+  nature.com redirected to login; the article PDF was read from a copy hosted at
+  https://bpb-us-e2.wpmucdn.com/sites.wustl.edu/dist/0/4841/files/2025/06/mof-water-harvester.pdf (11 pages, text extracted).
+- Says: passive MOF-303 harvester (MOF-303 + 15 wt% graphite pellets, "MOF85-G15"; vacuum-insulated housing; night
+  adsorption, sunlight desorption; no power input). 210 g/kg/day (Death Valley) and 285 g/kg/day (Berkeley); Death Valley,
+  August 2022: 114-210 g H2O/kg MOF/day with ambient swing 21.9-60.7 C and RH 9.4-36%. One cycle per day.
+- Data: "The datasets that support this study are available in Zenodo" - https://doi.org/10.5281/zenodo.7990951.
+  Zenodo API record opened: title "Data set (Song et al., Nat. Water)", creators Song, Woochul; Zheng, Zhiling; Alawadhi,
+  Ali H.; Yaghi, Omar M.; 2023-07-01; licence CC-BY-4.0; ONE file "Data-Song et al. Nat. Water.opju" (2,315,847 bytes,
+  NOT downloaded). .opju is an OriginLab project -> needs Origin (or a converter) to extract the curves.
+- Ground-truth value: HIGH - the only Yaghi-group harvester with a deposited, licensed dataset found; likely contains the
+  field T/RH/uptake/production traces behind the figures (not verified until opened). Single material (MOF-303 composite).
 
 ### S08. Kim et al. 2018, Nat. Commun. - MOF-801 air-cooled device, Tempe AZ (Q1, Q2) - FETCHED (full text via Europe PMC PMC5864962)
 - DOI: 10.1038/s41467-018-03162-7. Authors (Europe PMC): Kim H, Rao SR, Kapustin EA, Zhao L, Yang S, Yaghi OM, Wang EN. 2018.
@@ -401,3 +413,353 @@ Status: IN PROGRESS (appended source by source; synthesis sections at the end).
   (step location must match application); most applications bench/small-pilot; TEA/LCA needed.
 - Relevance: a ready shortlist (~40 MOFs + 1 COF) for a real-materials dataset; confirms how thin the COF side is.
 
+### S53. Meunier 2017, Science - Technical Comment on Kim et al. 2017 (Q1 skepticism) - FETCHED (Crossref abstract)
+- DOI: 10.1126/science.aao0361. Author (Crossref): Francis Meunier. 2017.
+- Says: the process as described is inadequate and "cannot deliver the claimed amount" of liquid water in an arid climate;
+  suggests process redesign and more suitable MOFs.
+
+### S54. Bui, Chua, Gordon 2017, Science - Technical Comment on Kim et al. 2017 (Q1 skepticism) - FETCHED (Crossref abstract)
+- DOI: 10.1126/science.aao0791. Authors (Crossref): Duc Thuan Bui, Kian Jon Chua, Jeffrey M. Gordon. 2017.
+- Says: basic thermodynamics and off-the-shelf alternatives show the approach is "vastly inferior in efficiency".
+- Relevance for us: early headline MOF-harvester numbers were projections from models; a digital-twin paper must separate
+  measured from modelled yield in every dataset it uses (see S08 as well).
+
+### S55. Dubai RDI Program grant page - "AI-Enabled Digital-Twin Design of Solar-Powered AWH System" (Q2 competitor watch) - FETCHED (web page)
+- URL: https://dubairdi.ae/grant-initiatives-the-ai-enabled-digital-twin-design-of-solar-powered-atmospheric-water-harvesting-system-for-clean-and-reliable-water-solutions/
+- Says: funded project (Dubai Research, Development and Innovation Program / Dubai Future Foundation); PI listed as
+  Dr. Anang Amin, Higher Colleges of Technology; MOF sorbent + thermoelectric condensation + AI control + digital twin for
+  predictive maintenance. No dates or outputs listed.
+- Relevance: someone is funded to build an "AI digital twin of a MOF AWH system" - a naming/priority risk for our title,
+  though the page describes a single engineered system with TEC condensation, not cross-material learning.
+
+### S56. Bezrukov et al. 2023, Cell Rep. Phys. Sci. - seven MOFs + Syloid, AWH sorption KINETICS, cycle simulation, open DVS data + code (Q1, Q2, Q4) - FETCHED (Crossref + OpenAlex abstract; Zenodo API record; GitHub API + README + code files)
+- DOI: 10.1016/j.xcrp.2023.101252. Authors (Crossref): Andrey A. Bezrukov, Daniel J. O’Hearn, Victoria Gascón-Pérez, Shaza Darwish, Amrit Kumar, Suresh Sanda, Naveen Kumar, Kurt Francis, Michael J. Zaworotko. 2023.
+- Says (abstract): AWH kinetics of seven known MOFs and the industry desiccant Syloid are limited by diffusion to the
+  sorbent BED SURFACE (not intracrystalline); a quantitative model "that exploits isotherm shape" simulates sorption cycling
+  and gives productivity heatmaps; steady-state oscillation around PARTIAL loading maximises productivity; dense
+  ultramicroporous MOFs with a low-RH step win volumetrically for 27 C/30% RH <-> 60 C/5.4% RH swings; cellulose composites
+  of two such sorbents keep powder kinetics, up to 7.3 L/kg/day under these (lab) conditions.
+- Data: Zenodo 10.5281/zenodo.6631711 (record opened via API): "data.zip", 606,719,336 bytes, CC-BY-4.0, isSupplementTo the
+  article. NOT downloaded. Code: https://github.com/AndreyBezrukov/Water_Sorption_Kinetics (Jupyter/Python; NO licence file
+  per GitHub API; last push 2023-01-12). analyze_kinetics.py parses raw DVS instrument exports (DVS Intrinsic, DVS
+  Advantage Plus, DVS Vacuum) into time, uptake, RH_target, RH_actual, temp_target, temp_actual -> the Zenodo archive is RAW
+  uptake-vs-time data. Notebooks reference ROS-037, ROS-039, ROS-040, MOF-303, Al-fumarate, MIL-160, CAU-10-H and Syloid
+  (my reading of the notebook strings; I infer these are the 7 MOFs + Syloid - confirm in the paper). Also an OA copy at
+  University of Limerick figshare (10.34961/researchrepository-ul.22847069.v1, per OpenAlex; not opened).
+- VERDICT: this is simultaneously (a) the best open multi-material water-kinetics dataset found, and (b) the CLOSEST PRIOR
+  WORK to "learning cycle dynamics across materials": a single physics model, parameterised by each material's isotherm,
+  simulating cycling for 8 sorbents under a shared protocol. It is not ML and does not test held-out materials, but any
+  claim that "cross-material cycle dynamics" is unstudied is false.
+
+### S57. Ortiz, Rao 2024, Cell Rep. Phys. Sci. - compact rapid-cycling fuel-fired Al-fumarate harvester (Q1, Q2) - FETCHED (Crossref + OpenAlex abstract)
+- DOI: 10.1016/j.xcrp.2024.102115. Authors (Crossref): Nathan P. Ortiz, Sameer R. Rao. 2024.
+- Says: aluminium-fumarate MOF packed in a compact adsorbent heat exchanger (AHX) with fuel combustion heating and an
+  ambient-cooled condenser for continuous daily cycling; a COMPUTATIONAL MODEL optimises adsorption truncation (partial
+  loading) and sorbent-fin thickness; reports 3.19 kg water/kg MOF/day or 718 kg/m3 AHX/day "can be achieved"
+  (wording suggests model-projected, 1.5x/2.1x over prior MOF multi-cycle devices without refrigeration).
+- Relevance: Rao-group physics model + optimisation of cycle truncation - the control variable a learned twin would
+  optimise. Same "partial loading is optimal" message as S56. Data availability not verified.
+
+### S58. Young, Mcilwaine, Smit, Garcia, van der Spek 2023, Chem. Eng. J. - process-informed DAC sorbent guidelines (Q3) - FETCHED (Crossref + OpenAlex abstract)
+- DOI: 10.1016/j.cej.2022.141035. Authors (Crossref): John Young, Fergus Mcilwaine, Berend Smit, Susana Garcia, Mijndert van der Spek. Crossref year 2023 (OpenAlex 2022).
+- Says: detailed TVSA/S-TVSA process model + ML + global sensitivity over ALL model parameters (material + operating):
+  dry CO2 capacity does not matter for TVSA; KINETICS, density and thermal conductivity are critical; heat transfer matters.
+- Relevance: strong external support for our premise that isotherm alone does not determine cycle performance; material
+  properties varied as continuous inputs (hypothetical sorbents), not real held-out materials.
+
+### S59. Charalambous et al. 2024, Nature - PrISMa platform (Q3) - FETCHED (Crossref abstract)
+- DOI: 10.1038/s41586-024-07683-8. Authors (Crossref): Charithea Charalambous, Elias Moubarak, Johannes Schilling, Eva Sanchez Fernandez, Jin-Yu Wang, Laura Herraiz, Fergus Mcilwaine, Shing Bo Peh, Matthew Garvin, Kevin Maik Jablonka, Seyed Mohamad Moosavi, Joren Van Herck, Aysu Yurdusen Ozturk, Alireza Pourghaderi, Ah-Young Song, Georges Mouchaham, Christian Serre, Jeffrey A. Reimer, André Bardow, Berend Smit, Susana Garcia. 2024.
+- Says: integrates materials, process design, techno-economics and LCA; >60 CO2 case studies in 5 regions.
+- Relevance: the state of the art for material -> process -> impact pipelines is in CO2 capture, at Nature level. A water-
+  harvesting analogue (materials -> cycle dynamics -> L/kg/day under real climates) does not appear to exist; S14 (Ying) and
+  S56 (Bezrukov) are the partial analogues.
+
+### S60. Hong, Park, Chung, Heo, Kim 2026, Appl. Therm. Eng. - physics-based digital twin of a MOF desiccant dehumidifier for fault detection (Q2) - FETCHED (Crossref METADATA ONLY)
+- DOI: 10.1016/j.applthermaleng.2026.132018. Authors (Crossref): Seong Ho Hong, Myeong Hyeon Park, Jun Yeob Chung, Juneyeong Heo, Yongchan Kim. 2026.
+- Title only verified (no abstract in Crossref/OpenAlex/S2). Title says: PHYSICS-based digital twin, real-time fault
+  detection/diagnosis, desiccant dehumidification with MOFs. This is the nearest "MOF + digital twin" paper found; it is
+  for dehumidification (HVAC), physics-based, fault-oriented. Must be read before our paper uses "digital twin of a MOF
+  sorption device" as a novelty claim.
+
+### S61. Tariq, Ali, Sheikh, Shahzad, Xu 2023, Int. Commun. Heat Mass Transf. - ANN "digital twin" of a desiccant cooling system (Q2) - FETCHED (Crossref record + OpenAlex abstract)
+- DOI: 10.1016/j.icheatmasstransfer.2022.106538. Authors (Crossref): Rasikh Tariq, Muzaffar Ali, Nadeem Ahmed Sheikh, Muhammad Wakil Shahzad, Ben Bin Xu. Crossref year 2023 (OpenAlex 2022).
+- Says: small ANNs (5-[6]-[6]-1, 5-[12]-[12]-1) trained on monitored transient data of one real desiccant cooling system in
+  Austria (inputs ambient T, humidity, regeneration T, supply/return flow) predict cooling capacity and water footprint
+  (R2 0.989 / 0.992); the white-box ANN is called a "digital twin"; GA + MCDA optimisation.
+- Relevance: typical use of "digital twin" in sorption HVAC = static ANN regression of one plant. Single desiccant.
+
+### S62. CoRE MOF 2024 dataset on Zenodo (companion to S39) - simulated water isotherms for real MOF structures (Q4) - FETCHED (Zenodo API record 15055758)
+- DOI: 10.5281/zenodo.15055758, "Computation-Ready Experimental Metal-Organic Framework (CoRE MOF) 2024 Dataset",
+  2025-03-20 version, CC-BY-4.0; creators start Zhao, Guobin; Brabson, Logan M.; Chheda, Saumil; ...
+- Record says: public "CoRE MOF SI" set = 2,664 computation-ready + 5,636 not-computation-ready structures (full DB 40,837
+  incl. CSD-derived, which need a CCDC licence); precomputed properties include pore metrics, density, topology, open metal
+  sites, DDEC charges, heat capacity, decomposition T, probability of water stability, hydrophobic class from GEMC.
+  Files include "water.zip" (12,521,561 bytes) described as "GEMC water isotherm data of CR dataset", and "TSA.zip"
+  (271,657,136 bytes; single isotherms of 35 MOFs used in TSA plus TSA results). NOT downloaded.
+- Verdict: the largest openly licensed set of WATER isotherms on real MOF structures found - but SIMULATED (Gibbs-ensemble
+  MC, rigid frameworks, force-field dependent), at unverified temperatures/RH grid; water isotherms from GEMC are known to be
+  force-field sensitive. Good for pre-training / priors; not ground truth for kinetics or devices.
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+## Fetched-source table
+
+Depth codes: FT = full text read (Europe PMC / PDF); AB = abstract read (Crossref/OpenAlex/S2/arXiv/publisher);
+MD = metadata only (title/authors/year confirmed, content NOT verified); DS = dataset/code record opened (Zenodo/GitHub/API);
+WEB = web page read. SEEN-ONLY items are flagged inside the entries and are not evidence.
+
+| ID | Year | First author (as fetched) | DOI / URL opened | Q | Depth |
+|---|---|---|---|---|---|
+| S01 | 2025 | Nobel press release | nobelprize.org/prizes/chemistry/2025/press-release/ | 6 | WEB |
+| S02 | 2017 | Hyunho Kim | 10.1126/science.aam8743 | 1 | AB |
+| S03 | 2018 | Farhad Fathieh | 10.1126/sciadv.aat3198 | 1 | FT |
+| S04 | 2019 | Nikita Hanikel | 10.1021/acscentsci.9b00745 | 1,4 | FT |
+| S05 | 2021 | Nikita Hanikel | 10.1126/science.abj0890 (+ Zenodo 5294977) | 1,4 | AB+DS |
+| S06 | 2020 | Ha L. Nguyen | 10.1021/jacs.9b13094 | 1,5 | AB |
+| S07 | 2023 | Woochul Song | 10.1038/s44221-023-00103-7 ; Zenodo 10.5281/zenodo.7990951 | 1 | FT+DS |
+| S08 | 2018 | Kim H (Europe PMC) | 10.1038/s41467-018-03162-7 | 1,2 | FT |
+| S09 | 2022 | Almassad HA (Europe PMC) | 10.1038/s41467-022-32642-0 | 1,2 | FT (+HEAD of Source Data) |
+| S10 | 2021 | Alina LaPotin | 10.1016/j.joule.2020.09.008 | 1,2 | AB |
+| S11 | 2019 | Alina LaPotin | 10.1021/acs.accounts.9b00062 | 2 | AB |
+| S12 | 2021 | Jiaxing Xu | 10.1039/d1ee01723c | 1 | AB (one line) |
+| S13 | 2021 | Jackson Lord | 10.1038/s41586-021-03900-w | 1 | AB |
+| S14 | 2025 | Wenjun Ying | 10.1016/j.isci.2025.112160 ; github.com/SAWH-Ying/Continuous-SAWH-pre | 2,4 | FT+DS |
+| S15 | 2021 | Shahrooz Motaghian | 10.1016/j.ijheatmasstransfer.2020.120657 | 2 | AB |
+| S16 | 2024 | Jaroslaw Krzywanski | 10.1002/ese3.1725 | 2 | AB |
+| S17 | 2022 | W.D. Chen | 10.1016/j.enconman.2022.116346 | 2 | MD |
+| S18 | 2023 | Zhiling Zheng | 10.1021/jacs.3c12086 | 1,4 | AB |
+| S19 | 2026 | M. Arjmandi | 10.1016/j.ccr.2025.217211 | 2,4 | AB |
+| S20 | 2026 | Seyed Amir Ahghar | 10.1007/s11269-026-04790-1 | 2 | AB |
+| S21 | 2025 | Bo Han | 10.1016/j.enconman.2025.120272 | 2,3 | MD (+SEEN-ONLY) |
+| S22 | 2020 | Kasturi Nagesh Pai | 10.1021/acs.iecr.0c02339 | 3 | AB |
+| S23 | 2022 | Kasturi Nagesh Pai | 10.1016/j.seppur.2022.120783 (abstract via chemRxiv 10.26434/chemrxiv-2021-26xgh) | 3 | AB |
+| S24 | 2022 | Sai Gokul Subraveti | 10.1021/acs.iecr.1c04731 | 3 | AB |
+| S25 | 2020 | Thomas D. Burns | 10.1021/acs.est.9b07407 | 3,4 | AB |
+| S26 | 2020 | Kasturi Nagesh Pai | 10.1016/j.seppur.2020.116651 | 3 | AB |
+| S27 | 2023 | Arvind Rajendran | 10.1021/acs.accounts.3c00335 | 3 | AB |
+| S28 | 2022 | Sun Hye Kim | 10.1016/j.cherd.2022.10.002 | 3 | MD |
+| S29 | 2026 | Beatrice Ceccanti | arXiv:2601.09491 | 3 | AB |
+| S30 | 2025 | Mattia Galanti | 10.3390/pr13092824 | 3 | AB |
+| S31 | 2025 | Zhiqiang Wu | 10.1016/j.gce.2024.08.004 | 3 | AB |
+| S32 | 2025 | Abhijit Dhamanekar | arXiv:2502.02268 | 2,3 | AB |
+| S33 | 2022 | Xiang Zhang | 10.1002/aic.17788 | 3 | AB |
+| S34 | 2026 | M. Calvo-Schwarzwalder | arXiv:2607.17941 | 3 | AB |
+| S35 | - | NIST/ARPA-E ISODB | adsorption.nist.gov/isodb/api/... (index, gases, materials, one isotherm) | 4 | DS |
+| S36 | 2014 | Hiroyasu Furukawa | 10.1021/ja500330a | 4 | AB |
+| S37 | 2023 | N. Scott Bobbitt | 10.1021/acs.jced.2c00583 | 4 | AB |
+| S38 | 2022 | Daniele Ongari | 10.1021/acs.jced.1c00958 | 4 | AB |
+| S39 | 2025 | Guobin Zhao | 10.1016/j.matt.2025.102140 (abstract via chemRxiv v2) | 3,4 | AB |
+| S40 | 2025 | Shiue-Min Shih (Crossref) | 10.1021/jacs.5c10686 | 4 | AB |
+| S41 | 2022 | Ha L. Nguyen | 10.1021/acscentsci.2c00398 | 5 | AB |
+| S42 | 2023 | Chao Sun | 10.1002/anie.202217103 | 5 | AB |
+| S43 | 2023 | Lars Grunenberg | 10.1021/jacs.3c02572 | 5 | AB |
+| S44 | 2025 | Ha L. Nguyen | 10.1021/acscentsci.4c01878 | 4,5 | AB |
+| S45 | 2023 | Ha L. Nguyen | 10.1002/adma.202300018 | 5 | AB |
+| S46 | 2024 | Fuxiang Wen | 10.1002/cssc.202400049 | 5 | AB |
+| S47 | 2025 | Yuan He | 10.1039/d5ew00643k | 5 | AB (short) |
+| S48 | 2025 | Zhenhui Chen | 10.1016/j.cej.2025.171055 | 5 | MD (+SEEN-ONLY) |
+| S49 | 2022 | Li L (Europe PMC) | 10.3390/nano12010159 | 4 | AB |
+| S50 | 2020 | Cho KH (Europe PMC) | 10.1038/s41467-020-18968-7 | 2,4 | FT |
+| S51 | 2015 | Martijn F. de Lange | 10.1021/acs.chemrev.5b00059 | 2,4 | MD |
+| S52 | 2024 | Bo Zhang | 10.1002/adfm.202304788 | 4,5 | AB |
+| S53 | 2017 | Francis Meunier | 10.1126/science.aao0361 | 1 | AB |
+| S54 | 2017 | Duc Thuan Bui | 10.1126/science.aao0791 | 1 | AB |
+| S55 | - | Dubai RDI grant page | dubairdi.ae/grant-initiatives-the-ai-enabled-digital-twin-... | 2 | WEB |
+| S56 | 2023 | Andrey A. Bezrukov | 10.1016/j.xcrp.2023.101252 ; Zenodo 10.5281/zenodo.6631711 ; github.com/AndreyBezrukov/Water_Sorption_Kinetics | 1,2,4 | AB+DS |
+| S57 | 2024 | Nathan P. Ortiz | 10.1016/j.xcrp.2024.102115 | 1,2 | AB |
+| S58 | 2023 | John Young | 10.1016/j.cej.2022.141035 | 3 | AB |
+| S59 | 2024 | Charithea Charalambous | 10.1038/s41586-024-07683-8 | 3 | AB |
+| S60 | 2026 | Seong Ho Hong | 10.1016/j.applthermaleng.2026.132018 | 2 | MD |
+| S61 | 2023 | Rasikh Tariq | 10.1016/j.icheatmasstransfer.2022.106538 | 2 | AB |
+| S62 | 2025 | CoRE MOF 2024 dataset (Zhao, Guobin ...) | Zenodo 10.5281/zenodo.15055758 | 4 | DS |
+
+SEEN-ONLY leads NOT fetched (not evidence): Parmar & Hindoliya 2011, Uckan et al. 2014, Jani et al. 2016 (ANN desiccant
+wheels); Santana et al. 2022 (PINN ion-exchange column, 10.3390/chemengineering6020021); Priyadarshi et al. 2022 (ANFIS
+desiccant HX); Keshavarz et al. 2026, multi-objective ML for AWH MOFs (10.1016/j.mtcomm.2026.115393); Ding et al. 2025,
+multi-cycle AWH sorbent utilisation (10.1016/j.eesus.2025.100025, record only, no abstract); "AI-driven discovery of MOFs
+for AWH", J. Mater. Chem. A 2026 (d6ta01583b); ACS Sustain. Chem. Eng. 2023 ML water-harvesting MOF screening
+(10.1021/acssuschemeng.3c01233); Leperi/Snurr/You ANN-PSA surrogate (not located); Farooq-group and M.M.F. Hasan-group
+PSA-ML papers (not located by my queries - absence here is NOT evidence of absence).
+
+## Per-question findings
+
+### Q1. MOF/COF harvesters with reusable data
+- Only THREE items with machine-readable, licensed data were found:
+  1. Bezrukov et al. 2023 (S56): raw DVS uptake-vs-time data and isotherms for what appear to be 7 MOFs + Syloid, including
+     cycling experiments. 607 MB, CC-BY-4.0, with analysis code. Lab scale (DVS), not a field device.
+  2. Song et al. 2023 (S07): a Zenodo Origin project (.opju, 2.3 MB, CC-BY-4.0) behind a passive MOF-303 harvester tested in
+     Death Valley and Berkeley (114-285 g/kg/day, one cycle/day).
+  3. Almassad et al. 2022 (S09): a Nature Communications Source Data xlsx (20.9 MB; the article is CC BY) for an adaptive
+     MOF-801 device (3.5 L/kg/day claimed, 17-32% RH, multi-day, real weather). File contents not opened.
+- Everything else is figures-only or "on request": Fathieh 2018 (S03), Kim 2018 (S08), Hanikel 2019 (S04; still the best
+  same-geometry 4-sorbent kinetic comparison), Hanikel 2021 (S05; Zenodo holds DFT CIFs only), Cho 2020 LTJ kinetics (S50).
+- Several headline yields come from MODELS, not measurements: Kim 2017 (disputed in two Science comments, S53/S54),
+  Kim 2018 (the yield was computed because 3 g of sorbent was too little to measure, S08) and Ortiz & Rao 2024 ("can be
+  achieved", S57). Only measured quantities should serve as ground truth.
+- COF-432 (S06) and the later COFs are materials papers. No COF device with deposited data was found (see Q5).
+- Suitability as ground truth for a device-level model: Song 2023 and Almassad 2022 are the only device traces with
+  deposited files, and each covers a single material (MOF-303 and MOF-801). Cross-material ground truth exists only at the
+  DVS/TGA level: Bezrukov 2023 is open, and Hanikel 2019 is available only as figures.
+
+### Q2. Models and digital twins of sorption harvesters / AHPs / desiccant wheels
+- Physics state of the art:
+  - MIT/Wang-group heat-and-mass-transfer models (S08, S10, S11).
+  - LDF with one k per sorbent, driven by reanalysis weather, for 12 sorbents (Ying 2025, S14).
+  - An isotherm-shape-based cycling model with bed-surface diffusion limitation, for 8 sorbents (Bezrukov 2023, S56).
+  - A Rao-group AHX model for cycle truncation and fin thickness (S57).
+  - Monoexponential (LDF-like) kinetic fits (S04).
+  S11, S56, S57 and S58 agree on two points: kinetics and transport, not only the isotherm, set productivity; and cycling
+  at partial loading is optimal.
+- ML work falls into four groups:
+  - material-property ML for AWH MOFs (S18, S19, S49);
+  - single-device static regression: GPR on one desiccant AWH rig (S20), an ANN of one desiccant cooling plant called a
+    "digital twin" (S61), and ANN surrogates of one desiccant wheel trained on transient simulations (S15);
+  - AutoML fault diagnosis of a 3-bed adsorption chiller (S16);
+  - physics digital twins for fault detection or energy optimisation: S60 (MOF desiccant dehumidifier) and S17 (multi-bed
+    adsorption system), both known from their titles only.
+  Real-time control on a MOF harvester exists, but it is rule-based (S09).
+- Not found: any neural-ODE, neural-operator, PINN or RL model of a sorption WATER HARVESTER; any learned harvester model
+  that takes the sorbent as an input; any learned model validated on held-out sorbents. One funded project (S55) targets an
+  "AI digital twin" of a MOF AWH system; its page lists no outputs.
+
+### Q3. ML for adsorption columns / PSA / TSA and transfer to unseen materials
+- Transfer to unseen materials HAS been done:
+  - MAPLE (S22) takes Langmuir parameters and adsorbent properties as inputs and predicts CSS purity, recovery, energy and
+    productivity.
+  - Pai et al. 2022 (S23) fed MAPLE measured isotherms of 13X and LiX that were not in its training data. They then
+    validated the surrogate's optimum on a two-column rig (mean errors 3%, 5% and 9%).
+  - Burns 2020 (S25) ran 1632 MOFs through a validated VSA simulator and added an ML classifier.
+  - Zhang 2022 (S33), Young 2023 (S58), PrISMa 2024 (S59) and the CoRE MOF 2024 TSA screening (S39/S62) are material-to-
+    process pipelines for gas separation.
+- Dynamic and neural-operator work:
+  - PANACHE PINNs predict full spatiotemporal column states and assemble cycles without retraining (S24).
+  - DeepONets generalise over INITIAL CONDITIONS for TVSA steps (S29).
+  - Hybrid PINNs have been applied to DAC (S30).
+  - One PINN uses "transfer learning" across time windows (S31).
+  According to their abstracts, none of these vary the material at test time.
+- The gap our paper can still claim is therefore narrower than "first surrogate that predicts unseen sorbents". It is:
+  (a) transient, trajectory-level prediction (not CSS KPIs), (b) for held-out REAL sorbents, (c) with stepped or hysteretic
+  WATER isotherms, (d) under temperature-swing or ambient-driven harvesting, (e) scored against measured kinetics.
+  I found no paper that does (a) and (b) together, even for gas PSA. The search was keyword- and API-based, and two
+  relevant items were not opened: Kim/Boukouvala 2022 (S28) and the Han & Chakraborty 2025 review (S21). Both must be read
+  before this claim goes into a manuscript.
+
+### Q4. Water-isotherm and kinetic data for real MOFs/COFs
+- NIST ISODB (S35):
+  - 1,221 pure-water isotherms, 557 adsorbent records, 275 DOIs.
+  - About 95% digitised from figures; mostly at 298 K.
+  - Missing: MOF-303, Co2Cl2(BTDD), SAPO-34, COF-432 and all the Yaghi harvester papers. Furukawa 2014 is only partly
+    included (12 curves).
+  - Usage rights are unclear (the site says "All rights reserved" and credits SpringerMaterials for some data).
+- CoRE MOF 2024 (S39, S62): GEMC-SIMULATED water isotherms for the computation-ready set (water.zip), CC-BY-4.0, plus
+  structures and ML stability labels. The largest open water set on real structures, but simulated.
+- Other simulated sources: MOFX-DB (S37) has no water. Shih & Lin 2025 (S40) simulated water in >200 MOFs (deposit not
+  verified). Li et al. 2022 (S49) ran GCMC for H2O/N2/O2 in 6013 CoRE MOFs and 137,953 hMOFs (equilibrium only).
+- Kinetic (uptake-rate) data: Bezrukov 2023 (S56) is the only open RAW multi-material water-kinetics set found.
+  Figure-only kinetic sets:
+  - Hanikel 2019: 4 sorbents, same geometry;
+  - Cho 2020: G-LTJ on KMF-1 vs MOF-303 and Co-CUK-1;
+  - Sun 2023: COF rates.
+- Shortlists for building a real-material set:
+  - the Zhang et al. 2024 review (~40 MOFs + 1 COF, S52);
+  - Furukawa 2014 (23 materials, S36);
+  - LAMOF-1..10 + MOF-303 (S18) and the MTV-MOF-303 series (S05) as same-topology families.
+
+### Q5. COF water harvesting
+- Materials:
+  - COF-432 (S06): S-shaped isotherm, no hysteresis, 300 cycles.
+  - Hydrazine-hydrazide COF (S41): step below 18% RH, 0.45 g/g.
+  - DHTA-Pa (S42): 0.48 g/g at 30% RH; 0.72 L/kg/h adsorption, 2.58 L/kg/h desorption; >90% released in 20 min at 313 K.
+  - Nitrone-linked COFs (S43): condensation at ~20% lower RH.
+  - HCOF-2, HCOF-3 and COF-309 (S44).
+  - Anionic TpPa-2SO3Li (S48): numbers SEEN-ONLY.
+- Modelling and ML: the only item found is a structure-derived "hydrophilicity index" that predicts the isotherm step for
+  both COFs and MOFs (S44).
+- COFs are still at the materials stage. The reviews (S45, S46, S47) and the Zhang 2024 shortlist, which includes one COF
+  (S52), confirm this. ISODB has ~30 COF water isotherms, but not COF-432 or COF-309.
+- No COF device field test with deposited data was found, and no COF kinetics dataset.
+- A COF case in our paper would therefore have to be one of: (i) isotherm-only (from ISODB or digitised) inside a simulated
+  study; (ii) digitised DHTA-Pa or COF-432 curves. Otherwise the title should drop "COF".
+
+### Q6. Nobel Prize 2025
+- VERIFIED from the fetched press release (S01): Susumu Kitagawa, Richard Robson and Omar M. Yaghi, "for the development
+  of metal-organic frameworks". The release names water harvesting from desert air as an application.
+
+## Datasets we could actually use
+
+| Name | What it contains | Licence / access | URL |
+|---|---|---|---|
+| Bezrukov et al. 2023 data (S56) | Raw DVS exports (time, uptake, RH target/actual, T): isotherms and uptake/cycling kinetics for ~7 MOFs (ROS-037/039/040, MOF-303, Al-fumarate, MIL-160, CAU-10-H, per code strings) + Syloid; 607 MB zip | CC-BY-4.0 (Zenodo). The GitHub code has NO licence: reuse the ideas, do not redistribute the code | https://doi.org/10.5281/zenodo.6631711 ; https://github.com/AndreyBezrukov/Water_Sorption_Kinetics |
+| Song et al. 2023 data (S07) | Origin project behind the Death Valley / Berkeley passive MOF-303 harvester figures (field T, RH, production; contents unverified) | CC-BY-4.0 (Zenodo); .opju needs OriginLab or a converter | https://doi.org/10.5281/zenodo.7990951 |
+| Almassad et al. 2022 Source Data (S09) | xlsx (20.9 MB) behind the figures of an adaptive MOF-801 harvester (RH/dew point vs time, cycles, production; contents unverified) | Article CC BY 4.0; Nature ESM | https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-022-32642-0/MediaObjects/41467_2022_32642_MOESM3_ESM.xlsx |
+| NIST/ARPA-E ISODB (S35) | 1,221 pure-water isotherms, 557 adsorbents, JSON via API; mostly 298 K; mostly digitised | Public API; the site says "All rights reserved", so cite and re-download rather than redistribute | https://adsorption.nist.gov/isodb/api/isotherms.json |
+| CoRE MOF 2024 (S62) | Structures and properties for 2,664 CR MOFs; GEMC-simulated water isotherms (water.zip); water-stability probability; TSA data for 35 MOFs | CC-BY-4.0 (Zenodo) | https://doi.org/10.5281/zenodo.15055758 |
+| Hanikel et al. 2019 figures (S04) | TGA uptake/desorption vs time for MOF-303, Al-fumarate, SAPO-34 and 13X in the same 3 mm bed; Table 1 rates | Open-access article (PMC6813556); data must be digitised | https://europepmc.org/article/PMC/PMC6813556 |
+| Ying et al. 2025 code (S14) | MATLAB process models (passive/active continuous SAWH); 3 hydrogel isotherm files; LDF k values in SI Table S4 | Apache-2.0 | https://github.com/SAWH-Ying/Continuous-SAWH-pre |
+| Hanikel et al. 2021 Zenodo (S05) | DFT CIFs of MOF-303 / MOF-333 at different water loadings (structures only) | CC-BY-4.0 | https://doi.org/10.5281/zenodo.5294977 |
+| Furukawa 2014 via ISODB (S36/S35) | 12 water isotherms at 298 K for 11 Zr MOFs and others | as ISODB | ISODB files 10.1021Ja500330a.Isotherm* |
+
+Not usable for water: MOFX-DB (S37 has no water adsorbate).
+
+## Gaps (each tied to evidence)
+1. No learned dynamic model of a sorption water harvester takes the sorbent as an input. ML in AWH is either
+   material-property prediction (S18, S19, S49) or single-device static regression (S20). Sorption "digital twins" are
+   single-plant ANNs (S61), physics replicas (S32; S60 by title) or fault classifiers (S16).
+2. Material transfer is established only for gas PSA, at the level of cyclic-steady-state KPIs (S22, S23, S25). Neural
+   dynamic surrogates generalise over initial conditions or time windows, not materials (S24, S29, S31).
+3. There is one open, raw, multi-material WATER kinetics dataset (S56). The others are figures or "on request" (S04, S08,
+   S50, S42).
+4. Physics models reduce kinetics to one LDF constant per sorbent (S14) or a monoexponential fit (S04). S56, however,
+   reports that uptake is limited by diffusion to the bed surface, so the kinetic "material property" is partly a property
+   of the bed and setup. A cross-material learner must control for sample mass, bed depth and flow, or it will learn the
+   setup instead of the material.
+5. Headline device yields are often model projections (S02/S53/S54, S08, S57). The community has no benchmark of measured,
+   multi-material device dynamics.
+6. COFs have no kinetics dataset, no device data and no dynamic model (S41-S48). The only tool is an isotherm-step
+   descriptor (S44).
+
+## Closest prior work for "A digital twin of a MOF water harvester: learning cycle dynamics across materials"
+1. Bezrukov et al. 2023 (S56): one physics model, parameterised by each sorbent's isotherm, simulates water-harvesting
+   cycling for 8 sorbents, and the raw kinetics are open. This is the baseline to beat and the dataset to use. A reviewer
+   will ask why ML is needed if this model already transfers across materials.
+2. Pai et al. 2020 / 2022, MAPLE (S22, S23), plus the Rajendran Account (S27): a surrogate that takes the material as an
+   input, with experimentally validated predictions for adsorbents not in training. Must be cited as prior material
+   transfer.
+3. Ying et al. 2025 (S14): an LDF + isotherm process model across 12 sorbents under global weather, with open MATLAB code.
+4. Subraveti et al. 2022 PANACHE (S24) and Ceccanti et al. 2026 DeepONet (S29): neural surrogates of cyclic adsorption
+   dynamics, each for a single material.
+5. Almassad et al. 2022 (S09): real-time adaptive cycle control of a MOF harvester (rule-based), with source data.
+6. Hanikel et al. 2019 (S04): same-geometry multi-sorbent water kinetics. Song et al. 2023 (S07): deposited device data.
+7. Uses of "digital twin" in sorption systems: Tariq 2023 (S61), Hong 2026 (S60), Chen 2022 (S17), Dhamanekar 2025 (S32),
+   plus the funded competitor S55.
+
+Defensible novelty, assuming the unread S21 and S28 do not already cover it:
+- a learned model of TRANSIENT water-sorption cycle dynamics, conditioned on sorbent descriptors (isotherm plus
+  kinetic/transport properties);
+- scored by leave-one-material-out on MEASURED kinetics (S56) and checked against device traces (S07, S09);
+- compared head-to-head with an isotherm+LDF physics baseline of the S56/S14 kind.
+
+## Risks
+1. Novelty challenge from the adsorption-process community: MAPLE-style transfer already exists (S22/S23). Claims must be
+   scoped to dynamics + water + held-out real materials.
+2. Baseline risk: an isotherm + LDF model (or the S56 bed-diffusion model) may already predict held-out sorbents well. If
+   ML does not beat it, the contribution shrinks to a benchmark, which may still be publishable if framed honestly.
+3. Small n: ~8 sorbents with raw kinetics (S56) plus 4 that could be digitised (S04). Leave-one-material-out on 8-12
+   materials gives wide error bars, so report per-material results, not only means.
+4. Confounding: uptake is limited by diffusion to the bed surface (S56) and depends on bed geometry (S04 fixed a 3 mm bed
+   with porosity 0.7). Differences in setup between papers can masquerade as material differences. Do not pool kinetics
+   across labs without covariates.
+5. Label quality: exclude model-projected yields (S02, S08, S57) from ground truth.
+6. Format and licence friction: the .opju file (S07) needs Origin; ISODB rights are unclear; the S56 code has no licence.
+7. Terminology: "digital twin" implies live data assimilation with a physical asset, and our work (an offline surrogate)
+   could be criticised on that basis. A funded project (S55) and a 2026 MOF-desiccant digital-twin paper (S60) already
+   use the term.
+8. The COF claim cannot be supported with measured dynamics (Q5).
+9. Unverified items:
+   - S17, S21, S28, S51 and S60 are known by title only;
+   - the contents of the S07 .opju and the S09 xlsx have not been opened;
+   - the 7-MOF list in S56 is inferred from code strings;
+   - S40's first author differs between records (Crossref "Shiue-Min Shih", OpenAlex "Shang-Chuan Shih").
+10. Search coverage: API and keyword searches only. Paywalled full texts and non-English literature were not covered. My
+    queries did not locate the Farooq and M.M.F. Hasan PSA-ML papers or the Leperi/Snurr/You ANN-PSA work.

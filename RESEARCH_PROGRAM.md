@@ -122,6 +122,27 @@ transfer tested as in paper 1. **Gated on the water-harvesting data audit**: it 
 ahead only if published device time series are reusable at the resolution a twin
 needs. If they are not, the paper does not happen on invented data.
 
+**Data audit result (journal, 62 sources, 2026-09-25):**
+- **Closest prior work AND best dataset:** Bezrukov et al. 2023 (Zaworotko group) —
+  one isotherm-driven physics model simulating harvesting cycles for ~7 MOFs plus a
+  silica desiccant; raw uptake-vs-time data on Zenodo, CC-BY, 607 MB. It is the
+  baseline paper 4 must beat and its training/held-out material set.
+- Device files exist for one material each: Song et al. 2023 (MOF-303, Zenodo CC-BY,
+  Origin .opju) and Almassad et al. 2022 (MOF-801, 20.9 MB spreadsheet). Contents
+  unchecked. Several headline yields in the field (Kim 2017/2018, Ortiz & Rao 2024)
+  are model projections, not measurements — never use them as ground truth.
+- "Digital twin" is already used (a funded Dubai AI-twin project; a 2026 physics twin
+  of a MOF dehumidifier): paper 4 must claim material transfer on dynamics, not the
+  word "twin".
+- Unverified before any novelty claim: Han & Chakraborty 2025; Kim/Boukouvala 2022.
+
+**Isotherm data for paper 3A:** NIST ISODB has 1,221 pure-water isotherms for 557
+materials, but ~95 % are digitised from figures, and MOF-303 and COF-432 are absent;
+CoRE MOF 2024 has simulated water isotherms (CC-BY). Multi-temperature subsets must be
+counted before 3A is designed.
+
+**COFs:** materials papers only; no kinetics, device or dynamics data anywhere.
+
 ## COFs
 
 The title of paper 1 claims only the frameworks it models, because no COF breakthrough
