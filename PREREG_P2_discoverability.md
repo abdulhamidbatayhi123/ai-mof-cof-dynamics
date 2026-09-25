@@ -79,6 +79,15 @@ Two candidate libraries, both reported:
 A method that cannot be run in its strongest configuration is reported as such,
 never silently replaced by a weaker one.
 
+**Implementation audit (2026-09-25, search results — each repository must be opened
+and its licence and language confirmed before the freeze):** WENDy — reference code
+github.com/MathBioCU/WENDy (appears to be MATLAB) and a constrained variant
+github.com/Moyi-Tian/WENDy-Constrained; ODR-BINDy — github.com/llfung/ODR-BINDy
+(Zenodo release 16614238) with a Julia port github.com/jamestr4n/odr-bindy-julia;
+MIOSR — github.com/wesg52/pysindy-miosr (needs a Gurobi licence, hence M4's exact
+enumeration). A port to Python is acceptable only if it reproduces the original
+paper's published example to the reported accuracy, recorded in a results file.
+
 ## 4. Design
 
 ### 4.1 Ground truth
