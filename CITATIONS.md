@@ -572,6 +572,21 @@ read.
 
 ---
 
+## Tranche 5 (2026-09-25) — material-as-input adsorption surrogates (B68)
+
+Found by the research-program literature pass (`research/lit_water_harvesting_twins.md`,
+S22/S23/S29). Records fetched from Crossref and the arXiv API; claims confirmed from the
+OpenAlex abstract of the IECR paper, the OpenAlex abstract of the chemRxiv preprint of the
+SPT paper (10.26434/chemrxiv-2021-26xgh), and the arXiv abstract.
+
+| ref | state | notes |
+|---|---|---|
+| **Pai, Prasad & Rajendran**, *Generalized, Adsorbent-Agnostic, Artificial Neural Network Framework for Rapid Simulation, Optimization, and Adsorbent Screening of Adsorption Processes*, **Ind. Eng. Chem. Res. 59(38):16730–16740 (2020)**, DOI 10.1021/acs.iecr.0c02339 | VERIFIED | MAPLE: the Langmuir isotherm parameters are INPUTS; outputs are cyclic-steady-state KPIs (purity, recovery, energy, productivity) "for any arbitrary adsorbent"; test R²adj ≥ 0.995; CO2 capture. **Scalar KPIs at CSS, not transient fields; Langmuir only.** |
+| **Pai, Nguyen, Prasad & Rajendran**, *Experimental validation of an adsorbent-agnostic artificial neural network (ANN) framework for the design and optimization of cyclic adsorption processes*, **Sep. Purif. Technol. 290:120783 (2022)**, DOI 10.1016/j.seppur.2022.120783 | VERIFIED | Trained on 20,000 detailed-model runs over hypothetical Langmuir parameters; used with measured N2/O2 isotherms of 13X and LiX that "were not a part of the dataset used to train the model"; nine Pareto points run on a two-column rig, mean |error| 3 / 5 / 9 % (purity / recovery / productivity). **Material transfer of an adsorption surrogate is established at the KPI level.** Caveat: "unseen" is unseen isotherm inside the sampled Langmuir box. |
+| **Ceccanti, Galanti, Roghair & van Sint Annaland**, *Deep Operator Networks for Surrogate Modeling of Cyclic Adsorption Processes with Varying Initial Conditions*, **arXiv:2601.09491 (2026)** | VERIFIED | DeepONets for TVSA; generalisation tested "across a wide range of initial conditions" — the out-of-distribution axis is initial conditions, **not materials**. |
+
+---
+
 ## Author strings as fetched (B62 recurrence, closed 2026-09-25)
 
 `paper/references.py` refuses to emit any spelled-out given name that does not occur

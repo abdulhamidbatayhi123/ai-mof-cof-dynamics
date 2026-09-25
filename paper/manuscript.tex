@@ -114,8 +114,18 @@ pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining 
 reports transfer to ``systems with previously unseen physical components''.
 Held-out \emph{materials} is established for interatomic potentials: MOFSimBench \cite{krass2025mofsimbench}
 evaluates twenty universal machine-learning interatomic potentials on
-metal--organic frameworks. The two have not been combined, and we find no
-operator-learning study that evaluates transfer to held-out materials --- a claim we
+metal--organic frameworks. In adsorption-process engineering a surrogate that takes
+the material as an input is also established: MAPLE \cite{pai2020generalized} takes
+Langmuir isotherm parameters as inputs and predicts cyclic-steady-state performance
+indicators for an arbitrary adsorbent, and it has been validated on a laboratory rig
+with two zeolites whose measured isotherms were not in its training data
+\cite{pai2022experimental}. Operator learning has reached cyclic adsorption too, with
+generalisation tested across initial conditions \cite{ceccanti2026deep}. What we do
+not find is the combination tested here: transient fields rather than steady-state
+indicators, inflected water isotherms rather than Langmuir ones, and a held-out
+material test that is cluster-robust and calibrated and asks what binds the error
+rather than whether it is small. We find no operator-learning study that evaluates
+transfer to held-out materials --- a claim we
 state with the papers that would otherwise falsify it cited alongside it, because an
 earlier and broader version of it was falsified by exactly those papers
 (Section~\ref{sec:corrections}, A23).

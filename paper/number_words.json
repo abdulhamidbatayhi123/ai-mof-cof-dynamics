@@ -70,13 +70,6 @@
   "line_at_review": 93
  },
  {
-  "key": "etal--organic frameworks. The [two] have not been combined, and w",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 94
- },
- {
   "key": " [four] ways: the inputs are a finite",
   "word": "four",
   "class": "PROSE",
@@ -1321,5 +1314,12 @@
   "class": "DESIGN",
   "reason": "three function classes compared (design)",
   "line_at_review": 736
+ },
+ {
+  "key": "with [two] zeolites whose measured isoth",
+  "word": "two",
+  "class": "CITED",
+  "reason": "reported by Pai et al. 2022 (13X and LiX)",
+  "line_at_review": 98
  }
 ]

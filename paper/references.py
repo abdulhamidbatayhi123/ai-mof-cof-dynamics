@@ -125,6 +125,34 @@ REFS = [
      "Held-out MATERIALS, but for interatomic potentials, not operator learning. Cite it "
      "as the falsifier of the broad novelty claim A23 withdrew.", False),
 
+    # ------------------------------ material-as-input surrogates of adsorption (B68)
+    # Found 2026-09-25 by the program literature pass (research/lit_water_harvesting_
+    # twins.md S22, S23, S29). The introduction's novelty paragraph did not cite them;
+    # MAPLE is the paper an adsorption-engineering referee would raise first.
+    ("pai2020generalized", V, "article", dict(
+        author="Kasturi Nagesh Pai and Vinay Prasad and Arvind Rajendran",
+        title="Generalized, adsorbent-agnostic, artificial neural network framework for rapid "
+              "simulation, optimization, and adsorbent screening of adsorption processes",
+        journal="Industrial \\& Engineering Chemistry Research", volume="59", number="38",
+        pages="16730--16740", year="2020", doi="10.1021/acs.iecr.0c02339"),
+     "MAPLE: Langmuir isotherm parameters as INPUTS, cyclic-steady-state KPIs as outputs, "
+     "'any arbitrary adsorbent'. Scalars at CSS, not transient fields; Langmuir only.", False),
+    ("pai2022experimental", V, "article", dict(
+        author="Kasturi Nagesh Pai and Tai T. T. Nguyen and Vinay Prasad and Arvind Rajendran",
+        title="Experimental validation of an adsorbent-agnostic artificial neural network "
+              "({ANN}) framework for the design and optimization of cyclic adsorption processes",
+        journal="Separation and Purification Technology", volume="290", pages="120783",
+        year="2022", doi="10.1016/j.seppur.2022.120783"),
+     "Measured N2/O2 isotherms of 13X and LiX 'were not a part of the dataset used to train "
+     "the model'; rig error 3/5/9 %. Material transfer at the KPI level IS established.", False),
+    ("ceccanti2026deep", V, "article", dict(
+        author="Beatrice Ceccanti and Mattia Galanti and Ivo Roghair and Martin van Sint Annaland",
+        title="Deep operator networks for surrogate modeling of cyclic adsorption processes "
+              "with varying initial conditions",
+        journal="arXiv preprint", year="2026", eprint="2601.09491", archiveprefix="arXiv"),
+     "Operator learning on TVSA; its out-of-distribution axis is INITIAL CONDITIONS, not "
+     "materials. Isothermal per the program review.", False),
+
     # --------------------------------------------- the L4 weighting schemes (audit #6)
     # VERIFIED in CITATIONS.md since tranche 1 and named in PREREG_L4b_v2.md against the
     # arm each implements, but never carried into this file -- so the manuscript named
