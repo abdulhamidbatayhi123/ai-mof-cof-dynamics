@@ -78,6 +78,12 @@
     "LfiveFNOwidth": "28",
     "LfiveONetWidth": "216",
     "LfiveONetP": "8",
+    "LfiveOracleONet": "4",
+    "LfiveOracleFNO": "5",
+    "LfiveLeadModes": "5",
+    "LfiveTailModes": "123",
+    "LfiveTailMedian": "-0.014",
+    "LfiveTailFracNeg": "63",
     "LfiveNrates": "7",
     "LfiveDecades": "2.3",
     "LfiveONetEdgeMove": "5.7",
@@ -580,6 +586,30 @@
     "LfiveONetP": {
       "file": "results/l5_fno_verdict.json",
       "path": "deeponet_best_p"
+    },
+    "LfiveOracleONet": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "ranks.deeponet_best.oracle_rank"
+    },
+    "LfiveOracleFNO": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "ranks.fno_best.oracle_rank"
+    },
+    "LfiveLeadModes": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128.leading_predictable_run"
+    },
+    "LfiveTailModes": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128.n_tail_modes"
+    },
+    "LfiveTailMedian": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128.median_r2_tail"
+    },
+    "LfiveTailFracNeg": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128.frac_tail_below_zero"
     },
     "LfiveNrates": {
       "file": "results/l5_merged.json",

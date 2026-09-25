@@ -204,6 +204,18 @@ SPEC = [
     # description". It is the selected cell of a sweep, i.e. a result.
     ("LfiveONetWidth", "results/l5_fno_verdict.json", "deeponet_best_width", "{:d}"),
     ("LfiveONetP", "results/l5_fno_verdict.json", "deeponet_best_p", "{:d}"),
+    # l5_oracle_rank.py: what each method's error is worth in oracle modes, and the
+    # per-mode R^2 bands. RESULTS.md carried the oracle-rank table with no script
+    # and "median R^2 < 0 beyond mode 24" -- true, but 24 was arbitrary: the median
+    # of the remaining modes is negative from mode 1. The cut is now after the
+    # leading predictable run.
+    ("LfiveOracleONet", "results/l5_oracle_rank.json", "ranks.deeponet_best.oracle_rank", "{:d}"),
+    ("LfiveOracleFNO", "results/l5_oracle_rank.json", "ranks.fno_best.oracle_rank", "{:d}"),
+    ("LfiveLeadModes", "results/l5_oracle_rank.json", "mode_r2_p128.leading_predictable_run", "{:d}"),
+    ("LfiveTailModes", "results/l5_oracle_rank.json", "mode_r2_p128.n_tail_modes", "{:d}"),
+    ("LfiveTailMedian", "results/l5_oracle_rank.json", "mode_r2_p128.median_r2_tail", "{:.3f}"),
+    ("LfiveTailFracNeg", "results/l5_oracle_rank.json", "mode_r2_p128.frac_tail_below_zero",
+     lambda x: f"{100 * x:.0f}"),
     # L5's learning-rate envelope for DeepONet, as run. The prose said "three and a
     # half decades" -- L3's envelope; L5's was 2.3 (audit_numbers #7).
     ("LfiveNrates", "results/l5_merged.json", "selected.deeponet_p8.n_lr_tried", "{:d}"),

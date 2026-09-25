@@ -581,13 +581,6 @@
   "line_at_review": 566
  },
  {
-  "key": "rtially, and beyond about the [twenty] -fourth the median is",
-  "word": "twenty",
-  "class": "OWED",
-  "reason": "mode index where median R^2 < 0 -- l5_bottleneck.json",
-  "line_at_review": 566
- },
- {
   "key": "the honest form for a null: a [sixteenfold] ",
   "word": "sixteenfold",
   "class": "DESIGN",
@@ -614,13 +607,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 586
- },
- {
-  "key": "tions buys it the accuracy of [four] .}",
-  "word": "four",
-  "class": "OWED",
-  "reason": "oracle-equivalent mode count -- no results key",
-  "line_at_review": 588
  },
  {
   "key": "[ , ]. {Both [halves] of this matter and neither",
@@ -691,34 +677,6 @@
   "class": "DESIGN",
   "reason": "design grid ratio",
   "line_at_review": 727
- },
- {
-  "key": "well, modes [two] to five partially, and beyond",
-  "word": "two",
-  "class": "OWED",
-  "reason": "per-mode R^2 bands -- l5_bottleneck.json",
-  "line_at_review": 730
- },
- {
-  "key": "well, modes two to [five] partially, and beyond about m",
-  "word": "five",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 730
- },
- {
-  "key": "ound anywhere performs like a [four] -mode oracle. Three",
-  "word": "four",
-  "class": "OWED",
-  "reason": "oracle-equivalent mode count -- no results key",
-  "line_at_review": 734
- },
- {
-  "key": "orms like a four-mode oracle. [Three] ",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "three function classes compared (design)",
-  "line_at_review": 734
  },
  {
   "key": "inference, made [twice] .",
@@ -1349,5 +1307,19 @@
   "class": "OWED",
   "reason": "ladder tally split by design; changes with L4b -- macro with the tally",
   "line_at_review": 20
+ },
+ {
+  "key": "ourier operator like a -mode [one] . Three",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun: 'a 5-mode one'",
+  "line_at_review": 736
+ },
+ {
+  "key": "r operator like a -mode one. [Three] ",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "three function classes compared (design)",
+  "line_at_review": 736
  }
 ]
