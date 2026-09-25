@@ -21,7 +21,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "237 macros used, all resolved from results files; 45 literals declared with reasons"
+      "evidence": "244 macros used, all resolved from results files; 45 literals declared with reasons; 60 measured quantities still OWED as words"
     },
     {
       "gate": "checkpoint parameters are finite",
@@ -181,7 +181,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "237 macros used, all resolved from results files; 45 literals declared with reasons"
+      "evidence": "244 macros used, all resolved from results files; 45 literals declared with reasons; 60 measured quantities still OWED as words"
     },
     "checkpoint parameters are finite": {
       "gate": "checkpoint parameters are finite",

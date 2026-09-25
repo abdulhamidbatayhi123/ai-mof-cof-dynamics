@@ -1,0 +1,1388 @@
+[
+ {
+  "key": "moves it. [Seven] candidate explanations were n",
+  "word": "Seven",
+  "class": "OWED",
+  "reason": "count of pre-registered candidate explanations: macro from the ladder verdict tally",
+  "line_at_review": 15
+ },
+ {
+  "key": " [four] closed-form solutions and com",
+  "word": "four",
+  "class": "OWED",
+  "reason": "number of closed-form verification checks -- count from verify_solver.json",
+  "line_at_review": 17
+ },
+ {
+  "key": "irst-wave timing it does not. [Six] are eliminated, three of",
+  "word": "Six",
+  "class": "OWED",
+  "reason": "ladder elimination tally; changes with L4b -- macro",
+  "line_at_review": 19
+ },
+ {
+  "key": "does not. Six are eliminated, [three] of",
+  "word": "three",
+  "class": "OWED",
+  "reason": "tally split by design",
+  "line_at_review": 19
+ },
+ {
+  "key": "them on a smaller design of [twelve] held-out materials and three",
+  "word": "twelve",
+  "class": "OWED",
+  "reason": "material count of the smaller design -- \nNclustLegacy exists",
+  "line_at_review": 20
+ },
+ {
+  "key": "twelve held-out materials and [three] on 240, and we mark",
+  "word": "three",
+  "class": "OWED",
+  "reason": "tally split by design",
+  "line_at_review": 20
+ },
+ {
+  "key": "rators are eliminated: over a [sixteenfold] increase in basis size DeepON",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "p=8 to p=128 is the design grid; could be a DERIVED ratio",
+  "line_at_review": 29
+ },
+ {
+  "key": "field to [two] curves. \\ wi",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 44
+ },
+ {
+  "key": " [one] breakthrough curve faster; th",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 60
+ },
+ {
+  "key": "curacy from less information. [Two] defects in",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 68
+ },
+ {
+  "key": "pretraining'' across [fifteen] downstream tasks, and Multipl",
+  "word": "fifteen",
+  "class": "CITED",
+  "reason": "reported by the cited Poseidon paper",
+  "line_at_review": 90
+ },
+ {
+  "key": "evaluates [twenty] universal machine-learning in",
+  "word": "twenty",
+  "class": "CITED",
+  "reason": "reported by MOFSimBench",
+  "line_at_review": 93
+ },
+ {
+  "key": "etal--organic frameworks. The [two] have not been combined, and w",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 94
+ },
+ {
+  "key": " [four] ways: the inputs are a finite",
+  "word": "four",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 104
+ },
+ {
+  "key": "measurable physical cause. [Two] independent groups, different",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 110
+ },
+ {
+  "key": "red falsification ladder over [seven] named candidate explanations",
+  "word": "seven",
+  "class": "OWED",
+  "reason": "same count as line 15",
+  "line_at_review": 119
+ },
+ {
+  "key": "rence solver verified against [four] closed-form solutions",
+  "word": "four",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 123
+ },
+ {
+  "key": " [third] - or flux-type boundary condit",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 145
+ },
+ {
+  "key": "ten and Alves , who give the [third] -type solution --- the",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 148
+ },
+ {
+  "key": "a semi-infinite solution. The [two] boundary conditions differ by",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 151
+ },
+ {
+  "key": "et concentration at the front [half] -height at",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 152
+ },
+ {
+  "key": "about [one] per cent, invariant across sn",
+  "word": "one",
+  "class": "OWED",
+  "reason": "pre-fix mass-closure error, ~1 %: no results file holds it (B8 record)",
+  "line_at_review": 161
+ },
+ {
+  "key": "set to [zero] , after which closure improved",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 162
+ },
+ {
+  "key": " [Four] closed-form solutions, each i",
+  "word": "Four",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 165
+ },
+ {
+  "key": "orm solutions, each isolating [one] term:",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 165
+ },
+ {
+  "key": "e solver. Each check isolates [one] term of the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 169
+ },
+ {
+  "key": "ert tracer vs.\\ van Genuchten [third] -type & advection, dispersion,",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 176
+ },
+ {
+  "key": "-parameterised [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 186
+ },
+ {
+  "key": "here, verified numerically as [zero] inflection points, and it pre",
+  "word": "zero",
+  "class": "OWED",
+  "reason": "a verified count (inflection points) -- gate evidence, no macro",
+  "line_at_review": 210
+ },
+ {
+  "key": "loading; it is reproduced to [four] thousandths of a per cent ide",
+  "word": "four",
+  "class": "OWED",
+  "reason": "Clausius-Clapeyron consistency error 0.004 %: in validation.json evidence only",
+  "line_at_review": 226
+ },
+ {
+  "key": "f a per cent identically at a [quarter] , a half and three quarters of",
+  "word": "quarter",
+  "class": "DESIGN",
+  "reason": "the three loadings checked are the gate's design",
+  "line_at_review": 226
+ },
+ {
+  "key": "t identically at a quarter, a [half] and three quarters of capacit",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "same",
+  "line_at_review": 226
+ },
+ {
+  "key": "ally at a quarter, a half and [three] quarters of capacity.",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "same",
+  "line_at_review": 226
+ },
+ {
+  "key": "t a quarter, a half and three [quarters] of capacity.",
+  "word": "quarters",
+  "class": "DESIGN",
+  "reason": "same",
+  "line_at_review": 226
+ },
+ {
+  "key": "A property verified at [one] configuration is not a proper",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 240
+ },
+ {
+  "key": "pled materials rather than at [two] ",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 242
+ },
+ {
+  "key": "follows. The [two] features move {independently",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 259
+ },
+ {
+  "key": "n intermediate plateau near a [third] of the feed, then a cooperati",
+  "word": "third",
+  "class": "OWED",
+  "reason": "experimental plateau level -- \nAnchorPlateauExp exists",
+  "line_at_review": 275
+ },
+ {
+  "key": "that are fully on record. The [two] named discrepancies are visib",
+  "word": "two",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 275
+ },
+ {
+  "key": "persion closure sets on a bed [one] or two pellets deep.}",
+  "word": "one",
+  "class": "OWED",
+  "reason": "pellets across the anchor bed -- derivable from anchor_bed.json + d_p",
+  "line_at_review": 275
+ },
+ {
+  "key": "closure sets on a bed one or [two] pellets deep.}",
+  "word": "two",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 275
+ },
+ {
+  "key": " [Two] discrepancies, both attributa",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 299
+ },
+ {
+  "key": "\\'eclet number of \\ on a bed [one] or two pellets deep, where a",
+  "word": "one",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 306
+ },
+ {
+  "key": "number of \\ on a bed one or [two] pellets deep, where a",
+  "word": "two",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 306
+ },
+ {
+  "key": "al time comes from evaluating [one] correlation at a limit this b",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 309
+ },
+ {
+  "key": "2. {A}~The material space, { [one] point per material} --- the l",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 319
+ },
+ {
+  "key": "sequence over [eight] material parameters and three",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "number of sampled material parameters (design)",
+  "line_at_review": 327
+ },
+ {
+  "key": "eight material parameters and [three] condition parameters;",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "number of condition parameters (design)",
+  "line_at_review": 327
+ },
+ {
+  "key": "onsistent. The later of those [two] papers is closed at the",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 331
+ },
+ {
+  "key": "minator attached, because the [two] useful",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 336
+ },
+ {
+  "key": "same [five] -fold partition of the 240 mat",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five-fold partition (design)",
+  "line_at_review": 356
+ },
+ {
+  "key": "s an empirical size of \\,\\%. [One] published verdict did not",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 364
+ },
+ {
+  "key": "{ [Two] designs, two levels, both sta",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 367
+ },
+ {
+  "key": "{Two designs, [two] levels, both stated.} Rungs L",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 367
+ },
+ {
+  "key": "selected for that design, and [four] ",
+  "word": "four",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 372
+ },
+ {
+  "key": "preserved gave [seven] per cent (A22). A second corr",
+  "word": "seven",
+  "class": "OWED",
+  "reason": "A22 power, 7 %: needs a macro from the power calculation",
+  "line_at_review": 391
+ },
+ {
+  "key": "with it fixed on all 192; the [two] lie on top of each other. {C",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 417
+ },
+ {
+  "key": "lls monotonically. {D}~L3 at [three] matched budgets, each family",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 417
+ },
+ {
+  "key": "re those rates, and they span [three] orders of magnitude.}",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 417
+ },
+ {
+  "key": "every the [five] folds. This reverses the earl",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "number of folds",
+  "line_at_review": 429
+ },
+ {
+  "key": "erses the earlier result at a [quarter] of the",
+  "word": "quarter",
+  "class": "OWED",
+  "reason": "material fraction of the earlier result -- macro",
+  "line_at_review": 429
+ },
+ {
+  "key": "materials, where the [three] nonlinear arms were indisting",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 430
+ },
+ {
+  "key": "ison gave a ratio less than a [third] as large, so {the basis is e",
+  "word": "third",
+  "class": "OWED",
+  "reason": "ratio from l1_audit.json split sensitivity -- no SPEC key",
+  "line_at_review": 434
+ },
+ {
+  "key": "the constraint than it was}: [four] times the materials improved",
+  "word": "four",
+  "class": "OWED",
+  "reason": "material multiple -- derived ratio",
+  "line_at_review": 434
+ },
+ {
+  "key": "claim no extrapolation beyond [twice] the measured",
+  "word": "twice",
+  "class": "OWED",
+  "reason": "extrapolation bound, twice the range -- derived",
+  "line_at_review": 446
+ },
+ {
+  "key": "\\ at 192. A basis fitted on [twelve] ",
+  "word": "twelve",
+  "class": "OWED",
+  "reason": "material count, needs macro",
+  "line_at_review": 451
+ },
+ {
+  "key": "ts held-out fields as well as [one] fitted on 192, once the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 452
+ },
+ {
+  "key": "a [fifth] of the variance grow from \\",
+  "word": "fifth",
+  "class": "DESIGN",
+  "reason": "R^2 > 0.2 threshold -- a declared threshold",
+  "line_at_review": 455
+ },
+ {
+  "key": "aves differently: exponent , [half] the material",
+  "word": "half",
+  "class": "OWED",
+  "reason": "ratio of the two learning-curve exponents -- DERIVED key needed",
+  "line_at_review": 457
+ },
+ {
+  "key": " [Twenty-eight] configurations in both direct",
+  "word": "Twenty-eight",
+  "class": "OWED",
+  "reason": "L2 configuration count -- from l2_v2_verdict.json",
+  "line_at_review": 462
+ },
+ {
+  "key": "folds and basis. [Three] families are U-shaped with in",
+  "word": "Three",
+  "class": "OWED",
+  "reason": "count of U-shaped families -- from l2_v2_verdict.json",
+  "line_at_review": 463
+ },
+ {
+  "key": "depth optimum [two] layers lower. The earlier sen",
+  "word": "two",
+  "class": "OWED",
+  "reason": "depth optimum shift in layers -- from l2 results",
+  "line_at_review": 474
+ },
+ {
+  "key": "all [six] pairwise comparisons signific",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "3 budgets x 2 comparisons (design)",
+  "line_at_review": 487
+ },
+ {
+  "key": "east} Kolmogorov--Arnold-like [one] , and it reaches \\ against",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 498
+ },
+ {
+  "key": "esult.} The families optimise [three] ",
+  "word": "three",
+  "class": "OWED",
+  "reason": "orders of magnitude between optimal learning rates -- derived from macros",
+  "line_at_review": 502
+ },
+ {
+  "key": "perceptron at . [Six] configurations failed to trai",
+  "word": "Six",
+  "class": "OWED",
+  "reason": "count of configurations that failed to train -- needs a results key",
+  "line_at_review": 504
+ },
+ {
+  "key": "r draft of this section cited [two] of these papers for a",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 524
+ },
+ {
+  "key": " [Two] things are already fixed and",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 543
+ },
+ {
+  "key": "eportable. First, the design: [ten] weighting",
+  "word": "ten",
+  "class": "OWED",
+  "reason": "L4 rewrite: arm count -- verdict file says otherwise; resolve in rewrite",
+  "line_at_review": 543
+ },
+ {
+  "key": "budget --- fixed weights over [four] decades,",
+  "word": "four",
+  "class": "OWED",
+  "reason": "L4 rewrite: decades of fixed weights -- verdict file says 3",
+  "line_at_review": 545
+ },
+ {
+  "key": "gradient-norm balancing at [three] target ratios ,",
+  "word": "three",
+  "class": "OWED",
+  "reason": "L4 rewrite: gradnorm targets -- verdict file says 2",
+  "line_at_review": 546
+ },
+ {
+  "key": "scoped. It rose by more than [five] hundred per cent on all three",
+  "word": "five",
+  "class": "OWED",
+  "reason": "L4 rewrite: seen-window rise >500 %",
+  "line_at_review": 556
+ },
+ {
+  "key": "ed. It rose by more than five [hundred] per cent on all three seeds.",
+  "word": "hundred",
+  "class": "OWED",
+  "reason": "L4 rewrite",
+  "line_at_review": 556
+ },
+ {
+  "key": "five hundred per cent on all [three] seeds. The time-axis refineme",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three seeds",
+  "line_at_review": 556
+ },
+ {
+  "key": "of physics at inference or of [one] configuration of it",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 560
+ },
+ {
+  "key": "terval across a [sixteenfold] change in basis size. {C}~Pe",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "design grid ratio",
+  "line_at_review": 566
+ },
+ {
+  "key": "rtially, and beyond about the [twenty] -fourth the median is",
+  "word": "twenty",
+  "class": "OWED",
+  "reason": "mode index where median R^2 < 0 -- l5_bottleneck.json",
+  "line_at_review": 566
+ },
+ {
+  "key": "the honest form for a null: a [sixteenfold] ",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "design grid ratio",
+  "line_at_review": 575
+ },
+ {
+  "key": "floor of the largest. [One] caveat on tuning, stated beca",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 582
+ },
+ {
+  "key": "ng is most exposed on: at the [two] smallest bases DeepONet's bes",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 583
+ },
+ {
+  "key": "basis only makes a larger [one] look less useful --- but it w",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 586
+ },
+ {
+  "key": "tions buys it the accuracy of [four] .}",
+  "word": "four",
+  "class": "OWED",
+  "reason": "oracle-equivalent mode count -- no results key",
+  "line_at_review": 588
+ },
+ {
+  "key": "[ , ]. {Both [halves] of this matter and neither",
+  "word": "halves",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 600
+ },
+ {
+  "key": " [One] row deserves its own sentence",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 607
+ },
+ {
+  "key": "ruction beats the best linear [one] with a fraction of the channe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 611
+ },
+ {
+  "key": "val [ , ], consistent in all [five] folds and all",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "folds",
+  "line_at_review": 664
+ },
+ {
+  "key": " [three] seeds. On the earlier dataset",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "seeds",
+  "line_at_review": 665
+ },
+ {
+  "key": "With 240 clusters instead of [twelve] , that is what turned an unans",
+  "word": "twelve",
+  "class": "OWED",
+  "reason": "\nNclustLegacy",
+  "line_at_review": 672
+ },
+ {
+  "key": "question into an answerable [one] . Power is \\,\\% at a 4\\,\\% ef",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 673
+ },
+ {
+  "key": "structure violates all [three] closed-form",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 701
+ },
+ {
+  "key": "e every arm is flat. {B}~The [two] terms of a linear",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 713
+ },
+ {
+  "key": "struction can fail in exactly [two] ways: the basis cannot repres",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 719
+ },
+ {
+  "key": "across a [sixteenfold] change in basis size, against",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "design grid ratio",
+  "line_at_review": 727
+ },
+ {
+  "key": "well, modes [two] to five partially, and beyond",
+  "word": "two",
+  "class": "OWED",
+  "reason": "per-mode R^2 bands -- l5_bottleneck.json",
+  "line_at_review": 730
+ },
+ {
+  "key": "well, modes two to [five] partially, and beyond about m",
+  "word": "five",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 730
+ },
+ {
+  "key": "ound anywhere performs like a [four] -mode oracle. Three",
+  "word": "four",
+  "class": "OWED",
+  "reason": "oracle-equivalent mode count -- no results key",
+  "line_at_review": 734
+ },
+ {
+  "key": "orms like a four-mode oracle. [Three] ",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "three function classes compared (design)",
+  "line_at_review": 734
+ },
+ {
+  "key": "inference, made [twice] .",
+  "word": "twice",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 745
+ },
+ {
+  "key": "permanently. We separate the [two] because an",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 752
+ },
+ {
+  "key": "d correctly from the norm --- [two] numbers in one sentence",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 754
+ },
+ {
+  "key": "m the norm --- two numbers in [one] sentence",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 754
+ },
+ {
+  "key": "that disagreed by a factor of [two] in the exponent. Any method w",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 755
+ },
+ {
+  "key": "real and inactive --- the [two] statements this paragraph has",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 766
+ },
+ {
+  "key": "The [two] -transport case is the foundin",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 784
+ },
+ {
+  "key": "pressure pulse splitting into [two] waves is",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 785
+ },
+ {
+  "key": "reconstructed with [two] modes --- one per co-moving f",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 786
+ },
+ {
+  "key": "onstructed with two modes --- [one] per co-moving frame --- again",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 786
+ },
+ {
+  "key": " [eighty] ordinary modes; the general f",
+  "word": "eighty",
+  "class": "CITED",
+  "reason": "reported by the cited sPOD paper",
+  "line_at_review": 787
+ },
+ {
+  "key": "{ [One] shift makes it worse; two mak",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 806
+ },
+ {
+  "key": "{One shift makes it worse; [two] make it much better}",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 806
+ },
+ {
+  "key": "the [half] -height crossing takes the mod",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 811
+ },
+ {
+  "key": "d: the separation between the [two] waves spans a factor of , an",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 814
+ },
+ {
+  "key": "aves spans a factor of , and [one] shift cannot align",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 814
+ },
+ {
+  "key": " [two] waves whose separation varies",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 815
+ },
+ {
+  "key": "Using { [two] } shifts, one per wave, and no",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 817
+ },
+ {
+  "key": "Using {two} shifts, [one] per wave, and normalising the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 817
+ },
+ {
+  "key": "llapses the \\(n\\)-width where [one] shift inflated it: \\ \\( \\)",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 822
+ },
+ {
+  "key": "or the wider landmark pair. A [third] ",
+  "word": "third",
+  "class": "OWED",
+  "reason": "comoving interpolation floor ~1/3 of signal -- comoving2.json",
+  "line_at_review": 823
+ },
+ {
+  "key": "lation floor reached almost a [third] of the signal --- the guard c",
+  "word": "third",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 825
+ },
+ {
+  "key": " [Three] seeds across every stochastic",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "three seeds",
+  "line_at_review": 830
+ },
+ {
+  "key": " [Two] statements, and both are need",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 850
+ },
+ {
+  "key": "rm with predicted fronts. The [two] ",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 854
+ },
+ {
+  "key": "by the error in locating the [two] fronts},",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 859
+ },
+ {
+  "key": "p is unlearnable beyond about [five] modes'', which no",
+  "word": "five",
+  "class": "PROSE",
+  "reason": "quotes the withdrawn earlier claim verbatim",
+  "line_at_review": 862
+ },
+ {
+  "key": "itecture touched. It is now `` [two] smooth monotone",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 863
+ },
+ {
+  "key": "es violate them, in more than [half] of all samples, while the tru",
+  "word": "half",
+  "class": "OWED",
+  "reason": "non-monotone fraction -- warp_monotone.json",
+  "line_at_review": 869
+ },
+ {
+  "key": "nothing to [three] decimal places and makes the",
+  "word": "three",
+  "class": "OWED",
+  "reason": "decimal places unchanged -- a measured null, needs a number",
+  "line_at_review": 871
+ },
+ {
+  "key": "than there, and the [two] intervals are not comparable.",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 878
+ },
+ {
+  "key": "single-front frame: when the [two] fronts move at",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 887
+ },
+ {
+  "key": "cts with no cost axis is only [half] an argument",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 899
+ },
+ {
+  "key": "ve-equivalents}: multiples of [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 902
+ },
+ {
+  "key": "\\ hours on \\ workers, so [one] solve-equivalent is",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 906
+ },
+ {
+  "key": "l libraries may use more than [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 909
+ },
+ {
+  "key": "r \\;=\\; { {cost of [one] query}}{ {cost of one solve}}",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 918
+ },
+ {
+  "key": "cost of one query}}{ {cost of [one] solve}} .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 918
+ },
+ {
+  "key": "\\) --- a forward pass through [three] ",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "architecture description",
+  "line_at_review": 923
+ },
+ {
+  "key": "256-unit layers and [three] 64-mode reconstructions, agai",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "architecture description",
+  "line_at_review": 924
+ },
+ {
+  "key": "{What the table says.} [Three] things, and the third is",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 950
+ },
+ {
+  "key": "says.} Three things, and the [third] is that matters.",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 950
+ },
+ {
+  "key": "the approach is the right [one] , stated in the units the deci",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 957
+ },
+ {
+  "key": " [Third] , and this is why the negative",
+  "word": "Third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 965
+ },
+ {
+  "key": "ith the held-out error in the [third] column. Every statement here",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 977
+ },
+ {
+  "key": "as [one] : three quoted comparisons, in",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 987
+ },
+ {
+  "key": "as one: [three] quoted comparisons, including",
+  "word": "three",
+  "class": "OWED",
+  "reason": "a count stated as fact (B43 comparisons / duplicated L2 config) -- needs an owner",
+  "line_at_review": 987
+ },
+ {
+  "key": "We report this for [two] reasons. The first is that th",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 994
+ },
+ {
+  "key": " [three] of them reversed headline ver",
+  "word": "three",
+  "class": "OWED",
+  "reason": "count of retractions that reversed a headline -- ledger_counts.py should own it",
+  "line_at_review": 995
+ },
+ {
+  "key": "{The classes that recur.} [Five] patterns account for most of",
+  "word": "Five",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1001
+ },
+ {
+  "key": "{A property measured at [one] sample size, stated as intrin",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1003
+ },
+ {
+  "key": "21 and A26 are the same error [three] times: the learning-curve ver",
+  "word": "three",
+  "class": "OWED",
+  "reason": "count of entries in one error class",
+  "line_at_review": 1004
+ },
+ {
+  "key": "time-axis number in [one] rung when a window-local rang",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1008
+ },
+ {
+  "key": "underflows to [zero] .",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1011
+ },
+ {
+  "key": "ngle learning rate that suits [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1013
+ },
+ {
+  "key": "family, a [two] -seed selection rule, and a re",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "names a defective rule (a two-seed selection rule)",
+  "line_at_review": 1014
+ },
+ {
+  "key": "architectures.} A19 and B24: [eleven] of",
+  "word": "eleven",
+  "class": "OWED",
+  "reason": "B24: 11 of 54 runs never trained -- needs a results key",
+  "line_at_review": 1016
+ },
+ {
+  "key": " [fifty-four] runs in one rung reported the",
+  "word": "fifty-four",
+  "class": "OWED",
+  "reason": "same",
+  "line_at_review": 1017
+ },
+ {
+  "key": "fifty-four runs in [one] rung reported the error of a",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1017
+ },
+ {
+  "key": "{ [Three] that reversed a headline.} A1",
+  "word": "Three",
+  "class": "OWED",
+  "reason": "same count as line 995",
+  "line_at_review": 1025
+ },
+ {
+  "key": "{What remains open.} [One] entry is deliberately unresol",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1031
+ },
+ {
+  "key": "{ [One] partial differential equation",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1043
+ },
+ {
+  "key": " [one] model of one process. The lad",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1044
+ },
+ {
+  "key": "one model of [one] process. The ladder is a meth",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1044
+ },
+ {
+  "key": "ent comparison in this paper: [one] condition, on a bed whose",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1049
+ },
+ {
+  "key": "aspect ratio is under a [fifth] , where a plug",
+  "word": "fifth",
+  "class": "OWED",
+  "reason": "anchor aspect ratio -- derive from \nAnchorBedLenMm/\nAnchorTubeMm",
+  "line_at_review": 1050
+ },
+ {
+  "key": "decades. Over that range the [two] published forms disagree by a",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1070
+ },
+ {
+  "key": "molecular diffusivity; the [third] is the authors' own Bruggeman",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1083
+ },
+ {
+  "key": "time is bracketed by the last [two] .}",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1084
+ },
+ {
+  "key": "disagreement between the [two] forms is maximised at , wher",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1089
+ },
+ {
+  "key": "bracketed by the [two] closures. {So a substantial",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1102
+ },
+ {
+  "key": "and not the bed geometry, but [one] term evaluated",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1103
+ },
+ {
+  "key": "the digitised effluent. Those [two] shares differ because the err",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1106
+ },
+ {
+  "key": "{ [Two] parameters are not measuremen",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1120
+ },
+ {
+  "key": "y saying so, not by inventing [one] , and the title claims only fr",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1127
+ },
+ {
+  "key": "{ [Three] rungs are measured on the sma",
+  "word": "Three",
+  "class": "OWED",
+  "reason": "same count",
+  "line_at_review": 1130
+ },
+ {
+  "key": "nate change are measured over [twelve] held-out materials, while L1,",
+  "word": "twelve",
+  "class": "OWED",
+  "reason": "\nNclustLegacy",
+  "line_at_review": 1131
+ },
+ {
+  "key": "at [one] material count did not surviv",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1133
+ },
+ {
+  "key": "aterial count did not survive [four] times as many, those three ve",
+  "word": "four",
+  "class": "OWED",
+  "reason": "material multiple in A26 -- verify (48 vs 192?) and derive",
+  "line_at_review": 1133
+ },
+ {
+  "key": "ive four times as many, those [three] verdicts must",
+  "word": "three",
+  "class": "OWED",
+  "reason": "count of rungs on the smaller design",
+  "line_at_review": 1133
+ },
+ {
+  "key": "e answer is assembled here in [one] place, because each piece of",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1145
+ },
+ {
+  "key": "f coordinates that aligns the [two] fronts collapses the",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1166
+ },
+ {
+  "key": "field to [two] curves that m",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1169
+ },
+ {
+  "key": "{What is scoped.} [Three] verdicts --- L3, L5 and the c",
+  "word": "Three",
+  "class": "OWED",
+  "reason": "same count",
+  "line_at_review": 1178
+ },
+ {
+  "key": "were measured on [twelve] held-out materials rather tha",
+  "word": "twelve",
+  "class": "OWED",
+  "reason": "\nNclustLegacy",
+  "line_at_review": 1179
+ },
+ {
+  "key": "bed's shape and its [half] -breakthrough time with nothin",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1181
+ },
+ {
+  "key": "\\,\\% is [one] dispersion term evaluated at",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1183
+ },
+ {
+  "key": "ists because defect B43 found [three] quoted comparisons",
+  "word": "three",
+  "class": "OWED",
+  "reason": "B43 count of unowned comparisons",
+  "line_at_review": 1213
+ },
+ {
+  "key": "tion used as L1's arm appears [twice] more in L2's capacity sweep,",
+  "word": "twice",
+  "class": "OWED",
+  "reason": "a count stated as fact (B43 comparisons / duplicated L2 config) -- needs an owner",
+  "line_at_review": 1217
+ },
+ {
+  "key": "pped arXiv identifier between [two] ",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1223
+ },
+ {
+  "key": "t paper, a missing co-author, [two] references that do not contai",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-09-25)",
+  "line_at_review": 1225
+ }
+]

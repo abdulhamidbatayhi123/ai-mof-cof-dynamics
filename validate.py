@@ -282,8 +282,15 @@ def gate_manuscript_numbers():
     # build_paper's third check (B64). It lived only in build_paper.main(), so this
     # gate -- the one rule 1 sends people to -- passed a manuscript of mangled macros.
     broken = bp.mangled(body, defined)
-    if undefined or hits or broken:
+    # build_paper's fourth check: numbers written as words (paper/number_words.py).
+    sys.path.insert(0, str(ROOT / "paper"))
+    import number_words
+    nw_unreviewed, nw_owed, _ = number_words.check(body, bp.strip_structural)
+    if undefined or hits or broken or nw_unreviewed:
         msg = []
+        if nw_unreviewed:
+            msg.append(f"{len(nw_unreviewed)} unreviewed number-word(s): "
+                       + "; ".join(k for _, _, k in nw_unreviewed[:4]))
         if broken:
             msg.append(f"{len(broken)} mangled macro(s): " + "; ".join(map(str, broken[:6])))
         if undefined:
@@ -295,7 +302,8 @@ def gate_manuscript_numbers():
     pend = _json.loads((ROOT / "paper" / "numbers.json").read_text(encoding="utf-8")).get("pending", [])
     note = f"; {len(pend)} value(s) PENDING a run still in flight" if pend else ""
     return True, (f"{len(used)} macros used, all resolved from results files; "
-                  f"{len(bp.ALLOWED)} literals declared with reasons{note}")
+                  f"{len(bp.ALLOWED)} literals declared with reasons{note}; "
+                  f"{len(nw_owed)} measured quantities still OWED as words")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

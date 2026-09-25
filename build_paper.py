@@ -209,6 +209,13 @@ def main():
 
     broken = mangled(b, defined)
 
+    # Check 4: numbers written as WORDS (audit_hygiene #3). A ratchet, not a ban --
+    # see paper/number_words.py. An unreviewed number-word refuses the build; the
+    # reviewed-but-OWED ones are counted on every build so the debt stays visible.
+    sys.path.insert(0, os.path.join(ROOT, "paper"))
+    import number_words
+    nw_unreviewed, nw_owed, nw_stale = number_words.check(b, strip_structural)
+
     print(f"\nmacros: {len(used)} used, {len(undefined)} undefined, "
           f"{len(broken)} mangled, {len(unused)} declared but unused")
     for k in undefined:
@@ -224,7 +231,11 @@ def main():
             ln, ctx = seen[tok][0]
             print(f"  {tok:>8}  x{len(seen[tok]):<3} line {ln}: {ctx}")
 
-    if undefined or hits or broken:
+    print(f"number-words: {len(nw_unreviewed)} unreviewed, {len(nw_owed)} OWED "
+          f"(measured quantities still in words), {len(nw_stale)} stale review entries")
+    for ln, w, k in nw_unreviewed:
+        print(f"  UNREVIEWED number-word at line {ln}: {k}")
+    if undefined or hits or broken or nw_unreviewed:
         print("\nBUILD REFUSED. Every number in the manuscript must be a macro resolved "
               "from a\nresults file, or an ALLOWED literal with a written reason. "
               "See build_paper.py.")
