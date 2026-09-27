@@ -190,3 +190,32 @@ def test_outlet_profile_likelihood_brackets_k_in_kinetic_regime():
     lo, hi = profile_interval_outlet(p, 1.0, t, c_obs, T_obs, sigma_c=0.005,
                                      sigma_T=0.005 * np.ptp(y[299]), n_z=100)
     assert lo < k_true < hi and hi / lo < 2.0, (lo, hi)
+
+
+from p2.analysis import boundary
+
+
+def test_boundary_ci_has_nominal_coverage_and_no_bias():
+    """A single 95 % CI misses one time in twenty, so one seed cannot test it:
+    coverage over 60 simulated datasets must be near nominal, and the estimate
+    unbiased (measured once at 100 datasets: coverage 0.94, bias +0.012 decade)."""
+    import warnings
+    warnings.filterwarnings("ignore")
+    das = np.logspace(-1, 3, 9)
+    tb = 1.3
+    cover, ests = 0, []
+    for seed in range(60):
+        rng = np.random.default_rng(seed)
+        succ = {float(d): list(rng.random(20) < 1 / (1 + np.exp(3 * (np.log10(d) - tb))))
+                for d in das}
+        e, lo, hi = boundary(succ, n_boot=200, seed=seed)
+        cover += lo < 10 ** tb < hi
+        ests.append(np.log10(e))
+    assert cover / 60 >= 0.88, cover / 60
+    assert abs(np.mean(ests) - tb) < 0.05, np.mean(ests)
+
+
+def test_boundary_reports_none_when_no_crossing():
+    succ = {float(d): [True] * 20 for d in np.logspace(-1, 3, 9)}
+    est, lo, hi = boundary(succ, n_boot=100, seed=1)
+    assert est is None

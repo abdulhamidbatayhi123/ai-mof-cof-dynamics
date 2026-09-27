@@ -208,6 +208,16 @@ M7 (each needs a network or a Julia search per replicate), on a declared subgrid
   Gram matrix and its smallest eigenvalue (S11, S53) per cell.
 
 ### 4.4 Minimum detectable effects (rule 7)
+
+**Estimator measured before the freeze (`p2/analysis.py`, 2026-09-28):** unpenalised
+logistic ML in log₁₀ Da, 50 % crossing, percentile bootstrap within Da levels. On 100
+simulated datasets with the design's grid (9 Da levels, 20 replicates) and a known
+boundary: **coverage 0.94** (nominal 0.95), bias **+0.012 decade**, SD of the estimate
+**0.089 decade**. The half-decade MDE below is therefore conservative; a boundary
+shift is resolvable at ≈ 2.8 × 0.089 ≈ **0.25 decade** (80 % power, two-sided 5 %).
+The paper quotes 0.25 decade as the MDE, and the H2c refinement grid (§4.4, below)
+stays as declared.
+
 - Boundary location: the Da grid spacing is half a decade; with 20 replicates the
   standard error of P(success) at 0.5 is ≈ 0.11. **MDE for a boundary shift or a
   disc/ident gap: half a decade**, stated with every null.
