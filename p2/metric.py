@@ -13,3 +13,10 @@ def success_L1(coefs, ratio_tol=0.10):
 
 def k_accuracy(coefs, k_true):
     return abs(-coefs.get("q", 0.0) - k_true) / k_true
+
+
+def success_manifold(coefs, tol=0.05):
+    """M9 success: the algebraic law q = q*_meas recovered -- support {qstar} with
+    coefficient 1 within `tol`."""
+    sel = {k for k, v in coefs.items() if v != 0.0}
+    return sel == {"qstar"} and abs(coefs["qstar"] - 1.0) <= tol

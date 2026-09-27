@@ -69,3 +69,10 @@ def ensemble(F, y, n_models=100, frac=0.6, threshold=0.05, inclusion=0.6, seed=0
         if len(vals) / n_models >= inclusion:
             out[name] = float(np.median(vals))
     return out
+
+
+def slow_manifold(F_alg, q, max_terms=3):
+    """M9: regress the STATE q (not its rate) on q-free features. Near local
+    equilibrium the bed lies on the slow manifold q = q*(c, T); what is discoverable
+    there is that algebraic law, not k. Exact best-subset on the algebraic problem."""
+    return best_subset(F_alg, np.asarray(q, float), max_terms=max_terms)

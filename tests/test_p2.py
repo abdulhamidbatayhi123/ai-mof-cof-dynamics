@@ -219,3 +219,21 @@ def test_boundary_reports_none_when_no_crossing():
     succ = {float(d): [True] * 20 for d in np.logspace(-1, 3, 9)}
     est, lo, hi = boundary(succ, n_boot=100, seed=1)
     assert est is None
+
+
+from p2.methods import slow_manifold
+from p2.metric import success_manifold
+
+
+def test_slow_manifold_finds_equilibrium_when_fast_and_not_when_slow():
+    # "On the manifold" at the resolution the methods work at means the equilibrium
+    # lag (1/k) dq/dt is below the 1e-3 floor. The ramp time here is ~30 s, so that
+    # needs k * 30 >~ 1e3, i.e. k ~ 100. (k = 1 lags ~3 % during the ramp: M9 then
+    # returns q* at 0.955 plus spurious c, c^2 -- correctly NOT the manifold.)
+    fast = ldf_series(k=100.0, n=400)
+    slow = ldf_series(k=0.002, n=400)     # k * t_end = 1.2: far from it
+    for s, expect in ((fast, True), (slow, False)):
+        F = lib_b(s["c"], s["q"], s["T"], s["qstar"])
+        F_alg = {k: v for k, v in F.items() if k != "q" and "q" not in k.replace("qstar", "")}
+        coefs = slow_manifold(F_alg, s["q"])
+        assert success_manifold(coefs) == expect, (expect, coefs)
