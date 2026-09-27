@@ -121,6 +121,17 @@ convergence checked against N_z = 400 on the same cell), M1 runs on a declared
 reduced subgrid, or is reported NOT RUN on O3 — the realistic observation model then
 rests on profile likelihood alone, and the paper says so.
 
+**M1 feasibility — RESOLVED by the pilot (`p2_pilot_m1.py`, `results/p2_pilot_m1.json`,
+2026-09-28).** The JAX column (`p2/jaxcol.py`) matches `solver_fd` to < 5×10⁻³ on the
+exit curve; N_z = 50 differs from N_z = 400 by 0.55 %. Cost on this CPU: forward
+solve 22 s, gradient w.r.t. k 101 s, gradient w.r.t. a 2×32 MLP rate **145 s** — i.e.
+~50 training steps in the 2 h budget, where a UDE needs hundreds to thousands. By
+the rule declared above, **M1 is NOT RUN at the declared scale.** It runs only as a
+labelled demonstration on a minimal subgrid (Langmuir, Pe ×1, σ = 2 %, ε = 0, O3,
+the 9 Da levels, one replicate, L-BFGS, ≤ 50 steps), and **the O3 comparison rests
+on profile likelihood**. The paper states this, and states that it is a compute
+limit, not a finding about UDEs: on a GPU the same code is expected to be feasible.
+
 So the O2/O3 comparison is M1 against identifiability, and it is where the
 experimentally realistic answer lives; O1 is the optimistic ceiling for everything
 else. In O2/O3 the profile likelihood needs a PDE solve per k: coarse 25-point k grid
