@@ -154,6 +154,18 @@ No discovery method is run before the freeze.
    outlet — not full breakthrough. Every ground-truth solve uses a horizon long enough
    that the exit reaches 0.95, checked per solve and recorded; a solve that does not
    is extended, never truncated silently.
+3. Why 1.5 t_stoich stops at 0.76: the **thermal wave** — the outlet is still ~9 K
+   above feed at 1.5 t_stoich. At k = 0.01 s⁻¹ the 95 % crossing is at 2.2 t_stoich
+   and a 4 t_stoich horizon reaches c/c_in = 1.00. **Default horizon: 4 t_stoich**,
+   subject to the per-solve 0.95 check. (The thermal delay is itself a reason H2a
+   carries T: the rate law's driving force depends on q*(c,T).)
+4. Grid: the exit curve changes ≤ 0.11 % between N_z 400 and 800 at every k tested
+   (10⁻⁴–10 s⁻¹), so N_z = 400 is adequate; the harness's 2 % tolerance is met with
+   margin. Cost at N_z 400: 2–20 s for k ≤ 10⁻², rising to ~15 min at k = 3–10 s⁻¹
+   (stiffness). The ~80 ground-truth solves are therefore ≲ 10 h worst case.
+5. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
+   Da = k·t_stoich range 10⁻¹–10³ corresponds to k ≈ 10⁻⁵–10⁻¹ s⁻¹ at default
+   physics — inside the cheap part of the cost curve.
 
 ## 7. Compute
 ~80 solves; M2–M6, M8, M9 at 20 replicates over ≈ 2600 cells are seconds each; M1 and

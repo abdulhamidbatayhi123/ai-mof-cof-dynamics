@@ -1,0 +1,11 @@
+{'k_LDF': 0.0001, 'Da_res': 0.0, 'Da_run': 1.0801, 't_final_s': 10800.6, 'grid_change_rel': 0.0002, 'exit_final': 0.7705, 'sec_400': 1.8806, 'sec_800': 2.7821, 'breakthrough': False}
+{'k_LDF': 0.0003, 'Da_res': 0.0001, 'Da_run': 3.4154, 't_final_s': 10800.6, 'grid_change_rel': 0.0004, 'exit_final': 0.7397, 'sec_400': 1.7422, 'sec_800': 2.4983, 'breakthrough': False}
+{'k_LDF': 0.001, 'Da_res': 0.0004, 'Da_run': 10.8006, 't_final_s': 10800.6, 'grid_change_rel': 0.0004, 'exit_final': 0.7426, 'sec_400': 2.0447, 'sec_800': 3.3628, 'breakthrough': False}
+{'k_LDF': 0.0032, 'Da_res': 0.0013, 'Da_run': 34.1545, 't_final_s': 10800.6, 'grid_change_rel': 0.0006, 'exit_final': 0.7512, 'sec_400': 3.0474, 'sec_800': 5.9542, 'breakthrough': False}
+{'k_LDF': 0.01, 'Da_res': 0.004, 'Da_run': 108.006, 't_final_s': 10800.6, 'grid_change_rel': 0.0008, 'exit_final': 0.7567, 'sec_400': 21.0298, 'sec_800': 42.1332, 'breakthrough': False}
+{'k_LDF': 0.0316, 'Da_res': 0.0126, 'Da_run': 341.545, 't_final_s': 10800.6, 'grid_change_rel': 0.0009, 'exit_final': 0.7593, 'sec_400': 80.4227, 'sec_800': 90.9855, 'breakthrough': False}
+{'k_LDF': 0.1, 'Da_res': 0.04, 'Da_run': 1080.06, 't_final_s': 10800.6, 'grid_change_rel': 0.001, 'exit_final': 0.7604, 'sec_400': 304.1766, 'sec_800': 221.5879, 'breakthrough': False}
+{'k_LDF': 0.3162, 'Da_res': 0.1265, 'Da_run': 3415.4496, 't_final_s': 10800.6, 'grid_change_rel': 0.0011, 'exit_final': 0.7608, 'sec_400': 200.7039, 'sec_800': 382.907, 'breakthrough': False}
+{'k_LDF': 1.0, 'Da_res': 0.4, 'Da_run': 10800.6, 't_final_s': 10800.6, 'grid_change_rel': 0.0011, 'exit_final': 0.7609, 'sec_400': 306.7963, 'sec_800': 860.9983, 'breakthrough': False}
+{'k_LDF': 3.1623, 'Da_res': 1.2649, 'Da_run': 34154.4961, 't_final_s': 10800.6, 'grid_change_rel': 0.0011, 'exit_final': 0.761, 'sec_400': 802.1815, 'sec_800': 1253.6344, 'breakthrough': False}
+{'k_LDF': 10.0, 'Da_res': 4.0, 'Da_run': 108006.0, 't_final_s': 10800.6, 'grid_change_rel': 0.0011, 'exit_final': 0.761, 'sec_400': 853.6086, 'sec_800': 913.2418, 'breakthrough': False}
