@@ -107,6 +107,16 @@ The verified reference solver of paper 1 (`solver_fd.py`; L0 checks in
 `dq/dt = k(q)(q* − q)` with k dropping across the step (L2). Non-isothermal physics
 as in paper 1 (primary); an isothermal control is secondary.
 
+**L2 exactly:** `k(q) = k0 · [1 − 0.8 · σ((q/q_max − θ) / 0.05)]`, σ the logistic
+function, θ the fractional loading at the isotherm's step midpoint (computed from the
+isotherm at the feed temperature, recorded per solve). The rate falls to 20 % of k0
+across the step. Implemented through `solver_fd`'s `k_of_q` hook, whose default path
+is verified unchanged. **Isotherms:** "Langmuir" = default physics (`isotherm_n = 1`);
+"step" = `fetch_real_mof_data.get_mof303_physics()` (cited MOF-303 step position and
+capacity), with column geometry and flow held at the default so only the isotherm
+changes. Ground truth is written to `data/p2/` (gitignored) with a manifest recording
+every parameter, t_stoich, horizon, and the per-solve breakthrough check.
+
 ### 4.2 Axes
 | axis | levels |
 |---|---|

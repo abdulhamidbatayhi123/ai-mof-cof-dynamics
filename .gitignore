@@ -38,3 +38,4 @@ refs/*.docx
 # autorun runtime state -- a lock and a heartbeat, meaningless outside this machine
 autorun.lock
 autorun_state.json
+data/p2/
