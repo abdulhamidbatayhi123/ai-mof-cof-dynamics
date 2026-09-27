@@ -103,6 +103,24 @@ method is never run where its input does not exist):
 | M1 UDE (network in the uptake term, trained through the PDE) + sparse/symbolic readout | ✔ | ✔ | ✔ |
 | profile likelihood (law known) | ✔ ODE per probe | ✔ PDE forward solve | ✔ PDE forward solve |
 
+**Added 2026-09-28 — M1b, mass-balance inversion (O2).** From interior c(z,t) the
+uptake rate follows from the gas-phase balance,
+`∂q/∂t = −ε/((1−ε)ρ_p) · (∂c/∂t + u ∂c/∂z − D_L ∂²c/∂z²)`, with q recovered by time
+integration from q(z,0) = 0. That is how an experimentalist with interior probes gets
+uptake, it needs no training, and every O1 method then runs on it; it is therefore the
+strongest O2 competitor and must be included. Its derivatives are estimated with the
+same Savitzky–Golay rule as O1, in both z and t.
+
+**M1 feasibility (declared, not yet resolved).** A network inside the column model
+trained through the PDE needs a differentiable solve over ~4 t_stoich (≈ 8 h of
+process time); an explicit scheme is CFL-bound at ~4 ms, so ~10⁶–10⁷ steps per epoch
+— infeasible on this CPU. The route is an implicit differentiable solver (JAX +
+diffrax, Kvaerno5, in `.venv`), whose cost is measured by a timing pilot on one cell
+before the freeze. If one training cannot finish in ≤ 2 h at N_z = 50 (grid
+convergence checked against N_z = 400 on the same cell), M1 runs on a declared
+reduced subgrid, or is reported NOT RUN on O3 — the realistic observation model then
+rests on profile likelihood alone, and the paper says so.
+
 So the O2/O3 comparison is M1 against identifiability, and it is where the
 experimentally realistic answer lives; O1 is the optimistic ceiling for everything
 else. In O2/O3 the profile likelihood needs a PDE solve per k: coarse 25-point k grid
