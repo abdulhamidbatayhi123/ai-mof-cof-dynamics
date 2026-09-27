@@ -315,25 +315,11 @@
   "line_at_review": 429
  },
  {
-  "key": "erses the earlier result at a [quarter] of the",
-  "word": "quarter",
-  "class": "OWED",
-  "reason": "material fraction of the earlier result -- macro",
-  "line_at_review": 429
- },
- {
   "key": "materials, where the [three] nonlinear arms were indisting",
   "word": "three",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 430
- },
- {
-  "key": "ison gave a ratio less than a [third] as large, so {the basis is e",
-  "word": "third",
-  "class": "OWED",
-  "reason": "ratio from l1_audit.json split sensitivity -- no SPEC key",
-  "line_at_review": 434
  },
  {
   "key": "the constraint than it was}: [four] times the materials improved",
@@ -362,13 +348,6 @@
   "class": "DESIGN",
   "reason": "R^2 > 0.2 threshold -- a declared threshold",
   "line_at_review": 455
- },
- {
-  "key": " [Twenty-eight] configurations in both direct",
-  "word": "Twenty-eight",
-  "class": "OWED",
-  "reason": "L2 configuration count -- from l2_v2_verdict.json",
-  "line_at_review": 462
  },
  {
   "key": "depth optimum [two] layers lower. The earlier sen",
@@ -763,13 +742,6 @@
   "line_at_review": 863
  },
  {
-  "key": "es violate them, in more than [half] of all samples, while the tru",
-  "word": "half",
-  "class": "OWED",
-  "reason": "non-monotone fraction -- warp_monotone.json",
-  "line_at_review": 869
- },
- {
   "key": "nothing to [three] decimal places and makes the",
   "word": "three",
   "class": "OWED",
@@ -959,27 +931,6 @@
   "line_at_review": 1014
  },
  {
-  "key": "architectures.} A19 and B24: [eleven] of",
-  "word": "eleven",
-  "class": "OWED",
-  "reason": "B24: 11 of 54 runs never trained -- needs a results key",
-  "line_at_review": 1016
- },
- {
-  "key": " [fifty-four] runs in one rung reported the",
-  "word": "fifty-four",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 1017
- },
- {
-  "key": "fifty-four runs in [one] rung reported the error of a",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1017
- },
- {
   "key": "{ [Three] that reversed a headline.} A1",
   "word": "Three",
   "class": "OWED",
@@ -1090,27 +1041,6 @@
   "class": "OWED",
   "reason": "same count",
   "line_at_review": 1130
- },
- {
-  "key": "at [one] material count did not surviv",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1133
- },
- {
-  "key": "aterial count did not survive [four] times as many, those three ve",
-  "word": "four",
-  "class": "OWED",
-  "reason": "material multiple in A26 -- verify (48 vs 192?) and derive",
-  "line_at_review": 1133
- },
- {
-  "key": "ive four times as many, those [three] verdicts must",
-  "word": "three",
-  "class": "OWED",
-  "reason": "count of rungs on the smaller design",
-  "line_at_review": 1133
  },
  {
   "key": "e answer is assembled here in [one] place, because each piece of",
@@ -1230,5 +1160,19 @@
   "class": "DESIGN",
   "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
   "line_at_review": 236
+ },
+ {
+  "key": "{} runs in [one] rung reported the error of a",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "one rung (L3), grammar",
+  "line_at_review": 1030
+ },
+ {
+  "key": "ls did not survive 192, those [three] verdicts must",
+  "word": "three",
+  "class": "OWED",
+  "reason": "count of rungs on the smaller design -- same as the other rung-count entries",
+  "line_at_review": 1146
  }
 ]

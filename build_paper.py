@@ -221,6 +221,15 @@ def main():
                if re.search(r"(\\,|\\\s|\d|\\n[A-Za-z]+\{\})%", ln)]
     for ln, ctx in bad_pct:
         print(f"  UNESCAPED %  line {ln}: {ctx}")
+    # Check 6: control characters. A script that writes "\nMacro\times" through a
+    # string literal produces a NEWLINE + "Macro" + a TAB + "imes" (hit 2026-09-27;
+    # the mangled check keys on trailing LaTeX spacing and missed it). The manuscript
+    # contains no legitimate tab, so any tab is corruption.
+    tabs = [i for i, ln in enumerate(raw_body.splitlines(), 1) if "\t" in ln]
+    if tabs:
+        print(f"  CONTROL CHARACTER (tab) at line(s) {tabs[:8]} -- a backslash escape was "
+              f"written as a real character")
+        bad_pct = bad_pct or [(tabs[0], "tab")]
     if bad_pct:
         print("\nBUILD REFUSED: an unescaped % after a quantity comments out the rest of the line.")
         sys.exit(1)

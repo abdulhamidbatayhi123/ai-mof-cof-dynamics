@@ -459,12 +459,12 @@ best fixed-basis arm at \nLoneMLP, ahead of gradient boosting at \nLoneXGB, rand
 forest at \nLoneRF\ and ridge at \nLoneRidge. Against gradient boosting the
 difference is \nLoneMLPvsXGBdiff\ with confidence interval
 [\nLoneMLPvsXGBlo, \nLoneMLPvsXGBhi] --- significant, and the perceptron is ahead in
-every one of the five folds. This reverses the earlier result at a quarter of the
+every one of the five folds. This reverses the earlier result at 48
 materials, where the three nonlinear arms were indistinguishable and the perceptron
 had the worst point estimate.
 
 The floor moved too. The proper-orthogonal-decomposition floor is \nLonePodFloor,
-and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave a ratio less than a third as large, so \emph{the basis is even less the constraint than it was}: four times the materials improved the arm, and improved the floor beneath it by more.
+and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: four times the materials improved the arm, and improved the floor beneath it by more.
 
 \paragraph{The learning curve, and the rung's actual verdict.} Held-out error falls
 \nLCsmallest\ \(\to\) \nLClargest\ as training materials go 12 \(\to\) 192, a factor
@@ -492,7 +492,7 @@ exponent. Both axes are open; materials are the one that matters.
 
 \subsection{L2 --- more capacity}
 
-Twenty-eight configurations in both directions around the L1 setting, on the same
+\nLtwoNconfigs{} configurations in both directions around the L1 setting, on the same
 folds and basis. \nLtwoNUshaped{} families are U-shaped with interior optima
 (\nLtwoWidthShape; \nLtwoDepthShape; \nLtwoXgbShape) and the random forest
 \nLtwoRfShape\ --- it is still improving at its last step, but that step is a fully
@@ -901,7 +901,7 @@ established prize and a target a front-locating model can be held to.
 
 \paragraph{Monotonicity is not the lever.} The obvious first attack is that the
 front predictor does not know the constraints the true trajectories satisfy exactly.
-It does violate them, in more than half of all samples, while the true trajectories
+It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, while the true trajectories
 violate them in none. But projecting onto the constraint set changes \(R^2\) by
 nothing to three decimal places and makes the reconstruction significantly
 \emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
@@ -1048,8 +1048,8 @@ underflows to zero.
 B23 and A20 --- an unscaled target vector, a single learning rate that suits one
 family, a two-seed selection rule, and a recorded instruction to update a table that
 was never carried out.
-\item \textbf{Undertrained arms scored as architectures.} A19 and B24: eleven of
-fifty-four runs in one rung reported the error of a random initialisation, because
+\item \textbf{Undertrained arms scored as architectures.} A19 and B24: \nBtwentyfourUntrained{} of
+\nBtwentyfourRuns{} runs in one rung reported the error of a random initialisation, because
 an aggressive patience does not handicap architectures equally.
 \item \textbf{Power and calibration.} A22 withdrew a claim that a null was well
 powered when it had 7\,\% power; A25 corrected the correction in the opposite
@@ -1165,7 +1165,7 @@ the class we actually model.
 \paragraph{Three rungs are measured on the smaller dataset.} L3, L5 and the
 coordinate change are measured over \nNclustLegacy\ held-out materials, while L1, L2, L6 and
 L7 are measured over 240. Given that A26 exists precisely because a verdict measured
-at one material count did not survive four times as many, those three verdicts must
+at 48 training materials did not survive 192, those three verdicts must
 be read as scoped to the material count at which they were taken. Their effect sizes
 are large and their orderings are consistent across budgets, which is why we state
 them; re-measuring them on the larger dataset is the first item of further work.

@@ -194,6 +194,12 @@
     "LzeroNchecks": "4",
     "IsoCCmaxErr": "0.004",
     "LtwoNUshaped": "3",
+    "LtwoNconfigs": "28",
+    "WarpNonmonoLo": "55",
+    "BtwentyfourRuns": "54",
+    "BtwentyfourUntrained": "11",
+    "LoneLegacyXfloorMin": "23",
+    "LoneLegacyXfloorMax": "36",
     "AnchorPelletsDeep": "2.1",
     "AnchorTubeMm": "38.1",
     "AnchorRH": "32.8",
@@ -1057,6 +1063,30 @@
     "LtwoNUshaped": {
       "file": "results/l2_v2_verdict.json",
       "path": "families"
+    },
+    "LtwoNconfigs": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families"
+    },
+    "WarpNonmonoLo": {
+      "file": "results/warp_monotone.json",
+      "path": "per_seed"
+    },
+    "BtwentyfourRuns": {
+      "file": "results/l3_results_B24_WITHDRAWN.json",
+      "path": "arms"
+    },
+    "BtwentyfourUntrained": {
+      "file": "results/l3_results_B24_WITHDRAWN.json",
+      "path": "arms"
+    },
+    "LoneLegacyXfloorMin": {
+      "file": "results/l1_audit.json",
+      "path": "split_sensitivity.ratios"
+    },
+    "LoneLegacyXfloorMax": {
+      "file": "results/l1_audit.json",
+      "path": "split_sensitivity.ratios"
     },
     "AnchorPelletsDeep": {
       "file": "results/dispersion_check.json",
