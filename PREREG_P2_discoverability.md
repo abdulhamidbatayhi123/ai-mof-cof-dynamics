@@ -79,6 +79,18 @@ Two candidate libraries, both reported:
 A method that cannot be run in its strongest configuration is reported as such,
 never silently replaced by a weaker one.
 
+**Phase A implemented and verified on a known-answer LDF system** (`p2/`,
+`tests/test_p2.py`, 8 tests; plan `docs/superpowers/plans/2026-09-27-p2-harness-phase-a.md`):
+M2 (strong-form STLSQ on standardised columns), M3 (bagged STLSQ, inclusion 0.6),
+M4 (exact enumeration up to 4 terms), and the profile-likelihood tool. **Two design
+facts the known-answer tests forced, declared here before the freeze:** (i) M4's BIC
+carries a residual-variance floor at 10⁻³ × std(dq/dt) — the derivative estimator's
+verified accuracy — because at zero noise plain BIC kept terms of relative size 10⁻⁴
+by fitting the estimator's own systematic error; (ii) the profile likelihood refines
+on a 201-point grid between the coarse neighbours of its interval, because at low
+noise the interval is narrower than one coarse step. Phase B (M1, M2-weak, M5–M9, the
+cell runner, the analysis) follows its own plan.
+
 **Implementation audit (2026-09-25, search results — each repository must be opened
 and its licence and language confirmed before the freeze):** WENDy — reference code
 github.com/MathBioCU/WENDy (appears to be MATLAB) and a constrained variant
