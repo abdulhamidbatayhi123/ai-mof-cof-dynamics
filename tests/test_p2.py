@@ -160,3 +160,15 @@ def test_discover_o2_recovers_law_from_concentration_only():
     finally:
         mb.invert_uptake = orig
     assert success_L1(coefs) and k_accuracy(coefs, 0.002) < 0.02, coefs
+
+
+def test_jax_column_matches_verified_solver():
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    from p2.jaxcol import solve
+    p = AdsorptionPhysicsConfig()
+    p.k_LDF = 0.002
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    z, t, y = generate_breakthrough_data(p, N_z=50, t_final=3 * ts, n_snapshots=100, verbose=False)
+    yj = np.asarray(solve(p, 50, 1.0, 3 * ts, t))
+    exit_ref, exit_jax = y[49], yj[:, 49]
+    assert np.max(np.abs(exit_ref - exit_jax)) < 5e-3, np.max(np.abs(exit_ref - exit_jax))
