@@ -12,11 +12,13 @@ cadquery-ocp-proxy==7.9.3.1
 certifi==2026.5.20
 cffi==2.0.0
 charset-normalizer==3.4.7
+clarabel==0.11.1
 cloudpickle==3.1.2
 colorama==0.4.6
 contourpy==1.3.3
 coverage==7.14.0
 cryptography==48.0.0
+cvxpy==1.9.3
 cycler==0.12.1
 decorator==5.3.1
 defusedxml==0.7.1
@@ -33,6 +35,7 @@ fonttools==4.63.0
 fsspec==2026.4.0
 google-auth==2.53.0
 h11==0.16.0
+highspy==1.15.1
 httpcore==1.0.9
 httpx==0.28.1
 idna==3.16
@@ -71,6 +74,7 @@ ocpsvg==0.5.0
 openpyxl==3.1.5
 opt_einsum==3.4.0
 optimistix==0.1.0
+osqp==1.1.3
 packaging==26.2
 pandas==3.0.3
 parso==0.8.7
@@ -98,6 +102,7 @@ python-docx==1.2.0
 python-dotenv==1.2.2
 python-pptx==1.0.2
 PyYAML==6.0.3
+qdldl==0.1.9.post1
 rdkit==2026.3.2
 requests==2.34.2
 rich==13.9.4
@@ -106,11 +111,13 @@ ruff==0.15.14
 schemdraw==0.23
 scikit-learn==1.8.0
 scipy==1.17.1
+scs==3.3.1
 setuptools==70.2.0
 shap==0.52.0
 six==1.17.0
 slicer==0.0.8
 sniffio==1.3.1
+sparsediffpy==0.6.1
 stack-data==0.6.3
 svgelements==1.9.6
 svgpathtools==1.7.2

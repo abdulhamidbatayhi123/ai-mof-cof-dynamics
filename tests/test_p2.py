@@ -237,3 +237,20 @@ def test_slow_manifold_finds_equilibrium_when_fast_and_not_when_slow():
         F_alg = {k: v for k, v in F.items() if k != "q" and "q" not in k.replace("qstar", "")}
         coefs = slow_manifold(F_alg, s["q"])
         assert success_manifold(coefs) == expect, (expect, coefs)
+
+
+from p2.methods import sindy_pi
+
+
+def test_sindy_pi_finds_implicit_langmuir_ldf_without_an_isotherm():
+    """No q* supplied. dq/dt = k(qm b c/(1+bc) - q)  <=>
+       dq/dt + b c dq/dt = k qm b c - k q - k b c q   (b=3, qm=5, k=0.02)."""
+    s = ldf_series(k=0.02, n=400)
+    c, q = s["c"], s["q"]
+    dq = derivative(q, s["t"])
+    F = {"1": np.ones_like(c), "c": c, "q": q, "c*q": c * q, "q^2": q ** 2, "c^2": c ** 2}
+    lhs, coefs = sindy_pi(F, dq)
+    # normalised to the dq/dt coefficient = 1
+    assert set(coefs) == {"dq", "c*dq", "c", "q", "c*q"}, (lhs, coefs)
+    assert abs(coefs["c*dq"] - 3.0) < 0.15 and abs(coefs["c"] + 0.3) < 0.02
+    assert abs(coefs["q"] - 0.02) < 0.002 and abs(coefs["c*q"] - 0.06) < 0.005

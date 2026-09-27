@@ -71,7 +71,7 @@ Two candidate libraries, both reported:
 | M3 | ensemble / Bayesian SINDy (S14, S65) | inclusion probability of each term reported |
 | M4 | **exact best-subset selection by enumeration** (the MIOSR objective, S55, solved exactly because the library is small), with sign constraints k > 0 and zero rate at q = q* | exhaustive over sparsity ≤ 4 |
 | M5 | errors-in-variables: ODR-BINDy (S13) and WENDy-IRLS (S22) | if no reference implementation runs, implemented from the papers and verified on their own published examples before use |
-| M6 | SINDy-PI (S21) for rational laws | |
+| M6 | SINDy-PI (S21) for rational laws | run with Lib-A and NO measured isotherm, on the **isothermal control only** (exp(−ΔH/RT) is not polynomial); success = the implicit Langmuir–LDF structure {dq, c·dq, c, q, c·q} with correct signs; verified on the known-answer system (b, k recovered within 5 %) |
 | M7 | constrained symbolic regression (PySR, S23) | Julia installed in the isolated `.venv`, never the base environment |
 | M8 | KAN + sparse regression (KANDy, S48) | secondary; not a headline (L3, S49) |
 | M9 | slow-manifold discovery (S15) | expected to win at high Da by returning isotherm + apparent dispersion; reported as *what is discoverable there* |

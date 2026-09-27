@@ -76,3 +76,31 @@ def slow_manifold(F_alg, q, max_terms=3):
     equilibrium the bed lies on the slow manifold q = q*(c, T); what is discoverable
     there is that algebraic law, not k. Exact best-subset on the algebraic problem."""
     return best_subset(F_alg, np.asarray(q, float), max_terms=max_terms)
+
+
+def sindy_pi(F, dq, max_terms=5):
+    """M6, SINDy-PI (Kaheman, Kutz & Brunton 2020, S21): implicit discovery for RATIONAL
+    laws, run with the agnostic library and NO measured isotherm (isothermal control
+    only -- PREREG_P2 §3: exp(-dH/RT) is not polynomial). The library is augmented with
+    dq/dt and its products with c and q; each dq-containing term is tried as the
+    left-hand side, fitted by exact best-subset on the rest, and the candidate with the
+    smallest relative residual wins. Returned normalised so the dq coefficient is 1:
+    {term: coefficient} of the implicit relation  sum coef * term = 0."""
+    aug = dict(F)
+    aug["dq"] = dq
+    aug["c*dq"] = F["c"] * dq
+    aug["q*dq"] = F["q"] * dq
+    best = None
+    for lhs in ("dq", "c*dq", "q*dq"):
+        rest = {k: v for k, v in aug.items() if k != lhs}
+        co = best_subset(rest, aug[lhs], max_terms=max_terms)
+        pred = sum(co[k] * rest[k] for k in co)
+        rel = float(np.linalg.norm(aug[lhs] - pred) / np.linalg.norm(aug[lhs]))
+        if best is None or rel < best[0]:
+            best = (rel, lhs, co)
+    _, lhs, co = best
+    rel_coefs = {lhs: 1.0, **{k: -v for k, v in co.items()}}
+    if "dq" not in rel_coefs:
+        return lhs, rel_coefs                   # no dq term: not a rate law
+    s = rel_coefs["dq"]
+    return lhs, {k: v / s for k, v in rel_coefs.items()}
