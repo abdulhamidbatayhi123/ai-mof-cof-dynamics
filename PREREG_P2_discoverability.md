@@ -91,6 +91,24 @@ on a 201-point grid between the coarse neighbours of its interval, because at lo
 noise the interval is narrower than one coarse step. Phase B (M1, M2-weak, M5–M9, the
 cell runner, the analysis) follows its own plan.
 
+**Which methods can see which observation model** (decided before the freeze; a
+method is never run where its input does not exist):
+
+| | O1 (c, q, T interior) | O2 (c, T interior; q latent) | O3 (outlet only) |
+|---|---|---|---|
+| M2, M2b, M3, M4, M6, M8 (regression on q and dq/dt) | ✔ | ✘ — q unobserved | ✘ |
+| M5 EIV (ODR-BINDy, WENDy) | ✔ | ✘ | ✘ |
+| M7 PySR on (features → dq/dt) | ✔ | ✘ | ✘ |
+| M9 slow-manifold | ✔ | ✘ | ✘ |
+| M1 UDE (network in the uptake term, trained through the PDE) + sparse/symbolic readout | ✔ | ✔ | ✔ |
+| profile likelihood (law known) | ✔ ODE per probe | ✔ PDE forward solve | ✔ PDE forward solve |
+
+So the O2/O3 comparison is M1 against identifiability, and it is where the
+experimentally realistic answer lives; O1 is the optimistic ceiling for everything
+else. In O2/O3 the profile likelihood needs a PDE solve per k: coarse 25-point k grid
+plus the 201-point refinement only near the optimum, 3 replicates, on the §4.2
+subgrid.
+
 **Implementation audit (2026-09-25, search results — each repository must be opened
 and its licence and language confirmed before the freeze):** WENDy — reference code
 github.com/MathBioCU/WENDy (appears to be MATLAB) and a constrained variant

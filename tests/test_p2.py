@@ -92,3 +92,25 @@ def test_strong_form_fails_where_weak_form_succeeds_under_noise():
     G, b = weak_system(F, q, s["t"])
     weak = best_subset(G, b, max_terms=4)
     assert k_accuracy(weak, 0.02) < k_accuracy(strong, 0.02)
+
+
+from p2.run_o1 import discover_o1
+
+
+def _synthetic_obs(k=0.02, n_probe=5):
+    chans = {"c": [], "q": [], "T": []}
+    for j in range(n_probe):
+        s = ldf_series(k=k, n=200, t_end=600.0)   # same isotherm as qstar_meas below
+        for ch in chans:
+            chans[ch].append(s[ch])
+    qs = lambda c, T: 5.0 * 3.0 * np.asarray(c) / (1 + 3.0 * np.asarray(c))
+    t = np.linspace(0, 600.0, 200)
+    return {"t": t, "channels": {k_: np.array(v) for k_, v in chans.items()}, "qstar_meas": qs}
+
+
+def test_discover_o1_recovers_law_in_both_forms_and_all_solvers():
+    obs = _synthetic_obs()
+    for method in ("best_subset", "stlsq", "ensemble"):
+        for form in ("strong", "weak"):
+            coefs = discover_o1(obs, method, form)
+            assert success_L1(coefs), (method, form, coefs)
