@@ -258,9 +258,17 @@ def generate_breakthrough_data(
         lap[-1] = (f[-2] - f[-1]) / dz**2   # zero-gradient outlet
         return lap
 
+    # Optional state-dependent rate k(q) for paper 2's H2d (a rate that drops across
+    # an isotherm step, as reported for MOF-303). When absent -- every existing
+    # caller -- the expression below is the original one, unchanged.
+    k_of_q = getattr(physics, "k_of_q", None)
+
     def rhs(t, y):
         c, q, T = np.split(y, 3)
-        dq_dt = physics.k_LDF * (q_star_np(c, T, physics) - q)
+        if k_of_q is None:
+            dq_dt = physics.k_LDF * (q_star_np(c, T, physics) - q)
+        else:
+            dq_dt = k_of_q(q) * (q_star_np(c, T, physics) - q)
         dc_dt = physics.D_L * laplacian(c, c_in) - adv_c(c, c_in) - src_factor * dq_dt
         dT_dt = (
             alpha_T * laplacian(T, T_in)
