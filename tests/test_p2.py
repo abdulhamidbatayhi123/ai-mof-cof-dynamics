@@ -67,3 +67,28 @@ def test_profile_interval_brackets_truth_and_is_narrow_at_low_noise():
     lo, hi = profile_interval(s["t"], s["c"], q_obs, lambda c: 5.0 * 3.0 * c / (1 + 3.0 * c),
                               sigma=0.005 * np.ptp(s["q"]))
     assert lo < 0.02 < hi and hi / lo < 1.5
+
+
+from p2.weak import weak_system
+
+
+def test_weak_form_recovers_ldf_at_zero_and_under_noise():
+    for sigma in (0.0, 0.02):
+        s = ldf_series(k=0.02, n=400)
+        q = s["q"] + np.random.default_rng(3).normal(scale=sigma * np.ptp(s["q"]), size=s["q"].size)
+        F = lib_b(s["c"], q, s["T"], s["qstar"])
+        G, b = weak_system(F, q, s["t"])
+        coefs = best_subset(G, b, max_terms=4)
+        assert success_L1(coefs), (sigma, coefs)
+        assert k_accuracy(coefs, 0.02) < 0.05, (sigma, coefs)
+
+
+def test_strong_form_fails_where_weak_form_succeeds_under_noise():
+    """The reason the weak form is in the competitor list: noisy derivatives."""
+    s = ldf_series(k=0.02, n=400)
+    q = s["q"] + np.random.default_rng(3).normal(scale=0.02 * np.ptp(s["q"]), size=s["q"].size)
+    F = lib_b(s["c"], q, s["T"], s["qstar"])
+    strong = best_subset(F, derivative(q, s["t"]), max_terms=4)
+    G, b = weak_system(F, q, s["t"])
+    weak = best_subset(G, b, max_terms=4)
+    assert k_accuracy(weak, 0.02) < k_accuracy(strong, 0.02)
