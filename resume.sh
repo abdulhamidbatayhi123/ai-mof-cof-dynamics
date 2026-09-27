@@ -135,6 +135,19 @@ if [ -f autorun.log ] && [ "$QDONE" = "0" ]; then
   fi
 fi
 
+# A full disk killed four follow-up stages on 2026-09-26 (ENOSPC) and nothing
+# said so until the logs were read. Report free space every time; shout below 10 GB.
+FREE_GB=$(df -BG /c 2>/dev/null | awk 'NR==2 {gsub("G","",$4); print $4}')
+if [ -n "$FREE_GB" ] && [ "$FREE_GB" -lt 10 ]; then
+  echo
+  echo "  ############################################################"
+  echo "  #  DISK NEARLY FULL: ${FREE_GB} GB free on C:. Runs die with"
+  echo "  #  ENOSPC. Free space before anything else."
+  echo "  ############################################################"
+else
+  echo "  (disk: ${FREE_GB:-?} GB free on C:)"
+fi
+
 if [ "$1" != "go" ]; then
   echo
   echo "  (nothing run. use  ./resume.sh go  to continue the work)"
