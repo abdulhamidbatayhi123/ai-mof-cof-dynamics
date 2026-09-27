@@ -422,7 +422,7 @@ def gate_clausius_clapeyron():
     -dH as the isosteric heat (or vice versa) is a real 5 % error in any
     regeneration-energy calculation downstream.
     """
-    rows, ok = [], True
+    rows, ok, vals = [], True, {}
     for _, kind, _ in DATASETS:
         phys = _physics(kind)
         T0 = getattr(phys, "T_in", 298.0)
@@ -433,6 +433,10 @@ def gate_clausius_clapeyron():
             q_t = frac * phys.q_max
             cs = np.array([_invert_isotherm(phys, q_t, T) for T in temps])
             if not np.all(np.isfinite(cs)):
+                # audit_hygiene #25: this used to `continue` silently, so a loading the
+                # gate could not check still counted as a pass.
+                ok = False
+                rows.append(f"{kind}@{frac:.0%}: NOT INVERTIBLE -- loading unchecked")
                 continue
             lnP = np.log(cs * temps)          # P = cRT
             slope = np.polyfit(1.0 / temps, lnP, 1)[0]
@@ -443,9 +447,12 @@ def gate_clausius_clapeyron():
                 rows.append(f"{kind}@{frac:.0%}: q_st={q_st / 1000:.3f} vs -dH+RT={expected / 1000:.3f} kJ/mol ({100 * rel:.2f}% off)")
             else:
                 rows.append(f"{kind}@{frac:.0%}: {q_st / 1000:.3f} kJ/mol ({100 * rel:.3f}%)")
+            vals[f"{kind}@{frac:.2f}"] = float(rel)
     if not rows:
         raise Skip("isotherm could not be inverted at any loading")
-    return ok, "; ".join(rows)
+    # structured, so the manuscript's "reproduced to 0.004 %" reads a number, not a string
+    vals["max_rel_err"] = max(v for k, v in vals.items() if "@" in k) if vals else None
+    return ok, "; ".join(rows), vals
 
 
 @gate("isotherm operating point is informative", "isotherm")

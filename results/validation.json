@@ -21,7 +21,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "244 macros used, all resolved from results files; 45 literals declared with reasons; 60 measured quantities still OWED as words"
+      "evidence": "257 macros used, all resolved from results files; 45 literals declared with reasons; 37 measured quantities still OWED as words"
     },
     {
       "gate": "checkpoint parameters are finite",
@@ -45,7 +45,16 @@
       "gate": "isotherm obeys Clausius-Clapeyron",
       "category": "isotherm",
       "state": "PASS",
-      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)"
+      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)",
+      "values": {
+        "default@0.25": 3.643791414014208e-05,
+        "default@0.50": 3.643791413889424e-05,
+        "default@0.75": 3.64379141373691e-05,
+        "mof303@0.25": 3.545184096746266e-05,
+        "mof303@0.50": 3.545184096732544e-05,
+        "mof303@0.75": 3.5451840967874355e-05,
+        "max_rel_err": 3.643791414014208e-05
+      }
     },
     {
       "gate": "isotherm operating point is informative",
@@ -181,7 +190,7 @@
       "gate": "the manuscript contains no hand-typed number",
       "category": "integrity",
       "state": "PASS",
-      "evidence": "244 macros used, all resolved from results files; 45 literals declared with reasons; 60 measured quantities still OWED as words"
+      "evidence": "257 macros used, all resolved from results files; 45 literals declared with reasons; 37 measured quantities still OWED as words"
     },
     "checkpoint parameters are finite": {
       "gate": "checkpoint parameters are finite",
@@ -205,7 +214,16 @@
       "gate": "isotherm obeys Clausius-Clapeyron",
       "category": "isotherm",
       "state": "PASS",
-      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)"
+      "evidence": "default@25%: 52.476 kJ/mol (0.004%); default@50%: 52.476 kJ/mol (0.004%); default@75%: 52.476 kJ/mol (0.004%); mof303@25%: 53.019 kJ/mol (0.004%); mof303@50%: 53.019 kJ/mol (0.004%); mof303@75%: 53.019 kJ/mol (0.004%)",
+      "values": {
+        "default@0.25": 3.643791414014208e-05,
+        "default@0.50": 3.643791413889424e-05,
+        "default@0.75": 3.64379141373691e-05,
+        "mof303@0.25": 3.545184096746266e-05,
+        "mof303@0.50": 3.545184096732544e-05,
+        "mof303@0.75": 3.5451840967874355e-05,
+        "max_rel_err": 3.643791414014208e-05
+      }
     },
     "isotherm operating point is informative": {
       "gate": "isotherm operating point is informative",

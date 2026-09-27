@@ -37,7 +37,7 @@ they fit. We ask instead what \emph{binds} their error when they are required to
 predict a material they have never seen, and which of the standard interventions
 moves it. Seven candidate explanations were named in advance, each with the
 evidence that would eliminate it, and tested on a reference solver verified against
-four closed-form solutions and compared, with nothing fitted, against a published
+\nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, against a published
 MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
 it reproduces and whose first-wave timing it does not. Six are eliminated, three of
 them on a smaller design of \nNclustLegacy\ held-out materials and three on \nNclustFolds, and we mark
@@ -153,7 +153,7 @@ than studied here.
 for the transfer error of an adsorption-column surrogate, with the eliminating
 evidence declared before each run and every null reported with its minimum
 detectable effect.
-\item A reference solver verified against four closed-form solutions
+\item A reference solver verified against \nLzeroNchecks{} closed-form solutions
 (Section~\ref{sec:reference}) and against a published MOF-303 packed bed with no
 parameter fitted to the curve (Section~\ref{sec:physics}).
 \item A direct measurement of what binds the error --- the parameter-to-coefficient
@@ -195,7 +195,7 @@ about one per cent, invariant across snapshot counts, until the inlet dispersive
 set to zero, after which closure improved to \(\nMassClosure\,\%\)
 (Section~\ref{sec:corrections}, B8). A 1982 bulletin predicted the defect.
 
-Four closed-form solutions, each isolating one term:
+\nLzeroNchecks{} closed-form solutions, each isolating one term:
 
 \begin{table}[t]
 \centering
@@ -256,7 +256,7 @@ f_H\,\frac{b_H c}{1 + b_H c}
 \end{equation}
 with \(b_H(T) = b_{H0}\exp(-\Delta H/RT)\) and \(b_C(T) = b_{C0}\exp(-\Delta H/RT)\).
 Both affinities carry the same \(\Delta H\), so \(q_{st} = -\Delta H + RT\) holds at
-every loading; it is reproduced to four thousandths of a per cent identically at a quarter, a half and three quarters of capacity.
+every loading; it is reproduced to within \nIsoCCmaxErr\,\% at a quarter, a half and three quarters of capacity.
 
 The phrase ``in the spirit of'' is deliberate. Do and Do superpose an \(n\)-layer
 BET primary term with a Sips term; ours is a Langmuir primary term with a Sips term.
@@ -493,7 +493,7 @@ exponent. Both axes are open; materials are the one that matters.
 \subsection{L2 --- more capacity}
 
 Twenty-eight configurations in both directions around the L1 setting, on the same
-folds and basis. Three families are U-shaped with interior optima
+folds and basis. \nLtwoNUshaped{} families are U-shaped with interior optima
 (\nLtwoWidthShape; \nLtwoDepthShape; \nLtwoXgbShape) and the random forest
 \nLtwoRfShape\ --- it is still improving at its last step, but that step is a fully
 grown forest, the ceiling of its capacity knob. The decisive evidence is decoupling:

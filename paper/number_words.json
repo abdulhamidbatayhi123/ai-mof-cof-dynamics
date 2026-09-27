@@ -7,13 +7,6 @@
   "line_at_review": 15
  },
  {
-  "key": " [four] closed-form solutions and com",
-  "word": "four",
-  "class": "OWED",
-  "reason": "number of closed-form verification checks -- count from verify_solver.json",
-  "line_at_review": 17
- },
- {
   "key": "irst-wave timing it does not. [Six] are eliminated, three of",
   "word": "Six",
   "class": "OWED",
@@ -91,13 +84,6 @@
   "line_at_review": 119
  },
  {
-  "key": "rence solver verified against [four] closed-form solutions",
-  "word": "four",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 123
- },
- {
   "key": " [third] - or flux-type boundary condit",
   "word": "third",
   "class": "PROSE",
@@ -140,13 +126,6 @@
   "line_at_review": 162
  },
  {
-  "key": " [Four] closed-form solutions, each i",
-  "word": "Four",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 165
- },
- {
   "key": "orm solutions, each isolating [one] term:",
   "word": "one",
   "class": "PROSE",
@@ -180,34 +159,6 @@
   "class": "OWED",
   "reason": "a verified count (inflection points) -- gate evidence, no macro",
   "line_at_review": 210
- },
- {
-  "key": "loading; it is reproduced to [four] thousandths of a per cent ide",
-  "word": "four",
-  "class": "OWED",
-  "reason": "Clausius-Clapeyron consistency error 0.004 %: in validation.json evidence only",
-  "line_at_review": 226
- },
- {
-  "key": "f a per cent identically at a [quarter] , a half and three quarters of",
-  "word": "quarter",
-  "class": "DESIGN",
-  "reason": "the three loadings checked are the gate's design",
-  "line_at_review": 226
- },
- {
-  "key": "t identically at a quarter, a [half] and three quarters of capacit",
-  "word": "half",
-  "class": "DESIGN",
-  "reason": "same",
-  "line_at_review": 226
- },
- {
-  "key": "ally at a quarter, a half and [three] quarters of capacity.",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "same",
-  "line_at_review": 226
  },
  {
   "key": "t a quarter, a half and three [quarters] of capacity.",
@@ -418,13 +369,6 @@
   "class": "OWED",
   "reason": "L2 configuration count -- from l2_v2_verdict.json",
   "line_at_review": 462
- },
- {
-  "key": "folds and basis. [Three] families are U-shaped with in",
-  "word": "Three",
-  "class": "OWED",
-  "reason": "count of U-shaped families -- from l2_v2_verdict.json",
-  "line_at_review": 463
  },
  {
   "key": "depth optimum [two] layers lower. The earlier sen",
@@ -1265,5 +1209,26 @@
   "class": "CITED",
   "reason": "reported by Pai et al. 2022 (13X and LiX)",
   "line_at_review": 98
+ },
+ {
+  "key": "\\,\\% at a quarter, a half and [three] quarters of capacity.",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
+  "line_at_review": 236
+ },
+ {
+  "key": "produced to within \\,\\% at a [quarter] , a half and three quarters of",
+  "word": "quarter",
+  "class": "DESIGN",
+  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
+  "line_at_review": 236
+ },
+ {
+  "key": "within \\,\\% at a quarter, a [half] and three quarters of capacit",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
+  "line_at_review": 236
  }
 ]

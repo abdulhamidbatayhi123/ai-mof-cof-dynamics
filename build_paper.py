@@ -212,6 +212,19 @@ def main():
     # Check 4: numbers written as WORDS (audit_hygiene #3). A ratchet, not a ban --
     # see paper/number_words.py. An unreviewed number-word refuses the build; the
     # reviewed-but-OWED ones are counted on every build so the debt stays visible.
+    # Check 5: an UNESCAPED percent sign right after a quantity. In LaTeX `%` starts a
+    # comment, so "\nX\,% of the samples" silently deletes the rest of the line from the
+    # PDF -- and every other check runs AFTER comments are stripped, so none can see it.
+    # Caught 2026-09-27 in an edit of this very session before it was built.
+    raw_body = src.split(r"\begin{document}", 1)[-1]
+    bad_pct = [(i, ln.strip()[:100]) for i, ln in enumerate(raw_body.splitlines(), 1)
+               if re.search(r"(\\,|\\\s|\d|\\n[A-Za-z]+\{\})%", ln)]
+    for ln, ctx in bad_pct:
+        print(f"  UNESCAPED %  line {ln}: {ctx}")
+    if bad_pct:
+        print("\nBUILD REFUSED: an unescaped % after a quantity comments out the rest of the line.")
+        sys.exit(1)
+
     sys.path.insert(0, os.path.join(ROOT, "paper"))
     import number_words
     nw_unreviewed, nw_owed, nw_stale = number_words.check(b, strip_structural)

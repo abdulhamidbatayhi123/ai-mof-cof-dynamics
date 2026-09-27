@@ -364,6 +364,13 @@ SPEC = [
     # The anchor bed's conditions, as compare_lassitter.py runs them (anchor_bed.py).
     # These rode through build_paper inside \SI{}{}, which the gate stripped whole.
     ("AnchorBedLenMm", "results/anchor_bed.json", "bed_length_mm", "{:.2f}"),
+    # counts that were typed as words (number_words.json OWED); each is now read
+    ("LzeroNchecks", "verify_solver.json", "",
+     lambda d: str(sum(1 for k in d if not k.startswith("_")))),
+    ("IsoCCmaxErr", "results/validation.json",
+     "by_gate.isotherm obeys Clausius-Clapeyron.values.max_rel_err", lambda x: f"{100 * x:.3f}"),
+    ("LtwoNUshaped", "results/l2_v2_verdict.json", "families",
+     lambda f: str(sum(1 for v in f.values() if v["shape"].startswith("U-SHAPED")))),
     ("AnchorPelletsDeep", "results/dispersion_check.json",
      "anchor.cases.dp3mm_primary.pellets_deep", "{:.1f}"),
     ("AnchorTubeMm", "results/anchor_bed.json", "tube_diameter_mm", "{:.1f}"),
@@ -577,7 +584,12 @@ def resolve(verbose=False):
             # The harness record is only a source if it is a clean, FULL run. Reading
             # n_pass let a failing or skipped gate shrink the reported harness instead
             # of stopping the build (audit_hygiene #4, #8).
-            bad = [f"{g['gate']} [{g['state']}]" for g in doc.get("gates", []) if g["state"] != "PASS"]
+            # The manuscript gate is EXCLUDED: it checks numbers.tex, which this script
+            # writes, so requiring it here deadlocks the moment a macro is sourced from
+            # validation.json (hit 2026-09-27 adding IsoCCmaxErr). build_paper.py runs the
+            # identical checks on the regenerated numbers.tex, so nothing escapes.
+            bad = [f"{g['gate']} [{g['state']}]" for g in doc.get("gates", [])
+                   if g["state"] != "PASS" and g["gate"] != "the manuscript contains no hand-typed number"]
             if doc.get("only") is not None or bad or "n_gates" not in doc:
                 failures.append(f"{key}: {fname} is not a clean full harness run "
                                 f"(only={doc.get('only')!r}; not passing: {', '.join(bad) or 'none'}"

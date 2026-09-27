@@ -191,6 +191,9 @@
     "AnchorNrmseBrug": "0.083",
     "AnchorPlateauER": "0.293",
     "AnchorBedLenMm": "6.35",
+    "LzeroNchecks": "4",
+    "IsoCCmaxErr": "0.004",
+    "LtwoNUshaped": "3",
     "AnchorPelletsDeep": "2.1",
     "AnchorTubeMm": "38.1",
     "AnchorRH": "32.8",
@@ -1042,6 +1045,18 @@
     "AnchorBedLenMm": {
       "file": "results/anchor_bed.json",
       "path": "bed_length_mm"
+    },
+    "LzeroNchecks": {
+      "file": "verify_solver.json",
+      "path": ""
+    },
+    "IsoCCmaxErr": {
+      "file": "results/validation.json",
+      "path": "by_gate.isotherm obeys Clausius-Clapeyron.values.max_rel_err"
+    },
+    "LtwoNUshaped": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families"
     },
     "AnchorPelletsDeep": {
       "file": "results/dispersion_check.json",
