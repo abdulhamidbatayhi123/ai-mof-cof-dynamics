@@ -88,6 +88,17 @@ MIOSR — github.com/wesg52/pysindy-miosr (needs a Gurobi licence, hence M4's ex
 enumeration). A port to Python is acceptable only if it reproduces the original
 paper's published example to the reported accuracy, recorded in a results file.
 
+**Opened 2026-09-27:** ODR-BINDy (llfung) is MATLAB, requires R2024a+, ships
+Lorenz / Rössler / Van der Pol / nonlinear-oscillator examples and a LICENSE file;
+the authors state a Python/Julia package does not yet exist. WENDy (MathBioCU) is
+MATLAB; its README says Figures 3–7 reproduce from `wendy_script.m`; no licence was
+visible on the page (to be checked in the file listing before use). **MATLAB is not
+installed on this machine** (a stale PATH entry only). Route, in order: (1) the Julia
+port of ODR-BINDy via `juliacall` in `.venv`, verified on the Lorenz example; (2) a
+Python port of each, verified on the authors' own example to the paper's reported
+accuracy; (3) if neither can be verified, the method is reported as NOT RUN in its
+strongest form — never replaced silently.
+
 ## 4. Design
 
 ### 4.1 Ground truth
