@@ -172,3 +172,21 @@ def test_jax_column_matches_verified_solver():
     yj = np.asarray(solve(p, 50, 1.0, 3 * ts, t))
     exit_ref, exit_jax = y[49], yj[:, 49]
     assert np.max(np.abs(exit_ref - exit_jax)) < 5e-3, np.max(np.abs(exit_ref - exit_jax))
+
+
+def test_outlet_profile_likelihood_brackets_k_in_kinetic_regime():
+    """O3 identifiability: the whole column refitted to outlet c(t), T(t) per k.
+    Fresh run (not a grid cell) at a low Da, where k must be identifiable."""
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    from p2.identifiability import profile_interval_outlet
+    p = AdsorptionPhysicsConfig()
+    k_true = 2e-4
+    p.k_LDF = k_true
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    z, t, y = generate_breakthrough_data(p, N_z=100, t_final=4 * ts, n_snapshots=120, verbose=False)
+    rng = np.random.default_rng(5)
+    c_obs = y[99] + rng.normal(scale=0.005, size=t.size)
+    T_obs = y[299] + rng.normal(scale=0.005 * np.ptp(y[299]), size=t.size)
+    lo, hi = profile_interval_outlet(p, 1.0, t, c_obs, T_obs, sigma_c=0.005,
+                                     sigma_T=0.005 * np.ptp(y[299]), n_z=100)
+    assert lo < k_true < hi and hi / lo < 2.0, (lo, hi)
