@@ -33,3 +33,16 @@ def discover_o1(obs, method, form):
             raise ValueError(form)
     F_all = {k: np.concatenate([B[k] for B in blocks_F]) for k in blocks_F[0]}
     return SOLVERS[method](F_all, np.concatenate(blocks_y))
+
+
+def discover_o2(obs, phys, method, form, probes=None):
+    """O2 via M1b: invert the gas balance for q at every observed position, then run
+    the O1 pipeline on (c, q_recovered, T). `probes` selects which positions enter the
+    regression (the inversion needs neighbours in z, so edge positions are dropped)."""
+    from p2.massbal import invert_uptake
+    c, T = obs["channels"]["c"], obs["channels"]["T"]
+    q_hat = invert_uptake(c, obs["z"], obs["t"], phys, obs["c_in"])
+    sel = probes if probes is not None else slice(1, c.shape[0] - 1)
+    o1 = {"t": obs["t"], "qstar_meas": obs["qstar_meas"],
+          "channels": {"c": c[sel], "q": q_hat[sel], "T": T[sel]}}
+    return discover_o1(o1, method, form)

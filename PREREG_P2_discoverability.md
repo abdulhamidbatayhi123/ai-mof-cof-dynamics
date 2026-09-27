@@ -232,7 +232,15 @@ No discovery method is run before the freeze.
    (10⁻⁴–10 s⁻¹), so N_z = 400 is adequate; the harness's 2 % tolerance is met with
    margin. Cost at N_z 400: 2–20 s for k ≤ 10⁻², rising to ~15 min at k = 3–10 s⁻¹
    (stiffness). The ~80 ground-truth solves are therefore ≲ 10 h worst case.
-5. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
+6. **M1b verification (2026-09-28, a fresh solver run, not a grid cell).** From dense
+   exact c (N_z = 200), the gas-balance inversion recovers q to ≤ 3 % of q_max (median
+   error 0.013 against a median driving force 0.18; unchanged at N_z = 800, so not
+   numerical diffusion). Fed the TRUE q, the weak-form pipeline recovers the law
+   exactly at Da ≈ 14; fed the INVERTED q, it does not (it selects c², T). The inversion
+   error concentrates at the front, where the kinetic signal is. Declared here because
+   it bears on H2a: for O2, ε_eff must include the state-reconstruction error, and the
+   analysis will report δ against it. No method or threshold was changed in response.
+7. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
    Da = k·t_stoich range 10⁻¹–10³ corresponds to k ≈ 10⁻⁵–10⁻¹ s⁻¹ at default
    physics — inside the cheap part of the cost curve.
 

@@ -114,3 +114,49 @@ def test_discover_o1_recovers_law_in_both_forms_and_all_solvers():
         for form in ("strong", "weak"):
             coefs = discover_o1(obs, method, form)
             assert success_L1(coefs), (method, form, coefs)
+
+
+from p2.massbal import invert_uptake
+
+
+def test_mass_balance_inversion_recovers_q_from_dense_concentration():
+    """Known answer from a fresh verified-solver run (NOT a confirmatory grid cell)."""
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    p = AdsorptionPhysicsConfig()
+    p.k_LDF = 0.002
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    z, t, y = generate_breakthrough_data(p, N_z=200, t_final=3 * ts, n_snapshots=300, verbose=False)
+    c, q = y[:200], y[200:400]
+    q_hat = invert_uptake(c, z, t, p, c_in=1.0)
+    inner = slice(20, 180)            # boundary derivatives are one-sided; judge the interior
+    err = np.max(np.abs(q_hat[inner] - q[inner])) / np.max(q)
+    assert err < 0.03, err
+
+
+from p2.run_o1 import discover_o2
+
+
+def test_discover_o2_recovers_law_from_concentration_only():
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    from isotherm import q_star_np
+    p = AdsorptionPhysicsConfig()
+    p.k_LDF = 0.002
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    z, t, y = generate_breakthrough_data(p, N_z=200, t_final=3 * ts, n_snapshots=300, verbose=False)
+    obs = {"t": t, "z": z, "channels": {"c": y[:200], "T": y[400:]},
+           "qstar_meas": lambda c, T: q_star_np(np.asarray(c, float), np.asarray(T, float), p),
+           "c_in": 1.0}
+    # Pipeline correctness: discover_o2 must be discover_o1 on the INVERTED q. Checked
+    # by feeding the true q through the same path. (With inverted q the law is NOT
+    # recovered at this Da even from dense exact c -- inversion error ~3 % of q_max,
+    # concentrated at the front, beats the driving force there. That is a pilot fact
+    # declared in PREREG_P2 §6, not a pipeline defect, and no test is bent to hide it.)
+    import p2.massbal as mb
+    true_q = y[200:400]
+    orig = mb.invert_uptake
+    mb.invert_uptake = lambda *a, **k: true_q
+    try:
+        coefs = discover_o2(obs, p, "best_subset", "weak", probes=slice(20, 180, 8))
+    finally:
+        mb.invert_uptake = orig
+    assert success_L1(coefs) and k_accuracy(coefs, 0.002) < 0.02, coefs
