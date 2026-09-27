@@ -139,6 +139,13 @@ run_job "l4b-v2 follow-up (PREREG 4.2 extension, MDEs, B60 post-hoc)" \
   'grep -q L4B_V2_FOLLOWUP_DONE chain_l4b_v2_followup_outer.log 2>/dev/null' \
   'bash chain_l4b_v2_followup.sh >> chain_l4b_v2_followup_outer.log 2>&1'
 
+# --- 1b. second PREREG 4.2 extension: w1e-6 on the material axis ------------
+# Added 2026-09-27 AFTER job 1 (only bytes after the live read position changed).
+# w1e-5 made the material verdict "physics helps" but sits on the sweep edge,
+# unsaturated -- the rule says extend before the verdict. The chain prints its
+# marker only if every stage exits 0. ~8-10 h.
+run_job "l4b-v2 second extension (w1e-6, material axis)"   'grep -q L4B_V2_EXT2_DONE chain_l4b_v2_ext2_outer.log 2>/dev/null'   'bash chain_l4b_v2_ext2.sh >> chain_l4b_v2_ext2_outer.log 2>&1'
+
 # --- 2. L5's mechanism table on v2 -------------------------------------------
 # The cheapest experiment that most reduces the paper's risk (audit_risk.md):
 # moves the load-bearing "the coefficient map is what binds" table from 12

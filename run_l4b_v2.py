@@ -60,6 +60,10 @@ ARMS = ["data_only",
         # bottom edge of the original four-decade grid and was NOT saturated
         # against the data-only twin on the time axis, so the rule binds.
         "pi_fixed_w1e-5",
+        # w1e-6: the SECOND PREREG §4.2 extension (2026-09-27). With w1e-5 in, the
+        # material-axis optimum moved to w1e-5 -- again the bottom edge -- and it is
+        # significantly BETTER than the twin, i.e. not saturated. The rule binds again.
+        "pi_fixed_w1e-6",
         "pi_fixed_w1e-4", "pi_fixed_w1e-3", "pi_fixed_w1e-2", "pi_fixed_w1e-1", "pi_fixed_w1",
         "pi_gradnorm_t0.1", "pi_gradnorm_t1.0", "pi_gradnorm_t10",
         "pi_ntk", "pi_sa"]

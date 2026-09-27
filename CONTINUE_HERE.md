@@ -51,6 +51,18 @@ beside it** — both runners rewrite the whole results dict, so two writers mean
 last-writer-wins over all 66 cells. The follow-up now refuses to start if a runner
 is alive.
 
+### UPDATE 2026-09-27 — the extension landed; read this first
+
+- **Time axis: NO DIFFERENCE (final)** — w1e-5 0.01323 vs twin 0.01310, CI spans
+  zero, MDE 5 % at 99.5 % power. The interim "physics worse" below is REVERSED (B69).
+- **Material axis: NOT FINAL.** w1e-5 is significantly BETTER (0.02126 vs 0.02314,
+  CI [0.00125, 0.00263]) but is the unsaturated bottom edge again; PREREG §4.2 says
+  extend before the verdict. `chain_l4b_v2_ext2.sh` (autorun job 1b) runs w1e-6 on
+  the material axis, then refine/polish/analysis/sweeps, and prints its marker ONLY
+  if every stage exits 0. Do NOT write "physics helps" before it lands.
+- A **full disk** killed four follow-up stages on 2026-09-26 (ENOSPC). `write_atomic`
+  now waits for space; `resume.sh` reports free disk.
+
 ### The verdicts as they stand (NOT final — the extension is still landing)
 
 | axis | verdict from the completed sweep | what the extension is doing to it |
