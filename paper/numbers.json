@@ -191,6 +191,7 @@
     "AnchorNrmseBrug": "0.083",
     "AnchorPlateauER": "0.293",
     "AnchorBedLenMm": "6.35",
+    "AnchorPelletsDeep": "2.1",
     "AnchorTubeMm": "38.1",
     "AnchorRH": "32.8",
     "AnchorTK": "298.15",
@@ -250,11 +251,14 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "68",
-    "LedgerTotal": "94",
+    "LedgerB": "69",
+    "LedgerTotal": "95",
     "LedgerOwn": "33",
-    "LfourbVerdictMaterial": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
-    "LfourbVerdictTime": "PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1) \u2014 the legacy claim stands, now defended.",
+    "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
+    "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "AnchorAspect": "0.17",
+    "LCexpRatio": "0.55",
+    "LthreeLrDecades": "3.0",
     "FloorDrop": "28.7",
     "FNOxFloor": "43",
     "ONetxFloor": "53",
@@ -1039,6 +1043,10 @@
       "file": "results/anchor_bed.json",
       "path": "bed_length_mm"
     },
+    "AnchorPelletsDeep": {
+      "file": "results/dispersion_check.json",
+      "path": "anchor.cases.dp3mm_primary.pellets_deep"
+    },
     "AnchorTubeMm": {
       "file": "results/anchor_bed.json",
       "path": "tube_diameter_mm"
@@ -1294,6 +1302,15 @@
     "LfourbVerdictTime": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
+    },
+    "AnchorAspect": {
+      "derived": "anchor bed length divided by tube diameter"
+    },
+    "LCexpRatio": {
+      "derived": "conditions-axis learning-curve exponent over the materials-axis one"
+    },
+    "LthreeLrDecades": {
+      "derived": "decades between the Chebyshev and perceptron optimal learning rates"
     },
     "FloorDrop": {
       "derived": "POD floor at p=8 divided by the floor at p=128"

@@ -192,6 +192,7 @@
 \newcommand{\nAnchorNrmseBrug}{0.083}
 \newcommand{\nAnchorPlateauER}{0.293}
 \newcommand{\nAnchorBedLenMm}{6.35}
+\newcommand{\nAnchorPelletsDeep}{2.1}
 \newcommand{\nAnchorTubeMm}{38.1}
 \newcommand{\nAnchorRH}{32.8}
 \newcommand{\nAnchorTK}{298.15}
@@ -251,12 +252,18 @@
 \newcommand{\nDaLegacyMedian}{625.6}
 \newcommand{\nDaLegacyAbove}{98.9}
 \newcommand{\nLedgerA}{26}
-\newcommand{\nLedgerB}{68}
-\newcommand{\nLedgerTotal}{94}
+\newcommand{\nLedgerB}{69}
+\newcommand{\nLedgerTotal}{95}
 \newcommand{\nLedgerOwn}{33}
-\newcommand{\nLfourbVerdictMaterial}{NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1); the legacy 'hurts' claim is WITHDRAWN.}
-\newcommand{\nLfourbVerdictTime}{PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1) — the legacy claim stands, now defended.}
+\newcommand{\nLfourbVerdictMaterial}{PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1); the legacy claim is RETRACTED as a weighting artefact.}
+\newcommand{\nLfourbVerdictTime}{NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1); the legacy 'hurts' claim is WITHDRAWN.}
 % derived ratios — the formula behind each is in DERIVED in numbers.py
+% AnchorAspect: anchor bed length divided by tube diameter
+\newcommand{\nAnchorAspect}{0.17}
+% LCexpRatio: conditions-axis learning-curve exponent over the materials-axis one
+\newcommand{\nLCexpRatio}{0.55}
+% LthreeLrDecades: decades between the Chebyshev and perceptron optimal learning rates
+\newcommand{\nLthreeLrDecades}{3.0}
 % FloorDrop: POD floor at p=8 divided by the floor at p=128
 \newcommand{\nFloorDrop}{28.7}
 % FNOxFloor: the best FNO divided by the POD floor at p=128

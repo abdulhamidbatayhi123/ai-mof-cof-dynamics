@@ -305,7 +305,7 @@ pressure.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig7_anchor.pdf}
-\caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. The measured effluent shows a Henry-branch leak to an intermediate plateau near a third of the feed, then a cooperative shock much later in the run --- the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed one or two pellets deep.}
+\caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. The measured effluent shows a Henry-branch leak to an intermediate plateau near \nAnchorPlateauExp{} of the feed, then a cooperative shock much later in the run --- the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed about \nAnchorPelletsDeep{} pellets deep.}
 \label{fig:anchor}
 \end{figure}
 
@@ -336,7 +336,7 @@ is the isotherm's low-relative-humidity branch, whose Henry fraction was fitted 
 the step position and the capacity only. This is the first dynamic measurement that
 constrains it, and it is a limitation of our MOF-303 parameterisation rather than of
 the solver. The shock is \emph{too dispersed}: the axial-dispersion closure gives a
-column P\'eclet number of \nAnchorPeCol\ on a bed one or two pellets deep, where a
+column P\'eclet number of \nAnchorPeCol\ on a bed about \nAnchorPelletsDeep{} pellets deep, where a
 packed-bed correlation does not apply. That discrepancy is now measured rather than
 attributed --- Section~\ref{sec:limitations} shows that \nAnchorTcutPct\,\% of the
 excess arrival time comes from evaluating one correlation at a limit this bed does
@@ -487,7 +487,7 @@ regressor sees the same data. \emph{None of the gain is in the basis; all of it 
 in the parameter-to-coefficient map.} Modes whose coefficient map clears
 a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing.
 
-The conditions axis behaves differently: exponent \nLCcondBeta, half the material
+The conditions axis behaves differently: exponent \nLCcondBeta, \nLCexpRatio{} of the material
 exponent. Both axes are open; materials are the one that matters.
 
 \subsection{L2 --- more capacity}
@@ -532,8 +532,8 @@ matched-budget cell: the best Kolmogorov--Arnold network in the entire study is 
 the perceptron's \nLthreeBestKanMlp\ --- a difference of \nLthreeBestKanDiff,
 interval [\nLthreeBestKanLo, \nLthreeBestKanHi], still significant.
 
-\paragraph{The tuning envelope is itself a result.} The families optimise three
-orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
+\paragraph{The tuning envelope is itself a result.} The families optimise
+\nLthreeLrDecades{} orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
 perceptron at \nLthreeMlpLr. Six configurations failed to train entirely and are
 excluded and listed, never averaged in. We did not tune the perceptron and leave the
 Kolmogorov--Arnold arms at a default.
@@ -1082,7 +1082,7 @@ beyond adsorption columns with inflected isotherms.
 \paragraph{Solver-versus-experiment and surrogate-versus-solver are different error
 budgets, and we keep them apart in those words.} Section~\ref{sec:anchor} is the only
 solver-versus-experiment comparison in this paper: one condition, on a bed whose
-aspect ratio is under a fifth, where a one-dimensional plug-flow model is at the edge of its
+aspect ratio is \nAnchorAspect, where a one-dimensional plug-flow model is at the edge of its
 validity. Every other number is surrogate-versus-solver.
 
 \paragraph{The dispersion closure needs a more careful statement than we first gave

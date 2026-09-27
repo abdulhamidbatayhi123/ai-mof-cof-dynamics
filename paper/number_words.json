@@ -238,28 +238,7 @@
   "line_at_review": 259
  },
  {
-  "key": "n intermediate plateau near a [third] of the feed, then a cooperati",
-  "word": "third",
-  "class": "OWED",
-  "reason": "experimental plateau level -- \\nAnchorPlateauExp exists",
-  "line_at_review": 275
- },
- {
   "key": "that are fully on record. The [two] named discrepancies are visib",
-  "word": "two",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 275
- },
- {
-  "key": "persion closure sets on a bed [one] or two pellets deep.}",
-  "word": "one",
-  "class": "OWED",
-  "reason": "pellets across the anchor bed -- derivable from anchor_bed.json + d_p",
-  "line_at_review": 275
- },
- {
-  "key": "closure sets on a bed one or [two] pellets deep.}",
   "word": "two",
   "class": "OWED",
   "reason": "same",
@@ -271,20 +250,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 299
- },
- {
-  "key": "\\'eclet number of \\ on a bed [one] or two pellets deep, where a",
-  "word": "one",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 306
- },
- {
-  "key": "number of \\ on a bed one or [two] pellets deep, where a",
-  "word": "two",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 306
  },
  {
   "key": "al time comes from evaluating [one] correlation at a limit this b",
@@ -448,13 +413,6 @@
   "line_at_review": 455
  },
  {
-  "key": "aves differently: exponent , [half] the material",
-  "word": "half",
-  "class": "OWED",
-  "reason": "ratio of the two learning-curve exponents -- DERIVED key needed",
-  "line_at_review": 457
- },
- {
   "key": " [Twenty-eight] configurations in both direct",
   "word": "Twenty-eight",
   "class": "OWED",
@@ -488,13 +446,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 498
- },
- {
-  "key": "esult.} The families optimise [three] ",
-  "word": "three",
-  "class": "OWED",
-  "reason": "orders of magnitude between optimal learning rates -- derived from macros",
-  "line_at_review": 502
  },
  {
   "key": "perceptron at . [Six] configurations failed to trai",
@@ -1125,13 +1076,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 1049
- },
- {
-  "key": "aspect ratio is under a [fifth] , where a plug",
-  "word": "fifth",
-  "class": "OWED",
-  "reason": "anchor aspect ratio -- derive from \\nAnchorBedLenMm/\\nAnchorTubeMm",
-  "line_at_review": 1050
  },
  {
   "key": "decades. Over that range the [two] published forms disagree by a",

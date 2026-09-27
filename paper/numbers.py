@@ -364,6 +364,8 @@ SPEC = [
     # The anchor bed's conditions, as compare_lassitter.py runs them (anchor_bed.py).
     # These rode through build_paper inside \SI{}{}, which the gate stripped whole.
     ("AnchorBedLenMm", "results/anchor_bed.json", "bed_length_mm", "{:.2f}"),
+    ("AnchorPelletsDeep", "results/dispersion_check.json",
+     "anchor.cases.dp3mm_primary.pellets_deep", "{:.1f}"),
     ("AnchorTubeMm", "results/anchor_bed.json", "tube_diameter_mm", "{:.1f}"),
     ("AnchorRH", "results/anchor_bed.json", "rh_percent", "{:.1f}"),
     ("AnchorTK", "results/anchor_bed.json", "T_K", "{:.2f}"),
@@ -469,6 +471,13 @@ SPEC = [
 # They are derived here rather than in the prose for the same reason every other number
 # is: a ratio typed into LaTeX is a number with no script behind it (B43).
 DERIVED = [
+    # number-words paid 2026-09-27 (paper/number_words.json OWED entries)
+    ("AnchorAspect", "anchor bed length divided by tube diameter",
+     lambda r: r["AnchorBedLenMm"] / r["AnchorTubeMm"], "{:.2f}"),
+    ("LCexpRatio", "conditions-axis learning-curve exponent over the materials-axis one",
+     lambda r: r["LCcondBeta"] / r["LCbeta"], "{:.2f}"),
+    ("LthreeLrDecades", "decades between the Chebyshev and perceptron optimal learning rates",
+     lambda r: __import__("math").log10(float(r["LthreeChebyLr"]) / float(r["LthreeMlpLr"])), "{:.1f}"),
     ("FloorDrop", "POD floor at p=8 divided by the floor at p=128",
      lambda r: r["LfiveFloorSmall"] / r["LfiveFloorLarge"], "{:.1f}"),
     ("FNOxFloor", "the best FNO divided by the POD floor at p=128",
