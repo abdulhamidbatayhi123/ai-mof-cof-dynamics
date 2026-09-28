@@ -63,7 +63,9 @@
     "LthreeChebyLarge": "0.1028",
     "LthreeMlpLr": "3e-05",
     "LthreeChebyLr": "0.03",
-    "LthreeArms": "63",
+    "LthreeArms": "69",
+    "LthreeNfailAll": "3",
+    "LthreeNfailSome": "4",
     "LthreeNrates": "8",
     "LthreeDecades": "3.5",
     "LthreeEdgeSatMin": "0.12",
@@ -260,8 +262,8 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "69",
-    "LedgerTotal": "95",
+    "LedgerB": "70",
+    "LedgerTotal": "96",
     "LedgerOwn": "33",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbTimeTwin": "0.0131",
@@ -556,6 +558,14 @@
     "LthreeArms": {
       "file": "results/l3_merged.json",
       "path": "n_arms"
+    },
+    "LthreeNfailAll": {
+      "file": "results/l3_merged.json",
+      "path": "failed_all_seeds"
+    },
+    "LthreeNfailSome": {
+      "file": "results/l3_merged.json",
+      "path": "failed_some_seeds"
     },
     "LthreeNrates": {
       "file": "results/l3_edges.json",

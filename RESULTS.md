@@ -211,8 +211,8 @@ bracketed on both sides.**
 
 The families want learning rates **three orders of magnitude apart**: `cheby_kan`
 optimises at 1e-2–3e-2 while the MLP optimises at 3e-5, and `mlp`@200k *diverges*
-at exactly the rate `cheby_kan`@200k needs. Six configurations failed to train
-entirely and are excluded and listed, not averaged in.
+at exactly the rate `cheby_kan`@200k needs. Three configurations failed on every
+seed and four more on some (`analyze_l3_merged.py`, B70); all are excluded and listed, not averaged in.
 
 That is **our measurement**, and it is reported rather than smoothed over. It sits in
 a literature which says that optimisation treatment dominates accuracy for

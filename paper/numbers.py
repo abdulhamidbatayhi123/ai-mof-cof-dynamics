@@ -194,6 +194,8 @@ SPEC = [
     ("LthreeMlpLr", "results/l3_merged.json", "table.800000_mlp.lr", "{:g}"),
     ("LthreeChebyLr", "results/l3_merged.json", "table.50000_cheby_kan.lr", "{:g}"),
     ("LthreeArms", "results/l3_merged.json", "n_arms", "{:d}"),
+    ("LthreeNfailAll", "results/l3_merged.json", "failed_all_seeds", lambda x: str(len(x))),
+    ("LthreeNfailSome", "results/l3_merged.json", "failed_some_seeds", lambda x: str(len(x))),
     # l3_edges.py: the grid as actually run across three files, and how far the
     # perceptron's bottom-edge selection is from saturated (rule 4 needs it measured).
     ("LthreeNrates", "results/l3_edges.json", "n_rates", "{:d}"),
