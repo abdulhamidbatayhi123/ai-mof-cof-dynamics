@@ -71,4 +71,5 @@ queued in `autorun.sh`; peak memory must stay within the machine's free RAM (N_S
 256, W_true freed before W_p).
 
 ## 7. Amendments
-(none)
+**A1, 2026-09-28 -- after the Stage-1 screen, before ANY Stage-2 reconstruction (so no warp outcome was seen).** (i) The screen ran (`results/warp_level_screen.json`): no absolute pair passes. Every L_lo in 0.10-0.50 fails G2 (50-93 % of cells cross within two grid steps -- the Henry wave lifts c early), 0.95 fails G3 (11 428 never-crossed cells on a fit set), and every pair fails G4. The pre-declared fallback therefore applies: Option B, then Option C. (ii) **The G5 pre-check is withdrawn as a stopping rule.** It was specified (following audit_risk #20) as the between-MATERIAL share of landmark variance, but the front locator's input includes the CONDITION parameters, which vary within a material; the between-material share is therefore not a ceiling on what the predictor can explain (the upper landmark's share is 0.017, i.e. almost all its variance is across conditions, which the predictor sees). G5 stays reported; it no longer stops the run. This is corrected before it could act, and would otherwise have cancelled the experiment for a wrong reason.
+

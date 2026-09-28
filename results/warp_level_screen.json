@@ -1,0 +1,691 @@
+{
+  "_note": "PREREG_WARP_v2 stage 1; guards on FIT materials per fold",
+  "NT": 128,
+  "g1_min_sd": 0.031496062992125984,
+  "g2_quantum": 0.015748031496062992,
+  "levels": {
+    "0.10": {
+      "0": {
+        "sd": 0.021708825409249302,
+        "boundary_frac": 0.931235119047619,
+        "never_crossed": 0,
+        "eta2": 0.32988368180139077,
+        "G1": false,
+        "G2": false,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.020051512809489958,
+        "boundary_frac": 0.9347560012634238,
+        "never_crossed": 0,
+        "eta2": 0.29611864713511604,
+        "G1": false,
+        "G2": false,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.021261589041039537,
+        "boundary_frac": 0.9354459046939423,
+        "never_crossed": 0,
+        "eta2": 0.34031367804036716,
+        "G1": false,
+        "G2": false,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.021504515216277498,
+        "boundary_frac": 0.9326854634609301,
+        "never_crossed": 0,
+        "eta2": 0.35172070781447123,
+        "G1": false,
+        "G2": false,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.0204409565996935,
+        "boundary_frac": 0.936804840880304,
+        "never_crossed": 0,
+        "eta2": 0.3147401033701619,
+        "G1": false,
+        "G2": false,
+        "G3": true
+      }
+    },
+    "0.20": {
+      "0": {
+        "sd": 0.03984771458050542,
+        "boundary_frac": 0.8589756944444444,
+        "never_crossed": 0,
+        "eta2": 0.334052184203366,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.039356141176383294,
+        "boundary_frac": 0.8607544022425774,
+        "never_crossed": 0,
+        "eta2": 0.32576038164093185,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.03925256012601437,
+        "boundary_frac": 0.8606114216619093,
+        "never_crossed": 0,
+        "eta2": 0.3384195769839428,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.03841754463703262,
+        "boundary_frac": 0.8599533375514078,
+        "never_crossed": 0,
+        "eta2": 0.34997587624835363,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.03920960441486571,
+        "boundary_frac": 0.8598623535465485,
+        "never_crossed": 0,
+        "eta2": 0.3258727309038779,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      }
+    },
+    "0.30": {
+      "0": {
+        "sd": 0.06352327389623803,
+        "boundary_frac": 0.7633258928571428,
+        "never_crossed": 0,
+        "eta2": 0.35584332776975997,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.06291250209423253,
+        "boundary_frac": 0.765716302116235,
+        "never_crossed": 0,
+        "eta2": 0.3600356276071632,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.06314587663584545,
+        "boundary_frac": 0.7638087733904219,
+        "never_crossed": 0,
+        "eta2": 0.35369850579241974,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.06147090193093194,
+        "boundary_frac": 0.7641519693135084,
+        "never_crossed": 0,
+        "eta2": 0.35062717173587865,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.06389063314633753,
+        "boundary_frac": 0.7599919846421785,
+        "never_crossed": 0,
+        "eta2": 0.35005039118325826,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      }
+    },
+    "0.40": {
+      "0": {
+        "sd": 0.09240082811973935,
+        "boundary_frac": 0.6409002976190477,
+        "never_crossed": 0,
+        "eta2": 0.3479909233135282,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.09197778163312298,
+        "boundary_frac": 0.6387915548010107,
+        "never_crossed": 0,
+        "eta2": 0.34129833386475655,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.09243284792483744,
+        "boundary_frac": 0.6384717927370758,
+        "never_crossed": 0,
+        "eta2": 0.34375822744579704,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.09114667336152865,
+        "boundary_frac": 0.6379211483707687,
+        "never_crossed": 0,
+        "eta2": 0.33631967860679385,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.09384799326239467,
+        "boundary_frac": 0.6322707211842938,
+        "never_crossed": 0,
+        "eta2": 0.3400554446501,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      }
+    },
+    "0.50": {
+      "0": {
+        "sd": 0.12619818680993256,
+        "boundary_frac": 0.49553819444444447,
+        "never_crossed": 0,
+        "eta2": 0.31758340911980837,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.12633039554299064,
+        "boundary_frac": 0.48814059538850285,
+        "never_crossed": 0,
+        "eta2": 0.30118408540772384,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.12634477847366915,
+        "boundary_frac": 0.48975677925784966,
+        "never_crossed": 0,
+        "eta2": 0.31427017784455313,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.12636608946416947,
+        "boundary_frac": 0.4874372231888643,
+        "never_crossed": 0,
+        "eta2": 0.3052690994555746,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.1280732405684907,
+        "boundary_frac": 0.48158941576947434,
+        "never_crossed": 0,
+        "eta2": 0.3078147994018556,
+        "G1": true,
+        "G2": false,
+        "G3": true
+      }
+    },
+    "0.90": {
+      "0": {
+        "sd": 0.22007665222579464,
+        "boundary_frac": 0.018018353174603173,
+        "never_crossed": 0,
+        "eta2": 0.017094558461405347,
+        "G1": true,
+        "G2": true,
+        "G3": true
+      },
+      "1": {
+        "sd": 0.2200779302508515,
+        "boundary_frac": 0.018090157138344914,
+        "never_crossed": 0,
+        "eta2": 0.019628644905856567,
+        "G1": true,
+        "G2": true,
+        "G3": true
+      },
+      "2": {
+        "sd": 0.22018973501415,
+        "boundary_frac": 0.01805572074215033,
+        "never_crossed": 0,
+        "eta2": 0.01963933616991023,
+        "G1": true,
+        "G2": true,
+        "G3": true
+      },
+      "3": {
+        "sd": 0.21983194060980388,
+        "boundary_frac": 0.017750514077823475,
+        "never_crossed": 0,
+        "eta2": 0.018166296847381906,
+        "G1": true,
+        "G2": true,
+        "G3": true
+      },
+      "4": {
+        "sd": 0.2195999033385032,
+        "boundary_frac": 0.017690686352121596,
+        "never_crossed": 0,
+        "eta2": 0.018108644168556624,
+        "G1": true,
+        "G2": true,
+        "G3": true
+      }
+    },
+    "0.95": {
+      "0": {
+        "sd": 0.24894509714934865,
+        "boundary_frac": 0.0031547619047619046,
+        "never_crossed": 11428,
+        "eta2": 0.04049863113873804,
+        "G1": true,
+        "G2": true,
+        "G3": false
+      },
+      "1": {
+        "sd": 0.24793268571308694,
+        "boundary_frac": 0.003138818698673405,
+        "never_crossed": 10760,
+        "eta2": 0.04275753008085662,
+        "G1": true,
+        "G2": true,
+        "G3": false
+      },
+      "2": {
+        "sd": 0.24870241785269617,
+        "boundary_frac": 0.003149282429432287,
+        "never_crossed": 11144,
+        "eta2": 0.042361879380437936,
+        "G1": true,
+        "G2": true,
+        "G3": false
+      },
+      "3": {
+        "sd": 0.2473152307979006,
+        "boundary_frac": 0.0030498655488769375,
+        "never_crossed": 10413,
+        "eta2": 0.03775534293897687,
+        "G1": true,
+        "G2": true,
+        "G3": false
+      },
+      "4": {
+        "sd": 0.24747273145928464,
+        "boundary_frac": 0.0030255501899936667,
+        "never_crossed": 10715,
+        "eta2": 0.041147757908193985,
+        "G1": true,
+        "G2": true,
+        "G3": false
+      }
+    }
+  },
+  "pairs": {
+    "0.10-0.90": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.006472468200161701,
+          "span_clamps_needed": 7483,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.006472468200161701,
+          "span_clamps_needed": 7557,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.006472468200161701,
+          "span_clamps_needed": 7505,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.006493253794711406,
+          "span_clamps_needed": 7402,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.006472468200161701,
+          "span_clamps_needed": 7377,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.10-0.95": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.006876997884333603,
+          "span_clamps_needed": 1336,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.006876997884333603,
+          "span_clamps_needed": 1331,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.006876997884333603,
+          "span_clamps_needed": 1332,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.006899082578542664,
+          "span_clamps_needed": 1292,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.006876997884333603,
+          "span_clamps_needed": 1281,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.20-0.90": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.005663409594475753,
+          "span_clamps_needed": 7693,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.005663409594475753,
+          "span_clamps_needed": 7770,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.005663409594475753,
+          "span_clamps_needed": 7722,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.005681596989706745,
+          "span_clamps_needed": 7612,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.005663409594475753,
+          "span_clamps_needed": 7575,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.20-0.95": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.006067939278647655,
+          "span_clamps_needed": 1410,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.006067939278647655,
+          "span_clamps_needed": 1405,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.006067939278647655,
+          "span_clamps_needed": 1395,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.006087425773538003,
+          "span_clamps_needed": 1360,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.006067939278647655,
+          "span_clamps_needed": 1354,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.30-0.90": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.004854351047455794,
+          "span_clamps_needed": 7908,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.004854351047455794,
+          "span_clamps_needed": 7966,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.004854351047455794,
+          "span_clamps_needed": 7941,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.004869940243368074,
+          "span_clamps_needed": 7820,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.004854351047455794,
+          "span_clamps_needed": 7785,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.30-0.95": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.005258880731627696,
+          "span_clamps_needed": 1476,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.005258880731627696,
+          "span_clamps_needed": 1476,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.005258880731627696,
+          "span_clamps_needed": 1466,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.005275769027199332,
+          "span_clamps_needed": 1426,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.005258880731627696,
+          "span_clamps_needed": 1424,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.40-0.90": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.004045292383103858,
+          "span_clamps_needed": 8141,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.004045292383103858,
+          "span_clamps_needed": 8185,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.004045292383103858,
+          "span_clamps_needed": 8157,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.004058283379697424,
+          "span_clamps_needed": 8039,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.004045292383103858,
+          "span_clamps_needed": 8010,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.40-0.95": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.0044498220672757605,
+          "span_clamps_needed": 1543,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.0044498220672757605,
+          "span_clamps_needed": 1547,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.0044498220672757605,
+          "span_clamps_needed": 1519,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.004464112163528683,
+          "span_clamps_needed": 1486,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.0044498220672757605,
+          "span_clamps_needed": 1489,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.50-0.90": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.0032362337187519224,
+          "span_clamps_needed": 8513,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.0032362337187519224,
+          "span_clamps_needed": 8553,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.0032362337187519224,
+          "span_clamps_needed": 8402,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.003246626516026775,
+          "span_clamps_needed": 8407,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.0032362337187519224,
+          "span_clamps_needed": 8393,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    },
+    "0.50-0.95": {
+      "per_fold": {
+        "0": {
+          "span_min": 0.0036407634029238245,
+          "span_clamps_needed": 1602,
+          "G4": false,
+          "passes": false
+        },
+        "1": {
+          "span_min": 0.0036407634029238245,
+          "span_clamps_needed": 1599,
+          "G4": false,
+          "passes": false
+        },
+        "2": {
+          "span_min": 0.0036407634029238245,
+          "span_clamps_needed": 1580,
+          "G4": false,
+          "passes": false
+        },
+        "3": {
+          "span_min": 0.003652455299858033,
+          "span_clamps_needed": 1540,
+          "G4": false,
+          "passes": false
+        },
+        "4": {
+          "span_min": 0.0036407634029238245,
+          "span_clamps_needed": 1543,
+          "G4": false,
+          "passes": false
+        }
+      },
+      "passes_all_folds": false
+    }
+  },
+  "selected": null,
+  "selected_words": "no absolute pair passes: fall back to Option B, then C (PREREG \u00a72)"
+}
