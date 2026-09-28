@@ -283,3 +283,27 @@ def test_kan_symbolic_recovers_ldf_at_zero_noise():
     kept = {k: v for k, v in coefs.items() if abs(v) > 0.05 * max(abs(x) for x in coefs.values())}
     assert set(kept) == {"q", "qstar"}, coefs
     assert abs(-kept["q"] / kept["qstar"] - 1) < 0.1 and abs(-kept["q"] - 0.02) < 0.004, coefs
+
+
+from p2.analysis import r_collapse, disc_vs_ident
+
+
+def _curve(center, rng, xs):
+    return {float(x): list(rng.random(20) < 1 / (1 + np.exp(3 * (np.log10(x) - center)))) for x in xs}
+
+
+def test_r_collapse_words_follow_the_spread():
+    rng = np.random.default_rng(0)
+    xs = np.logspace(-1, 3, 9)
+    together = {f"cond{i}": _curve(1.0 + 0.05 * i, rng, xs) for i in range(3)}
+    apart = {"a": _curve(0.0, rng, xs), "b": _curve(1.5, rng, xs)}
+    assert r_collapse(together, n_boot=100)["words"].startswith("R collapses")
+    assert r_collapse(apart, n_boot=100)["words"].startswith("R does not collapse")
+
+
+def test_disc_vs_ident_uses_the_declared_mde():
+    mde = 0.25
+    assert disc_vs_ident(10.0, 100.0, mde)["words"] == "discovery fails before identifiability"
+    assert disc_vs_ident(100.0, 110.0, mde)["words"] == "discovery fails with identifiability"
+    assert disc_vs_ident(100.0, 10.0, mde)["words"] == "discovery outlives identifiability"
+    assert disc_vs_ident(None, 10.0, mde)["words"].startswith("no boundary")
