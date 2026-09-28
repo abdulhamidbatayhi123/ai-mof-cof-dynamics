@@ -171,6 +171,10 @@ def strip_structural(text):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", action="store_true")
+    ap.add_argument("--pdf", action="store_true",
+                    help="also COMPILE with tools/tectonic.exe and refuse on any LaTeX error, "
+                         "undefined reference or undefined citation. Until 2026-09-28 nothing "
+                         "compiled the manuscript at all; the gates checked text, not a document.")
     args = ap.parse_args()
 
     r = subprocess.run([sys.executable, os.path.join(ROOT, "paper", "numbers.py")],
@@ -298,6 +302,27 @@ def main():
     if unused:
         print(f"  ({len(unused)} keys declared in numbers.py are not used yet: "
               f"{', '.join(unused[:8])}{' ...' if len(unused) > 8 else ''})")
+
+    if args.pdf:
+        tect = os.path.join(ROOT, "tools", "tectonic.exe")
+        if not os.path.exists(tect):
+            print("\n--pdf: tools/tectonic.exe not found (see CONTINUE_HERE); cannot compile.")
+            sys.exit(1)
+        r = subprocess.run([tect, "--keep-logs", "manuscript.tex"], cwd=os.path.join(ROOT, "paper"),
+                           capture_output=True, text=True)
+        log = os.path.join(ROOT, "paper", "manuscript.log")
+        text = open(log, encoding="utf-8", errors="replace").read() if os.path.exists(log) else ""
+        bad = [ln for ln in text.splitlines()
+               if ln.startswith("!") or "undefined" in ln.lower() and ("reference" in ln.lower()
+                                                                      or "citation" in ln.lower())]
+        if r.returncode != 0 or bad:
+            print("\nCOMPILE REFUSED:\n  " + "\n  ".join(bad[:10] or [r.stderr.strip()[-400:]]))
+            sys.exit(1)
+        over = [ln for ln in text.splitlines() if ln.startswith("Overfull") and
+                float(ln.split("(")[1].split("pt")[0]) > 20]
+        print(f"\nCOMPILED: paper/manuscript.pdf; {len(over)} overfull box(es) wider than 20 pt")
+        for ln in over:
+            print("  " + ln[:100])
 
 
 if __name__ == "__main__":

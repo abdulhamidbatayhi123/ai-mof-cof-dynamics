@@ -39,3 +39,10 @@ refs/*.docx
 autorun.lock
 autorun_state.json
 data/p2/
+tools/
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/manuscript.pdf

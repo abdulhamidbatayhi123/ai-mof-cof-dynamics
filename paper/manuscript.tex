@@ -206,6 +206,7 @@ set to zero, after which closure improved to \(\nMassClosure\,\%\)
 \caption{Verification of the reference solver. Each check isolates one term of the
 model against a closed form. Figure~\ref{fig:ladder}C.}
 \label{tab:l0}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llr}
 \toprule
 check & term isolated & error \\
@@ -215,7 +216,7 @@ retarded front, \(R = \nLzeroRetardedR\) & isotherm coupling, equilibrium limit 
 thermal wave, adsorption off & the energy equation & \nLzeroThermal\,\% \\
 linear driving force vs.\ Anzelius--Schumann \cite{anzelius1926uber,schumann1929heat} & kinetics & \nLzeroLDF{} abs \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Global mass balance closes to \(\nMassClosure\,\%\); grid convergence is \(\nGridConv\,\%\) at
@@ -917,6 +918,7 @@ paired cluster bootstrap by material:
 and is \emph{not} comparable with any arm that is not; it is reported to size the
 remaining headroom, never as a result.}
 \label{tab:warp}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lrl}
 \toprule
 arm & held-out nRMSE & verdict vs.\ the fixed frame \\
@@ -925,7 +927,7 @@ fixed frame & \nWarpFixed & --- \\
 two-wave, predicted fronts & \nWarpPredicted & \nWarpPredDiff, CI [\nWarpPredLo, \nWarpPredHi]: no difference \\
 two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \nWarpOracleHi]: significant \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Two statements, and both are needed. The honest arm does \emph{not} beat the fixed
@@ -1015,6 +1017,7 @@ row is a point on the learning curve of Section~\ref{sec:ladder}, priced. The la
 column is a \emph{lower} bound on the number of screening queries at which the
 surrogate becomes cheaper than the reference, and it holds whatever a query costs.}
 \label{tab:cost}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{rrrr}
 \toprule
 training materials & training simulations & held-out nRMSE & break-even queries \(\geq\) \\
@@ -1025,7 +1028,7 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 96  & \nCostSimsD     & \nCostErrD   & \nCostBeD \\
 192 & \nCostLargeSims & \nLClargest  & \nCostBreakEven \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \paragraph{What Table~\ref{tab:cost} says.} Three things, and the third is the one that matters.
