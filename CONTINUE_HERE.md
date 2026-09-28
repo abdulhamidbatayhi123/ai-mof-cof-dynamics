@@ -4,7 +4,45 @@ Rewritten **2026-09-24**, after the session that landed L4b-v2, launched its
 pre-registered follow-up, ran a six-agent audit of the whole manuscript, and fixed
 the twenty-two defects that audit found which were verifiable on the spot.
 Read this, then `RESULTS.md`, then `audit_2026-09-24/` (the open findings).
-`RETRACTIONS.md` is the record of everything withdrawn — **26 Part-A, 67 Part-B** (counted by `ledger_counts.py`; B65–B67 added 2026-09-25).
+`RETRACTIONS.md` is the record of everything withdrawn — counts in `results/ledger_counts.json` (26 Part-A, 69 Part-B as of 2026-09-28).
+
+---
+
+## 0. STATE AT 2026-09-28 (read first; supersedes older lines below where they differ)
+
+**The program is now multi-paper.** `RESEARCH_PROGRAM.md` maps the author's goals
+(equation discovery, KAN, operators, structure-preserving and liquid nets) onto four
+papers with fetched evidence in `research/`. Paper 1 = this ladder. Paper 2 = when
+equation discovery can recover adsorption kinetics (`PREREG_P2_discoverability.md`,
+DRAFT, not frozen). Papers 3–4 designed only.
+
+**Paper 1.**
+- L4b section WRITTEN (time axis final: NO DIFFERENCE; Q4 flip reported). The
+  material-axis verdict is GATED (`paper/numbers.py` GATED + `fig_ladder.py`) and
+  renders PENDING until `L4B_V2_EXT2_DONE` appears in `chain_l4b_v2_ext2_outer.log`
+  (w1e-6, autorun job 1b). When it lands: write the material paragraph, Q3 material
+  result, recount "Six are eliminated" (abstract) and the Conclusions sentence.
+- Autorun queue: job 1 (follow-up) re-running its REF stage; then 1b (w1e-6), 2
+  (l5_bottleneck v2), 2b (L5 DeepONet 3e-2 bracket), 3 (build). **The machine is
+  saturated by other projects (~20 processes); the refine job got 338 CPU-s in 3 h
+  on 2026-09-28.** Nothing is lost, only slow.
+- Build checks now: undefined/mangled macros, numerals, number-words ratchet (25
+  OWED), unescaped `%` after a quantity, TAB characters, citation provenance gate.
+- `ledger_counts.py` refuses a table row broken across lines.
+
+**Paper 2 harness (`p2/`, `tests/test_p2.py`, run with `./.venv/Scripts/python.exe`).**
+Verified on known answers: M2 strong + M2b weak-form, M3 ensemble, M4 exact
+best-subset (BIC with a derivative floor), M6 SINDy-PI (isothermal), M9
+slow-manifold, M1b mass-balance inversion (O2), profile likelihood (ODE and full
+column, outlet-only), the Da* estimator (coverage 0.94). **M8 KAN fails its
+known-answer test in every configuration (xfail strict, recorded). M5 ODR-BINDy
+port: exact support on Lorenz but 2.3x the reported error, 26x slower — NOT yet
+verified; five-seed check owed. M1 UDE is NOT RUN at scale (145 s per gradient;
+compute limit, stated). M7 PySR not built (needs Julia; RAM-limited).**
+Ground truth: `data/p2/` (81 cells, gitignored; `p2_generate.py`).
+`p2_grid_o1.py` REFUSES to run until a `FREEZE PREREG_P2` commit exists.
+Before the freeze: M5 five-seed check, M7 decision, O2/O3 grid drivers, the H2a
+(R collapse) and H2b analysis code.
 
 ---
 
