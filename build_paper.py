@@ -111,7 +111,8 @@ for _k, _why in _ALLOWED_PAIRS:
 
 MACRO = re.compile(r"\\n([A-Za-z]+)")
 # a numeral not immediately preceded by a backslash-command or a letter
-NUMERAL = re.compile(r"(?<![\\A-Za-z0-9.])(\d+(?:\.\d+)?)")
+# audit_hygiene #13: a leading-decimal number (".55") was invisible; now matched.
+NUMERAL = re.compile(r"(?<![\\A-Za-z0-9.])(\d+(?:\.\d+)?|\.\d+)")
 
 
 def mangled(body, defined):
@@ -156,7 +157,9 @@ def strip_structural(text):
     # A digit run attached to a word by a hyphen is part of a NAME (MOF-303, 411-A,
     # PCA-Net), not a measurement. Reading MOF-303 as the number 303 flagged eleven
     # false positives on the first run.
-    text = re.sub(r"[A-Za-z]+-\d+[A-Za-z]*", " ", text)
+    # audit_hygiene #13: only a CAPITALISED name (MOF-303, PCA-Net) is exempt; the old
+    # pattern also exempted "about-55", a number hyphenated to an ordinary word.
+    text = re.sub(r"\b[A-Z][A-Za-z]*-\d+[A-Za-z]*", " ", text)
     text = re.sub(r"\\includegraphics\[[^\]]*\]\{[^}]*\}", " ", text)
     text = re.sub(r"\\(label|ref|eqref|cite|input|bibliographystyle|bibliography)"
                   r"\{[^}]*\}", " ", text)
