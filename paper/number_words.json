@@ -2,23 +2,9 @@
  {
   "key": "moves it. [Seven] candidate explanations were n",
   "word": "Seven",
-  "class": "OWED",
-  "reason": "count of pre-registered candidate explanations: macro from the ladder verdict tally",
+  "class": "DESIGN",
+  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
   "line_at_review": 15
- },
- {
-  "key": "irst-wave timing it does not. [Six] are eliminated, three of",
-  "word": "Six",
-  "class": "OWED",
-  "reason": "ladder elimination tally; changes with L4b -- macro",
-  "line_at_review": 19
- },
- {
-  "key": "does not. Six are eliminated, [three] of",
-  "word": "three",
-  "class": "OWED",
-  "reason": "tally split by design",
-  "line_at_review": 19
  },
  {
   "key": "rators are eliminated: over a [sixteenfold] increase in basis size DeepON",
@@ -79,8 +65,8 @@
  {
   "key": "red falsification ladder over [seven] named candidate explanations",
   "word": "seven",
-  "class": "OWED",
-  "reason": "same count as line 15",
+  "class": "DESIGN",
+  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
   "line_at_review": 119
  },
  {
@@ -1008,13 +994,6 @@
   "line_at_review": 1225
  },
  {
-  "key": "of \\ held-out materials and [three] on , and we mark",
-  "word": "three",
-  "class": "OWED",
-  "reason": "ladder tally split by design; changes with L4b -- macro with the tally",
-  "line_at_review": 20
- },
- {
   "key": "ourier operator like a -mode [one] . Three",
   "word": "one",
   "class": "PROSE",
@@ -1167,5 +1146,26 @@
   "class": "PROSE",
   "reason": "pronoun: 'an approximation to one'",
   "line_at_review": 743
+ },
+ {
+  "key": "words declared in advance; [three] rest on a smaller design of",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "the rungs on the smaller design (L3, L5, the coordinate change), enumerated in Limitations",
+  "line_at_review": 21
+ },
+ {
+  "key": "ery family has saturated, and [one] has not: the random forest",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "names the one family (the random forest) in the same sentence",
+  "line_at_review": 486
+ },
+ {
+  "key": "xtended, and it cannot be --- [one] sample per leaf is the ceilin",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "min_samples_leaf = 1, the configuration",
+  "line_at_review": 489
  }
 ]

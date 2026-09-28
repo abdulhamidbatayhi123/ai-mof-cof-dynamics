@@ -14,7 +14,7 @@ Last updated 2026-09-05.
 |---|---|---|
 | **L0** | "the reference is trustworthy" | ✅ verified against 4 closed-form solutions |
 | **L1** | "you just need more data" | ⚠️ **NOT ELIMINATED on v2** — the materials axis is still falling at 192 training materials (β = 0.22), and the basis needs none of that data: it is all coefficient map. Arms re-run on v2: the MLP is now the best fixed-basis arm, significantly |
-| **L2** | "the model is too small" | ✅ every optimum bracketed on legacy **and on v2**; ⚠️ **but the optimum moves with the material count** — at 192 materials an 8-layer MLP beats the L1 setting by 21 % where legacy found 1 % (**A26**) |
+| **L2** | "the model is too small" | ⚠️ **NOT ELIMINATED (pre-declared rule)** — three families saturate with interior optima, but `rf_leaf` still improves at its capacity ceiling (leaf 1), where the sweep cannot be extended (**A27** withdrew "eliminated"); the optimum moves with the material count — at 192 materials an 8-layer MLP is best |
 | **L3** | "you need a better basis" | ✅ **FINAL** — re-run and fully re-tuned after **A19**/**B24**; MLP beats both KAN families at matched parameters, 6/6 significant, every KAN optimum bracketed over 8 learning rates spanning 3.5 decades; the MLP selects the bottom edge at every budget, saturated to 0.12–0.60 % (`l3_edges.py`) |
 | **L4** | "add the PDE residual" | v2 (L4b, `PREREG_L4b_v2.md`): **time axis — NO DIFFERENCE** at the best weighting (w1e-5: 0.01323 vs twin 0.01310, CI spans zero, MDE 5 %); the interim "physics worse" reading was reversed by the pre-registered edge extension (B69). **Material axis — NOT YET A VERDICT**: w1e-5 is significantly better (0.02126 vs 0.02314) but sits on the unsaturated sweep edge; w1e-6 queued (autorun job 1b). Physics at inference destroys transfer on every arm (w1e-5 material: 0.0210 -> 0.1224). |
 | **L5** | "you need an operator" | ✅ **FINAL** — eliminated *for linear-reconstruction operators*; n-width prediction **refuted** (**A17**). FNO **was** run (**B33** discharged) and is significantly better, 0.0216 vs 0.0265, but still 43× above the POD floor; legacy numbers superseded (**A20**) |
@@ -849,9 +849,10 @@ the letter of the rule L2 is *not eliminated* and the RF sweep "should be extend
 It cannot be: `min_samples_leaf = 1` with unlimited depth is a fully grown forest,
 the ceiling of that family's capacity knob. Its last step is significant because 240
 clusters resolve 1.9 %, and the family sits **37 % behind the best MLP**
-(0.0381 vs 0.0241, CI [+0.0119, +0.0162]). The honest verdict is therefore:
-**capacity as an unbounded lever is eliminated — every optimum that can be bracketed
-is bracketed — but the optimum is not where the legacy sweep left it.**
+(0.0381 vs 0.0241, CI [+0.0119, +0.0162]). **The verdict is the pre-declared one: NOT ELIMINATED** (A27 withdrew the earlier
+"capacity as an unbounded lever is eliminated", which overrode the rule after the
+data). The ceiling argument above is a *reading*, stated as one; and in every reading
+the optimum is not where the legacy sweep left it.
 
 **What moved, and by how much.** These five comparisons are **post-hoc and
 descriptive** — the pre-registered rule is the per-family saturation test above, and

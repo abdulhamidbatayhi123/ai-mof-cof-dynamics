@@ -40,10 +40,13 @@ moves it. Seven candidate explanations were named in advance, each with the
 evidence that would eliminate it, and tested on a reference solver verified against
 \nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, against a published
 MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
-it reproduces and whose first-wave timing it does not. Six are eliminated, three of
-them on a smaller design of \nNclustLegacy\ held-out materials and three on \nNclustFolds, and we mark
-which throughout. Model capacity is eliminated as an
-unbounded lever, though its optimum moves with the training-set size. Architecture
+it reproduces and whose first-wave timing it does not. Each verdict is reported in the
+words declared in advance; three rest on a smaller design of \nNclustLegacy\ held-out
+materials rather than \nNclustFolds, and we mark which throughout. Model capacity is
+not eliminated under the pre-registered rule: \nLtwoNUshaped{} model families saturate with
+interior optima whose position moves with the training-set size, but a random forest
+is still improving at the largest capacity it can have, where its sweep cannot be
+extended as the rule requires. Architecture
 family is eliminated on the smaller design: at matched parameters a multilayer
 perceptron beats both
 Kolmogorov--Arnold families in \(6/6\) comparisons, across \nLthreeNrates\ learning
@@ -502,8 +505,15 @@ grown forest, the ceiling of its capacity knob. The decisive evidence is decoupl
 gradient boosting drops its training error by more than an order of magnitude across
 the depth sweep while held-out error passes through a minimum and then rises.
 
-\textbf{Verdict: capacity as an unbounded lever is eliminated} --- every optimum
-that can be bracketed is bracketed --- \textbf{but the optimum is not where the
+\textbf{Verdict, in the pre-declared words: capacity is NOT ELIMINATED.} The rule
+eliminates it only if every family has saturated, and one has not: the random forest
+is still improving at its last step (fully grown trees, \nLtwoRfBest; last-step
+interval [\nLtwoRfLastLo, \nLtwoRfLastHi]). The rule then asks for the sweep to be
+extended, and it cannot be --- one sample per leaf is the ceiling of that family's
+capacity --- so the verdict stays as declared. Our reading, labelled as a reading and
+not as the verdict: the \nLtwoNUshaped{} neural and boosting families saturate with interior
+optima, and the one family that has not run out of improvement has run out of
+capacity while sitting well behind the best perceptron. \textbf{Either way, the optimum is not where the
 earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
 at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the L1 setting (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)); at 48 materials the same sweep found \(1\,\%\), with six and eight layers in a
 near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is eight. The earlier sentence ``capacity is irrelevant'' was
@@ -1214,8 +1224,10 @@ pre-registered falsification tests rather than as a search for the best-fitting
 network. The answer is assembled here in one place, because each piece of it was
 earned on a different rung.
 
-\paragraph{What does not bind.} Capacity is not an unbounded lever: its optimum
-exists, and moves with the number of training materials. Architecture family is not
+\paragraph{What does not bind.} Capacity is not eliminated under the pre-registered
+rule, because a random forest is still improving at its capacity ceiling; the
+\nLtwoNUshaped{} neural and boosting families saturate, with an optimum that moves with the number of
+training materials. Architecture family is not
 the lever either --- at matched parameters a perceptron beats both
 Kolmogorov--Arnold families on held-out materials in every comparison, so the
 premise that motivated this study is refuted on our own data. Basis size is not the

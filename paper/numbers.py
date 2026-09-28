@@ -189,6 +189,10 @@ SPEC = [
     ("LtwoWidthShape", "results/l2_v2_verdict.json", "families.mlp_width.shape", "{}"),
     # the optimum as a plain number (the shape strings render as "U-SHAPED, optimum at w64")
     ("LtwoWidthBest", "results/l2_v2_verdict.json", "families.mlp_width.best", lambda b: b.lstrip("w")),
+    # A27: the random forest is still improving at its capacity ceiling (leaf 1)
+    ("LtwoRfBest", "results/l2_v2_verdict.json", "families.rf_leaf.last_step.mean_a", "{:.4f}"),
+    ("LtwoRfLastLo", "results/l2_v2_verdict.json", "families.rf_leaf.last_step.ci_low", "{:.4f}"),
+    ("LtwoRfLastHi", "results/l2_v2_verdict.json", "families.rf_leaf.last_step.ci_high", "{:.4f}"),
     ("LtwoDepthBest", "results/l2_v2_verdict.json", "families.mlp_depth.best", lambda b: b.lstrip("d")),
     ("LtwoXgbBest", "results/l2_v2_verdict.json", "families.xgb_depth.best", lambda b: b.lstrip("md")),
     ("LtwoXgbShape", "results/l2_v2_verdict.json", "families.xgb_depth.shape", "{}"),

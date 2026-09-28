@@ -54,6 +54,9 @@
     "LtwoDepthShape": "U-SHAPED, optimum at d8",
     "LtwoWidthShape": "U-SHAPED, optimum at w64",
     "LtwoWidthBest": "64",
+    "LtwoRfBest": "0.0381",
+    "LtwoRfLastLo": "-0.0009",
+    "LtwoRfLastHi": "-0.0006",
     "LtwoDepthBest": "8",
     "LtwoXgbBest": "6",
     "LtwoXgbShape": "U-SHAPED, optimum at md6",
@@ -268,10 +271,10 @@
     "DaMatDecades": "1.35",
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
-    "LedgerA": "26",
+    "LedgerA": "27",
     "LedgerB": "71",
-    "LedgerTotal": "97",
-    "LedgerOwn": "33",
+    "LedgerTotal": "98",
+    "LedgerOwn": "34",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbTimeTwin": "0.0131",
     "LfourbTimeBest": "0.0132",
@@ -526,6 +529,18 @@
     "LtwoWidthBest": {
       "file": "results/l2_v2_verdict.json",
       "path": "families.mlp_width.best"
+    },
+    "LtwoRfBest": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.rf_leaf.last_step.mean_a"
+    },
+    "LtwoRfLastLo": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.rf_leaf.last_step.ci_low"
+    },
+    "LtwoRfLastHi": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.rf_leaf.last_step.ci_high"
     },
     "LtwoDepthBest": {
       "file": "results/l2_v2_verdict.json",

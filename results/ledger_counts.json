@@ -1,9 +1,9 @@
 {
   "source": "RETRACTIONS.md",
-  "n_part_a": 26,
+  "n_part_a": 27,
   "n_part_b": 71,
-  "n_total": 97,
-  "n_own_error_phrase": 33,
+  "n_total": 98,
+  "n_own_error_phrase": 34,
   "own_error_entries": [
     "A17",
     "A18",
@@ -11,6 +11,7 @@
     "A21",
     "A24",
     "A26",
+    "A27",
     "B5",
     "B6",
     "B7",
