@@ -187,6 +187,10 @@ SPEC = [
     ("LtwoPodFloor", "results/l2_v2_verdict.json", "pod_floor_mean", "{:.2e}"),
     ("LtwoDepthShape", "results/l2_v2_verdict.json", "families.mlp_depth.shape", "{}"),
     ("LtwoWidthShape", "results/l2_v2_verdict.json", "families.mlp_width.shape", "{}"),
+    # the optimum as a plain number (the shape strings render as "U-SHAPED, optimum at w64")
+    ("LtwoWidthBest", "results/l2_v2_verdict.json", "families.mlp_width.best", lambda b: b.lstrip("w")),
+    ("LtwoDepthBest", "results/l2_v2_verdict.json", "families.mlp_depth.best", lambda b: b.lstrip("d")),
+    ("LtwoXgbBest", "results/l2_v2_verdict.json", "families.xgb_depth.best", lambda b: b.lstrip("md")),
     ("LtwoXgbShape", "results/l2_v2_verdict.json", "families.xgb_depth.shape", "{}"),
     ("LtwoRfShape", "results/l2_v2_verdict.json", "families.rf_leaf.shape", "{}"),
     ("LtwoDepthMDE", "results/l2_v2_verdict.json", "families.mlp_depth.mde_last_step.mde_80", pct),

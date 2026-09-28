@@ -53,6 +53,9 @@
     "LtwoPodFloor": "2.80e-04",
     "LtwoDepthShape": "U-SHAPED, optimum at d8",
     "LtwoWidthShape": "U-SHAPED, optimum at w64",
+    "LtwoWidthBest": "64",
+    "LtwoDepthBest": "8",
+    "LtwoXgbBest": "6",
     "LtwoXgbShape": "U-SHAPED, optimum at md6",
     "LtwoRfShape": "falls monotonically with capacity",
     "LtwoDepthMDE": "5.0",
@@ -519,6 +522,18 @@
     "LtwoWidthShape": {
       "file": "results/l2_v2_verdict.json",
       "path": "families.mlp_width.shape"
+    },
+    "LtwoWidthBest": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_width.best"
+    },
+    "LtwoDepthBest": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.mlp_depth.best"
+    },
+    "LtwoXgbBest": {
+      "file": "results/l2_v2_verdict.json",
+      "path": "families.xgb_depth.best"
     },
     "LtwoXgbShape": {
       "file": "results/l2_v2_verdict.json",

@@ -29,6 +29,7 @@
 transfer to unseen materials in metal--organic framework adsorption columns}
 
 \author{Abdulhamid Batayhi}
+\address{\textbf{[AFFILIATION --- to be supplied by the author]}}
 \ead{abdulbatayhi@gmail.com}
 
 \begin{abstract}
@@ -494,7 +495,8 @@ exponent. Both axes are open; materials are the one that matters.
 
 \nLtwoNconfigs{} configurations in both directions around the L1 setting, on the same
 folds and basis. \nLtwoNUshaped{} families are U-shaped with interior optima
-(\nLtwoWidthShape; \nLtwoDepthShape; \nLtwoXgbShape) and the random forest
+(width \nLtwoWidthBest{} for the perceptron's width, \nLtwoDepthBest{} layers for its depth, tree
+depth \nLtwoXgbBest{} for gradient boosting) and the random forest
 \nLtwoRfShape\ --- it is still improving at its last step, but that step is a fully
 grown forest, the ceiling of its capacity knob. The decisive evidence is decoupling:
 gradient boosting drops its training error by more than an order of magnitude across
@@ -535,8 +537,8 @@ interval [\nLthreeBestKanLo, \nLthreeBestKanHi] --- \nLthreeBestKanSig.
 \paragraph{The tuning envelope is itself a result.} The families optimise
 \nLthreeLrDecades{} orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
 perceptron at \nLthreeMlpLr. \nLthreeNfailAll{} configurations failed on every seed and
-\nLthreeNfailSome{} more on some seeds; all are excluded and listed, never averaged in. We did not tune the perceptron and leave the
-Kolmogorov--Arnold arms at a default.
+\nLthreeNfailSome{} more on some seeds; all are excluded and listed, never averaged in. Every family, the perceptron included, was tuned over the same
+learning-rate grid; none was left at a default.
 
 \paragraph{The literature is split, and this result is worth more because of it.}
 Shukla and co-workers \cite{shukla2024comprehensive} report that spline-based
@@ -759,9 +761,9 @@ form is \nLsevenRatio{}\(\times\) worse, with difference \nLsevenDiff\ and inter
 
 The transferable statement is neither ``classical wins'' nor its reverse, but that
 \textbf{a classical model wins exactly when the physics it assumes is the physics
-that is there}. In a previous project on cyclic heat conduction --- linear and
-time-invariant, so a Green's function is the exact solution operator --- a
-128-number linear convolution beat every deep operator. Adsorption with an inflected
+that is there}. Where a problem is linear and time-invariant, a Green's function is the exact
+solution operator and a linear convolution is the right model, not an approximation
+to one. Adsorption with an inflected
 isotherm is nonlinear, and the two-wave structure violates all three closed-form
 assumptions: a linear isotherm, a non-spreading favourable front, and infinitely
 fast kinetics.

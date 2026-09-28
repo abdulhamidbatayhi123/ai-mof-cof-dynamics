@@ -1160,5 +1160,12 @@
   "class": "CITED",
   "reason": "the 2022 vs 2024 publication dates of the two cited papers",
   "line_at_review": 831
+ },
+ {
+  "key": "to [one] . Adsorption with an inflected",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun: 'an approximation to one'",
+  "line_at_review": 743
  }
 ]
