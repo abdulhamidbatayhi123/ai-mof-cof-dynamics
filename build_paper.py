@@ -32,6 +32,7 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TEX = os.path.join(ROOT, "paper", "manuscript.tex")
 NUMBERS_TEX = os.path.join(ROOT, "paper", "numbers.tex")
+NUMBERS_PY = os.path.join(ROOT, "paper", "numbers.py")
 
 # Literals that may appear in the prose, each with the reason it is not a result.
 # A number that IS a result does not belong here -- it belongs in numbers.py.
@@ -232,6 +233,37 @@ def main():
         bad_pct = bad_pct or [(tabs[0], "tab")]
     if bad_pct:
         print("\nBUILD REFUSED: an unescaped % after a quantity comments out the rest of the line.")
+        sys.exit(1)
+
+    # Check 7: every results file the manuscript reads must have an OWNER -- a script that
+    # writes it. Unowned files carried headline numbers seven times (B21, B43, B63, the
+    # L5 verdict, B70, and B71 twice). Detected: a script naming the file that also dumps
+    # JSON. Declared: OWNERS below, for writers whose path is built at run time.
+    OWNERS = {
+        "results/validation.json": "validate.py --json",
+        "results/dataset_summary_legacy.json": "dataset_summary.py --root data/parametric --out ...",
+        "results/l3_results_B24_WITHDRAWN.json": "run_l3.py output, renamed when B24 withdrew it",
+    }
+    import glob
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("_nums", NUMBERS_PY)
+    _n = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(_n)
+    srcs = {}
+    for pth in glob.glob(os.path.join(ROOT, "*.py")) + glob.glob(os.path.join(ROOT, "p2", "*.py")):
+        name = os.path.basename(pth)
+        if name.startswith("fig") or name in ("validate.py", "build_paper.py"):
+            continue
+        srcs[name] = open(pth, encoding="utf-8", errors="replace").read()
+    unowned = []
+    for f in sorted({s[1] for s in _n.SPEC}):
+        base = os.path.basename(f)
+        writers = [n for n, s in srcs.items() if base in s and re.search(r"json\.dump|write_atomic", s)]
+        if not writers and f not in OWNERS:
+            unowned.append(f)
+    if unowned:
+        print("  UNOWNED results file(s) -- no script writes them:\n    " + "\n    ".join(unowned))
+        print("\nBUILD REFUSED: rule 10 -- an unowned number is indistinguishable from a wrong one.")
         sys.exit(1)
 
     sys.path.insert(0, os.path.join(ROOT, "paper"))
