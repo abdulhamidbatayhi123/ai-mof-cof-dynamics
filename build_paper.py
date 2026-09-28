@@ -109,6 +109,24 @@ for _k, _why in _ALLOWED_PAIRS:
             f"silently discarded.")
     ALLOWED[_k] = _why
 
+# audit_hygiene #12: a reason is written for ONE sentence, but the allow-list alone
+# admits the literal everywhere ("Accuracy improved by 60 per cent" passed on
+# McGreivy's 60-of-76). So each literal is also bound to how many times it occurs in
+# the body. A new occurrence changes the count and refuses the build until someone
+# looks at the new sentence and re-states why it is not a result. A count of 0 marks
+# a reason whose sentence has gone: the literal may not come back unreviewed.
+ALLOWED_COUNT = {
+    "0": 2, "0.2": 3, "0.5": 1, "0.7": 1, "1": 13, "1.1": 1, "1.5": 1, "2": 17,
+    "3": 1, "4": 5, "5": 1, "6": 5, "7": 1, "8": 4, "9.7": 1, "10": 6, "12": 7,
+    "20": 2, "24": 1, "48": 5, "50": 3, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
+    "95": 3, "96": 3, "99.9": 2, "128": 3, "192": 11, "240": 4, "256": 1,
+    "1948": 1, "1953": 1, "1954": 1, "1982": 1,
+    "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
+}
+if set(ALLOWED_COUNT) != set(ALLOWED):
+    raise SystemExit("build_paper.py: ALLOWED_COUNT and _ALLOWED_PAIRS disagree on "
+                     f"{sorted(set(ALLOWED_COUNT) ^ set(ALLOWED))}; every literal needs both.")
+
 MACRO = re.compile(r"\\n([A-Za-z]+)")
 # a numeral not immediately preceded by a backslash-command or a letter
 # audit_hygiene #13: a leading-decimal number (".55") was invisible; now matched.
@@ -132,14 +150,26 @@ def mangled(body, defined):
     Keying on that trailing token rather than on the bare name is what keeps the
     check from firing on ordinary English -- `\\paragraph{Gates.}` is a heading, not a
     broken macro, and an earlier version of this function flagged it.
+
+    audit_hygiene #11: that signature only covers macros written with trailing `\\ ` or
+    `{}`; `\\nGates gates` or `\\nLedgerA.` mangle into bare words it cannot see. So any
+    defined name standing as a WHOLE WORD without its `\\n` is flagged, and the English
+    homographs are allowed by their exact CONTEXT (MANGLED_OK), never by name alone.
     """
     out = []
     for i, line in enumerate(body.splitlines(), 1):
         for name in defined:
-            for m in re.finditer(re.escape(name) + r"(\\|\{\})", line):
-                if line[max(0, m.start() - 2):m.start()] != "\\n":
-                    out.append((i, name, line.strip()[:100]))
+            for m in re.finditer(r"(?<![\\A-Za-z])" + re.escape(name) + r"\b", line):
+                if line[max(0, m.start() - 2):m.start()] == "\\n":
+                    continue
+                if any(n == name and c in line for n, c in MANGLED_OK):
+                    continue
+                out.append((i, name, line.strip()[:100]))
     return out
+
+
+# (macro name, exact line context) pairs where the bare word is English, not a wreck.
+MANGLED_OK = [("Gates", r"\paragraph{Gates.}")]
 
 
 def body(src):
@@ -208,12 +238,21 @@ def main():
     unused = sorted(defined - used)
 
     hits = []
+    seen = {k: [] for k in ALLOWED}
     for i, line in enumerate(b.splitlines(), 1):
         for m in NUMERAL.finditer(strip_structural(line)):
             tok = m.group(1)
             if tok in ALLOWED:
+                seen[tok].append((i, line.strip()[:110]))
                 continue
             hits.append((i, tok, line.strip()[:110]))
+    # an allowed literal whose occurrence count moved is reported as a hit on every
+    # occurrence, so the reviewer sees each sentence, not just a number
+    for tok, occ in seen.items():
+        if len(occ) != ALLOWED_COUNT[tok]:
+            for i, ctx in occ or [(0, "(no occurrence left)")]:
+                hits.append((i, tok, f"[allowed {ALLOWED_COUNT[tok]}x, found {len(occ)}x: "
+                                     f"re-justify or update ALLOWED_COUNT] {ctx}"))
 
     broken = mangled(b, defined)
 
