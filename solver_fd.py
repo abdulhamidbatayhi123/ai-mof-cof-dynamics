@@ -262,13 +262,21 @@ def generate_breakthrough_data(
     # an isotherm step, as reported for MOF-303). When absent -- every existing
     # caller -- the expression below is the original one, unchanged.
     k_of_q = getattr(physics, "k_of_q", None)
+    # Optional equilibrium override for paper 2's O3 identifiability: the profile must
+    # refit k with the MEASURED (error-carrying) isotherm the discovery methods are
+    # given, or the comparison breaks information parity. Absent -- every existing
+    # caller -- the original q_star_np is used, unchanged.
+    qstar_fn = getattr(physics, "qstar_fn", None)
+    if qstar_fn is None:
+        def qstar_fn(c, T):
+            return q_star_np(c, T, physics)
 
     def rhs(t, y):
         c, q, T = np.split(y, 3)
         if k_of_q is None:
-            dq_dt = physics.k_LDF * (q_star_np(c, T, physics) - q)
+            dq_dt = physics.k_LDF * (qstar_fn(c, T) - q)
         else:
-            dq_dt = k_of_q(q) * (q_star_np(c, T, physics) - q)
+            dq_dt = k_of_q(q) * (qstar_fn(c, T) - q)
         dc_dt = physics.D_L * laplacian(c, c_in) - adv_c(c, c_in) - src_factor * dq_dt
         dT_dt = (
             alpha_T * laplacian(T, T_in)
