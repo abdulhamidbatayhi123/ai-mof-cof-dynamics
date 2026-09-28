@@ -204,6 +204,8 @@
     "LtwoNUshaped": "3",
     "LtwoLegacyDsix": "0.0549",
     "LtwoLegacyDeight": "0.0550",
+    "WarpScreenBoundaryMin": "93",
+    "WarpScreenNfolds": "5",
     "LtwoNconfigs": "28",
     "WarpMonoMaxDRtwo": "1.9e-04",
     "ComovingFloorPct": "29",
@@ -1129,6 +1131,14 @@
     "LtwoLegacyDeight": {
       "file": "results/l2_results.json",
       "path": "sweep"
+    },
+    "WarpScreenBoundaryMin": {
+      "file": "results/warp_level_screen_bc.json",
+      "path": "B"
+    },
+    "WarpScreenNfolds": {
+      "file": "results/warp_level_screen_bc.json",
+      "path": "B"
     },
     "LtwoNconfigs": {
       "file": "results/l2_v2_verdict.json",

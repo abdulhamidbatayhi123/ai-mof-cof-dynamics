@@ -1167,5 +1167,12 @@
   "class": "DESIGN",
   "reason": "min_samples_leaf = 1, the configuration",
   "line_at_review": 489
+ },
+ {
+  "key": "plateau falls within [two] samples of the start in at le",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the G2 guard's declared threshold, 2/(NT-1)",
+  "line_at_review": 1204
  }
 ]

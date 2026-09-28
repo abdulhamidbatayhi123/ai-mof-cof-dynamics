@@ -405,6 +405,10 @@ SPEC = [
     # two layers" overstated a coin flip; the prose now gives both (number_words OWED)
     ("LtwoLegacyDsix", "results/l2_results.json", "sweep", lambda rows, _l="d6": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
     ("LtwoLegacyDeight", "results/l2_results.json", "sweep", lambda rows, _l="d8": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
+    # PREREG_WARP_v2 stage 1: why the warp cannot be re-measured on v2
+    ("WarpScreenBoundaryMin", "results/warp_level_screen_bc.json", "B",
+     lambda b: f"{100 * min(v['boundary_lo'] for v in b.values()):.0f}"),
+    ("WarpScreenNfolds", "results/warp_level_screen_bc.json", "B", lambda b: str(len(b))),
     ("LtwoNconfigs", "results/l2_v2_verdict.json", "families",
      lambda f: str(sum(len(v["rows"]) for v in f.values()))),
     ("WarpMonoMaxDRtwo", "results/warp_monotone.json", "per_seed",

@@ -1217,7 +1217,17 @@ L7 are measured over 240. Given that A26 exists precisely because a verdict meas
 at 48 training materials did not survive 192, those three verdicts must
 be read as scoped to the material count at which they were taken. Their effect sizes
 are large and their orderings are consistent across budgets, which is why we state
-them; re-measuring them on the larger dataset is the first item of further work.
+them; re-measuring them on the larger dataset is the first item of further work, and
+for L5 it is queued under its own pre-registration. For the coordinate change it is
+not possible as designed, and the reason is itself a result: the pre-registered
+landmark screen fails on every fold of the larger dataset, because its fronts do not
+have the shape the two-wave frame aligns. The Henry wave is not resolved at the
+stored time resolution, and the second front is a gradual, dispersive rise rather
+than a shock, so even a landmark placed relative to each cell's own
+plateau falls within two samples of the start in at least \nWarpScreenBoundaryMin\,\%
+of cells on every one of the \nWarpScreenNfolds\ folds. The coordinate-change result is
+therefore scoped to the smaller design, where the fronts are resolved, and we do not
+redefine the landmark until a screen passes.
 
 %% ===========================================================================
 \section{Conclusions}
