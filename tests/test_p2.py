@@ -254,3 +254,32 @@ def test_sindy_pi_finds_implicit_langmuir_ldf_without_an_isotherm():
     assert set(coefs) == {"dq", "c*dq", "c", "q", "c*q"}, (lhs, coefs)
     assert abs(coefs["c*dq"] - 3.0) < 0.15 and abs(coefs["c"] + 0.3) < 0.02
     assert abs(coefs["q"] - 0.02) < 0.002 and abs(coefs["c*q"] - 0.06) < 0.005
+
+
+from p2.methods import kan_symbolic
+
+
+import pytest
+
+
+@pytest.mark.xfail(strict=True, reason=(
+    "M8 fails its known-answer test at zero noise in every configuration tried "
+    "(2026-09-28): polynomial library with lamb 1e-3/1e-2/1e-1 -> routes the law "
+    "through q^2 or collapses to a constant; raw variables, single trajectory -> "
+    "uses q alone (dq/dt is a function of q along one trajectory); raw variables, "
+    "three trajectories -> {1, qstar, qstar^2}, q dropped. Reported as a documented "
+    "negative (PREREG_P2 §3), consistent with L3 and S49. strict=True: if a pykan "
+    "change makes this pass, the suite fails and says so."))
+def test_kan_symbolic_recovers_ldf_at_zero_noise():
+    """Several trajectories (different isotherms), as the grid's 20 probes give."""
+    Vs, ys = [], []
+    for b in (1.0, 3.0, 9.0):
+        s = ldf_series(k=0.02, n=200, b=b)
+        Vs.append(np.column_stack([s["c"], s["q"], s["T"], s["qstar"]]))
+        ys.append(derivative(s["q"], s["t"]))
+    V0 = np.vstack(Vs)
+    V = {"c": V0[:, 0], "q": V0[:, 1], "T": V0[:, 2], "qstar": V0[:, 3]}
+    coefs = kan_symbolic(V, np.concatenate(ys), seed=0)
+    kept = {k: v for k, v in coefs.items() if abs(v) > 0.05 * max(abs(x) for x in coefs.values())}
+    assert set(kept) == {"q", "qstar"}, coefs
+    assert abs(-kept["q"] / kept["qstar"] - 1) < 0.1 and abs(-kept["q"] - 0.02) < 0.004, coefs

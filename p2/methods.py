@@ -104,3 +104,49 @@ def sindy_pi(F, dq, max_terms=5):
         return lhs, rel_coefs                   # no dq term: not a rate law
     s = rel_coefs["dq"]
     return lhs, {k: v / s for k, v in rel_coefs.items()}
+
+
+def kan_symbolic(V, y, seed=0, steps=100, lamb=1e-3):
+    """M8: Kolmogorov-Arnold network + symbolic extraction (Liu et al.'s procedure,
+    pykan 0.2.8). Takes the RAW variables V = {c, q, T, qstar}, not a pre-expanded
+    polynomial library: a KAN edge learns any univariate function, so q^2 with a
+    square-root edge IS q and an expanded library is redundant to it (found on the
+    known-answer test: it routed the law through q^2). Fit [n -> 1] on standardised
+    inputs with a sparsity penalty, snap every edge to {x, x^2, 0}, read the formula
+    back in the original variables. Labelled as KAN symbolic extraction -- NOT a
+    reimplementation of KANDy (S48), whose code was not opened. Secondary (L3, S49).
+    Needs several distinct trajectories (the grid gives 20 probes per cell): along a
+    single trajectory dq/dt is a function of q alone and nothing identifies q*."""
+    import tempfile
+    import sympy
+    import torch
+    from kan import KAN
+    names = list(V)
+    X0 = np.column_stack([V[n] for n in names]).astype(float)
+    mu, sd = X0.mean(0), X0.std(0)
+    sd[sd == 0] = 1.0
+    ys = float(np.std(y)) or 1.0
+    torch.manual_seed(seed)
+    X = torch.tensor((X0 - mu) / sd, dtype=torch.float32)
+    Y = torch.tensor((y / ys)[:, None], dtype=torch.float32)
+    ds = {"train_input": X, "train_label": Y, "test_input": X, "test_label": Y}
+    model = KAN(width=[len(names), 1], grid=5, k=3, seed=seed, auto_save=False,
+                ckpt_path=tempfile.mkdtemp(prefix="p2kan_"), device="cpu")
+    model.fit(ds, opt="LBFGS", steps=steps, lamb=lamb, log=steps + 1)
+    model.auto_symbolic(lib=["x", "x^2", "0"], verbose=0)
+    expr = model.symbolic_formula()[0][0]
+    xs = [sympy.Symbol(f"x_{j + 1}") for j in range(len(names))]
+    raw = [sympy.Symbol(n.replace("*", "_")) for n in names]
+    expr = sympy.expand(ys * expr.subs({x: (r - m) / s for x, r, m, s in zip(xs, raw, mu, sd)}))
+    out = {}
+    for n, r in zip(names, raw):
+        c1 = float(expr.coeff(r, 1).subs({rr: 0 for rr in raw}))
+        if abs(c1) > 1e-9:
+            out[n] = c1
+        c2 = float(expr.coeff(r, 2).subs({rr: 0 for rr in raw}))
+        if abs(c2) > 1e-9:
+            out[n + "^2" if n != "q" else "q^2"] = c2
+    const = float(expr.subs({rr: 0 for rr in raw}))
+    if abs(const) > 1e-9:
+        out["1"] = const
+    return out

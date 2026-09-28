@@ -73,7 +73,7 @@ Two candidate libraries, both reported:
 | M5 | errors-in-variables: ODR-BINDy (S13) and WENDy-IRLS (S22) | if no reference implementation runs, implemented from the papers and verified on their own published examples before use |
 | M6 | SINDy-PI (S21) for rational laws | run with Lib-A and NO measured isotherm, on the **isothermal control only** (exp(−ΔH/RT) is not polynomial); success = the implicit Langmuir–LDF structure {dq, c·dq, c, q, c·q} with correct signs; verified on the known-answer system (b, k recovered within 5 %) |
 | M7 | constrained symbolic regression (PySR, S23) | Julia installed in the isolated `.venv`, never the base environment |
-| M8 | KAN + sparse regression (KANDy, S48) | secondary; not a headline (L3, S49) |
+| M8 | KAN symbolic extraction (Liu et al.'s procedure, pykan 0.2.8; NOT a KANDy reimplementation -- its code was not opened) | secondary. **FAILS its known-answer test at zero noise in every configuration tried** (polynomial library at three sparsity penalties; raw variables on one and on three trajectories): it routes the law through q^2, uses q alone, or returns {1, q*, q*^2}. Per the rule above it is run on the grid in its best configuration (raw variables, lamb 1e-3) and reported as a documented negative, never dropped; the known-answer failure is reported alongside, so its grid null cannot be read as an identifiability result |
 | M9 | slow-manifold discovery (S15) | expected to win at high Da by returning isotherm + apparent dispersion; reported as *what is discoverable there* |
 
 A method that cannot be run in its strongest configuration is reported as such,
