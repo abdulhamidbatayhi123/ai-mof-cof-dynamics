@@ -264,6 +264,19 @@
     "LedgerTotal": "95",
     "LedgerOwn": "33",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
+    "LfourbTimeTwin": "0.0131",
+    "LfourbTimeBest": "0.0132",
+    "LfourbTimeLo": "-0.00044",
+    "LfourbTimeHi": "0.00017",
+    "LfourbTimeMDE": "5",
+    "LfourbTimeNmat": "192",
+    "LfourbNeligible": "7",
+    "LfourbNabandoned": "4",
+    "LfourbTimePolTwin": "0.0113",
+    "LfourbTimePolBest": "0.0124",
+    "LfourbTimePolLo": "-0.00140",
+    "LfourbTimePolHi": "-0.00074",
+    "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
     "AnchorAspect": "0.17",
     "LCexpRatio": "0.55",
@@ -1343,6 +1356,58 @@
     "LfourbVerdictMaterial": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.material.verdict"
+    },
+    "LfourbTimeTwin": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.mean_a"
+    },
+    "LfourbTimeBest": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.mean_b"
+    },
+    "LfourbTimeLo": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.ci_low"
+    },
+    "LfourbTimeHi": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.ci_high"
+    },
+    "LfourbTimeMDE": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.mde"
+    },
+    "LfourbTimeNmat": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.n_materials"
+    },
+    "LfourbNeligible": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.eligible"
+    },
+    "LfourbNabandoned": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.abandoned"
+    },
+    "LfourbTimePolTwin": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.polish.comparison.mean_a"
+    },
+    "LfourbTimePolBest": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.polish.comparison.mean_b"
+    },
+    "LfourbTimePolLo": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.polish.comparison.ci_low"
+    },
+    "LfourbTimePolHi": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.time.polish.comparison.ci_high"
+    },
+    "LfourbTimeSeenRise": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.time/data_only.seen_change_pct"
     },
     "LfourbVerdictTime": {
       "file": "results/l4b_v2_verdict.json",

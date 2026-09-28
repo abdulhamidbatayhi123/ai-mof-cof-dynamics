@@ -490,6 +490,21 @@ SPEC = [
 
     # ---------------------------------------------------------------- L4b-v2
     ("LfourbVerdictMaterial", "results/l4b_v2_verdict.json", "axes.material.verdict", "{}"),
+    # L4b time axis (final: w1e-5 ties the twin, so the edge rule is satisfied there)
+    ("LfourbTimeTwin", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourbTimeBest", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourbTimeLo", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.ci_low", "{:.5f}"),
+    ("LfourbTimeHi", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.ci_high", "{:.5f}"),
+    ("LfourbTimeMDE", "results/l4b_v2_verdict.json", "axes.time.mde",
+     lambda m: f"{100 * next(v['mde_80'] for v in m.values()):.0f}"),
+    ("LfourbTimeNmat", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.n_materials", "{:d}"),
+    ("LfourbNeligible", "results/l4b_v2_verdict.json", "axes.time.eligible", lambda a: str(len(a))),
+    ("LfourbNabandoned", "results/l4b_v2_verdict.json", "axes.time.abandoned", lambda a: str(len(a))),
+    ("LfourbTimePolTwin", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.mean_a", "{:.4f}"),
+    ("LfourbTimePolBest", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.mean_b", "{:.4f}"),
+    ("LfourbTimePolLo", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.ci_low", "{:.5f}"),
+    ("LfourbTimePolHi", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.ci_high", "{:.5f}"),
+    ("LfourbTimeSeenRise", "results/l4b_v2_verdict.json", "refine.time/data_only.seen_change_pct", "{:.0f}"),
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
 ]
 

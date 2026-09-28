@@ -569,29 +569,60 @@ perceptron at every budget and are worse on held-out materials every time.
 
 \subsection{L4 --- the residual as a loss, and physics at inference}
 
-\textbf{[SECTION PENDING --- L4b-v2 is running. Its verdict text is
-\nLfourbVerdictMaterial\ on the material axis and \nLfourbVerdictTime\ on the time
-axis, and will be reported in the words pre-declared in the pre-registration.]}
+\paragraph{Design.} Ten weighting schemes were pre-registered and compared against a
+data-only twin at matched architecture, matched optimiser steps and matched
+supervised budget --- fixed weights over four decades, gradient-norm balancing at
+three target ratios \cite{wang2021understanding}, neural-tangent-kernel weighting
+\cite{wang2022when} (with per-point gradient norms as a trace estimate, a stated
+approximation to their eigen-decomposition), and self-adaptive per-point weights
+\cite{mcclenny2023self} --- because the earlier version of this rung rested on a single
+weighting rule, which is not a defensible basis for the claim that physics hurts. The
+pre-registered edge rule (rule~4: an optimum on the edge of a sweep is admissible only
+if the metric has saturated there) then extended the fixed-weight sweep one decade
+below its lowest weight, and on the material axis a second decade. A physics arm whose
+seen-window error exceeds three times the twin's has abandoned the data fit (the B16
+signature) and is excluded as failed-to-train, never averaged in: \nLfourbNabandoned\
+arms did, leaving \nLfourbNeligible\ eligible.
 
-Two things are already fixed and reportable. First, the design: ten weighting
-schemes are compared against a data-only twin at matched architecture, matched
-optimiser steps and matched supervised budget --- fixed weights over four decades,
-gradient-norm balancing at three target ratios \cite{wang2021understanding},
-neural-tangent-kernel weighting \cite{wang2022when} (with per-point gradient norms as a
-trace estimate, a stated approximation to their eigen-decomposition), and
-self-adaptive per-point weights \cite{mcclenny2023self} --- because the earlier version of this rung rested
-on a single weighting rule, which is not a defensible basis for the claim that
-physics hurts.
+\paragraph{Time axis: no difference, and the legacy claim is withdrawn.} In the
+pre-declared words: there is no difference at the best weighting found. The best
+physics arm, the lowest fixed weight, reaches \nLfourbTimeBest\ against the twin's
+\nLfourbTimeTwin, a paired difference with interval [\nLfourbTimeLo, \nLfourbTimeHi]
+over \nLfourbTimeNmat\ materials; the design detects a \nLfourbTimeMDE\,\% effect with
+\(80\,\%\) power. The legacy statement that physics as a loss hurts is withdrawn. This
+verdict exists only because the edge rule was applied: at the lowest weight of the
+original sweep, physics was significantly worse than the twin, and the one further
+decade the rule demanded tied it (Section~\ref{sec:corrections}, B69). Rung L4 is the
+clearest case in this paper of a pre-registered rule changing a result that a reading
+of the rule after seeing the data could have declined to test.
 
-Second, a pre-declared invalidation condition has fired. Test-time refinement on the
-time axis was anchored to the frozen model's own prediction on the seen window, and
-the pre-registration declared that a seen-window error rising by more than 10\,\%
-means the anchor is insufficient and the result on that axis is scoped. It rose by more than five hundred per cent on all three seeds. The time-axis refinement result is therefore
-scoped, and the material axis --- which has no anchor by design, because nothing
-about an unseen material is known --- carries the reportable verdict. A labelled
-post-hoc sweep over refinement learning rate and step count tests whether that
-verdict is a property of physics at inference or of one configuration of it
-(Section~\ref{sec:corrections}, B60).
+\paragraph{Time axis, after polishing: the ordering flips.} The pre-registration's
+fourth question polishes both arms with L-BFGS after Adam
+\cite{rathore2024challenges}. Both improve, and the twin improves more: after
+polishing the twin reaches \nLfourbTimePolTwin\ and the physics arm
+\nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi] --- the data-only
+arm is significantly better. The pre-registration declared a flip to be the reported
+result, and we report it with its direction rather than as a verdict on physics:
+under the optimiser the physics arm needs, the data-only arm gains more.
+
+\paragraph{Material axis: no verdict yet.} On the material axis the verdict is
+\nLfourbVerdictMaterial. The lowest fixed weight is again the best arm and again
+unsaturated --- it differs significantly from the twin --- so the pre-registered rule
+requires one further decade before any verdict. That run is in flight, and nothing on
+this axis is reported until it lands; the build refuses to render the analyser's
+provisional text in its place.
+
+\paragraph{Physics at inference.} Test-time refinement --- minimising the residual for
+each held-out unit with no data --- was pre-registered with an invalidation
+condition: on the time axis it is anchored to the frozen model's own prediction on the
+seen window, and a seen-window error rising by more than \(10\,\%\) means the anchor
+is insufficient and the result on that axis is scoped. It rose by
+\nLfourbTimeSeenRise\,\% on average. The time-axis refinement result is therefore
+scoped, and the material axis --- which has no anchor by design, because nothing about
+an unseen material is known --- carries the reportable refinement result, which is
+reported with the material verdict. A labelled post-hoc sweep over refinement learning
+rate and step count tests whether that result is a property of physics at inference
+or of one configuration of it (Section~\ref{sec:corrections}, B60).
 
 \begin{figure}[t]
 \centering

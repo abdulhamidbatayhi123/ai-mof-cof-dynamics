@@ -385,62 +385,6 @@
   "line_at_review": 524
  },
  {
-  "key": " [Two] things are already fixed and",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 543
- },
- {
-  "key": "eportable. First, the design: [ten] weighting",
-  "word": "ten",
-  "class": "OWED",
-  "reason": "L4 rewrite: arm count -- verdict file says otherwise; resolve in rewrite",
-  "line_at_review": 543
- },
- {
-  "key": "budget --- fixed weights over [four] decades,",
-  "word": "four",
-  "class": "OWED",
-  "reason": "L4 rewrite: decades of fixed weights -- verdict file says 3",
-  "line_at_review": 545
- },
- {
-  "key": "gradient-norm balancing at [three] target ratios ,",
-  "word": "three",
-  "class": "OWED",
-  "reason": "L4 rewrite: gradnorm targets -- verdict file says 2",
-  "line_at_review": 546
- },
- {
-  "key": "scoped. It rose by more than [five] hundred per cent on all three",
-  "word": "five",
-  "class": "OWED",
-  "reason": "L4 rewrite: seen-window rise >500 %",
-  "line_at_review": 556
- },
- {
-  "key": "ed. It rose by more than five [hundred] per cent on all three seeds.",
-  "word": "hundred",
-  "class": "OWED",
-  "reason": "L4 rewrite",
-  "line_at_review": 556
- },
- {
-  "key": "five hundred per cent on all [three] seeds. The time-axis refineme",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "three seeds",
-  "line_at_review": 556
- },
- {
-  "key": "of physics at inference or of [one] configuration of it",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 560
- },
- {
   "key": "terval across a [sixteenfold] change in basis size. {C}~Pe",
   "word": "sixteenfold",
   "class": "DESIGN",
@@ -1174,5 +1118,54 @@
   "class": "OWED",
   "reason": "count of rungs on the smaller design -- same as the other rung-count entries",
   "line_at_review": 1146
+ },
+ {
+  "key": "{Design.} [Ten] weighting schemes were pre-re",
+  "word": "Ten",
+  "class": "DESIGN",
+  "reason": "pre-registered arm count (PREREG_L4b_v2 table)",
+  "line_at_review": 549
+ },
+ {
+  "key": "budget --- fixed weights over [four] decades, gradient-norm balanc",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "pre-registered fixed-weight range",
+  "line_at_review": 551
+ },
+ {
+  "key": " [three] target ratios , neural-tange",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "pre-registered gradnorm targets",
+  "line_at_review": 552
+ },
+ {
+  "key": "tended the fixed-weight sweep [one] decade",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "PREREG 4.2 extends one decade",
+  "line_at_review": 558
+ },
+ {
+  "key": "seen-window error exceeds [three] times the twin's has abandone",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "PREREG 4.1 failed-to-train threshold",
+  "line_at_review": 560
+ },
+ {
+  "key": "requires [one] further decade before any ver",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "PREREG 4.2 extends one decade",
+  "line_at_review": 588
+ },
+ {
+  "key": "or of [one] configuration of it (Section~",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar",
+  "line_at_review": 602
  }
 ]
