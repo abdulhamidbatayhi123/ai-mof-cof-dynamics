@@ -464,7 +464,7 @@ materials, where the three nonlinear arms were indistinguishable and the percept
 had the worst point estimate.
 
 The floor moved too. The proper-orthogonal-decomposition floor is \nLonePodFloor,
-and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: four times the materials improved the arm, and improved the floor beneath it by more.
+and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: 192 training materials instead of 48 improved the arm, and improved the floor beneath it by more.
 
 \paragraph{The learning curve, and the rung's actual verdict.} Held-out error falls
 \nLCsmallest\ \(\to\) \nLClargest\ as training materials go 12 \(\to\) 192, a factor
@@ -503,8 +503,8 @@ the depth sweep while held-out error passes through a minimum and then rises.
 \textbf{Verdict: capacity as an unbounded lever is eliminated} --- every optimum
 that can be bracketed is bracketed --- \textbf{but the optimum is not where the
 earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
-at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the L1 setting (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)); at 48 materials the same sweep found \(1\,\%\) and put the
-depth optimum two layers lower. The earlier sentence ``capacity is irrelevant'' was
+at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the L1 setting (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)); at 48 materials the same sweep found \(1\,\%\), with six and eight layers in a
+near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is eight. The earlier sentence ``capacity is irrelevant'' was
 scoped to a material count without saying so, and is withdrawn as A26. The wall
 stands: the best fixed-basis surrogate still sits \(\nLtwoXfloor\times\) above the floor.
 
@@ -888,7 +888,8 @@ Using \emph{two} shifts, one per wave, and normalising the interval between them
 collapses the \(n\)-width where one shift inflated it: \nNwidthOriginal\ \(\to\)
 \nNwidthTwoWaveA\ modes, or \nNwidthTwoWaveB\ for the wider landmark pair. A third
 pair was \textbf{excluded} because a narrow window divides by a small span and its
-interpolation floor reached almost a third of the signal --- the guard caught it, and it is
+interpolation floor reached \nComovingFloorPct\,\% of the fixed-frame error it is judged
+against, where the guard's threshold is \(10\,\%\) --- the guard caught it, and it is
 reported rather than dropped silently.
 
 \subsection{The powered verdict, and the relocation}
@@ -934,7 +935,7 @@ established prize and a target a front-locating model can be held to.
 front predictor does not know the constraints the true trajectories satisfy exactly.
 It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, while the true trajectories
 violate them in none. But projecting onto the constraint set changes \(R^2\) by
-nothing to three decimal places and makes the reconstruction significantly
+at most \nWarpMonoMaxDRtwo{} and makes the reconstruction significantly
 \emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
 \nMonoDiff\ with interval [\nMonoLo, \nMonoHi]. That interval is much tighter than
 Table~\ref{tab:warp}'s, and the reason is pairing rather than power: the projected

@@ -393,8 +393,16 @@ SPEC = [
      "by_gate.isotherm obeys Clausius-Clapeyron.values.max_rel_err", lambda x: f"{100 * x:.3f}"),
     ("LtwoNUshaped", "results/l2_v2_verdict.json", "families",
      lambda f: str(sum(1 for v in f.values() if v["shape"].startswith("U-SHAPED")))),
+    # the legacy (48-material) depth sweep: d6 and d8 tie to 0.1 %, so "the optimum moved
+    # two layers" overstated a coin flip; the prose now gives both (number_words OWED)
+    ("LtwoLegacyDsix", "results/l2_results.json", "sweep", lambda rows, _l="d6": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
+    ("LtwoLegacyDeight", "results/l2_results.json", "sweep", lambda rows, _l="d8": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
     ("LtwoNconfigs", "results/l2_v2_verdict.json", "families",
      lambda f: str(sum(len(v["rows"]) for v in f.values()))),
+    ("WarpMonoMaxDRtwo", "results/warp_monotone.json", "per_seed",
+     lambda ps: f"{max(abs(x['r2_proj'][k] - x['r2_raw'][k]) for x in ps for k in ('lo', 'hi')):.1e}"),
+    ("ComovingFloorPct", "results/comoving2.json", "",
+     lambda d: f"{100 * d['pairs_detail']['0.20-0.80']['interp_floor'] / d['l5_fixed_frame_reference']:.0f}"),
     ("WarpNonmonoLo", "results/warp_monotone.json", "per_seed",
      lambda s: f"{100 * sum(x['nonmonotone_frac']['lo'] for x in s) / len(s):.0f}"),
     ("BtwentyfourRuns", "results/l3_results_B24_WITHDRAWN.json", "arms",

@@ -114,8 +114,8 @@
  {
   "key": "about [one] per cent, invariant across sn",
   "word": "one",
-  "class": "OWED",
-  "reason": "pre-fix mass-closure error, ~1 %: no results file holds it (B8 record)",
+  "class": "PROSE",
+  "reason": "the pre-fix closure error recorded in ledger entry B8 (1.02 %) when found; the defective code no longer exists to re-run",
   "line_at_review": 161
  },
  {
@@ -156,8 +156,8 @@
  {
   "key": "here, verified numerically as [zero] inflection points, and it pre",
   "word": "zero",
-  "class": "OWED",
-  "reason": "a verified count (inflection points) -- gate evidence, no macro",
+  "class": "PROSE",
+  "reason": "a mathematical property of single-site Langmuir (second derivative negative everywhere)",
   "line_at_review": 210
  },
  {
@@ -191,8 +191,8 @@
  {
   "key": "that are fully on record. The [two] named discrepancies are visib",
   "word": "two",
-  "class": "OWED",
-  "reason": "same",
+  "class": "PROSE",
+  "reason": "counts the two discrepancies the same caption names",
   "line_at_review": 275
  },
  {
@@ -282,8 +282,8 @@
  {
   "key": "preserved gave [seven] per cent (A22). A second corr",
   "word": "seven",
-  "class": "OWED",
-  "reason": "A22 power, 7 %: needs a macro from the power calculation",
+  "class": "PROSE",
+  "reason": "the A22 power figure recorded in ledger entry A22 when found (the flawed simulation it corrects no longer exists)",
   "line_at_review": 391
  },
  {
@@ -322,17 +322,10 @@
   "line_at_review": 430
  },
  {
-  "key": "the constraint than it was}: [four] times the materials improved",
-  "word": "four",
-  "class": "OWED",
-  "reason": "material multiple -- derived ratio",
-  "line_at_review": 434
- },
- {
   "key": "claim no extrapolation beyond [twice] the measured",
   "word": "twice",
-  "class": "OWED",
-  "reason": "extrapolation bound, twice the range -- derived",
+  "class": "DESIGN",
+  "reason": "a declared scope on extrapolation, not a measurement",
   "line_at_review": 446
  },
  {
@@ -348,13 +341,6 @@
   "class": "DESIGN",
   "reason": "R^2 > 0.2 threshold -- a declared threshold",
   "line_at_review": 455
- },
- {
-  "key": "depth optimum [two] layers lower. The earlier sen",
-  "word": "two",
-  "class": "OWED",
-  "reason": "depth optimum shift in layers -- from l2 results",
-  "line_at_review": 474
  },
  {
   "key": "all [six] pairwise comparisons signific",
@@ -625,16 +611,9 @@
  {
   "key": "or the wider landmark pair. A [third] ",
   "word": "third",
-  "class": "OWED",
-  "reason": "comoving interpolation floor ~1/3 of signal -- comoving2.json",
+  "class": "PROSE",
+  "reason": "ordinal: the third landmark pair (reclassified; was mislabelled OWED)",
   "line_at_review": 823
- },
- {
-  "key": "lation floor reached almost a [third] of the signal --- the guard c",
-  "word": "third",
-  "class": "OWED",
-  "reason": "same",
-  "line_at_review": 825
  },
  {
   "key": " [Three] seeds across every stochastic",
@@ -677,13 +656,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 863
- },
- {
-  "key": "nothing to [three] decimal places and makes the",
-  "word": "three",
-  "class": "OWED",
-  "reason": "decimal places unchanged -- a measured null, needs a number",
-  "line_at_review": 871
  },
  {
   "key": "than there, and the [two] intervals are not comparable.",
@@ -1160,5 +1132,26 @@
   "class": "PROSE",
   "reason": "grammar",
   "line_at_review": 602
+ },
+ {
+  "key": "e sweep found \\(1\\,\\%\\), with [six] and eight layers in a",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
+  "line_at_review": 483
+ },
+ {
+  "key": "found \\(1\\,\\%\\), with six and [eight] layers in a",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
+  "line_at_review": 483
+ },
+ {
+  "key": ") where at 192 the optimum is [eight] . The earlier sentence ``capac",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
+  "line_at_review": 484
  }
 ]

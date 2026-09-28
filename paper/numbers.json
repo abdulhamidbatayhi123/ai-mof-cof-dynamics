@@ -196,7 +196,11 @@
     "LzeroNchecks": "4",
     "IsoCCmaxErr": "0.004",
     "LtwoNUshaped": "3",
+    "LtwoLegacyDsix": "0.0549",
+    "LtwoLegacyDeight": "0.0550",
     "LtwoNconfigs": "28",
+    "WarpMonoMaxDRtwo": "1.9e-04",
+    "ComovingFloorPct": "29",
     "WarpNonmonoLo": "55",
     "BtwentyfourRuns": "54",
     "BtwentyfourUntrained": "11",
@@ -262,8 +266,8 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "26",
-    "LedgerB": "70",
-    "LedgerTotal": "96",
+    "LedgerB": "71",
+    "LedgerTotal": "97",
     "LedgerOwn": "33",
     "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbTimeTwin": "0.0131",
@@ -1088,9 +1092,25 @@
       "file": "results/l2_v2_verdict.json",
       "path": "families"
     },
+    "LtwoLegacyDsix": {
+      "file": "results/l2_results.json",
+      "path": "sweep"
+    },
+    "LtwoLegacyDeight": {
+      "file": "results/l2_results.json",
+      "path": "sweep"
+    },
     "LtwoNconfigs": {
       "file": "results/l2_v2_verdict.json",
       "path": "families"
+    },
+    "WarpMonoMaxDRtwo": {
+      "file": "results/warp_monotone.json",
+      "path": "per_seed"
+    },
+    "ComovingFloorPct": {
+      "file": "results/comoving2.json",
+      "path": ""
     },
     "WarpNonmonoLo": {
       "file": "results/warp_monotone.json",
