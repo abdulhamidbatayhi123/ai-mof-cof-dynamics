@@ -263,7 +263,7 @@
     "LedgerB": "69",
     "LedgerTotal": "95",
     "LedgerOwn": "33",
-    "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
+    "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
     "AnchorAspect": "0.17",
     "LCexpRatio": "0.55",
@@ -1412,5 +1412,11 @@
       "derived": "the training set's cost in core-hours: solves x worker-seconds"
     }
   },
-  "pending": []
+  "pending": [
+    {
+      "key": "LfourbVerdictMaterial",
+      "file": "results/l4b_v2_verdict.json",
+      "why": "second PREREG 4.2 edge extension (w1e-6, material axis)"
+    }
+  ]
 }

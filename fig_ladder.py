@@ -138,21 +138,27 @@ def build_rows():
     # L4b — the PDE residual as a loss, on the material axis.
     ax = (l4 or {}).get("axes", {}).get("material", {})
     c = ax.get("best_pi_vs_data_only")
+    # Same gate as paper/numbers.py GATED: the material verdict is not final until the
+    # second PREREG 4.2 edge extension (w1e-6) lands; the figure must not draw it.
+    _mk = "chain_l4b_v2_ext2_outer.log"
+    ext2_done = os.path.exists(_mk) and "L4B_V2_EXT2_DONE" in open(_mk, errors="replace").read()
+    if c and not ext2_done:
+        c = None
     if c:
         m = ax.get("mde") or {}
         m80 = next((v.get("mde_80") for v in m.values() if isinstance(v, dict) and v.get("mde_80")), None)
         add("L4b", "physics as a loss", "best physics arm vs its data-only twin",
             effect(c, control_is_a=(c["arm_a"] == "data_only")),
             ax["verdict"].split(".")[0][:36],
-            "10 weighting schemes: fixed over four decades, gradient-norm x3, NTK, self-adaptive",
+            ax.get("sweep_described", "weighting sweep per PREREG_L4b_v2")[:90],
             mde=100 * m80 if m80 else None)
     else:
         rows.append(dict(rung="L4b", hyp="physics as a loss",
                          inter="best physics arm vs its data-only twin",
                          e=None, lo=None, hi=None, sig=None, n=48, ctrl=None, mde=None, leak=False,
                          verdict="IN FLIGHT",
-                         note="pre-registered in PREREG_L4b_v2.md; the sweep is running, no verdict yet"))
-        missing.append("L4b-v2 verdict (the run is still in flight)")
+                         note="PREREG_L4b_v2.md: the second edge extension (w1e-6) is running; no verdict yet"))
+        missing.append("L4b-v2 material verdict (second edge extension in flight)")
 
     # L5 — nonlinear reconstruction, and basis size.
     if l5:

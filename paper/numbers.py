@@ -42,6 +42,17 @@ OUT_JSON = os.path.join(ROOT, "paper", "numbers.json")
 PENDING = {}          # L4b-v2 landed 2026-09-08; nothing is in flight
 PENDING_TEXT = r"\textbf{[PENDING]}"
 
+# Keys whose results file EXISTS but whose value is not yet final, because a
+# pre-registered step that can change it has not finished. Each is gated on a
+# completion marker in a log; until the marker appears the key renders PENDING and is
+# counted as pending. Added 2026-09-28: the material-axis L4b verdict read "PHYSICS
+# HELPS" from the analyser while PREREG §4.2 still required another decade (w1e-6),
+# and the Conclusions interpolated it -- a provisional verdict one build from the PDF.
+GATED = {
+    "LfourbVerdictMaterial": ("chain_l4b_v2_ext2_outer.log", "L4B_V2_EXT2_DONE",
+                              "second PREREG 4.2 edge extension (w1e-6, material axis)"),
+}
+
 
 # LaTeX specials that are a HARD ERROR in text mode, and the escapes for them.
 # Every macro VALUE goes through this. The build gate already refused an undefined
@@ -625,6 +636,15 @@ def resolve(verbose=False):
         if isinstance(v, float) and not math.isfinite(v):
             failures.append(f"{key}: {fname}:{path} is not finite ({v})")
             continue
+        if key in GATED:
+            mfile, marker, why = GATED[key]
+            mpath = os.path.join(ROOT, mfile)
+            done = os.path.exists(mpath) and marker in open(mpath, encoding="utf-8",
+                                                             errors="replace").read()
+            if not done:
+                out[key] = PENDING_TEXT
+                pending.append((key, fname, why))
+                continue
         out[key] = tex_safe(key, fmt(v) if callable(fmt) else fmt.format(v))
         raw[key] = v
         if verbose:
