@@ -49,6 +49,11 @@ def summarise(root):
         if any(v is None for v in k_by_mat.values()):
             return {"root": root, "design": man.get("design", "legacy"),
                     "n_samples": len(ok), "n_materials": len(man["materials"]),
+                    # audit_hygiene #27: main() prints these three; without them this
+                    # graceful-degradation branch crashed with KeyError instead
+                    "n_conditions": len(man.get("conditions", [])),
+                    "n_rejected": man.get("n_rejected"),
+                    "n_held_out_materials": len(man.get("novel_materials", [])),
                     "damkohler": "UNAVAILABLE and not reconstructible: no per-sample Da "
                                  "and no per-material k_LDF."}
         with_da = [dict(s, Da=k_by_mat[s["mat"]] * s["t_final"]) for s in ok

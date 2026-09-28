@@ -164,9 +164,13 @@ echo "=============================================================="
 #    the FNO conclusion does not depend on it.
 if ! "$P" -c "
 import json,sys
-try: d=json.load(open('results/l5_fno.json'))
-except Exception: sys.exit(1)
-sys.exit(0 if any(a['modes']==16 and sum(1 for s in a['seeds'] if 'novel_material' in a['seeds'][s])>=3 for a in d['arms']) else 1)
+# audit_hygiene #23: the job below writes l5_fno_m16.json, so the test must read it
+# too, or it can never see its own output and relaunches the 3-h job forever
+arms=[]
+for f in ('results/l5_fno.json','results/l5_fno_m16.json'):
+    try: arms+=json.load(open(f))['arms']
+    except Exception: pass
+sys.exit(0 if any(a['modes']==16 and sum(1 for s in a['seeds'] if 'novel_material' in a['seeds'][s])>=3 for a in arms) else 1)
 "; then
   echo "-> FNO modes=16 missing; running (~3 h)"
   "$P" -u run_l5_fno.py --modes 16 --lrs 3e-3 1e-3 --seeds 42 43 44 \

@@ -1142,15 +1142,23 @@ methodology that produced it, is the contribution.
 
 ## Open items before submission
 
-1. Every MOF-303 parameter is a literature-range placeholder. Until replaced with
-   cited values and the isotherm refitted to a published water isotherm, **no
-   result may be described as "MOF-303"**.
+1. ~~Every MOF-303 parameter is a literature-range placeholder; no result may be
+   described as "MOF-303".~~ **Discharged 2026-08-31 (RETRACTIONS.md A4):** results may
+   be described as *MOF-303-parameterised*, provided three exclusions are stated:
+   rho_p/eps_t are packing values, C_ps is a 900-2400 J/kg/K band, and
+   isotherm_n/henry_fraction are fitted shape parameters.
 2. ~~No experimental validation exists.~~ One solver-vs-experiment comparison now exists
    (Lassitter 2024 Fig. 10, pre-registered, no fitting); the error budget must still
    separate solver-vs-experiment from surrogate-vs-solver, in those words.
 3. No COF case exists; the title claims one.
 4. ~~`kaggle_run/` is a stale duplicate carrying the original defects.~~ **Closed 2026-09-25:** removed with `deploy_kaggle.py`, `build_kaggle_pkg.py` and the package zip; in git history at `81295d4`.
-5. The speed claim needs an honest reference — our own solver runs one condition
-   in 4.2 s (MOF-303 config, N_z = 2000).
+5. The speed claim needs an honest reference. The per-solve time is CONFIG-dependent,
+   not a single number: 4.2 s for the MOF-303 config and 73.1 s for the generic
+   config, both at N_z = 2000 (03_LADDER_PROTOCOL.md, convergence table; the
+   k_LDF 0.01 vs 0.05 stiffness difference). The "~150 s" in RETRACTIONS.md A6 and
+   03_LADDER_PROTOCOL.md:1495 was an earlier generic-config estimate, superseded by
+   that table (audit_hygiene #28). The manuscript quotes none of these: its cost
+   section uses solve-equivalents measured from the v2 generation run itself
+   (\nCostSolveSec, macro-backed in paper/numbers.py), which is the figure to cite.
 6. **Closed 2026-09-25:** `sindy_discovery.py` removed (git `81295d4`; evidence kept in A7); `identify_kinetics.py` replaced it. Original item: SINDy needs something to discover: its library currently contains `q*`,
    computed from the law that generated the data.
