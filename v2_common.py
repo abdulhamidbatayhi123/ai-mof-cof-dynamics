@@ -36,6 +36,10 @@ from metrics import breakthrough_times, per_variable_nrmse
 try:
     import ctypes
     _k32 = ctypes.windll.kernel32
+    # declare the handle type: ctypes' default int return truncates the 64-bit pseudo
+    # handle and the call silently fails (it did, on the first version of this block)
+    _k32.GetCurrentProcess.restype = ctypes.c_void_p
+    _k32.SetPriorityClass.argtypes = [ctypes.c_void_p, ctypes.c_uint32]
     _k32.SetPriorityClass(_k32.GetCurrentProcess(), 0x00008000)   # ABOVE_NORMAL
 except Exception:
     pass
