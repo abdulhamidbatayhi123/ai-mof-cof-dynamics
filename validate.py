@@ -23,6 +23,7 @@ model     : network derivatives must be smooth enough to differentiate twice
 from __future__ import annotations
 
 import argparse
+import ast
 import re
 import sys
 import traceback
@@ -129,30 +130,130 @@ DATASETS = _resolve_datasets()
 
 # Patterns that indicate a plotted curve was invented rather than computed.
 _FABRICATION_PATTERNS = [
-    (r"np\.random\.normal\s*\([^)]*\)\s*(?:#.*)?$", "synthetic noise added to a plotted series"),
     (r"copy\s*\(\s*\w*_true\s*\)", "a 'prediction' built by copying ground truth"),
     (r"\bhallucinat", "a hand-authored 'failure' curve"),
     (r"placeholder logic", "acknowledged placeholder left in a plotting path"),
 ]
 
+# Noise generators (audit_hygiene #16). The old pattern was `np.random.normal(...)$`,
+# anchored to end of line, so A1's actual shape `c_true + np.random.normal(0, 1e-3, n)`
+# followed by anything -- or `np.random.normal(...) + c_true` -- escaped, and randn /
+# rand / uniform / default_rng().normal() were not covered at all. No anchor now, and
+# a Generator bound to a name (`rng = np.random.default_rng(s); rng.normal(...)`, the
+# commonest idiom) is caught through that name. Only sampling methods that DRAW
+# VALUES are listed; choice/permutation/integers index data and cannot fake a series.
+_NOISE_METHODS = r"(?:randn|rand|uniform|normal|standard_normal|random)"
+_NOISE_PATTERNS = [
+    (r"np\.random\.(?:randn|rand|uniform|normal)\s*\(", "np.random noise draw"),
+    (r"default_rng\s*\([^)]*\)\s*\.\s*" + _NOISE_METHODS + r"\s*\(", "default_rng(...) noise draw"),
+]
+_RNG_BINDING = re.compile(r"\b(\w+)\s*=\s*(?:np\.random\.)?(?:default_rng|RandomState|Generator)\s*\(")
+
+# Directories the recursive scan does not enter, each with its reason. kaggle_run/
+# (the "stale duplicate carrying every original defect", retraction A7) is NOT here:
+# it was deleted from the tree, and if it ever reappears it is scanned.
+_SCAN_SKIP_DIRS = {
+    ".venv": "third-party virtualenv", ".git": "VCS metadata",
+    "node_modules": "third-party", "site-packages": "third-party",
+    "__pycache__": "bytecode",
+    # tests/ build synthetic fixtures ON PURPOSE: test_p2.py and test_odr_bindy.py add
+    # observation noise to a known truth to check that a method RECOVERS it. That is
+    # the fabrication pattern by construction, produces no reported number and no
+    # figure, and is the only way to test an estimator. Read 2026-09-28.
+    "tests": "unit-test fixtures add noise to a known truth to test recovery",
+}
+
+# Per-file allow-list for noise draws: file -> (exact number of flagged lines, reason).
+# The count is exact so that a NEW noise draw added to an allowed file is not waved
+# through -- it changes the count and the gate asks for the file to be re-read.
+# Every entry below was read line by line on 2026-09-28; none adds noise to a model
+# or solver output that is then reported or plotted as a result.
+_NOISE_ALLOWED = {
+    "audit_l1.py": (3, "Monte-Carlo calibration of the L1 paired-CI procedure on SYNTHETIC "
+                       "arms of known effect; it tests the statistic, reports no model number"),
+    "calibrate_ci.py": (3, "coverage calibration of the paired CI on simulated arms of known "
+                           "effect (the statistic is under test, not a model)"),
+    "calibrate_v2.py": (3, "the same CI-coverage calibration for the v2 design: simulated arms "
+                           "with a planted effect, to measure coverage"),
+    "mde.py": (2, "minimum-detectable-effect power simulation: draws synthetic between/within-"
+                  "material variation to size the design, reports no model result"),
+    "metrics.py": (3, "the module's self-test builds synthetic ArmResults of known ordering to "
+                      "check the paired statistic; no model output is touched"),
+    "cost_accounting.py": (4, "random INPUT tensors to time a forward pass (FLOP/latency "
+                              "accounting); the values are never reported, only the wall time"),
+    "gen_parametric_dataset.py": (2, "uniform sampling of the material/condition DESIGN space "
+                                     "that the solver is then run on; inputs, not outputs"),
+}
+
+
+def _scan_py_files():
+    """All tracked-tree .py files under ROOT, recursively, minus _SCAN_SKIP_DIRS."""
+    out = []
+    for path in sorted(ROOT.rglob("*.py")):
+        rel = path.relative_to(ROOT)
+        if any(part in _SCAN_SKIP_DIRS for part in rel.parts[:-1]):
+            continue
+        if rel.as_posix() == "validate.py":
+            continue
+        out.append(path)
+    return out
+
+
+def _noise_lines(src):
+    """Line numbers of every noise draw in `src` (see _NOISE_PATTERNS)."""
+    names = sorted({m.group(1) for m in _RNG_BINDING.finditer(src)})
+    pats = [p for p, _ in _NOISE_PATTERNS]
+    if names:
+        pats.append(r"\b(?:" + "|".join(map(re.escape, names)) + r")\s*\.\s*"
+                    + _NOISE_METHODS + r"\s*\(")
+    hits = []
+    for lineno, line in enumerate(src.splitlines(), 1):
+        code = line.split("#", 1)[0]
+        if any(re.search(p, code) for p in pats):
+            hits.append(lineno)
+    return hits
+
 
 @gate("plotting code computes its curves", "integrity")
 def gate_no_fabricated_curves():
-    """No plotting script may synthesise a series it labels as a model prediction."""
-    offenders = []
-    for path in sorted(ROOT.glob("*.py")):
-        if path.name == "validate.py":
-            continue
+    """No script may synthesise a series it reports as a model prediction.
+
+    The scan is recursive and covers every script, not only plotting ones: A7's
+    fabricated SINDy input was never plotted -- it was regressed on. Noise draws are
+    admitted only through _NOISE_ALLOWED, per file, with a reason and an exact count.
+    """
+    offenders, allowed_seen = [], []
+    for path in _scan_py_files():
+        rel = path.relative_to(ROOT).as_posix()
         src = path.read_text(encoding="utf-8", errors="replace")
-        if "matplotlib" not in src and "plt." not in src:
+        if "matplotlib" in src or "plt." in src:
+            for lineno, line in enumerate(src.splitlines(), 1):
+                for pat, why in _FABRICATION_PATTERNS:
+                    if re.search(pat, line, re.IGNORECASE):
+                        offenders.append(f"{rel}:{lineno} — {why}")
+        noise = _noise_lines(src)
+        if not noise:
             continue
-        for lineno, line in enumerate(src.splitlines(), 1):
-            for pat, why in _FABRICATION_PATTERNS:
-                if re.search(pat, line, re.IGNORECASE):
-                    offenders.append(f"{path.name}:{lineno} — {why}")
+        allowed = _NOISE_ALLOWED.get(rel)
+        if allowed and allowed[0] == len(noise):
+            allowed_seen.append(rel)
+            continue
+        where = ", ".join(map(str, noise[:8]))
+        if allowed:
+            offenders.append(f"{rel}: {len(noise)} noise draw(s) at lines {where}, but the allow-list "
+                             f"reviewed {allowed[0]} — re-read the file and update _NOISE_ALLOWED")
+        else:
+            offenders.append(f"{rel}: noise draw(s) at lines {where} — synthetic noise can fake a "
+                             f"series; justify in _NOISE_ALLOWED or remove")
+    stale = sorted(set(_NOISE_ALLOWED) - set(allowed_seen)
+                   - {o.split(":", 1)[0] for o in offenders})
+    if stale:
+        offenders.append("stale _NOISE_ALLOWED entries (file gone or no longer draws noise): "
+                         + ", ".join(stale))
     if offenders:
         return False, "figures must come from a model:\n      " + "\n      ".join(offenders)
-    return True, "no synthesised series found in plotting code"
+    return True, (f"no synthesised series found ({len(allowed_seen)} files draw noise under a "
+                  f"reviewed allow-list entry)")
 
 
 # A plotting script may not invent a model series. There are FOUR legitimate
@@ -178,6 +279,124 @@ _MODEL_MACHINERY = [
     (r"\bnn\.[A-Z]", "constructs a torch module"),
 ]
 _RESULTS_PATH = re.compile(r"[\"'](results/[\w./-]+\.json|verify_solver\.json)[\"']")
+_RESULTS_LIT = re.compile(r"^(results/[\w./-]+\.json|verify_solver\.json)$")
+
+# Calls that READ a file. A results path counts as provenance only if it reaches one
+# of these (audit_hygiene #10): a quoted filename in a docstring or comment, or in an
+# unused variable, is an assertion, not proof.
+_READ_CALLS = {"open", "load", "loads", "read_text", "read_bytes", "fromfile", "loadtxt",
+               "genfromtxt", "read_csv", "read_json", "read_parquet", "read_pickle",
+               "read_table", "read_excel"}
+
+
+def _ast_parse(src):
+    """ast.parse without echoing the parsed file's own SyntaxWarnings (e.g. '\\|')."""
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", SyntaxWarning)
+        return ast.parse(src)
+
+
+def _call_name(node):
+    f = node.func
+    return f.id if isinstance(f, ast.Name) else f.attr if isinstance(f, ast.Attribute) else None
+
+
+def _is_write_open(call):
+    """open(p, "w") / open(p, mode="a") / Path.open("w") writes; it proves nothing read."""
+    mode = None
+    if _call_name(call) == "open":
+        args = call.args[1:] if isinstance(call.func, ast.Name) else call.args[:1]
+        if args and isinstance(args[0], ast.Constant):
+            mode = args[0].value
+        for kw in call.keywords:
+            if kw.arg == "mode" and isinstance(kw.value, ast.Constant):
+                mode = kw.value.value
+    return isinstance(mode, str) and any(ch in mode for ch in "wax")
+
+
+def _loaded_results_paths(src):
+    """Results paths in `src` that provably reach a file-reading call whose value is used.
+
+    Flow-insensitive taint over NAMES: a literal assigned to a name (directly or inside
+    a list/tuple/join/f-string) taints that name, and a for-loop over a tainted iterable
+    taints its target. A path counts once a read call -- or a function defined in the
+    same file whose body contains a read call (fig_ladder's `load` helper) -- takes the
+    literal or a tainted name among its arguments, and that call is not a bare
+    expression statement (its result is used). Returns None if the file does not parse.
+    """
+    try:
+        tree = _ast_parse(src)
+    except SyntaxError:
+        return None
+    parent = {}
+    for node in ast.walk(tree):
+        for ch in ast.iter_child_nodes(node):
+            parent[ch] = node
+
+    def lits(node):
+        return {n.value for n in ast.walk(node)
+                if isinstance(n, ast.Constant) and isinstance(n.value, str) and _RESULTS_LIT.match(n.value)}
+
+    def names(node):
+        return {n.id for n in ast.walk(node) if isinstance(n, ast.Name)}
+
+    reader_funcs = set(_READ_CALLS)
+    for fn in ast.walk(tree):
+        if isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if any(isinstance(c, ast.Call) and _call_name(c) in _READ_CALLS and not _is_write_open(c)
+                   for c in ast.walk(fn)):
+                reader_funcs.add(fn.name)
+
+    taint = {}  # name -> set of results paths it may carry
+    changed = True
+    while changed:
+        changed = False
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign)) and node.value is not None:
+                carried = lits(node.value).union(*[taint.get(n, set()) for n in names(node.value)])
+                targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            elif isinstance(node, (ast.For, ast.comprehension)):
+                carried = lits(node.iter).union(*[taint.get(n, set()) for n in names(node.iter)])
+                targets = [node.target]
+            else:
+                continue
+            if not carried:
+                continue
+            for t in targets:
+                for n in ast.walk(t):
+                    if isinstance(n, ast.Name) and not carried <= taint.get(n.id, set()):
+                        taint.setdefault(n.id, set()).update(carried)
+                        changed = True
+
+    loaded = set()
+    for call in ast.walk(tree):
+        if not (isinstance(call, ast.Call) and _call_name(call) in reader_funcs) or _is_write_open(call):
+            continue
+        # the result must be used: climb to the outermost enclosing call chain and
+        # reject a bare expression statement such as `open("results/x.json")`.
+        top = call
+        while isinstance(parent.get(top), (ast.Call, ast.Attribute, ast.Subscript, ast.keyword)):
+            top = parent[top]
+        if isinstance(parent.get(top), ast.Expr):
+            continue
+        argnodes = list(call.args) + [k.value for k in call.keywords]
+        if isinstance(call.func, ast.Attribute):
+            argnodes.append(call.func.value)   # Path("results/x.json").read_text()
+        for a in argnodes:
+            loaded |= lits(a)
+            for n in names(a):
+                loaded |= taint.get(n, set())
+    return loaded
+
+
+def _calls_load_state_dict(src):
+    """True iff `load_state_dict` is a real ast.Call, not a word in a comment or docstring."""
+    try:
+        tree = _ast_parse(src)
+    except SyntaxError:
+        return False
+    return any(isinstance(n, ast.Call) and _call_name(n) == "load_state_dict" for n in ast.walk(tree))
 
 
 @gate("plotting code loads a checkpoint", "integrity")
@@ -201,7 +420,7 @@ def gate_plot_loads_model():
             src, re.I)
         if not (draws_model or "savefig" in src):
             continue
-        if "load_state_dict" in src:
+        if _calls_load_state_dict(src):   # a CALL, not a substring (audit_hygiene #10)
             ok.append(f"{path.name}: checkpoint")
             continue
         learned = [why for pat, why in _MODEL_MACHINERY if re.search(pat, src)]
@@ -217,7 +436,13 @@ def gate_plot_loads_model():
                 ok.append(f"{path.name}: digitised")
                 continue
         machinery = [why for pat, why in _MODEL_MACHINERY if re.search(pat, src)]
-        named = sorted({m.group(1) for m in _RESULTS_PATH.finditer(src)})
+        # Only paths that provably reach a read call count (audit_hygiene #10); a
+        # path merely quoted somewhere in the file is an assertion.
+        loaded = _loaded_results_paths(src)
+        if loaded is None:
+            bad.append(f"{path.name} — does not parse, so its provenance cannot be proven")
+            continue
+        named = sorted(loaded)
         # A run still in flight has not written its verdict file yet. A script may
         # name such a file ONLY by declaring it in a PENDING_RESULTS tuple, which the
         # gate polices both ways: a declared file must NOT exist (a stale declaration
@@ -236,7 +461,8 @@ def gate_plot_loads_model():
                        f"{machinery[0]}, so it could compute the series itself")
         elif not named:
             bad.append(f"{path.name} — labels a model curve but neither loads a checkpoint "
-                       f"nor names a results file to read it from")
+                       f"nor reads a results file (a path must reach open/json.load/np.load/..., "
+                       f"not merely be quoted)")
         elif missing:
             bad.append(f"{path.name} — reads model series from files that do not exist: "
                        + ", ".join(missing))
@@ -270,7 +496,17 @@ def gate_manuscript_numbers():
     nums = ROOT / "paper" / "numbers.tex"
     if not nums.exists():
         raise Skip("paper/numbers.tex not built — run python paper/numbers.py")
-    body = bp.body(tex.read_text(encoding="utf-8"))
+    # numbers.json is read BEFORE the verdict (audit_hygiene #26): it used to be read
+    # after the pass decision, unguarded, so an absent file became a raw-traceback
+    # FAIL and a non-empty `pending` list became a suffix on a PASS -- a manuscript
+    # with visible [PENDING] markers went green. numbers.py:39-40 says a manuscript
+    # can never be finalised while any remain; this gate now enforces it.
+    import json as _json
+    nums_json = ROOT / "paper" / "numbers.json"
+    if not nums_json.exists():
+        raise Skip("paper/numbers.json not built — run python paper/numbers.py")
+    pend = _json.loads(nums_json.read_text(encoding="utf-8")).get("pending", [])
+    body =bp.body(tex.read_text(encoding="utf-8"))
     defined = set(bp.MACRO.findall(nums.read_text(encoding="utf-8")))
     used = set(bp.MACRO.findall(body))
     undefined = sorted(used - defined)
@@ -286,8 +522,13 @@ def gate_manuscript_numbers():
     sys.path.insert(0, str(ROOT / "paper"))
     import number_words
     nw_unreviewed, nw_owed, _ = number_words.check(body, bp.strip_structural)
-    if undefined or hits or broken or nw_unreviewed:
+    if undefined or hits or broken or nw_unreviewed or pend:
         msg = []
+        if pend:
+            msg.append(f"{len(pend)} value(s) PENDING a run still in flight — the manuscript "
+                       f"prints [PENDING] and cannot pass: " + ", ".join(
+                           (p.get("key", "?") + " <- " + p.get("file", "?")) if isinstance(p, dict)
+                           else str(p) for p in pend[:6]))
         if nw_unreviewed:
             msg.append(f"{len(nw_unreviewed)} unreviewed number-word(s): "
                        + "; ".join(k for _, _, k in nw_unreviewed[:4]))
@@ -298,11 +539,8 @@ def gate_manuscript_numbers():
         if hits:
             msg.append(f"{len(hits)} undeclared numeral(s): " + "; ".join(hits[:6]))
         return False, " | ".join(msg)
-    import json as _json
-    pend = _json.loads((ROOT / "paper" / "numbers.json").read_text(encoding="utf-8")).get("pending", [])
-    note = f"; {len(pend)} value(s) PENDING a run still in flight" if pend else ""
     return True, (f"{len(used)} macros used, all resolved from results files; "
-                  f"{len(bp.ALLOWED)} literals declared with reasons{note}; "
+                  f"{len(bp.ALLOWED)} literals declared with reasons; 0 pending; "
                   f"{len(nw_owed)} measured quantities still OWED as words")
 
 
@@ -822,7 +1060,10 @@ def gate_equation_normalisation():
     except ImportError as e:  # a broken module must FAIL, not SKIP (audit_hygiene #14)
         raise Skip(f"import failed ({e})")
 
-    rows, ok = [], []
+    # `checks` is a list of per-equation booleans, not a verdict. all([]) is True, so an
+    # empty list used to PASS with an affirmative claim about zero equations
+    # (audit_hygiene #24); it is now a SKIP.
+    rows, checks = [], []
     for _, kind, c_in in DATASETS:
         phys = _physics(kind)
         nd = NondimConfig(phys, t_final=1.5 * phys.stoichiometric_time(c_in), c_in=c_in)
@@ -831,12 +1072,15 @@ def gate_equation_normalisation():
         for eq, terms in coeffs.items():
             scaled = {k: v / nrm[eq] for k, v in terms.items()}
             top = max(abs(v) for v in scaled.values())
-            ok.append(abs(top - 1.0) < 1e-9)
+            checks.append(abs(top - 1.0) < 1e-9)
             rng = f"[{min(abs(v) for v in scaled.values()):.1e}, {top:.1f}]"
             rows.append(f"{kind}/{eq}: {rng}")
-    if not all(ok):
+    if not checks:
+        raise Skip("no equations to check")
+    if not all(checks):
         return False, "some equation is not normalised: " + "; ".join(rows)
-    return True, "dominant coefficient = 1 in every equation | " + "; ".join(rows[:3]) + " ..."
+    return True, (f"dominant coefficient = 1 in all {len(checks)} equations | "
+                  + "; ".join(rows[:3]) + " ...")
 
 
 @gate("residuals are finite across seeds", "residual")
@@ -868,6 +1112,99 @@ def gate_residual_finite():
     return True, f"4 seeds finite; init-scale spread {min(mags):.1f}x–{max(mags):.1f}x (not a scaling defect)"
 
 
+_RESIDUAL_NAMES = {"pde": {"pde_residual", "compute_adsorption_pde_residuals"},
+                   "bc": {"boundary_residual", "boundary_residuals"}}
+_AST_CACHE = {}
+
+
+def _parse_root_module(stem):
+    """ast of ROOT/<stem>.py, or None if absent or unparsable (cached)."""
+    if stem not in _AST_CACHE:
+        p = ROOT / f"{stem}.py"
+        try:
+            _AST_CACHE[stem] = _ast_parse(p.read_text(encoding="utf-8", errors="replace"))
+        except (OSError, SyntaxError):
+            _AST_CACHE[stem] = None
+    return _AST_CACHE[stem]
+
+
+def _live_calls(node):
+    """Every ast.Call under `node`, skipping bodies of constant-false `if`/`while`
+    (`if False:` / `if 0:`), which are dead code however they read."""
+    out, stack = [], [node]
+    while stack:
+        n = stack.pop()
+        if isinstance(n, (ast.If, ast.While)) and isinstance(n.test, ast.Constant) and not n.test.value:
+            stack.extend(n.orelse)
+            continue
+        if isinstance(n, ast.Call):
+            out.append(n)
+        stack.extend(ast.iter_child_nodes(n))
+    return out
+
+
+def _imports(tree):
+    """(from-imports {local: (module, original)}, module imports {local: module})."""
+    names, mods = {}, {}
+    for n in ast.walk(tree):
+        if isinstance(n, ast.ImportFrom) and n.module and n.level == 0:
+            for a in n.names:
+                names[a.asname or a.name] = (n.module, a.name)
+        elif isinstance(n, ast.Import):
+            for a in n.names:
+                mods[a.asname or a.name.split(".")[0]] = a.name
+    return names, mods
+
+
+def _calls_resolve_to(stem, calls, kind, seen):
+    """True if any call in `calls` (inside module `stem`) resolves to a `kind` residual,
+    directly, through an import alias, or through a helper defined in `stem` or in
+    another root module (followed transitively, cycle-safe)."""
+    tree = _parse_root_module(stem)
+    if tree is None:
+        return False
+    names, mods = _imports(tree)
+    local_defs = {n.name: n for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))}
+    for c in calls:
+        f = c.func
+        if isinstance(f, ast.Name):
+            orig = names.get(f.id, (None, f.id))[1]
+            if orig in _RESIDUAL_NAMES[kind] or f.id in _RESIDUAL_NAMES[kind]:
+                return True
+            if f.id in local_defs and _func_calls(stem, f.id, kind, seen):
+                return True
+            if f.id in names and _func_calls(names[f.id][0], names[f.id][1], kind, seen):
+                return True
+        elif isinstance(f, ast.Attribute):
+            if f.attr in _RESIDUAL_NAMES[kind]:
+                return True
+            if isinstance(f.value, ast.Name) and f.value.id in mods \
+                    and _func_calls(mods[f.value.id], f.attr, kind, seen):
+                return True
+    return False
+
+
+def _func_calls(stem, fname, kind, seen):
+    """Does function `fname` defined at top level of root module `stem` call a `kind` residual?"""
+    key = (stem, fname)
+    if key in seen or "." in stem:
+        return False
+    seen = seen | {key}
+    tree = _parse_root_module(stem)
+    if tree is None:
+        return False
+    for n in tree.body:
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == fname:
+            return _calls_resolve_to(stem, _live_calls(n), kind, seen)
+    return False
+
+
+def _module_calls(stem, kind):
+    """Does root module `stem` contain a live call that resolves to a `kind` residual?"""
+    tree = _parse_root_module(stem)
+    return tree is not None and _calls_resolve_to(stem, _live_calls(tree), kind, frozenset())
+
+
 @gate("physics losses include boundary conditions", "residual")
 def gate_physics_has_bcs():
     """Any training script that uses a PDE residual must also use a boundary residual.
@@ -880,23 +1217,29 @@ def gate_physics_has_bcs():
     The omission was invisible: the loss decreased, training converged, and the
     arm simply underperformed. Only a structural check catches it.
     """
-    import re as _re
-
+    # Selection is by BEHAVIOUR, not filename (audit_hygiene #15): the old glob
+    # `run_*.py + train_pikan.py` never saw refine_*/sweep scripts, which train with a
+    # PDE residual exactly where B20 would recur. Every root script that trains
+    # (an ast call to .backward() or .step()) is examined; residual calls are resolved
+    # through ast, so `from pde_adsorption import compute_adsorption_pde_residuals as r`
+    # and helpers imported from other root modules (refine_* call run_l4b_v2's
+    # physics_terms, which calls both residuals) are followed.
     offenders, checked = [], []
-    for path in sorted(ROOT.glob("run_*.py")) + [ROOT / "train_pikan.py"]:
-        if not path.exists():
+    for path in sorted(ROOT.glob("*.py")):
+        if path.name == "validate.py":
             continue
-        src = path.read_text(encoding="utf-8", errors="replace")
-        uses_pde = bool(_re.search(r"(?:pde_residual|compute_adsorption_pde_residuals)\s*\(", src))
+        tree = _parse_root_module(path.stem)
+        if tree is None or not any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                                   and n.func.attr in ("backward", "step") for n in ast.walk(tree)):
+            continue
+        uses_pde = _module_calls(path.stem, "pde")
         if not uses_pde:
             continue
         checked.append(path.name)
-        # a definition alone does not count; require a CALL
-        # A definition alone does not count - require a CALL that passes a model.
-        # run_l4.py once DEFINED boundary_residual without its own trainer ever
-        # calling it, which is exactly how B20 survived.
-        calls_bc = bool(_re.search(r"boundary_residuals?\s*\(\s*model", src))
-        if not calls_bc:
+        # A definition alone does not count - require a live CALL (not under a
+        # constant-false branch). run_l4.py once DEFINED boundary_residual without
+        # its own trainer ever calling it, which is exactly how B20 survived.
+        if not _module_calls(path.stem, "bc"):
             offenders.append(f"{path.name} computes a PDE residual but never calls a boundary residual")
     if not checked:
         raise Skip("no training script uses a PDE residual")
