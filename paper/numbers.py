@@ -49,6 +49,12 @@ PENDING_TEXT = r"\textbf{[PENDING]}"
 # HELPS" from the analyser while PREREG §4.2 still required another decade (w1e-6),
 # and the Conclusions interpolated it -- a provisional verdict one build from the PDF.
 GATED = {
+    "LthreeBestKanSig": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
+                         "B71: re-derivation of the paired interval (autorun job 2c)"),
+    "LthreeBestKanLo": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
+                        "B71: re-derivation of the paired interval (autorun job 2c)"),
+    "LthreeBestKanHi": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
+                        "B71: re-derivation of the paired interval (autorun job 2c)"),
     "LfourbVerdictMaterial": ("chain_l4b_v2_ext2_outer.log", "L4B_V2_EXT2_DONE",
                               "second PREREG 4.2 edge extension (w1e-6, material axis)"),
 }
@@ -202,9 +208,12 @@ SPEC = [
     ("LthreeDecades", "results/l3_edges.json", "decades", "{:.1f}"),
     ("LthreeEdgeSatMin", "results/l3_edges.json", "edge_saturation_min", lambda x: f"{100 * x:.2f}"),
     ("LthreeEdgeSatMax", "results/l3_edges.json", "edge_saturation_max", lambda x: f"{100 * x:.2f}"),
-    ("LthreeBestKanMlp", "results/l3_final_pair.json", "mlp", "{:.4f}"),
-    ("LthreeBestKan", "results/l3_final_pair.json", "rbf_g4", "{:.4f}"),
-    ("LthreeBestKanDiff", "results/l3_final_pair.json", "diff", "{:.4f}"),
+    # B71: the means are owned by audit_l3.py (identical values); the paired interval
+    # below is GATED until l3_final_pair.py (autorun job 2c) re-derives it.
+    ("LthreeBestKanMlp", "results/l3_audit.json", "mlp", "{:.4f}"),
+    ("LthreeBestKan", "results/l3_audit.json", "rbf_g4", "{:.4f}"),
+    ("LthreeBestKanSig", "results/l3_final_pair.json", "significant",
+     lambda b: "significant" if b else "not significant"),
     ("LthreeBestKanLo", "results/l3_final_pair.json", "ci[0]", "{:.4f}"),
     ("LthreeBestKanHi", "results/l3_final_pair.json", "ci[1]", "{:.4f}"),
 
@@ -517,6 +526,8 @@ SPEC = [
 # They are derived here rather than in the prose for the same reason every other number
 # is: a ratio typed into LaTeX is a number with no script behind it (B43).
 DERIVED = [
+    ("LthreeBestKanDiff", "perceptron minus best KAN held-out error (both from audit_l3.py)",
+     lambda r: r["LthreeBestKanMlp"] - r["LthreeBestKan"], "{:.4f}"),
     # number-words paid 2026-09-27 (paper/number_words.json OWED entries)
     ("AnchorAspect", "anchor bed length divided by tube diameter",
      lambda r: r["AnchorBedLenMm"] / r["AnchorTubeMm"], "{:.2f}"),

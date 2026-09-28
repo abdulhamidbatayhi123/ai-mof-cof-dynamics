@@ -73,9 +73,9 @@
 \newcommand{\nLthreeEdgeSatMax}{0.60}
 \newcommand{\nLthreeBestKanMlp}{0.0573}
 \newcommand{\nLthreeBestKan}{0.0633}
-\newcommand{\nLthreeBestKanDiff}{-0.0060}
-\newcommand{\nLthreeBestKanLo}{-0.0120}
-\newcommand{\nLthreeBestKanHi}{-0.0008}
+\newcommand{\nLthreeBestKanSig}{\textbf{[PENDING]}}
+\newcommand{\nLthreeBestKanLo}{\textbf{[PENDING]}}
+\newcommand{\nLthreeBestKanHi}{\textbf{[PENDING]}}
 \newcommand{\nLfiveFNO}{0.0216}
 \newcommand{\nLfiveFNOmodes}{4}
 \newcommand{\nLfiveFNOwidth}{28}
@@ -282,6 +282,8 @@
 \newcommand{\nLfourbTimeSeenRise}{611}
 \newcommand{\nLfourbVerdictTime}{NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1); the legacy 'hurts' claim is WITHDRAWN.}
 % derived ratios — the formula behind each is in DERIVED in numbers.py
+% LthreeBestKanDiff: perceptron minus best KAN held-out error (both from audit_l3.py)
+\newcommand{\nLthreeBestKanDiff}{-0.0060}
 % AnchorAspect: anchor bed length divided by tube diameter
 \newcommand{\nAnchorAspect}{0.17}
 % LCexpRatio: conditions-axis learning-curve exponent over the materials-axis one

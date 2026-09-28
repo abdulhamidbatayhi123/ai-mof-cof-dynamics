@@ -72,9 +72,9 @@
     "LthreeEdgeSatMax": "0.60",
     "LthreeBestKanMlp": "0.0573",
     "LthreeBestKan": "0.0633",
-    "LthreeBestKanDiff": "-0.0060",
-    "LthreeBestKanLo": "-0.0120",
-    "LthreeBestKanHi": "-0.0008",
+    "LthreeBestKanSig": "\\textbf{[PENDING]}",
+    "LthreeBestKanLo": "\\textbf{[PENDING]}",
+    "LthreeBestKanHi": "\\textbf{[PENDING]}",
     "LfiveFNO": "0.0216",
     "LfiveFNOmodes": "4",
     "LfiveFNOwidth": "28",
@@ -280,6 +280,7 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "LthreeBestKanDiff": "-0.0060",
     "AnchorAspect": "0.17",
     "LCexpRatio": "0.55",
     "LthreeLrDecades": "3.0",
@@ -584,16 +585,16 @@
       "path": "edge_saturation_max"
     },
     "LthreeBestKanMlp": {
-      "file": "results/l3_final_pair.json",
+      "file": "results/l3_audit.json",
       "path": "mlp"
     },
     "LthreeBestKan": {
-      "file": "results/l3_final_pair.json",
+      "file": "results/l3_audit.json",
       "path": "rbf_g4"
     },
-    "LthreeBestKanDiff": {
+    "LthreeBestKanSig": {
       "file": "results/l3_final_pair.json",
-      "path": "diff"
+      "path": "significant"
     },
     "LthreeBestKanLo": {
       "file": "results/l3_final_pair.json",
@@ -1423,6 +1424,9 @@
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
     },
+    "LthreeBestKanDiff": {
+      "derived": "perceptron minus best KAN held-out error (both from audit_l3.py)"
+    },
     "AnchorAspect": {
       "derived": "anchor bed length divided by tube diameter"
     },
@@ -1488,6 +1492,21 @@
     }
   },
   "pending": [
+    {
+      "key": "LthreeBestKanSig",
+      "file": "results/l3_final_pair.json",
+      "why": "B71: re-derivation of the paired interval (autorun job 2c)"
+    },
+    {
+      "key": "LthreeBestKanLo",
+      "file": "results/l3_final_pair.json",
+      "why": "B71: re-derivation of the paired interval (autorun job 2c)"
+    },
+    {
+      "key": "LthreeBestKanHi",
+      "file": "results/l3_final_pair.json",
+      "why": "B71: re-derivation of the paired interval (autorun job 2c)"
+    },
     {
       "key": "LfourbVerdictMaterial",
       "file": "results/l4b_v2_verdict.json",

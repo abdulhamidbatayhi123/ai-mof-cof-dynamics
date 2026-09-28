@@ -169,6 +169,10 @@ d=json.load(open(\"results/l5_onet_3e2.json\"))
 n=sum(1 for a in d[\"arms\"] for s in a[\"seeds\"].values())
 sys.exit(0 if n>=6 else 1)"'   '"$P" -u run_l5.py --ps 8 16 --seeds 42 43 44 --lrs 3e-2 --families deeponet --steps 8000 --budget 200000 --threads 6 --out results/l5_onet_3e2.json >> l5_onet_3e2.log 2>&1 && "$P" -u analyze_l5_merged.py >> l5_onet_3e2.log 2>&1 && "$P" -u analyze_l5_fno.py >> l5_onet_3e2.log 2>&1 && "$P" -u fig_operators.py >> l5_onet_3e2.log 2>&1'
 
+# --- 2c. B71: re-derive the L3 best-KAN-vs-MLP interval (no script had saved it) --
+# Re-runs audit_l3.py's two configurations with per-sample errors kept. ~2-4 h.
+run_job "L3 final pair re-run (B71)" 'grep -q L3_FINAL_PAIR_DONE l3_final_pair.log 2>/dev/null' '"$P" -u l3_final_pair.py >> l3_final_pair.log 2>&1'
+
 # --- 3. regenerate everything the above feeds --------------------------------
 run_job "figures + numbers + build gate" \
   'false' \
