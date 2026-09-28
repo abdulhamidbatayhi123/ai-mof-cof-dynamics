@@ -357,7 +357,7 @@ not satisfy.
 
 The dataset contains \nDataNsamples\ accepted simulations over \nDataNmaterials\
 materials and \nDataNconditions\ operating conditions, sampled by a scrambled Sobol
-sequence over eight material parameters and three condition parameters;
+sequence over eight material parameters and three condition parameters (Figure~\ref{fig:dataset});
 \nDataNrejected\ candidates were rejected by a screen before being solved. The
 kinetic coefficient is not sampled independently: it is derived from particle size
 through a Glueckauf relation \cite{glueckauf1947theory,glueckauf1955theory}, so kinetics
@@ -466,7 +466,7 @@ had the worst point estimate.
 The floor moved too. The proper-orthogonal-decomposition floor is \nLonePodFloor,
 and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: 192 training materials instead of 48 improved the arm, and improved the floor beneath it by more.
 
-\paragraph{The learning curve, and the rung's actual verdict.} Held-out error falls
+\paragraph{The learning curve, and the rung's actual verdict.} Held-out error (Figure~\ref{fig:rungs}B) falls
 \nLCsmallest\ \(\to\) \nLClargest\ as training materials go 12 \(\to\) 192, a factor
 of \nLCratio. Every consecutive step is a significant improvement \emph{including
 the last}: 96 \(\to\) 192 gives \nLClastDiff\ with interval
@@ -783,7 +783,7 @@ reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
 A linear reconstruction can fail in exactly two ways: the basis cannot represent the
 field, or the map from parameters to coefficients cannot be learned. We separate
 them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
-particular method happened to learn.
+particular method happened to learn (Figure~\ref{fig:mechanism}).
 
 The basis error falls from \nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes
 from 8 to 128. The coefficient-map error, with a strong regressor, moves from
@@ -880,7 +880,7 @@ the exact front trajectory for free --- handed the oracle warp, the co-moving fr
 still loses to the fixed frame. The reason was measured before it was invoked: the separation between the two waves spans a factor of \nGapRange, and one shift cannot align
 two waves whose separation varies that much.
 
-Using \emph{two} shifts, one per wave, and normalising the interval between them,
+Using \emph{two} shifts, one per wave, and normalising the interval between them (Figure~\ref{fig:warp}),
 \begin{equation}
 \sigma(z,t) = \frac{t - t_{\mathrm{lo}}(z)}{t_{\mathrm{hi}}(z) - t_{\mathrm{lo}}(z)},
 \label{eq:warp}
@@ -1014,7 +1014,7 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 \end{tabular}
 \end{table}
 
-\paragraph{What the table says.} Three things, and the third is the one that matters.
+\paragraph{What Table~\ref{tab:cost} says.} Three things, and the third is the one that matters.
 
 First, the surrogate at its best accuracy cannot repay its own construction in fewer
 than \nCostBreakEven\ screening queries. Below that the solver is both cheaper

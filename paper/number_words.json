@@ -224,13 +224,6 @@
   "line_at_review": 327
  },
  {
-  "key": "eight material parameters and [three] condition parameters;",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "number of condition parameters (design)",
-  "line_at_review": 327
- },
- {
   "key": "onsistent. The later of those [two] papers is closed at the",
   "word": "two",
   "class": "PROSE",
@@ -728,13 +721,6 @@
   "line_at_review": 924
  },
  {
-  "key": "{What the table says.} [Three] things, and the third is",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 950
- },
- {
   "key": "says.} Three things, and the [third] is that matters.",
   "word": "third",
   "class": "PROSE",
@@ -1153,5 +1139,19 @@
   "class": "DESIGN",
   "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
   "line_at_review": 484
+ },
+ {
+  "key": "eight material parameters and [three] condition parameters (Figure~",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "number of condition parameters (design)",
+  "line_at_review": 337
+ },
+ {
+  "key": "{What Table~ says.} [Three] things, and the third is",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "counts the three points the paragraph then lists (First, Second, Third)",
+  "line_at_review": 994
  }
 ]
