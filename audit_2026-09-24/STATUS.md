@@ -38,3 +38,13 @@ fig:mechanism, fig:warp, tab:cost never \ref'd), 26, 28, 29, 30, 33 (\address).
 No TeX engine is installed on this machine: build_paper.py checks macros, numerals and
 citations but nothing compiles the document. Install MiKTeX/TeX Live or tectonic and add
 a compile step to the build before submission.
+
+## Update 2026-09-28
+- audit_citations: **all 13 CLOSED** (#13: Papapicco fetched directly, VERIFIED, cited).
+- audit_prose: #25 CLOSED (every float referenced); #2 and #31 largely closed (L4b written,
+  number-words 5 OWED -- the ladder tally, waiting for the L4b material verdict).
+- audit_numbers: #9, #10, #11 CLOSED except the tally; #13-#23 partly: L3 counts (B70), L6 MDE
+  (B71, owned, identical), L3 final-pair interval GATED until l3_final_pair.py (job 2c).
+- audit_hygiene: #3 CLOSED (number-word ratchet); #25 CLOSED (C-C gate FAILs on uninvertible
+  loading); new checks 5 (unescaped %), 6 (tabs), 7 (every results file has an owner).
+- New defects found today: B70 (l3_merged counts wrong), B71 (two unowned files).
