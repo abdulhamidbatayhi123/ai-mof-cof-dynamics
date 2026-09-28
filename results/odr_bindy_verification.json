@@ -1,0 +1,115 @@
+{
+  "example": "Lorenz.m (N=500, dt=0.01, 20% noise, eps_x=2.5542, 2nd-order library)",
+  "reproduced": {
+    "support_correct": true,
+    "n_terms_found": 7,
+    "n_terms_true": 7,
+    "missing_terms": [],
+    "extra_terms": [],
+    "rel_frobenius_error": 0.004984645068435843,
+    "log10_rel_error": -2.302365760182331,
+    "Xi": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        -9.903746271184566,
+        27.918652328778013,
+        0.0
+      ],
+      [
+        10.057608414410671,
+        -1.0741144594887482,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -2.6652861016709504
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0016078914236746
+      ],
+      [
+        0.0,
+        -0.998596658417335,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "J_evidence": 789.093724608843,
+    "J_history": [
+      930.5981234546775,
+      923.8462996993243,
+      915.9337268307324,
+      909.1089807345734,
+      903.4000839517163,
+      896.8667573148372,
+      889.4375066446712,
+      881.609331441108,
+      875.159068237869,
+      867.2479213843657,
+      859.551208670113,
+      853.0195829907705,
+      846.6302881009333,
+      840.7262492450753,
+      834.7222112773128,
+      827.9240837450202,
+      820.2714080168809,
+      813.6282659922049,
+      807.1520666130978,
+      801.031347515595,
+      796.1581240430892,
+      792.5275319916877,
+      789.093724608843,
+      796.2927707108131
+    ],
+    "runtime_s": 2384.7527885000018,
+    "denoise_rmse": 0.28770302380025603,
+    "noise_rmse": 2.546667073720554,
+    "noise_rng": "numpy default_rng(12) (MATLAB rng(12) stream not reproducible)"
+  },
+  "reported": {
+    "support_correct": {
+      "value": true,
+      "source": "arXiv:2507.23426v1 Sec. 3.2, Fig. 4 top (this exact example, file Lorenz_dyn_eps2.5542_dt0.01_tf5)"
+    },
+    "success_rate_T5_noise20": {
+      "value": 0.79,
+      "source": "arXiv:2507.23426v1 Sec. 3.2, Fig. 4 bottom, ODR-BINDy panel, pixel read vs colour bar"
+    },
+    "rel_frobenius_error_T5_noise20": {
+      "value": 0.00223872113856834,
+      "log10": -2.65,
+      "source": "arXiv:2507.23426v1 Sec. 6.1, Fig. 8, ODR-BINDy panel, pixel read vs colour bar (run average)"
+    },
+    "runtime": {
+      "value": "<90 s (1000 pts, Apple M4); ~2 min",
+      "source": "arXiv:2507.23426v1 Sec. 2.3.1 text; README 'Speed'"
+    }
+  },
+  "meets_reported_accuracy": false
+}

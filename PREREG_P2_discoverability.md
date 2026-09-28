@@ -147,6 +147,8 @@ MIOSR — github.com/wesg52/pysindy-miosr (needs a Gurobi licence, hence M4's ex
 enumeration). A port to Python is acceptable only if it reproduces the original
 paper's published example to the reported accuracy, recorded in a results file.
 
+**ODR-BINDy port (2026-09-28, `p2/odr_bindy.py`, `results/odr_bindy_verification.json`).** On the authors' Lorenz example (500 points, 20 % noise) it recovers the exact 7-term support, but its relative coefficient error is 5.0e-3 against ~2.2e-3 read from the paper's Fig. 8 heatmap, and it runs ~26x slower (2385 s). Differences: Gauss-Newton with step-halving replaces lsqnonlin (SciPy least_squares, a trust-region copy and Levenberg-Marquardt all stalled on the ill-conditioned joint problem); only the default Hessian estimate is ported; the noise draw differs (MATLAB rng stream). **Status: NOT YET VERIFIED as the strongest configuration.** Before the freeze: run five noise seeds to separate single-run scatter from a real accuracy gap; if the multi-seed error still exceeds the reported figure, M5 is run and reported as 'port, accuracy below the reference', with the gap stated.
+
 **Opened 2026-09-27:** ODR-BINDy (llfung) is MATLAB, requires R2024a+, ships
 Lorenz / Rössler / Van der Pol / nonlinear-oscillator examples and a LICENSE file;
 the authors state a Python/Julia package does not yet exist. WENDy (MathBioCU) is
