@@ -27,6 +27,19 @@ import numpy as np
 
 from metrics import breakthrough_times, per_variable_nrmse
 
+# Runner priority (2026-09-28). The machine is shared with another project's ~20
+# training processes for the next weeks; at normal priority the L4b refine got 338
+# CPU-seconds in 3 h. Every v2 runner imports this module, so each one raises its OWN
+# priority to above-normal on start -- nothing else's is touched. Windows only; a
+# failure here is harmless and silent by design (priority is a speed matter, not a
+# correctness one).
+try:
+    import ctypes
+    _k32 = ctypes.windll.kernel32
+    _k32.SetPriorityClass(_k32.GetCurrentProcess(), 0x00008000)   # ABOVE_NORMAL
+except Exception:
+    pass
+
 ROOT_V2 = "data/parametric_v2"
 FOLDS_FILE = "results/l6_v2_folds.json"
 CALIBRATION_FILE = "results/calibration_v2.json"
