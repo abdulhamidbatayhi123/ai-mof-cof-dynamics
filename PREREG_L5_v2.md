@@ -61,4 +61,5 @@ change is reported either way.
 time. The step-sensitivity arm (~2–4 h) runs first.
 
 ## 7. Amendments
-(none)
+**2026-09-28, before any v2 L5 cell ran (not post hoc).** §4 said the step arm "runs first" and uses "each p's selected lr" -- inconsistent, because only the sweep selects an lr. Resolved: the step arm runs first at the **legacy-selected** rates, p = 8 at 1e-2 and p = 128 at 3e-3 (`results/l5_merged.json`), as two invocations with separate outputs (`results/l5_v2_steps_p8.json`, `results/l5_v2_steps_p128.json`). The sweep runs `--families deeponet` only, as §2 declares (the runner's default also includes DeepOKAN).
+

@@ -173,6 +173,11 @@ sys.exit(0 if n>=6 else 1)"'   '"$P" -u run_l5.py --ps 8 16 --seeds 42 43 44 --l
 # Re-runs audit_l3.py's two configurations with per-sample errors kept. ~2-4 h.
 run_job "L3 final pair re-run (B71)" 'grep -q L3_FINAL_PAIR_DONE l3_final_pair.log 2>/dev/null' '"$P" -u l3_final_pair.py >> l3_final_pair.log 2>&1'
 
+# --- 2d-2f. L5 on v2 (PREREG_L5_v2.md): step-budget arm first, then the sweep ---
+run_job "L5-v2 step arm p=8 (lr 1e-2)" 'grep -q L5V2_STEPS_P8_DONE l5_v2_steps.log 2>/dev/null' '"$P" -u run_l5_v2.py --arm steps --steps-ps 8 --steps-lr 1e-2 --steps-fold 0 --families deeponet --threads 6 --out results/l5_v2_steps_p8.json >> l5_v2_steps.log 2>&1 && echo L5V2_STEPS_P8_DONE >> l5_v2_steps.log'
+run_job "L5-v2 step arm p=128 (lr 3e-3)" 'grep -q L5V2_STEPS_P128_DONE l5_v2_steps.log 2>/dev/null' '"$P" -u run_l5_v2.py --arm steps --steps-ps 128 --steps-lr 3e-3 --steps-fold 0 --families deeponet --threads 6 --out results/l5_v2_steps_p128.json >> l5_v2_steps.log 2>&1 && echo L5V2_STEPS_P128_DONE >> l5_v2_steps.log'
+run_job "L5-v2 sweep (DeepONet, 5 folds, 240 materials)" 'grep -q L5V2_SWEEP_DONE l5_v2.log 2>/dev/null' '"$P" -u run_l5_v2.py --families deeponet --threads 6 >> l5_v2.log 2>&1 && echo L5V2_SWEEP_DONE >> l5_v2.log'
+
 # --- 3. regenerate everything the above feeds --------------------------------
 run_job "figures + numbers + build gate" \
   'false' \
