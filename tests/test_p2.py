@@ -307,3 +307,25 @@ def test_disc_vs_ident_uses_the_declared_mde():
     assert disc_vs_ident(100.0, 110.0, mde)["words"] == "discovery fails with identifiability"
     assert disc_vs_ident(100.0, 10.0, mde)["words"] == "discovery outlives identifiability"
     assert disc_vs_ident(None, 10.0, mde)["words"].startswith("no boundary")
+
+
+def test_ode_profile_with_temperature_brackets_k_on_nonisothermal_probe():
+    """O1 identifiability on a fresh non-isothermal solver run (not a grid cell)."""
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    from isotherm import q_star_np
+    p = AdsorptionPhysicsConfig()
+    p.k_LDF = 2e-4
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    z, t, y = generate_breakthrough_data(p, N_z=100, t_final=4 * ts, n_snapshots=200, verbose=False)
+    j = 50
+    c, q, T = y[j], y[100 + j], y[200 + j]
+    sig = 0.005 * np.ptp(q)
+    q_obs = q + np.random.default_rng(2).normal(scale=sig, size=q.size)
+    lo, hi = profile_interval(t, c, q_obs, lambda cc, TT: q_star_np(cc, TT, p), sigma=sig, T=T)
+    # Sampling-resolution bias measured on noise-free data: +0.47 % at 200 snapshots
+    # (the front crosses a probe in a few samples; PCHIP cut it from +0.61 %). A
+    # 0.5 %-noise interval can therefore sit just beside the truth. The test checks
+    # the PRE-REGISTERED criterion (identifiable: within [k/2, 2k]) and a 2 % bound.
+    from p2.identifiability import identifiable
+    assert identifiable(lo, hi, 2e-4), (lo, hi)
+    assert lo > 2e-4 * 0.98 and hi < 2e-4 * 1.02, (lo, hi)

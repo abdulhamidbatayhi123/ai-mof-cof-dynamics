@@ -263,7 +263,8 @@ No discovery method is run before the freeze.
    error concentrates at the front, where the kinetic signal is. Declared here because
    it bears on H2a: for O2, ε_eff must include the state-reconstruction error, and the
    analysis will report δ against it. No method or threshold was changed in response.
-7. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
+7. **Sampling-resolution bias of the ODE profile (2026-09-28).** On a fresh noise-free non-isothermal run, the profile's best k at an interior probe sits +0.61 % high with linear interpolation of c, T between 200 snapshots, +0.47 % with PCHIP (adopted), +0.17 % at 800 snapshots: the front crosses a probe in a few samples. Immaterial for the pre-registered identifiability criterion (interval within [k/2, 2k]); reported with the O1/O2 results, and the discovery methods face the same sampling.
+8. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
    Da = k·t_stoich range 10⁻¹–10³ corresponds to k ≈ 10⁻⁵–10⁻¹ s⁻¹ at default
    physics — inside the cheap part of the cost curve.
 

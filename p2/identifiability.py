@@ -8,17 +8,28 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 
-def _loglik(k, t, c, q_obs, qstar_fn, sigma):
-    sol = solve_ivp(lambda tt, q: k * (qstar_fn(np.interp(tt, t, c)) - q), (t[0], t[-1]),
+def _loglik(k, t, c, q_obs, qstar_fn, sigma, T=None):
+    # T given (non-isothermal grid): q* depends on the observed temperature history too
+    # Cubic (PCHIP, monotone-preserving) interpolation of the observed drivers: linear
+    # interpolation between 200 snapshots biased k_hat by +0.61 % on noise-free data
+    # (0.17 % at 800), enough to exclude the truth from a low-noise interval.
+    from scipy.interpolate import PchipInterpolator
+    ci = PchipInterpolator(t, c)
+    if T is None:
+        qs = lambda tt: qstar_fn(ci(tt))
+    else:
+        Ti = PchipInterpolator(t, T)
+        qs = lambda tt: qstar_fn(ci(tt), Ti(tt))
+    sol = solve_ivp(lambda tt, q: k * (qs(tt) - q), (t[0], t[-1]),
                     [q_obs[0]], t_eval=t, rtol=1e-8, atol=1e-10)
     if not sol.success:
         return -np.inf
     return -0.5 * np.sum((sol.y[0] - q_obs) ** 2) / sigma ** 2
 
 
-def profile_interval(t, c, q_obs, qstar_fn, sigma, k_grid=None):
+def profile_interval(t, c, q_obs, qstar_fn, sigma, k_grid=None, T=None):
     k_grid = np.logspace(-5, 1, 241) if k_grid is None else k_grid
-    ll = np.array([_loglik(k, t, c, q_obs, qstar_fn, sigma) for k in k_grid])
+    ll = np.array([_loglik(k, t, c, q_obs, qstar_fn, sigma, T) for k in k_grid])
     ok = np.where(2.0 * (ll.max() - ll) <= 3.84)[0]
     # Second pass: at low noise the interval is narrower than one coarse step (found on
     # the known-answer test -- it collapsed onto one grid point below the truth), so
@@ -27,7 +38,7 @@ def profile_interval(t, c, q_obs, qstar_fn, sigma, k_grid=None):
     lo_k, hi_k, m = k_grid[i0], k_grid[i1], ll.max()
     for _ in range(6):   # same adaptive refinement as profile_interval_outlet
         fine = np.logspace(np.log10(lo_k), np.log10(hi_k), 41)
-        llf = np.array([_loglik(k, t, c, q_obs, qstar_fn, sigma) for k in fine])
+        llf = np.array([_loglik(k, t, c, q_obs, qstar_fn, sigma, T) for k in fine])
         m = max(m, llf.max())
         okf = np.where(2.0 * (m - llf) <= 3.84)[0]
         j0, j1 = max(okf.min() - 1, 0), min(okf.max() + 1, len(fine) - 1)
