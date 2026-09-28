@@ -1153,5 +1153,12 @@
   "class": "PROSE",
   "reason": "counts the three points the paragraph then lists (First, Second, Third)",
   "line_at_review": 994
+ },
+ {
+  "key": "predates the last of these by [two] years .",
+  "word": "two",
+  "class": "CITED",
+  "reason": "the 2022 vs 2024 publication dates of the two cited papers",
+  "line_at_review": 831
  }
 ]

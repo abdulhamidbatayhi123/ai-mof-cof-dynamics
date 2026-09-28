@@ -286,16 +286,17 @@ REFS = [
         journal="arXiv preprint", year="2024", eprint="2407.17539", archiveprefix="arXiv"),
      "B48: do NOT copy arXiv's Related DOI -- it belongs to a different paper. Burela was "
      "missing from our list. Proceedings not peer-reviewed.", False),
-    ("papapicco2022nnspod", P, "article", dict(
+    ("papapicco2022nnspod", V, "article", dict(
         author="Davide Papapicco and Nicola Demo and Michele Girfoglio and Giovanni Stabile "
                "and Gianluigi Rozza",
         title="The neural network shifted-proper orthogonal decomposition: a machine learning "
               "approach for non-linear reduction of hyperbolic equations",
-        journal="Computer Methods in Applied Mechanics and Engineering", year="2022",
-        doi="10.1016/j.cma.2022.114687"),
+        journal="Computer Methods in Applied Mechanics and Engineering", volume="392",
+        pages="114687", year="2022", doi="10.1016/j.cma.2022.114687"),
      "PRIORITY FLAG: predates Zorawski by two years, so 'the neural sPOD' is not theirs. "
-     "Retrieved only from a Crossref query listing -- volume and pages unconfirmed. "
-     "NOT EMITTED until fetched directly.", False),
+     "Fetched directly from Crossref works/10.1016/j.cma.2022.114687 on 2026-09-28: vol. 392, "
+     "art. 114687, March 2022, the five authors above. Cited only for its existence and "
+     "date (audit_citations #13).", False),
     ("taddei2020registration", V, "article", dict(
         author="Tommaso Taddei",
         title="A registration method for model order reduction: data compression and geometry reduction",

@@ -587,6 +587,12 @@ SPT paper (10.26434/chemrxiv-2021-26xgh), and the arXiv abstract.
 
 ---
 
+## Papapicco et al. 2022 promoted (2026-09-28, audit_citations #13)
+
+Fetched directly: Crossref works/10.1016/j.cma.2022.114687 -> *The Neural Network shifted-proper orthogonal decomposition: A machine learning approach for non-linear reduction of hyperbolic equations*, CMAME **392**:114687 (March 2022); authors Davide Papapicco, Nicola Demo, Michele Girfoglio, Giovanni Stabile, Gianluigi Rozza. VERIFIED for existence, authorship and date only -- the claim cited is that a neural-network shifted-POD predates Zorawski et al. (2024).
+
+---
+
 ## Author strings as fetched (B62 recurrence, closed 2026-09-25)
 
 `paper/references.py` refuses to emit any spelled-out given name that does not occur
