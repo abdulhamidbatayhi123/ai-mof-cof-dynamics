@@ -50,8 +50,8 @@ def main():
     man = json.load(open("data/p2/manifest.json"))["cells"]
     res = json.load(open(OUT)) if os.path.exists(OUT) else {"freeze_commit": why, "rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1":
-            continue   # L2 (k(q)) has its own success definition: p2_grid_o1_l2, exploratory (H2d)
+        if rec["law"] != "L1" or rec["iso"] == "langmuir_iso":
+            continue   # the isothermal control is M6's only (p2_grid_extra.py m6); L2 (k(q)) has its own success definition: p2_grid_o1_l2, exploratory (H2d)
         t0 = time.time()
         for sigma, eps, rep, solver, form in itertools.product(SIGMAS, EPSS, range(N_REP), SOLVERS, FORMS):
             key = f"{name}|{sigma}|{eps}|{rep}|{solver}|{form}"

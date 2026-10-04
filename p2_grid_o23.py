@@ -13,6 +13,7 @@ Resumable; results written atomically after every cell.
 
     python p2_grid_o23.py o2
     python p2_grid_o23.py o3
+    python p2_grid_o23.py o2ident     # O2 profile likelihood (descriptive side of H2b)
 """
 import itertools
 import json
@@ -34,7 +35,7 @@ def run_o2(man):
     out = "results/p2_o2.json"
     res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1":
+        if rec["law"] != "L1" or rec["iso"] == "langmuir_iso":
             continue
         phys = physics_for(rec)
         phys.D_L = rec["D_L"]
@@ -58,7 +59,7 @@ def run_o3(man):
     out = "results/p2_o3_ident.json"
     res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1" or rec["pe_mult"] != 1.0:
+        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso":
             continue
         phys = physics_for(rec)
         phys.D_L = rec["D_L"]
@@ -87,12 +88,46 @@ def run_o3(man):
             print(f"O3 {key:<50} [{lo:.3g}, {hi:.3g}] k={rec['k_LDF']:.3g}", flush=True)
 
 
+def run_o2_ident(man):
+    """The identifiability side of H2b on O2 (descriptive per the prereg): the whole
+    column refitted to the interior c, T probes, q latent, on the O3 subgrid."""
+    import copy
+    from p2.identifiability import profile_interval_probes
+    out = "results/p2_o2_ident.json"
+    res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
+    for name, rec in sorted(man.items()):
+        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso":
+            continue
+        phys = physics_for(rec)
+        phys.D_L = rec["D_L"]
+        f, _ = load_cell(name)
+        rng_c = float(f["c"].max() - f["c"].min())
+        rng_T = float(f["T"].max() - f["T"].min()) or 1.0
+        for sigma, eps, rep in itertools.product((0.005, 0.02), (0.0, 0.02), range(3)):
+            key = f"{name}|{sigma}|{eps}|{rep}"
+            if key in res["rows"]:
+                continue
+            obs = observe(name, rep, sigma, eps, "O2")
+            t0 = time.time()
+            phys_obs = copy.copy(phys)
+            phys_obs.qstar_fn = obs["qstar_meas"]       # information parity, as on O3
+            lo, hi = profile_interval_probes(phys_obs, rec["c_in"], obs["t"], obs["z"],
+                                             obs["channels"]["c"], obs["channels"]["T"],
+                                             sigma_c=max(sigma, 1e-4) * rng_c,
+                                             sigma_T=max(sigma, 1e-4) * rng_T, n_z=100)
+            res["rows"][key] = {"lo": lo, "hi": hi, "k": rec["k_LDF"],
+                                "identifiable": bool(identifiable(lo, hi, rec["k_LDF"])),
+                                "sec": time.time() - t0}
+            write_atomic(res, out)
+            print(f"O2-ident {key:<50} [{lo:.3g}, {hi:.3g}] k={rec['k_LDF']:.3g}", flush=True)
+
+
 def main():
     ok, why = frozen()
     if not ok:
         sys.exit(f"REFUSED: the pre-registration is not frozen ({why}).")
     man = json.load(open("data/p2/manifest.json"))["cells"]
-    {"o2": run_o2, "o3": run_o3}[sys.argv[1]](man)
+    {"o2": run_o2, "o3": run_o3, "o2ident": run_o2_ident}[sys.argv[1]](man)
 
 
 if __name__ == "__main__":

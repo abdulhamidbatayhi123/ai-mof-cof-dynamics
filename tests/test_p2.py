@@ -359,3 +359,50 @@ def test_lib_a_fidelity_is_relative_rms_on_held_out_probes():
     y = np.array([1.0, 2.0, 3.0, 4.0])
     assert heldout_fidelity(y, y) == 0.0
     assert abs(heldout_fidelity(y + 0.1 * np.sqrt(np.mean(y ** 2)), y) - 0.1) < 1e-12
+
+
+def test_probe_profile_likelihood_brackets_k_in_kinetic_regime():
+    """O2 identifiability (PREREG_P2 §3 table): the whole column refitted to INTERIOR
+    c(t), T(t) at a few probes, q latent. Same fresh low-Da run as the outlet test."""
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    from p2.identifiability import profile_interval_probes
+    p = AdsorptionPhysicsConfig()
+    k_true = 2e-4
+    p.k_LDF = k_true
+    ts = p.stoichiometric_time(1.0, p.T_in)
+    n = 100
+    z, t, y = generate_breakthrough_data(p, N_z=n, t_final=4 * ts, n_snapshots=120, verbose=False)
+    iz = np.array([20, 50, 80])
+    rng = np.random.default_rng(6)
+    sT = 0.005 * np.ptp(y[2 * n:])
+    c_obs = y[iz] + rng.normal(scale=0.005, size=(iz.size, t.size))
+    T_obs = y[2 * n + iz] + rng.normal(scale=sT, size=(iz.size, t.size))
+    lo, hi = profile_interval_probes(p, 1.0, t, z[iz], c_obs, T_obs, sigma_c=0.005,
+                                     sigma_T=sT, n_z=n)
+    assert lo < k_true < hi and hi / lo < 2.0, (lo, hi)
+
+
+def test_success_M6_requires_the_implicit_langmuir_ldf_structure_and_signs():
+    """PREREG_P2 M6: success = support {dq, c*dq, c, q, c*q} with correct signs
+    (normalised to the dq coefficient = 1: c*dq > 0, c < 0, q > 0, c*q > 0)."""
+    from p2.metric import success_M6
+    good = {"dq": 1.0, "c*dq": 3.0, "c": -0.3, "q": 0.02, "c*q": 0.06}
+    assert success_M6(good)
+    assert not success_M6({**good, "q^2": 0.001})               # an extra term
+    assert not success_M6({k: v for k, v in good.items() if k != "c*q"})   # a missing term
+    assert not success_M6({**good, "c": 0.3})                   # a wrong sign
+
+
+def test_grid_extra_m6_recovers_the_implicit_law_on_the_isothermal_system():
+    """p2_grid_extra.fit_m6 on the known-answer ISOTHERMAL Langmuir-LDF system: M6 is
+    given no isotherm and must find {dq, c*dq, c, q, c*q} with correct signs."""
+    from p2_grid_extra import fit_m6
+    co, ok = fit_m6(_synthetic_obs())
+    assert ok, co
+
+
+def test_grid_extra_m9_recovers_the_slow_manifold_near_equilibrium():
+    """p2_grid_extra.fit_m9 at high k (q tracks q*): the algebraic law q = q*_meas."""
+    from p2_grid_extra import fit_m9
+    co, ok = fit_m9(_synthetic_obs(k=20.0))   # k = 2 is not near equilibrium on this system
+    assert ok, co

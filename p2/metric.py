@@ -53,3 +53,15 @@ def heldout_fidelity(pred, true):
     held-out probes, RMS(pred - true) / RMS(true)."""
     pred, true = np.asarray(pred, float), np.asarray(true, float)
     return float(np.sqrt(np.mean((pred - true) ** 2)) / np.sqrt(np.mean(true ** 2)))
+
+
+def success_M6(coefs):
+    """M6 (SINDy-PI, isothermal control, no isotherm given) success, PREREG_P2 §3: the
+    implicit Langmuir-LDF structure dq + b c dq = k qm b c - k q - k b c q, i.e. support
+    exactly {dq, c*dq, c, q, c*q} with, normalised to the dq coefficient = 1,
+    c*dq > 0, c < 0, q > 0, c*q > 0 (all of b, k, qm positive)."""
+    sel = {k for k, v in coefs.items() if v != 0.0}
+    if sel != {"dq", "c*dq", "c", "q", "c*q"} or coefs["dq"] == 0:
+        return False
+    s = {k: v / coefs["dq"] for k, v in coefs.items()}
+    return s["c*dq"] > 0 and s["c"] < 0 and s["q"] > 0 and s["c*q"] > 0

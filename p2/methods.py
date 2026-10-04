@@ -18,12 +18,16 @@ def _standardise(F):
     return names, X / sd, sd
 
 
-def best_subset(F, y, max_terms=4, floor=1e-3):
+def best_subset(F, y, max_terms=4, floor=2e-3):
     """BIC with a residual-variance FLOOR at `floor` x std(y). Found on the known-answer
     test: at zero noise plain BIC keeps terms of relative size ~1e-4 (c, q^2) because it
     rewards fitting the derivative estimator's own systematic error without limit. The
-    floor is the Savitzky-Golay estimator's verified accuracy (test_derivative_...),
-    so no support can be bought by fitting below what the derivative can resolve."""
+    floor is set by the Savitzky-Golay estimator's accuracy AT THE GRID'S SAMPLING (200
+    times): its RMS error there is 8e-4 of std(dq/dt) on the known-answer system (5e-5 at
+    400 samples, where the first value 1e-3 was set). At 1e-3, M6 bought a spurious q^2
+    term at zero noise on 200 samples; of {1e-3, 2e-3, 5e-3}, 2e-3 (2.5x the measured
+    error) is the smallest that passes, and M4 still recovers L1 in both forms.
+    Calibrated 2026-10-04, before the freeze, on the known-answer system only."""
     names, Xs, sd = _standardise(F)
     n = len(y)
     var_floor = (floor * float(np.std(y))) ** 2

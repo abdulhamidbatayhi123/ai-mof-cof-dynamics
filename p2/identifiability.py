@@ -65,13 +65,49 @@ def _loglik_outlet(k, phys, c_in, t, c_obs, T_obs, sigma_c, sigma_T, n_z):
             - 0.5 * np.sum((T_mod - T_obs) ** 2) / sigma_T ** 2)
 
 
+def _loglik_probes(k, phys, c_in, t, z_obs, c_obs, T_obs, sigma_c, sigma_T, n_z):
+    """Refit the WHOLE column at rate k and score c, T at the interior probes (O2).
+    c_obs, T_obs: (n_probes, n_t); z_obs in metres, interpolated on the model's cells."""
+    import copy
+    from solver_fd import generate_breakthrough_data
+    p = copy.copy(phys)
+    p.k_LDF = float(k)
+    try:
+        zz, tt, y = generate_breakthrough_data(p, N_z=n_z, t_final=float(t[-1]), c_in=c_in,
+                                               n_snapshots=len(t), verbose=False)
+    except RuntimeError:
+        return -np.inf
+    c_f, T_f = y[:n_z], y[2 * n_z:3 * n_z]
+    ll = 0.0
+    for j, zj in enumerate(np.asarray(z_obs, float)):
+        c_t = np.array([np.interp(zj, zz, c_f[:, i]) for i in range(len(tt))])
+        T_t = np.array([np.interp(zj, zz, T_f[:, i]) for i in range(len(tt))])
+        ll += (-0.5 * np.sum((np.interp(t, tt, c_t) - c_obs[j]) ** 2) / sigma_c ** 2
+               - 0.5 * np.sum((np.interp(t, tt, T_t) - T_obs[j]) ** 2) / sigma_T ** 2)
+    return ll
+
+
+def profile_interval_probes(phys, c_in, t, z_obs, c_obs, T_obs, sigma_c, sigma_T, n_z=100,
+                            k_grid=None):
+    """Profile likelihood of k from INTERIOR c, T probes (observation O2, q latent):
+    the identifiability side of H2b on O2. Same grid and refinement as the outlet
+    version; only the scored positions differ."""
+    f = lambda k: _loglik_probes(k, phys, c_in, t, z_obs, c_obs, T_obs, sigma_c, sigma_T, n_z)
+    return _profile(f, k_grid)
+
+
 def profile_interval_outlet(phys, c_in, t, c_obs, T_obs, sigma_c, sigma_T, n_z=100,
                             k_grid=None):
     """Profile likelihood of k from OUTLET data only. Coarse 25-point log grid, then
     the same fine refinement as the ODE version -- each point is a full column solve,
     so the grid is coarser than the ODE's (PREREG_P2 §3 applicability matrix)."""
-    k_grid = np.logspace(-6, 0, 25) if k_grid is None else k_grid
     f = lambda k: _loglik_outlet(k, phys, c_in, t, c_obs, T_obs, sigma_c, sigma_T, n_z)
+    return _profile(f, k_grid)
+
+
+def _profile(f, k_grid=None):
+    """The shared coarse-then-adaptive 95 % profile interval for a column log-likelihood."""
+    k_grid = np.logspace(-6, 0, 25) if k_grid is None else k_grid
     ll = np.array([f(k) for k in k_grid])
     ok = np.where(2.0 * (ll.max() - ll) <= 3.84)[0]
     i0, i1 = max(ok.min() - 1, 0), min(ok.max() + 1, len(k_grid) - 1)

@@ -96,9 +96,12 @@ never silently replaced by a weaker one.
 M2b (strong-form STLSQ on standardised columns), M3 (bagged STLSQ, inclusion 0.6),
 M4 (exact enumeration up to 4 terms), and the profile-likelihood tool. **Two design
 facts the known-answer tests forced, declared here before the freeze:** (i) M4's BIC
-carries a residual-variance floor at 10⁻³ × std(dq/dt) — the derivative estimator's
-verified accuracy — because at zero noise plain BIC kept terms of relative size 10⁻⁴
-by fitting the estimator's own systematic error; (ii) the profile likelihood refines
+carries a residual-variance floor at 2×10⁻³ × std(dq/dt), tied to the derivative
+estimator's accuracy at the grid's sampling (RMS 8×10⁻⁴ at 200 times; first set at
+10⁻³ from 400-sample tests, where M6 then bought a spurious q² term at zero noise on
+200 samples; 2×10⁻³ is the smallest of {1, 2, 5}×10⁻³ that passes, calibrated
+2026-10-04 on the known-answer system only) — because at zero noise plain BIC kept
+terms of relative size 10⁻⁴ by fitting the estimator's own systematic error; (ii) the profile likelihood refines
 adaptively between the coarse neighbours of its interval -- up to 6 passes of 41 points
 (ODE profile) or 21 points (outlet/PDE profile), each pass narrowing to the new
 neighbours (`p2/identifiability.py`) -- because at low noise the interval is narrower
@@ -400,7 +403,14 @@ isotherm, observation) with σ, ε inside R, O3 excluded; ε_rec defined; L2 suc
 operational; Lib-A fidelity defined; H2c's resolution per ε and its level placement
 made exact; the isothermal control given a grid; stale text removed.
 **Code owed before the freeze:** the O2 profile likelihood in `p2_grid_o23.py`
-(listed in the table, not yet run by the driver) -- STILL OWED. Done 2026-10-04: the
+(listed in the table) -- DONE 2026-10-04 (`p2/identifiability.py:profile_interval_probes`,
+`p2_grid_o23.py o2ident`, known-answer test). **Grid runners still owed** (found by
+checking the drivers against §3: they run only M2/M2b, M3 and M4): M6 on the
+isothermal control, M9, M8 (best configuration), M5 (ODR-BINDy, with a cost gate: one
+verification run took ~40 min), M7 (behind its inclusion gate), and the L2 cells for
+H2d. Each is wired, with a declared per-cell cost bound, before the freeze; a method
+whose cost bound cannot be met on the declared grid runs on a declared subgrid or is
+reported NOT RUN, in those words. Done 2026-10-04: the
 isothermal-control ground truth (9 cells in `data/p2`; isotherm at T_in identical to
 the Langmuir cells, max |T - T_in| = 0, all reached 95 % breakthrough); the L2 success
 metric and the Lib-A fidelity metric (`p2/metric.py`, tested).
