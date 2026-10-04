@@ -313,6 +313,56 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "DcStoreV": "256",
+    "DcStoreLegZ": "512",
+    "DcStoreLegT": "256",
+    "DcHorizon": "2.5",
+    "DcHorizonExt": "5, 12.5 and 30",
+    "DcExtendedPct": "52",
+    "DcSeedMat": "20260830",
+    "DcSeedCond": "20260837",
+    "DcNcond": "17",
+    "DcBH": "20",
+    "DcGlDm": "2.6",
+    "DcGlTau": "3",
+    "DcGlEpsp": "0.35",
+    "DcNmatLeg": "60",
+    "DcNacceptLeg": "988",
+    "DcKldfLo": "0.002",
+    "DcKldfHi": "0.05",
+    "DcL": "0.10",
+    "DcDin": "0.05",
+    "DcRhog": "1.2",
+    "DcCp": "1000",
+    "DcCps": "1000",
+    "DcKz": "0.10",
+    "DcHw": "10",
+    "DcDmDisp": "2.5",
+    "DcRtolExp": "-6",
+    "DcAtolExp": "-10",
+    "DcSnapshots": "600",
+    "DcQmaxLo": "8",
+    "DcQmaxHi": "30",
+    "DcDHLo": "-60",
+    "DcDHHi": "-38",
+    "DcStepLo": "0.08",
+    "DcStepHi": "0.45",
+    "DcNexpLo": "1",
+    "DcNexpHi": "6",
+    "DcFhLo": "0.03",
+    "DcFhHi": "0.25",
+    "DcDpLo": "1.5",
+    "DcDpHi": "5",
+    "DcRhopLo": "700",
+    "DcRhopHi": "1400",
+    "DcEpsLo": "0.3",
+    "DcEpsHi": "0.48",
+    "DcRHLo": "0.15",
+    "DcRHHi": "0.85",
+    "DcVLo": "0.03",
+    "DcVHi": "0.3",
+    "DcTinLo": "288.15",
+    "DcTinHi": "313.15",
     "BsevtwoOldResid": "58",
     "BsevtwoNewResid": "1.0",
     "BsevtwoNsamples": "30",
@@ -1626,6 +1676,206 @@
     "LfourbVerdictTime": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
+    },
+    "DcStoreV": {
+      "file": "results/design_constants.json",
+      "path": "v2.store_nz"
+    },
+    "DcStoreLegZ": {
+      "file": "results/design_constants.json",
+      "path": "legacy.store_nz"
+    },
+    "DcStoreLegT": {
+      "file": "results/design_constants.json",
+      "path": "legacy.store_nt"
+    },
+    "DcHorizon": {
+      "file": "results/design_constants.json",
+      "path": "v2.horizon"
+    },
+    "DcHorizonExt": {
+      "file": "results/design_constants.json",
+      "path": "v2.horizon_multipliers"
+    },
+    "DcExtendedPct": {
+      "file": "results/design_constants.json",
+      "path": "v2.frac_horizon_extended_pct"
+    },
+    "DcSeedMat": {
+      "file": "results/design_constants.json",
+      "path": "v2.seed_materials"
+    },
+    "DcSeedCond": {
+      "file": "results/design_constants.json",
+      "path": "v2.seed_conditions"
+    },
+    "DcNcond": {
+      "file": "results/design_constants.json",
+      "path": "v2.n_conditions"
+    },
+    "DcBH": {
+      "file": "results/design_constants.json",
+      "path": "v2.b_H_ratio"
+    },
+    "DcGlDm": {
+      "file": "results/design_constants.json",
+      "path": "v2.glueckauf.D_m"
+    },
+    "DcGlTau": {
+      "file": "results/design_constants.json",
+      "path": "v2.glueckauf.tau"
+    },
+    "DcGlEpsp": {
+      "file": "results/design_constants.json",
+      "path": "v2.glueckauf.eps_p"
+    },
+    "DcNmatLeg": {
+      "file": "results/design_constants.json",
+      "path": "legacy.n_materials"
+    },
+    "DcNacceptLeg": {
+      "file": "results/design_constants.json",
+      "path": "legacy.n_accepted"
+    },
+    "DcKldfLo": {
+      "file": "results/design_constants.json",
+      "path": "legacy.k_LDF_range"
+    },
+    "DcKldfHi": {
+      "file": "results/design_constants.json",
+      "path": "legacy.k_LDF_range"
+    },
+    "DcL": {
+      "file": "results/design_constants.json",
+      "path": "physics.L"
+    },
+    "DcDin": {
+      "file": "results/design_constants.json",
+      "path": "physics.D_in"
+    },
+    "DcRhog": {
+      "file": "results/design_constants.json",
+      "path": "physics.rho_g"
+    },
+    "DcCp": {
+      "file": "results/design_constants.json",
+      "path": "physics.C_pg"
+    },
+    "DcCps": {
+      "file": "results/design_constants.json",
+      "path": "physics.C_ps"
+    },
+    "DcKz": {
+      "file": "results/design_constants.json",
+      "path": "physics.k_z"
+    },
+    "DcHw": {
+      "file": "results/design_constants.json",
+      "path": "physics.h_w"
+    },
+    "DcDmDisp": {
+      "file": "results/design_constants.json",
+      "path": "physics.D_m_dispersion"
+    },
+    "DcRtolExp": {
+      "file": "results/design_constants.json",
+      "path": "numerics.rtol"
+    },
+    "DcAtolExp": {
+      "file": "results/design_constants.json",
+      "path": "numerics.atol"
+    },
+    "DcSnapshots": {
+      "file": "results/design_constants.json",
+      "path": "numerics.n_snapshots"
+    },
+    "DcQmaxLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.q_max"
+    },
+    "DcQmaxHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.q_max"
+    },
+    "DcDHLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.delta_H"
+    },
+    "DcDHHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.delta_H"
+    },
+    "DcStepLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.step_rh"
+    },
+    "DcStepHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.step_rh"
+    },
+    "DcNexpLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.isotherm_n"
+    },
+    "DcNexpHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.isotherm_n"
+    },
+    "DcFhLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.henry_fraction"
+    },
+    "DcFhHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.henry_fraction"
+    },
+    "DcDpLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.d_p"
+    },
+    "DcDpHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.d_p"
+    },
+    "DcRhopLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.rho_p"
+    },
+    "DcRhopHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.rho_p"
+    },
+    "DcEpsLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.eps_t"
+    },
+    "DcEpsHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.eps_t"
+    },
+    "DcRHLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.rh_feed"
+    },
+    "DcRHHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.rh_feed"
+    },
+    "DcVLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.v"
+    },
+    "DcVHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.v"
+    },
+    "DcTinLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.T_in"
+    },
+    "DcTinHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.condition_space.T_in"
     },
     "BsevtwoOldResid": {
       "file": "results/l4_residual_check.json",

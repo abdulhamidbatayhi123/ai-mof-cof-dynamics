@@ -1,0 +1,102 @@
+{
+  "_what": "Owner of results/design_constants.json: the design constants the Methods section quotes.",
+  "v2": {
+    "n_materials": 240,
+    "n_conditions": 17,
+    "n_accepted": 3947,
+    "n_rejected": 133,
+    "seed_materials": 20260830,
+    "seed_conditions": 20260837,
+    "solve_nz": 2000,
+    "store_nz": 256,
+    "store_nt": 256,
+    "horizon": 2.5,
+    "horizon_multipliers": [
+      2.5,
+      5.0,
+      12.5,
+      30.0
+    ],
+    "frac_horizon_extended_pct": 52.19153787686851,
+    "material_space": {
+      "q_max": [
+        8.0,
+        30.0
+      ],
+      "delta_H": [
+        -60000.0,
+        -38000.0
+      ],
+      "step_rh": [
+        0.08,
+        0.45
+      ],
+      "isotherm_n": [
+        1.0,
+        6.0
+      ],
+      "henry_fraction": [
+        0.03,
+        0.25
+      ],
+      "d_p": [
+        0.0015,
+        0.005
+      ],
+      "rho_p": [
+        700.0,
+        1400.0
+      ],
+      "eps_t": [
+        0.3,
+        0.48
+      ]
+    },
+    "condition_space": {
+      "rh_feed": [
+        0.15,
+        0.85
+      ],
+      "v": [
+        0.03,
+        0.3
+      ],
+      "T_in": [
+        288.15,
+        313.15
+      ]
+    },
+    "b_H_ratio": 20.0,
+    "glueckauf": {
+      "D_m": 2.6e-05,
+      "tau": 3.0,
+      "eps_p": 0.35
+    }
+  },
+  "legacy": {
+    "n_materials": 60,
+    "n_conditions": 17,
+    "n_accepted": 988,
+    "store_nz": 512,
+    "store_nt": 256,
+    "k_LDF_range": [
+      0.002,
+      0.05
+    ]
+  },
+  "physics": {
+    "L": 0.1,
+    "D_in": 0.05,
+    "rho_g": 1.2,
+    "C_pg": 1000.0,
+    "C_ps": 1000.0,
+    "k_z": 0.1,
+    "h_w": 10.0,
+    "D_m_dispersion": 2.5000000000000008e-05
+  },
+  "numerics": {
+    "rtol": 1e-06,
+    "atol": 1e-10,
+    "n_snapshots": 600
+  }
+}

@@ -62,13 +62,13 @@ _ALLOWED_PAIRS = [
     ("2000", "N_z, a grid size"),
     # the validate.py gate count used to be allow-listed here as "24"; it is a RESULT
     # and is now the macro \nGates, read from results/validation.json
-    ("1", "ordinal / unity"),
-    ("2", "ordinal / a term count"),
-    ("3", "seed count and ordinal"),
-    ("4", "ordinal, and the oracle-equivalent mode count"),
-    ("5", "ordinal / fold count"),
+    ("1", "ordinal / unity; the 1 of 1 - eps_t and 1 + b c in the model equations"),
+    ("2", "ordinal / a term count; squares, square roots and radii (d_p/2) in the model equations and units"),
+    ("3", "seed count and ordinal; the cube in density units (kg m^-3)"),
+    ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in"),
+    ("5", "ordinal / fold count; the exponent of 1e-5 diffusivities, read from code via macros for the mantissa"),
     ("6", "ordinal"),
-    ("10", "a percentage threshold declared in the pre-registration"),
+    ("10", "a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}"),
     ("20", "a factor in a cited correlation's coefficient"),
     ("29", "an interpolation-floor percentage from a reported exclusion"),
     ("80", "the power level at which every MDE is quoted"),
@@ -82,11 +82,12 @@ _ALLOWED_PAIRS = [
     ("1908", "citation year"),
     # figures, sections, document structure
     ("11", "documentclass font size"),
-    ("0", "zero"),
+    ("0", "zero; boundary positions z = 0 and clean-bed initial values c = q = 0"),
     # numbers reported BY a cited paper, quoted as that paper's finding
     ("79", "McGreivy & Hakim's reported percentage"),
     ("60", "the numerator of McGreivy & Hakim's 60-of-76"),
     ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
+    ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
     ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
     ("9.7", "the constant in Edwards & Richardson's mechanical coefficient, as cited"),
@@ -116,11 +117,11 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 2, "0.2": 3, "0.5": 1, "0.7": 1, "1": 12, "1.1": 1, "1.5": 1, "2": 17,
-    "3": 1, "4": 4, "5": 1, "6": 3, "7": 1, "8": 4, "9.7": 1, "10": 7, "12": 7,
+    "0": 4, "0.2": 3, "0.5": 2, "0.7": 2, "1": 28, "1.1": 1, "1.5": 1, "2": 28,
+    "3": 3, "4": 7, "5": 3, "6": 3, "7": 1, "8": 4, "9.7": 1, "10": 12, "12": 7,
     "20": 2, "24": 1, "48": 5, "50": 3, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
     "95": 3, "96": 3, "99.9": 2, "128": 2, "192": 11, "240": 4, "256": 1,
-    "1948": 1, "1953": 1, "1954": 1, "1982": 1,
+    "1948": 1, "1953": 1, "1954": 1, "1982": 1, "15": 1,
     "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
@@ -194,6 +195,10 @@ def strip_structural(text):
     text = re.sub(r"\\(label|ref|eqref|cite|input|bibliographystyle|bibliography)"
                   r"\{[^}]*\}", " ", text)
     text = re.sub(r"\\(begin|end)\{[^}]*\}", " ", text)
+    # table LAYOUT is not a quantity: column widths p{0.25\textwidth} and the row
+    # stretch \renewcommand{\arraystretch}{1.15} (added with the Methods tables)
+    text = re.sub(r"\{[0-9.]+\\(textwidth|linewidth|columnwidth)\}", " ", text)
+    text = re.sub(r"\\renewcommand\{\\arraystretch\}\{[0-9.]+\}", " ", text)
     # Drop the UNIT, keep the VALUE. Stripping both let six experimental inputs reach
     # the paper ungated (audit_hygiene #2).
     text = re.sub(r"\\SI\{([^}]*)\}\{[^}]*\}", r" \1 ", text)

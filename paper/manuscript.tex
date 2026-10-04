@@ -436,6 +436,239 @@ below carries a minimum detectable effect computed by a single, self-tested
 implementation from the real paired differences.
 
 %% ===========================================================================
+\section{Methods}
+\label{sec:methods}
+
+Every design constant below is read by \texttt{design\_constants.py} from the
+dataset manifests, the generator's own physics builder and the solver's signature,
+so that this section cannot drift from the code it describes.
+
+\subsection*{Governing model}
+
+The reference is a one-dimensional, non-isothermal packed bed with axial dispersion,
+linear-driving-force kinetics and an energy balance with wall loss. With \(c(z,t)\)
+the gas-phase adsorbate concentration, \(q(z,t)\) the loading per unit particle mass,
+\(T(z,t)\) the bed temperature and \(v\) the \emph{superficial} velocity, the
+equations integrated are
+\begin{align}
+\frac{\partial c}{\partial t} &= D_L \frac{\partial^2 c}{\partial z^2}
+ - \frac{v}{\varepsilon_t}\frac{\partial c}{\partial z}
+ - \frac{1-\varepsilon_t}{\varepsilon_t}\,\rho_p \frac{\partial q}{\partial t},
+\label{eq:mass}\\
+\frac{\partial q}{\partial t} &= k_{\mathrm{LDF}}\bigl(q^{*}(c,T) - q\bigr),
+\label{eq:ldf}\\
+C_{\mathrm{b}}\frac{\partial T}{\partial t} &= k_z \frac{\partial^2 T}{\partial z^2}
+ - v\rho_g C_{pg}\frac{\partial T}{\partial z}
+ + (1-\varepsilon_t)\rho_p(-\Delta H)\frac{\partial q}{\partial t}
+ - \frac{4h_w}{D_{\mathrm{in}}}\,(T - T_w),
+\label{eq:energy}
+\end{align}
+with bed heat capacity \(C_{\mathrm{b}} = \varepsilon_t\rho_g C_{pg} +
+(1-\varepsilon_t)\rho_p C_{ps}\) and \(q^{*}\) the dual-site isotherm of
+equation~\eqref{eq:isotherm}. The cluster-to-primary affinity ratio is fixed at
+\nDcBH, and the cluster affinity is set per run so that the cooperative step sits at
+the material's step humidity at the feed temperature. Feed concentration follows
+from relative humidity through the ideal-gas law and a Magnus saturation pressure.
+
+\paragraph{Boundary and initial conditions.} Both inlets are of flux (Danckwerts)
+type: the feed enters advectively and the inlet face carries no dispersive or
+conductive flux,
+\begin{equation}
+\frac{v}{\varepsilon_t}\,c_{\mathrm{in}} = \frac{v}{\varepsilon_t}\,c - D_L\frac{\partial c}{\partial z},
+\qquad
+v\rho_g C_{pg}\,T_{\mathrm{in}} = v\rho_g C_{pg}\,T - k_z\frac{\partial T}{\partial z}
+\qquad (z = 0),
+\label{eq:danckwerts}
+\end{equation}
+with zero gradient at the outlet \(z = L\). The bed starts clean, \(c = q = 0\), at
+the wall temperature, which is held at the feed temperature.
+
+\paragraph{Fixed properties.} Every run uses \(L = \nDcL\)\,m, \(D_{\mathrm{in}} =
+\nDcDin\)\,m, \(\rho_g = \nDcRhog\)\,kg\,m\(^{-3}\), \(C_{pg} = \nDcCp\) and \(C_{ps} =
+\nDcCps\)\,J\,kg\(^{-1}\)\,K\(^{-1}\), \(k_z = \nDcKz\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and
+\(h_w = \nDcHw\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial dispersion follows the packed-bed
+correlation \(D_L = 0.7D_m + 0.5\,d_p v/\varepsilon_t\) with \(D_m =
+\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the larger dataset the kinetic
+coefficient is not sampled but derived from the particle by the Glueckauf relation,
+\begin{equation}
+k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
+\qquad K = \frac{q^{*}(c_{\mathrm{in}},T_{\mathrm{in}})}{c_{\mathrm{in}}},
+\label{eq:glueckauf}
+\end{equation}
+with pellet porosity \(\varepsilon_p = \nDcGlEpsp\), tortuosity \(\tau_p = \nDcGlTau\)
+and \(D_m = \nDcGlDm\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). The generator therefore uses
+two slightly different values of the molecular diffusivity, one in each correlation;
+we report both rather than reconcile them after the data were generated.
+
+\paragraph{Numerics and storage.} Equations~\eqref{eq:mass}--\eqref{eq:energy} are
+discretised by the method of lines on \nGridNz\ cell-centred finite volumes
+(first-order upwind advection, central dispersion and conduction) and integrated with
+SciPy's implicit BDF method at relative and absolute tolerances
+\(10^{\nDcRtolExp}\) and \(10^{\nDcAtolExp}\) to \nDcSnapshots\ output times;
+Section~\ref{sec:reference} verifies the solver. Each run is integrated to
+\nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
+the horizon is extended to \nDcHorizonExt\ stoichiometric times in turn, which
+\nDcExtendedPct\,\% of the accepted runs of the larger dataset needed. A draw is
+rejected before solving if its feed loads too little or too much of capacity, its
+Henry constant is not finite and positive, its isothermal mass-transfer zone is not
+resolved by the grid, or its stoichiometric time is implausible; \nDataNrejected\ of
+the larger dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
+stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a uniform
+grid in \(z/L\) and \(t/t_{\mathrm{final}}\), at \(\nDcStoreV\times\nDcStoreV\) for the
+larger dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
+
+\paragraph{Damk\"ohler number.} The Damk\"ohler number used throughout is computed per
+sample as \(\mathrm{Da} = k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), and rung L6 regresses
+on its per-material median. Because the horizon is a multiple of the stoichiometric
+time that depends on whether it was extended, Da carries that multiple as well as the
+kinetic ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\); for the \nDcExtendedPct\,\% of runs
+that were extended it is larger than the kinetic ratio by the extension factor. We keep the
+definition the pre-registration used and state this property rather than redefine
+the axis after the result.
+
+\subsection*{Parameter space}
+
+Materials and operating conditions are sampled separately and crossed,
+\nNclustFolds\ materials at \nDcNcond\ conditions each, so that a material is a real
+grouping in the data (Table~\ref{tab:params}). Each set is a scrambled Sobol design
+mapped linearly onto its ranges, with seeds \nDcSeedMat\ (materials) and \nDcSeedCond\
+(conditions). The legacy dataset used by rungs L3 and L5 and by the coordinate change
+differs in three ways: independent uniform draws, \(k_{\mathrm{LDF}}\) sampled
+directly on \([\nDcKldfLo, \nDcKldfHi]\)\,s\(^{-1}\) instead of being derived from
+the particle, and a fixed particle size; it has \nDcNmatLeg\ materials and
+\nDcNacceptLeg\ accepted runs.
+
+\begin{table}[t]
+\centering
+\caption{The parameter space of the larger dataset. All eleven are sampled by
+scrambled Sobol and mapped linearly; every surrogate except rung L6 receives exactly
+these values, standardised on its own fitting set, and L6 receives observable
+descriptors instead.}
+\label{tab:params}
+\begin{tabular}{llll}
+\toprule
+parameter & symbol & units & range \\
+\midrule
+\multicolumn{4}{l}{\emph{material}} \\
+saturation capacity & \(q_{\max}\) & mol\,kg\(^{-1}\) & \nDcQmaxLo--\nDcQmaxHi \\
+heat of adsorption & \(\Delta H\) & kJ\,mol\(^{-1}\) & \nDcDHLo\ to \nDcDHHi \\
+step position (relative humidity) & \(\mathrm{RH}_{\mathrm{step}}\) & -- & \nDcStepLo--\nDcStepHi \\
+cooperativity exponent & \(n\) & -- & \nDcNexpLo--\nDcNexpHi \\
+Henry-site fraction & \(f_H\) & -- & \nDcFhLo--\nDcFhHi \\
+particle diameter & \(d_p\) & mm & \nDcDpLo--\nDcDpHi \\
+particle density & \(\rho_p\) & kg\,m\(^{-3}\) & \nDcRhopLo--\nDcRhopHi \\
+bed porosity & \(\varepsilon_t\) & -- & \nDcEpsLo--\nDcEpsHi \\
+\midrule
+\multicolumn{4}{l}{\emph{operating condition}} \\
+feed relative humidity & \(\mathrm{RH}_{\mathrm{feed}}\) & -- & \nDcRHLo--\nDcRHHi \\
+superficial velocity & \(v\) & m\,s\(^{-1}\) & \nDcVLo--\nDcVHi \\
+feed temperature & \(T_{\mathrm{in}}\) & K & \nDcTinLo--\nDcTinHi \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Error metric and statistical test}
+
+The primary metric is a per-sample normalised root-mean-square error on the
+concentration channel. For sample \(s\), with \(\hat c_{ij}\) and \(c_{ij}\) the
+predicted and reference \(c/c_{\mathrm{in}}\) on the rung's evaluation grid,
+\begin{equation}
+\mathrm{nRMSE}_c(s) = \frac{\Bigl[\frac{1}{N_zN_t}\sum_{i,j}(\hat c_{ij}-c_{ij})^2\Bigr]^{1/2}}
+{\max_{i,j} c_{ij} - \min_{i,j} c_{ij}} ,
+\label{eq:nrmse}
+\end{equation}
+the RMSE over the whole space--time field divided by that sample's own reference
+range. Every accepted run starts from a clean bed and ends with the outlet near the
+feed concentration, so the denominator is close to one and cannot vanish. Where only
+part of the field is scored (the time axis of rung L4) the numerator runs over the
+scored window and the denominator stays the range of the full field. The same quantity
+is computed for \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) and reported as secondary; the
+channels are never pooled. Rung L7 scores the outlet curve only. Per-sample errors are
+averaged over the training seeds, pooled across held-out folds so that each sample
+appears once, and averaged with equal weight per sample.
+
+Two arms are compared on identical samples by a paired, cluster-robust percentile
+bootstrap: materials are resampled with replacement, all conditions of each drawn
+material are kept, and the mean paired difference is recomputed. A difference is
+reported as significant only if the percentile interval excludes zero, at a level
+calibrated per design: simulating clustered nulls with each design's real
+conditions-per-material counts, we take the largest nominal level on a fixed grid
+whose empirical false-positive rate does not exceed the target. This gives
+\(\alpha = \nAlphaFolds\) for the five-fold design (empirical size \nFprFoldsCal\,\%);
+on the legacy design we report at the stricter \(\alpha = \nLfiveAlpha\) (empirical
+size \nFprLegacyUsed\,\%). The time axis of rung L4 has an intermediate number of
+clusters, at which no calibration was run; it uses the level both neighbouring
+designs select. Rung L6's primary estimand is the least-squares slope of the
+per-material paired difference on \(\log_{10}\mathrm{Da}\), with a material bootstrap
+interval. Best-of-grid selection is discussed in Section~\ref{sec:limitations}.
+
+\subsection*{Surrogates, encodings and evaluation designs}
+
+Three evaluation designs are used, and each result states which. In the
+\emph{five-fold} design the \nNclustFolds\ materials of the larger dataset are
+partitioned into five folds, every material is held out once, and each fit sees the
+other four folds. The \emph{single split} holds out the dataset's own
+\nLfourbMatNmat\ test materials. The \emph{legacy} design holds out \nNclustLegacy\
+of the earlier dataset's \nDcNmatLeg\ materials. Every learned arm is trained with
+three seeds and fitted --- including any proper-orthogonal-decomposition basis and any
+scaler --- on its fitting set only, which is asserted disjoint from the held-out
+materials before every fit.
+
+\textbf{Absolute errors are not comparable across rungs.} The rungs differ in
+dataset, in field encoding, in what is scored (the whole field, a time window or the
+outlet curve) and in held-out set. Only paired comparisons within a rung are
+inferential, and Table~\ref{tab:rungs} states each rung's encoding so that no
+cross-rung reading is made by accident.
+
+\begin{table}[p]
+\centering
+\caption{Surrogates by rung. Absolute errors in different rows are not comparable.}
+\label{tab:rungs}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}p{0.07\textwidth}p{0.13\textwidth}p{0.25\textwidth}p{0.30\textwidth}p{0.20\textwidth}@{}}
+\toprule
+rung & data, design & input \(\to\) output; encoding & architecture & training \\
+\midrule
+L1 & larger, five-fold &
+parameters \(\to\) POD coefficients per channel; field subsampled from the stored grid &
+ridge; random forest; gradient boosting; perceptron with standardised targets &
+scikit-learn; perceptron Adam with early stopping \\
+L1 curve & larger, five-fold & as L1, training materials subsampled & the L1 perceptron & as L1 \\
+L2 & larger, five-fold & as L1 &
+perceptron width and depth, boosting depth, forest leaf size, swept in both directions & as L1 \\
+L3 & legacy &
+parameters \(\to\) POD coefficients; full stored field &
+perceptron and two Kolmogorov--Arnold families (Gaussian radial basis, Chebyshev) at three matched parameter budgets &
+Adam, cosine schedule, per-family learning-rate grid \\
+L4 & larger; time axis on the training materials, material axis on the single split &
+(parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head &
+one perceptron; data-only twin and physics-weighted arms (fixed weights, gradient-norm balancing, NTK and self-adaptive weighting); the residual of equations \eqref{eq:mass}--\eqref{eq:energy} with \eqref{eq:danckwerts}, as corrected under B72 &
+Adam, cosine schedule; then L-BFGS (polish) \\
+L5 & legacy &
+parameters \(\to\) \(c\) field, subsampled from the stored field &
+DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; parameter-matched &
+Adam, cosine schedule, per-arm learning-rate grid \\
+L5 basis vs.\ map & larger, five-fold &
+parameters \(\to\) POD coefficients of \(c\) over basis size &
+one gradient-boosted regressor per mode & three seeds \\
+L6 & larger, five-fold &
+observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
+joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; matched parameters &
+Adam, cosine schedule \\
+L7 & larger, all samples; paired with L1 out of fold &
+parameters \(\to\) outlet curve &
+equilibrium shock, Klinkenberg, constant pattern; nothing fitted & none \\
+Warp & legacy &
+parameters \(\to\) \(c\), in a fixed frame or the two-front frame of equation~\eqref{eq:warp} &
+POD plus one gradient-boosted regressor per mode; front trajectories from a POD of the landmark curves &
+three seeds; oracle arm given the true fronts \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+%% ===========================================================================
 \section{The ladder}
 \label{sec:ladder}
 

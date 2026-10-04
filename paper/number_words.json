@@ -1314,5 +1314,208 @@
   "class": "PROSE",
   "reason": "idiom 'one by one' (structural)",
   "line_at_review": 1386
+ },
+ {
+  "key": "with [zero] gradient at the outlet \\(z =",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "zero-gradient boundary condition (structural)",
+  "line_at_review": 460
+ },
+ {
+  "key": " [two] slightly different values of",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "two values of D_m in the generator code, each a macro",
+  "line_at_review": 477
+ },
+ {
+  "key": "of the molecular diffusivity, [one] in each correlation;",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one in each correlation' (structural)",
+  "line_at_review": 477
+ },
+ {
+  "key": "et and \\( \\) for the legacy [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 495
+ },
+ {
+  "key": "differs in [three] ways: independent uniform dra",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "count of the differences enumerated in the sentence (structural)",
+  "line_at_review": 513
+ },
+ {
+  "key": "ce of the larger dataset. All [eleven] are sampled by",
+  "word": "eleven",
+  "class": "DESIGN",
+  "reason": "the 11 sampled parameters of the design, listed in the table",
+  "line_at_review": 520
+ },
+ {
+  "key": "o the denominator is close to [one] and cannot vanish. Where only",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "denominator ~1 by the acceptance rule (outlet near feed, clean start); a property of the design, not a measurement",
+  "line_at_review": 559
+ },
+ {
+  "key": " [Two] arms are compared on identica",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "a paired comparison is of two arms (definition)",
+  "line_at_review": 567
+ },
+ {
+  "key": "percentile interval excludes [zero] , at a level",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "'excludes zero' (structural)",
+  "line_at_review": 570
+ },
+ {
+  "key": "\\( = \\) for the [five] -fold design (empirical size",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 574
+ },
+ {
+  "key": " [Three] evaluation designs are used,",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three evaluation designs enumerated",
+  "line_at_review": 584
+ },
+ {
+  "key": "{ [five] -fold} design the \\ materials",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 585
+ },
+ {
+  "key": "partitioned into [five] folds, every material is held",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 586
+ },
+ {
+  "key": "other [four] folds. The {single split} ho",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "five folds minus the held-out one (design)",
+  "line_at_review": 587
+ },
+ {
+  "key": " [three] seeds and fitted --- includin",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "seeds 42/43/44 (protocol)",
+  "line_at_review": 590
+ },
+ {
+  "key": "L1 & larger, [five] -fold &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 611
+ },
+ {
+  "key": "L1 curve & larger, [five] -fold & as L1, training materi",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 615
+ },
+ {
+  "key": "L2 & larger, [five] -fold & as L1 &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 616
+ },
+ {
+  "key": "L5 basis vs.\\ map & larger, [five] -fold &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 630
+ },
+ {
+  "key": "L6 & larger, [five] -fold &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 633
+ },
+ {
+  "key": "perceptron and [two] Kolmogorov--Arnold families (",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two KAN families of L3 (design)",
+  "line_at_review": 620
+ },
+ {
+  "key": "n radial basis, Chebyshev) at [three] matched parameter budgets &",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three matched parameter budgets of L3 (design)",
+  "line_at_review": 620
+ },
+ {
+  "key": " [one] perceptron; data-only twin an",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one perceptron' = a single architecture (structural)",
+  "line_at_review": 624
+ },
+ {
+  "key": " [one] gradient-boosted regressor pe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one regressor per mode' (structural)",
+  "line_at_review": 632
+ },
+ {
+  "key": "POD plus [one] gradient-boosted regressor pe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one regressor per mode' (structural)",
+  "line_at_review": 642
+ },
+ {
+  "key": "-boosted regressor per mode & [three] seeds \\\\",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "seeds 42/43/44 (protocol)",
+  "line_at_review": 632
+ },
+ {
+  "key": "able descriptors (isotherm at [three] temperatures, bed and operati",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "descriptor design: isotherm evaluated at three temperatures",
+  "line_at_review": 634
+ },
+ {
+  "key": "(c\\), in a fixed frame or the [two] -front frame of equation~ &",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two-front (two-wave) frame of the warp (design)",
+  "line_at_review": 641
+ },
+ {
+  "key": " [three] seeds; oracle arm given the t",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "seeds 42/43/44 (protocol)",
+  "line_at_review": 643
  }
 ]

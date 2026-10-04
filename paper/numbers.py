@@ -574,6 +574,49 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # Methods (referee M7): design constants read from the code by design_constants.py,
+    # so the Methods section cannot drift from the generator and solver it describes
+    ("DcStoreV", "results/design_constants.json", "v2.store_nz", "{:d}"),
+    ("DcStoreLegZ", "results/design_constants.json", "legacy.store_nz", "{:d}"),
+    ("DcStoreLegT", "results/design_constants.json", "legacy.store_nt", "{:d}"),
+    ("DcHorizon", "results/design_constants.json", "v2.horizon", "{:g}"),
+    ("DcHorizonExt", "results/design_constants.json", "v2.horizon_multipliers",
+     lambda m: ", ".join(f"{x:g}" for x in m[1:-1]) + f" and {m[-1]:g}"),
+    ("DcExtendedPct", "results/design_constants.json", "v2.frac_horizon_extended_pct", "{:.0f}"),
+    ("DcSeedMat", "results/design_constants.json", "v2.seed_materials", "{:d}"),
+    ("DcSeedCond", "results/design_constants.json", "v2.seed_conditions", "{:d}"),
+    ("DcNcond", "results/design_constants.json", "v2.n_conditions", "{:d}"),
+    ("DcBH", "results/design_constants.json", "v2.b_H_ratio", "{:g}"),
+    ("DcGlDm", "results/design_constants.json", "v2.glueckauf.D_m", lambda x: f"{x * 1e5:g}"),
+    ("DcGlTau", "results/design_constants.json", "v2.glueckauf.tau", "{:g}"),
+    ("DcGlEpsp", "results/design_constants.json", "v2.glueckauf.eps_p", "{:g}"),
+    ("DcNmatLeg", "results/design_constants.json", "legacy.n_materials", "{:d}"),
+    ("DcNacceptLeg", "results/design_constants.json", "legacy.n_accepted", "{:d}"),
+    ("DcKldfLo", "results/design_constants.json", "legacy.k_LDF_range", lambda r: f"{r[0]:g}"),
+    ("DcKldfHi", "results/design_constants.json", "legacy.k_LDF_range", lambda r: f"{r[1]:g}"),
+    ("DcL", "results/design_constants.json", "physics.L", "{:.2f}"),
+    ("DcDin", "results/design_constants.json", "physics.D_in", "{:.2f}"),
+    ("DcRhog", "results/design_constants.json", "physics.rho_g", "{:g}"),
+    ("DcCp", "results/design_constants.json", "physics.C_pg", "{:.0f}"),
+    ("DcCps", "results/design_constants.json", "physics.C_ps", "{:.0f}"),
+    ("DcKz", "results/design_constants.json", "physics.k_z", "{:.2f}"),
+    ("DcHw", "results/design_constants.json", "physics.h_w", "{:g}"),
+    ("DcDmDisp", "results/design_constants.json", "physics.D_m_dispersion", lambda x: f"{x * 1e5:.1f}"),
+    ("DcRtolExp", "results/design_constants.json", "numerics.rtol", lambda x: f"{round(math.log10(x)):d}"),
+    ("DcAtolExp", "results/design_constants.json", "numerics.atol", lambda x: f"{round(math.log10(x)):d}"),
+    ("DcSnapshots", "results/design_constants.json", "numerics.n_snapshots", "{:d}"),
+] + [  # the parameter table: one (lo, hi) pair per design-v2 parameter, in display units
+    (f"Dc{tag}{side}", "results/design_constants.json", f"v2.{space}.{key}",
+     (lambda i, s: (lambda r: f"{r[i] * s:g}"))(i, scale))
+    for tag, space, key, scale in (
+        ("Qmax", "material_space", "q_max", 1), ("DH", "material_space", "delta_H", 1e-3),
+        ("Step", "material_space", "step_rh", 1), ("Nexp", "material_space", "isotherm_n", 1),
+        ("Fh", "material_space", "henry_fraction", 1), ("Dp", "material_space", "d_p", 1e3),
+        ("Rhop", "material_space", "rho_p", 1), ("Eps", "material_space", "eps_t", 1),
+        ("RH", "condition_space", "rh_feed", 1), ("V", "condition_space", "v", 1),
+        ("Tin", "condition_space", "T_in", 1))
+    for side, i in (("Lo", 0), ("Hi", 1))
+] + [
     # B72 / A28: the residual L4 used, evaluated on the solver's own stored fields
     ("BsevtwoOldResid", "results/l4_residual_check.json", "median_rel_rms_pre_b72_form",
      lambda v: f"{100 * v:.0f}"),
