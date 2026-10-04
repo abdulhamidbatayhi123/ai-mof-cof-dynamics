@@ -192,7 +192,7 @@ Fix: say "43x above the p=128 linear-reconstruction floor, a reference level the
 
 ---
 
-## 3. Clarity for a materials-chemistry reader (e.g. the Yaghi group): the five places most likely to lose them
+## 3. Clarity for a materials-chemistry reader: the five places most likely to lose them
 
 1. **Abstract, l.45-51.** "the basis floor falls 90x with basis size while the parameter-to-coefficient map moves 0.9 %: the map binds, not the basis" means nothing to a chemist, and no absolute accuracy is ever stated.
 

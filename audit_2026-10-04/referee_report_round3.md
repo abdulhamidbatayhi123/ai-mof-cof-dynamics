@@ -212,7 +212,7 @@ The Fig. 1A L5 row (about +18 %, about [−6.6, +43.6] %) matches `selected_rel_
 
 ---
 
-## 4. For a reticular-chemistry reader (e.g. the Yaghi group)
+## 4. For a reticular-chemistry reader
 
 1. **The feed humidity can sit below the step (UNVERIFIED how often).**
    - Feed RH spans 0.15-0.85 and step RH 0.08-0.45 (`\nDcRH*`, `\nDcStep*`). A sample with, say, feed 0.20 and step 0.40 never reaches pore filling, so its breakthrough is a single Henry/primary-site front, not the two-wave structure the paper builds on.

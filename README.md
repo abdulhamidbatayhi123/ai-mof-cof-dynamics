@@ -40,6 +40,14 @@ verified. Every later pre-registration (`PREREG_L6_v2.md`, `PREREG_L1L2L7_v2.md`
 `PREREG_BASELINES.md`) was committed before the runs it governs, and that ordering is
 checkable in the git history. The paper says which is which.
 
+**One rewrite of the history, before publication (2026-10-05).** Three items were removed
+from every commit before the repository was made public: a third-party preprint PDF
+(not ours to redistribute; it is cited by its SSRN link instead), the author's personal
+to-do list, and a personal letter draft. Nothing else was changed: commit dates,
+messages and every other file are as they were, and the three commits that touched
+only those items are gone. Commit identifiers therefore changed; `COMMIT_MAP.tsv` maps
+every pre-publication identifier (as cited in some older documents) to its published one.
+
 ---
 
 ## Reproducing

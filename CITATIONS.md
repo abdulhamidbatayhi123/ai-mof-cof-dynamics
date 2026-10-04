@@ -52,7 +52,8 @@ way.
 
 ### Lee, Lee & Kim (2026) — full text read 2026-08-30, and the position is strong
 
-`refs/Lee2026_shape_timescale.pdf`, 37 pp. This is the closest prior art the review
+SSRN preprint, https://ssrn.com/abstract=6874257, 37 pp. (a local copy was read; it is
+not redistributed with this repository). This is the closest prior art the review
 found and it lands on the warp. **"Decompose a breakthrough curve into a normalised
 shape and a characteristic timescale, learn each, recompose" is published and must
 not be claimed as new.** An adsorption referee will know it.

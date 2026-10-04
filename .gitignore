@@ -46,3 +46,10 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 paper/manuscript.pdf
+
+# Personal / not for the public repository
+USER_ACTIONS.md
+outreach/
+refs/*.pdf
+# scratch
+results/tmp*.tmp

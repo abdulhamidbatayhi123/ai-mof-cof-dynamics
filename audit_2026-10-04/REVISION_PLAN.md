@@ -41,7 +41,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | C2 | M11b GP regression on POD coefficients (240 materials) | IMPLEMENTED 769b5ed (subset-hyper GP, PREREG_BASELINES A1); not yet queued |
 | C3 | M11a coarse-grid solver at matched accuracy, for the cost section | OPEN |
 | C4 | M11c fitted per-material classical model for L7 | OPEN |
-| C5 | M13 second experimental anchor (Al-fumarate stepped breakthrough, Bozbiyik) — needs digitised data | BLOCKED: Bozbiyik 2017 is paywalled (no OA copy); requested from the author (USER_ACTIONS); wording half DONE 21f64cd |
+| C5 | M13 second experimental anchor (Al-fumarate stepped breakthrough, Bozbiyik) — needs digitised data | BLOCKED: Bozbiyik 2017 is paywalled (no OA copy); requested through the author's library access; wording half DONE 21f64cd |
 | C6 | M10 place real water MOFs (MOF-303, MOF-801, CAU-10, Al-fumarate) in the parameter space — needs cited isotherm/kinetic values | DONE 7507cc2 (6 MOFs, 10 sources; 3 inside on every axis) |
 
 ## Tier D — framing and structure
