@@ -930,7 +930,9 @@ each arm at the better of two higher learning rates per seed), which is why its
 perceptron rate differs from the sweep's: the best Kolmogorov--Arnold network in the entire study is the
 \emph{least} Kolmogorov--Arnold-like one, and it reaches \nLthreeBestKan\ against
 the perceptron's \nLthreeBestKanMlp\ --- a difference of \nLthreeBestKanDiff,
-interval [\nLthreeBestKanLo, \nLthreeBestKanHi] --- \nLthreeBestKanSig.
+interval [\nLthreeBestKanLo, \nLthreeBestKanHi] --- \nLthreeBestKanSig. That interval
+is per pair: the learning rate of each arm was chosen on the held-out materials, so
+it is the count above, not this pair, that carries the selection.
 
 \paragraph{The tuning envelope is itself a result.} The families optimise
 \nLthreeLrDecades{} orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
@@ -1292,7 +1294,9 @@ independent function classes --- proper orthogonal decomposition plus random for
 plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together, or learning the
 whole field at once, is worth a constant factor --- up to \(\nOperatorLever\times\)
 from the pointwise regressor to the Fourier operator on this encoding, a lever of
-the same order as the learning curve's (the two ratios come from different designs)
+the same order as the learning curve's (the two ratios come from different designs,
+and the operator ratios are point estimates between best-of-grid arms, with no
+interval of their own)
 --- and it does not close the distance to the
 floor.
 
