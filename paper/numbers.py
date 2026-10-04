@@ -655,6 +655,9 @@ SPEC = [
      lambda v: f"{100 * v:.1f}"),
     ("BsevtwoNsamples", "results/l4_residual_check.json", "n_samples", "{:d}"),
     ("BsevtwoNworse", "results/l4_residual_check.json", "n_pre_b72_worse", "{:d}"),
+    ("LtwoSelLo", "results/l2_v2_selection.json", "pct_sim_lo", "{:.1f}"),
+    ("LtwoSelHi", "results/l2_v2_selection.json", "pct_sim_hi", "{:.1f}"),
+    ("LtwoSelK", "results/l2_v2_selection.json", "k", "{:d}"),
     # referee M3: the selected arm's interval, adjusted for choosing it on the test set
     ("LfourbMatSelLo", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
     ("LfourbMatSelHi", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),

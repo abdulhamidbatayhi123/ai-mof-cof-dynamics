@@ -391,6 +391,9 @@
     "BsevtwoNewResid": "1.0",
     "BsevtwoNsamples": "30",
     "BsevtwoNworse": "30",
+    "LtwoSelLo": "17.8",
+    "LtwoSelHi": "24.8",
+    "LtwoSelK": "26",
     "LfourbMatSelLo": "0.00099",
     "LfourbMatSelHi": "0.00278",
     "LfourbSelQ": "2.96",
@@ -2013,6 +2016,18 @@
     "BsevtwoNworse": {
       "file": "results/l4_residual_check.json",
       "path": "n_pre_b72_worse"
+    },
+    "LtwoSelLo": {
+      "file": "results/l2_v2_selection.json",
+      "path": "pct_sim_lo"
+    },
+    "LtwoSelHi": {
+      "file": "results/l2_v2_selection.json",
+      "path": "pct_sim_hi"
+    },
+    "LtwoSelK": {
+      "file": "results/l2_v2_selection.json",
+      "path": "k"
     },
     "LfourbMatSelLo": {
       "file": "results/l4b_v2_selection.json",

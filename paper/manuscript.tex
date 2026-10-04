@@ -836,7 +836,9 @@ optima, and the one family that has not run out of improvement has run out of
 capacity while sitting well behind the best perceptron. \textbf{Either way, the optimum is not where the
 earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
 at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the best L1 arm, the
-perceptron (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)). At 48 materials the
+perceptron (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\); adjusted for having
+picked the best of \nLtwoSelK\ configurations on the same materials,
+\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\), Section~\ref{sec:limitations}). At 48 materials the
 same comparison --- best configuration against the best L1 arm, there gradient
 boosting --- gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
 near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is
@@ -1569,7 +1571,9 @@ wider than a single pair needs at this level). The resulting
 interval holds for every candidate at once, so for the selected one however it was
 selected; on simulated families with no true effect it holds its level where the
 naive test on the winner does not. The L4 result survives it, and the procedure
-will be applied unchanged to the corrected re-run. The remaining
+will be applied unchanged to the corrected re-run. The same correction applied to
+L2's best configuration, chosen from \nLtwoSelK\ on the held-out materials, leaves its
+gain over the L1 setting at \(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\). The remaining
 best-of-grid choices select a configuration that is then compared within the same
 rung, and the cleaner remedy for all of them --- selecting on a validation split
 inside the training materials --- is the protocol change we recommend for any rerun.
