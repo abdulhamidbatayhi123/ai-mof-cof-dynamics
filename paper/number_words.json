@@ -1,12 +1,5 @@
 [
  {
-  "key": "moves it. [Seven] candidate explanations were n",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
-  "line_at_review": 15
- },
- {
   "key": " [one] breakthrough curve faster; th",
   "word": "one",
   "class": "PROSE",
@@ -1155,34 +1148,6 @@
   "line_at_review": 499
  },
  {
-  "key": "materials in [five] folds, a single split of , o",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 22
- },
- {
-  "key": "rison (legacy design). Over a [sixteenfold] ",
-  "word": "sixteenfold",
-  "class": "DESIGN",
-  "reason": "p=8 to p=128 is the design grid",
-  "line_at_review": 26
- },
- {
-  "key": "pointwise regressor on [one] encoding --- but all of them",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'on one encoding' = a single shared encoding (structural)",
-  "line_at_review": 32
- },
- {
-  "key": "Aligning the [two] adsorption fronts would buy",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two waves of the inflected isotherm (physics, design)",
-  "line_at_review": 39
- },
- {
   "key": "ild on its exact size. {Both [halves] of this matter and neither ma",
   "word": "halves",
   "class": "PROSE",
@@ -1587,5 +1552,26 @@
   "class": "PROSE",
   "reason": "'half-breakthrough time' = the 50 % arrival time, a definition",
   "line_at_review": 187
+ },
+ {
+  "key": "orbents they have never seen. [Seven] candidate",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
+  "line_at_review": 15
+ },
+ {
+  "key": "in [five] folds, a split of , or a leg",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 20
+ },
+ {
+  "key": "e than learning; aligning the [two] ",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two waves of the inflected isotherm (physics, design)",
+  "line_at_review": 29
  }
 ]

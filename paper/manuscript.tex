@@ -35,34 +35,26 @@ columns}
 \ead{abdulbatayhi@gmail.com}
 
 \begin{abstract}
-Surrogate models for adsorption column dynamics are usually assessed by how well
-they fit. We ask instead what \emph{binds} their error when they are required to
-predict a material they have never seen, and which of the standard interventions
-moves it. Seven candidate explanations were named in advance, each with the
-evidence that would eliminate it, and tested on a reference solver verified against
-\nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, against a published
-MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
-it reproduces and whose first-wave timing it does not. Each verdict is reported in the
-words declared in advance, and each states the design it rests on: \nNclustFolds\
-materials in five folds, a single split of \nLfourbMatNmat, or a legacy set of
-\nNclustLegacy. The number of training materials binds: error still falls as
-\(n^{-\nLCbeta}\) at the largest size we can afford. Capacity is not eliminated under
-the pre-registered rule. A multilayer perceptron beats both Kolmogorov--Arnold
-families at matched parameters in every comparison (legacy design). Over a sixteenfold
-increase in basis size DeepONet improves by at most \nLfiveFlatImproveMax\,\% while the
-proper-orthogonal-decomposition floor falls \(\nFloorDrop\times\); on the full design
-the floor falls \(\nLfiveVtwoFloorDrop\times\) and the coefficient map moves
-\nLfiveVtwoCoefChangePct\,\%. Which learner maps parameters to the field still matters
+Surrogates of adsorption columns are usually judged by how well they fit. We ask what
+\emph{binds} their error on adsorbents they have never seen. Seven candidate
+explanations were named in advance, each with the evidence that would eliminate it,
+and tested on a solver verified against \nLzeroNchecks{} closed-form solutions and
+compared, nothing fitted, with a published MOF-303 breakthrough curve. Each verdict is
+reported in pre-declared words, with the design it rests on (\nNclustFolds\ materials
+in five folds, a split of \nLfourbMatNmat, or a legacy set of \nNclustLegacy).
+Training materials bind: error still falls as \(n^{-\nLCbeta}\) at the largest size we
+can afford. Capacity is not eliminated. A perceptron beats Kolmogorov--Arnold networks
+at matched size in every comparison. On the full design the basis floor falls
+\(\nLfiveVtwoFloorDrop\times\) with basis size while the parameter-to-coefficient map
+moves \nLfiveVtwoCoefChangePct\,\%: the map binds, not the basis. The learner matters
 --- a Fourier neural operator is \(\nOperatorLever\times\) more accurate than the best
-pointwise regressor on one encoding --- but all of them sit far above the floor. The
-physics-residual rung is withdrawn and being re-run: its residual advected the gas at
-the superficial rather than the interstitial velocity, a defect we found while
-writing this paper's methods and report with the results it invalidates. Decomposing the equilibrium and kinetic objects
-gives a small real benefit (\nLsixDiff\ nRMSE) with no detectable dependence on
-Damk\"ohler number. Closed-form models are \nLsevenRatio\ times worse than learning.
-Aligning the two adsorption fronts would buy \nWarpHeadroomFixed{}\(\times\) if the
-fronts were known, and nothing detectable when they are predicted. \nLedgerA\ withdrawn
-claims and \nLedgerB\ caught defects are reported in the main text.
+pointwise regressor --- but every learner sits far above the floor. Decomposing
+equilibrium and kinetics gives a small real benefit with no detectable Damk\"ohler
+dependence; closed forms are \nLsevenRatio\ times worse than learning; aligning the two
+adsorption fronts would pay \nWarpHeadroomFixed{}\(\times\) only if the fronts were
+known. The physics-residual rung is withdrawn and being re-run: its residual moved the
+gas at the wrong velocity, a defect we found while writing the methods. \nLedgerA\
+withdrawn claims and \nLedgerB\ caught defects are reported in full.
 \end{abstract}
 
 \begin{keyword}
@@ -287,7 +279,7 @@ source rather than read at the primary. A study that audits its own numbers shou
 audit its own reading.
 
 %% ===========================================================================
-\section{The physics that shapes everything downstream}
+\section{The physics of the column}
 \label{sec:physics}
 
 \subsection{The isotherm must be inflected, with a finite Henry slope}
