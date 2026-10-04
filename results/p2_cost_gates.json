@@ -1,0 +1,13 @@
+{
+  "_what": "PREREG_P2 pre-freeze cost gate for M8 (KAN symbolic extraction) on its subgrid.",
+  "limit_s": 300.0,
+  "m8": {
+    "sec_per_fit": 1144.4350368976593,
+    "run": false,
+    "support_on_known_answer": [
+      "1"
+    ],
+    "fits_on_subgrid": 216,
+    "projected_h": 68.66610221385956
+  }
+}

@@ -402,6 +402,12 @@ logistic crossing); H2b confirmatory on O1 only, O2/O3 descriptive; H2a slices b
 isotherm, observation) with σ, ε inside R, O3 excluded; ε_rec defined; L2 success made
 operational; Lib-A fidelity defined; H2c's resolution per ε and its level placement
 made exact; the isothermal control given a grid; stale text removed.
+**M8 cost gate, measured 2026-10-04 (`p2_pilot_costs.py`, `results/p2_cost_gates.json`):**
+one fit at the grid's size took 1144 s against the declared 300 s limit (216 fits ~ 69 h),
+so **M8 is NOT RUN on the grid**, a machine limit in those words. Measured while the
+machine was shared with other long jobs, which the paper states; on the same
+known-answer data the fit returned only a constant, consistent with M8's documented
+known-answer failure. M8 is reported on its known-answer tests only.
 **M5, decided 2026-10-04 before the freeze:** EIV best-subset on the grid (see §3 M5),
 because ODR-BINDy and WENDy as published apply to autonomous ODE systems, not to a
 single rate law with exogenous inputs and regressor error; H2c is tested with it.
