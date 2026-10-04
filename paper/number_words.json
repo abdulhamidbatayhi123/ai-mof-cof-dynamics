@@ -595,27 +595,6 @@
   "line_at_review": 854
  },
  {
-  "key": "by the error in locating the [two] fronts},",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 859
- },
- {
-  "key": "p is unlearnable beyond about [five] modes'', which no",
-  "word": "five",
-  "class": "PROSE",
-  "reason": "quotes the withdrawn earlier claim verbatim",
-  "line_at_review": 862
- },
- {
-  "key": "itecture touched. It is now `` [two] smooth monotone",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 863
- },
- {
   "key": "than there, and the [two] intervals are not comparable.",
   "word": "two",
   "class": "PROSE",
@@ -1064,34 +1043,6 @@
   "line_at_review": 560
  },
  {
-  "key": "or of [one] configuration of it (Section~",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar",
-  "line_at_review": 602
- },
- {
-  "key": "e sweep found \\(1\\,\\%\\), with [six] and eight layers in a",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
-  "line_at_review": 483
- },
- {
-  "key": "found \\(1\\,\\%\\), with six and [eight] layers in a",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
-  "line_at_review": 483
- },
- {
-  "key": ") where at 192 the optimum is [eight] . The earlier sentence ``capac",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "a layer count naming a swept configuration (d6/d8), not a measurement",
-  "line_at_review": 484
- },
- {
   "key": "eight material parameters and [three] condition parameters (Figure~",
   "word": "three",
   "class": "DESIGN",
@@ -1181,5 +1132,103 @@
   "class": "PROSE",
   "reason": "the two errors just named (structural)",
   "line_at_review": 814
+ },
+ {
+  "key": "gave \\( \\,\\%\\), with six and [eight] layers in a",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "depth grid values of the L2 sweep (design)",
+  "line_at_review": 499
+ },
+ {
+  "key": " [eight] . The earlier sentence ``capac",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "depth grid value 8 of the L2 sweep (design)",
+  "line_at_review": 501
+ },
+ {
+  "key": "m moves up from a near-tie to [eight] ",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "depth grid value 8 of the L2 sweep (design)",
+  "line_at_review": 506
+ },
+ {
+  "key": "d the boosting depth moves by [one] step,",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "one grid step of the boosting-depth sweep (design)",
+  "line_at_review": 507
+ },
+ {
+  "key": "anti-conservative [one] for a positive. An isolated b",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 620
+ },
+ {
+  "key": "and so for the selected [one] however it was selected (a st",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 623
+ },
+ {
+  "key": "at once, so for the selected [one] however it was",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 1172
+ },
+ {
+  "key": "ading we defend is the modest [one] --- the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 626
+ },
+ {
+  "key": " [one] configuration: over \\ config",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'of one configuration', not a count of results",
+  "line_at_review": 645
+ },
+ {
+  "key": "e oracle's gain, not a modest [one] . With that scope, this is a r",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 971
+ },
+ {
+  "key": "is now `` [two] smooth monotone",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two landmark curves of the two-wave frame (design)",
+  "line_at_review": 974
+ },
+ {
+  "key": " [one] searched weight, for several",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'at one searched weight' = a single weight (structural)",
+  "line_at_review": 1086
+ },
+ {
+  "key": "anti-conservative for [one] chosen after looking. For",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 1165
+ },
+ {
+  "key": "ting --- gave \\( \\,\\%\\), with [six] and eight layers in a",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "depth grid value 6 of the L2 sweep (design)",
+  "line_at_review": 499
  }
 ]

@@ -516,15 +516,20 @@ not as the verdict: the \nLtwoNUshaped{} neural and boosting families saturate w
 optima, and the one family that has not run out of improvement has run out of
 capacity while sitting well behind the best perceptron. \textbf{Either way, the optimum is not where the
 earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
-at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the L1 setting (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)); at 48 materials the same sweep found \(1\,\%\), with six and eight layers in a
-near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is eight. The earlier sentence ``capacity is irrelevant'' was
-scoped to a material count without saying so, and is withdrawn as A26. The wall
-stands: the best fixed-basis surrogate still sits \(\nLtwoXfloor\times\) above the floor.
+at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the best L1 arm, the
+perceptron (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)). At 48 materials the
+same comparison --- best configuration against the best L1 arm, there gradient
+boosting --- gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
+near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is
+eight. The earlier sentence ``capacity is irrelevant'' was scoped to a material count
+without saying so, and is withdrawn as A26. The wall stands: the best fixed-basis
+surrogate still sits \(\nLtwoXfloor\times\) above the floor.
 
-We read the growth of the \emph{optimal} capacity with the material count as the
-signature of a data-limited rather than a representation-limited regime: were the
-representation binding, extra materials would not change which capacity is best. It is
-the same diagnosis the learning curve gives from the other side.
+What changes with the material count is \emph{which} configuration is best, not that
+capacity grows: the perceptron's depth optimum moves up from a near-tie to eight
+layers, its width optimum moves \emph{down}, and the boosting depth moves by one step,
+within a near-tie. We therefore draw no data-limited inference from L2 alone; that
+diagnosis rests on the learning curve of L1.
 
 \subsection{L3 --- a better basis}
 
@@ -625,13 +630,25 @@ interior optimum: the decade below it, which the edge rule demanded a second tim
 reaches \nLfourbMatBelow\ and the decade above \nLfourbMatAbove, both worse than its
 \nLfourbMatBest. Against the twin's \nLfourbMatTwin\ the paired difference (twin minus
 physics) has interval [\nLfourbMatLo, \nLfourbMatHi] over \nLfourbMatNmat\ held-out
-materials, which excludes no difference. Unlike the time axis, the ordering survives polishing:
-after L-BFGS the twin reaches \nLfourbMatPolTwin\ and the physics arm
-\nLfourbMatPolBest, interval [\nLfourbMatPolLo, \nLfourbMatPolHi]. The effect is small
---- \nLfourbMatGainPct\,\% of the error --- and it is confined to a single weight: a decade
-either side, the advantage is gone. The honest reading is that the residual is a weak
-regulariser across materials at a weight that must itself be found by search, not a
-source of accuracy the data lack.
+materials, which excludes no difference. The ordering survives polishing, but on this
+axis polishing makes \emph{both} arms worse: after L-BFGS the twin reaches
+\nLfourbMatPolTwin\ and the physics arm \nLfourbMatPolBest, interval
+[\nLfourbMatPolLo, \nLfourbMatPolHi]. The effect is small --- \nLfourbMatGainPct\,\%
+of the error --- and it is confined to a single weight: a decade either side, the
+advantage is gone.
+
+\textbf{This verdict carries a selection caveat, which we state rather than leave for
+a referee.} The pre-registration chose the best physics arm on the same held-out
+materials it is then tested on --- the generous direction for a null, and the
+anti-conservative one for a positive. An isolated best weight among
+\nLfourbNeligibleMat\ eligible arms is exactly the shape a selection artefact takes.
+We therefore recomputed the interval so that it holds for every eligible arm at once,
+and so for the selected one however it was selected (a studentised max-statistic
+cluster bootstrap, Section~\ref{sec:limitations}). It widens to
+[\nLfourbMatSelLo, \nLfourbMatSelHi] and still excludes no difference: the effect
+survives its own selection. Even so, the reading we defend is the modest one --- the
+residual is a weak regulariser across materials at a weight that must itself be found
+by search, not a source of accuracy the data lack.
 
 \paragraph{Physics at inference.} Test-time refinement --- minimising the residual for
 each held-out unit with no data --- was pre-registered with an invalidation
@@ -640,10 +657,20 @@ seen window, and a seen-window error rising by more than \(10\,\%\) means the an
 is insufficient and the result on that axis is scoped. It rose by
 \nLfourbTimeSeenRise\,\% on average. The time-axis refinement result is therefore
 scoped, and the material axis --- which has no anchor by design, because nothing about
-an unseen material is known --- carries the reportable refinement result, which is
-reported with the material verdict. A labelled post-hoc sweep over refinement learning
-rate and step count tests whether that result is a property of physics at inference
-or of one configuration of it (Section~\ref{sec:corrections}, B60).
+an unseen material is known --- carries the reportable refinement result. \textbf{It
+is strongly negative: physics at inference makes transfer to unseen materials worse.}
+Refining the twin with the residual alone takes its held-out error from
+\nLfourbRefTwinBefore\ to \nLfourbRefTwinAfter, about \nLfourbRefTwinFactor{} times
+worse (paired difference interval [\nLfourbRefTwinLo, \nLfourbRefTwinHi]), and the
+best physics-trained arm fares no better, \nLfourbRefBestBefore\ to
+\nLfourbRefBestAfter. A labelled post-hoc sweep over refinement scope, learning rate
+and step count (Section~\ref{sec:corrections}, B60) asks whether this is a property of
+one configuration: over \nLfourbRefSweepN\ configurations, the best change found at
+any checkpoint is \nLfourbRefSweepBest\,\%, chosen on the held-out materials and so
+the most generous reading available, and \nLfourbRefSweepNworse\ of the
+\nLfourbRefSweepN\ are worse than the unrefined model at their last checkpoint. The
+residual, minimised on its own, pulls the prediction away from the data rather than
+towards the physics the data obey.
 
 \begin{figure}[t]
 \centering
@@ -709,8 +736,9 @@ controlled separately, and is not claimed for the Fourier operator.
 \subsection{L6 --- separate identification of the kinetic and equilibrium objects}
 
 This was the project's primary hypothesis, and its pre-registration was committed to
-version control before the first arm trained --- the one rung whose pre-registration
-ordering is externally verifiable.
+version control before the first arm trained, so its ordering is externally
+verifiable from the repository history, as it is for the other rungs listed in
+Section~\ref{sec:reproducibility}.
 
 Both invalidation checks passed before any verdict was computed. The kinetic object
 is unrecoverable from observable descriptors (\(R^2 = \nLsixKineticRtwo\), worse than
@@ -959,13 +987,17 @@ denominators differ and we name which is which, because the quantity a reader
 wants --- what the coordinate change would buy if the fronts were located
 perfectly --- is the first.
 
-\textbf{So the entire gain is consumed by the error in locating the two fronts},
-and that is now a measured, powered statement rather than an impression. This is a
-relocation, not a null. Through L1--L5 the obstruction was ``the
-parameter-to-coefficient map is unlearnable beyond about five modes'', which no
-architecture touched. It is now ``two smooth monotone one-dimensional curves are not
-located accurately enough'' --- a far better-posed problem, with a statistically
-established prize and a target a front-locating model can be held to.
+\textbf{So the gain is not recovered once the fronts are predicted}, and this is
+a measured null, not a demonstrated absence. On \nWarpNmat\ held-out materials the
+interval for the predicted-front arm admits anything from a \nWarpPredImproveMax\,\%
+improvement to a \nWarpPredDegradeMax\,\% degradation of the fixed frame; it rules
+out the oracle's gain, not a modest one. With that scope, this is a relocation of the
+obstruction rather than only a null. Through L1--L5 the obstruction was the
+parameter-to-coefficient map, at the number of modes a given training set supports. It
+is now ``two smooth monotone one-dimensional curves are not located accurately
+enough'' --- a better-posed problem, with a target a front-locating model can be held
+to. The oracle's gain is not unique to this route: the Fourier operator of L5 reaches a
+comparable error on the same held-out materials without any oracle.
 
 \paragraph{Monotonicity is not the lever.} The obvious first attack is that the
 front predictor does not know the constraints the true trajectories satisfy exactly.
@@ -1068,13 +1100,18 @@ Section~\ref{sec:ladder} restated as money. A practitioner who needs
 
 Third, and this is why the negative results in this paper are worth their space: every
 rung that was \emph{eliminated} is an intervention that would have added cost without
-buying accuracy. Capacity, architecture family, and a linear-reconstruction operator all
-cost fit time and nothing else; the residual-as-a-loss arms cost several times the
-data-only twin's training budget by construction. The one lever that is not eliminated
-is the one with a price tag attached to it, and the frontier is where that price is
-paid. The coordinate change of Section~\ref{sec:warp} is the only route on the table
-that would move the accuracy \emph{without} moving the data cost --- which is precisely
-why its remaining \nWarpHeadroom{}\(\times\) is worth chasing.
+buying accuracy. Architecture family and the basis size of a linear-reconstruction
+operator cost fit time and nothing else, and the closed forms are cheaper but worse.
+Not everything was eliminated, and the levers that remain are not equal. Training
+materials are the one with a price tag attached, and the frontier is where that price
+is paid. Capacity is not eliminated, but a better configuration found by search costs
+fit time, not data. The residual as a loss buys a small gain on held-out materials at
+one searched weight, for several times the twin's training budget. The choice of
+operator moves the accuracy without moving the data cost: on the legacy held-out
+materials the Fourier operator reaches \nLfiveFNO, against \nWarpOracle\ for the
+coordinate change of Section~\ref{sec:warp} even when that change is handed the true
+fronts, so the warp is no longer the only route on the table that improves accuracy
+at a fixed data cost.
 
 \paragraph{What this is not.} It is not a claim that the surrogate and the reference are
 interchangeable. They are not: the reference answers exactly and the surrogate answers
@@ -1143,6 +1180,24 @@ year that looks right.
 %% ===========================================================================
 \section{Limitations}
 \label{sec:limitations}
+
+\paragraph{Best-of-grid selection on the test materials.} Several comparisons pit the
+best of a grid --- of learning rates, capacities, weightings or operator settings ---
+against a single reference, with the best chosen on the same held-out materials the
+comparison is scored on. A per-pair interval is valid for a pair fixed in advance and
+anti-conservative for one chosen after looking. For the one positive verdict that
+rests on such a choice, the material-axis physics arm of L4, we report a studentised
+max-statistic cluster bootstrap, the single-step form of the procedure of Romano and
+Wolf \cite{romano2005stepwise}: materials are resampled jointly across all candidate
+arms, each arm's deviation is scaled by its own standard error, and the critical value
+is the quantile of the largest scaled deviation (\nLfourbSelQ\ standard errors here,
+wider than a single pair needs at this level). The resulting
+interval holds for every candidate at once, so for the selected one however it was
+selected; on simulated families with no true effect it holds its level where the
+naive test on the winner does not. The L4 verdict survives it. The remaining
+best-of-grid choices select a configuration that is then compared within the same
+rung, and the cleaner remedy for all of them --- selecting on a validation split
+inside the training materials --- is the protocol change we recommend for any rerun.
 
 \paragraph{One partial differential equation family.} Everything here is measured on
 one model of one process. The ladder is a method; its verdicts are not claimed

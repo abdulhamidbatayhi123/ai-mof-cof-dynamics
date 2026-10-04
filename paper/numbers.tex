@@ -166,6 +166,7 @@
 \newcommand{\nWarpOracleLo}{0.01990}
 \newcommand{\nWarpOracleHi}{0.03668}
 \newcommand{\nWarpHeadroom}{2.17}
+\newcommand{\nWarpNmat}{12}
 \newcommand{\nNwidthOriginal}{31}
 \newcommand{\nNwidthSingle}{102}
 \newcommand{\nNwidthTwoWaveA}{17}
@@ -211,6 +212,8 @@
 \newcommand{\nLzeroNchecks}{4}
 \newcommand{\nIsoCCmaxErr}{0.004}
 \newcommand{\nLtwoNUshaped}{3}
+\newcommand{\nLtwoLegacyBest}{0.04801}
+\newcommand{\nLoneLegacyBestArm}{0.04848}
 \newcommand{\nLtwoLegacyDsix}{0.0549}
 \newcommand{\nLtwoLegacyDeight}{0.0550}
 \newcommand{\nWarpScreenBoundaryMin}{93}
@@ -301,6 +304,10 @@
 \newcommand{\nLfourbTimePolHi}{-0.00074}
 \newcommand{\nLfourbTimeSeenRise}{611}
 \newcommand{\nLfourbVerdictTime}{NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG §4.1); the legacy 'hurts' claim is WITHDRAWN.}
+\newcommand{\nLfourbMatSelLo}{0.00099}
+\newcommand{\nLfourbMatSelHi}{0.00278}
+\newcommand{\nLfourbSelQ}{2.96}
+\newcommand{\nLfourbNeligibleMat}{8}
 \newcommand{\nLfourbMatTwin}{0.0231}
 \newcommand{\nLfourbMatBest}{0.0213}
 \newcommand{\nLfourbMatLo}{0.00125}
@@ -308,6 +315,15 @@
 \newcommand{\nLfourbMatNmat}{48}
 \newcommand{\nLfourbMatBelow}{0.0226}
 \newcommand{\nLfourbMatAbove}{0.0227}
+\newcommand{\nLfourbRefTwinBefore}{0.0231}
+\newcommand{\nLfourbRefTwinAfter}{0.116}
+\newcommand{\nLfourbRefTwinLo}{-0.106}
+\newcommand{\nLfourbRefTwinHi}{-0.082}
+\newcommand{\nLfourbRefBestBefore}{0.0213}
+\newcommand{\nLfourbRefBestAfter}{0.140}
+\newcommand{\nLfourbRefSweepN}{8}
+\newcommand{\nLfourbRefSweepBest}{-0.2}
+\newcommand{\nLfourbRefSweepNworse}{8}
 \newcommand{\nLfourbMatPolTwin}{0.0273}
 \newcommand{\nLfourbMatPolBest}{0.0254}
 \newcommand{\nLfourbMatPolLo}{0.00105}
@@ -357,9 +373,17 @@
 \newcommand{\nCostDataRatio}{16}
 % CostGenCoreHours: the training set's cost in core-hours: solves x worker-seconds
 \newcommand{\nCostGenCoreHours}{18}
+% LtwoLegacyVsLonePct: legacy L2: best configuration's gain over the best L1 arm, % of the latter
+\newcommand{\nLtwoLegacyVsLonePct}{1}
+% WarpPredImproveMax: warp, predicted fronts: largest improvement the interval admits, % of fixed
+\newcommand{\nWarpPredImproveMax}{24}
+% WarpPredDegradeMax: warp, predicted fronts: largest degradation the interval admits, % of fixed
+\newcommand{\nWarpPredDegradeMax}{16}
 % LfiveVtwoFloorDrop: v2 bottleneck: basis floor at p=8 over p=128
 \newcommand{\nLfiveVtwoFloorDrop}{90}
 % LfiveVtwoCoefChangePct: v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8
 \newcommand{\nLfiveVtwoCoefChangePct}{0.9}
+% LfourbRefTwinFactor: material-axis refinement: twin's held-out error after / before
+\newcommand{\nLfourbRefTwinFactor}{5}
 % LfourbMatGainPct: L4b material axis: the best physics arm's error reduction, % of the twin's
 \newcommand{\nLfourbMatGainPct}{8}

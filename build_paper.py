@@ -116,7 +116,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 2, "0.2": 3, "0.5": 1, "0.7": 1, "1": 13, "1.1": 1, "1.5": 1, "2": 17,
+    "0": 2, "0.2": 3, "0.5": 1, "0.7": 1, "1": 12, "1.1": 1, "1.5": 1, "2": 17,
     "3": 1, "4": 5, "5": 1, "6": 5, "7": 1, "8": 4, "9.7": 1, "10": 6, "12": 7,
     "20": 2, "24": 1, "48": 5, "50": 3, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
     "95": 3, "96": 3, "99.9": 2, "128": 3, "192": 11, "240": 4, "256": 1,

@@ -339,6 +339,7 @@ SPEC = [
     ("WarpOracleLo", "results/warp_verdict.json", "fixed_vs_oracle.ci_low", "{:.5f}"),
     ("WarpOracleHi", "results/warp_verdict.json", "fixed_vs_oracle.ci_high", "{:.5f}"),
     ("WarpHeadroom", "results/warp_verdict.json", "headroom_to_oracle", "{:.2f}"),
+    ("WarpNmat", "results/warp_verdict.json", "fixed_vs_two_wave.n_materials", "{:d}"),
     ("NwidthOriginal", "results/comoving2.json", "spectrum_original.0.999", "{:d}"),
     ("NwidthSingle", "results/comoving.json", "levels_detail.0.5.spectrum.0.999", "{:d}"),
     ("NwidthTwoWaveA", "results/comoving2.json", "pairs_detail.0.10-0.90.spectrum.0.999", "{:d}"),
@@ -412,6 +413,15 @@ SPEC = [
      lambda f: str(sum(1 for v in f.values() if v["shape"].startswith("U-SHAPED")))),
     # the legacy (48-material) depth sweep: d6 and d8 tie to 0.1 %, so "the optimum moved
     # two layers" overstated a coin flip; the prose now gives both (number_words OWED)
+    # referee M5 / B43-class: the legacy "1 %" was a hard-coded print string in
+    # analyze_l2.py. It is the best L2 configuration against the BEST L1 arm (legacy:
+    # XGBoost), the same reference the v2 "21 %" uses (v2: the MLP is the best L1 arm).
+    ("LtwoLegacyBest", "results/l2_results.json", "sweep",
+     lambda rows: "{:.5f}".format(min(sum(x["novel_material"]["c"] for x in r["seeds"].values()) / len(r["seeds"])
+                                      for r in rows))),
+    ("LoneLegacyBestArm", "results/l1_results.json", "arms",
+     lambda arms: "{:.5f}".format(min(sum(v[s]["novel_material"]["mean"]["c"] for s in v) / len(v)
+                                      for v in arms.values()))),
     ("LtwoLegacyDsix", "results/l2_results.json", "sweep", lambda rows, _l="d6": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
     ("LtwoLegacyDeight", "results/l2_results.json", "sweep", lambda rows, _l="d8": (lambda v: "{:.4f}".format(sum(v) / len(v)))([x["novel_material"]["c"] for x in next(r for r in rows if r["family"] == "mlp_depth" and r["label"] == _l)["seeds"].values()])),
     # PREREG_WARP_v2 stage 1: why the warp cannot be re-measured on v2
@@ -548,6 +558,11 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # referee M3: the selected arm's interval, adjusted for choosing it on the test set
+    ("LfourbMatSelLo", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
+    ("LfourbMatSelHi", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),
+    ("LfourbSelQ", "results/l4b_v2_selection.json", "axes.material.q", "{:.2f}"),
+    ("LfourbNeligibleMat", "results/l4b_v2_verdict.json", "axes.material.eligible", lambda a: str(len(a))),
     ("LfourbMatTwin", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_a", "{:.4f}"),
     ("LfourbMatBest", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_b", "{:.4f}"),
     ("LfourbMatLo", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.ci_low", "{:.5f}"),
@@ -555,6 +570,16 @@ SPEC = [
     ("LfourbMatNmat", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.n_materials", "{:d}"),
     ("LfourbMatBelow", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-6.held", "{:.4f}"),
     ("LfourbMatAbove", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-4.held", "{:.4f}"),
+    # referee M4: the pre-registered test-time refinement on the material axis
+    ("LfourbRefTwinBefore", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.mean_a", "{:.4f}"),
+    ("LfourbRefTwinAfter", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.mean_b", "{:.3f}"),
+    ("LfourbRefTwinLo", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.ci_low", "{:.3f}"),
+    ("LfourbRefTwinHi", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.ci_high", "{:.3f}"),
+    ("LfourbRefBestBefore", "results/l4b_v2_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_a", "{:.4f}"),
+    ("LfourbRefBestAfter", "results/l4b_v2_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_b", "{:.3f}"),
+    ("LfourbRefSweepN", "results/l4b_v2_refine_sweep_summary.json", "n_configs", "{:d}"),
+    ("LfourbRefSweepBest", "results/l4b_v2_refine_sweep_summary.json", "best_anywhere.rel_change_pct", "{:.1f}"),
+    ("LfourbRefSweepNworse", "results/l4b_v2_refine_sweep_summary.json", "n_configs_worse_at_final", "{:d}"),
     ("LfourbMatPolTwin", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_a", "{:.4f}"),
     ("LfourbMatPolBest", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_b", "{:.4f}"),
     ("LfourbMatPolLo", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.ci_low", "{:.5f}"),
@@ -636,10 +661,25 @@ DERIVED = [
      lambda r: r["CostLargeSims"] / r["CostSmallSims"], "{:.0f}"),
     ("CostGenCoreHours", "the training set's cost in core-hours: solves x worker-seconds",
      lambda r: r["CostNSolves"] * r["CostSolveSec"] / 3600.0, "{:.0f}"),
+    # referee M2a: the predicted-front null in relative terms (diff = fixed - two_wave,
+    # positive = the warp is better), so "no difference" carries what it cannot exclude
+    ("LtwoLegacyVsLonePct", "legacy L2: best configuration's gain over the best L1 arm, % of the latter",
+     # derived lambdas see RAW path values: here the L2 sweep rows and the L1 arms dict
+     lambda r: (lambda l2, l1: 100.0 * (l1 - l2) / l1)(
+         min(sum(x["novel_material"]["c"] for x in row["seeds"].values()) / len(row["seeds"])
+             for row in r["LtwoLegacyBest"]),
+         min(sum(v[s]["novel_material"]["mean"]["c"] for s in v) / len(v)
+             for v in r["LoneLegacyBestArm"].values())), "{:.0f}"),
+    ("WarpPredImproveMax", "warp, predicted fronts: largest improvement the interval admits, % of fixed",
+     lambda r: 100.0 * r["WarpPredHi"] / r["WarpFixed"], "{:.0f}"),
+    ("WarpPredDegradeMax", "warp, predicted fronts: largest degradation the interval admits, % of fixed",
+     lambda r: -100.0 * r["WarpPredLo"] / r["WarpFixed"], "{:.0f}"),
     ("LfiveVtwoFloorDrop", "v2 bottleneck: basis floor at p=8 over p=128",
      lambda r: r["LfiveVtwoFloorSmall"] / r["LfiveVtwoFloorLarge"], "{:.0f}"),
     ("LfiveVtwoCoefChangePct", "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8",
      lambda r: 100.0 * (r["LfiveVtwoCoefSmall"] - r["LfiveVtwoCoefLarge"]) / r["LfiveVtwoCoefSmall"], "{:.1f}"),
+    ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",
+     lambda r: r["LfourbRefTwinAfter"] / r["LfourbRefTwinBefore"], "{:.0f}"),
     ("LfourbMatGainPct", "L4b material axis: the best physics arm's error reduction, % of the twin's",
      lambda r: 100.0 * (r["LfourbMatTwin"] - r["LfourbMatBest"]) / r["LfourbMatTwin"], "{:.0f}"),
 ]

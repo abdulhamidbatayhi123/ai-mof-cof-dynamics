@@ -162,8 +162,14 @@ def verdict(r, shapes):
     print()
     if not unsaturated:
         print("  Every family has SATURATED. Capacity is ELIMINATED.")
+        # referee 2026-10-04: this used to print a hard-coded "~1%" and "~33x" that no
+        # code computed (B43 class). Both are now computed; the reference is the BEST L1
+        # arm, read from results/l1_results.json, as paper/numbers.py does.
+        l1 = json.load(open("results/l1_results.json"))["arms"]
+        best_l1 = min(np.mean([v[s]["novel_material"]["mean"]["c"] for s in v]) for v in l1.values())
         print(f"  The best configuration anywhere in the sweep ({best_overall[0]:.4f}) improves on")
-        print("  the L1 setting by ~1%, and remains ~33x above the representation floor.")
+        print(f"  the best L1 arm ({best_l1:.4f}) by {100 * (best_l1 - best_overall[0]) / best_l1:.1f}%, "
+              f"and remains {best_overall[0] / floor:.0f}x above the representation floor.")
         print("  The parameter->coefficient map is not under-parameterised.")
         print("  Proceed to L3 (architecture family).")
     else:

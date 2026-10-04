@@ -165,6 +165,7 @@
     "WarpOracleLo": "0.01990",
     "WarpOracleHi": "0.03668",
     "WarpHeadroom": "2.17",
+    "WarpNmat": "12",
     "NwidthOriginal": "31",
     "NwidthSingle": "102",
     "NwidthTwoWaveA": "17",
@@ -210,6 +211,8 @@
     "LzeroNchecks": "4",
     "IsoCCmaxErr": "0.004",
     "LtwoNUshaped": "3",
+    "LtwoLegacyBest": "0.04801",
+    "LoneLegacyBestArm": "0.04848",
     "LtwoLegacyDsix": "0.0549",
     "LtwoLegacyDeight": "0.0550",
     "WarpScreenBoundaryMin": "93",
@@ -300,6 +303,10 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "LfourbMatSelLo": "0.00099",
+    "LfourbMatSelHi": "0.00278",
+    "LfourbSelQ": "2.96",
+    "LfourbNeligibleMat": "8",
     "LfourbMatTwin": "0.0231",
     "LfourbMatBest": "0.0213",
     "LfourbMatLo": "0.00125",
@@ -307,6 +314,15 @@
     "LfourbMatNmat": "48",
     "LfourbMatBelow": "0.0226",
     "LfourbMatAbove": "0.0227",
+    "LfourbRefTwinBefore": "0.0231",
+    "LfourbRefTwinAfter": "0.116",
+    "LfourbRefTwinLo": "-0.106",
+    "LfourbRefTwinHi": "-0.082",
+    "LfourbRefBestBefore": "0.0213",
+    "LfourbRefBestAfter": "0.140",
+    "LfourbRefSweepN": "8",
+    "LfourbRefSweepBest": "-0.2",
+    "LfourbRefSweepNworse": "8",
     "LfourbMatPolTwin": "0.0273",
     "LfourbMatPolBest": "0.0254",
     "LfourbMatPolLo": "0.00105",
@@ -333,8 +349,12 @@
     "LCmaterialsForHalving": "23",
     "CostDataRatio": "16",
     "CostGenCoreHours": "18",
+    "LtwoLegacyVsLonePct": "1",
+    "WarpPredImproveMax": "24",
+    "WarpPredDegradeMax": "16",
     "LfiveVtwoFloorDrop": "90",
     "LfiveVtwoCoefChangePct": "0.9",
+    "LfourbRefTwinFactor": "5",
     "LfourbMatGainPct": "8"
   },
   "provenance": {
@@ -998,6 +1018,10 @@
       "file": "results/warp_verdict.json",
       "path": "headroom_to_oracle"
     },
+    "WarpNmat": {
+      "file": "results/warp_verdict.json",
+      "path": "fixed_vs_two_wave.n_materials"
+    },
     "NwidthOriginal": {
       "file": "results/comoving2.json",
       "path": "spectrum_original.0.999"
@@ -1177,6 +1201,14 @@
     "LtwoNUshaped": {
       "file": "results/l2_v2_verdict.json",
       "path": "families"
+    },
+    "LtwoLegacyBest": {
+      "file": "results/l2_results.json",
+      "path": "sweep"
+    },
+    "LoneLegacyBestArm": {
+      "file": "results/l1_results.json",
+      "path": "arms"
     },
     "LtwoLegacyDsix": {
       "file": "results/l2_results.json",
@@ -1538,6 +1570,22 @@
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
     },
+    "LfourbMatSelLo": {
+      "file": "results/l4b_v2_selection.json",
+      "path": "axes.material.selected_simultaneous.sim_lo"
+    },
+    "LfourbMatSelHi": {
+      "file": "results/l4b_v2_selection.json",
+      "path": "axes.material.selected_simultaneous.sim_hi"
+    },
+    "LfourbSelQ": {
+      "file": "results/l4b_v2_selection.json",
+      "path": "axes.material.q"
+    },
+    "LfourbNeligibleMat": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.eligible"
+    },
     "LfourbMatTwin": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.material.best_pi_vs_data_only.mean_a"
@@ -1565,6 +1613,42 @@
     "LfourbMatAbove": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.material.table.pi_fixed_w1e-4.held"
+    },
+    "LfourbRefTwinBefore": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/data_only.comparison.mean_a"
+    },
+    "LfourbRefTwinAfter": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/data_only.comparison.mean_b"
+    },
+    "LfourbRefTwinLo": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/data_only.comparison.ci_low"
+    },
+    "LfourbRefTwinHi": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/data_only.comparison.ci_high"
+    },
+    "LfourbRefBestBefore": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/pi_fixed_w1e-5.comparison.mean_a"
+    },
+    "LfourbRefBestAfter": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "refine.material/pi_fixed_w1e-5.comparison.mean_b"
+    },
+    "LfourbRefSweepN": {
+      "file": "results/l4b_v2_refine_sweep_summary.json",
+      "path": "n_configs"
+    },
+    "LfourbRefSweepBest": {
+      "file": "results/l4b_v2_refine_sweep_summary.json",
+      "path": "best_anywhere.rel_change_pct"
+    },
+    "LfourbRefSweepNworse": {
+      "file": "results/l4b_v2_refine_sweep_summary.json",
+      "path": "n_configs_worse_at_final"
     },
     "LfourbMatPolTwin": {
       "file": "results/l4b_v2_verdict.json",
@@ -1648,11 +1732,23 @@
     "CostGenCoreHours": {
       "derived": "the training set's cost in core-hours: solves x worker-seconds"
     },
+    "LtwoLegacyVsLonePct": {
+      "derived": "legacy L2: best configuration's gain over the best L1 arm, % of the latter"
+    },
+    "WarpPredImproveMax": {
+      "derived": "warp, predicted fronts: largest improvement the interval admits, % of fixed"
+    },
+    "WarpPredDegradeMax": {
+      "derived": "warp, predicted fronts: largest degradation the interval admits, % of fixed"
+    },
     "LfiveVtwoFloorDrop": {
       "derived": "v2 bottleneck: basis floor at p=8 over p=128"
     },
     "LfiveVtwoCoefChangePct": {
       "derived": "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8"
+    },
+    "LfourbRefTwinFactor": {
+      "derived": "material-axis refinement: twin's held-out error after / before"
     },
     "LfourbMatGainPct": {
       "derived": "L4b material axis: the best physics arm's error reduction, % of the twin's"

@@ -171,6 +171,15 @@ REFS = [
         doi="10.1016/j.jcp.2021.110768"),
      "The NTK arm. Ours uses per-point gradient norms as a trace estimate, EMA-smoothed -- a "
      "stated approximation, not their eigen-decomposition.", False),
+    ("romano2005stepwise", V, "article", dict(
+        author="Joseph P. Romano and Michael Wolf",
+        title="Stepwise multiple testing as formalized data snooping",
+        journal="Econometrica", volume="73", number="4", pages="1237--1282", year="2005",
+        doi="10.1111/j.1468-0262.2005.00615.x"),
+     "The studentised max-statistic bootstrap for a best-of-K comparison chosen after "
+     "looking (referee M3, selection_adjust.py). Record checked against Crossref "
+     "2026-10-04. The single-step simultaneous interval we use is the first step of "
+     "their stepdown procedure.", False),
     ("mcclenny2023self", V, "article", dict(
         author="Levi D. McClenny and Ulisses M. Braga-Neto",
         title="Self-adaptive physics-informed neural networks",
