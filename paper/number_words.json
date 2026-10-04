@@ -357,27 +357,6 @@
   "line_at_review": 575
  },
  {
-  "key": "floor of the largest. [One] caveat on tuning, stated beca",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 582
- },
- {
-  "key": "ng is most exposed on: at the [two] smallest bases DeepONet's bes",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 583
- },
- {
-  "key": "basis only makes a larger [one] look less useful --- but it w",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 586
- },
- {
   "key": "[ , ]. {Both [halves] of this matter and neither",
   "word": "halves",
   "class": "PROSE",
@@ -1085,13 +1064,6 @@
   "line_at_review": 560
  },
  {
-  "key": "requires [one] further decade before any ver",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "PREREG 4.2 extends one decade",
-  "line_at_review": 588
- },
- {
   "key": "or of [one] configuration of it (Section~",
   "word": "one",
   "class": "PROSE",
@@ -1174,5 +1146,19 @@
   "class": "DESIGN",
   "reason": "the G2 guard's declared threshold, 2/(NT-1)",
   "line_at_review": 1204
+ },
+ {
+  "key": "g was most exposed on: at the [two] ",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two smallest bases p=8,16 of the design grid (design)",
+  "line_at_review": 644
+ },
+ {
+  "key": "moving. The grid was extended [one] rate upward for those arms, t",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "rule 4 extends a grid by one point (protocol)",
+  "line_at_review": 646
  }
 ]

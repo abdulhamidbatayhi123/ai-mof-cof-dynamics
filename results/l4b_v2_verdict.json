@@ -79,6 +79,13 @@
           "held_sd": 0.00779872490198831,
           "w_pde_final": 5.28056796391805,
           "failed_seeds": []
+        },
+        "pi_fixed_w1e-5": {
+          "seen": 0.014168522289259675,
+          "held": 0.013229054249519678,
+          "held_sd": 0.0011750366098680694,
+          "w_pde_final": 1e-05,
+          "failed_seeds": []
         }
       },
       "eligible": [
@@ -87,7 +94,8 @@
         "pi_fixed_w1e-2",
         "pi_gradnorm_t0.1",
         "pi_gradnorm_t1.0",
-        "pi_ntk"
+        "pi_ntk",
+        "pi_fixed_w1e-5"
       ],
       "abandoned": [
         "pi_fixed_w1e-1",
@@ -106,7 +114,8 @@
         "pi_gradnorm_t1.0": [],
         "pi_gradnorm_t10": [],
         "pi_ntk": [],
-        "pi_sa": []
+        "pi_sa": [],
+        "pi_fixed_w1e-5": []
       },
       "comparisons_vs_data_only": {
         "pi_fixed_w1e-4": {
@@ -186,59 +195,94 @@
           "significant": true,
           "verdict": "data_only is better (lower nrmse_c)",
           "n_materials": 192
-        }
-      },
-      "best_pi": "pi_fixed_w1e-4",
-      "best_pi_vs_data_only": {
-        "arm_a": "data_only",
-        "arm_b": "pi_fixed_w1e-4",
-        "metric": "nrmse_c",
-        "mean_a": 0.013095832092132139,
-        "mean_b": 0.0146197561802713,
-        "mean_diff": -0.00152392408813916,
-        "ci_low": -0.0020177860248663947,
-        "ci_high": -0.0010560108983090311,
-        "significant": true,
-        "verdict": "data_only is better (lower nrmse_c)",
-        "n_materials": 192
-      },
-      "edge_warning": "pi_fixed_w1e-4",
-      "edge_saturation": {
-        "arm": "pi_fixed_w1e-4",
-        "vs_data_only": {
+        },
+        "pi_fixed_w1e-5": {
           "arm_a": "data_only",
-          "arm_b": "pi_fixed_w1e-4",
+          "arm_b": "pi_fixed_w1e-5",
           "metric": "nrmse_c",
           "mean_a": 0.013095832092132139,
-          "mean_b": 0.0146197561802713,
-          "mean_diff": -0.00152392408813916,
-          "ci_low": -0.0020177860248663947,
-          "ci_high": -0.0010560108983090311,
-          "significant": true,
-          "verdict": "data_only is better (lower nrmse_c)",
+          "mean_b": 0.013229054249519678,
+          "mean_diff": -0.00013322215738753587,
+          "ci_low": -0.00044146008963278087,
+          "ci_high": 0.00017191471183726503,
+          "significant": false,
+          "verdict": "no difference between data_only and pi_fixed_w1e-5",
+          "n_materials": 192
+        }
+      },
+      "best_pi": "pi_fixed_w1e-5",
+      "best_pi_vs_data_only": {
+        "arm_a": "data_only",
+        "arm_b": "pi_fixed_w1e-5",
+        "metric": "nrmse_c",
+        "mean_a": 0.013095832092132139,
+        "mean_b": 0.013229054249519678,
+        "mean_diff": -0.00013322215738753587,
+        "ci_low": -0.00044146008963278087,
+        "ci_high": 0.00017191471183726503,
+        "significant": false,
+        "verdict": "no difference between data_only and pi_fixed_w1e-5",
+        "n_materials": 192
+      },
+      "edge_warning": null,
+      "edge_saturation": {
+        "arm": "pi_fixed_w1e-5",
+        "vs_data_only": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-5",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.013229054249519678,
+          "mean_diff": -0.00013322215738753587,
+          "ci_low": -0.00044146008963278087,
+          "ci_high": 0.00017191471183726503,
+          "significant": false,
+          "verdict": "no difference between data_only and pi_fixed_w1e-5",
           "n_materials": 192
         },
-        "saturated": false
+        "saturated": true
       },
-      "sweep_described": "fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
-      "mde": {},
-      "verdict": "PHYSICS IS WORSE THAN ITS DATA-ONLY TWIN AT EVERY WEIGHTING SCHEME THAT TRAINED (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1) \u2014 the legacy claim stands, now defended.",
+      "sweep_described": "fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
+      "mde": {
+        "pi_fixed_w1e-5": {
+          "label": "[time] data_only vs pi_fixed_w1e-5",
+          "alpha": 0.02,
+          "base": 0.013095832092132139,
+          "between_sd": 0.0018350864389607043,
+          "within_sd": 0.002861293761640952,
+          "between_over_base": 0.14012751736968346,
+          "n_clusters": 192,
+          "n_samples": 768,
+          "trials": 200,
+          "n_boot": 600,
+          "power": {
+            "0.00": 3.0,
+            "0.05": 99.5,
+            "0.10": 100.0,
+            "0.20": 100.0,
+            "0.30": 100.0
+          },
+          "size_at_null": 3.0,
+          "mde_80": 0.05
+        }
+      },
+      "verdict": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
       "polish": {
-        "best_pi": "pi_fixed_w1e-4",
+        "best_pi": "pi_fixed_w1e-5",
         "comparison": {
           "arm_a": "data_only+lbfgs",
-          "arm_b": "pi_fixed_w1e-4+lbfgs",
+          "arm_b": "pi_fixed_w1e-5+lbfgs",
           "metric": "nrmse_c",
           "mean_a": 0.01129313219049916,
-          "mean_b": 0.013661514211896196,
-          "mean_diff": -0.0023683820213970344,
-          "ci_low": -0.002830534990992217,
-          "ci_high": -0.0019162602071867245,
+          "mean_b": 0.012363297762527104,
+          "mean_diff": -0.001070165572027943,
+          "ci_low": -0.0013952150330230025,
+          "ci_high": -0.0007448179018882684,
           "significant": true,
           "verdict": "data_only+lbfgs is better (lower nrmse_c)",
           "n_materials": 192
         },
-        "ordering_flips": false
+        "ordering_flips": true
       }
     },
     "material": {
@@ -319,6 +363,20 @@
           "held_sd": 0.005961195383389579,
           "w_pde_final": 5.174370129903157,
           "failed_seeds": []
+        },
+        "pi_fixed_w1e-5": {
+          "seen": 0.012866395963404406,
+          "held": 0.02125562200935016,
+          "held_sd": 0.0007166528747717991,
+          "w_pde_final": 1e-05,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-6": {
+          "seen": 0.013419738371845194,
+          "held": 0.02255959863192744,
+          "held_sd": 0.0016906791422209074,
+          "w_pde_final": 1e-06,
+          "failed_seeds": []
         }
       },
       "eligible": [
@@ -327,7 +385,9 @@
         "pi_fixed_w1e-2",
         "pi_gradnorm_t0.1",
         "pi_gradnorm_t1.0",
-        "pi_ntk"
+        "pi_ntk",
+        "pi_fixed_w1e-5",
+        "pi_fixed_w1e-6"
       ],
       "abandoned": [
         "pi_fixed_w1e-1",
@@ -346,7 +406,9 @@
         "pi_gradnorm_t1.0": [],
         "pi_gradnorm_t10": [],
         "pi_ntk": [],
-        "pi_sa": []
+        "pi_sa": [],
+        "pi_fixed_w1e-5": [],
+        "pi_fixed_w1e-6": []
       },
       "comparisons_vs_data_only": {
         "pi_fixed_w1e-4": {
@@ -426,59 +488,69 @@
           "significant": true,
           "verdict": "data_only is better (lower nrmse_c)",
           "n_materials": 48
+        },
+        "pi_fixed_w1e-5": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-5",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.02125562200935017,
+          "mean_diff": 0.001887277056419609,
+          "ci_low": 0.0012469640893401582,
+          "ci_high": 0.0026265382718472447,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-5 is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-6": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-6",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.022559598631927445,
+          "mean_diff": 0.00058330043384233,
+          "ci_low": 7.351994381382924e-05,
+          "ci_high": 0.00119337800871269,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-6 is better (lower nrmse_c)",
+          "n_materials": 48
         }
       },
-      "best_pi": "pi_fixed_w1e-4",
+      "best_pi": "pi_fixed_w1e-5",
       "best_pi_vs_data_only": {
         "arm_a": "data_only",
-        "arm_b": "pi_fixed_w1e-4",
+        "arm_b": "pi_fixed_w1e-5",
         "metric": "nrmse_c",
         "mean_a": 0.023142899065769773,
-        "mean_b": 0.02265185504167577,
-        "mean_diff": 0.000491044024094006,
-        "ci_low": -9.293721235963771e-05,
-        "ci_high": 0.0011448837989051317,
-        "significant": false,
-        "verdict": "no difference between data_only and pi_fixed_w1e-4",
+        "mean_b": 0.02125562200935017,
+        "mean_diff": 0.001887277056419609,
+        "ci_low": 0.0012469640893401582,
+        "ci_high": 0.0026265382718472447,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 is better (lower nrmse_c)",
         "n_materials": 48
       },
       "edge_warning": null,
-      "edge_saturation": {
-        "arm": "pi_fixed_w1e-4",
-        "vs_data_only": {
-          "arm_a": "data_only",
-          "arm_b": "pi_fixed_w1e-4",
-          "metric": "nrmse_c",
-          "mean_a": 0.023142899065769773,
-          "mean_b": 0.02265185504167577,
-          "mean_diff": 0.000491044024094006,
-          "ci_low": -9.293721235963771e-05,
-          "ci_high": 0.0011448837989051317,
-          "significant": false,
-          "verdict": "no difference between data_only and pi_fixed_w1e-4",
-          "n_materials": 48
-        },
-        "saturated": true
-      },
-      "sweep_described": "fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
+      "edge_saturation": null,
+      "sweep_described": "fixed weights over 5 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
       "mde": {},
-      "verdict": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-4 (fixed weights over 3 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+      "verdict": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 5 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
       "polish": {
-        "best_pi": "pi_fixed_w1e-4",
+        "best_pi": "pi_fixed_w1e-5",
         "comparison": {
           "arm_a": "data_only+lbfgs",
-          "arm_b": "pi_fixed_w1e-4+lbfgs",
+          "arm_b": "pi_fixed_w1e-5+lbfgs",
           "metric": "nrmse_c",
           "mean_a": 0.02734750666850947,
-          "mean_b": 0.025319950912107047,
-          "mean_diff": 0.0020275557564024215,
-          "ci_low": 0.001136184464961037,
-          "ci_high": 0.0031308781642852704,
+          "mean_b": 0.025417917556418694,
+          "mean_diff": 0.0019295891120907713,
+          "ci_low": 0.0010515907643121368,
+          "ci_high": 0.0028262380510894656,
           "significant": true,
-          "verdict": "pi_fixed_w1e-4+lbfgs is better (lower nrmse_c)",
+          "verdict": "pi_fixed_w1e-5+lbfgs is better (lower nrmse_c)",
           "n_materials": 48
         },
-        "ordering_flips": true
+        "ordering_flips": false
       }
     }
   },
@@ -525,6 +597,27 @@
       "mde": null,
       "verdict": "physics at inference makes transfer WORSE"
     },
+    "time/pi_fixed_w1e-5": {
+      "comparison": {
+        "arm_a": "pi_fixed_w1e-5 before",
+        "arm_b": "pi_fixed_w1e-5 after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.013229054249519678,
+        "mean_b": 0.07901877775616918,
+        "mean_diff": -0.06578972350664951,
+        "ci_low": -0.07481128197290464,
+        "ci_high": -0.05736261241195799,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 before is better (lower nrmse_c)",
+        "n_materials": 192
+      },
+      "seen_before": 0.014168522289259675,
+      "seen_after": 0.10144817003917221,
+      "seen_change_pct": 616.0109429059805,
+      "anchor_insufficient": true,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    },
     "material/data_only": {
       "comparison": {
         "arm_a": "data_only before",
@@ -563,6 +656,27 @@
       "seen_before": 0.02265185504167577,
       "seen_after": 0.16945623568587628,
       "seen_change_pct": 648.0898821491842,
+      "anchor_insufficient": false,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    },
+    "material/pi_fixed_w1e-5": {
+      "comparison": {
+        "arm_a": "pi_fixed_w1e-5 before",
+        "arm_b": "pi_fixed_w1e-5 after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.02125562200935017,
+        "mean_b": 0.13976766047087125,
+        "mean_diff": -0.11851203846152106,
+        "ci_low": -0.1346549754989824,
+        "ci_high": -0.10313147380256378,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 before is better (lower nrmse_c)",
+        "n_materials": 48
+      },
+      "seen_before": 0.02125562200935016,
+      "seen_after": 0.13976766047087122,
+      "seen_change_pct": 557.5562004696388,
       "anchor_insufficient": false,
       "mde": null,
       "verdict": "physics at inference makes transfer WORSE"

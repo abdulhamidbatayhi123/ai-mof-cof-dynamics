@@ -664,12 +664,12 @@ its own error. That is the bound we claim, and it is not the same as ``no effect
 --- while its own proper-orthogonal-decomposition floor falls from
 \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of \(\nFloorDrop\). The best
 DeepONet found anywhere, at the smallest basis, sits \(\nONetxFloor\times\) above the
-floor of the largest. One caveat on tuning, stated because rule~4 is the rule this
-rung is most exposed on: at the two smallest bases DeepONet's best learning rate is
-still the top of the grid, moving by up to \nLfiveONetEdgeMove\,\% to the next point
-down. For the flatness above that bias is conservative --- a better-tuned small
-basis only makes a larger one look less useful --- but it would flatter the Fourier
-operator's advantage below, and the grid is being extended to close it. \emph{Giving DeepONet 128 basis
+floor of the largest. Rule~4 is the rule this rung was most exposed on: at the two
+smallest bases DeepONet's best learning rate first sat on the top of the grid, still
+moving. The grid was extended one rate upward for those arms, the optimum stayed where
+it was and is now interior, and every selected rate in this rung is bracketed --- so
+the Fourier operator's advantage below is not measured against an under-tuned
+DeepONet. \emph{Giving DeepONet 128 basis
 functions buys it the accuracy of \nLfiveOracleONet.}
 
 \paragraph{The arm the theory names.} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator

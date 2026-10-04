@@ -11,11 +11,12 @@
     "l5_fill2.json",
     "l5_refine.json",
     "l5_okan_hi.json",
-    "l5_onet_hi.json"
+    "l5_onet_hi.json",
+    "l5_onet_3e2.json"
   ],
   "pod_floor": {
     "8": 0.014403234235942364,
-    "16": 0.007305723149329424,
+    "16": 0.007305712904781103,
     "32": 0.0033055555541068316,
     "64": 0.0013529009884223342,
     "128": 0.000501581933349371
@@ -109,9 +110,9 @@
     "deeponet_p8": {
       "mean": 0.026457446937759716,
       "lr": 0.01,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.04310257169570171,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
@@ -119,16 +120,17 @@
         0.0003,
         0.001,
         0.003,
-        0.01
+        0.01,
+        0.03
       ],
-      "n_lr_tried": 7
+      "n_lr_tried": 8
     },
     "deeponet_p16": {
       "mean": 0.026465439548095066,
       "lr": 0.01,
-      "unbracketed": true,
-      "edge_binding": true,
-      "edge_sensitivity": 0.05734522190833137,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
       "grid": [
         5e-05,
         0.0001,
@@ -136,9 +138,10 @@
         0.0003,
         0.001,
         0.003,
-        0.01
+        0.01,
+        0.03
       ],
-      "n_lr_tried": 7
+      "n_lr_tried": 8
     },
     "deeponet_p32": {
       "mean": 0.02903302324314912,
@@ -153,9 +156,10 @@
         0.0003,
         0.001,
         0.003,
-        0.01
+        0.01,
+        0.03
       ],
-      "n_lr_tried": 7
+      "n_lr_tried": 8
     },
     "deeponet_p64": {
       "mean": 0.028425506005684536,
@@ -170,9 +174,10 @@
         0.0003,
         0.001,
         0.003,
-        0.01
+        0.01,
+        0.03
       ],
-      "n_lr_tried": 7
+      "n_lr_tried": 8
     },
     "deeponet_p128": {
       "mean": 0.027475953102111816,
@@ -187,9 +192,10 @@
         0.0003,
         0.001,
         0.003,
-        0.01
+        0.01,
+        0.03
       ],
-      "n_lr_tried": 7
+      "n_lr_tried": 8
     }
   },
   "paired_vs_smallest_p": {
@@ -298,8 +304,5 @@
       "n_materials": 12
     }
   },
-  "grid_boundary_warnings": [
-    "deeponet p=8: best lr 1e-02 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03', '1e-02'] and the metric is STILL MOVING there (4.3 % to the next point) \u2014 UNBRACKETED, extend the grid",
-    "deeponet p=16: best lr 1e-02 is the TOP of the swept grid ['5e-05', '1e-04', '2e-04', '3e-04', '1e-03', '3e-03', '1e-02'] and the metric is STILL MOVING there (5.7 % to the next point) \u2014 UNBRACKETED, extend the grid"
-  ]
+  "grid_boundary_warnings": []
 }

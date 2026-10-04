@@ -1,0 +1,82 @@
+loaded 988 samples from data/parametric
+  fields (988, 3, 512, 256)  params (988, 11)
+  splits {'train': 691, 'novel_condition': 96, 'novel_material': 201}
+  materials: 60 (12 held out)
+  design: legacy  params: ['q_max', 'delta_H', 'step_rh', 'isotherm_n', 'henry_fraction', 'k_LDF', 'rho_p', 'eps_t', 'rh_feed', 'v', 'T_in']
+
+frozen encoding 128x128; fields (988, 3, 128, 128); coords (16384, 2)
+
+POD floor at each p (the n-width bound on ANY linear reconstruction):
+  p=   8  novel-material 0.01440
+  p=  16  novel-material 0.00731
+
+  deeponet  p=   8 w216  lr3e-02 seed 42: train=0.2899 novel=0.3321 [2978s]
+  deeponet  p=   8 w216  lr3e-02 seed 43: train=0.2899 novel=0.3321 [2987s]
+  deeponet  p=   8 w216  lr3e-02 seed 44: train=0.5495 novel=0.5405 [1917s]
+  deeponet  p=  16 w210  lr3e-02 seed 42: train=0.2899 novel=0.3321 [1635s]
+  deeponet  p=  16 w210  lr3e-02 seed 43: train=0.2899 novel=0.3321 [1481s]
+  deeponet  p=  16 w210  lr3e-02 seed 44: train=0.2899 novel=0.3321 [1571s]
+
+wrote results/l5_onet_3e2.json  [12895s]
+Merging every L5 results file:
+  l5_results.json           30 arms
+  l5_fill1.json              6 arms
+  l5_fill2.json              2 arms
+  l5_refine.json             8 arms
+  (absent: results/l5_fill1b.json)
+  l5_okan_hi.json            6 arms
+  l5_onet_hi.json            5 arms
+  l5_onet_3e2.json           2 arms
+
+  encoding 128x128, budget ~200,000 params, 8000 steps — identical across all arms
+  59 distinct (family, p, lr) arms
+
+    p  POD floor |   deepokan      lr  x floor |   deeponet      lr  x floor
+----------------------------------------------------------------------------
+    8    0.01440 |    0.03917    1e-03      2.7 |    0.02646    1e-02      1.8
+   16    0.00731 |    0.03567    1e-03      4.9 |    0.02647    1e-02      3.6
+   32    0.00331 |    0.04980    3e-04     15.1 |    0.02903    3e-03      8.8
+   64    0.00135 |    0.06518    2e-04     48.2 |    0.02843    3e-03     21.0
+  128    0.00050 |    0.07104    2e-04    141.6 |    0.02748    3e-03     54.8
+
+  * = best lr on a grid edge AND still moving there (needs extension)
+  ~ = best lr on a grid edge but saturated there (benign)
+
+Paired vs p = 8, cluster-robust by material, alpha = 0.005
+
+  deepokan:
+    p=  16  diff +0.00350  CI [-0.00209, +0.01135]   NO DIFFERENCE
+    p=  32  diff -0.01062  CI [-0.02046, -0.00012]   WORSE at larger p
+    p=  64  diff -0.02601  CI [-0.03811, -0.01323]   WORSE at larger p
+    p= 128  diff -0.03187  CI [-0.04390, -0.01955]   WORSE at larger p
+
+  deeponet:
+    p=  16  diff -0.00001  CI [-0.00289, +0.00288]   NO DIFFERENCE
+    p=  32  diff -0.00258  CI [-0.00760, +0.00247]   NO DIFFERENCE
+    p=  64  diff -0.00197  CI [-0.00738, +0.00374]   NO DIFFERENCE
+    p= 128  diff -0.00102  CI [-0.00585, +0.00491]   NO DIFFERENCE
+
+Family verdict, each family at its best configuration anywhere:
+    deepokan   0.03567  (p=16, lr=1e-03)
+    deeponet   0.02646  (p=8, lr=1e-02)
+    deepokan vs deeponet: diff +0.00921 CI [-0.00344, +0.02095]   NO DIFFERENCE DETECTED
+    -> 'no difference DETECTED'. Never 'equivalent' — see the power note below.
+
+Flatness of each family across the basis-size sweep:
+    deepokan   0.0392 -> 0.0710 (0.55x) while the POD floor falls 28.7x; at p=128 it sits 142x above its own bound
+    deeponet   0.0265 -> 0.0275 (0.96x) while the POD floor falls 28.7x; at p=128 it sits 55x above its own bound
+
+  Every selected learning rate is interior to its grid. Optima are bracketed.
+
+wrote results/l5_merged.json
+C:\Users\abdulhamid batayhi\Desktop\ai-mof-cof-dynamics\analyze_l5_fno.py:8: SyntaxWarning: invalid escape sequence '\|'
+  Nothing in this repository wrote it. `grep -rn "deeponet_vs_fno\|fno_best" --include=*.py`
+FNO best: modes 4, width 28, lr 0.003 -> 0.02157  (205,243 params)
+  by modes: m4 w28 0.02157, m8 w14 0.02462, m16 w7 0.02771
+DeepONet best: p=8, width 216 -> 0.02646  (201,147 params)
+  width ratio DeepONet/FNO = 7.7x
+DeepONet vs FNO: diff +0.00488 CI [+0.00015, +0.00984] SIGNIFICANT  (alpha 0.005, 12 clusters)
+  floor at p=128 5.016e-04; FNO sits 43x above it
+
+wrote results/l5_fno_verdict.json
+wrote figures/Fig4_operators.png/.pdf  (floor falls 28.7x; DeepONet 55x above it; FNO 43x; 4/4 paired intervals span zero)
