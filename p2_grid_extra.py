@@ -16,11 +16,15 @@ driver runs the rest, each exactly as the prereg declares, with the same freeze 
        success = success_L1. Runs only if its per-fit cost gate passed (COST_GATES).
   m7   PySR on the same subgrid, 3 replicates, only if its inclusion gate
        (results/p2_pilot_m7.json) says INCLUDE; success = success_L1.
+  o1ident  identifiability on O1 (the confirmatory side of H2b): profile likelihood
+       of k with the law known, over ALL probes, every non-isothermal L1 cell, every
+       (sigma, eps), 20 replicates; the profile refits k with the MEASURED isotherm
+       (information parity); success = identifiable.
   m5   EIV best-subset (classical mixed LS-TLS on the single rate law, p2/eiv.py) on
        every non-isothermal L1 cell, O1, every (sigma, eps), 20 replicates, strong form;
        success = success_L1. Pure linear algebra, so it needs no cost gate.
 
-    python p2_grid_extra.py {m6,m9,l2,m8,m5,m7}
+    python p2_grid_extra.py {m6,m9,l2,m8,m5,m7,o1ident}
 """
 import itertools
 import json
@@ -136,6 +140,10 @@ def run(cmd, man):
             if law != "L2":
                 continue
             grid = itertools.product(SIGMAS, EPSS, range(N_REP), SOLVERS, FORMS)
+        elif cmd == "o1ident":
+            if iso == "langmuir_iso" or law != "L1":
+                continue
+            grid = itertools.product(SIGMAS, EPSS, range(N_REP), ("profile",), ("o1",))
         elif cmd == "m5":
             if iso == "langmuir_iso" or law != "L1":
                 continue
@@ -168,6 +176,14 @@ def run(cmd, man):
                     y = np.concatenate([derivative(q, obs["t"]) for q in obs["channels"]["q"]])
                     co = methods.kan_symbolic(V, y, seed=rep)
                     ok = success_L1(co)
+                elif cmd == "o1ident":
+                    from p2.identifiability import identifiable, profile_interval_o1
+                    ch = obs["channels"]
+                    sq = max(sigma, 1e-4) * float(np.ptp(ch["q"]))
+                    lo, hi = profile_interval_o1(obs["t"], list(ch["c"]), list(ch["q"]),
+                                                 obs["qstar_meas"], sq, Ts=list(ch["T"]))
+                    co = {"lo": lo, "hi": hi}
+                    ok = identifiable(lo, hi, rec["k_LDF"])
                 elif cmd == "m7":
                     from p2.pysr_method import pysr_sr
                     F, y = _stack_probes(obs, lambda c, q, T: (
@@ -177,7 +193,8 @@ def run(cmd, man):
                     ok = success_L1(co)
                 else:   # m5
                     co, ok = fit_m5(obs, sigma, eps)
-                res["rows"][key] = {"success": bool(ok), "support": sorted(co), "sec": time.time() - t1}
+                res["rows"][key] = {"success": bool(ok), "sec": time.time() - t1,
+                                    **({"interval": co} if cmd == "o1ident" else {"support": sorted(co)})}
             except Exception as e:   # recorded, never dropped
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}
         write_atomic(res, out)

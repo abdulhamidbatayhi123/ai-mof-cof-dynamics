@@ -424,6 +424,14 @@ known-answer failure. M8 is reported on its known-answer tests only.
 **M5, decided 2026-10-04 before the freeze:** EIV best-subset on the grid (see §3 M5),
 because ODR-BINDy and WENDy as published apply to autonomous ODE systems, not to a
 single rate law with exogenous inputs and regressor error; H2c is tested with it.
+**O1 identifiability (2026-10-04):** no driver computed it, though H2b's confirmatory
+test is on O1. Now `p2_grid_extra.py o1ident`: the profile likelihood with the law
+known over ALL 20 probes (information parity with discovery), the measured isotherm,
+every non-isothermal L1 cell, every (σ, ε), 20 replicates. The ODE-solver likelihood
+took ~540 s per replicate (~860 h for the design); it is evaluated instead by the exact
+update of the linear LDF law between samples (q* piecewise linear on a 4x PCHIP
+upsample), vectorised over k: 4.5 s per replicate, ~22 h. Tested: agreement with the
+ODE likelihood (relative 1e-5 to 1e-3) and the known-answer interval contains k.
 **Analysis code (2026-10-04):** `p2/analysis.py` now has the rising-curve rule for R
 (a first version would have returned 'no crossing' for every H2a condition), the
 selection-carrying best-method bootstrap, and the H2c words; H2c gains the pre-declared

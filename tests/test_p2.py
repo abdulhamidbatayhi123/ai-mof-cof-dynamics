@@ -502,3 +502,30 @@ def test_h2c_words_cover_every_outcome():
     assert h2c_verdict({0.005: 0.1, 0.02: -0.1}, mde)["words"].startswith(
         "EIV does not move the boundary detectably")
     assert h2c_verdict({0.02: -0.40}, mde)["words"].startswith("EIV moves the boundary DOWN by")
+
+
+def test_o1_exact_ldf_likelihood_matches_the_ode_reference():
+    """identifiability.loglik_o1 (exact piecewise-linear LDF update, vectorised) must agree
+    with the solver-based _loglik it replaces for speed (~120x): same model, PCHIP drivers."""
+    from p2.identifiability import _loglik, loglik_o1
+    rng = np.random.default_rng(0)
+    s = ldf_series(k=0.02, n=200, seed=0)
+    qsf = lambda c: 5.0 * 3.0 * np.asarray(c) / (1 + 3.0 * np.asarray(c))
+    qo = s["q"] + rng.normal(0, 0.002, 200)
+    for k in (0.005, 0.02, 0.05):
+        a = _loglik(k, s["t"], s["c"], qo, qsf, 0.002)
+        b = loglik_o1(k, s["t"], [s["c"]], [qo], qsf, 0.002)[0]
+        assert abs(a - b) <= 2e-3 * abs(a) + 0.2, (k, a, b)
+
+
+def test_o1_profile_over_all_probes_brackets_k():
+    from p2.identifiability import identifiable, profile_interval_o1
+    rng = np.random.default_rng(1)
+    qsf = lambda c: 5.0 * 3.0 * np.asarray(c) / (1 + 3.0 * np.asarray(c))
+    cs, qs = [], []
+    for j in range(20):
+        s = ldf_series(k=0.02, n=200, seed=j)
+        cs.append(s["c"])
+        qs.append(s["q"] + rng.normal(0, 0.02 * np.ptp(s["q"]), 200))
+    lo, hi = profile_interval_o1(s["t"], cs, qs, qsf, 0.02 * np.ptp(qs[0]))
+    assert lo <= 0.02 <= hi * (1 + 1e-9) and identifiable(lo, hi, 0.02), (lo, hi)
