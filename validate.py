@@ -175,6 +175,9 @@ _NOISE_ALLOWED = {
                            "effect (the statistic is under test, not a model)"),
     "calibrate_v2.py": (3, "the same CI-coverage calibration for the v2 design: simulated arms "
                            "with a planted effect, to measure coverage"),
+    "p2_pilot_m7.py": (2, "PREREG_P2 M7 inclusion gate: 0.5 % observation noise on a KNOWN-ANSWER "
+                          "LDF system (q and the measured q*), to test whether PySR recovers the "
+                          "planted law; never the confirmatory grid, reports no model result"),
     "mde.py": (2, "minimum-detectable-effect power simulation: draws synthetic between/within-"
                   "material variation to size the design, reports no model result"),
     "metrics.py": (3, "the module's self-test builds synthetic ArmResults of known ordering to "
