@@ -48,6 +48,18 @@ L2_DROP, L2_WIDTH = 0.8, 0.05
 def make_physics(iso):
     if iso == "langmuir":
         p, c_in = AdsorptionPhysicsConfig(), 1.0
+    elif iso == "langmuir_iso":
+        # PREREG_P2 §4.3, the isothermal control for M6 (SINDy-PI): the SAME isotherm at
+        # the feed temperature, with no heat of adsorption. Setting delta_H = 0 alone
+        # would change the isotherm (b = b0 exp(-dH/RT)), so the feed-temperature van't
+        # Hoff factor is folded into b0 and b_H0 first; with no heat released and the
+        # wall and feed at T_in, the bed stays at T_in.
+        from isotherm import R_GAS
+        p, c_in = AdsorptionPhysicsConfig(), 1.0
+        kT = float(np.exp(-p.delta_H / (R_GAS * p.T_in)))
+        p.b_H0 = getattr(p, "b_H0", p.b0) * kT
+        p.b0 = p.b0 * kT
+        p.delta_H = 0.0
     else:
         p = get_mof303_physics()
         c_in = rh_to_conc(0.30, p.T_in)
@@ -69,6 +81,8 @@ def cells():
             for pe in PE_MULT:
                 for da in DA_LEVELS:
                     out.append((iso, law, pe, float(da)))
+    # the isothermal control (PREREG_P2 §4.3): 9 Da levels x Pe x1 x Langmuir, L1 only
+    out += [("langmuir_iso", "L1", 1.0, float(da)) for da in DA_LEVELS]
     return out
 
 

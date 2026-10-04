@@ -399,6 +399,8 @@ logistic crossing); H2b confirmatory on O1 only, O2/O3 descriptive; H2a slices b
 isotherm, observation) with σ, ε inside R, O3 excluded; ε_rec defined; L2 success made
 operational; Lib-A fidelity defined; H2c's resolution per ε and its level placement
 made exact; the isothermal control given a grid; stale text removed.
-**Code still owed before the freeze:** the O2 profile likelihood in `p2_grid_o23.py`
-(listed in the table, not yet run by the driver); the isothermal-control ground truth;
-the L2 success metric (`p2/metric.py`); the Lib-A fidelity metric.
+**Code owed before the freeze:** the O2 profile likelihood in `p2_grid_o23.py`
+(listed in the table, not yet run by the driver) -- STILL OWED. Done 2026-10-04: the
+isothermal-control ground truth (9 cells in `data/p2`; isotherm at T_in identical to
+the Langmuir cells, max |T - T_in| = 0, all reached 95 % breakthrough); the L2 success
+metric and the Lib-A fidelity metric (`p2/metric.py`, tested).
