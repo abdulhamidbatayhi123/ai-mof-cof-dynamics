@@ -288,8 +288,16 @@ everywhere; it is not an experimentally accessible linear regime, which does not
 The consequence is that breakthrough is not a sigmoid. A fast, spreading wave on the
 Henry branch arrives first and plateaus; a slow, self-sharpening cooperative shock
 follows. The two features move \emph{independently} with material parameters, and
-their separation at the outlet spans \nGapMin--\nGapMax\ in normalised time --- a factor of \nGapRange\ across our parameter space. Everything downstream is shaped by that
-number.
+their separation at the outlet spans \nGapMin--\nGapMax\ in normalised time --- a
+factor of \nGapRange\ across the legacy parameter space, where it shapes the field
+every surrogate must reproduce. On the larger dataset that carries most rungs, the
+picture is less clean, and we say so here rather than only in
+Section~\ref{sec:limitations}: at its stored time resolution the Henry wave crosses
+the column between the first two samples, and the second front is mostly a gradual,
+dispersive rise rather than a sharp shock. The two-wave structure is therefore the
+mechanism behind the legacy design's fields and behind the coordinate change of
+Section~\ref{sec:warp}, which is measured there; on the larger dataset it is present
+but not resolved well enough to align, and no verdict on that dataset depends on it.
 
 This is established behaviour, not our observation. LeVan and Carta \cite{levan2019adsorption} give the
 mechanism: an unfavourable dimensionless isotherm admits a simple wave because low

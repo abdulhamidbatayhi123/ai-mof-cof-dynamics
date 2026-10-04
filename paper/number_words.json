@@ -1293,5 +1293,12 @@
   "class": "PROSE",
   "reason": "count of the entries enumerated in the paragraph itself (structural)",
   "line_at_review": 1155
+ },
+ {
+  "key": "the column between the first [two] samples, and the second front",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "'between the first two samples' = adjacent stored time points (grid position, not a measured count; screen: warp_level_screen_bc.json)",
+  "line_at_review": 273
  }
 ]
