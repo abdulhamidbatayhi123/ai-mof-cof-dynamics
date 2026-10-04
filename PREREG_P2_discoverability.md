@@ -38,7 +38,11 @@ lies at R* with a spread of **less than half a decade** across conditions.
 
 **H2b — discoverability versus identifiability.** For each slice (σ, ε, observation,
 isotherm), compare Da*_disc (50 % crossing of P(success) for the best method) with
-Da*_ident (largest Da at which k is practically identifiable given the TRUE law, §4.3).
+Da*_ident (50 % crossing of P(k practically identifiable) given the TRUE law, by the
+same logistic estimator, §4.3). **Confirmatory on O1 only**, where both boundaries rest
+on 20 replicates per level and the 0.25-decade MDE applies; on O2 and O3 identifiability
+has 3 replicates on a subgrid, so those comparisons are reported descriptively, each
+with its own bootstrap interval, and carry no verdict word.
 - Three pre-declared outcomes, reported in these words:
   "discovery fails **before** identifiability" (Da*_disc < Da*_ident by ≥ the MDE),
   "discovery fails **with** identifiability" (|difference| < MDE),
@@ -88,7 +92,7 @@ A method that cannot be run in its strongest configuration is reported as such,
 never silently replaced by a weaker one.
 
 **Phase A implemented and verified on a known-answer LDF system** (`p2/`,
-`tests/test_p2.py`, 8 tests; plan `docs/superpowers/plans/2026-09-27-p2-harness-phase-a.md`):
+`tests/test_p2.py`; plan `docs/superpowers/plans/2026-09-27-p2-harness-phase-a.md`):
 M2b (strong-form STLSQ on standardised columns), M3 (bagged STLSQ, inclusion 0.6),
 M4 (exact enumeration up to 4 terms), and the profile-likelihood tool. **Two design
 facts the known-answer tests forced, declared here before the freeze:** (i) M4's BIC
@@ -99,7 +103,7 @@ adaptively between the coarse neighbours of its interval -- up to 6 passes of 41
 (ODE profile) or 21 points (outlet/PDE profile), each pass narrowing to the new
 neighbours (`p2/identifiability.py`) -- because at low noise the interval is narrower
 than one coarse step, and a single fixed refinement collapsed onto one point below the
-truth. (An earlier draft said a single 201-point refinement.) Phase B (M1, M2-weak, M5–M9, the
+truth. (An earlier draft said a single 201-point refinement.) Phase B (M1, M2, M5–M9, the
 cell runner, the analysis) follows its own plan.
 
 **Which methods can see which observation model** (decided before the freeze; a
@@ -234,8 +238,9 @@ uptake against ground truth on the same cell. R = δ / ε_eff per cell.
   bootstrap CI over replicates.
 - **Identifiability:** profile likelihood of k with the true law known, same
   σ, ε, observation. *Practically identifiable* ⇔ the 95 % profile interval lies
-  within [k/2, 2k]. Da*_ident = the largest identifiable Da on the grid,
-  interpolated.
+  within [k/2, 2k]. Da*_ident = the 50 % crossing of P(identifiable)
+  against log10 Da, by the logistic estimator of §4.4 (O1: 20 replicates per level,
+  as for discovery).
 - **Success for the other targets (fixed before the freeze).** M9: support {q*_meas} with
   coefficient 1 within 5 % (`p2/metric.py:success_manifold`). L2 (H2d, exploratory): the
   state dependence is *discovered* when the selected support contains q*_meas and q AND
@@ -248,10 +253,28 @@ uptake against ground truth on the same cell. R = δ / ε_eff per cell.
   JOINTLY across methods and re-selects the best method inside every draw, so the
   interval carries the selection (the same correction as paper 1's selection-adjusted
   intervals). Every method's own Da*_disc is reported alongside.
-- **R and its collapse (H2a).** R is computed per cell; P(success) is fitted against
-  log10 R by the same logistic estimator, separately per slice (σ, ε, observation,
-  isotherm, Pe); R* is each slice's 50 % crossing; the spread is max − min of log10 R*
-  over slices, with a bootstrap interval.
+- **R and its collapse (H2a).** R is computed per cell. Because σ and ε enter R itself,
+  they are NOT slicing axes: a slice is one (Pe, isotherm, observation) combination,
+  pooling every σ, ε and Da in it, and P(success) is fitted against log10 R by the same
+  logistic estimator; R* is each slice's 50 % crossing; the spread is max − min of
+  log10 R* over slices, with a bootstrap interval. O1 and O2 only: on O3 the sole
+  discovery method is M1's single-replicate demonstration, which yields no R*.
+- **ε_rec** (O2's reconstruction error inside ε_eff) is computed ONCE per cell, from the
+  noise-free (σ = 0) O2 observation: it measures the inversion's structural error, the
+  noise being already counted in σ.
+- **L2 success, operationally.** With q*_meas held fixed, the fitted law's implied rate
+  k̂(q) = −∂f/∂q is evaluated at the observed samples and averaged in 10 equal bins of
+  q/q_max over the observed range. The state dependence is *discovered* iff the support
+  contains q*_meas and q, k̂ decreases across the bins (Spearman ρ < −0.8), and k̂ in
+  the top bin is at most 0.6 of k̂ in the bottom bin (the true k falls to 0.2).
+- **Lib-A fidelity:** relative RMS error of the predicted dq/dt (strong form) on the
+  held-out probes (every 5th), per cell.
+- **H2c resolution.** H2c is decided at σ = 2 %: for ε = 2 % on the refined grid, for
+  ε ∈ {0.5 %, 5 %} on the main grid. The 8 refinement levels lie strictly inside
+  ±0.5 decade (the endpoints coincide with main-grid levels and are not repeated).
+- **Isothermal control (M6).** 9 solves: the 9 Da levels × Pe ×1 × Langmuir, with the
+  energy balance switched off (T held at the feed), same horizon rule; generated before
+  the freeze is used, at ~seconds each.
 - **Da*_ident, estimated exactly like Da*_disc.** Per replicate, k is identifiable or
   not (the [k/2, 2k] criterion); P(identifiable) is fitted against log10 Da by the same
   logistic estimator and Da*_ident is its 50 % crossing, so the two boundaries in H2b
@@ -265,7 +288,7 @@ uptake against ground truth on the same cell. R = δ / ε_eff per cell.
 logistic ML in log₁₀ Da, 50 % crossing, percentile bootstrap within Da levels. On 100
 simulated datasets with the design's grid (9 Da levels, 20 replicates) and a known
 boundary: **coverage 0.94** (nominal 0.95), bias **+0.012 decade**, SD of the estimate
-**0.089 decade**. The half-decade MDE below is therefore conservative; a boundary
+**0.089 decade**. A boundary
 shift is resolvable at ≈ 2.8 × 0.089 ≈ **0.25 decade** (80 % power, two-sided 5 %).
 The paper quotes 0.25 decade as the MDE, and the H2c refinement grid (§4.4, below)
 stays as declared.
@@ -325,10 +348,12 @@ No discovery method is run before the freeze.
 6. **Sampling-resolution bias of the ODE profile (2026-09-28).** On a fresh noise-free non-isothermal run, the profile's best k at an interior probe sits +0.61 % high with linear interpolation of c, T between 200 snapshots, +0.47 % with PCHIP (adopted), +0.17 % at 800 snapshots: the front crosses a probe in a few samples. Immaterial for the pre-registered identifiability criterion (interval within [k/2, 2k]); reported with the O1/O2 results, and the discovery methods face the same sampling.
 7. Range: Da_run = k·t_final spans ~1 to ~10⁵ over k = 10⁻⁴–10 s⁻¹, so the targeted
    Da = k·t_stoich range 10⁻¹–10³ corresponds to k ≈ 10⁻⁵–10⁻¹ s⁻¹ at default
-   physics — inside the cheap part of the cost curve.
+   physics; most of it is cheap (3–7 s per solve), but the pilot measured up to ~300 s
+   per solve at k ≥ 0.03 s⁻¹, the upper end of the range.
 
 ## 7. Compute
-~80 solves; M2–M6, M8, M9 at 20 replicates over ≈ 2600 cells are seconds each; M1 and
+81 ground-truth solves (done) plus the isothermal control and the H2c refinement solves;
+M2–M6, M8, M9 at 20 replicates over ≈ 2600 cells are seconds each; M1 and
 M7 on the subgrid are the cost (≈ 200 trainings or searches). CPU-feasible. Every job
 is queued in `autorun.sh` with a done-test; one training job at a time.
 
@@ -369,3 +394,11 @@ the code; each fixed here, in the open, rather than silently:
 19. The observation model's exact settings written here (20 probes, 200 times, the
     4-mode isotherm error).
 20. M5's five-seed statistic fixed (mean), and WENDy's NOT-RUN rule stated.
+Second pass, same day (from the revised Stage-1 draft): one Da*_ident definition (the
+logistic crossing); H2b confirmatory on O1 only, O2/O3 descriptive; H2a slices by (Pe,
+isotherm, observation) with σ, ε inside R, O3 excluded; ε_rec defined; L2 success made
+operational; Lib-A fidelity defined; H2c's resolution per ε and its level placement
+made exact; the isothermal control given a grid; stale text removed.
+**Code still owed before the freeze:** the O2 profile likelihood in `p2_grid_o23.py`
+(listed in the table, not yet run by the driver); the isothermal-control ground truth;
+the L2 success metric (`p2/metric.py`); the Lib-A fidelity metric.
