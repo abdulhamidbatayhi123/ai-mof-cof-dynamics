@@ -284,6 +284,15 @@ SPEC = [
     ("LfiveBasisLarge", "results/l5_bottleneck.json", "rows[4].basis_floor_novel", "{:.5f}"),
     ("LfiveCoefSmall", "results/l5_bottleneck.json", "rows[0].coef_pred_novel", "{:.4f}"),
     ("LfiveCoefLarge", "results/l5_bottleneck.json", "rows[4].coef_pred_novel", "{:.4f}"),
+    # the same decomposition on v2: 240 materials, five folds, three seeds, pooled out of fold
+    ("LfiveVtwoFloorSmall", "results/l5_bottleneck_v2.json", "summary.8.basis_floor", "{:.5f}"),
+    ("LfiveVtwoFloorLarge", "results/l5_bottleneck_v2.json", "summary.128.basis_floor", "{:.5f}"),
+    ("LfiveVtwoCoefSmall", "results/l5_bottleneck_v2.json", "summary.8.coef_pred", "{:.4f}"),
+    ("LfiveVtwoCoefLarge", "results/l5_bottleneck_v2.json", "summary.128.coef_pred", "{:.4f}"),
+    ("LfiveVtwoCoefLo", "results/l5_bottleneck_v2.json", "coef_flat_in_p.comparison.ci_low", "{:.5f}"),
+    ("LfiveVtwoCoefHi", "results/l5_bottleneck_v2.json", "coef_flat_in_p.comparison.ci_high", "{:.5f}"),
+    ("LfiveVtwoModes", "results/l5_bottleneck_v2.json", "summary.128.modes_r2_gt_0.2", "{:.0f}"),
+    ("LfiveVtwoNmat", "results/l5_bottleneck_v2.json", "n_materials", "{:d}"),
 
     # ------------------------------------------------------------- L6 on v2
     ("LsixJoint", "results/l6_v2_verdict.json", "pooled.mean_a", "{:.4f}"),
@@ -627,6 +636,10 @@ DERIVED = [
      lambda r: r["CostLargeSims"] / r["CostSmallSims"], "{:.0f}"),
     ("CostGenCoreHours", "the training set's cost in core-hours: solves x worker-seconds",
      lambda r: r["CostNSolves"] * r["CostSolveSec"] / 3600.0, "{:.0f}"),
+    ("LfiveVtwoFloorDrop", "v2 bottleneck: basis floor at p=8 over p=128",
+     lambda r: r["LfiveVtwoFloorSmall"] / r["LfiveVtwoFloorLarge"], "{:.0f}"),
+    ("LfiveVtwoCoefChangePct", "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8",
+     lambda r: 100.0 * (r["LfiveVtwoCoefSmall"] - r["LfiveVtwoCoefLarge"]) / r["LfiveVtwoCoefSmall"], "{:.1f}"),
     ("LfourbMatGainPct", "L4b material axis: the best physics arm's error reduction, % of the twin's",
      lambda r: 100.0 * (r["LfourbMatTwin"] - r["LfourbMatBest"]) / r["LfourbMatTwin"], "{:.0f}"),
 ]

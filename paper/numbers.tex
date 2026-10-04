@@ -118,6 +118,14 @@
 \newcommand{\nLfiveBasisLarge}{0.00050}
 \newcommand{\nLfiveCoefSmall}{0.0515}
 \newcommand{\nLfiveCoefLarge}{0.0510}
+\newcommand{\nLfiveVtwoFloorSmall}{0.00631}
+\newcommand{\nLfiveVtwoFloorLarge}{0.00007}
+\newcommand{\nLfiveVtwoCoefSmall}{0.0352}
+\newcommand{\nLfiveVtwoCoefLarge}{0.0348}
+\newcommand{\nLfiveVtwoCoefLo}{0.00028}
+\newcommand{\nLfiveVtwoCoefHi}{0.00035}
+\newcommand{\nLfiveVtwoModes}{17}
+\newcommand{\nLfiveVtwoNmat}{240}
 \newcommand{\nLsixJoint}{0.0562}
 \newcommand{\nLsixSeparate}{0.0541}
 \newcommand{\nLsixDiff}{0.00210}
@@ -349,5 +357,9 @@
 \newcommand{\nCostDataRatio}{16}
 % CostGenCoreHours: the training set's cost in core-hours: solves x worker-seconds
 \newcommand{\nCostGenCoreHours}{18}
+% LfiveVtwoFloorDrop: v2 bottleneck: basis floor at p=8 over p=128
+\newcommand{\nLfiveVtwoFloorDrop}{90}
+% LfiveVtwoCoefChangePct: v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8
+\newcommand{\nLfiveVtwoCoefChangePct}{0.9}
 % LfourbMatGainPct: L4b material axis: the best physics arm's error reduction, % of the twin's
 \newcommand{\nLfourbMatGainPct}{8}

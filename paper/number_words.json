@@ -1160,5 +1160,26 @@
   "class": "DESIGN",
   "reason": "rule 4 extends a grid by one point (protocol)",
   "line_at_review": 646
+ },
+ {
+  "key": "materials, [five] folds pooled out of fold, thr",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 808
+ },
+ {
+  "key": "ive folds pooled out of fold, [three] seeds. The basis floor falls",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three seeds 42/43/44, fixed by protocol",
+  "line_at_review": 808
+ },
+ {
+  "key": "matter, and the ratio of the [two] errors grows with \\(p\\) exact",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two errors just named (structural)",
+  "line_at_review": 814
  }
 ]

@@ -825,6 +825,18 @@ independent function classes --- proper orthogonal decomposition plus random for
 plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together is worth a constant
 factor and nothing more.
 
+\paragraph{The decomposition holds on the full design.} The numbers above were
+measured on the legacy held-out set, and the claim they carry is the one this paper
+rests on, so we re-measured it where every other rung reports: \nLfiveVtwoNmat\
+materials, five folds pooled out of fold, three seeds. The basis floor falls from
+\nLfiveVtwoFloorSmall\ to \nLfiveVtwoFloorLarge, a factor of
+\(\nLfiveVtwoFloorDrop\); the coefficient-map error moves from \nLfiveVtwoCoefSmall\
+to \nLfiveVtwoCoefLarge, \nLfiveVtwoCoefChangePct\,\% of itself. That change is
+statistically resolved --- interval [\nLfiveVtwoCoefLo, \nLfiveVtwoCoefHi] --- and
+immaterial: the design is now powerful enough to see a difference far too small to
+matter, and the ratio of the two errors grows with \(p\) exactly as before. At the
+largest basis the map predicts about \nLfiveVtwoModes\ modes on held-out materials.
+
 \paragraph{And this is scoped to a sample size, which we learned the hard way.} An
 earlier version of this section stated the mode count as a property of the map. It
 is not: it is what a given number of training materials buys. Measured against

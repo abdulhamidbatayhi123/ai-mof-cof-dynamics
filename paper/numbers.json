@@ -117,6 +117,14 @@
     "LfiveBasisLarge": "0.00050",
     "LfiveCoefSmall": "0.0515",
     "LfiveCoefLarge": "0.0510",
+    "LfiveVtwoFloorSmall": "0.00631",
+    "LfiveVtwoFloorLarge": "0.00007",
+    "LfiveVtwoCoefSmall": "0.0352",
+    "LfiveVtwoCoefLarge": "0.0348",
+    "LfiveVtwoCoefLo": "0.00028",
+    "LfiveVtwoCoefHi": "0.00035",
+    "LfiveVtwoModes": "17",
+    "LfiveVtwoNmat": "240",
     "LsixJoint": "0.0562",
     "LsixSeparate": "0.0541",
     "LsixDiff": "0.00210",
@@ -325,6 +333,8 @@
     "LCmaterialsForHalving": "23",
     "CostDataRatio": "16",
     "CostGenCoreHours": "18",
+    "LfiveVtwoFloorDrop": "90",
+    "LfiveVtwoCoefChangePct": "0.9",
     "LfourbMatGainPct": "8"
   },
   "provenance": {
@@ -795,6 +805,38 @@
     "LfiveCoefLarge": {
       "file": "results/l5_bottleneck.json",
       "path": "rows[4].coef_pred_novel"
+    },
+    "LfiveVtwoFloorSmall": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "summary.8.basis_floor"
+    },
+    "LfiveVtwoFloorLarge": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "summary.128.basis_floor"
+    },
+    "LfiveVtwoCoefSmall": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "summary.8.coef_pred"
+    },
+    "LfiveVtwoCoefLarge": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "summary.128.coef_pred"
+    },
+    "LfiveVtwoCoefLo": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "coef_flat_in_p.comparison.ci_low"
+    },
+    "LfiveVtwoCoefHi": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "coef_flat_in_p.comparison.ci_high"
+    },
+    "LfiveVtwoModes": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "summary.128.modes_r2_gt_0.2"
+    },
+    "LfiveVtwoNmat": {
+      "file": "results/l5_bottleneck_v2.json",
+      "path": "n_materials"
     },
     "LsixJoint": {
       "file": "results/l6_v2_verdict.json",
@@ -1605,6 +1647,12 @@
     },
     "CostGenCoreHours": {
       "derived": "the training set's cost in core-hours: solves x worker-seconds"
+    },
+    "LfiveVtwoFloorDrop": {
+      "derived": "v2 bottleneck: basis floor at p=8 over p=128"
+    },
+    "LfiveVtwoCoefChangePct": {
+      "derived": "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8"
     },
     "LfourbMatGainPct": {
       "derived": "L4b material axis: the best physics arm's error reduction, % of the twin's"
