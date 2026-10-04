@@ -1580,5 +1580,12 @@
   "class": "PROSE",
   "reason": "'one perceptron' = a single architecture (structural)",
   "line_at_review": 680
+ },
+ {
+  "key": "bed whose shape and [half] -breakthrough time",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "'half-breakthrough time' = the 50 % arrival time, a definition",
+  "line_at_review": 187
  }
 ]
