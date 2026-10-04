@@ -41,34 +41,27 @@ evidence that would eliminate it, and tested on a reference solver verified agai
 \nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, against a published
 MOF-303 packed-bed breakthrough curve, whose two-wave shape and 50\,\% arrival time
 it reproduces and whose first-wave timing it does not. Each verdict is reported in the
-words declared in advance; three rest on a smaller design of \nNclustLegacy\ held-out
-materials rather than \nNclustFolds, and we mark which throughout. Model capacity is
-not eliminated under the pre-registered rule: \nLtwoNUshaped{} model families saturate with
-interior optima whose position moves with the training-set size, but a random forest
-is still improving at the largest capacity it can have, where its sweep cannot be
-extended as the rule requires. Architecture
-family is eliminated on the smaller design: at matched parameters a multilayer
-perceptron beats both
-Kolmogorov--Arnold families in \(6/6\) comparisons, across \nLthreeNrates\ learning
-rates spanning \nLthreeDecades\ decades; every Kolmogorov--Arnold optimum is
-bracketed, and the perceptron's sits at the grid's lower edge, where its error has
-saturated. Linear-reconstruction
-operators are eliminated: over a sixteenfold increase in basis size DeepONet
-improves by no more than \nLfiveFlatImproveMax\,\% of its own error, while the
-proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\). A Fourier neural operator, the
-remedy the approximation theory names, is significantly better yet still sits \(\nFNOxFloor\times\) above the same floor. Structural decomposition of the equilibrium and
-kinetic objects gives a small, real and reproducible benefit
-(\nLsixDiff\ nRMSE, CI [\nLsixLo, \nLsixHi]) that does \emph{not} vary with
-Damk\"ohler number across \nLsixDaDecades\ decades, so it acts as an inductive bias
-rather than as a kinetic identifier. What is not eliminated is the number of
-training materials: error still falls as \(n^{-\nLCbeta}\) at the largest size we
-can afford, and all of that gain lies in the parameter-to-coefficient map rather
-than in the basis. We trace the wall to that map directly, and show that a change of
-coordinates which collapses the \(n\)-width from \nNwidthOriginal\ to
-\nNwidthTwoWaveA\ modes buys a significant \nWarpHeadroomFixed{}\(\times\) under an
-oracle and nothing at all under a predictor, again on the smaller design ---
-relocating the obstruction from a
-two-dimensional field to two one-dimensional curves. \nLedgerA\ withdrawn claims and \nLedgerB\ caught defects are reported as a numbered section rather than an appendix.
+words declared in advance, and each states the design it rests on: \nNclustFolds\
+materials in five folds, a single split of \nLfourbMatNmat, or a legacy set of
+\nNclustLegacy. The number of training materials binds: error still falls as
+\(n^{-\nLCbeta}\) at the largest size we can afford. Capacity is not eliminated under
+the pre-registered rule. A multilayer perceptron beats both Kolmogorov--Arnold
+families at matched parameters in every comparison (legacy design). Over a sixteenfold
+increase in basis size DeepONet improves by at most \nLfiveFlatImproveMax\,\% while the
+proper-orthogonal-decomposition floor falls \(\nFloorDrop\times\); on the full design
+the floor falls \(\nLfiveVtwoFloorDrop\times\) and the coefficient map moves
+\nLfiveVtwoCoefChangePct\,\%. Which learner maps parameters to the field still matters
+--- a Fourier neural operator is \(\nOperatorLever\times\) more accurate than the best
+pointwise regressor on one encoding --- but all of them sit far above the floor. A
+physics residual in the loss makes no difference over time and helps across materials
+by \nLfourbMatGainPct\,\% at one searched weight, an effect that survives correction
+for having chosen that weight; minimised at inference it makes transfer about
+\nLfourbRefTwinFactor\ times worse. Decomposing the equilibrium and kinetic objects
+gives a small real benefit (\nLsixDiff\ nRMSE) with no detectable dependence on
+Damk\"ohler number. Closed-form models are \nLsevenRatio\ times worse than learning.
+Aligning the two adsorption fronts would buy \nWarpHeadroomFixed{}\(\times\) if the
+fronts were known, and nothing detectable when they are predicted. \nLedgerA\ withdrawn
+claims and \nLedgerB\ caught defects are reported in the main text.
 \end{abstract}
 
 \begin{keyword}
@@ -600,7 +593,8 @@ if the metric has saturated there) then extended the fixed-weight sweep one deca
 below its lowest weight, and on the material axis a second decade. A physics arm whose
 seen-window error exceeds three times the twin's has abandoned the data fit (the B16
 signature) and is excluded as failed-to-train, never averaged in: \nLfourbNabandoned\
-arms did, leaving \nLfourbNeligible\ eligible.
+arms did, leaving \nLfourbNeligible\ eligible on the time axis and, with the second
+extension, \nLfourbNeligibleMat\ on the material axis.
 
 \paragraph{Time axis: no difference, and the legacy claim is withdrawn.} In the
 pre-declared words: there is no difference at the best weighting found. The best
@@ -696,8 +690,9 @@ smallest bases DeepONet's best learning rate first sat on the top of the grid, s
 moving. The grid was extended one rate upward for those arms, the optimum stayed where
 it was and is now interior, and every selected rate in this rung is bracketed --- so
 the Fourier operator's advantage below is not measured against an under-tuned
-DeepONet. \emph{Giving DeepONet 128 basis
-functions buys it the accuracy of \nLfiveOracleONet.}
+DeepONet. \emph{The best DeepONet found anywhere, at the smallest basis, is as
+accurate as an oracle handed the true coefficients of its first
+\nLfiveOracleONet\ modes, and adding basis functions does not move it.}
 
 \paragraph{The arm the theory names.} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
 architectures with a linear reconstruction step --- DeepONet, PCA-Net, and
@@ -709,10 +704,13 @@ prediction was pre-registered before the run.
 
 The Fourier neural operator is significantly better: \nLfiveFNO\ against DeepONet's
 \nLfiveONet, a difference of \nLfiveONetFNOdiff\ with interval
-[\nLfiveONetFNOlo, \nLfiveONetFNOhi]. \textbf{Both halves of this matter and neither
-may be reported without the other.} It is the direction the theory predicts, and it
-is a measurement of what the escape is actually worth on this physical problem
-rather than in an approximation bound. \textbf{And it does not remove the wall}: it
+[\nLfiveONetFNOlo, \nLfiveONetFNOhi]. The margin is marginal: the interval's lower
+end is a small fraction of either error, it rests on the \nNclustLegacy-material
+design, and both arms are the best of grids chosen on those materials, so we do not
+build on its exact size. \textbf{Both halves of this matter and neither may be
+reported without the other.} It is the direction the theory predicts, and it is a
+measurement of what the escape is worth on this physical problem rather than in an
+approximation bound. \textbf{And it does not remove the wall}: it
 sits \(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A \(\nFNOgain\times\) improvement against a bound \(\nFNOxFloor\times\) below it is a dent, not an
 escape.
 
@@ -825,7 +823,8 @@ fast kinetics.
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig5_mechanism.pdf}
 \caption{The mechanism. \textbf{A}~Held-out error against basis size: the floor
-falls \(\nFloorDrop\times\) while every arm is flat. \textbf{B}~The two terms of a linear
+falls \(\nFloorDrop\times\) while DeepONet and the pointwise regressors stay flat
+(the Fourier operator has no basis size and is drawn as a level). \textbf{B}~The two terms of a linear
 reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
 \(R^2\) of the coefficient map on held-out materials.}
 \label{fig:mechanism}

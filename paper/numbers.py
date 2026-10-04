@@ -240,6 +240,13 @@ SPEC = [
     # of the remaining modes is negative from mode 1. The cut is now after the
     # leading predictable run.
     ("LfiveOracleONet", "results/l5_oracle_rank.json", "ranks.deeponet_best.oracle_rank", "{:d}"),
+    # referee M1: one encoding, one split, one metric -- the operator lever side by side
+    ("LfiveRankPodReg", "results/l5_oracle_rank.json", "ranks.pod_plus_regressor_best.error", "{:.4f}"),
+    ("LfiveRankOKAN", "results/l5_oracle_rank.json", "ranks.deepokan_best.error", "{:.4f}"),
+    ("LfiveRankONet", "results/l5_oracle_rank.json", "ranks.deeponet_best.error", "{:.4f}"),
+    ("LfiveRankFNO", "results/l5_oracle_rank.json", "ranks.fno_best.error", "{:.4f}"),
+    ("LfiveOracleOKAN", "results/l5_oracle_rank.json", "ranks.deepokan_best.oracle_rank", "{:d}"),
+    ("LfiveOraclePodReg", "results/l5_oracle_rank.json", "ranks.pod_plus_regressor_best.oracle_rank", "{:d}"),
     ("LfiveOracleFNO", "results/l5_oracle_rank.json", "ranks.fno_best.oracle_rank", "{:d}"),
     ("LfiveLeadModes", "results/l5_oracle_rank.json", "mode_r2_p128.leading_predictable_run", "{:d}"),
     ("LfiveTailModes", "results/l5_oracle_rank.json", "mode_r2_p128.n_tail_modes", "{:d}"),
@@ -678,6 +685,8 @@ DERIVED = [
      lambda r: r["LfiveVtwoFloorSmall"] / r["LfiveVtwoFloorLarge"], "{:.0f}"),
     ("LfiveVtwoCoefChangePct", "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8",
      lambda r: 100.0 * (r["LfiveVtwoCoefSmall"] - r["LfiveVtwoCoefLarge"]) / r["LfiveVtwoCoefSmall"], "{:.1f}"),
+    ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
+     lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
     ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",
      lambda r: r["LfourbRefTwinAfter"] / r["LfourbRefTwinBefore"], "{:.0f}"),
     ("LfourbMatGainPct", "L4b material axis: the best physics arm's error reduction, % of the twin's",

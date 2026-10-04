@@ -7,20 +7,6 @@
   "line_at_review": 15
  },
  {
-  "key": "rators are eliminated: over a [sixteenfold] increase in basis size DeepON",
-  "word": "sixteenfold",
-  "class": "DESIGN",
-  "reason": "p=8 to p=128 is the design grid; could be a DERIVED ratio",
-  "line_at_review": 29
- },
- {
-  "key": "field to [two] curves. \\ wi",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 44
- },
- {
   "key": " [one] breakthrough curve faster; th",
   "word": "one",
   "class": "PROSE",
@@ -357,13 +343,6 @@
   "line_at_review": 575
  },
  {
-  "key": "[ , ]. {Both [halves] of this matter and neither",
-  "word": "halves",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 600
- },
- {
   "key": " [One] row deserves its own sentence",
   "word": "One",
   "class": "PROSE",
@@ -404,13 +383,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 701
- },
- {
-  "key": "e every arm is flat. {B}~The [two] terms of a linear",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 713
  },
  {
   "key": "struction can fail in exactly [two] ways: the basis cannot repres",
@@ -1071,13 +1043,6 @@
   "line_at_review": 743
  },
  {
-  "key": "words declared in advance; [three] rest on a smaller design of",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "the rungs on the smaller design (L3, L5, the coordinate change), enumerated in Limitations",
-  "line_at_review": 21
- },
- {
   "key": "ery family has saturated, and [one] has not: the random forest",
   "word": "one",
   "class": "PROSE",
@@ -1230,5 +1195,54 @@
   "class": "DESIGN",
   "reason": "depth grid value 6 of the L2 sweep (design)",
   "line_at_review": 499
+ },
+ {
+  "key": "materials in [five] folds, a single split of , o",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the v2 design",
+  "line_at_review": 22
+ },
+ {
+  "key": "rison (legacy design). Over a [sixteenfold] ",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "p=8 to p=128 is the design grid",
+  "line_at_review": 26
+ },
+ {
+  "key": "pointwise regressor on [one] encoding --- but all of them",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'on one encoding' = a single shared encoding (structural)",
+  "line_at_review": 32
+ },
+ {
+  "key": "by \\,\\% at [one] searched weight, an effect th",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'at one searched weight' = a single weight (structural)",
+  "line_at_review": 34
+ },
+ {
+  "key": "Aligning the [two] adsorption fronts would buy",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two waves of the inflected isotherm (physics, design)",
+  "line_at_review": 39
+ },
+ {
+  "key": "ild on its exact size. {Both [halves] of this matter and neither ma",
+  "word": "halves",
+  "class": "PROSE",
+  "reason": "'both halves' of a statement (structural)",
+  "line_at_review": 687
+ },
+ {
+  "key": "s drawn as a level). {B}~The [two] terms of a linear",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two terms of a linear reconstruction (definition)",
+  "line_at_review": 804
  }
 ]
