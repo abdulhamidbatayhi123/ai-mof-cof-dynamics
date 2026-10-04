@@ -50,6 +50,16 @@ isotherm error, and observation model — can the adsorption rate LAW be discove
 breakthrough data, and does discoverability fail at the same boundary as classical
 parameter identifiability, or earlier?
 
+**Format decision (2026-10-04): a Registered Report.** The design is fully
+pre-registered and its outcome could fall either way, which is exactly what the RR
+format rewards: the Stage-1 manuscript (introduction, methods, analysis plan) is
+reviewed BEFORE the confirmatory grid runs, and in-principle acceptance commits the
+journal to publish whatever the map shows. It also turns the freeze into an external
+event rather than a commit message. Candidate venues offering RRs in computational
+science: Nature Communications, Royal Society Open Science, PLOS ONE (check scope and
+current RR policy before submitting). Draft in `paper2/stage1.tex`. The grid runs only
+after Stage-1 acceptance, or after the internal freeze if the author decides not to wait.
+
 **Why it is new (fetched evidence).** No paper maps rate-law discoverability over
 these axes (gap G1); Santana et al. 2023 (S1) is a single point with an exact isotherm
 at Da ≈ 0.9; Taylor et al. 2026 (S35) maps parameter sensitivity, not discovery.
