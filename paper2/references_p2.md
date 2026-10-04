@@ -6,9 +6,9 @@ Verification: each DOI fetched with `curl -s https://api.crossref.org/works/<DOI
 
 ## Summary
 
-- Sources cited: 51 (50 from the journal + the companion paper)
-- DOIs: 26 VERIFIED, 0 MISMATCH, 25 MISSING (no DOI in the journal)
-- arXiv ids: 31 VERIFIED, 0 MISMATCH, 20 MISSING (no arXiv id in the journal)
+- Sources cited: 53 (50 from the journal + the companion paper + 2 method references supplied by the coordinator for M5, not in the journal)
+- DOIs: 28 VERIFIED, 0 MISMATCH, 25 MISSING (no DOI given)
+- arXiv ids: 31 VERIFIED, 0 MISMATCH, 22 MISSING (no arXiv id given)
 - Sources with NO verified identifier: paper1
 
 ## Table
@@ -66,6 +66,8 @@ Verification: each DOI fetched with `curl -s https://api.crossref.org/works/<DOI
 | liu2024 | S25 | Ziming Liu; Yixuan Wang; Sachin Vaidya; Fabian Ruehle; James Halverson; Marin Soljačić; Thomas Y. Hou; Max Tegmark | KAN: Kolmogorov-Arnold Networks | ICLR 2025 (as shown on the arXiv page; journal entry S25) | 2024 | MISSING | MISSING | 2404.19756 | VERIFIED | arXiv: KAN: Kolmogorov-Arnold Networks |  |
 | slote2026 | S48 | Kevin Slote; Jeremie Fish; Erik Bollt | KANDy: Kolmogorov-Arnold Networks and Dynamical System Discovery | arXiv preprint arXiv:2602.20413 | 2026 | MISSING | MISSING | 2602.20413 | VERIFIED | arXiv: KANDy: Kolmogorov-Arnold Networks and Dynamical System Discovery |  |
 | spotorno2026 | S49 | Enzo Nicolas Spotorno; Josafat Leal Filho; Antonio Augusto Medeiros Frohlich | Empirical Stability Analysis of Kolmogorov-Arnold Networks in Hard-Constrained Recurrent Physics-Informed Discovery | arXiv preprint arXiv:2602.09988 | 2026 | MISSING | MISSING | 2602.09988 | VERIFIED | arXiv: Empirical Stability Analysis of Kolmogorov-Arnold Networks in Hard-Constrained Recurrent Physics-Informed Discovery |  |
+| golub1980 | -- (not in the journal; supplied 2026-10-04 for the M5 estimator) | Gene H. Golub; Charles F. van Loan | An Analysis of the Total Least Squares Problem | SIAM Journal on Numerical Analysis, vol. 17(6), 883-893 | 1980 | 10.1137/0717073 | VERIFIED | MISSING | MISSING | Crossref: An Analysis of the Total Least Squares Problem | DOI as supplied by the coordinator; Crossref title, journal, volume/issue/pages and year match the supplied record |
+| golub1987 | -- (not in the journal; supplied 2026-10-04 for the M5 estimator) | G.H. Golub; Alan Hoffman; G.W. Stewart | A generalization of the Eckart-Young-Mirsky matrix approximation theorem | Linear Algebra and its Applications, vol. 88-89, 317-327 | 1987 | 10.1016/0024-3795(87)90114-5 | VERIFIED | MISSING | MISSING | Crossref: A generalization of the Eckart-Young-Mirsky matrix approximation theorem | DOI as supplied by the coordinator; Crossref record matches (mixed LS-TLS reference) |
 
 ## Not cited, deliberately
 

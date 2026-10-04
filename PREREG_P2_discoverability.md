@@ -24,13 +24,15 @@ coincides with identifiability.
 
 ## 2. Hypotheses, each with its falsifier and pre-declared verdict words
 
-Let δ be the realised driving-force fraction, `max |q*(c,T) − q| / q_max` over the run
-(computed from ground truth), and ε_eff the combined relative error of the equilibrium
-the method is given (isotherm error ε) and of the observations (noise σ).
+Let δ be the realised driving-force fraction, `max |q*(c,T) − q| / q_max` over the
+observed points (computed from ground truth), and ε_eff the combined relative error of
+the equilibrium the method is given (isotherm error ε), of the observations (noise σ)
+and, on O2, of the uptake reconstruction (exact definitions in §4.2).
 
 **H2a — the boundary is a driving-force-versus-error boundary.** The probability of
 successful discovery, P(success), collapses onto one curve when plotted against
-R = δ / ε_eff, across Da, Pe, isotherm shape and observation model; the 50 % crossing
+R = δ / ε_eff, across Da, Pe, isotherm shape and observation model (O1, O2; O3 has no
+discovery method beyond M1's demonstration); the 50 % crossing
 lies at R* with a spread of **less than half a decade** across conditions.
 - *Falsifier:* R* spread ≥ one decade across conditions.
 - *Words:* "R collapses the boundary" / "R does not collapse the boundary; the
@@ -49,9 +51,10 @@ with its own bootstrap interval, and carry no verdict word.
   "discovery **outlives** identifiability" (Da*_disc > Da*_ident by ≥ MDE — the method
   finds the law's form where its coefficient is undetermined).
 
-**H2c — errors-in-variables methods move the boundary.** The best EIV method (§3,
-M5) shifts Da*_disc by at least a factor 2 relative to the best non-EIV method at
-ε > 0.
+**H2c — errors-in-variables methods move the boundary.** The EIV method on the grid
+(§3, M5) shifts Da*_disc by at least a factor 2 relative to the best non-EIV method at
+ε > 0. Like for like: both in the strong form (M5 is strong-form only), on O1; the
+best non-EIV method over both forms is reported alongside, descriptively.
 - *Falsifier:* shift below the MDE at every ε > 0. *Words:* "EIV moves the
   boundary by {factor}" / "EIV does not move the boundary detectably (MDE {x})".
 
@@ -85,7 +88,7 @@ known-answer-tested harness):
 | M5 | errors-in-variables. **On the grid: EIV best-subset** -- M4's exact enumeration with each support fitted by classical mixed LS-TLS (Golub, Hoffman & Stewart; TLS by SVD), every column weighted by its DECLARED error SD (σ × channel range; ε × q* plus its c-sensitivity; first-order propagation to products; the target's SD from the Savitzky-Golay filter's exact noise gain) -- `p2/eiv.py`, `p2_grid_extra.py m5`, full O1 grid, 20 replicates, strong form. ODR-BINDy (S13, port verified on its own Lorenz example) and WENDy-IRLS (S22) are reported on their own published examples only: both learn AUTONOMOUS ODE systems (every state denoised and given its own equation), while the target here is one rate equation with exogenous c, T inside a PDE and the dominant error in a regressor (the measured isotherm); extending them would be new method development. Decided 2026-10-04, before the freeze. Known-answer tests: TLS removes the attenuation bias OLS suffers; at zero error EIV best-subset recovers L1 with M4's support |
 | M6 | SINDy-PI (S21) for rational laws | run with Lib-A and NO measured isotherm, on the **isothermal control only** (exp(−ΔH/RT) is not polynomial); success = the implicit Langmuir–LDF structure {dq, c·dq, c, q, c·q} with correct signs; verified on the known-answer system (b, k recovered within 5 %) |
 | M7 | constrained symbolic regression (PySR, S23) | Julia installed in the isolated `.venv`, never the base environment. **Inclusion gate (written 2026-10-04, before any M7 search):** `p2_pilot_m7.py` runs PySR (binary +, −, ×; maxsize 12; 40 iterations; PySR's own "best" model selection) on the known-answer LDF system (k = 0.02; 0.5 % noise on q AND on the measured q*) for 3 seeds. M7 runs on its subgrid iff success_L1 holds in ≥ 2 of 3 seeds AND every search finishes within 30 min AND peak memory stays under 3 GB; otherwise it is reported as NOT RUN with the pilot's numbers -- infeasible on this machine, or failing its known-answer test, in those words. The pilot is queued behind Paper 1's runs because Julia's first-import precompilation does not fit in the memory left beside them |
-| M8 | KAN symbolic extraction (Liu et al.'s procedure, pykan 0.2.8; NOT a KANDy reimplementation -- its code was not opened) | secondary. **FAILS its known-answer test at zero noise in every configuration tried** (polynomial library at three sparsity penalties; raw variables on one and on three trajectories): it routes the law through q^2, uses q alone, or returns {1, q*, q*^2}. Per the rule above it is run on the grid in its best configuration (raw variables, lamb 1e-3) and reported as a documented negative, never dropped; the known-answer failure is reported alongside, so its grid null cannot be read as an identifiability result |
+| M8 | KAN symbolic extraction (Liu et al.'s procedure, pykan 0.2.8; NOT a KANDy reimplementation -- its code was not opened) | secondary. **FAILS its known-answer test at zero noise in every configuration tried** (polynomial library at three sparsity penalties; raw variables on one and on three trajectories): it routes the law through q^2, uses q alone, or returns {1, q*, q*^2}. Its grid run (best configuration: raw variables, lamb 1e-3; on a subgrid of all Da × σ ∈ {0.5 %, 2 %} × ε ∈ {0, 2 %} × both isotherms × Pe ×1 × O1, 3 replicates = 216 fits) was gated on cost: it runs iff one fit at the grid's size takes ≤ 300 s (≤ 18 h for the subgrid), a rule written in `p2_pilot_costs.py` before that pilot ran. **Measured 1144 s: M8 is NOT RUN on the grid** (§10), a machine limit; it is reported on its known-answer tests, as a documented negative, never dropped |
 | M9 | slow-manifold discovery (S15) | expected to win at high Da by returning isotherm + apparent dispersion; reported as *what is discoverable there* |
 
 A method that cannot be run in its strongest configuration is reported as such,
@@ -115,7 +118,7 @@ method is never run where its input does not exist):
 | | O1 (c, q, T interior) | O2 (c, T interior; q latent) | O3 (outlet only) |
 |---|---|---|---|
 | M2, M2b, M3, M4, M6, M8 (regression on q and dq/dt) | ✔ | ✘ — q unobserved | ✘ |
-| M5 EIV (ODR-BINDy, WENDy) | ✔ | ✘ | ✘ |
+| M5 EIV best-subset (mixed LS–TLS) | ✔ | ✘ | ✘ |
 | M7 PySR on (features → dq/dt) | ✔ | ✘ | ✘ |
 | M9 slow-manifold | ✔ | ✘ | ✘ |
 | M1 UDE (network in the uptake term, trained through the PDE) + sparse/symbolic readout | ✔ | ✔ | ✔ |
@@ -167,7 +170,7 @@ MIOSR — github.com/wesg52/pysindy-miosr (needs a Gurobi licence, hence M4's ex
 enumeration). A port to Python is acceptable only if it reproduces the original
 paper's published example to the reported accuracy, recorded in a results file.
 
-**ODR-BINDy port (2026-09-28, `p2/odr_bindy.py`, `results/odr_bindy_verification.json`).** On the authors' Lorenz example (500 points, 20 % noise) it recovers the exact 7-term support, but its relative coefficient error is 5.0e-3 against ~2.2e-3 read from the paper's Fig. 8 heatmap, and it runs ~26x slower (2385 s). Differences: Gauss-Newton with step-halving replaces lsqnonlin (SciPy least_squares, a trust-region copy and Levenberg-Marquardt all stalled on the ill-conditioned joint problem); only the default Hessian estimate is ported; the noise draw differs (MATLAB rng stream). **Status: NOT YET VERIFIED as the strongest configuration.** Before the freeze: run five noise seeds to separate single-run scatter from a real accuracy gap; if the multi-seed error still exceeds the reported figure, M5 is run and reported as 'port, accuracy below the reference', with the gap stated. The statistic compared is the MEAN relative coefficient error over the five seeds (the reported figure is itself a multi-run average), against 10^-2.65. **WENDy:** if no implementation is verified on its authors' own example before the freeze, WENDy is reported as NOT RUN, in those words; M5 then rests on ODR-BINDy alone.
+**ODR-BINDy port (2026-09-28, `p2/odr_bindy.py`, `results/odr_bindy_verification.json`).** On the authors' Lorenz example (500 points, 20 % noise) it recovers the exact 7-term support, but its relative coefficient error is 5.0e-3 against ~2.2e-3 read from the paper's Fig. 8 heatmap, and it runs ~26x slower (2385 s). Differences: Gauss-Newton with step-halving replaces lsqnonlin (SciPy least_squares, a trust-region copy and Levenberg-Marquardt all stalled on the ill-conditioned joint problem); only the default Hessian estimate is ported; the noise draw differs (MATLAB rng stream). **Status: NOT YET VERIFIED as the strongest configuration.** Before the freeze: run five noise seeds to separate single-run scatter from a real accuracy gap; if the multi-seed error still exceeds the reported figure, the PORT is reported as 'port, accuracy below the reference', with the gap stated (M5 on the grid is the EIV best-subset of §3, so this concerns the port's own verification only). The statistic compared is the MEAN relative coefficient error over the five seeds (the reported figure is itself a multi-run average), against 10^-2.65. **WENDy:** if no implementation is verified on its authors' own example before the freeze, WENDy is reported as NOT RUN, in those words; neither affects M5 on the grid.
 
 **Opened 2026-09-27:** ODR-BINDy (llfung) is MATLAB, requires R2024a+, ships
 Lorenz / Rössler / Van der Pol / nonlinear-oscillator examples and a LICENSE file;
@@ -214,7 +217,8 @@ the (Da, Pe, isotherm, law) solves — 81, done (`p2_generate.log`: 3–7 s per 
 the grid's k; the generator pilot measured up to ~300 s at k ≥ 0.03 s⁻¹; every solve
 reached 95 % breakthrough, some after the horizon was extended). This is ground truth,
 not a confirmatory result: no discovery method has seen it.
-Replicates: 20 independent (σ, ε) realisations per cell for M2–M6, M8, M9. M7 (a
+Replicates: 20 independent (σ, ε) realisations per cell for M2–M6, M9 (M8 is not run
+on the grid: see its row in §3). M7 (a
 Julia search per replicate, if its inclusion gate passes): 3 replicates on the subgrid
 all Da × σ ∈ {0.5 %, 2 %} × ε ∈ {0, 2 %} × both isotherms × Pe ×1 × **O1** (the only
 observation model M7 can see, per the applicability table). M1: the minimal
@@ -245,11 +249,11 @@ uptake against ground truth on the same cell. R = δ / ε_eff per cell.
   against log10 Da, by the logistic estimator of §4.4 (O1: 20 replicates per level,
   as for discovery).
 - **Success for the other targets (fixed before the freeze).** M9: support {q*_meas} with
-  coefficient 1 within 5 % (`p2/metric.py:success_manifold`). L2 (H2d, exploratory): the
-  state dependence is *discovered* when the selected support contains q*_meas and q AND
-  at least one q-product term (c·q or q²) whose sign makes the effective rate
-  coefficient of (q* − q) decrease with q; reported as a rate per cell, no boundary
-  hypothesis. Lib-A: held-out fidelity only (see §3).
+  coefficient 1 within 5 % (`p2/metric.py:success_manifold`). L2 (H2d): the operational rule
+  below. Lib-A: held-out fidelity only (see §3). M9's features: {1, c, T, c², q*_meas}
+  (q-free, the state q is the target). M6 on the isothermal control: library
+  {1, c, q, c·q, q², c²} (Lib-A without T, which is constant there), every σ, ε = 0
+  (M6 is given no isotherm, so isotherm error does not apply).
 - **The 'best method' and its selection.** Da*_disc is estimated per method per slice.
   H2a and H2b use the method with the largest Da*_disc in the slice. Because that choice
   is made on the same replicates, its interval is a bootstrap that resamples replicates
@@ -281,7 +285,8 @@ uptake against ground truth on the same cell. R = δ / ε_eff per cell.
 - **Da*_ident, estimated exactly like Da*_disc.** Per replicate, k is identifiable or
   not (the [k/2, 2k] criterion); P(identifiable) is fitted against log10 Da by the same
   logistic estimator and Da*_ident is its 50 % crossing, so the two boundaries in H2b
-  are measured by one estimator with the same resolution (MDE 0.25 decade).
+  are measured by one estimator with the same resolution on O1 (MDE 0.25 decade, at
+  20 replicates per level; O2/O3 identifiability has 3 and is descriptive).
 - **Mechanistic predictors:** δ from ground truth; condition number of the library
   Gram matrix and its smallest eigenvalue (S11, S53) per cell.
 
@@ -339,7 +344,7 @@ No discovery method is run before the freeze.
 4. Grid: the exit curve changes ≤ 0.11 % between N_z 400 and 800 at every k tested
    (10⁻⁴–10 s⁻¹), so N_z = 400 is adequate; the harness's 2 % tolerance is met with
    margin. Cost at N_z 400: 2–20 s for k ≤ 10⁻², rising to ~15 min at k = 3–10 s⁻¹
-   (stiffness). The ~80 ground-truth solves are therefore ≲ 10 h worst case.
+   (stiffness). The 81 ground-truth solves (done) took 3–7 s each at the grid's k.
 5. **M1b verification (2026-09-28, a fresh solver run, not a grid cell).** From dense
    exact c (N_z = 200), the gas-balance inversion recovers q to ≤ 3 % of q_max (median
    error 0.013 against a median driving force 0.18; unchanged at N_z = 800, so not
@@ -397,6 +402,13 @@ the code; each fixed here, in the open, rather than silently:
 19. The observation model's exact settings written here (20 probes, 200 times, the
     4-mode isotherm error).
 20. M5's five-seed statistic fixed (mean), and WENDy's NOT-RUN rule stated.
+Third pass, same day (from the re-synced Stage-1 draft): the M5, M8 and L2 rules each
+appeared in two versions after the second pass; the old ones removed (M5 = EIV
+best-subset on the grid, the ODR-BINDy port and WENDy on their own examples only; M8's
+subgrid and 300 s cost rule written into its row, and its NOT RUN outcome; one L2
+rule). δ over the observed points; H2a's observation models named (O1, O2); H2c made
+like-for-like (strong form, O1); M6's and M9's exact libraries and M6's ε = 0 stated;
+the O1 restriction of the 0.25-decade MDE stated; stale cost numbers removed.
 Second pass, same day (from the revised Stage-1 draft): one Da*_ident definition (the
 logistic crossing); H2b confirmatory on O1 only, O2/O3 descriptive; H2a slices by (Pe,
 isotherm, observation) with σ, ε inside R, O3 excluded; ε_rec defined; L2 success made
@@ -415,11 +427,10 @@ single rate law with exogenous inputs and regressor error; H2c is tested with it
 (listed in the table) -- DONE 2026-10-04 (`p2/identifiability.py:profile_interval_probes`,
 `p2_grid_o23.py o2ident`, known-answer test). **Grid runners still owed** (found by
 checking the drivers against §3: they run only M2/M2b, M3 and M4): M6 on the
-isothermal control, M9, M8 (best configuration), M5 (ODR-BINDy, with a cost gate: one
-verification run took ~40 min), M7 (behind its inclusion gate), and the L2 cells for
-H2d. Each is wired, with a declared per-cell cost bound, before the freeze; a method
-whose cost bound cannot be met on the declared grid runs on a declared subgrid or is
-reported NOT RUN, in those words. Done 2026-10-04: the
+isothermal control, M9, M8, M5, M7 and the L2 cells -- ALL WIRED 2026-10-04
+(`p2_grid_extra.py` m5/m6/m7/m8/m9/l2; every runner refuses to start before the freeze):
+M5 as EIV best-subset (no cost gate needed: linear algebra), M7 behind its inclusion
+gate, M8 behind its cost gate (which it failed: NOT RUN on the grid). Done 2026-10-04: the
 isothermal-control ground truth (9 cells in `data/p2`; isotherm at T_in identical to
 the Langmuir cells, max |T - T_in| = 0, all reached 95 % breakthrough); the L2 success
 metric and the Lib-A fidelity metric (`p2/metric.py`, tested).
