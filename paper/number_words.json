@@ -1573,5 +1573,19 @@
   "class": "DESIGN",
   "reason": "the two waves of the inflected isotherm (physics, design)",
   "line_at_review": 29
+ },
+ {
+  "key": "(Figure~ ), on the [four] axes that are properties of t",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "the four intrinsic quantities placed (step, capacity, heat, Henry fraction)",
+  "line_at_review": 570
+ },
+ {
+  "key": "below the sampled floor of ; [one] reported heat",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one reported heat' = a single source's value (structural)",
+  "line_at_review": 582
  }
 ]

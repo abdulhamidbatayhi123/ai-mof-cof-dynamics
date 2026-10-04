@@ -1,0 +1,445 @@
+{
+  "_meta": {
+    "purpose": "Literature placement of real water-harvesting adsorbents in the 11-parameter design space (design v2) for a referee figure/table.",
+    "compiled": "2026-10-04",
+    "design_v2_ranges": {
+      "RH_step": [0.08, 0.45],
+      "q_max_mol_per_kg": [8, 30],
+      "dH_ads_kJ_per_mol": [-60, -38],
+      "henry_fraction": [0.03, 0.25],
+      "cooperativity_n": [1, 6],
+      "particle_diameter_mm": [1.5, 5],
+      "particle_density_kg_m3": [700, 1400],
+      "bed_porosity": [0.30, 0.48]
+    },
+    "conventions": {
+      "conversion_g_per_g": "mol/kg = (g H2O / g sorbent) / 0.0180153 kg/mol",
+      "conversion_cm3STP_per_g": "mol/kg = (cm3 STP / g) / 22.414",
+      "heat_sign": "Literature isosteric heats are reported as positive magnitudes; our dH_ads is negative (exothermic), so dH_ads = -Qst.",
+      "henry_fraction_estimate": "uptake just below the step / uptake at p/p0 ~ 0.9 (or the stated maximum); an estimate, not a fitted parameter.",
+      "step_definitions_differ": "Sources define the step differently: 'inflection point', 'alpha' (p/p0 at half of total capacity), or the midpoint of the steep rise read from a figure. Values are recorded as given and labelled.",
+      "read_from_figure": "Values labelled 'read from figure' were read by eye from rendered figures of the open-access PDFs; uncertainty roughly +/-0.01-0.02 in p/p0 and +/-10-20 cm3 STP/g in uptake.",
+      "not_sourced": "cooperativity_n, particle_diameter, particle_density and bed_porosity are not intrinsic material properties of these MOFs and were not searched for; they depend on the shaped body/bed."
+    }
+  },
+  "sources": {
+    "10.1021/acscentsci.9b00745": {
+      "citation": "Hanikel, N.; Prevot, M. S.; Fathieh, F.; Kapustin, E. A.; Lyu, H.; Wang, H.; Diercks, N. J.; Glover, T. G.; Yaghi, O. M. Rapid Cycling and Exceptional Yield in a Metal-Organic Framework Water Harvester. ACS Cent. Sci. 2019, 5, 1699-1706.",
+      "crossref_title": "Rapid Cycling and Exceptional Yield in a Metal-Organic Framework Water Harvester",
+      "crossref_authors": "Hanikel, Prevot, Fathieh, Kapustin, Lyu, Wang, Diercks, Glover, Yaghi",
+      "crossref_container": "ACS Central Science (2019)",
+      "access": "open access; PDF read from yaghi.berkeley.edu/pdfPublications/19RapidWaterHarvest.pdf (publisher-typeset version, DOI printed on each page)"
+    },
+    "10.1126/sciadv.aat3198": {
+      "citation": "Fathieh, F.; Kalmutzki, M. J.; Kapustin, E. A.; Waller, P. J.; Yang, J.; Yaghi, O. M. Practical water production from desert air. Sci. Adv. 2018, 4, eaat3198.",
+      "crossref_title": "Practical water production from desert air",
+      "crossref_authors": "Fathieh, Kalmutzki, Kapustin, Waller, Yang, Yaghi",
+      "crossref_container": "Science Advances (2018)",
+      "access": "open access, read via PMC5993474"
+    },
+    "10.1021/ja500330a": {
+      "citation": "Furukawa, H.; Gandara, F.; Zhang, Y.-B.; Jiang, J.; Queen, W. L.; Hudson, M. R.; Yaghi, O. M. Water Adsorption in Porous Metal-Organic Frameworks and Related Materials. J. Am. Chem. Soc. 2014, 136, 4369-4381.",
+      "crossref_title": "Water Adsorption in Porous Metal-Organic Frameworks and Related Materials",
+      "crossref_authors": "Furukawa, Gandara, Zhang, Jiang, Queen, Hudson, Yaghi",
+      "crossref_container": "Journal of the American Chemical Society (2014)",
+      "access": "publisher-typeset PDF posted on the Yaghi group site (yaghi.berkeley.edu/pdfPublications/14-watermofs.pdf); not formally OA at the publisher"
+    },
+    "10.1021/acs.langmuir.0c02729": {
+      "citation": "Solovyeva, M. V.; Shkatulov, A. I.; Gordeeva, L. G.; Fedorova, E. A.; Krieger, T. A.; Aristov, Y. I. Water Vapor Adsorption on CAU-10-X: Effect of Functional Groups on Adsorption Equilibrium and Mechanisms. Langmuir 2021, 37, 693-702.",
+      "crossref_title": "Water Vapor Adsorption on CAU-10-X: Effect of Functional Groups on Adsorption Equilibrium and Mechanisms",
+      "crossref_authors": "Solovyeva, Shkatulov, Gordeeva, Fedorova, Krieger, Aristov",
+      "crossref_container": "Langmuir (2021)",
+      "access": "open access, PMC7880571 (read via Europe PMC full-text XML and PMC page)"
+    },
+    "10.1039/c6ta01757f": {
+      "citation": "Frohlich, D.; Pantatosaki, E.; Kolokathis, P. D.; Markey, K.; Reinsch, H.; Baumgartner, M.; van der Veen, M. A.; De Vos, D. E.; Stock, N.; Papadopoulos, G. K.; Henninger, S. K.; Janiak, C. Water adsorption behaviour of CAU-10-H: a thorough investigation of its structure-property relationships. J. Mater. Chem. A 2016, 4, 11859-11869.",
+      "crossref_title": "Water adsorption behaviour of CAU-10-H: a thorough investigation of its structure-property relationships",
+      "crossref_authors": "Frohlich, Pantatosaki, Kolokathis, Markey, Reinsch, Baumgartner, van der Veen, De Vos, Stock, Papadopoulos, Henninger, Janiak",
+      "crossref_container": "Journal of Materials Chemistry A (2016)",
+      "access": "open access (CC BY-NC 3.0); final published version read from TU Delft repository"
+    },
+    "10.3390/en13113003": {
+      "citation": "Laurenz, E.; Fuldner, G.; Schnabel, L.; Schmitz, G. A Novel Approach for the Determination of Sorption Equilibria and Sorption Enthalpy Used for MOF Aluminium Fumarate with Water. Energies 2020, 13, 3003.",
+      "crossref_title": "A Novel Approach for the Determination of Sorption Equilibria and Sorption Enthalpy Used for MOF Aluminium Fumarate with Water",
+      "crossref_authors": "Laurenz, Fuldner, Schnabel, Schmitz",
+      "crossref_container": "Energies (2020)",
+      "access": "open access; only the abstract was read (via RePEc/IDEAS); mdpi.com returned HTTP 403"
+    },
+    "10.3390/en14123586": {
+      "citation": "Solovyeva, M.; Krivosheeva, I.; Gordeeva, L.; Aristov, Y. MIL-160 as an Adsorbent for Atmospheric Water Harvesting. Energies 2021, 14, 3586.",
+      "crossref_title": "MIL-160 as an Adsorbent for Atmospheric Water Harvesting",
+      "crossref_authors": "Solovyeva, Krivosheeva, Gordeeva, Aristov",
+      "crossref_container": "Energies (2021)",
+      "access": "open access (CC BY); publisher PDF read from the LAPSE mirror (psecommunity.org, LAPSE-2023.33028)"
+    },
+    "10.1021/acsomega.5c11973": {
+      "citation": "Aumond, T.; Bonneau, M.; Daniel, C.; Perbet, M.; Meunier, F.; Farrusseng, D. Adsorption Performances of Water-Stable MIL-160(Al) at Scale: An Alternative to FAM-Z02 in Water Harvesting and Chillers. ACS Omega 2026, 11, 16294-16299.",
+      "crossref_title": "Adsorption Performances of Water-Stable MIL-160(Al) at Scale: An Alternative to FAM-Z02 in Water Harvesting and Chillers",
+      "crossref_authors": "Aumond, Bonneau, Daniel, Perbet, Meunier, Farrusseng",
+      "crossref_container": "ACS Omega (2026)",
+      "access": "open access, PMC13000597 (read via Europe PMC full-text XML)"
+    },
+    "10.1038/s41467-019-10960-0": {
+      "citation": "Lenzen, D.; Zhao, J.; Ernst, S.-J.; Wahiduzzaman, M.; Inge, A. K.; Frohlich, D.; Xu, H.; Bart, H.-J.; Janiak, C.; Henninger, S.; Maurin, G.; Zou, X.; Stock, N. A metal-organic framework for efficient water-based ultra-low-temperature-driven cooling. Nat. Commun. 2019, 10, 3025.",
+      "crossref_title": "A metal-organic framework for efficient water-based ultra-low-temperature-driven cooling",
+      "crossref_authors": "Lenzen, Zhao, Ernst, Wahiduzzaman, Ken Inge, Frohlich, Xu, Bart, Janiak, Henninger, Maurin, Zou, Stock",
+      "crossref_container": "Nature Communications (2019)",
+      "access": "open access, PMC6616384. Used only as a SECONDARY statement for MIL-160 (it cites Permyakova 2017 / Cadiau 2015)."
+    },
+    "10.1021/acscentsci.7b00186": {
+      "citation": "Rieth, A. J.; Yang, S.; Wang, E. N.; Dinca, M. Record Atmospheric Fresh Water Capture and Heat Transfer with a Material Operating at the Water Uptake Reversibility Limit. ACS Cent. Sci. 2017, 3, 668-672.",
+      "crossref_title": "Record Atmospheric Fresh Water Capture and Heat Transfer with a Material Operating at the Water Uptake Reversibility Limit",
+      "crossref_authors": "Rieth, Yang, Wang, Dinca",
+      "crossref_container": "ACS Central Science (2017)",
+      "access": "open access, PMC5492259 (text via Europe PMC full-text XML; figure images from Europe PMC supplementary-files bundle)"
+    }
+  },
+  "materials": {
+    "MOF-303": {
+      "formula": "Al(OH)(PZDC), PZDC = 1H-pyrazole-3,5-dicarboxylate",
+      "RH_step": [
+        {
+          "value": 0.12, "unit": "p/p0 (inflection)", "converted": 0.12, "temperature_C": 30,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "p. B, Results and Discussion, first paragraph; isotherm in Figure 1a (30 C)",
+          "quote_or_how_read": "\"39 wt% at 20% RH and an inflection point at ~12% RH\"; Fig. 1a caption: isotherm at 30 C. Read from figure: steep rise ~0.08-0.18, midpoint ~0.13.",
+          "confidence": "high"
+        },
+        {
+          "value": 0.15, "unit": "p/p0 (inflection)", "converted": 0.15, "temperature_C": null,
+          "source_doi": "10.1126/sciadv.aat3198",
+          "location": "Results, paragraph introducing MOF-303 (Fig. 4)",
+          "quote_or_how_read": "\"The type IV isotherm has an inflection point at P/P0 = 0.15\"; the sentence gives no temperature (Fig. 4B shows MOF-303/G at 15, 25 and 85 C).",
+          "confidence": "medium"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 550, "unit": "cm3 STP/g at p/p0 = 0.9", "converted": 24.5, "converted_unit": "mol/kg", "temperature_C": 30,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "Figure 1a (also Figure 2)",
+          "quote_or_how_read": "read from figure: adsorption branch ~545-555 cm3 STP/g at p/p0 = 0.9 (~0.44 g/g)",
+          "confidence": "medium"
+        },
+        {
+          "value": 0.48, "unit": "g/g (stated maximum capacity)", "converted": 26.6, "converted_unit": "mol/kg", "temperature_C": null,
+          "source_doi": "10.1126/sciadv.aat3198",
+          "location": "Results, paragraph introducing MOF-303",
+          "quote_or_how_read": "\"a large maximum water capture capacity of 0.48 g g-1\"",
+          "confidence": "high"
+        },
+        {
+          "value": 0.39, "unit": "g/g at 20% RH (end of step)", "converted": 21.6, "converted_unit": "mol/kg", "temperature_C": 30,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "p. B, Results and Discussion, first paragraph",
+          "quote_or_how_read": "\"a water uptake of 39 wt% at 20% RH\"",
+          "confidence": "high"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": 52, "unit": "kJ/mol (isosteric, magnitude)", "converted": -52, "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": null,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "p. B, Results and Discussion, first paragraph (data in SI Figure S25)",
+          "quote_or_how_read": "\"an isosteric heat of adsorption of ~52 kJ mol-1 (Figure S25)\"",
+          "confidence": "high"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 95, "unit": "cm3 STP/g at p/p0 ~ 0.08", "converted": 4.2, "converted_unit": "mol/kg", "temperature_C": 30,
+        "source_doi": "10.1021/acscentsci.9b00745",
+        "location": "Figure 1a",
+        "quote_or_how_read": "read from figure: shoulder of ~90-100 cm3 STP/g just before the steep rise at p/p0 ~ 0.08",
+        "henry_fraction_estimate": 0.17,
+        "henry_fraction_basis": "95 / 550 (uptake at p/p0 = 0.9)",
+        "confidence": "low"
+      }
+    },
+    "MOF-801": {
+      "formula": "Zr6O4(OH)4(fumarate)6; values are for the microcrystalline powder MOF-801-P",
+      "RH_step": [
+        {
+          "value": 0.07, "unit": "p/p0 (midpoint of steep rise)", "converted": 0.07, "temperature_C": 25,
+          "source_doi": "10.1021/ja500330a",
+          "location": "p. 4375, section on group-1 MOFs; Figure 6a (25 C)",
+          "quote_or_how_read": "Text (for MOF-801-SC, 'similar trend' for -P): \"abrupt water uptake in the pressure range from P/P0 = 0.05 to 0.1\". Read from Fig. 6a: MOF-801-P midpoint ~0.065-0.07.",
+          "confidence": "medium"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 0.36, "unit": "g/g at p/p0 = 0.9 (450 cm3 STP/g)", "converted": 20.0, "converted_unit": "mol/kg", "temperature_C": 25,
+          "source_doi": "10.1021/ja500330a",
+          "location": "p. 4375, right column; Figure 6a; Table 1",
+          "quote_or_how_read": "\"[450 cm3 g-1 (36 wt %) at P/P0 = 0.9]\" for MOF-801-P",
+          "confidence": "high"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": 60, "unit": "kJ/mol (Qst, approximate)", "converted": -60, "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": "15-55 (isotherm set)",
+          "source_doi": "10.1021/ja500330a",
+          "location": "Section 4, Temperature Dependency of Water Uptake (SI Figures S52-S53)",
+          "quote_or_how_read": "\"The Qst value for MOF-801-P is even greater ... approximately 60 kJ mol-1.\"",
+          "confidence": "high"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 30, "unit": "cm3 STP/g at p/p0 ~ 0.03-0.04", "converted": 1.3, "converted_unit": "mol/kg", "temperature_C": 25,
+        "source_doi": "10.1021/ja500330a",
+        "location": "Figure 6a",
+        "quote_or_how_read": "read from figure: red squares (MOF-801-P) at ~30 cm3/g before the rise",
+        "henry_fraction_estimate": 0.07,
+        "henry_fraction_basis": "30 / 450",
+        "confidence": "low"
+      }
+    },
+    "CAU-10-H": {
+      "formula": "Al(OH)(isophthalate)",
+      "RH_step": [
+        {
+          "value": 0.205, "unit": "p/p0 (centre of the stated step range 0.19-0.22)", "converted": 0.205, "temperature_C": "characteristic curve from isobars at 7.6-42.0 mbar (P0 at 3-30 C); Polanyi temperature invariance",
+          "source_doi": "10.1021/acs.langmuir.0c02729",
+          "location": "Results, Water Adsorption Equilibrium (Figure 3a)",
+          "quote_or_how_read": "\"At P/P0 = 0.19 to 0.22, the jump in uptake up to w = 0.25 g/g is observed\"",
+          "confidence": "medium"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 0.325, "unit": "g/g at p/p0 = 0.8 (stated 0.32-0.33)", "converted": 18.0, "converted_unit": "mol/kg", "temperature_C": "characteristic curve (see above)",
+          "source_doi": "10.1021/acs.langmuir.0c02729",
+          "location": "Results, Water Adsorption Equilibrium",
+          "quote_or_how_read": "\"smooth rise of uptake occurs up to w = 0.32-0.33 g/g at P/P0 = 0.8\"",
+          "confidence": "high"
+        },
+        {
+          "value": 0.335, "unit": "g/g (pure powder, maximal loading; stated 0.33-0.34)", "converted": 18.6, "converted_unit": "mol/kg", "temperature_C": null,
+          "source_doi": "10.1039/c6ta01757f",
+          "location": "p. 11861, Results, Water uptake and stability characteristics",
+          "quote_or_how_read": "\"maximum pure powder capacity (i.e. 0.33-0.34 g g-1) at maximal loading\"",
+          "confidence": "high"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": 52, "unit": "kJ/mol (plateau 'slightly over 50', ~56 at low loading)", "converted": -52, "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": null,
+          "source_doi": "10.1039/c6ta01757f",
+          "location": "p. 11864, Heat of adsorption section; Figure 10",
+          "quote_or_how_read": "\"with a plateau of slightly over 50 kJ mol-1 between 0.06 and 0.28 g g-1\"; starts at ~56 kJ/mol at low loading",
+          "confidence": "high"
+        },
+        {
+          "value": 61, "unit": "kJ/mol (+/-3, at the step, w = 0.25 g/g); initial and final values ~52", "converted": -61, "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": null,
+          "source_doi": "10.1021/acs.langmuir.0c02729",
+          "location": "Results/Discussion, isosteric heat (Figure 4a)",
+          "quote_or_how_read": "\"61 +/- 3 kJ/mol is observed at w = 0.25 g/g\"",
+          "confidence": "medium"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 0.01, "unit": "g/g (upper bound) at p/p0 < 0.18", "converted": 0.56, "converted_unit": "mol/kg (upper bound)", "temperature_C": "characteristic curve",
+        "source_doi": "10.1021/acs.langmuir.0c02729",
+        "location": "Results/Discussion",
+        "quote_or_how_read": "\"At P/P0 < 0.18, the uptake w does not exceed 0.01 g/g\"",
+        "henry_fraction_estimate": 0.03,
+        "henry_fraction_basis": "<= 0.01 / 0.325 (upper bound)",
+        "confidence": "medium"
+      }
+    },
+    "Al-fumarate (Basolite A520)": {
+      "formula": "Al(OH)(fumarate)",
+      "RH_step": [
+        {
+          "value": 0.265, "unit": "p/p0 (midpoint of steep rise)", "converted": 0.265, "temperature_C": 30,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "Figure 2 (Basolite A520, BASF), isotherms at 30 C",
+          "quote_or_how_read": "read from figure: adsorption branch rises between p/p0 ~0.23 and ~0.30, midpoint ~0.26-0.27",
+          "confidence": "medium"
+        },
+        {
+          "value": 0.25, "unit": "p_rel (inflection point)", "converted": 0.25, "temperature_C": 30,
+          "source_doi": "10.3390/en13113003",
+          "location": "Abstract (binder-based coating, not powder)",
+          "quote_or_how_read": "\"inflection point at p rel ~ 0.25, 0.28 and 0.33 for 30 C, 40 C and 60 C\"",
+          "confidence": "high"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 515, "unit": "cm3 STP/g at p/p0 = 0.9", "converted": 23.0, "converted_unit": "mol/kg", "temperature_C": 30,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "Figure 2",
+          "quote_or_how_read": "read from figure: purple adsorption branch ~510-520 cm3 STP/g at p/p0 = 0.9 (~0.41 g/g)",
+          "confidence": "medium"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": 52.2, "unit": "kJ/mol (differential enthalpy, average; +/-1.0)", "converted": -52.2, "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": "30-60",
+          "source_doi": "10.3390/en13113003",
+          "location": "Abstract",
+          "quote_or_how_read": "\"2.90 +/- 0.05 MJ/kg (52.2 +/- 1.0 kJ/mol) on average\"",
+          "confidence": "high"
+        },
+        {
+          "value": "50-54", "unit": "kJ/mol (range stated jointly for MOF-303, Al-fumarate, SAPO-34)", "converted": "-54 to -50", "converted_unit": "kJ/mol", "temperature_C": null,
+          "source_doi": "10.1021/acscentsci.9b00745",
+          "location": "p. B, Results and Discussion (SI Section S3.2)",
+          "quote_or_how_read": "\"exhibited moderate heats of adsorption (50-54 kJ mol-1, see Section S3.2...)\"",
+          "confidence": "medium"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 25, "unit": "cm3 STP/g at p/p0 ~ 0.2", "converted": 1.1, "converted_unit": "mol/kg", "temperature_C": 30,
+        "source_doi": "10.1021/acscentsci.9b00745",
+        "location": "Figure 2",
+        "quote_or_how_read": "read from figure: adsorption branch ~10-30 cm3/g for p/p0 0.05-0.2",
+        "henry_fraction_estimate": 0.05,
+        "henry_fraction_basis": "25 / 515",
+        "confidence": "low"
+      }
+    },
+    "MIL-160(Al)": {
+      "formula": "Al(OH)(2,5-furandicarboxylate)",
+      "RH_step": [
+        {
+          "value": 0.085, "unit": "p/p0 (midpoint of steep rise)", "converted": 0.085, "temperature_C": 20,
+          "source_doi": "10.3390/en14123586",
+          "location": "Figure 4 (isotherms at 20, 35, 50 C, x-axis absolute pressure in mbar)",
+          "quote_or_how_read": "read from figure: half-step (~0.16 g/g) at ~2.0 mbar at 20 C (P0 = 23.4 mbar -> 0.085) and ~5 mbar at 35 C (P0 = 56.3 mbar -> 0.089). Cross-check: the paper's fitted characteristic-curve centre x02 = 6.268 kJ/mol gives p/p0 = 0.080 at 25 C.",
+          "confidence": "medium"
+        },
+        {
+          "value": 0.09, "unit": "p/p0 at half of total capacity ('alpha')", "converted": 0.09, "temperature_C": 20,
+          "source_doi": "10.1021/acsomega.5c11973",
+          "location": "Results, Table 1 and Figure 1a",
+          "quote_or_how_read": "\"the alpha parameters are 0.07 for FAM-Z02 and 0.09 for MIL-160\"",
+          "confidence": "high"
+        },
+        {
+          "value": 0.08, "unit": "p/p0 (secondary statement)", "converted": 0.08, "temperature_C": 25,
+          "source_doi": "10.1038/s41467-019-10960-0",
+          "location": "Introduction (cites Permyakova 2017, 10.1002/cssc.201700164, and Cadiau 2015, 10.1002/adma.201502418)",
+          "quote_or_how_read": "\"steep water uptake at a lower relative humidity value (p/p0 = 0.08, 25 C)\". SECONDARY; the cited primary papers are paywalled and were not read.",
+          "confidence": "medium"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 0.34, "unit": "g/g (stated maximum)", "converted": 18.9, "converted_unit": "mol/kg", "temperature_C": "20-50",
+          "source_doi": "10.3390/en14123586",
+          "location": "Section 3.2 and Conclusions; Figure 4",
+          "quote_or_how_read": "\"the uptake gradually rose to 0.34 gH2O/gads\"",
+          "confidence": "high"
+        },
+        {
+          "value": 24.1, "unit": "mmol/g (plateau; 434 g/kg)", "converted": 24.1, "converted_unit": "mol/kg", "temperature_C": 20,
+          "source_doi": "10.1021/acsomega.5c11973",
+          "location": "Results (Figure 1a) and Abstract",
+          "quote_or_how_read": "\"a total amount of 18.0 mmol g-1 for FAM-Z02 and 24.1 mmol g-1 for MIL-160\"",
+          "confidence": "high"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": "49-52", "unit": "kJ/mol (+/-1, at w = 0.05-0.25 g/g)", "converted": "-52 to -49", "converted_unit": "kJ/mol (our dH_ads)", "temperature_C": "20-50",
+          "source_doi": "10.3390/en14123586",
+          "location": "Section 3.2, Figure 5b; Conclusions",
+          "quote_or_how_read": "\"varied in the range of 49 to 52 +/- 1 kJ/mol at w = 0.05-0.25 g/g\"",
+          "confidence": "high"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 0.02, "unit": "g/g at low pressure", "converted": 1.1, "converted_unit": "mol/kg", "temperature_C": "20-50",
+        "source_doi": "10.3390/en14123586",
+        "location": "Section 3.2",
+        "quote_or_how_read": "\"showing a small water uptake (0.02 gH2O/gads) at low pressures\"",
+        "henry_fraction_estimate": 0.06,
+        "henry_fraction_basis": "0.02 / 0.34",
+        "confidence": "medium"
+      }
+    },
+    "Co2Cl2(BTDD)": {
+      "formula": "Co2Cl2(BTDD), BTDD = bis(1H-1,2,3-triazolo[4,5-b],[4',5'-i])dibenzo[1,4]dioxin; compound '2' in the source",
+      "RH_step": [
+        {
+          "value": 0.28, "unit": "p/p0 (step)", "converted": 0.28, "temperature_C": 25,
+          "source_doi": "10.1021/acscentsci.7b00186",
+          "location": "Main text, isotherm paragraph; Figure 2A (298 K)",
+          "quote_or_how_read": "\"a step in the uptake at approximately 0.28 P/Po (equivalent to RH = 28%)\"",
+          "confidence": "high"
+        }
+      ],
+      "q_sat": [
+        {
+          "value": 0.968, "unit": "g/g at 94% RH", "converted": 53.7, "converted_unit": "mol/kg", "temperature_C": 25,
+          "source_doi": "10.1021/acscentsci.7b00186",
+          "location": "Main text, isotherm paragraph; Figure 2A",
+          "quote_or_how_read": "\"At 94% RH, the total water uptakes for 2 and 3 are 0.968 g g-1\"",
+          "confidence": "high"
+        }
+      ],
+      "heat_of_adsorption": [
+        {
+          "value": 55, "unit": "kJ/mol at zero coverage; 45.8 during pore filling", "converted": -55, "converted_unit": "kJ/mol (our dH_ads; -45.8 during pore filling)", "temperature_C": null,
+          "source_doi": "10.1021/acscentsci.7b00186",
+          "location": "Main text, thermodynamics paragraph (SI Figure S7)",
+          "quote_or_how_read": "\"approximately 55 kJ mol-1 at zero coverage and falls to 45.8 kJ mol-1 during pore filling\"",
+          "confidence": "high"
+        }
+      ],
+      "uptake_below_step": {
+        "value": 0.18, "unit": "g/g at p/p0 ~ 0.27", "converted": 10.0, "converted_unit": "mol/kg", "temperature_C": 25,
+        "source_doi": "10.1021/acscentsci.7b00186",
+        "location": "Figure 3A (25 C adsorption branch)",
+        "quote_or_how_read": "read from figure: 25 C adsorption branch ~0.17-0.18 g/g just before the step; text attributes it to \"cluster adsorption around the open metal sites\"",
+        "henry_fraction_estimate": 0.19,
+        "henry_fraction_basis": "0.18 / 0.96 (uptake at p/p0 = 0.9 read from Fig. 3A)",
+        "confidence": "medium"
+      }
+    }
+  },
+  "range_check": {
+    "RH_step [0.08, 0.45]": {
+      "MOF-303": "inside (0.12-0.15)",
+      "MOF-801": "just below the lower edge (~0.07; step spans 0.05-0.10)",
+      "CAU-10-H": "inside (0.19-0.22)",
+      "Al-fumarate": "inside (0.25-0.27)",
+      "MIL-160(Al)": "at the lower edge (0.08-0.09)",
+      "Co2Cl2(BTDD)": "inside (0.28)"
+    },
+    "q_max [8, 30] mol/kg": {
+      "MOF-303": "inside (21.6-26.6)",
+      "MOF-801": "inside (20.0)",
+      "CAU-10-H": "inside (18.0-18.6)",
+      "Al-fumarate": "inside (23.0, read from figure)",
+      "MIL-160(Al)": "inside (18.9-24.1)",
+      "Co2Cl2(BTDD)": "OUTSIDE (53.7)"
+    },
+    "dH_ads [-60, -38] kJ/mol": {
+      "MOF-303": "inside (-52)",
+      "MOF-801": "at the lower edge (~-60)",
+      "CAU-10-H": "inside (-50 to -56, Frohlich 2016); the Solovyeva 2021 step value -61 +/- 3 is just outside",
+      "Al-fumarate": "inside (-50 to -54)",
+      "MIL-160(Al)": "inside (-49 to -52)",
+      "Co2Cl2(BTDD)": "inside (-55 to -45.8)"
+    },
+    "henry_fraction [0.03, 0.25]": {
+      "MOF-303": "inside (~0.17, low confidence)",
+      "MOF-801": "inside (~0.07, low confidence)",
+      "CAU-10-H": "at or below the lower edge (<= 0.03)",
+      "Al-fumarate": "inside (~0.05, low confidence)",
+      "MIL-160(Al)": "inside (~0.06)",
+      "Co2Cl2(BTDD)": "inside (~0.19)"
+    }
+  },
+  "not_found_or_not_read": [
+    "Cadiau et al. Adv. Mater. 2015 (10.1002/adma.201502418) and Permyakova et al. ChemSusChem 2017 (10.1002/cssc.201700164), the original MIL-160 papers, are paywalled (Unpaywall/Semantic Scholar: closed) and were not read. MIL-160 values come from later open-access primary measurements plus one secondary statement (Lenzen 2019).",
+    "Reinsch et al. Chem. Mater. 2013 (10.1021/cm3025445), the original CAU-10-H isotherm, was not read (the repository copy listed by Unpaywall shows 'No access').",
+    "Frohlich, Henninger, Janiak Dalton Trans. 2014 (10.1039/c4dt02264e) and Jeremias et al. RSC Adv. 2014 (10.1039/c4ra03794d) are open access at RSC, but pubs.rsc.org returned HTTP 403 to automated fetches; not read.",
+    "Laurenz et al. Energies 2020: only the abstract was read (mdpi.com returned 403); its saturation uptake and below-step uptake were not extracted.",
+    "Isosteric heat of Al-fumarate powder in Hanikel 2019 is given only as a joint 50-54 kJ/mol range for three materials.",
+    "No source gives an explicit numeric 'uptake just below the step' for MOF-303, MOF-801-P or Al-fumarate; those values are figure readings (low confidence)."
+  ]
+}

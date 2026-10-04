@@ -589,6 +589,38 @@ directly on \([\nDcKldfLo, \nDcKldfHi]\)\,s\(^{-1}\) instead of being derived fr
 the particle, and a fixed particle size; it has \nDcNmatLeg\ materials and
 \nDcNacceptLeg\ accepted runs.
 
+\paragraph{Where real water-harvesting frameworks sit.} The sampled space is meant to
+contain the adsorbents a water harvester would use, so we placed published ones in it
+(Figure~\ref{fig:watermofs}), on the four axes that are properties of the framework
+rather than of the pellet and the packing: step position, capacity, heat of
+adsorption and the fraction of capacity taken below the step. The values come from
+the primary literature, MOF-303 \cite{hanikel2019rapid,fathieh2018practical},
+MOF-801 \cite{furukawa2014water}, CAU-10-H \cite{solovyeva2021cau,frohlich2016water},
+aluminium fumarate \cite{hanikel2019rapid,laurenz2020novel}, MIL-160(Al)
+\cite{solovyeva2021mil,aumond2026adsorption,lenzen2019metal} and
+Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record}; each point spans the values its
+sources report, which differ in sample, temperature and in how the step is defined,
+and the below-step fractions are mostly read from published figures and are rough.
+Of the \nWmofN, \nWmofInside\ lie inside the sampled ranges on every axis. The
+exceptions are at the edges, and one is far outside: MOF-801's step, at about
+\nWmofEightStep, sits just below the sampled floor of \nWmofStepLo; one reported heat
+for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled range; and
+Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
+\(\nWmofBtddRatio\times\) the largest capacity we sampled, \nWmofQmaxHi. The verdicts of this paper are therefore
+statements about frameworks like MOF-303, aluminium fumarate and MIL-160, and should
+not be carried to record-capacity materials without new data.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/FigS2_water_mofs.pdf}
+\caption{Published water-harvesting frameworks against the sampled parameter space
+(shaded boxes). \textbf{A}~Step position and capacity. \textbf{B}~Fraction of capacity
+taken below the step and heat of adsorption. Bars span the values reported across
+sources; values, locations in each paper and confidence are recorded in
+\texttt{research/water\_mof\_parameters.json}.}
+\label{fig:watermofs}
+\end{figure}
+
 \begin{table}[t]
 \centering
 \caption{The parameter space of the larger dataset. All eleven are sampled by

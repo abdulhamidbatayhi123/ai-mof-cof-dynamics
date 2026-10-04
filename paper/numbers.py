@@ -574,6 +574,14 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # referee M10: real water MOFs against the sampled space (water_mofs.py)
+    ("WmofN", "results/water_mofs.json", "n_materials", "{:d}"),
+    ("WmofInside", "results/water_mofs.json", "n_inside_all", "{:d}"),
+    ("WmofBtddQ", "results/water_mofs.json", "materials.Co2Cl2(BTDD).q_max.hi", "{:.0f}"),
+    ("WmofQmaxHi", "results/water_mofs.json", "design.q_max", lambda r: f"{max(r):g}"),
+    ("WmofEightStep", "results/water_mofs.json", "materials.MOF-801.RH_step.lo", "{:.2f}"),
+    ("WmofStepLo", "results/water_mofs.json", "design.RH_step", lambda r: f"{min(r):g}"),
+    ("WmofCauHeat", "results/water_mofs.json", "materials.CAU-10-H.dH.lo", "{:.0f}"),
     # Methods table (referee M7): per-rung sizes and budgets, read from each rung's own results
     ("MthThreeSteps", "results/l3_results.json", "steps", "{:d}"),
     ("MthThreeDepth", "results/l3_results.json", "depth", "{:d}"),
@@ -773,6 +781,8 @@ DERIVED = [
      lambda r: r["LsixSlopeHi"] * r["LsixDaDecades"], "{:.4f}"),
     ("LsixSlopeVsEffect", "L6: that change as a multiple of the main effect",
      lambda r: r["LsixSlopeHi"] * r["LsixDaDecades"] / r["LsixDiff"], "{:.0f}"),
+    ("WmofBtddRatio", "Co2Cl2(BTDD) capacity over the largest sampled capacity",
+     lambda r: r["WmofBtddQ"] / max(r["WmofQmaxHi"]), "{:.1f}"),   # raw value: the design range
     ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
     ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",

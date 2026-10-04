@@ -313,6 +313,13 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "WmofN": "6",
+    "WmofInside": "3",
+    "WmofBtddQ": "54",
+    "WmofQmaxHi": "30",
+    "WmofEightStep": "0.07",
+    "WmofStepLo": "0.08",
+    "WmofCauHeat": "-61",
     "MthThreeSteps": "12000",
     "MthThreeDepth": "3",
     "MthThreeBudgets": "50k/200k/800k",
@@ -437,6 +444,7 @@
     "LfiveVtwoCoefChangePct": "0.9",
     "LsixSlopeSpanMax": "0.0084",
     "LsixSlopeVsEffect": "4",
+    "WmofBtddRatio": "1.8",
     "OperatorLever": "2.4",
     "LfourbRefTwinFactor": "5",
     "LfourbMatGainPct": "8"
@@ -1694,6 +1702,34 @@
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
     },
+    "WmofN": {
+      "file": "results/water_mofs.json",
+      "path": "n_materials"
+    },
+    "WmofInside": {
+      "file": "results/water_mofs.json",
+      "path": "n_inside_all"
+    },
+    "WmofBtddQ": {
+      "file": "results/water_mofs.json",
+      "path": "materials.Co2Cl2(BTDD).q_max.hi"
+    },
+    "WmofQmaxHi": {
+      "file": "results/water_mofs.json",
+      "path": "design.q_max"
+    },
+    "WmofEightStep": {
+      "file": "results/water_mofs.json",
+      "path": "materials.MOF-801.RH_step.lo"
+    },
+    "WmofStepLo": {
+      "file": "results/water_mofs.json",
+      "path": "design.RH_step"
+    },
+    "WmofCauHeat": {
+      "file": "results/water_mofs.json",
+      "path": "materials.CAU-10-H.dH.lo"
+    },
     "MthThreeSteps": {
       "file": "results/l3_results.json",
       "path": "steps"
@@ -2160,6 +2196,9 @@
     },
     "LsixSlopeVsEffect": {
       "derived": "L6: that change as a multiple of the main effect"
+    },
+    "WmofBtddRatio": {
+      "derived": "Co2Cl2(BTDD) capacity over the largest sampled capacity"
     },
     "OperatorLever": {
       "derived": "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)"

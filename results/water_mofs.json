@@ -1,0 +1,353 @@
+{
+  "_what": "Owner of results/water_mofs.json: real water-harvesting MOFs placed in the design space.",
+  "source": "research/water_mof_parameters.json",
+  "design": {
+    "RH_step": [
+      0.08,
+      0.45
+    ],
+    "q_max": [
+      8,
+      30
+    ],
+    "dH": [
+      -60,
+      -38
+    ],
+    "henry_fraction": [
+      0.03,
+      0.25
+    ]
+  },
+  "materials": {
+    "MOF-303": {
+      "RH_step": {
+        "lo": 0.12,
+        "hi": 0.15,
+        "n": 2,
+        "dois": [
+          "10.1021/acscentsci.9b00745",
+          "10.1126/sciadv.aat3198"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "q_max": {
+        "lo": 21.6,
+        "hi": 26.6,
+        "n": 3,
+        "dois": [
+          "10.1021/acscentsci.9b00745",
+          "10.1126/sciadv.aat3198"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "dH": {
+        "lo": -52.0,
+        "hi": -52.0,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.9b00745"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.17,
+        "hi": 0.17,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.9b00745"
+        ],
+        "confidence": [
+          "low"
+        ]
+      },
+      "placement": {
+        "RH_step": "inside",
+        "q_max": "inside",
+        "dH": "inside",
+        "henry_fraction": "inside"
+      }
+    },
+    "MOF-801": {
+      "RH_step": {
+        "lo": 0.07,
+        "hi": 0.07,
+        "n": 1,
+        "dois": [
+          "10.1021/ja500330a"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "q_max": {
+        "lo": 20.0,
+        "hi": 20.0,
+        "n": 1,
+        "dois": [
+          "10.1021/ja500330a"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "dH": {
+        "lo": -60.0,
+        "hi": -60.0,
+        "n": 1,
+        "dois": [
+          "10.1021/ja500330a"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.07,
+        "hi": 0.07,
+        "n": 1,
+        "dois": [
+          "10.1021/ja500330a"
+        ],
+        "confidence": [
+          "low"
+        ]
+      },
+      "placement": {
+        "RH_step": "outside",
+        "q_max": "inside",
+        "dH": "inside",
+        "henry_fraction": "inside"
+      }
+    },
+    "CAU-10-H": {
+      "RH_step": {
+        "lo": 0.205,
+        "hi": 0.205,
+        "n": 1,
+        "dois": [
+          "10.1021/acs.langmuir.0c02729"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "q_max": {
+        "lo": 18.0,
+        "hi": 18.6,
+        "n": 2,
+        "dois": [
+          "10.1021/acs.langmuir.0c02729",
+          "10.1039/c6ta01757f"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "dH": {
+        "lo": -61.0,
+        "hi": -52.0,
+        "n": 2,
+        "dois": [
+          "10.1021/acs.langmuir.0c02729",
+          "10.1039/c6ta01757f"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.03,
+        "hi": 0.03,
+        "n": 1,
+        "dois": [
+          "10.1021/acs.langmuir.0c02729"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "placement": {
+        "RH_step": "inside",
+        "q_max": "inside",
+        "dH": "straddles the edge",
+        "henry_fraction": "inside"
+      }
+    },
+    "Al-fumarate (Basolite A520)": {
+      "RH_step": {
+        "lo": 0.25,
+        "hi": 0.265,
+        "n": 2,
+        "dois": [
+          "10.1021/acscentsci.9b00745",
+          "10.3390/en13113003"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "q_max": {
+        "lo": 23.0,
+        "hi": 23.0,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.9b00745"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "dH": {
+        "lo": -54.0,
+        "hi": -50.0,
+        "n": 3,
+        "dois": [
+          "10.1021/acscentsci.9b00745",
+          "10.3390/en13113003"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.05,
+        "hi": 0.05,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.9b00745"
+        ],
+        "confidence": [
+          "low"
+        ]
+      },
+      "placement": {
+        "RH_step": "inside",
+        "q_max": "inside",
+        "dH": "inside",
+        "henry_fraction": "inside"
+      }
+    },
+    "MIL-160(Al)": {
+      "RH_step": {
+        "lo": 0.08,
+        "hi": 0.09,
+        "n": 3,
+        "dois": [
+          "10.1021/acsomega.5c11973",
+          "10.1038/s41467-019-10960-0",
+          "10.3390/en14123586"
+        ],
+        "confidence": [
+          "high",
+          "medium"
+        ]
+      },
+      "q_max": {
+        "lo": 18.9,
+        "hi": 24.1,
+        "n": 2,
+        "dois": [
+          "10.1021/acsomega.5c11973",
+          "10.3390/en14123586"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "dH": {
+        "lo": -52.0,
+        "hi": -49.0,
+        "n": 2,
+        "dois": [
+          "10.3390/en14123586"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.06,
+        "hi": 0.06,
+        "n": 1,
+        "dois": [
+          "10.3390/en14123586"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "placement": {
+        "RH_step": "inside",
+        "q_max": "inside",
+        "dH": "inside",
+        "henry_fraction": "inside"
+      }
+    },
+    "Co2Cl2(BTDD)": {
+      "RH_step": {
+        "lo": 0.28,
+        "hi": 0.28,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.7b00186"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "q_max": {
+        "lo": 53.7,
+        "hi": 53.7,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.7b00186"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "dH": {
+        "lo": -55.0,
+        "hi": -55.0,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.7b00186"
+        ],
+        "confidence": [
+          "high"
+        ]
+      },
+      "henry_fraction": {
+        "lo": 0.19,
+        "hi": 0.19,
+        "n": 1,
+        "dois": [
+          "10.1021/acscentsci.7b00186"
+        ],
+        "confidence": [
+          "medium"
+        ]
+      },
+      "placement": {
+        "RH_step": "inside",
+        "q_max": "outside",
+        "dH": "inside",
+        "henry_fraction": "inside"
+      }
+    }
+  },
+  "n_inside_all": 3,
+  "n_materials": 6
+}

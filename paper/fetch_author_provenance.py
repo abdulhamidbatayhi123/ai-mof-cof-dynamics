@@ -81,6 +81,11 @@ def main():
         except Exception as e:  # noqa: BLE001
             missing.append(f"{key} (fetch failed: {e})")
             continue
+        # Crossref can return line breaks INSIDE a title or a given name ("Prediction\nof
+        # MOF ...", "Thomas\nD."), which split this markdown row and silently dropped
+        # every author after the break from the provenance the gate checks against
+        ws = lambda s: " ".join(str(s).split())
+        title, auth = ws(title), [ws(a) for a in auth]
         rows.append(f"| {key} | {src} | {title} | {'; '.join(auth) or '(no author list returned)'} |")
         print(key, "ok", len(auth))
     with open(OUT, "w", encoding="utf-8") as fh:
