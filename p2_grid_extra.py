@@ -14,11 +14,13 @@ driver runs the rest, each exactly as the prereg declares, with the same freeze 
   m8   KAN symbolic extraction, best configuration, on the DECLARED SUBGRID (all Da x
        sigma in {0.5, 2 %} x eps in {0, 2 %} x both isotherms x Pe x1, O1), 3 replicates;
        success = success_L1. Runs only if its per-fit cost gate passed (COST_GATES).
+  m7   PySR on the same subgrid, 3 replicates, only if its inclusion gate
+       (results/p2_pilot_m7.json) says INCLUDE; success = success_L1.
   m5   EIV best-subset (classical mixed LS-TLS on the single rate law, p2/eiv.py) on
        every non-isothermal L1 cell, O1, every (sigma, eps), 20 replicates, strong form;
        success = success_L1. Pure linear algebra, so it needs no cost gate.
 
-    python p2_grid_extra.py {m6,m9,l2,m8,m5}
+    python p2_grid_extra.py {m6,m9,l2,m8,m5,m7}
 """
 import itertools
 import json
@@ -116,6 +118,10 @@ def run(cmd, man):
     res = json.load(open(out)) if os.path.exists(out) else {"freeze_commit": frozen()[1], "rows": {}}
     if cmd == "m8":
         _gate(cmd)
+    if cmd == "m7":
+        g = json.load(open("results/p2_pilot_m7.json")) if os.path.exists("results/p2_pilot_m7.json") else {}
+        if not str(g.get("decision", "")).startswith("INCLUDE"):
+            sys.exit(f"m7: NOT RUN by its pre-registered inclusion gate ({g.get('decision', 'pilot not run')})")
     for name, rec in sorted(man.items()):
         iso, law = rec["iso"], rec["law"]
         if cmd == "m6":
@@ -134,7 +140,7 @@ def run(cmd, man):
             if iso == "langmuir_iso" or law != "L1":
                 continue
             grid = itertools.product(SIGMAS, EPSS, range(N_REP), ("eiv_best_subset",), ("strong",))
-        else:   # m8: the declared subgrid
+        else:   # m8, m7: the declared subgrid
             if iso == "langmuir_iso" or law != "L1" or rec["pe_mult"] != 1.0:
                 continue
             grid = itertools.product(SUB_SIGMAS, SUB_EPSS, range(SUB_REP), (cmd,), ("strong",))
@@ -161,6 +167,13 @@ def run(cmd, man):
                                                   zip(obs["channels"]["c"], obs["channels"]["T"])])}
                     y = np.concatenate([derivative(q, obs["t"]) for q in obs["channels"]["q"]])
                     co = methods.kan_symbolic(V, y, seed=rep)
+                    ok = success_L1(co)
+                elif cmd == "m7":
+                    from p2.pysr_method import pysr_sr
+                    F, y = _stack_probes(obs, lambda c, q, T: (
+                        {k: v for k, v in lib_b(c, q, T, obs["qstar_meas"](c, T)).items() if k != "1"},
+                        derivative(q, obs["t"])))
+                    co, _ = pysr_sr(F, y, seed=rep)
                     ok = success_L1(co)
                 else:   # m5
                     co, ok = fit_m5(obs, sigma, eps)
