@@ -25,7 +25,9 @@ def invert_uptake(c, z, t, phys, c_in):
     c_t = np.vstack([derivative(row, t) for row in c])
     c_z = np.gradient(c, z, axis=0)
     c_zz = np.gradient(c_z, z, axis=0)
-    u = phys.v / phys.eps_t
-    S = (1.0 - phys.eps_t) * phys.rho_p / phys.eps_t
+    # the solver's own definition (B72: a balance written separately from the solver
+    # drifts from it; this one was right, and now cannot drift)
+    from solver_fd import gas_coefficients
+    u, S = gas_coefficients(phys)
     dq_dt = (phys.D_L * c_zz - u * c_z - c_t) / S
     return cumulative_trapezoid(dq_dt, t, axis=1, initial=0.0)

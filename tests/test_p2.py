@@ -329,3 +329,22 @@ def test_ode_profile_with_temperature_brackets_k_on_nonisothermal_probe():
     from p2.identifiability import identifiable
     assert identifiable(lo, hi, 2e-4), (lo, hi)
     assert lo > 2e-4 * 0.98 and hi < 2e-4 * 1.02, (lo, hi)
+
+
+def test_mass_balance_inversion_recovers_uptake_from_gas_data():
+    """M1b (PREREG_P2 §3): from interior c alone, the gas balance returns q. The
+    prereg records a manual check (<= 3 % of q_max); this makes it a test, on a fresh
+    solve, and through solver_fd.gas_coefficients -- the definition the solver uses."""
+    from p2.massbal import invert_uptake
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    p = AdsorptionPhysicsConfig()
+    c_in = 1.0
+    t_final = 2.0 * p.stoichiometric_time(c_in)
+    z, t, y = generate_breakthrough_data(p, N_z=200, t_final=t_final, c_in=c_in,
+                                         n_snapshots=400, verbose=False)
+    n = len(z)
+    c, q = y[:n], y[n:2 * n]
+    q_hat = invert_uptake(c, z, t, p, c_in)
+    inner = slice(5, -5)                     # one-sided z-stencils at the walls
+    err = np.abs(q_hat[inner] - q[inner]).max() / p.q_max
+    assert err < 0.03, err                    # the prereg's recorded bound (measured 0.024)
