@@ -1,3 +1,8 @@
+> **Working record, not the paper.** This file is the project's running log and keeps
+> earlier statements that were later corrected (see `RETRACTIONS.md`). The current,
+> checked results are in `paper/manuscript.pdf`, where every number is resolved from a
+> results file by `paper/numbers.py`. Where the two disagree, the paper is right.
+
 # Results — running summary
 
 Every number here is reproduced by a script in this repository and gated by
