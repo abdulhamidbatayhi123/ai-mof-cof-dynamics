@@ -333,3 +333,29 @@ def test_ode_profile_with_temperature_brackets_k_on_nonisothermal_probe():
     assert identifiable(lo, hi, 2e-4), (lo, hi)
     assert lo > 2e-4 * 0.98 and hi < 2e-4 * 1.02, (lo, hi)
 
+
+
+def test_success_L2_detects_a_rate_that_falls_with_loading():
+    """PREREG_P2 §4.3 (L2, operational): k_hat(q) = -df/dq at fixed q*, binned in q/q_max,
+    must fall (Spearman < -0.8) to <= 0.6 of its bottom-bin value, with q* and q selected."""
+    from p2.metric import success_L2
+    rng = np.random.default_rng(0)
+    qmax = 5.0
+    q = rng.uniform(0.0, qmax, 2000)
+    c = rng.uniform(0.0, 1.0, 2000)
+    # f = a q* + b q + e q^2  ->  k_hat = -(b + 2 e q): from 0.05 at q=0 to 0.01 at q=qmax
+    falls = {"qstar": 0.03, "q": -0.05, "q^2": 0.004}
+    assert success_L2(falls, c, q, qmax)
+    # constant k (the L1 law): no state dependence
+    assert not success_L2({"qstar": 0.02, "q": -0.02}, c, q, qmax)
+    # a rate that RISES with loading is not the L2 law
+    assert not success_L2({"qstar": 0.03, "q": -0.01, "q^2": -0.004}, c, q, qmax)
+    # without q* the law cannot be the rate law at all
+    assert not success_L2({"q": -0.05, "q^2": 0.004}, c, q, qmax)
+
+
+def test_lib_a_fidelity_is_relative_rms_on_held_out_probes():
+    from p2.metric import heldout_fidelity
+    y = np.array([1.0, 2.0, 3.0, 4.0])
+    assert heldout_fidelity(y, y) == 0.0
+    assert abs(heldout_fidelity(y + 0.1 * np.sqrt(np.mean(y ** 2)), y) - 0.1) < 1e-12
