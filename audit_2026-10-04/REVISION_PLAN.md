@@ -12,7 +12,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | A1 | M5 "eliminated" list (l.1069-1074) contradicts L2 NOT ELIMINATED and L4 material | DONE 93e12e5 |
 | A2 | M5 "unlearnable beyond about five modes" stale vs A21 | DONE 93e12e5 |
 | A3 | M5 "the one rung" with verifiable prereg ordering vs four listed | DONE 93e12e5 |
-| A4 | M5 L3 [PENDING]: gate marker absent because the run was killed; re-run in queue | BLOCKED (L3 job, running) |
+| A4 | M5 L3 [PENDING]: gate marker absent because the run was killed; re-run in queue | DONE acb7a34 (L3 final pair landed; no PENDING left) |
 | A5 | M5 "No number typed by hand" is false; macro the listed numbers or narrow the claim | DONE 8746cb5 |
 | A6 | M4 pre-registered test-time refinement result (5-7x WORSE) promised, never reported | DONE 93e12e5 |
 | A7 | M8 third design (L4 single 48-material split); abstract omits L4, L7 | DONE c20e8a1 |
@@ -25,7 +25,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | A14 | minor 3 Fig 5 caption "every arm is flat" incl. FNO | DONE c20e8a1 |
 | A15 | minor 4 eligible count is time-axis (7) not material (8) | DONE c20e8a1 |
 | A16 | minor 5 L-BFGS WORSENED both arms on material axis | DONE 93e12e5 |
-| A17 | minor 6-13, 17 | PARTIAL: 6,8,10,13 DONE; 12 ANSWERED (Type V already used); 7, 9, 11, 17 OPEN |
+| A17 | minor 6-13, 17 | PARTIAL: 6,7,8,10,11,13 DONE; 12 ANSWERED; 9 (ledger as SI), 17 (price list) OPEN |
 
 ## Tier B — analysis on existing per-sample errors (cheap compute)
 | # | Item | Status |
@@ -38,7 +38,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | # | Item | Status |
 |---|---|---|
 | C1 | M3 nested selection (inner validation split on training materials) for L4 material axis | OPEN — cost first |
-| C2 | M11b GP regression on POD coefficients (240 materials) | OPEN |
+| C2 | M11b GP regression on POD coefficients (240 materials) | IMPLEMENTED 769b5ed (subset-hyper GP, PREREG_BASELINES A1); not yet queued |
 | C3 | M11a coarse-grid solver at matched accuracy, for the cost section | OPEN |
 | C4 | M11c fitted per-material classical model for L7 | OPEN |
 | C5 | M13 second experimental anchor (Al-fumarate stepped breakthrough, Bozbiyik) — needs digitised data | OPEN |
@@ -47,8 +47,15 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 ## Tier D — framing and structure
 | # | Item | Status |
 |---|---|---|
-| D1 | M7 Methods section: equations, nRMSE, Da, parameter table, surrogates, encodings per rung, cross-rung non-comparability | OPEN |
+| D1 | M7 Methods section: equations, nRMSE, Da, parameter table, surrogates, encodings per rung, cross-rung non-comparability | DONE 65490a3 (constants from code; per-rung widths/steps still to macro) |
 | D2 | M10 retitle ("parameter sets", not "unseen MOFs"); parametric-ROM and PSA-surrogate prior art (each through the provenance gate) | OPEN |
 | D3 | M1 restate "what binds": the map, as learned; learner class is a ~2x lever | DONE f3032ed |
-| D4 | M12 two-wave narrative scoped to the legacy design | OPEN |
+| D4 | M12 two-wave narrative scoped to the legacy design | DONE 6cb4635 |
 | D5 | minor 14-16 length (corrections to SI), glossary box, schematic figure, venue | OPEN |
+
+## Found during the revision (not in the referee report)
+| # | Item | Status |
+|---|---|---|
+| R1 | B72: L4 residual advected gas at v, not v/eps_t; heat inlet Dirichlet vs flux | FIXED d29eb9c, 587a329; gated; A28 withdrawal; L4b re-run queued (aa91326) |
+| R2 | B73: legacy L2 "1 %" hard-coded in analyser | DONE 93e12e5 |
+| R3 | B74: L5-v2 analyser skipped the step gate on a stale filename; the rule fired | DONE c172e43 (PREREG_L5_v2 A2, 24k re-run running) |
