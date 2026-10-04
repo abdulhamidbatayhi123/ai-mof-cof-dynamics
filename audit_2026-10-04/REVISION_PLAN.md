@@ -25,7 +25,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | A14 | minor 3 Fig 5 caption "every arm is flat" incl. FNO | DONE c20e8a1 |
 | A15 | minor 4 eligible count is time-axis (7) not material (8) | DONE c20e8a1 |
 | A16 | minor 5 L-BFGS WORSENED both arms on material axis | DONE 93e12e5 |
-| A17 | minor 6-13, 17 | PARTIAL: 6,7,8,10,11,13 DONE; 12 ANSWERED; 9 (ledger as SI), 17 (price list) OPEN |
+| A17 | minor 6-13, 17 | DONE: 6-13, 15, 17 (glossary db593b8, SI ledger 1bd4784, price list 1e561c3); 12 ANSWERED |
 
 ## Tier B — analysis on existing per-sample errors (cheap compute)
 | # | Item | Status |
@@ -41,8 +41,8 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | C2 | M11b GP regression on POD coefficients (240 materials) | IMPLEMENTED 769b5ed (subset-hyper GP, PREREG_BASELINES A1); not yet queued |
 | C3 | M11a coarse-grid solver at matched accuracy, for the cost section | OPEN |
 | C4 | M11c fitted per-material classical model for L7 | OPEN |
-| C5 | M13 second experimental anchor (Al-fumarate stepped breakthrough, Bozbiyik) — needs digitised data | OPEN |
-| C6 | M10 place real water MOFs (MOF-303, MOF-801, CAU-10, Al-fumarate) in the parameter space — needs cited isotherm/kinetic values | OPEN |
+| C5 | M13 second experimental anchor (Al-fumarate stepped breakthrough, Bozbiyik) — needs digitised data | BLOCKED: Bozbiyik 2017 is paywalled (no OA copy); requested from the author (USER_ACTIONS); wording half DONE 21f64cd |
+| C6 | M10 place real water MOFs (MOF-303, MOF-801, CAU-10, Al-fumarate) in the parameter space — needs cited isotherm/kinetic values | IN PROGRESS: literature agent sourcing step RH, capacity, heat for 6 water MOFs |
 
 ## Tier D — framing and structure
 | # | Item | Status |
@@ -51,7 +51,7 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | D2 | M10 retitle ("parameter sets", not "unseen MOFs"); parametric-ROM and PSA-surrogate prior art (each through the provenance gate) | OPEN |
 | D3 | M1 restate "what binds": the map, as learned; learner class is a ~2x lever | DONE f3032ed |
 | D4 | M12 two-wave narrative scoped to the legacy design | DONE 6cb4635 |
-| D5 | minor 14-16 length (corrections to SI), glossary box, schematic figure, venue | OPEN |
+| D5 | minor 14-16 length (corrections to SI), glossary box, schematic figure, venue | PARTIAL: glossary + schematic DONE db593b8; SI ledger DONE; length cut / move corrections to SI OPEN |
 
 ## Found during the revision (not in the referee report)
 | # | Item | Status |
