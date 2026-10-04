@@ -9,6 +9,10 @@ authors:
   - given-names: Abdulhamid
     family-names: Batayhi
     email: abdulbatayhi@gmail.com
+    orcid: "https://orcid.org/0009-0007-0374-6755"
+    affiliation: >-
+      Yıldız Technical University, Faculty of Mechanical Engineering,
+      Department of Mechatronics Engineering, Istanbul, Türkiye
 repository-code: "https://github.com/REPLACE-ME/ai-mof-cof-dynamics"
 abstract: >-
   A pre-registered falsification ladder testing seven candidate explanations

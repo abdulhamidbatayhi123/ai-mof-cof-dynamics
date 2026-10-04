@@ -96,7 +96,11 @@ _ALLOWED_PAIRS = [
     ("7", "the power of an earlier null, as recorded in retraction A22"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
-    ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),]
+    ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),
+    ("0009", "the author's ORCID iD (URL and label), an identifier"),
+    ("0007", "the author's ORCID iD (URL and label), an identifier"),
+    ("0374", "the author's ORCID iD (URL and label), an identifier"),
+    ("6755", "the author's ORCID iD (URL and label), an identifier"),]
 
 # Merge with a duplicate check: a repeated literal means two different justifications
 # were written for the same number and one of them would be lost.
@@ -116,7 +120,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 33,
+    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 33,
     "3": 3, "4": 7, "5": 3, "6": 1, "7": 1, "8": 4, "9.7": 1, "10": 13, "12": 7,
     "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
     "95": 3, "96": 3, "99.9": 2, "128": 4, "192": 11, "240": 4, "256": 1,
