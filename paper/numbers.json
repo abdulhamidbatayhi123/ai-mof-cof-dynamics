@@ -92,9 +92,9 @@
     "LfiveTailModes": "123",
     "LfiveTailMedian": "-0.014",
     "LfiveTailFracNeg": "63",
-    "LfiveNrates": "7",
-    "LfiveDecades": "2.3",
-    "LfiveONetEdgeMove": "5.7",
+    "LfiveNrates": "8",
+    "LfiveDecades": "2.8",
+    "LfiveONetEdgeMove": "0.0",
     "LfiveWidthRatio": "7.7",
     "LfiveNclust": "12",
     "LfiveAlpha": "0.005",
@@ -277,7 +277,7 @@
     "LedgerB": "71",
     "LedgerTotal": "98",
     "LedgerOwn": "34",
-    "LfourbVerdictMaterial": "\\textbf{[PENDING]}",
+    "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 5 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
     "LfourbTimeTwin": "0.0131",
     "LfourbTimeBest": "0.0132",
     "LfourbTimeLo": "-0.00044",
@@ -292,6 +292,17 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "LfourbMatTwin": "0.0231",
+    "LfourbMatBest": "0.0213",
+    "LfourbMatLo": "0.00125",
+    "LfourbMatHi": "0.00263",
+    "LfourbMatNmat": "48",
+    "LfourbMatBelow": "0.0226",
+    "LfourbMatAbove": "0.0227",
+    "LfourbMatPolTwin": "0.0273",
+    "LfourbMatPolBest": "0.0254",
+    "LfourbMatPolLo": "0.00105",
+    "LfourbMatPolHi": "0.00283",
     "LthreeBestKanDiff": "-0.0060",
     "AnchorAspect": "0.17",
     "LCexpRatio": "0.55",
@@ -1484,6 +1495,50 @@
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
     },
+    "LfourbMatTwin": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.mean_a"
+    },
+    "LfourbMatBest": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.mean_b"
+    },
+    "LfourbMatLo": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.ci_low"
+    },
+    "LfourbMatHi": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.ci_high"
+    },
+    "LfourbMatNmat": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.n_materials"
+    },
+    "LfourbMatBelow": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.table.pi_fixed_w1e-6.held"
+    },
+    "LfourbMatAbove": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.table.pi_fixed_w1e-4.held"
+    },
+    "LfourbMatPolTwin": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.polish.comparison.mean_a"
+    },
+    "LfourbMatPolBest": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.polish.comparison.mean_b"
+    },
+    "LfourbMatPolLo": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.polish.comparison.ci_low"
+    },
+    "LfourbMatPolHi": {
+      "file": "results/l4b_v2_verdict.json",
+      "path": "axes.material.polish.comparison.ci_high"
+    },
     "LthreeBestKanDiff": {
       "derived": "perceptron minus best KAN held-out error (both from audit_l3.py)"
     },
@@ -1566,11 +1621,6 @@
       "key": "LthreeBestKanHi",
       "file": "results/l3_final_pair.json",
       "why": "B71: re-derivation of the paired interval (autorun job 2c)"
-    },
-    {
-      "key": "LfourbVerdictMaterial",
-      "file": "results/l4b_v2_verdict.json",
-      "why": "second PREREG 4.2 edge extension (w1e-6, material axis)"
     }
   ]
 }

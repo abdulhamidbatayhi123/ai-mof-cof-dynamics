@@ -618,12 +618,20 @@ arm is significantly better. The pre-registration declared a flip to be the repo
 result, and we report it with its direction rather than as a verdict on physics:
 under the optimiser the physics arm needs, the data-only arm gains more.
 
-\paragraph{Material axis: no verdict yet.} On the material axis the verdict is
-\nLfourbVerdictMaterial. The lowest fixed weight is again the best arm and again
-unsaturated --- it differs significantly from the twin --- so the pre-registered rule
-requires one further decade before any verdict. That run is in flight, and nothing on
-this axis is reported until it lands; the build refuses to render the analyser's
-provisional text in its place.
+\paragraph{Material axis: physics helps, once correctly weighted.} In the pre-declared
+words, physics helps on the material axis and the legacy claim is retracted as a
+weighting artefact. The best arm is the second-smallest fixed weight, and it is now an
+interior optimum: the decade below it, which the edge rule demanded a second time,
+reaches \nLfourbMatBelow\ and the decade above \nLfourbMatAbove, both worse than its
+\nLfourbMatBest. Against the twin's \nLfourbMatTwin\ the paired difference (twin minus
+physics) has interval [\nLfourbMatLo, \nLfourbMatHi] over \nLfourbMatNmat\ held-out
+materials, which excludes no difference. Unlike the time axis, the ordering survives polishing:
+after L-BFGS the twin reaches \nLfourbMatPolTwin\ and the physics arm
+\nLfourbMatPolBest, interval [\nLfourbMatPolLo, \nLfourbMatPolHi]. The effect is small
+--- under a tenth of the error --- and it is confined to a single weight: a decade
+either side, the advantage is gone. The honest reading is that the residual is a weak
+regulariser across materials at a weight that must itself be found by search, not a
+source of accuracy the data lack.
 
 \paragraph{Physics at inference.} Test-time refinement --- minimising the residual for
 each held-out unit with no data --- was pre-registered with an invalidation
@@ -1253,8 +1261,10 @@ Kolmogorov \(n\)-width is real, and it is inactive; our own frozen protocol name
 as the load-bearing explanation and was wrong (A17). Structural decomposition of the
 equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, but as an inductive bias
 and not as a kinetic identifier, since the benefit does not track Damk\"ohler number.
-The physics residual as a training loss gives the verdict \nLfourbVerdictMaterial\
-on the material axis and \nLfourbVerdictTime\ on the time axis.
+The physics residual as a training loss, once its weight is searched as the pre-registration
+requires, helps slightly on held-out materials (\nLfourbMatBest\
+against \nLfourbMatTwin, at a single interior weight) and makes no difference on the
+time axis; the legacy claim that it hurts is withdrawn on both.
 
 \paragraph{What binds.} The number of training materials. Error still falls as
 \(n^{-\nLCbeta}\) at the largest size we can afford, and the whole of that gain lies in

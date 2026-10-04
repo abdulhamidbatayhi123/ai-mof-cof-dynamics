@@ -537,6 +537,19 @@ SPEC = [
     ("LfourbTimePolHi", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.ci_high", "{:.5f}"),
     ("LfourbTimeSeenRise", "results/l4b_v2_verdict.json", "refine.time/data_only.seen_change_pct", "{:.0f}"),
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
+    # L4b material axis (final after the second edge extension: w1e-5 is interior,
+    # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    ("LfourbMatTwin", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourbMatBest", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourbMatLo", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.ci_low", "{:.5f}"),
+    ("LfourbMatHi", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.ci_high", "{:.5f}"),
+    ("LfourbMatNmat", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.n_materials", "{:d}"),
+    ("LfourbMatBelow", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-6.held", "{:.4f}"),
+    ("LfourbMatAbove", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-4.held", "{:.4f}"),
+    ("LfourbMatPolTwin", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_a", "{:.4f}"),
+    ("LfourbMatPolBest", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_b", "{:.4f}"),
+    ("LfourbMatPolLo", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.ci_low", "{:.5f}"),
+    ("LfourbMatPolHi", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.ci_high", "{:.5f}"),
 ]
 
 
