@@ -196,6 +196,12 @@ run_job "L4b re-run, corrected residual (B72)" 'grep -q L4B_V3_DONE l4b_v3.log 2
 # PREREG_P2 §3 pre-freeze: ODR-BINDy port, five noise seeds (~3.5 h, light RAM)
 run_job "P2 ODR-BINDy five-seed check" 'grep -q ODR_SEEDS_DONE p2_odr_seeds.log 2>/dev/null' '"$P" -u p2_odr_seeds.py >> p2_odr_seeds.log 2>&1'
 
+# PREREG_BASELINES (referee M11a-c), in the declared order, one at a time
+run_job "B-FIT fitted Klinkenberg" 'grep -q BFIT_DONE bfit.log 2>/dev/null' '"$P" -u fitted_classical.py >> bfit.log 2>&1'
+run_job "B-GP Gaussian process on POD (5 folds)" 'grep -q BGP_RUN_DONE bgp.log 2>/dev/null' '"$P" -u run_l1_v2.py --design folds --arms gp --out results/l1_v2_gp.json >> bgp.log 2>&1 && echo BGP_RUN_DONE >> bgp.log'
+run_job "B-GP analysis" 'grep -q BGP_ANALYSIS_DONE bgp_analysis.log 2>/dev/null' '"$P" -u analyze_gp_baseline.py >> bgp_analysis.log 2>&1'
+run_job "B-COARSE coarse-grid solver" 'grep -q BCOARSE_DONE bcoarse.log 2>/dev/null' '"$P" -u coarse_solver_baseline.py >> bcoarse.log 2>&1'
+
 say "=============================================================="
 say "AUTORUN_QUEUE_DONE"
 say "=============================================================="
