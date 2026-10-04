@@ -339,7 +339,11 @@ the accessible Henry region --- reaches \(10^{\nIsoHenryMax}\) of the feed at be
 and a median of \(10^{\nIsoHenryMed}\), but lies below \(10^{-3}\) of the feed for
 \nIsoHenryBelowMilli\ materials and below \(10^{-6}\) for \nIsoHenryBelowMicro. For
 those the isotherm is effectively Sips-like at every concentration the column
-visits. The design claim is thermodynamic validity by construction, which holds
+visits. In the units of a water isotherm: at fixed temperature the concentration is
+proportional to relative humidity, so for a median material the near-linear uptake
+regime ends at \(10^{\nIsoHenryMed}\) of the feed humidity, and for
+\nIsoHenryBelowMicro\ materials below a millionth of it --- in practice, no linear
+region at all. The design claim is thermodynamic validity by construction, which holds
 everywhere; it is not an experimentally accessible linear regime, which does not.
 
 \subsection{An inflected isotherm produces a two-wave breakthrough}
@@ -449,6 +453,14 @@ comment in the generator until it was recomputed for this paper
 (Section~\ref{sec:corrections}, B63); it reproduces exactly.
 
 \subsection{The splits, and why the test is clustered}
+
+\paragraph{The statistics in plain terms.} Several breakthrough fields share one
+material, so they are not independent observations; we therefore resample whole
+materials, never individual fields. We set each significance threshold so that, in
+simulations where no real effect exists, the test falsely claims one only rarely, at
+the rate stated below for each design. For every ``no difference'' we state the
+smallest effect the test could have detected, and where a model was chosen as the
+best of several on the test materials we widen its interval to pay for that choice.
 
 Materials are held out, not conditions. Every rung on this dataset reports over the
 same five-fold partition of the 240 materials, so that L1, L2, L6 and L7 are
@@ -1231,6 +1243,14 @@ reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
 \label{fig:mechanism}
 \end{figure}
 
+\paragraph{In plain terms.} Most models here build a breakthrough field as a weighted
+sum of stored template shapes (proper orthogonal decomposition plus a regressor, and
+DeepONet); the Fourier operator learns the field directly. A template model can be
+limited by its templates or by its recipe for weighting them from a material's
+isotherm and pellet properties. It is the recipe: with perfect weights the templates
+alone would reproduce the field far more accurately than any recipe we can learn,
+and the best learner of all still sits \(\nFNOxFloor\times\) above that level.
+
 A linear reconstruction can fail in exactly two ways: the basis cannot represent the
 field, or the map from parameters to coefficients cannot be learned. We separate
 them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
@@ -1310,7 +1330,7 @@ real and inactive --- the two statements this paragraph has to hold together.
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
 \caption{The two-wave frame. \textbf{A}~Modes for 99.9\,\% of training variance per
-frame. \textbf{B}~The powered verdict: the honest arm ties the fixed frame, the
+frame. \textbf{B}~The verdict: the honest arm ties the fixed frame, the
 oracle arm is significantly better and is an upper bound.}
 \label{fig:warp}
 \end{figure}
@@ -1363,7 +1383,7 @@ interpolation floor reached \nComovingFloorPct\,\% of the fixed-frame error it i
 against, where the guard's threshold is \(10\,\%\) --- the guard caught it, and it is
 reported rather than dropped silently.
 
-\subsection{The powered verdict, and the relocation}
+\subsection{The verdict, what it can resolve, and the relocation}
 
 Three seeds across every stochastic component, both arms computed in the same run,
 paired cluster bootstrap by material:
@@ -1531,7 +1551,11 @@ operator moves the accuracy without moving the data cost: on the legacy held-out
 materials the Fourier operator reaches \nLfiveFNO, against \nWarpOracle\ for the
 coordinate change of Section~\ref{sec:warp} even when that change is handed the true
 fronts, so the warp is no longer the only route on the table that improves accuracy
-at a fixed data cost.
+at a fixed data cost. This is the one place we compare absolute errors across rungs,
+and it is licensed: L5 and the coordinate change share the legacy split, the same
+subsampled concentration field and the same per-sample normalised error (each
+sample's root-mean-square error over its own range); the subsampling grid is built
+by the same rule in both codes, which implement it separately.
 
 \paragraph{What this is not.} It is not a claim that the surrogate and the reference are
 interchangeable. They are not: the reference answers exactly and the surrogate answers
@@ -1769,8 +1793,7 @@ earned on a different rung.
 
 \paragraph{What does not bind.} Capacity is not eliminated under the pre-registered
 rule, because a random forest is still improving at its capacity ceiling; the
-\nLtwoNUshaped{} neural and boosting families saturate, with an optimum that moves with the number of
-training materials. Architecture family is not
+\nLtwoNUshaped{} neural and boosting families saturate. Architecture family is not
 the lever either --- at matched parameters a perceptron beats both
 Kolmogorov--Arnold families on held-out materials in every comparison, so the
 premise that motivated this study is refuted on our own data. Basis size is not the

@@ -325,8 +325,10 @@ def panel_l0(c):
               ("LDF vs Anzelius–\nSchumann", v["ldf_anzelius_schumann"]["max_abs_err"], "kinetics\n")]
     xs = np.arange(len(checks))
     c.bar(xs, [k[1] for k in checks], color="#4a5c6a", width=0.55)
-    for x, (name, val, what) in zip(xs, checks):
-        c.text(x, val * 1.5, f"{val:.1e}", ha="center", fontsize=7.0)
+    # two kinds of error share this log axis; each bar says which (round-2 referee N12)
+    kinds = ("max abs., of c_in", "relative", "relative", "max abs., of c_in")
+    for x, (name, val, what), kind in zip(xs, checks, kinds):
+        c.text(x, val * 1.5, f"{val:.1e}\n{kind}", ha="center", fontsize=6.4, linespacing=1.1)
     c.set_yscale("log")
     c.set_ylim(3.5e-5, 2e-2)
     c.set_xticks(xs)
@@ -336,7 +338,8 @@ def panel_l0(c):
                fontsize=5.9, color="0.88", linespacing=1.25)
     c.set_ylabel("error vs the\nclosed form")
     c.set_title("C.   L0 — the reference is verified, not asserted", fontsize=9.5, loc="left")
-    c.text(0.985, 0.93, "global mass closure 0.050 %", transform=c.transAxes,
+    closure = json.load(open("results/validation.json"))["by_gate"]["global mass balance closes"]["values"]["default"]
+    c.text(0.985, 0.93, f"global mass closure {100 * closure:.2g} %", transform=c.transAxes,
            ha="right", va="top", fontsize=6.6, color="0.35")
 
 

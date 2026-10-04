@@ -1636,5 +1636,19 @@
   "class": "DESIGN",
   "reason": "the seven pre-registered rungs L1-L7, listed in Table 2",
   "line_at_review": 15
+ },
+ {
+  "key": "ral breakthrough fields share [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a single material",
+  "line_at_review": 433
+ },
+ {
+  "key": "ists, the test falsely claims [one] only rarely, at",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun (an effect)",
+  "line_at_review": 436
  }
 ]
