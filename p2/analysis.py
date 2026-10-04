@@ -124,6 +124,8 @@ def best_method_boundary(by_method, n_boot=2000, seed=0):
                 vals.append(b)
         if vals:
             boots.append(max(vals))
+    if not boots:                     # no draw has a crossing: the interval is undefined
+        return best, pts[best], None, None
     lo, hi = np.percentile(boots, [2.5, 97.5])
     return best, pts[best], 10 ** lo, 10 ** hi
 

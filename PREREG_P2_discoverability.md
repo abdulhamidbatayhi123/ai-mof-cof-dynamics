@@ -424,6 +424,11 @@ known-answer failure. M8 is reported on its known-answer tests only.
 **M5, decided 2026-10-04 before the freeze:** EIV best-subset on the grid (see §3 M5),
 because ODR-BINDy and WENDy as published apply to autonomous ODE systems, not to a
 single rate law with exogenous inputs and regressor error; H2c is tested with it.
+**Verdict driver (2026-10-04):** `p2_analyze.py` computes H2a-H2d from the result files
+exactly as §2/§4.3/§4.4 state (H2b per (σ, ε, isotherm) on O1, O2 descriptive; H2a
+per (Pe, isotherm, observation) with R undefined at σ = ε = 0 on O1 and excluded; H2c
+per (isotherm, ε > 0) at σ = 2 %, strong form; H2d descriptive), and is tested on a
+simulated grid with planted boundaries before any real result exists.
 **O1 identifiability (2026-10-04):** no driver computed it, though H2b's confirmatory
 test is on O1. Now `p2_grid_extra.py o1ident`: the profile likelihood with the law
 known over ALL 20 probes (information parity with discovery), the measured isotherm,

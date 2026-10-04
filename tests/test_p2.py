@@ -529,3 +529,36 @@ def test_o1_profile_over_all_probes_brackets_k():
         qs.append(s["q"] + rng.normal(0, 0.02 * np.ptp(s["q"]), 200))
     lo, hi = profile_interval_o1(s["t"], cs, qs, qsf, 0.02 * np.ptp(qs[0]))
     assert lo <= 0.02 <= hi * (1 + 1e-9) and identifiable(lo, hi, 0.02), (lo, hi)
+
+
+def _planted_grid(rng, n_rep=20):
+    """A simulated O1 grid with KNOWN boundaries: methods A (Da* = 10) and B (Da* = 30),
+    M5 (Da* = 90, i.e. 3x B), identifiability at Da* = 300; one isotherm, one Pe."""
+    Da = np.logspace(-1, 3, 9)
+    cells = {f"lang_{d:.3g}": {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": float(d)} for d in Da}
+    P = lambda d, b: 1.0 / (1.0 + np.exp(4.0 * (np.log10(d) - np.log10(b))))
+    o1, m5, ident = {}, {}, {}
+    for nm, c in cells.items():
+        for rep in range(n_rep):
+            u = rng.uniform(size=4)
+            o1[f"{nm}|0.02|0.02|{rep}|A|strong"] = {"success": bool(u[0] < P(c["Da"], 10))}
+            o1[f"{nm}|0.02|0.02|{rep}|B|strong"] = {"success": bool(u[1] < P(c["Da"], 30))}
+            m5[f"{nm}|0.02|0.02|{rep}|eiv_best_subset|strong"] = {"success": bool(u[2] < P(c["Da"], 90))}
+            ident[f"{nm}|0.02|0.02|{rep}|profile|o1"] = {"success": bool(u[3] < P(c["Da"], 300))}
+    rstats = {nm: {"delta": 1.0 / c["Da"], "eps_rec": 0.0} for nm, c in cells.items()}
+    return cells, o1, m5, ident, rstats
+
+
+def test_p2_analyze_recovers_planted_verdicts():
+    """The verdict driver on a simulated grid with planted boundaries: H2b must pick B and
+    say 'fails before identifiability' (30 vs 300); H2c must see EIV move it up ~3x."""
+    from p2_analyze import h2c, verdicts
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(4))
+    out = verdicts(cells, o1, {}, ident, rstats, n_boot=200)
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    assert s["best_method"] == "B|strong", s
+    assert s["words"] == "discovery fails before identifiability", s
+    assert abs(np.log10(s["da_disc"]) - np.log10(30)) < 0.3 and abs(np.log10(s["da_ident"]) - np.log10(300)) < 0.3
+    hc = h2c(cells, o1, m5, n_boot=200)
+    assert hc["words"].startswith("EIV moves the boundary by"), hc
+    assert isinstance(out["H2a"]["words"], str)
