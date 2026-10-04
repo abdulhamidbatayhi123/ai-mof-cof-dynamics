@@ -187,6 +187,9 @@ run_job "figures + numbers + build gate" \
 run_job "L5-v2 sweep at 24k steps (A2)" 'grep -q L5V2_SWEEP24K_DONE l5_v2_24k.log 2>/dev/null' '"$P" -u run_l5_v2.py --families deeponet --steps 24000 --lrs 1e-3 3e-3 1e-2 3e-2 --threads 6 --out results/l5_v2_results_24k.json >> l5_v2_24k.log 2>&1 && echo L5V2_SWEEP24K_DONE >> l5_v2_24k.log'
 run_job "L5-v2 analysis (24k)" 'grep -q L5V2_ANALYSIS24K_DONE l5_v2_analysis_24k.log 2>/dev/null' '"$P" -u analyze_l5_v2.py --res results/l5_v2_results_24k.json --out results/l5_v2_verdict_24k.json > l5_v2_analysis_24k.log 2>&1 && echo L5V2_ANALYSIS24K_DONE >> l5_v2_analysis_24k.log'
 
+# PREREG_P2 §3 pre-freeze: ODR-BINDy port, five noise seeds (~3.5 h, light RAM)
+run_job "P2 ODR-BINDy five-seed check" 'grep -q ODR_SEEDS_DONE p2_odr_seeds.log 2>/dev/null' '"$P" -u p2_odr_seeds.py >> p2_odr_seeds.log 2>&1'
+
 say "=============================================================="
 say "AUTORUN_QUEUE_DONE"
 say "=============================================================="

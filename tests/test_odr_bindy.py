@@ -46,7 +46,7 @@ def _truth():
     return Xi
 
 
-def run_lorenz_example(seed=12):
+def run_lorenz_example(seed=12, write=True):
     dt, tf = 0.01, 5.0
     t = np.arange(1, int(round(tf / dt)) + 1) * dt
     xc = solve_ivp(_lorenz, (t[0], t[-1]), [-8, 8, 27], t_eval=t, method="DOP853",
@@ -84,8 +84,9 @@ def run_lorenz_example(seed=12):
             runtime=dict(value="<90 s (1000 pts, Apple M4); ~2 min", source="arXiv:2507.23426v1 Sec. 2.3.1 text; README 'Speed'")),
         meets_reported_accuracy=bool(support_ok and rel <= REPORTED_REL_ERR),
     )
-    (ROOT / "results").mkdir(exist_ok=True)
-    (ROOT / "results" / "odr_bindy_verification.json").write_text(json.dumps(out, indent=2))
+    if write:   # p2_odr_seeds.py calls with write=False so the seed-12 record survives
+        (ROOT / "results").mkdir(exist_ok=True)
+        (ROOT / "results" / "odr_bindy_verification.json").write_text(json.dumps(out, indent=2))
     return out
 
 
