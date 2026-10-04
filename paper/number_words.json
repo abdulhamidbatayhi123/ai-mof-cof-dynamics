@@ -1531,5 +1531,54 @@
   "class": "PROSE",
   "reason": "'one fixed learner' = a single learner (structural)",
   "line_at_review": 1369
+ },
+ {
+  "key": "[Rung.] [One] pre-registered candidate expl",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "'one candidate explanation' per rung (definition)",
+  "line_at_review": 87
+ },
+ {
+  "key": "tested by [one] experiment whose possible out",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one experiment' per rung (definition)",
+  "line_at_review": 88
+ },
+ {
+  "key": "it ran. The [seven] rungs form the {ladder}.",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
+  "line_at_review": 89
+ },
+ {
+  "key": "air; the [eleven] numbers of Table~ describe t",
+  "word": "eleven",
+  "class": "DESIGN",
+  "reason": "the 11 sampled parameters of the design (Table params)",
+  "line_at_review": 114
+ },
+ {
+  "key": "the operating condition. {B}~ [One] stored solver field of the la",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "'one stored field' = a single illustrated sample (structural)",
+  "line_at_review": 115
+ },
+ {
+  "key": "complete [two] -front breakthrough). {C}~Its",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two-front breakthrough of the inflected isotherm (physics, design)",
+  "line_at_review": 117
+ },
+ {
+  "key": "it; together they produce the [two] ",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two waves of the inflected isotherm (physics, design)",
+  "line_at_review": 104
  }
 ]

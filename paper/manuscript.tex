@@ -12,6 +12,7 @@
 
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{siunitx}
 \usepackage[hidelinks]{hyperref}
@@ -98,6 +99,50 @@ Grossmann and co-workers \cite{grossmann2024pinn}, comparing physics-informed ne
 element method on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
 that the networks did not outperform FEM \emph{in their study} --- a scoped result,
 and we scope ours the same way.
+
+\paragraph{Terms used throughout.} The paper uses a small vocabulary from
+reduced-order modelling and from pre-registered testing, defined here once for
+readers from reticular chemistry and adsorption engineering
+(Figure~\ref{fig:schematic} shows the objects involved).
+\begin{description}[leftmargin=1.2em,itemsep=0.1em,font=\mdseries\itshape]
+\item[Surrogate.] A fast learned model that maps a parameter set describing an
+adsorbent and an operating condition to the space--time concentration, loading and
+temperature fields the column simulation would produce.
+\item[Rung.] One pre-registered candidate explanation of the surrogate's error,
+tested by one experiment whose possible outcomes and their wording were fixed before
+it ran. The seven rungs form the \emph{ladder}.
+\item[Binds.] An intervention binds the error if improving it improves the error on
+held-out adsorbents; a rung is \emph{eliminated} when the pre-declared test shows it
+does not.
+\item[Basis and map.] A field is written as a weighted sum of fixed spatial--temporal
+patterns, the \emph{basis} (proper orthogonal decomposition); the surrogate's real job
+is the \emph{map} from the parameter set to the weights. The basis floor is the error
+left when the weights are exact.
+\item[\(n\)-width.] How fast the best possible basis error falls as patterns are added;
+a theoretical lower bound for any method that sums a fixed basis.
+\item[Twin.] The data-only model a physics-informed arm is compared with: identical
+architecture, data and budget, without the physics term.
+\item[Damk\"ohler number.] The ratio of the adsorption-kinetics rate to the time scale
+of the experiment; large values mean near-equilibrium, small values kinetic control.
+\item[Henry branch, step.] The low-humidity, near-linear part of the water isotherm,
+and the sharp cooperative step of pore filling above it; together they produce the two
+adsorption fronts of Section~\ref{sec:physics}.
+\item[Edge rule.] An optimum found at the edge of a tuning range does not count until
+the range is extended past it, unless the metric has demonstrably stopped changing.
+\end{description}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig0_schematic.pdf}
+\caption{What a surrogate maps. \textbf{A}~A packed bed of adsorbent pellets fed humid
+air; the eleven numbers of Table~\ref{tab:params} describe the adsorbent, the bed and
+the operating condition. \textbf{B}~One stored solver field of the larger dataset,
+\(c/c_{\mathrm{in}}\) over position and time, chosen by a fixed rule (the clearest
+complete two-front breakthrough). \textbf{C}~Its outlet curve: a fast front on the
+Henry branch, a slow rise, and the sharp cooperative pore-filling front. A surrogate
+must reproduce such fields for an adsorbent it has never seen.}
+\label{fig:schematic}
+\end{figure}
 
 \paragraph{What this paper is not.} It is not an architecture paper. Rung L3
 refutes the premise that a richer per-edge basis helps here, on our own data; rung

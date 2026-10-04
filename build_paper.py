@@ -194,6 +194,8 @@ def strip_structural(text):
     text = re.sub(r"\\includegraphics\[[^\]]*\]\{[^}]*\}", " ", text)
     text = re.sub(r"\\(label|ref|eqref|cite|input|bibliographystyle|bibliography)"
                   r"\{[^}]*\}", " ", text)
+    # an environment's optional LAYOUT argument, e.g. \begin{description}[leftmargin=1.2em]
+    text = re.sub(r"\\begin\{[^}]*\}\[[^\]]*\]", " ", text)
     text = re.sub(r"\\(begin|end)\{[^}]*\}", " ", text)
     # table LAYOUT is not a quantity: column widths p{0.25\textwidth} and the row
     # stretch \renewcommand{\arraystretch}{1.15} (added with the Methods tables)
