@@ -1524,5 +1524,12 @@
   "class": "DESIGN",
   "reason": "the 11 sampled parameters of the design (Table params)",
   "line_at_review": 104
+ },
+ {
+  "key": "priced for [one] fixed learner, the L1 percept",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one fixed learner' = a single learner (structural)",
+  "line_at_review": 1369
  }
 ]

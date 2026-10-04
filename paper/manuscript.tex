@@ -1388,7 +1388,12 @@ Second, the learning curve is a price list. Going from 12 training materials to 
 multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
 \nLCratio{}\(\times\) --- which is the exponent \(n^{-\nLCbeta}\) of
 Section~\ref{sec:ladder} restated as money. A practitioner who needs
-\nLCsmallest\ nRMSE should buy \nCostSmallSims\ simulations and stop.
+\nLCsmallest\ nRMSE should buy \nCostSmallSims\ simulations and stop. The list is
+priced for one fixed learner, the L1 perceptron; L2 found a configuration
+\(\nLtwoVsLonePct\,\%\) better at the largest size, and the operator comparison of
+Section~\ref{sec:mechanism} a larger lever still, so a better learner shifts every row
+down and the frontier with it. The exchange rate between data and error is the
+transferable part, not the absolute rows.
 
 Third, and this is why the negative results in this paper are worth their space: every
 rung that was \emph{eliminated} is an intervention that would have added cost without
