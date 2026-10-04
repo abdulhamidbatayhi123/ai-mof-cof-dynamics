@@ -53,8 +53,12 @@ def load_cell(name):
 
 
 def physics_for(man):
-    p = AdsorptionPhysicsConfig() if man["iso"] == "langmuir" else get_mof303_physics()
-    return p
+    """The cell's physics, from the GENERATOR's own builder (p2_generate.make_physics), so
+    the observation model and the ground truth cannot diverge. The first version mapped
+    every label other than 'langmuir' to MOF-303, which would have given the isothermal
+    control (iso = 'langmuir_iso') the wrong isotherm."""
+    from p2_generate import make_physics
+    return make_physics(man["iso"])[0]
 
 
 def isotherm_error_fn(name, rep, eps):
