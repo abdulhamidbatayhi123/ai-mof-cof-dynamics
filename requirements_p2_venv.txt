@@ -140,3 +140,6 @@ webcolors==24.8.0
 xgboost==3.2.0
 xlsxwriter==3.2.9
 zipp==4.1.0
+pysr==2.6.1
+juliacall==0.9.36
+juliapkg==0.1.27

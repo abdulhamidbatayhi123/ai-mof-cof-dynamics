@@ -202,6 +202,9 @@ run_job "B-GP Gaussian process on POD (5 folds)" 'grep -q BGP_RUN_DONE bgp.log 2
 run_job "B-GP analysis" 'grep -q BGP_ANALYSIS_DONE bgp_analysis.log 2>/dev/null' '"$P" -u analyze_gp_baseline.py >> bgp_analysis.log 2>&1'
 run_job "B-COARSE coarse-grid solver" 'grep -q BCOARSE_DONE bcoarse.log 2>/dev/null' '"$P" -u coarse_solver_baseline.py >> bcoarse.log 2>&1'
 
+# PREREG_P2 §3 M7 inclusion gate: PySR known-answer pilot (Julia precompile needs free RAM)
+run_job "P2 M7 PySR pilot (inclusion gate)" 'grep -q P2_PILOT_M7_DONE p2_pilot_m7.log 2>/dev/null' '.venv/Scripts/python.exe -u p2_pilot_m7.py >> p2_pilot_m7.log 2>&1'
+
 say "=============================================================="
 say "AUTORUN_QUEUE_DONE"
 say "=============================================================="
