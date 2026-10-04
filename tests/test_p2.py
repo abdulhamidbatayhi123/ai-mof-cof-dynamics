@@ -296,10 +296,13 @@ def _curve(center, rng, xs):
 
 
 def test_r_collapse_words_follow_the_spread():
+    # This test first fed FALLING curves, i.e. it encoded the bug that success falls with
+    # R; success RISES with R = delta / eps_eff (see test_r_collapse_handles_success_
+    # rising_with_R), so the curves are generated rising here.
     rng = np.random.default_rng(0)
     xs = np.logspace(-1, 3, 9)
-    together = {f"cond{i}": _curve(1.0 + 0.05 * i, rng, xs) for i in range(3)}
-    apart = {"a": _curve(0.0, rng, xs), "b": _curve(1.5, rng, xs)}
+    together = {f"cond{i}": _logistic_successes(xs, 1.0 + 0.05 * i, +4.0, 40, rng) for i in range(3)}
+    apart = {"a": _logistic_successes(xs, 0.0, 4.0, 40, rng), "b": _logistic_successes(xs, 1.5, 4.0, 40, rng)}
     assert r_collapse(together, n_boot=100)["words"].startswith("R collapses")
     assert r_collapse(apart, n_boot=100)["words"].startswith("R does not collapse")
 
@@ -449,3 +452,53 @@ def test_grid_extra_m5_matches_m4_at_zero_noise_through_the_grid_wrapper():
     co, ok = fit_m5(obs, 0.0, 0.0)
     assert ok, co
     assert set(co) == set(discover_o1(obs, "best_subset", "strong")), co
+
+
+def _logistic_successes(levels, b_log10, slope, n_rep, rng):
+    """Replicate outcomes with P(success) = sigma(slope (log10 x - b)); slope < 0 falls."""
+    out = {}
+    for x in levels:
+        p = 1.0 / (1.0 + np.exp(-slope * (np.log10(x) - b_log10)))
+        out[float(x)] = (rng.uniform(size=n_rep) < p).astype(float)
+    return out
+
+
+def test_r_collapse_handles_success_rising_with_R():
+    """H2a: success RISES with R = delta / eps_eff. A first version reused the Da boundary,
+    which only accepts a falling curve, and would have returned 'no crossing' for every
+    condition -- no H2a verdict could ever be reached."""
+    from p2.analysis import r_collapse
+    rng = np.random.default_rng(0)
+    R = np.logspace(-1, 3, 9)
+    conds = {f"c{i}": _logistic_successes(R, 1.0 + 0.1 * i, +4.0, 40, rng) for i in range(3)}
+    out = r_collapse(conds)
+    assert not out["no_crossing"], out
+    assert out["spread_decades"] < 0.5 and out["words"].startswith("R collapses the boundary"), out
+    wide = {"a": _logistic_successes(R, 0.0, 4.0, 40, rng), "b": _logistic_successes(R, 1.7, 4.0, 40, rng)}
+    assert r_collapse(wide)["words"].startswith("R does not collapse the boundary")
+    mid = {"a": _logistic_successes(R, 0.0, 4.0, 60, rng), "b": _logistic_successes(R, 0.75, 4.0, 60, rng)}
+    assert r_collapse(mid)["words"].startswith("inconclusive: R narrows the boundary to a spread of")
+
+
+def test_best_method_boundary_carries_the_selection():
+    """H2a/H2b: the best method is chosen on the same replicates, so its interval comes
+    from a bootstrap that resamples replicates JOINTLY across methods and re-selects the
+    best in every draw (PREREG_P2 §4.3)."""
+    from p2.analysis import best_method_boundary
+    rng = np.random.default_rng(1)
+    Da = np.logspace(-1, 3, 9)
+    by_m = {"A": _logistic_successes(Da, 1.0, -4.0, 20, rng),
+            "B": _logistic_successes(Da, 1.8, -4.0, 20, rng)}
+    best, est, lo, hi = best_method_boundary(by_m, n_boot=300)
+    assert best == "B" and lo <= est <= hi
+    assert abs(np.log10(est) - 1.8) < 0.3
+
+
+def test_h2c_words_cover_every_outcome():
+    from p2.analysis import h2c_verdict
+    mde = 0.25
+    assert h2c_verdict({0.02: 0.40}, mde)["words"].startswith("EIV moves the boundary by")
+    assert "less than the predicted factor 2" in h2c_verdict({0.02: 0.27}, mde)["words"]
+    assert h2c_verdict({0.005: 0.1, 0.02: -0.1}, mde)["words"].startswith(
+        "EIV does not move the boundary detectably")
+    assert h2c_verdict({0.02: -0.40}, mde)["words"].startswith("EIV moves the boundary DOWN by")

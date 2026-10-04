@@ -12,15 +12,16 @@ import numpy as np
 from scipy.optimize import minimize
 
 
-def _fit(x, y):
-    """Logistic P = 1 / (1 + exp(a (x - b))); returns b (log10 Da at 50 %) or None."""
+def _fit(x, y, rising=False):
+    """Logistic P = 1 / (1 + exp(a (x - b))); returns b (log10 x at 50 %) or None.
+    rising=False: success must FALL with x (Da). rising=True: it must RISE (R)."""
     if y.all() or not y.any():
         return None
     from sklearn.linear_model import LogisticRegression
     # unpenalised maximum likelihood; P(success) = sigma(w x + c), crossing at -c / w
     m = LogisticRegression(penalty=None, max_iter=1000).fit(x[:, None], y.astype(int))
     w, c = float(m.coef_[0, 0]), float(m.intercept_[0])
-    if w >= 0:          # success must FALL with Da for a boundary to mean anything
+    if (w <= 0) if rising else (w >= 0):   # the curve must go the declared way
         return None
     b = -c / w
     if not (x.min() <= b <= x.max()):
@@ -28,11 +29,11 @@ def _fit(x, y):
     return float(b)
 
 
-def boundary(successes_by_da, n_boot=2000, seed=0):
+def boundary(successes_by_da, n_boot=2000, seed=0, rising=False):
     das = sorted(successes_by_da)
     x = np.concatenate([[np.log10(d)] * len(successes_by_da[d]) for d in das])
     y = np.concatenate([np.asarray(successes_by_da[d], float) for d in das])
-    b = _fit(x, y)
+    b = _fit(x, y, rising)
     if b is None:
         return None, None, None
     rng = np.random.default_rng(seed)
@@ -44,7 +45,7 @@ def boundary(successes_by_da, n_boot=2000, seed=0):
             idx = rng.integers(0, len(s), len(s))
             xs.append(np.full(len(s), np.log10(d)))
             ys.append(s[idx])
-        bb = _fit(np.concatenate(xs), np.concatenate(ys))
+        bb = _fit(np.concatenate(xs), np.concatenate(ys), rising)
         if bb is not None:
             boots.append(bb)
     lo, hi = np.percentile(boots, [2.5, 97.5])
@@ -60,7 +61,9 @@ def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
     imputed."""
     rstar, missing = {}, []
     for cond, succ in successes_by_cond.items():
-        est, lo, hi = boundary(succ, n_boot=n_boot, seed=0)
+        # success RISES with R (more driving force per unit error); a first version
+        # used the falling-curve rule of the Da boundary and could never find a crossing
+        est, lo, hi = boundary(succ, n_boot=n_boot, seed=0, rising=True)
         if est is None:
             missing.append(cond)
         else:
@@ -74,7 +77,7 @@ def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
     elif spread >= spread_fail:
         words = f"R does not collapse the boundary (spread {spread:.2f} decade)"
     else:
-        words = f"inconclusive: spread {spread:.2f} decade lies between the declared bounds"
+        words = f"inconclusive: R narrows the boundary to a spread of {spread:.2f} decades"
     return {"rstar": rstar, "no_crossing": missing, "spread_decades": spread, "words": words}
 
 
@@ -92,3 +95,54 @@ def disc_vs_ident(da_disc, da_ident, mde_decades):
     else:
         words = "discovery fails with identifiability"
     return {"gap_decades": gap, "words": words}
+
+
+def best_method_boundary(by_method, n_boot=2000, seed=0):
+    """H2a/H2b's 'best method' (PREREG_P2 §4.3): the method with the largest Da*_disc,
+    with an interval that CARRIES the selection: each bootstrap draw resamples replicate
+    indices per Da level ONCE and applies them to every method (replicate r is the same
+    observation draw for all methods), recomputes every method's boundary and takes the
+    largest. Returns (best_method, estimate, lo, hi), or (None, None, None, None) if no
+    method has a crossing on the grid."""
+    pts = {m: boundary(s, n_boot=0 or 1, seed=seed)[0] for m, s in by_method.items()}
+    pts = {m: v for m, v in pts.items() if v is not None}
+    if not pts:
+        return None, None, None, None
+    best = max(pts, key=pts.get)
+    das = sorted(next(iter(by_method.values())))
+    nrep = {d: len(next(iter(by_method.values()))[d]) for d in das}
+    rng = np.random.default_rng(seed)
+    boots = []
+    for _ in range(n_boot):
+        idx = {d: rng.integers(0, nrep[d], nrep[d]) for d in das}
+        vals = []
+        for s in by_method.values():
+            x = np.concatenate([np.full(nrep[d], np.log10(d)) for d in das])
+            y = np.concatenate([np.asarray(s[d], float)[idx[d]] for d in das])
+            b = _fit(x, y)
+            if b is not None:
+                vals.append(b)
+        if vals:
+            boots.append(max(vals))
+    lo, hi = np.percentile(boots, [2.5, 97.5])
+    return best, pts[best], 10 ** lo, 10 ** hi
+
+
+def h2c_verdict(shift_by_eps, mde_decades, factor2=float(np.log10(2.0))):
+    """H2c words (PREREG_P2 §2, §4.4): shift = log10 Da*_disc(M5) - log10 Da*_disc(best
+    non-EIV, strong form, O1), per eps > 0. Reported for the largest |shift|."""
+    shifts = {e: v for e, v in shift_by_eps.items() if v is not None}
+    if not shifts:
+        return {"words": "no verdict: no boundary on the grid for one of the two", "shifts": {}}
+    up = max(shifts.values())
+    down = min(shifts.values())
+    if up >= factor2:
+        words = f"EIV moves the boundary by {10 ** up:.2f}x"
+    elif up >= mde_decades:
+        words = (f"EIV moves the boundary by {10 ** up:.2f}x, detectably but by less than the "
+                 f"predicted factor 2")
+    elif down <= -mde_decades:
+        words = f"EIV moves the boundary DOWN by {10 ** -down:.2f}x"
+    else:
+        words = f"EIV does not move the boundary detectably (MDE {mde_decades} decade)"
+    return {"words": words, "shifts": shifts}

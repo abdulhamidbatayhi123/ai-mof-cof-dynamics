@@ -85,7 +85,7 @@ known-answer-tested harness):
 | M2 | weak-form SINDy (S19, S54); **M2b** is its strong-form counterpart (derivative-based regression, Savitzky–Golay dq/dt) | weak form: test-function support swept over {31, 61, 121} samples, chosen per cell by the held-out weak-system residual on every 5th probe (`p2/run_o1.py:choose_support`), then refitted on all probes. A support is admissible only if its training system has at least 3 equations per library term: on the known-answer test a long support left an under-determined weak system that fitted a wrong, dense law with zero residual, which a residual criterion would prefer. Both forms run every sparse solver (M2b, M3, M4) |
 | M3 | ensemble / Bayesian SINDy (S14, S65) | inclusion probability of each term reported |
 | M4 | **exact best-subset selection by enumeration** (the MIOSR objective, S55, solved exactly because the library is small) | exhaustive over sparsity ≤ 4, BIC with the declared residual floor, **unconstrained**. An earlier draft added sign constraints (k > 0, zero rate at q = q*); they are dropped before the freeze because "zero rate at q = q*" imposes the very coefficient ratio −1 the success metric tests, so M4 would succeed partly by construction. Signs are judged by the metric, as for every method |
-| M5 | errors-in-variables. **On the grid: EIV best-subset** -- M4's exact enumeration with each support fitted by classical mixed LS-TLS (Golub, Hoffman & Stewart; TLS by SVD), every column weighted by its DECLARED error SD (σ × channel range; ε × q* plus its c-sensitivity; first-order propagation to products; the target's SD from the Savitzky-Golay filter's exact noise gain) -- `p2/eiv.py`, `p2_grid_extra.py m5`, full O1 grid, 20 replicates, strong form. ODR-BINDy (S13, port verified on its own Lorenz example) and WENDy-IRLS (S22) are reported on their own published examples only: both learn AUTONOMOUS ODE systems (every state denoised and given its own equation), while the target here is one rate equation with exogenous c, T inside a PDE and the dominant error in a regressor (the measured isotherm); extending them would be new method development. Decided 2026-10-04, before the freeze. Known-answer tests: TLS removes the attenuation bias OLS suffers; at zero error EIV best-subset recovers L1 with M4's support |
+| M5 | errors-in-variables. **On the grid: EIV best-subset** -- M4's exact enumeration with each support fitted by classical mixed LS-TLS (Golub, Hoffman & Stewart; TLS by SVD), every column weighted by its DECLARED error SD (σ × channel range; ε × q* plus its c-sensitivity; first-order propagation to products; the target's SD from the Savitzky-Golay filter's exact noise gain) -- `p2/eiv.py`, `p2_grid_extra.py m5`, full O1 grid, 20 replicates, strong form. ODR-BINDy (S13; the port reproduces the exact support on its authors' Lorenz example, accuracy pending the five-seed check below) and WENDy-IRLS (S22) are reported on their own published examples only: both learn AUTONOMOUS ODE systems (every state denoised and given its own equation), while the target here is one rate equation with exogenous c, T inside a PDE and the dominant error in a regressor (the measured isotherm); extending them would be new method development. Decided 2026-10-04, before the freeze. Known-answer tests: TLS removes the attenuation bias OLS suffers; at zero error EIV best-subset recovers L1 with M4's support |
 | M6 | SINDy-PI (S21) for rational laws | run with Lib-A and NO measured isotherm, on the **isothermal control only** (exp(−ΔH/RT) is not polynomial); success = the implicit Langmuir–LDF structure {dq, c·dq, c, q, c·q} with correct signs; verified on the known-answer system (b, k recovered within 5 %) |
 | M7 | constrained symbolic regression (PySR, S23) | Julia installed in the isolated `.venv`, never the base environment. **Inclusion gate (written 2026-10-04, before any M7 search):** `p2_pilot_m7.py` runs PySR (binary +, −, ×; maxsize 12; 40 iterations; PySR's own "best" model selection) on the known-answer LDF system (k = 0.02; 0.5 % noise on q AND on the measured q*) for 3 seeds. M7 runs on its subgrid iff success_L1 holds in ≥ 2 of 3 seeds AND every search finishes within 30 min AND peak memory stays under 3 GB; otherwise it is reported as NOT RUN with the pilot's numbers -- infeasible on this machine, or failing its known-answer test, in those words. The pilot is queued behind Paper 1's runs because Julia's first-import precompilation does not fit in the memory left beside them |
 | M8 | KAN symbolic extraction (Liu et al.'s procedure, pykan 0.2.8; NOT a KANDy reimplementation -- its code was not opened) | secondary. **FAILS its known-answer test at zero noise in every configuration tried** (polynomial library at three sparsity penalties; raw variables on one and on three trajectories): it routes the law through q^2, uses q alone, or returns {1, q*, q*^2}. Its grid run (best configuration: raw variables, lamb 1e-3; on a subgrid of all Da × σ ∈ {0.5 %, 2 %} × ε ∈ {0, 2 %} × both isotherms × Pe ×1 × O1, 3 replicates = 216 fits) was gated on cost: it runs iff one fit at the grid's size takes ≤ 300 s (≤ 18 h for the subgrid), a rule written in `p2_pilot_costs.py` before that pilot ran. **Measured 1144 s: M8 is NOT RUN on the grid** (§10), a machine limit; it is reported on its known-answer tests, as a documented negative, never dropped |
@@ -315,7 +315,8 @@ stays as declared.
   half a decade but less than one decade → "inconclusive: R narrows the boundary to a
   spread of {x} decades". H2c: a shift at or above the MDE but below 0.30 decade →
   "EIV moves the boundary by {factor}, detectably but by less than the predicted
-  factor 2".
+  factor 2"; a shift DOWN of at least the MDE → "EIV moves the boundary DOWN by
+  {factor}" (reported, a negative for H2c).
 
 ## 5. External anchors
 - **S1 on the map.** Recompute S1's Da under §4.2's definition; plot it. If it lands in
@@ -361,7 +362,7 @@ No discovery method is run before the freeze.
 
 ## 7. Compute
 81 ground-truth solves (done) plus the isothermal control and the H2c refinement solves;
-M2–M6, M8, M9 at 20 replicates over ≈ 2600 cells are seconds each; M1 and
+M2–M6, M9 at 20 replicates (M8 NOT RUN on the grid, §3) over ≈ 2600 cells are seconds each; M1 and
 M7 on the subgrid are the cost (≈ 200 trainings or searches). CPU-feasible. Every job
 is queued in `autorun.sh` with a done-test; one training job at a time.
 
@@ -423,6 +424,10 @@ known-answer failure. M8 is reported on its known-answer tests only.
 **M5, decided 2026-10-04 before the freeze:** EIV best-subset on the grid (see §3 M5),
 because ODR-BINDy and WENDy as published apply to autonomous ODE systems, not to a
 single rate law with exogenous inputs and regressor error; H2c is tested with it.
+**Analysis code (2026-10-04):** `p2/analysis.py` now has the rising-curve rule for R
+(a first version would have returned 'no crossing' for every H2a condition), the
+selection-carrying best-method bootstrap, and the H2c words; H2c gains the pre-declared
+words for a shift DOWN: "EIV moves the boundary DOWN by {factor}".
 **Code owed before the freeze:** the O2 profile likelihood in `p2_grid_o23.py`
 (listed in the table) -- DONE 2026-10-04 (`p2/identifiability.py:profile_interval_probes`,
 `p2_grid_o23.py o2ident`, known-answer test). **Grid runners still owed** (found by

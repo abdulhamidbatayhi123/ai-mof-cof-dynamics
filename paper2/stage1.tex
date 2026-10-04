@@ -195,7 +195,8 @@ Then $R = \delta/\varepsilon_{\mathrm{eff}}$, computed per cell.
 
 \paragraph{H2a: the boundary is a driving-force-versus-error boundary.}
 The probability of successful discovery, $P(\text{success})$, collapses onto one curve
-when plotted against $R$, across $\Da$, $\Pe$, isotherm shape and observation model. The
+when plotted against $R$, across $\Da$, $\Pe$, isotherm shape and observation model (O1
+and O2; O3 has no discovery method beyond M1's demonstration). The
 50\,\% crossing lies at $R^{*}$ with a spread of \emph{less than half a decade} across
 conditions.
 \emph{Falsifier:} an $R^{*}$ spread of one decade or more across conditions.
@@ -230,8 +231,11 @@ When either boundary has no crossing inside the tested range, no verdict word is
 the range tested is reported instead (\S\ref{sec:analysis}).
 
 \paragraph{H2c: errors-in-variables methods move the boundary.}
-The best errors-in-variables (EIV) method (M5, \S\ref{sec:compet}) shifts $\Da^{*}_{\mathrm{disc}}$ by at
-least a factor of 2 relative to the best non-EIV method at $\varepsilon > 0$.
+The errors-in-variables (EIV) method on the grid (M5, \S\ref{sec:compet}) shifts
+$\Da^{*}_{\mathrm{disc}}$ by at least a factor of 2 relative to the best non-EIV method at
+$\varepsilon > 0$. The comparison is like for like: both methods in the strong form (M5 is
+strong-form only), on O1. The best non-EIV method over both forms is reported alongside,
+descriptively.
 \emph{Falsifier:} a shift below the MDE at every $\varepsilon > 0$.
 \emph{Pre-declared words:} \verdict{EIV moves the boundary by \{factor\}}, or
 \verdict{EIV does not move the boundary detectably (MDE \{x\})}. A shift at or above the
@@ -462,7 +466,10 @@ freeze.
 \item[M6, SINDy-PI \citep{kaheman2020} for rational laws.] M6 is run with Lib-A and
 \emph{no} measured isotherm, on the isothermal control only (\S\ref{sec:axes}), because
 $\exp(-\Delta H/RT)$ is not polynomial. Success is the implicit Langmuir--LDF structure
-$\{\mathrm{d}q,\ c\,\mathrm{d}q,\ c,\ q,\ c\,q\}$ with correct signs. M6 is verified on
+$\{\mathrm{d}q,\ c\,\mathrm{d}q,\ c,\ q,\ c\,q\}$ with correct signs. Its library is
+$\{1,\ c,\ q,\ c\,q,\ q^{2},\ c^{2}\}$, which is Lib-A without $T$, because $T$ is constant
+on the isothermal control. It runs at every $\sigma$ and at $\varepsilon = 0$ only, because M6
+is given no isotherm and isotherm error does not apply. M6 is verified on
 the known-answer system, with every coefficient (hence $b$ and $k$) recovered within
 5\,\%.
 % PREREG_P2 s.3 M6 row and s.10 item 10; tests/test_p2.py line 259:
@@ -485,10 +492,14 @@ opened. It is a secondary method. \emph{It fails its known-answer test at zero n
 every configuration tried.} The polynomial library at three sparsity penalties routes the
 law through $q^{2}$. Raw variables on one trajectory use $q$ alone. Raw variables on three
 trajectories return $\{1, \qs, {\qs}^{2}\}$. This is consistent with the reported
-fragility of KANs on multiplicative terms \citep{spotorno2026}. \emph{M8 is NOT RUN on the
-grid, by its cost gate.} One fit of its best configuration (raw variables, sparsity
-penalty $10^{-3}$) at the grid's size took 1144\,s, against the declared 300\,s limit. Over
-its subgrid that is 216 fits, about 69\,h. This is a machine limit, reported in those
+fragility of KANs on multiplicative terms \citep{spotorno2026}. M8's grid run was gated on
+cost. Its best configuration is raw variables with sparsity penalty $10^{-3}$. Its subgrid
+is all $\Da$ $\times$ $\sigma \in \{0.5\,\%, 2\,\%\}$ $\times$ $\varepsilon \in \{0, 2\,\%\}$
+$\times$ both isotherms $\times$ $\Pe \times 1$ $\times$ O1, with 3 replicates, which is 216
+fits. The rule, written into the cost pilot before it ran, was that M8 runs only if one fit
+at the grid's size takes at most 300\,s, so at most 18\,h for the subgrid. \emph{The pilot
+measured 1144\,s, so M8 is NOT RUN on the grid.} Over the subgrid that would have been
+about 69\,h. This is a machine limit, reported in those
 words. It was measured while the machine was shared with other long jobs, which the paper
 states. On the same known-answer data the timed fit returned only a constant, consistent
 with the documented failure. M8 is reported on its known-answer tests only.
@@ -497,7 +508,8 @@ with the documented failure. M8 is reported on its known-answer tests only.
 % tests/test_p2.py::test_kan_symbolic_recovers_ldf_at_zero_noise (xfail, strict=True).
 
 \item[M9, slow-manifold discovery \citep{delgado2025}.] M9 regresses the \emph{state} $q$,
-not its rate, on $q$-free features by exact best-subset selection. It is expected to win at
+not its rate, on the $q$-free features $\{1,\ c,\ T,\ c^{2},\ \qsm\}$ by exact best-subset
+selection. It is expected to win at
 high $\Da$ by returning the isotherm (plus apparent dispersion). It is reported as
 \emph{what is discoverable there}, not as rate-law success. Its own success criterion is
 given in \S\ref{sec:metrics}.
@@ -661,7 +673,9 @@ estimate of 0.089 decade.
 \subsection{Minimum detectable effect}
 A boundary shift, or a gap between discovery and identifiability, is resolvable at about
 $2.8 \times 0.089 \approx 0.25$ decade (80\,\% power, two-sided 5\,\%). \textbf{The MDE is
-0.25 decade}, and it is quoted with every null. The $\Da$ grid spacing is half a decade;
+0.25 decade}, and it is quoted with every null. It applies on O1, where discovery and
+identifiability both rest on 20 replicates per level. O2 and O3 identifiability has 3
+replicates and is reported descriptively. The $\Da$ grid spacing is half a decade;
 the logistic estimator resolves the crossing well inside one grid step, which is what the
 measured standard deviation shows.
 % PREREG_P2 s.4.4 and s.10 item 1 (the earlier "half a decade" was the grid spacing and is
@@ -699,9 +713,13 @@ otherwise \verdict{discovery fails with identifiability}. O2 and O3 gaps are rep
 descriptively, with intervals and no verdict words.
 % p2/analysis.py disc_vs_ident (mde 0.25); PREREG_P2 s.2 H2b.
 \item[H2c.] H2c is decided at $\sigma = 2\,\%$ on O1. The shift is
-$\log_{10}\Da^{*}_{\mathrm{disc}}(\text{M5}) - \log_{10}\Da^{*}_{\mathrm{disc}}(\text{best
-non-EIV})$, with a bootstrap interval. It is estimated on the refined grid for $\varepsilon
-= 2\,\%$, and on the main grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The
+\[
+\log_{10}\Da^{*}_{\mathrm{disc}}(\text{M5}) - \log_{10}\Da^{*}_{\mathrm{disc}}(\text{best
+strong-form non-EIV}),
+\]
+with a bootstrap interval. It is estimated on the refined grid for $\varepsilon = 2\,\%$
+and on the main grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The shift relative to the
+best non-EIV method over both forms is reported alongside, descriptively. The
 hypothesis holds at a given $\varepsilon$ if the shift is at least $\log_{10}2 = 0.30$
 decade. A shift at or above the MDE but below 0.30 decade takes the intermediate verdict
 words of \S\ref{sec:hyp}. The hypothesis is falsified if the shift is below the MDE at every
@@ -798,8 +816,9 @@ the ODR-BINDy accuracy gap (\S\ref{sec:compet}). Each was found on a known-answe
 is declared before the freeze.
 
 \paragraph{P7, M8 cost gate.}
-\emph{Measured:} one M8 fit at the grid's size took 1144\,s against the declared 300\,s
-limit, on a machine shared with other long jobs. \emph{Changed:} M8 is not run on the grid
+\emph{Measured:} one M8 fit at the grid's size took 1144\,s, against the 300\,s limit
+written in the pilot script before it ran. The machine was shared with other long jobs at
+the time. \emph{Changed:} M8 is not run on the grid
 (\S\ref{sec:compet}).
 % results/p2_cost_gates.json.
 
@@ -820,8 +839,10 @@ $\Da^{*}_{\mathrm{ident}}$ and made H2b confirmatory on O1 only. It defined the 
 $\varepsilon_{\mathrm{rec}}$, the operational L2 success rule and the Lib-A fidelity. It
 fixed H2c's resolution for each $\varepsilon$, gave the isothermal control a grid, and
 replaced M5's grid method with EIV best-subset. It also added the O2 profile likelihood
-and grid runners for every method.
-% PREREG_P2 s.10 items 1-20 and "Second pass"; p2_grid_o1.py, p2_grid_o23.py (o2, o2ident,
+and grid runners for every method. A third pass left one version each of the M5, M8 and
+L2 rules. It made H2c like for like (strong form, O1), wrote out the libraries for M6 and
+M9, and restricted the 0.25-decade MDE to O1.
+% PREREG_P2 s.10 items 1-20, "Second pass", "Third pass"; p2_grid_o1.py, p2_grid_o23.py (o2, o2ident,
 % o3), p2_grid_extra.py (m5, m6, m7, m8, m9, l2).
 
 \paragraph{Pending before the freeze.}
