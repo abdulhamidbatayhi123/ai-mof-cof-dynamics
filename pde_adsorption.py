@@ -193,10 +193,14 @@ def boundary_residuals(model, t_s, nondim, physics):
     out0 = model(z0, t_s)
     c0, T0 = out0[:, 0:1], out0[:, 2:3]
     dc0 = torch.autograd.grad(c0, z0, ones, create_graph=True)[0]
+    dT0 = torch.autograd.grad(T0, z0, ones, create_graph=True)[0]
 
     # inlet: c* - (eps/Pe) dc*/dz* = 1   (flux matching at v/eps_t; B72, was 1/Pe)
     res_in_c = c0 - (physics.eps_t / Pe) * dc0 - 1.0
-    res_in_T = T0 - physics.T_in / nondim.T_ref
+    # heat inlet is flux-type in the solver too (B72): T* - dT*/dz*/(Pe_T v_T) = T_in/T_ref
+    g = nondim.groups(physics)
+    v_T = physics.rho_g * physics.C_pg / physics.C_term
+    res_in_T = T0 - dT0 / (g["Pe_T"] * v_T) - physics.T_in / nondim.T_ref
 
     out1 = model(z1, t_s)
     c1, T1 = out1[:, 0:1], out1[:, 2:3]

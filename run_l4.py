@@ -188,7 +188,7 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
     by a factor of 5,480 outside the training time window (defect B20).
 
       inlet  z=0 :  c* - (eps/Pe) dc*/dz* = 1      flux matching (c scaled by c_in; B72)
-                    T* = T_in / T_ref = 1
+                    T* - dT*/dz* / (Pe_T v_T) = 1 flux matching for heat (B72)
       outlet z=1 :  dc*/dz* = 0,  dT*/dz* = 0      convective outflow
     """
     z0 = torch.zeros_like(t, requires_grad=True)
@@ -199,6 +199,7 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
     o0 = model(params_z, z0, t)
     c0, T0 = o0[:, 0:1], o0[:, 2:3]
     dc0 = torch.autograd.grad(c0, z0, ones, create_graph=True)[0]
+    dT0 = torch.autograd.grad(T0, z0, ones, create_graph=True)[0]
 
     o1 = model(params_z, z1, t)
     c1, T1 = o1[:, 0:1], o1[:, 2:3]
@@ -207,8 +208,12 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
 
     # B72: the solver's inlet carries zero dispersive flux with gas at v/eps_t, so
     # flux matching is  c* - (eps/Pe) dc*/dz* = 1  (was 1/Pe).
+    # B72 (thermal, found by the Methods review): the solver's thermal inlet is also
+    # flux-type -- zero conductive flux at the inlet face, the feed enthalpy carried at
+    # u_th = v rho_g C_pg / C_term -- so  T* - dT*/dz* / (Pe_T v_T) = 1, not T* = 1.
     eps = phys_batch["eps"]
-    return (c0 - (eps / Pe) * dc0 - 1.0), (T0 - 1.0), dc1, dT1
+    th = 1.0 / (phys_batch["Pe_T"] * phys_batch["v_T"])
+    return (c0 - (eps / Pe) * dc0 - 1.0), (T0 - th * dT0 - 1.0), dc1, dT1
 
 
 def build_phys_table(raw_params, device, keys):

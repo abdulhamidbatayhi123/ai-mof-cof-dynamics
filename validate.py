@@ -1121,15 +1121,16 @@ def gate_residual_matches_solver():
     n = len(rows)
 
     class Probe(torch.nn.Module):
-        def __init__(self, fc, fq):
+        def __init__(self, fc, fq, fT=None):
             super().__init__()
-            self.fc, self.fq = fc, fq
+            self.fc, self.fq, self.fT = fc, fq, fT
 
         def forward(self, pz, z, t):
             # a zero-valued term in z and t keeps every input in the autograd graph
             # (a probe that ignores t would make d/dt undefined, not zero)
             g = 0.0 * (z * z * t * t)
-            return torch.cat([self.fc(z, t) + g, self.fq(z, t) + g, 1.0 + g], dim=1)
+            T = (self.fT(z, t) if self.fT else 1.0) + g
+            return torch.cat([self.fc(z, t) + g, self.fq(z, t) + g, T], dim=1)
 
     zero = lambda z, t: 0.0 * z
     pz = torch.zeros(n, 11)
@@ -1146,6 +1147,8 @@ def gate_residual_matches_solver():
     q_code = mass(zero, lambda z, t: t)                             # coef of dq/dt
     b0, _, _, _ = boundary_residual(Probe(lambda z, t: z, zero), pz, table, t.clone(), tau)
     bc_code = -(b0.detach().double().numpy().ravel() + 1.0)         # coef of dc/dz at the inlet
+    _, bT, _, _ = boundary_residual(Probe(zero, zero, lambda z, t: z), pz, table, t.clone(), tau)
+    bcT_code = -(bT.detach().double().numpy().ravel() + 1.0)        # coef of dT/dz at the inlet
 
     bad = []
     for i in range(n):
@@ -1156,16 +1159,19 @@ def gate_residual_matches_solver():
         want = {"advection/sink": u_gas * c_in / p.L / sink,
                 "dispersion/sink": p.D_L * c_in / p.L ** 2 / sink,
                 "accumulation/sink": c_in / t_final[i] / sink,
-                "inlet dispersion": p.D_L / (u_gas * p.L)}
+                "inlet dispersion": p.D_L / (u_gas * p.L),
+                # solver: alpha_T = k_z/C_term, u_th = v rho_g C_pg/C_term, zero-flux inlet face
+                "inlet conduction": p.k_z / (p.v * p.rho_g * p.C_pg * p.L)}
         got = {"advection/sink": a_code[i] / q_code[i], "dispersion/sink": d_code[i] / q_code[i],
-               "accumulation/sink": s_code[i] / q_code[i], "inlet dispersion": bc_code[i]}
+               "accumulation/sink": s_code[i] / q_code[i], "inlet dispersion": bc_code[i],
+               "inlet conduction": bcT_code[i]}
         for k in want:
             rel = abs(got[k] - want[k]) / abs(want[k])
             if rel > 1e-3:
                 bad.append(f"row {i} {k}: residual {got[k]:.4g} vs solver {want[k]:.4g} ({100 * rel:.0f}% off)")
     if bad:
         return False, f"{len(bad)} coefficient(s) disagree with the solver: " + "; ".join(bad[:4])
-    return True, (f"advection, dispersion, accumulation and inlet-flux coefficients match "
+    return True, (f"advection, dispersion, accumulation and both inlet-flux coefficients match "
                   f"solver_fd on {n} v2 physics rows (rel tol 1e-3)")
 
 

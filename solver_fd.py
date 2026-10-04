@@ -25,9 +25,14 @@ Velocity convention: `v` is the SUPERFICIAL velocity. The interstitial gas
 speed is v/eps_t and appears in the gas mass balance; the thermal wave speed is
 v*rho_g*C_pg/C_term and appears in the energy balance.
 
-Governing equations (dimensional)
+Governing equations (dimensional), EXACTLY as rhs() integrates them
 
-    eps_t dc/dt = D_L d2c/dz2 - v dc/dz - (1-eps_t) rho_p dq/dt
+          dc/dt = D_L d2c/dz2 - (v/eps_t) dc/dz - ((1-eps_t)/eps_t) rho_p dq/dt
+
+    (An earlier version of this docstring wrote  eps_t dc/dt = D_L d2c/dz2 - ...,
+    which divides the dispersion term by eps_t relative to the code. The code applies
+    D_L itself; it misled a first fix of B72. The coefficients are exposed by
+    gas_coefficients() and checked against the training residual by validate.py.)
           dq/dt = k_LDF (q*(c,T) - q)
     C_term dT/dt = k_z d2T/dz2 - v rho_g C_pg dT/dz
                    + (1-eps_t) rho_p (-dH) dq/dt - (4 h_w/D_in)(T - T_w)
