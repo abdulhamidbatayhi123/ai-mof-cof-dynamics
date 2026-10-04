@@ -1517,5 +1517,12 @@
   "class": "DESIGN",
   "reason": "seeds 42/43/44 (protocol)",
   "line_at_review": 643
+ },
+ {
+  "key": "point in an [eleven] -dimensional space of isotherm",
+  "word": "eleven",
+  "class": "DESIGN",
+  "reason": "the 11 sampled parameters of the design (Table params)",
+  "line_at_review": 104
  }
 ]

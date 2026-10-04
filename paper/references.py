@@ -137,6 +137,38 @@ REFS = [
         pages="16730--16740", year="2020", doi="10.1021/acs.iecr.0c02339"),
      "MAPLE: Langmuir isotherm parameters as INPUTS, cyclic-steady-state KPIs as outputs, "
      "'any arbitrary adsorbent'. Scalars at CSS, not transient fields; Langmuir only.", False),
+    ("hesthaven2018non", V, "article", dict(
+        author="J. S. Hesthaven and S. Ubbiali",
+        title="Non-intrusive reduced order modeling of nonlinear problems using neural networks",
+        journal="Journal of Computational Physics", volume="363", pages="55--78", year="2018",
+        doi="10.1016/j.jcp.2018.02.037"),
+     "POD basis plus a neural map from parameters to its coefficients (POD-NN): the class our "
+     "L1 arms belong to (referee M10). Crossref record checked 2026-10-04.", False),
+    ("subraveti2019machine", V, "article", dict(
+        author="Sai Gokul Subraveti and Zukui Li and Vinay Prasad and Arvind Rajendran",
+        title="Machine learning-based multiobjective optimization of pressure swing adsorption",
+        journal="Industrial \\& Engineering Chemistry Research", volume="58", number="44",
+        pages="20412--20422", year="2019", doi="10.1021/acs.iecr.9b04173"),
+     "ML surrogate of a PSA process used for multiobjective optimisation (referee M10). Cited "
+     "only for what its title states. Crossref record checked 2026-10-04.", False),
+    ("burns2020prediction", V, "article", dict(
+        author="Thomas D. Burns and Kasturi Nagesh Pai and Sai Gokul Subraveti and Sean P. Collins "
+               "and Mykhaylo Krykunov and Arvind Rajendran and Tom K. Woo",
+        title="Prediction of {MOF} performance in vacuum swing adsorption systems for postcombustion "
+              "{CO$_2$} capture based on integrated molecular simulations, process optimizations, "
+              "and machine learning models",
+        journal="Environmental Science \\& Technology", volume="54", number="7", pages="4536--4544",
+        year="2020", doi="10.1021/acs.est.9b07407"),
+     "MOF screening at the process level with ML models (referee M10). Cited only for what its "
+     "title states. Crossref record checked 2026-10-04.", False),
+    ("leperi2019development", V, "article", dict(
+        author="Karson T. Leperi and Yongchul G. Chung and Fengqi You and Randall Q. Snurr",
+        title="Development of a general evaluation metric for rapid screening of adsorbent materials "
+              "for postcombustion {CO$_2$} capture",
+        journal="ACS Sustainable Chemistry \\& Engineering", volume="7", number="13",
+        pages="11529--11539", year="2019", doi="10.1021/acssuschemeng.9b01418"),
+     "Process-aware adsorbent screening (referee M10). Cited only for what its title states. "
+     "Crossref record checked 2026-10-04.", False),
     ("pai2022experimental", V, "article", dict(
         author="Kasturi Nagesh Pai and Tai T. T. Nguyen and Vinay Prasad and Arvind Rajendran",
         title="Experimental validation of an adsorbent-agnostic artificial neural network "

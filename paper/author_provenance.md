@@ -12,6 +12,14 @@ Each row is the author list the registry returned, verbatim.
 | mccabe2023multiple | arXiv 2310.02994 | Multiple Physics Pretraining for Physical Surrogate Models | Michael McCabe; Bruno Régaldo-Saint Blancard; Liam Holden Parker; Ruben Ohana; Miles Cranmer; Alberto Bietti; Michael Eickenberg; Siavash Golkar; Geraud Krawezik; Francois Lanusse; Mariel Pettee; Tiberiu Tesileanu; Kyunghyun Cho; Shirley Ho |
 | krass2025mofsimbench | Crossref 10.1038/s41524-025-01872-3 | MOFSimBench: evaluating universal machine learning interatomic potentials in metal-organic framework molecular modeling | Hendrik Kraß; Ju Huang; Seyed Mohamad Moosavi |
 | pai2020generalized | Crossref 10.1021/acs.iecr.0c02339 | Generalized, Adsorbent-Agnostic, Artificial Neural Network Framework for Rapid Simulation, Optimization, and Adsorbent Screening of Adsorption Processes | Kasturi Nagesh Pai; Vinay Prasad; Arvind Rajendran |
+| hesthaven2018non | Crossref 10.1016/j.jcp.2018.02.037 | Non-intrusive reduced order modeling of nonlinear problems using neural networks | J.S. Hesthaven; S. Ubbiali |
+| subraveti2019machine | Crossref 10.1021/acs.iecr.9b04173 | Machine Learning-Based Multiobjective Optimization of Pressure Swing Adsorption | Sai Gokul Subraveti; Zukui Li; Vinay Prasad; Arvind Rajendran |
+| burns2020prediction | Crossref 10.1021/acs.est.9b07407 | Prediction
+of MOF Performance in Vacuum Swing Adsorption
+Systems for Postcombustion CO2 Capture Based on Integrated Molecular Simulations, Process
+Optimizations, and Machine Learning Models | Thomas
+D. Burns; Kasturi Nagesh Pai; Sai Gokul Subraveti; Sean P. Collins; Mykhaylo Krykunov; Arvind Rajendran; Tom K. Woo |
+| leperi2019development | Crossref 10.1021/acssuschemeng.9b01418 | Development of a General Evaluation Metric for Rapid Screening of Adsorbent Materials for Postcombustion CO<sub>2</sub> Capture | Karson T. Leperi; Yongchul G. Chung; Fengqi You; Randall Q. Snurr |
 | pai2022experimental | Crossref 10.1016/j.seppur.2022.120783 | Experimental validation of an adsorbent-agnostic artificial neural network (ANN) framework for the design and optimization of cyclic adsorption processes | Kasturi Nagesh Pai; Tai T.T. Nguyen; Vinay Prasad; Arvind Rajendran |
 | ceccanti2026deep | arXiv 2601.09491 | Deep Operator Networks for Surrogate Modeling of Cyclic Adsorption Processes with Varying Initial Conditions | Beatrice Ceccanti; Mattia Galanti; Ivo Roghair; Martin van Sint Annaland |
 | wang2021understanding | Crossref 10.1137/20M1318043 | Understanding and Mitigating Gradient Flow Pathologies in Physics-Informed Neural Networks | Sifan Wang; Yujun Teng; Paris Perdikaris |

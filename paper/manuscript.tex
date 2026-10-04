@@ -26,7 +26,8 @@
 \begin{frontmatter}
 
 \title{What binds a surrogate: a pre-registered falsification ladder for
-transfer to unseen materials in metal--organic framework adsorption columns}
+transfer to unseen adsorbent parameter sets in metal--organic framework water-adsorption
+columns}
 
 \author{Abdulhamid Batayhi}
 \address{\textbf{[AFFILIATION --- to be supplied by the author]}}
@@ -115,7 +116,18 @@ the material as an input is also established: MAPLE \cite{pai2020generalized} ta
 Langmuir isotherm parameters as inputs and predicts cyclic-steady-state performance
 indicators for an arbitrary adsorbent, and it has been validated on a laboratory rig
 with two zeolites whose measured isotherms were not in its training data
-\cite{pai2022experimental}. Operator learning has reached cyclic adsorption too, with
+\cite{pai2022experimental}. Machine-learning surrogates of pressure-swing adsorption
+have been used for multiobjective process optimisation \cite{subraveti2019machine},
+and adsorbents, metal--organic frameworks among them, have been screened at the
+process level with the help of learned models
+\cite{leperi2019development,burns2020prediction}. On the numerical side, the arms of
+our first rungs are a non-intrusive reduced-order model in the sense of Hesthaven and
+Ubbiali \cite{hesthaven2018non}: a proper-orthogonal-decomposition basis with a
+learned map from parameters to its coefficients. To the surrogate, a ``material'' is a
+point in an eleven-dimensional space of isotherm, kinetic and bed parameters, and the
+question this paper asks --- which term binds the error, the basis or the map --- is
+the parametric reduced-order-model question, asked of an adsorption column and
+answered with a pre-registered test. Operator learning has reached cyclic adsorption too, with
 generalisation tested across initial conditions \cite{ceccanti2026deep}. What we do
 not find is the combination tested here: transient fields rather than steady-state
 indicators, inflected water isotherms rather than Langmuir ones, and a held-out
