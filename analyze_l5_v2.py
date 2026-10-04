@@ -32,7 +32,11 @@ from metrics import ArmResult, compare, format_comparison
 from v2_common import alpha_for
 
 RES = ["results/l5_v2_results.json"]
-STEPS_RES = "results/l5_v2_steps.json"
+# PREREG_L5_v2 amendment A1 split the step arm into one file per p. The analyser
+# kept reading the old single name, found nothing, and reported the pre-registered
+# re-budget gate as "NOT RUN" on 2026-10-04 while both files sat on disk. It now reads
+# every declared file and REFUSES if only some exist.
+STEPS_RES = ["results/l5_v2_steps_p8.json", "results/l5_v2_steps_p128.json"]
 OUT = "results/l5_v2_verdict.json"
 MDE_EFFECTS = (0.0, 0.02, 0.05, 0.10, 0.20)
 MIN_SEEDS = 3                        # protocol section 3 rule 5
@@ -104,7 +108,7 @@ def same_samples(a, b):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--res", nargs="+", default=RES)
-    ap.add_argument("--steps-res", default=STEPS_RES)
+    ap.add_argument("--steps-res", nargs="*", default=STEPS_RES)
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--mde-trials", type=int, default=200)
     ap.add_argument("--no-mde", action="store_true")
@@ -244,13 +248,18 @@ def main(argv=None):
     })
 
     # ── step-sensitivity arm (#13) ─────────────────────────────────────────
-    if args.steps_res and os.path.exists(args.steps_res):
-        S = json.load(open(args.steps_res))
-        if tuple(json.dumps(S.get(k)) for k in PARITY[:-1]) != tuple(json.dumps(meta.get(k)) for k in PARITY[:-1]):
-            raise ValueError(f"{args.steps_res} differs from the sweep in {PARITY[:-1]}")
+    present = [p for p in (args.steps_res or []) if os.path.exists(p)]
+    if present and len(present) != len(args.steps_res):
+        raise SystemExit(f"step arm PARTIAL: {sorted(set(args.steps_res) - set(present))} missing; "
+                         f"the re-budget gate needs every declared file")
+    if present:
         a48, n48 = alpha_for("manifest")
         sens = {}
-        for f, F in S.get("folds", {}).items():
+        for path in present:
+          S = json.load(open(path))
+          if tuple(json.dumps(S.get(k)) for k in PARITY[:-1]) != tuple(json.dumps(meta.get(k)) for k in PARITY[:-1]):
+            raise ValueError(f"{path} differs from the sweep in {PARITY[:-1]}")
+          for f, F in S.get("folds", {}).items():
             for fam, byp in F["arms"].items():
                 for p, bylr in byp.items():
                     for lr, bysteps in bylr.items():

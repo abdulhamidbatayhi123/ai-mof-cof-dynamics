@@ -1,0 +1,43 @@
+L5-v2 — 128x128 encoding, budget ~200,000, steps [8000], seeds [42, 43, 44], alpha 0.02 (240 clusters), n_boot 4000
+  folds usable: [0, 1, 2, 3, 4] of 5 (present: [0, 1, 2, 3, 4])
+
+      p  POD floor |   deeponet      lr  x floor
+  ----------------------------------------------
+      8    0.00631 |    0.01146   1e-02      1.8
+     16    0.00267 |    0.01055   1e-02      3.9
+     32    0.00094 |    0.01146*  3e-03     12.2
+     64    0.00028 |    0.01168*  3e-03     41.7
+    128    0.00007 |    0.01216*  3e-03    172.8
+
+paired vs smallest p, cluster-robust by material, alpha 0.02
+    deeponet p=8 0.01146 vs deeponet p=16 0.01055 | diff +0.0009049 CI [+0.0006163, +0.001195]
+    deeponet p=8 0.01146 vs deeponet p=32 0.01146 | diff -4.796e-06 CI [-0.0003835, +0.0003922]  (CI includes zero — NO DIFFERENCE)
+  MDE L5-v2 deeponet p=32 vs p=8: 240 clusters, base 0.0115, between sd 0.0026 (22 % of base), within sd 0.0084, alpha 0.02
+     true effect   power
+              0 %      4 %
+              2 %     20 %
+              5 %     86 %
+             10 %    100 %
+             20 %    100 %
+    -> size at the null 4.5 % (the calibrated level targets 5 %)
+    -> minimum detectable effect at 80 % power: 5 %
+    deeponet p=8 0.01146 vs deeponet p=64 0.01168 | diff -0.0002157 CI [-0.0005944, +0.0001644]  (CI includes zero — NO DIFFERENCE)
+  MDE L5-v2 deeponet p=64 vs p=8: 240 clusters, base 0.0115, between sd 0.0025 (22 % of base), within sd 0.0082, alpha 0.02
+     true effect   power
+              0 %      4 %
+              2 %     20 %
+              5 %     86 %
+             10 %    100 %
+             20 %    100 %
+    -> size at the null 4.5 % (the calibrated level targets 5 %)
+    -> minimum detectable effect at 80 % power: 5 %
+    deeponet p=8 0.01146 vs deeponet p=128 0.01216 | diff -0.0007039 CI [-0.001089, -0.0002954]
+
+  GRID-BOUNDARY WARNINGS:
+   ! deeponet p=32: best lr 3e-03 is the BOTTOM of ['3e-03', '1e-02', '3e-02'] — STILL MOVING (860.3 %) — UNBRACKETED, extend the grid
+   ! deeponet p=64: best lr 3e-03 is the BOTTOM of ['3e-03', '1e-02', '3e-02'] — STILL MOVING (557.5 %) — UNBRACKETED, extend the grid
+   ! deeponet p=128: best lr 3e-03 is the BOTTOM of ['3e-03', '1e-02', '3e-02'] — STILL MOVING (266.3 %) — UNBRACKETED, extend the grid
+  step arm deeponet p=8 lr 1e-02 fold 0: 0.0108 -> 0.0107 (+0.5 %)  
+  step arm deeponet p=128 lr 3e-03 fold 0: 0.0115 -> 0.0094 (+18.8 %)  MATERIAL — RE-BUDGET THE SWEEP
+
+wrote results/l5_v2_verdict.json
