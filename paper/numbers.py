@@ -574,6 +574,29 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # Methods table (referee M7): per-rung sizes and budgets, read from each rung's own results
+    ("MthThreeSteps", "results/l3_results.json", "steps", "{:d}"),
+    ("MthThreeDepth", "results/l3_results.json", "depth", "{:d}"),
+    ("MthThreeBudgets", "results/l3_results.json", "arms",
+     lambda a: "/".join(f"{b // 1000}k" for b in sorted({x["budget"] for x in a}))),
+    ("MthThreeWidths", "results/l3_results.json", "arms",
+     # one width per (family, budget) -- the arms repeat it once per learning rate
+     lambda a: "; ".join(f"{lab} " + "/".join(str(w) for _, w in sorted(
+         {y["budget"]: y["width"] for y in a if y["family"] == fam}.items()))
+         for fam, lab in (("mlp", "perceptron"), ("rbf_kan", "RBF"), ("cheby_kan", "Chebyshev")))),
+    ("MthFourWidth", "results/l4b_v2_results.json", "width", "{:d}"),
+    ("MthFourDepth", "results/l4b_v2_results.json", "depth", "{:d}"),
+    ("MthFourParams", "results/l4b_v2_results.json", "n_params", lambda n: f"{n:,}".replace(",", "{,}")),
+    ("MthFourSteps", "results/l4b_v2_results.json", "steps", "{:d}"),
+    ("MthFourSup", "results/l4b_v2_results.json", "n_sup", "{:d}"),
+    ("MthFourColloc", "results/l4b_v2_results.json", "n_colloc", "{:d}"),
+    ("MthFourBc", "results/l4b_v2_results.json", "n_bc", "{:d}"),
+    ("MthFiveBudget", "results/l5_merged.json", "encoding.budget", lambda b: f"{b // 1000}k"),
+    ("MthFiveSteps", "results/l5_merged.json", "encoding.steps", "{:d}"),
+    ("MthSixBudget", "results/l6_v2_results.json", "budget", lambda b: f"{b // 1000}k"),
+    ("MthSixDepth", "results/l6_v2_results.json", "depth", "{:d}"),
+    ("MthSixSteps", "results/l6_v2_results.json", "steps", "{:d}"),
+    ("MthSixNdesc", "results/l6_v2_results.json", "n_desc", "{:d}"),
     # Methods (referee M7): design constants read from the code by design_constants.py,
     # so the Methods section cannot drift from the generator and solver it describes
     ("DcStoreV", "results/design_constants.json", "v2.store_nz", "{:d}"),

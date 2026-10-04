@@ -313,6 +313,23 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "MthThreeSteps": "12000",
+    "MthThreeDepth": "3",
+    "MthThreeBudgets": "50k/200k/800k",
+    "MthThreeWidths": "perceptron 114/269/583; RBF 45/98/203; Chebyshev 48/103/215",
+    "MthFourWidth": "192",
+    "MthFourDepth": "4",
+    "MthFourParams": "114{,}435",
+    "MthFourSteps": "8000",
+    "MthFourSup": "4096",
+    "MthFourColloc": "1024",
+    "MthFourBc": "512",
+    "MthFiveBudget": "200k",
+    "MthFiveSteps": "8000",
+    "MthSixBudget": "120k",
+    "MthSixDepth": "4",
+    "MthSixSteps": "12000",
+    "MthSixNdesc": "54",
     "DcStoreV": "256",
     "DcStoreLegZ": "512",
     "DcStoreLegT": "256",
@@ -1676,6 +1693,74 @@
     "LfourbVerdictTime": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
+    },
+    "MthThreeSteps": {
+      "file": "results/l3_results.json",
+      "path": "steps"
+    },
+    "MthThreeDepth": {
+      "file": "results/l3_results.json",
+      "path": "depth"
+    },
+    "MthThreeBudgets": {
+      "file": "results/l3_results.json",
+      "path": "arms"
+    },
+    "MthThreeWidths": {
+      "file": "results/l3_results.json",
+      "path": "arms"
+    },
+    "MthFourWidth": {
+      "file": "results/l4b_v2_results.json",
+      "path": "width"
+    },
+    "MthFourDepth": {
+      "file": "results/l4b_v2_results.json",
+      "path": "depth"
+    },
+    "MthFourParams": {
+      "file": "results/l4b_v2_results.json",
+      "path": "n_params"
+    },
+    "MthFourSteps": {
+      "file": "results/l4b_v2_results.json",
+      "path": "steps"
+    },
+    "MthFourSup": {
+      "file": "results/l4b_v2_results.json",
+      "path": "n_sup"
+    },
+    "MthFourColloc": {
+      "file": "results/l4b_v2_results.json",
+      "path": "n_colloc"
+    },
+    "MthFourBc": {
+      "file": "results/l4b_v2_results.json",
+      "path": "n_bc"
+    },
+    "MthFiveBudget": {
+      "file": "results/l5_merged.json",
+      "path": "encoding.budget"
+    },
+    "MthFiveSteps": {
+      "file": "results/l5_merged.json",
+      "path": "encoding.steps"
+    },
+    "MthSixBudget": {
+      "file": "results/l6_v2_results.json",
+      "path": "budget"
+    },
+    "MthSixDepth": {
+      "file": "results/l6_v2_results.json",
+      "path": "depth"
+    },
+    "MthSixSteps": {
+      "file": "results/l6_v2_results.json",
+      "path": "steps"
+    },
+    "MthSixNdesc": {
+      "file": "results/l6_v2_results.json",
+      "path": "n_desc"
     },
     "DcStoreV": {
       "file": "results/design_constants.json",

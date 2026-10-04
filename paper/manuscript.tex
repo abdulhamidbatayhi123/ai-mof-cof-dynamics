@@ -697,23 +697,23 @@ L2 & larger, five-fold & as L1 &
 perceptron width and depth, boosting depth, forest leaf size, swept in both directions & as L1 \\
 L3 & legacy &
 parameters \(\to\) POD coefficients; full stored field &
-perceptron and two Kolmogorov--Arnold families (Gaussian radial basis, Chebyshev) at three matched parameter budgets &
-Adam, cosine schedule, per-family learning-rate grid \\
+perceptron and two Kolmogorov--Arnold families (Gaussian radial basis, Chebyshev), depth \nMthThreeDepth, matched to \nMthThreeBudgets\ parameters; widths \nMthThreeWidths &
+Adam, cosine schedule, \nMthThreeSteps\ steps, per-family learning-rate grid \\
 L4 & larger; time axis on the training materials, material axis on the single split &
 (parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head &
-one perceptron; data-only twin and physics-weighted arms (fixed weights, gradient-norm balancing, NTK and self-adaptive weighting); the residual of equations \eqref{eq:mass}--\eqref{eq:energy} with \eqref{eq:danckwerts}, as corrected under B72 &
-Adam, cosine schedule; then L-BFGS (polish) \\
+one perceptron, \nMthFourDepth\ layers of \nMthFourWidth\ (\nMthFourParams\ parameters); data-only twin and physics-weighted arms (fixed weights, gradient-norm balancing, NTK and self-adaptive weighting); the residual of equations \eqref{eq:mass}--\eqref{eq:energy} with \eqref{eq:danckwerts}, as corrected under B72 &
+Adam, cosine schedule, \nMthFourSteps\ steps of \nMthFourSup\ data, \nMthFourColloc\ collocation and \nMthFourBc\ boundary points; then L-BFGS (polish) \\
 L5 & legacy &
 parameters \(\to\) \(c\) field, subsampled from the stored field &
-DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; parameter-matched &
-Adam, cosine schedule, per-arm learning-rate grid \\
+DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; all matched to \nMthFiveBudget\ parameters &
+Adam, cosine schedule, \nMthFiveSteps\ steps, per-arm learning-rate grid \\
 L5 basis vs.\ map & larger, five-fold &
 parameters \(\to\) POD coefficients of \(c\) over basis size &
 one gradient-boosted regressor per mode & three seeds \\
 L6 & larger, five-fold &
-observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
-joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; matched parameters &
-Adam, cosine schedule \\
+\nMthSixNdesc\ observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
+joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; both \nMthSixBudget\ parameters, depth \nMthSixDepth &
+Adam, cosine schedule, \nMthSixSteps\ steps \\
 L7 & larger, all samples; paired with L1 out of fold &
 parameters \(\to\) outlet curve &
 equilibrium shock, Klinkenberg, constant pattern; nothing fitted & none \\

@@ -1463,20 +1463,6 @@
   "line_at_review": 620
  },
  {
-  "key": "n radial basis, Chebyshev) at [three] matched parameter budgets &",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the three matched parameter budgets of L3 (design)",
-  "line_at_review": 620
- },
- {
-  "key": " [one] perceptron; data-only twin an",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one perceptron' = a single architecture (structural)",
-  "line_at_review": 624
- },
- {
   "key": " [one] gradient-boosted regressor pe",
   "word": "one",
   "class": "PROSE",
@@ -1587,5 +1573,12 @@
   "class": "PROSE",
   "reason": "'the two' = the paper and the ledger (structural)",
   "line_at_review": 1704
+ },
+ {
+  "key": " [one] perceptron, \\ layers of \\ (",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one perceptron' = a single architecture (structural)",
+  "line_at_review": 680
  }
 ]
