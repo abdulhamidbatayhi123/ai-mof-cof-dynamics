@@ -42,13 +42,6 @@
   "line_at_review": 104
  },
  {
-  "key": "measurable physical cause. [Two] independent groups, different",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 110
- },
- {
   "key": "red falsification ladder over [seven] named candidate explanations",
   "word": "seven",
   "class": "DESIGN",
@@ -236,13 +229,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 367
- },
- {
-  "key": "selected for that design, and [four] ",
-  "word": "four",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 372
  },
  {
   "key": "preserved gave [seven] per cent (A22). A second corr",
@@ -740,13 +726,6 @@
   "class": "PROSE",
   "reason": "names a defective rule (a two-seed selection rule)",
   "line_at_review": 1014
- },
- {
-  "key": "{ [Three] that reversed a headline.} A1",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "counts the items the same paragraph names one by one",
-  "line_at_review": 1025
  },
  {
   "key": "{What remains open.} [One] entry is deliberately unresol",
@@ -1293,5 +1272,26 @@
   "class": "PROSE",
   "reason": "idiom 'one by one' (structural)",
   "line_at_review": 1342
+ },
+ {
+  "key": "problem, though [one] study on each side is not a g",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'one study on each side' (structural)",
+  "line_at_review": 119
+ },
+ {
+  "key": "ly: the smaller design's is a [quarter] of the larger",
+  "word": "quarter",
+  "class": "DESIGN",
+  "reason": "ratio of the two designs' nominal alphas, 0.005/0.02, both fixed by protocol",
+  "line_at_review": 381
+ },
+ {
+  "key": "{ [Four] that reversed a headline.} Th",
+  "word": "Four",
+  "class": "PROSE",
+  "reason": "count of the entries enumerated in the paragraph itself (structural)",
+  "line_at_review": 1155
  }
 ]
