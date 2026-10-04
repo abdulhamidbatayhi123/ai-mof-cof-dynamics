@@ -604,7 +604,7 @@ def _invert_isotherm(phys, q_target, T, c_hi=1e4):
     return np.sqrt(lo * hi)
 
 
-@gate("isotherm is Type V (has an inflection)", "isotherm")
+@gate("isotherm is S-shaped (has an inflection)", "isotherm")
 def gate_type_v():
     """Water AWH frameworks fill cooperatively; a Type I form cannot represent the step."""
     phys = _physics("mof303")

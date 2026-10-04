@@ -349,5 +349,7 @@
     }
   },
   "n_inside_all": 3,
-  "n_materials": 6
+  "n_materials": 6,
+  "dH_least_exothermic_placed": -49.0,
+  "dH_most_exothermic_placed": -61.0
 }

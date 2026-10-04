@@ -78,7 +78,6 @@ _ALLOWED_PAIRS = [
     ("1954", "citation year"),
     ("1953", "citation year"),
     ("1959", "citation year"),
-    ("1982", "citation year"),
     ("1908", "citation year"),
     # figures, sections, document structure
     ("11", "documentclass font size"),
@@ -117,11 +116,11 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0.2": 3, "0.5": 2, "0.7": 2, "1": 30, "1.1": 1, "1.5": 1, "2": 32,
+    "0": 4, "0.2": 3, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 32,
     "3": 3, "4": 7, "5": 3, "6": 3, "7": 1, "8": 4, "9.7": 1, "10": 12, "12": 7,
     "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
     "95": 3, "96": 3, "99.9": 2, "128": 4, "192": 11, "240": 4, "256": 1,
-    "1948": 1, "1953": 1, "1954": 1, "1982": 1, "15": 1,
+    "1948": 1, "1953": 1, "1954": 1, "15": 1,
     "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):

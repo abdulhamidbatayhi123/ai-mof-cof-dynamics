@@ -73,6 +73,11 @@ def main():
     out["n_inside_all"] = sum(all(p in ("inside", None) for p in r["placement"].values())
                               for r in out["materials"].values())
     out["n_materials"] = len(out["materials"])
+    # the least exothermic heat any placed framework reports (round-2 referee N11.3:
+    # how much of the sampled dH range no placed water-harvesting framework occupies)
+    heats = [r["dH"]["hi"] for r in out["materials"].values() if r.get("dH")]
+    out["dH_least_exothermic_placed"] = max(heats)
+    out["dH_most_exothermic_placed"] = min(r["dH"]["lo"] for r in out["materials"].values() if r.get("dH"))
     json.dump(out, open(OUT, "w", encoding="utf-8"), indent=2)
     print(f"{out['n_inside_all']} of {out['n_materials']} inside on every placed axis; wrote {OUT}")
 

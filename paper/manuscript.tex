@@ -35,27 +35,30 @@ columns}
 \ead{abdulbatayhi@gmail.com}
 
 \begin{abstract}
-Surrogates of adsorption columns are usually judged by how well they fit. We ask what
-\emph{binds} their error on adsorbents they have never seen. Seven candidate
-explanations were named in advance, each with the evidence that would eliminate it,
-and tested on a solver verified against \nLzeroNchecks{} closed-form solutions and
-compared, nothing fitted, with a published MOF-303 breakthrough curve. Each verdict is
-reported in pre-declared words, with the design it rests on (\nNclustFolds\ materials
-in five folds, a split of \nLfourbMatNmat, or a legacy set of \nNclustLegacy).
-Training materials bind: error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) in their number \(N_{\mathrm{mat}}\) at the largest size we
-can afford. Capacity is not eliminated. A perceptron beats Kolmogorov--Arnold networks
-at matched size in every comparison. On the full design the basis floor falls
-\(\nLfiveVtwoFloorDrop\times\) with basis size while the parameter-to-coefficient map
-moves \nLfiveVtwoCoefChangePct\,\%: the map binds, not the basis. The learner matters
---- a Fourier neural operator is \(\nOperatorLever\times\) more accurate than the best
-pointwise regressor, and DeepONet already \(\nONetLever\times\) --- but every learner
-sits far above the floor. Decomposing
-equilibrium and kinetics gives a small real benefit with no detectable Damk\"ohler
-dependence; closed forms are \nLsevenRatio\ times worse than learning; aligning the two
-adsorption fronts would pay \nWarpHeadroomFixed{}\(\times\) only if the fronts were
-known. The physics-residual rung is withdrawn and being re-run: its residual moved the
-gas at the wrong velocity, a defect we found while writing the methods. \nLedgerA\
-withdrawn claims and \nLedgerB\ caught defects are reported in full.
+We ask what \emph{binds} the error of adsorption-column surrogates on adsorbents they
+have never seen. Seven candidate explanations were named in advance, each with the
+evidence that would eliminate it, and tested on a solver verified against
+\nLzeroNchecks{} closed-form solutions and compared without fitting to a published
+MOF-303 breakthrough curve. Each verdict is reported in pre-declared words, with the
+design it rests on (\nNclustFolds\ materials in five folds, a split of
+\nLfourbMatNmat, or a legacy set of \nNclustLegacy). For a framework it has never
+seen, a perceptron trained on the largest set predicts the breakthrough field to
+\nLClargestPct\,\% normalised error. Training materials bind: error still falls as
+\(N_{\mathrm{mat}}^{-\nLCbeta}\) at the largest size affordable. Capacity is not
+eliminated. A perceptron beats Kolmogorov--Arnold networks at matched size in every
+comparison (legacy set). The error is limited by how well the model learns the link
+from isotherm and pellet properties to the field, not by its ability to represent
+the field: improving the representation \(\nLfiveVtwoFloorDrop\times\) changes the
+error by \nLfiveVtwoCoefChangePct\,\%. The learner matters (legacy set: a Fourier
+neural operator is \(\nOperatorLever\times\) more accurate than the best pointwise
+regressor, DeepONet \(\nONetLever\times\)), but none approaches what the
+representation allows. Decomposing equilibrium and kinetics gives a small real
+benefit with no detectable Damk\"ohler dependence; un-fitted closed forms are
+\nLsevenRatio\ times worse than learning; aligning the two adsorption fronts would pay
+\nWarpHeadroomFixed{}\(\times\) only if the fronts were known (legacy set). The
+physics-residual rung is withdrawn and being re-run: its residual moved the gas at
+the wrong velocity. \nLedgerA\ withdrawn claims and \nLedgerB\ caught defects are
+reported in full.
 \end{abstract}
 
 \begin{keyword}
@@ -244,7 +247,7 @@ defect we found numerically and separately: a Dirichlet ghost cell in the disper
 stencil drove an artificial dispersive influx and left global mass closure off by
 about one per cent, invariant across snapshot counts, until the inlet dispersive flux was
 set to zero, after which closure improved to \(\nMassClosure\,\%\)
-(Section~\ref{sec:corrections}, B8). A 1982 bulletin predicted the defect.
+(Section~\ref{sec:corrections}, B8).
 
 \nLzeroNchecks{} closed-form solutions, each isolating one term:
 
@@ -289,9 +292,10 @@ audit its own reading.
 
 \subsection{The isotherm must be inflected, with a finite Henry slope}
 
-Water uptake in atmospheric-water-harvesting frameworks is negligible until a
-threshold relative humidity, then rises almost vertically as pore filling proceeds
-cooperatively, then saturates. That step is the entire reason these materials work.
+Water uptake in atmospheric-water-harvesting frameworks is small below a threshold
+relative humidity --- in our parameter space the primary sites hold a fraction
+\(f_H = \nDcFhLo\)--\(\nDcFhHi\) of capacity there (Table~\ref{tab:params}) --- then
+rises almost vertically as pore filling proceeds cooperatively, then saturates. That step is the entire reason these materials work.
 Single-site Langmuir cannot produce it: its second derivative is negative
 everywhere, verified numerically as zero inflection points, and it predicts the
 largest uptake gradient as \(c \to 0\) --- the opposite of the mechanism. A bare
@@ -318,8 +322,8 @@ primary term carries the Henry slope} --- their Sips term, like ours, has slope
 exactly zero at the origin \cite{buttersack2019modeling}. We read the Do--Do functional form itself through Buttersack's transcription, because the original paper could not be retrieved; Buttersack proposes a competing isotherm, so his transcription is not an endorsement of the form. Their cluster exponent is fixed; ours is a sampled
 material parameter, which is the later model's treatment \cite{dodo2009new}. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
 be wrong, and it is a correction we made to our own text
-(Section~\ref{sec:corrections}, B56). ``Type~V'' is likewise our own label on IUPAC
-grounds; the modelling literature calls this family Type~IV.
+(Section~\ref{sec:corrections}, B56). We call the isotherm family S-shaped, or
+stepped, and attach no IUPAC type to it here.
 
 \subsection{Henry's law holds everywhere; the region where it dominates does not}
 
@@ -484,8 +488,8 @@ Section~\ref{sec:limitations} says what else follows.
 
 \subsection{Every null carries its minimum detectable effect}
 
-A null verdict without a power statement is not a result, and this project has the
-scar to prove it: an audit reported one of our nulls as well powered, at 96\,\%
+A null verdict without a power statement is not a result, and this project learned
+it from its own error: an audit reported one of our nulls as well powered, at 96\,\%
 power against a 20\,\% effect, and the recomputation with material-level clustering
 preserved gave seven per cent (A22). A second correction, in the opposite direction,
 found that the corrected power simulation itself inflated within-material noise by
@@ -618,7 +622,11 @@ for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled rang
 Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
 \(\nWmofBtddRatio\times\) the largest capacity we sampled, \nWmofQmaxHi. The verdicts of this paper are therefore
 statements about frameworks like MOF-303, aluminium fumarate and MIL-160, and should
-not be carried to record-capacity materials without new data.
+not be carried to record-capacity materials without new data. The cooperativity
+exponent \(n\), the steepness of the step and arguably the property a harvester
+designer cares about most, is not placed: the sources report isotherms, not fitted
+step exponents, and fitting equation~\eqref{eq:isotherm} to digitised curves would be
+a new measurement, not a reading of the literature.
 
 \begin{figure}[t]
 \centering
@@ -633,7 +641,13 @@ sources; values, locations in each paper and confidence are recorded in
 
 \begin{table}[t]
 \centering
-\caption{The parameter space of the larger dataset. All eleven are sampled by
+\caption{The parameter space of the larger dataset. A ``material'' here is the upper
+block: an idealised framework pellet described by its isotherm (capacity, step
+position, step steepness, the fraction of capacity on the low-humidity sites, heat)
+and by pellet size, density and packing. Capacity \nDcQmaxLo--\nDcQmaxHi\,mol\,kg\(^{-1}\)
+is \nDcQmaxGgLo--\nDcQmaxGgHi\,g of water per g. The step is re-anchored at each feed
+temperature so that it sits at the stated relative humidity, so one material's
+isotherm is not the same curve at every condition. All eleven parameters are sampled by
 scrambled Sobol and mapped linearly; every surrogate except rung L6 receives exactly
 these values, standardised on its own fitting set, and L6 receives observable
 descriptors instead.}
@@ -1000,8 +1014,7 @@ axis polishing makes \emph{both} arms worse: after L-BFGS the twin reaches
 of the error --- and it is confined to a single weight: a decade either side, the
 advantage is gone.
 
-\textbf{This verdict carries a selection caveat, which we state rather than leave for
-a referee.} The pre-registration chose the best physics arm on the same held-out
+\textbf{This verdict carries a selection caveat.} The pre-registration chose the best physics arm on the same held-out
 materials it is then tested on --- the generous direction for a null, and the
 anti-conservative one for a positive. An isolated best weight among
 \nLfourbNeligibleMat\ eligible arms is exactly the shape a selection artefact takes.
@@ -1255,7 +1268,7 @@ immaterial: the design is now powerful enough to see a difference far too small 
 matter, and the ratio of the two errors grows with \(p\) exactly as before. At the
 largest basis the map predicts about \nLfiveVtwoModes\ modes on held-out materials.
 
-\paragraph{And this is scoped to a sample size, which we learned the hard way.} An
+\paragraph{And this is scoped to a sample size.} An
 earlier version of this section stated the mode count as a property of the map. It
 is not: it is what a given number of training materials buys. Measured against
 material count, modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
@@ -1696,6 +1709,24 @@ dynamics. The anchor comparison is the first measurement that constrains it and
 shows the model holds too little water below the step. Separately, the step position
 in real MOF-303 shifts with temperature \cite{hastings2024high},
 while ours is fixed.
+
+\paragraph{Part of the heat range is occupied by no placed framework.} The sampled
+heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
+water-harvesting frameworks we placed (Figure~\ref{fig:watermofs}) report \nWmofHeatMost\ to
+\nWmofHeatLeast. Near its least exothermic edge the sampled range gives an isosteric
+heat (\(-\Delta H + RT\)) below water's latent heat of vaporisation at room
+temperature, so that water is bound more weakly than in its own liquid. That is the
+regime of hydrophobic adsorbents rather than of the frameworks this paper is
+motivated by. The range was pre-registered and is kept; verdicts averaged over it
+weight that region as heavily as the occupied one.
+
+\paragraph{The step does not move between feed temperatures.} The cluster affinity is
+set per run so that the step sits at the material's step humidity at the feed
+temperature (Section~\ref{sec:methods}). Within a run the step still moves with the
+local bed temperature through the heat of adsorption, but across runs a material's
+step humidity at the feed temperature is the same by construction. In a real
+framework it shifts. The datasets therefore do not test whether a surrogate transfers
+the temperature dependence of the step.
 
 \paragraph{Two parameters are not measurements.} Pellet density and bed porosity
 are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for

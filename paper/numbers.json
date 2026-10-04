@@ -334,6 +334,8 @@
     "WmofEightStep": "0.07",
     "WmofStepLo": "0.08",
     "WmofCauHeat": "-61",
+    "WmofHeatLeast": "-49",
+    "WmofHeatMost": "-61",
     "MthThreeSteps": "12000",
     "MthThreeDepth": "3",
     "MthThreeBudgets": "50k/200k/800k",
@@ -401,6 +403,8 @@
     "DcVHi": "0.3",
     "DcTinLo": "288.15",
     "DcTinHi": "313.15",
+    "DcQmaxGgLo": "0.14",
+    "DcQmaxGgHi": "0.54",
     "BsevtwoOldResid": "58",
     "BsevtwoNewResid": "1.0",
     "BsevtwoNsamples": "30",
@@ -473,6 +477,7 @@
     "LsixSlopeVsEffect": "4",
     "WmofBtddRatio": "1.8",
     "OperatorLever": "2.4",
+    "LClargestPct": "3.5",
     "ONetLever": "1.9",
     "LfourbRefTwinFactor": "5",
     "LfourbMatGainPct": "8"
@@ -1814,6 +1819,14 @@
       "file": "results/water_mofs.json",
       "path": "materials.CAU-10-H.dH.lo"
     },
+    "WmofHeatLeast": {
+      "file": "results/water_mofs.json",
+      "path": "dH_least_exothermic_placed"
+    },
+    "WmofHeatMost": {
+      "file": "results/water_mofs.json",
+      "path": "dH_most_exothermic_placed"
+    },
     "MthThreeSteps": {
       "file": "results/l3_results.json",
       "path": "steps"
@@ -2082,6 +2095,14 @@
       "file": "results/design_constants.json",
       "path": "v2.condition_space.T_in"
     },
+    "DcQmaxGgLo": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.q_max"
+    },
+    "DcQmaxGgHi": {
+      "file": "results/design_constants.json",
+      "path": "v2.material_space.q_max"
+    },
     "BsevtwoOldResid": {
       "file": "results/l4_residual_check.json",
       "path": "median_rel_rms_pre_b72_form"
@@ -2338,6 +2359,9 @@
     },
     "OperatorLever": {
       "derived": "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)"
+    },
+    "LClargestPct": {
+      "derived": "the largest learning-curve size's held-out nRMSE, in per cent (abstract)"
     },
     "ONetLever": {
       "derived": "L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)"

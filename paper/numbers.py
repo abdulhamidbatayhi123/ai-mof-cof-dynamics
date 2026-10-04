@@ -602,6 +602,8 @@ SPEC = [
     ("WmofEightStep", "results/water_mofs.json", "materials.MOF-801.RH_step.lo", "{:.2f}"),
     ("WmofStepLo", "results/water_mofs.json", "design.RH_step", lambda r: f"{min(r):g}"),
     ("WmofCauHeat", "results/water_mofs.json", "materials.CAU-10-H.dH.lo", "{:.0f}"),
+    ("WmofHeatLeast", "results/water_mofs.json", "dH_least_exothermic_placed", "{:.0f}"),
+    ("WmofHeatMost", "results/water_mofs.json", "dH_most_exothermic_placed", "{:.0f}"),
     # Methods table (referee M7): per-rung sizes and budgets, read from each rung's own results
     ("MthThreeSteps", "results/l3_results.json", "steps", "{:d}"),
     ("MthThreeDepth", "results/l3_results.json", "depth", "{:d}"),
@@ -666,6 +668,11 @@ SPEC = [
         ("Rhop", "material_space", "rho_p", 1), ("Eps", "material_space", "eps_t", 1),
         ("RH", "condition_space", "rh_feed", 1), ("V", "condition_space", "v", 1),
         ("Tin", "condition_space", "T_in", 1))
+    for side, i in (("Lo", 0), ("Hi", 1))
+] + [  # capacity in g water per g adsorbent, for a chemist (round-2 clarity item 3);
+       # 0.018015 kg/mol is the molar mass of water
+    (f"DcQmaxGg{side}", "results/design_constants.json", "v2.material_space.q_max",
+     (lambda i: (lambda r: f"{r[i] * 0.018015:.2f}"))(i))
     for side, i in (("Lo", 0), ("Hi", 1))
 ] + [
     # B72 / A28: the residual L4 used, evaluated on the solver's own stored fields
@@ -821,7 +828,9 @@ DERIVED = [
      lambda r: r["WmofBtddQ"] / max(r["WmofQmaxHi"]), "{:.1f}"),   # raw value: the design range
     ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
-    ("ONetLever", "L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)",
+    ("LClargestPct", "the largest learning-curve size's held-out nRMSE, in per cent (abstract)",
+     lambda r: 100 * r["LClargest"], "{:.1f}"),
+    ("ONetLever","L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankONet"], "{:.1f}"),
     ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",
      lambda r: r["LfourbRefTwinAfter"] / r["LfourbRefTwinBefore"], "{:.0f}"),

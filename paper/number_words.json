@@ -1253,13 +1253,6 @@
   "line_at_review": 513
  },
  {
-  "key": "ce of the larger dataset. All [eleven] are sampled by",
-  "word": "eleven",
-  "class": "DESIGN",
-  "reason": "the 11 sampled parameters of the design, listed in the table",
-  "line_at_review": 520
- },
- {
   "key": "o the denominator is close to [one] and cannot vanish. Where only",
   "word": "one",
   "class": "PROSE",
@@ -1484,27 +1477,6 @@
   "line_at_review": 187
  },
  {
-  "key": "orbents they have never seen. [Seven] candidate",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
-  "line_at_review": 15
- },
- {
-  "key": "in [five] folds, a split of , or a leg",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 20
- },
- {
-  "key": "e than learning; aligning the [two] ",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two waves of the inflected isotherm (physics, design)",
-  "line_at_review": 29
- },
- {
   "key": "(Figure~ ), on the [four] axes that are properties of t",
   "word": "four",
   "class": "DESIGN",
@@ -1622,5 +1594,47 @@
   "class": "PROSE",
   "reason": "the two options just named",
   "line_at_review": 1421
+ },
+ {
+  "key": "stated relative humidity, so [one] material's",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a single material: article",
+  "line_at_review": 625
+ },
+ {
+  "key": "curve at every condition. All [eleven] parameters are sampled by",
+  "word": "eleven",
+  "class": "DESIGN",
+  "reason": "the eleven rows of Table 1, which the caption is attached to",
+  "line_at_review": 626
+ },
+ {
+  "key": "on as heavily as the occupied [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1697
+ },
+ {
+  "key": "it rests on ( \\ materials in [five] folds, a split of",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design, defined in Methods",
+  "line_at_review": 19
+ },
+ {
+  "key": "e than learning; aligning the [two] adsorption fronts would pay",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two adsorption fronts of Section 3 (Henry and step), a property of the physics",
+  "line_at_review": 33
+ },
+ {
+  "key": "have never seen. [Seven] candidate explanations were n",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the seven pre-registered rungs L1-L7, listed in Table 2",
+  "line_at_review": 15
  }
 ]
