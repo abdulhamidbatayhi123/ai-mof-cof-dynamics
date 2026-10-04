@@ -39,7 +39,11 @@ OUT_JSON = os.path.join(ROOT, "paper", "numbers.json")
 # reports how many are pending, so a manuscript can never be finalised while any
 # remain. Remove an entry the moment its run lands; a PENDING file that EXISTS is a
 # hard failure, exactly as in validate.py's figure gate.
-PENDING = {}          # L4b-v2 landed 2026-09-08; nothing is in flight
+PENDING = {   # results files of runs in flight; a file landing REFUSES the build until removed here
+    "results/l5_v2_verdict_24k.json": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun",
+    "results/l4b_v3_verdict.json": "L4b re-run with the corrected residual (B72), autorun",
+    "results/l4b_v3_selection.json": "L4b re-run, selection-adjusted interval (B72), autorun",
+}
 PENDING_TEXT = r"\textbf{[PENDING]}"
 
 # Keys whose results file EXISTS but whose value is not yet final, because a
@@ -574,6 +578,22 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # L5-v2 at 24k steps (PREREG_L5_v2 A2) -- PENDING until the run lands
+    ("LfiveVtwoVerdict", "results/l5_v2_verdict_24k.json", "verdict_q_l5", "{}"),
+    ("LfiveVtwoPeight", "results/l5_v2_verdict_24k.json", "selected.deeponet_p8.mean", "{:.4f}"),
+    ("LfiveVtwoPhigh", "results/l5_v2_verdict_24k.json", "selected.deeponet_p128.mean", "{:.4f}"),
+    ("LfiveVtwoDiffLo", "results/l5_v2_verdict_24k.json", "paired_vs_smallest_p.deeponet_p128.ci_low", "{:.5f}"),
+    ("LfiveVtwoDiffHi", "results/l5_v2_verdict_24k.json", "paired_vs_smallest_p.deeponet_p128.ci_high", "{:.5f}"),
+    ("LfiveVtwoFloorHigh", "results/l5_v2_verdict_24k.json", "pod_floor_pooled.128", "{:.5f}"),
+    # L4b re-run with the corrected residual (B72) -- PENDING until the run lands
+    ("LfourcVerdictTime", "results/l4b_v3_verdict.json", "axes.time.verdict", "{}"),
+    ("LfourcVerdictMat", "results/l4b_v3_verdict.json", "axes.material.verdict", "{}"),
+    ("LfourcMatTwin", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourcMatBest", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourcTimeTwin", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourcTimeBest", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourcMatSelLo", "results/l4b_v3_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
+    ("LfourcMatSelHi", "results/l4b_v3_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),
     # referee M10: real water MOFs against the sampled space (water_mofs.py)
     ("WmofN", "results/water_mofs.json", "n_materials", "{:d}"),
     ("WmofInside", "results/water_mofs.json", "n_inside_all", "{:d}"),

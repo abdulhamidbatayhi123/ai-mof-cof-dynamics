@@ -247,6 +247,28 @@ def main(argv=None):
         "anchor_unbracketed": bool(unbracketed),
     })
 
+    # Q-L5, in the words PREREG_L5_v2 §3 declares -- written by the analyser, never by
+    # hand (the 8000-step version of this script compared but left the words unwritten).
+    # comps' mean_diff is (p_min - p_max): positive means the larger basis is better.
+    key = f"deeponet_p{ps[-1]}"
+    r = comps.get(key)
+    if r is None:
+        verdict = "no verdict: the largest-p arm is incomplete"
+    elif not r["significant"]:
+        m = (mdes.get(key) or {}).get("mde_80") if isinstance(mdes, dict) else None
+        x = f"{100 * m:.0f} %" if m is not None else "an MDE not yet computed"
+        verdict = (f"DeepONet is flat in basis size on the 240-material design; a "
+                   f"{ps[-1] // ps[0]}-fold increase cannot have improved it by more than {x} (MDE)")
+    elif r["mean_diff"] > 0:
+        verdict = ("basis size helps DeepONet on the 240-material design; the legacy flat-in-p "
+                   "verdict is retracted as a small-design artefact")
+    else:
+        verdict = "basis size HURTS DeepONet on the 240-material design (p = 128 significantly worse)"
+    if unbracketed:
+        verdict = "PROVISIONAL (a selected optimum is unbracketed): " + verdict
+    out["verdict_q_l5"] = verdict
+    print(f"\nQ-L5 verdict: {verdict}")
+
     # ── step-sensitivity arm (#13) ─────────────────────────────────────────
     present = [p for p in (args.steps_res or []) if os.path.exists(p)]
     if present and len(present) != len(args.steps_res):

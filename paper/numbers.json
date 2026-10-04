@@ -313,6 +313,20 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "LfiveVtwoVerdict": "\\textbf{[PENDING]}",
+    "LfiveVtwoPeight": "\\textbf{[PENDING]}",
+    "LfiveVtwoPhigh": "\\textbf{[PENDING]}",
+    "LfiveVtwoDiffLo": "\\textbf{[PENDING]}",
+    "LfiveVtwoDiffHi": "\\textbf{[PENDING]}",
+    "LfiveVtwoFloorHigh": "\\textbf{[PENDING]}",
+    "LfourcVerdictTime": "\\textbf{[PENDING]}",
+    "LfourcVerdictMat": "\\textbf{[PENDING]}",
+    "LfourcMatTwin": "\\textbf{[PENDING]}",
+    "LfourcMatBest": "\\textbf{[PENDING]}",
+    "LfourcTimeTwin": "\\textbf{[PENDING]}",
+    "LfourcTimeBest": "\\textbf{[PENDING]}",
+    "LfourcMatSelLo": "\\textbf{[PENDING]}",
+    "LfourcMatSelHi": "\\textbf{[PENDING]}",
     "WmofN": "6",
     "WmofInside": "3",
     "WmofBtddQ": "54",
@@ -1705,6 +1719,62 @@
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
     },
+    "LfiveVtwoVerdict": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "verdict_q_l5"
+    },
+    "LfiveVtwoPeight": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "selected.deeponet_p8.mean"
+    },
+    "LfiveVtwoPhigh": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "selected.deeponet_p128.mean"
+    },
+    "LfiveVtwoDiffLo": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.ci_low"
+    },
+    "LfiveVtwoDiffHi": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "paired_vs_smallest_p.deeponet_p128.ci_high"
+    },
+    "LfiveVtwoFloorHigh": {
+      "file": "results/l5_v2_verdict_24k.json",
+      "path": "pod_floor_pooled.128"
+    },
+    "LfourcVerdictTime": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.time.verdict"
+    },
+    "LfourcVerdictMat": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.material.verdict"
+    },
+    "LfourcMatTwin": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.mean_a"
+    },
+    "LfourcMatBest": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.material.best_pi_vs_data_only.mean_b"
+    },
+    "LfourcTimeTwin": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.mean_a"
+    },
+    "LfourcTimeBest": {
+      "file": "results/l4b_v3_verdict.json",
+      "path": "axes.time.best_pi_vs_data_only.mean_b"
+    },
+    "LfourcMatSelLo": {
+      "file": "results/l4b_v3_selection.json",
+      "path": "axes.material.selected_simultaneous.sim_lo"
+    },
+    "LfourcMatSelHi": {
+      "file": "results/l4b_v3_selection.json",
+      "path": "axes.material.selected_simultaneous.sim_hi"
+    },
     "WmofN": {
       "file": "results/water_mofs.json",
       "path": "n_materials"
@@ -2225,5 +2295,76 @@
       "derived": "L4b material axis: the best physics arm's error reduction, % of the twin's"
     }
   },
-  "pending": []
+  "pending": [
+    {
+      "key": "LfiveVtwoVerdict",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfiveVtwoPeight",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfiveVtwoPhigh",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfiveVtwoDiffLo",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfiveVtwoDiffHi",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfiveVtwoFloorHigh",
+      "file": "results/l5_v2_verdict_24k.json",
+      "why": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun"
+    },
+    {
+      "key": "LfourcVerdictTime",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcVerdictMat",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcMatTwin",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcMatBest",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcTimeTwin",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcTimeBest",
+      "file": "results/l4b_v3_verdict.json",
+      "why": "L4b re-run with the corrected residual (B72), autorun"
+    },
+    {
+      "key": "LfourcMatSelLo",
+      "file": "results/l4b_v3_selection.json",
+      "why": "L4b re-run, selection-adjusted interval (B72), autorun"
+    },
+    {
+      "key": "LfourcMatSelHi",
+      "file": "results/l4b_v3_selection.json",
+      "why": "L4b re-run, selection-adjusted interval (B72), autorun"
+    }
+  ]
 }

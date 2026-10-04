@@ -296,6 +296,9 @@ def main():
         "results/validation.json": "validate.py --json",
         "results/dataset_summary_legacy.json": "dataset_summary.py --root data/parametric --out ...",
         "results/l3_results_B24_WITHDRAWN.json": "run_l3.py output, renamed when B24 withdrew it",
+        "results/l5_v2_verdict_24k.json": "analyze_l5_v2.py --out ... (autorun, PREREG_L5_v2 A2)",
+        "results/l4b_v3_verdict.json": "analyze_l4b_v2.py --out ... (chain_l4b_v3.sh, B72)",
+        "results/l4b_v3_selection.json": "analyze_l4b_selection.py --out ... (chain_l4b_v3.sh, B72)",
     }
     import glob
     import importlib.util
