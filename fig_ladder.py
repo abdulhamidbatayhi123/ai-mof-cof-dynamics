@@ -139,7 +139,7 @@ def build_rows():
         c = {"mean_a": l3p["mlp"], "mean_b": l3p["rbf_g4"], "mean_diff": l3p["diff"],
              "ci_low": min(l3p["ci"]), "ci_high": max(l3p["ci"]),
              "significant": l3p["significant"], "n_materials": 12}
-        add("L3", "a better basis (KAN)", "strongest KAN vs MLP, matched parameters",
+        add("L3", "a better basis (KAN)", "strongest KAN vs MLP, per pair; %d/%d matched pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
             effect(c, control_is_a=True), "ELIMINATED",
             "the best KAN anywhere is the least KAN-like; %d/%d comparisons significant after selection, none reversed"
             % (l3s["n_sig_simultaneous"], l3s["n_pairs"]))
@@ -208,7 +208,7 @@ def build_rows():
     if l7:
         c = l7["comparisons"]["mlp vs klinkenberg"]   # a = learned, b = closed form (control)
         add("L7", "a closed form suffices", "learned vs the best closed form, exit curve",
-            effect(c, control_is_a=False), "ELIMINATED — learning is justified",
+            effect(c, control_is_a=False), "CLOSED FORMS ELIMINATED",
             "a classical model wins exactly when the physics it assumes is the physics that is there")
     else:
         missing.append("L7-v2 verdict")
@@ -311,7 +311,8 @@ def panel_slope(b):
            f"slope {st['slope']:+.5f} nRMSE / decade, CI [{st['ci_low']:+.5f}, {st['ci_high']:+.5f}]  "
            f"NOT SIGNIFICANT\nPearson r = {st['pearson_r']:.3f} over {st['log10_da_range'][1] - st['log10_da_range'][0]:.2f} decades, "
            f"{st['n_materials']} materials",
-           transform=b.transAxes, ha="right", va="bottom", fontsize=6.6, color="0.3")
+           transform=b.transAxes, ha="right", va="bottom", fontsize=6.6, color="0.3",
+           bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5))
     b.text(0.015, 0.95, "H1 predicted a positive slope:\nseparation should pay most where\nkinetics dominate",
            transform=b.transAxes, ha="left", va="top", fontsize=6.4, color="0.45")
 
@@ -332,10 +333,9 @@ def panel_l0(c):
     c.set_yscale("log")
     c.set_ylim(3.5e-5, 2e-2)
     c.set_xticks(xs)
-    c.set_xticklabels([k[0] for k in checks], fontsize=6.6)
-    for x, (name, val, what) in zip(xs, checks):
-        c.text(x, 0.02, what, transform=c.get_xaxis_transform(), ha="center", va="bottom",
-               fontsize=5.9, color="0.88", linespacing=1.25)
+    # what each check isolates goes under its tick: inside the bar it was white on
+    # white wherever the bar was short (round-3 referee c2)
+    c.set_xticklabels([k[0] + "\n" + k[2].strip() for k in checks], fontsize=6.2)
     c.set_ylabel("error vs the\nclosed form")
     c.set_title("C.   L0 — the reference is verified, not asserted", fontsize=9.5, loc="left")
     closure = json.load(open("results/validation.json"))["by_gate"]["global mass balance closes"]["values"]["default"]

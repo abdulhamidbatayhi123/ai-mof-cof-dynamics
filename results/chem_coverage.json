@@ -1,0 +1,21 @@
+{
+ "_what": "Two questions a materials chemist asks of the sampled space (round-3 referee, \u00a74.1-4.2).",
+ "v2": {
+  "n_accepted": 3947,
+  "n_fed_below_step": 547,
+  "pct_fed_below_step": 13.858626805168482,
+  "n_materials": 240,
+  "n_weakly_cooperative": 25,
+  "pct_weakly_cooperative": 10.416666666666666,
+  "weak_n_threshold": 1.5
+ },
+ "legacy": {
+  "n_accepted": 988,
+  "n_fed_below_step": 173,
+  "pct_fed_below_step": 17.510121457489877,
+  "n_materials": 60,
+  "n_weakly_cooperative": 9,
+  "pct_weakly_cooperative": 15.0,
+  "weak_n_threshold": 1.5
+ }
+}

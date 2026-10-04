@@ -1141,13 +1141,6 @@
   "line_at_review": 1337
  },
  {
-  "key": "unseen frameworks, [two] kinds of effort pay: more, an",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "enumeration of the two recommendations that follow (structural)",
-  "line_at_review": 1340
- },
- {
   "key": "problem, though [one] study on each side is not a g",
   "word": "one",
   "class": "PROSE",
@@ -1335,13 +1328,6 @@
   "class": "DESIGN",
   "reason": "five folds, fixed by the v2 design",
   "line_at_review": 616
- },
- {
-  "key": "L5 basis vs.\\ map & larger, [five] -fold &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 630
  },
  {
   "key": "L6 & larger, [five] -fold &",
@@ -1650,5 +1636,75 @@
   "class": "PROSE",
   "reason": "pronoun (an effect)",
   "line_at_review": 436
+ },
+ {
+  "key": ", then re-measured on larger, [five] -fold &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design of Methods",
+  "line_at_review": 755
+ },
+ {
+  "key": "e the rung's analysis reports [one] ; for each null",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 786
+ },
+ {
+  "key": "as the learning curve's (the [two] ratios come from different de",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two ratios just named",
+  "line_at_review": 1271
+ },
+ {
+  "key": "rials and are still climbing. [Three] counts of",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three counts named in the same sentence (macros)",
+  "line_at_review": 1291
+ },
+ {
+  "key": "\\ and \\ on the larger [one] at the same number of trainin",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun (design)",
+  "line_at_review": 1294
+ },
+ {
+  "key": "the [four] : the direction of that compar",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "the four entries named under 'Four that reversed a headline'",
+  "line_at_review": 1622
+ },
+ {
+  "key": "dataset ( \\,\\% of the legacy [one] ) are fed",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun (dataset)",
+  "line_at_review": 1749
+ },
+ {
+  "key": "an radial-basis family at the [two] larger budgets it is not",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two larger of the three pre-registered L3 budgets",
+  "line_at_review": 1779
+ },
+ {
+  "key": "ign, the second on the larger [one] ). What no",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun (design)",
+  "line_at_review": 1836
+ },
+ {
+  "key": "een adsorbent parameter sets, [two] kinds of effort pay: more, an",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two kinds named in the sentence",
+  "line_at_review": 1846
  }
 ]

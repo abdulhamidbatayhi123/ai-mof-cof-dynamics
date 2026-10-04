@@ -96,6 +96,8 @@
     "LfiveOracleFNO": "5",
     "LfiveLeadModes": "5",
     "LfiveTailModes": "123",
+    "LfiveCountModes": "9",
+    "LfiveIsolatedModes": "4",
     "LfiveTailMedian": "-0.014",
     "LfiveTailFracNeg": "63",
     "LfiveNrates": "8",
@@ -334,6 +336,10 @@
     "WmofEightStep": "0.07",
     "WmofStepLo": "0.08",
     "WmofCauHeat": "-61",
+    "ChemBelowStepPct": "14",
+    "ChemBelowStepLegPct": "18",
+    "ChemWeakNPct": "10",
+    "ChemWeakN": "1.5",
     "WmofHeatLeast": "-49",
     "WmofHeatMost": "-61",
     "MthThreeSteps": "12000",
@@ -866,6 +872,14 @@
     "LfiveTailModes": {
       "file": "results/l5_oracle_rank.json",
       "path": "mode_r2_p128.n_tail_modes"
+    },
+    "LfiveCountModes": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128"
+    },
+    "LfiveIsolatedModes": {
+      "file": "results/l5_oracle_rank.json",
+      "path": "mode_r2_p128"
     },
     "LfiveTailMedian": {
       "file": "results/l5_oracle_rank.json",
@@ -1818,6 +1832,22 @@
     "WmofCauHeat": {
       "file": "results/water_mofs.json",
       "path": "materials.CAU-10-H.dH.lo"
+    },
+    "ChemBelowStepPct": {
+      "file": "results/chem_coverage.json",
+      "path": "v2.pct_fed_below_step"
+    },
+    "ChemBelowStepLegPct": {
+      "file": "results/chem_coverage.json",
+      "path": "legacy.pct_fed_below_step"
+    },
+    "ChemWeakNPct": {
+      "file": "results/chem_coverage.json",
+      "path": "v2.pct_weakly_cooperative"
+    },
+    "ChemWeakN": {
+      "file": "results/chem_coverage.json",
+      "path": "v2.weak_n_threshold"
     },
     "WmofHeatLeast": {
       "file": "results/water_mofs.json",
