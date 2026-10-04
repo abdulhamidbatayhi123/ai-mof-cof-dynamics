@@ -856,8 +856,11 @@ Against an oracle reconstruction handed the true coefficients for its first \(k\
 modes, the best DeepONet found anywhere performs like a \nLfiveOracleONet-mode
 oracle, and the best Fourier operator like a \nLfiveOracleFNO-mode one. Three
 independent function classes --- proper orthogonal decomposition plus random forest,
-plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together is worth a constant
-factor and nothing more.
+plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together, or learning the
+whole field at once, is worth a constant factor --- up to \(\nOperatorLever\times\)
+from the pointwise regressor to the Fourier operator on this encoding, a lever
+comparable to the learning curve's --- and it does not close the distance to the
+floor.
 
 \paragraph{The decomposition holds on the full design.} The numbers above were
 measured on the legacy held-out set, and the claim they carry is the one this paper
@@ -1341,20 +1344,30 @@ requires, helps slightly on held-out materials (\nLfourbMatBest\
 against \nLfourbMatTwin, at a single interior weight) and makes no difference on the
 time axis; the legacy claim that it hurts is withdrawn on both.
 
-\paragraph{What binds.} The number of training materials. Error still falls as
-\(n^{-\nLCbeta}\) at the largest size we can afford, and the whole of that gain lies in
-the map from material parameters to reconstruction coefficients, not in the basis
-that map feeds. A change of coordinates that aligns the two fronts collapses the
-\(n\)-width and buys \nWarpHeadroomFixed{}\(\times\) under an oracle and nothing under a
-predictor --- it does not remove the obstruction, it relocates it, from a
-two-dimensional field to two one-dimensional curves that must still be predicted
-from the same parameters.
+\paragraph{What binds.} The map from material parameters to the field, not the
+basis it is expressed in. Error still falls as \(n^{-\nLCbeta}\) with the number of
+training materials at the largest size we can afford, and for the learner of L1 the
+whole of that gain is in the map: a basis refitted on more materials buys nothing
+once the regressor sees the same data. How well the map is learned also depends on
+the learner, and that lever is not small. On one encoding, split and metric, the best
+pointwise regressor on proper-orthogonal-decomposition coefficients reaches
+\nLfiveRankPodReg, a Kolmogorov--Arnold operator \nLfiveRankOKAN, DeepONet
+\nLfiveRankONet\ and a Fourier neural operator \nLfiveRankFNO\ --- a factor of
+\(\nOperatorLever\) from first to last, larger than the
+\(\nLCratio\times\) that sixteen times more materials buys a fixed learner. What no
+learner escapes is the distance to the floor: the best of them still sits
+\(\nFNOxFloor\times\) above what the basis could represent. A change of coordinates
+that aligns the two fronts collapses the \(n\)-width and would buy
+\nWarpHeadroomFixed{}\(\times\) if the fronts were known, and nothing detectable when
+they are predicted --- it relocates the obstruction, from a two-dimensional field to
+two one-dimensional curves that must still be predicted from the same parameters.
 
 \paragraph{What this means for a practitioner.} For a screening surrogate over
-unseen frameworks, the next unit of effort belongs to more, and more diverse,
-training materials, and to the parameter-to-coefficient map, rather than to a new
-architecture, a larger basis or a heavier physics penalty. The cost accounting of
-Section~\ref{sec:cost} gives the exchange rate for that effort.
+unseen frameworks, two kinds of effort pay: more, and more diverse, training
+materials, and a learner that maps parameters to the whole field rather than to
+coefficients one by one. A larger basis, a different nonlinearity at matched size,
+and a heavier physics penalty do not. The cost accounting of
+Section~\ref{sec:cost} gives the exchange rate for the first.
 
 \paragraph{What is scoped.} Three verdicts --- L3, L5 and the coordinate change ---
 were measured on \nNclustLegacy\ held-out materials rather than \nNclustFolds, and must be read at that

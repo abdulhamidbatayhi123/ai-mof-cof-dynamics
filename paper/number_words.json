@@ -861,20 +861,6 @@
   "line_at_review": 1145
  },
  {
-  "key": "f coordinates that aligns the [two] fronts collapses the",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1166
- },
- {
-  "key": "field to [two] curves that m",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1169
- },
- {
   "key": "{What is scoped.} [Three] verdicts --- L3, L5 and the c",
   "word": "Three",
   "class": "PROSE",
@@ -1258,5 +1244,54 @@
   "class": "PROSE",
   "reason": "pronoun 'one' (structural)",
   "line_at_review": 778
+ },
+ {
+  "key": "d that lever is not small. On [one] encoding, split and metric, t",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "'on one encoding' = a single shared encoding (structural)",
+  "line_at_review": 1326
+ },
+ {
+  "key": "\\( \\) that [sixteen] times more materials buys a f",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "12 to 192 training materials is the learning-curve design (16x)",
+  "line_at_review": 1331
+ },
+ {
+  "key": "that aligns the [two] fronts collapses the \\(n\\)-wi",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two waves of the inflected isotherm (physics, design)",
+  "line_at_review": 1334
+ },
+ {
+  "key": " [two] curves that m",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two landmark curves of the two-wave frame (design)",
+  "line_at_review": 1337
+ },
+ {
+  "key": "unseen frameworks, [two] kinds of effort pay: more, an",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "enumeration of the two recommendations that follow (structural)",
+  "line_at_review": 1340
+ },
+ {
+  "key": "coefficients [one] by one. A larger basis, a dif",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "idiom 'one by one' (structural)",
+  "line_at_review": 1342
+ },
+ {
+  "key": "coefficients one by [one] . A larger basis, a different",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "idiom 'one by one' (structural)",
+  "line_at_review": 1342
  }
 ]
