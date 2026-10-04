@@ -29,6 +29,7 @@ import numpy as np
 from analyze_l5_merged import edge_is_binding
 from mde import mde_report
 from metrics import ArmResult, compare, format_comparison
+from selection_adjust import simultaneous
 from v2_common import alpha_for
 
 RES = ["results/l5_v2_results.json"]
@@ -268,6 +269,33 @@ def main(argv=None):
         verdict = "PROVISIONAL (a selected optimum is unbracketed): " + verdict
     out["verdict_q_l5"] = verdict
     print(f"\nQ-L5 verdict: {verdict}")
+
+    # PREREG_L5_v2 amendment A3 (2026-10-05, before any 24k verdict existed): both arms
+    # of Q-L5 sit at their own best lr, chosen on the test folds (the B75 pattern). The
+    # frozen verdict above stays per-pair; alongside it, one simultaneous interval over
+    # every (lr at p_min, lr at p_max) pair, and the words for the case where the two
+    # disagree.
+    if r is not None:
+        pmin, pmax = ps[0], ps[-1]
+        pairs = {f"lr{la:g}|lr{lb:g}": scores[("deeponet", pmin, la)][0] - scores[("deeponet", pmax, lb)][0]
+                 for la in grid["deeponet"] for lb in grid["deeponet"]
+                 if ("deeponet", pmin, la) in scores and ("deeponet", pmax, lb) in scores}
+        mats = scores[("deeponet", pmin, chosen[("deeponet", pmin)]["lr"])][1]
+        for (fam_, p_, lr_), v in scores.items():
+            if fam_ == "deeponet" and p_ in (pmin, pmax):
+                same_samples(scores[("deeponet", pmin, chosen[("deeponet", pmin)]["lr"])], v)
+        sim, q = simultaneous(pairs, mats, alpha)
+        sel = sim[f"lr{chosen[('deeponet', pmin)]['lr']:g}|lr{chosen[('deeponet', pmax)]['lr']:g}"]
+        if r["significant"] and not sel["significant_simultaneous"]:
+            words = ("significant as a pair, NOT after paying for both learning-rate choices; "
+                     "reported as no detectable difference once selected")
+        elif r["significant"]:
+            words = "the per-pair verdict survives the selection"
+        else:
+            words = "per-pair null; the selection can only widen it"
+        out["q_l5_selection_adjusted"] = {"k": len(pairs), "q": q, "selected": sel, "words": words}
+        print(f"  A3 selection-adjusted ({len(pairs)} lr pairs, q = {q:.2f} SE): "
+              f"[{sel['sim_lo']:+.5f}, {sel['sim_hi']:+.5f}] -- {words}")
 
     # ── step-sensitivity arm (#13) ─────────────────────────────────────────
     present = [p for p in (args.steps_res or []) if os.path.exists(p)]
