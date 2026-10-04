@@ -118,8 +118,8 @@ def build_rows():
         c, fam = cross[key], l2["best_overall"]
         mde = l2["families"][fam[1]].get("mde_last_step")
         add("L2", "more capacity", f"{fam[1]}/{fam[2]} vs the L1 setting",
-            effect(c, control_is_a=False), "ELIMINATED as an unbounded lever",
-            "every optimum bracketed — but the optimum MOVES with the material count (A26); post-hoc",
+            effect(c, control_is_a=False), "NOT ELIMINATED",
+            "a random forest is still improving at its capacity ceiling; the best configuration is a deeper perceptron (A26, A27)",
             mde=100 * mde["mde_80"] if isinstance(mde, dict) and mde.get("mde_80") else None)
     else:
         missing.append("L2 cross-comparison vs the L1 setting (run analyze_l2_v2.py)")
@@ -135,15 +135,16 @@ def build_rows():
     else:
         missing.append("L3 final pair")
 
-    # L4b — the PDE residual as a loss, on the material axis.
-    ax = (l4 or {}).get("axes", {}).get("material", {})
+    # L4b — the PDE residual as a loss, on the material axis. The v2 results used a residual
+    # that moved the gas at the wrong velocity (B72) and are WITHDRAWN as evidence about
+    # physics (A28): the figure draws ONLY the corrected re-run, once its completion marker
+    # exists. (A first version drew the withdrawn result as PHYSICS HELPS -- caught by the
+    # round-2 referee review.)
+    _mk = "l4b_v3.log"
+    v3_done = os.path.exists(_mk) and "L4B_V3_DONE" in open(_mk, errors="replace").read()
+    l4c = load("results/l4b_v3_verdict.json") if v3_done else None
+    ax = (l4c or {}).get("axes", {}).get("material", {})
     c = ax.get("best_pi_vs_data_only")
-    # Same gate as paper/numbers.py GATED: the material verdict is not final until the
-    # second PREREG 4.2 edge extension (w1e-6) lands; the figure must not draw it.
-    _mk = "chain_l4b_v2_ext2_outer.log"
-    ext2_done = os.path.exists(_mk) and "L4B_V2_EXT2_DONE" in open(_mk, errors="replace").read()
-    if c and not ext2_done:
-        c = None
     if c:
         m = ax.get("mde") or {}
         m80 = next((v.get("mde_80") for v in m.values() if isinstance(v, dict) and v.get("mde_80")), None)
@@ -156,9 +157,9 @@ def build_rows():
         rows.append(dict(rung="L4b", hyp="physics as a loss",
                          inter="best physics arm vs its data-only twin",
                          e=None, lo=None, hi=None, sig=None, n=48, ctrl=None, mde=None, leak=False,
-                         verdict="IN FLIGHT",
-                         note="PREREG_L4b_v2.md: the second edge extension (w1e-6) is running; no verdict yet"))
-        missing.append("L4b-v2 material verdict (second edge extension in flight)")
+                         verdict="WITHDRAWN (B72) — re-run in flight",
+                         note="its residual moved the gas at the wrong velocity; the corrected re-run is queued"))
+        missing.append("L4b: corrected re-run (B72) in flight")
 
     # L5 — nonlinear reconstruction, and basis size.
     if l5:
@@ -183,7 +184,7 @@ def build_rows():
         c = l6["pooled"]                              # a = joint (control), b = separate
         add("L6", "separate identification", "separate vs joint (H1, secondary)",
             effect(c, control_is_a=True), "BENEFIT REAL",
-            "an inductive bias, not a kinetic identifier — the mechanism is refuted in panel B",
+            "no detectable dependence on Damköhler (panel B): a weak null, read as an inductive bias",
             mde=100 * l6m["mde_80"] if l6m else None)
     else:
         missing.append("L6-v2 verdict")
@@ -204,7 +205,7 @@ def build_rows():
             "the n-width collapses 31 -> 13 modes, and none of it survives front-location error")
         add("warp", "(the same, ORACLE fronts)", "upper bound — handed the true fronts",
             effect(warp["fixed_vs_oracle"], control_is_a=True),
-            "HEADROOM %.2fx" % warp["headroom_to_oracle"],
+            "HEADROOM %.2fx over the fixed frame" % (warp["means"]["fixed"] / warp["means"]["two_wave_oracle"]),
             "NOT comparable with any arm not also handed the warp: it sizes the prize, it is not a result",
             leak=True)
     else:
@@ -248,7 +249,7 @@ def panel_ladder(a, rows):
                fontsize=7.3, va="center", fontweight="bold", color="0.12")
         a.text(1.02, f(-0.19), f"{r['inter']}   ({r['n']} clusters)", transform=a.transAxes,
                fontsize=6.2, va="center", color="0.42")
-    a.set_title("A.   the ladder: seven named candidates, the one survivor, and what the evidence said",
+    a.set_title("A.   the ladder: seven named candidates and what the evidence said",
                 fontsize=9.5, loc="left")
     a.legend(handles=[
         Line2D([], [], color=C_MOVES, lw=2.4, label="reduces the error, significantly"),
@@ -289,7 +290,7 @@ def panel_slope(b):
     b.axhline(0, color="k", lw=0.8)
     b.set_xlabel("log₁₀ Damköhler (median per material)")
     b.set_ylabel("separate − joint\n(nRMSE, per material)")
-    b.set_title("B.   the PRIMARY estimand, refuted: the benefit does not depend on Damköhler",
+    b.set_title("B.   the PRIMARY estimand: no detectable dependence on Damköhler (a weak null)",
                 fontsize=9.5, loc="left")
     b.text(0.985, 0.05,
            f"slope {st['slope']:+.5f} nRMSE / decade, CI [{st['ci_low']:+.5f}, {st['ci_high']:+.5f}]  "
