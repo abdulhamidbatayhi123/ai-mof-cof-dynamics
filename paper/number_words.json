@@ -1244,5 +1244,19 @@
   "class": "DESIGN",
   "reason": "the two terms of a linear reconstruction (definition)",
   "line_at_review": 804
+ },
+ {
+  "key": "ading is the better-supported [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 777
+ },
+ {
+  "key": "rather than an established [one] . This is a more precise state",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 778
  }
 ]

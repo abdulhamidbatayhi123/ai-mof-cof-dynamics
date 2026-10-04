@@ -360,6 +360,8 @@
     "WarpPredDegradeMax": "16",
     "LfiveVtwoFloorDrop": "90",
     "LfiveVtwoCoefChangePct": "0.9",
+    "LsixSlopeSpanMax": "0.0084",
+    "LsixSlopeVsEffect": "4",
     "OperatorLever": "2.4",
     "LfourbRefTwinFactor": "5",
     "LfourbMatGainPct": "8"
@@ -1777,6 +1779,12 @@
     },
     "LfiveVtwoCoefChangePct": {
       "derived": "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8"
+    },
+    "LsixSlopeSpanMax": {
+      "derived": "L6: largest change across the tested Da range the slope interval admits"
+    },
+    "LsixSlopeVsEffect": {
+      "derived": "L6: that change as a multiple of the main effect"
     },
     "OperatorLever": {
       "derived": "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)"

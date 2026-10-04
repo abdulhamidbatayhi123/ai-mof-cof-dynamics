@@ -685,6 +685,12 @@ DERIVED = [
      lambda r: r["LfiveVtwoFloorSmall"] / r["LfiveVtwoFloorLarge"], "{:.0f}"),
     ("LfiveVtwoCoefChangePct", "v2 bottleneck: coefficient-map error change p=8 -> 128, % of p=8",
      lambda r: 100.0 * (r["LfiveVtwoCoefSmall"] - r["LfiveVtwoCoefLarge"]) / r["LfiveVtwoCoefSmall"], "{:.1f}"),
+    # referee M6: what the L6 Damkohler null cannot exclude -- the slope interval's
+    # upper end carried across the tested range, against the main effect it would modulate
+    ("LsixSlopeSpanMax", "L6: largest change across the tested Da range the slope interval admits",
+     lambda r: r["LsixSlopeHi"] * r["LsixDaDecades"], "{:.4f}"),
+    ("LsixSlopeVsEffect", "L6: that change as a multiple of the main effect",
+     lambda r: r["LsixSlopeHi"] * r["LsixDaDecades"] / r["LsixDiff"], "{:.0f}"),
     ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
     ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",
