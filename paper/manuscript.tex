@@ -628,7 +628,7 @@ physics) has interval [\nLfourbMatLo, \nLfourbMatHi] over \nLfourbMatNmat\ held-
 materials, which excludes no difference. Unlike the time axis, the ordering survives polishing:
 after L-BFGS the twin reaches \nLfourbMatPolTwin\ and the physics arm
 \nLfourbMatPolBest, interval [\nLfourbMatPolLo, \nLfourbMatPolHi]. The effect is small
---- under a tenth of the error --- and it is confined to a single weight: a decade
+--- \nLfourbMatGainPct\,\% of the error --- and it is confined to a single weight: a decade
 either side, the advantage is gone. The honest reading is that the residual is a weak
 regulariser across materials at a weight that must itself be found by search, not a
 source of accuracy the data lack.

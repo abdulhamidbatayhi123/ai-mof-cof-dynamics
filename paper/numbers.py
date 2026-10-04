@@ -627,6 +627,8 @@ DERIVED = [
      lambda r: r["CostLargeSims"] / r["CostSmallSims"], "{:.0f}"),
     ("CostGenCoreHours", "the training set's cost in core-hours: solves x worker-seconds",
      lambda r: r["CostNSolves"] * r["CostSolveSec"] / 3600.0, "{:.0f}"),
+    ("LfourbMatGainPct", "L4b material axis: the best physics arm's error reduction, % of the twin's",
+     lambda r: 100.0 * (r["LfourbMatTwin"] - r["LfourbMatBest"]) / r["LfourbMatTwin"], "{:.0f}"),
 ]
 
 def dig(obj, path):
