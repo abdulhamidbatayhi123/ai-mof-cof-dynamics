@@ -78,4 +78,13 @@ It does not add a baseline after seeing which would win: all three are declared 
 with their words before any is run. It does not re-select the ladder's arms.
 
 ## 6. Amendments
-(none)
+**A1, 2026-10-04 -- before any baseline was run.** B-GP as declared (kernel hyperparameters
+optimised by marginal likelihood on all ~3150 training samples of a fold, two restarts)
+is infeasible on this machine: a timing probe (192 outputs, Matern-ARD + noise) took
+1046 s for ONE optimised fit at n = 800, which scales to ~17 h per fit at n = 3150 and
+~250 h for 15 fits; a fixed-kernel fit at n = 3150 takes 13 s. Changed to the standard
+subset-of-data estimate: hyperparameters optimised (no restarts) on a random 600-sample
+subset of the fold's training samples, drawn with numpy default_rng(seed), then the
+posterior fitted on ALL the fold's training samples with that kernel held fixed. The
+kernel family, bounds, target scaling, comparison and words are unchanged. This is a
+cost-driven change made before any GP prediction was seen.

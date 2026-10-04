@@ -109,6 +109,39 @@ def reconstruct(coeffs, bases, shape):
     return fields
 
 
+from sklearn.base import BaseEstimator, RegressorMixin
+
+
+class SubsetHyperGP(RegressorMixin, BaseEstimator):
+    """GP regression with hyperparameters estimated on a subset (PREREG_BASELINES A1).
+
+    Marginal-likelihood optimisation is O(n^3) per step; at ~3150 training samples it
+    costs ~17 h per fit here. The kernel is therefore optimised on a seeded 600-sample
+    subset and then held fixed while the posterior is fitted on every training sample.
+    """
+
+    def __init__(self, seed=0, n_hyper=600):
+        self.seed = seed
+        self.n_hyper = n_hyper
+
+    def fit(self, X, y):
+        from sklearn.gaussian_process import GaussianProcessRegressor
+        from sklearn.gaussian_process.kernels import ConstantKernel, Matern, WhiteKernel
+        kernel = (ConstantKernel(1.0, (1e-3, 1e3))
+                  * Matern(length_scale=np.ones(X.shape[1]), length_scale_bounds=(1e-2, 1e3), nu=2.5)
+                  + WhiteKernel(1e-3, (1e-8, 1e0)))
+        rng = np.random.default_rng(self.seed)
+        sub = rng.choice(len(X), min(self.n_hyper, len(X)), replace=False)
+        hyper = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=0,
+                                         random_state=self.seed).fit(X[sub], y[sub])
+        self.kernel_ = hyper.kernel_
+        self.gp_ = GaussianProcessRegressor(kernel=self.kernel_, optimizer=None).fit(X, y)
+        return self
+
+    def predict(self, X):
+        return self.gp_.predict(X)
+
+
 def make_arm(name, seed):
     if name == "ridge":
         return Ridge(alpha=1.0)
@@ -136,6 +169,13 @@ def make_arm(name, seed):
                                    random_state=seed, learning_rate_init=1e-3),
             transformer=StandardScaler(),
         )
+    if name == "gp":
+        # PREREG_BASELINES.md §1 (B-GP) with amendment A1 (before any run): one shared
+        # anisotropic Matern-5/2 kernel plus a noise term, hyperparameters estimated on a
+        # seeded 600-sample subset, posterior on all training samples with the kernel
+        # fixed; targets standardised as for the MLP arm. Not a ladder rung.
+        return TransformedTargetRegressor(regressor=SubsetHyperGP(seed=seed),
+                                          transformer=StandardScaler())
     raise ValueError(name)
 
 
