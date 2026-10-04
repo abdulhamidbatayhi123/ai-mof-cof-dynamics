@@ -1407,13 +1407,6 @@
   "line_at_review": 643
  },
  {
-  "key": "point in an [eleven] -dimensional space of isotherm",
-  "word": "eleven",
-  "class": "DESIGN",
-  "reason": "the 11 sampled parameters of the design (Table params)",
-  "line_at_review": 104
- },
- {
   "key": "priced for [one] fixed learner, the L1 percept",
   "word": "one",
   "class": "PROSE",
@@ -1608,5 +1601,26 @@
   "class": "PROSE",
   "reason": "ordinal in an argument, not a measured count",
   "line_at_review": 1540
+ },
+ {
+  "key": "(u = v/ _t\\) the interstitial [one] , the equations integrated are",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 486
+ },
+ {
+  "key": "setting, which appears in it [twice] and is the",
+  "word": "twice",
+  "class": "DESIGN",
+  "reason": "mlp_depth/d3 and mlp_width/w256 are the same configuration (analyze_l2_selection.SAME_AS_REF)",
+  "line_at_review": 828
+ },
+ {
+  "key": "hatever a query costs, so the [two] break even at",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two options just named",
+  "line_at_review": 1421
  }
 ]

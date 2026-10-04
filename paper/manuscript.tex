@@ -42,7 +42,7 @@ and tested on a solver verified against \nLzeroNchecks{} closed-form solutions a
 compared, nothing fitted, with a published MOF-303 breakthrough curve. Each verdict is
 reported in pre-declared words, with the design it rests on (\nNclustFolds\ materials
 in five folds, a split of \nLfourbMatNmat, or a legacy set of \nNclustLegacy).
-Training materials bind: error still falls as \(n^{-\nLCbeta}\) at the largest size we
+Training materials bind: error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) in their number \(N_{\mathrm{mat}}\) at the largest size we
 can afford. Capacity is not eliminated. A perceptron beats Kolmogorov--Arnold networks
 at matched size in every comparison. On the full design the basis floor falls
 \(\nLfiveVtwoFloorDrop\times\) with basis size while the parameter-to-coefficient map
@@ -115,8 +115,10 @@ left when the weights are exact.
 a theoretical lower bound for any method that sums a fixed basis.
 \item[Twin.] The data-only model a physics-informed arm is compared with: identical
 architecture, data and budget, without the physics term.
-\item[Damk\"ohler number.] The ratio of the adsorption-kinetics rate to the time scale
-of the experiment; large values mean near-equilibrium, small values kinetic control.
+\item[Damk\"ohler number.] The product of the linear-driving-force rate constant and
+the simulated duration (Section~\ref{sec:methods}); large values mean the solid stays
+near equilibrium over the run, small values kinetic control. Because some runs were
+extended, it also carries the length of the run.
 \item[Henry branch, step.] The low-humidity, near-linear part of the water isotherm,
 and the sharp cooperative step of pore filling above it; together they produce the two
 adsorption fronts of Section~\ref{sec:physics}.
@@ -162,7 +164,8 @@ process level with the help of learned models
 our first rungs are a non-intrusive reduced-order model in the sense of Hesthaven and
 Ubbiali \cite{hesthaven2018non}: a proper-orthogonal-decomposition basis with a
 learned map from parameters to its coefficients. To the surrogate, a ``material'' is a
-point in an eleven-dimensional space of isotherm, kinetic and bed parameters, and the
+point in the space of isotherm and bed parameters of Table~\ref{tab:params}, with its
+kinetics derived from them, and a sample adds the operating conditions; the
 question this paper asks --- which term binds the error, the basis or the map --- is
 the parametric reduced-order-model question, asked of an adsorption column and
 answered with a pre-registered test. Operator learning has reached cyclic adsorption too, with
@@ -248,7 +251,8 @@ set to zero, after which closure improved to \(\nMassClosure\,\%\)
 \begin{table}[t]
 \centering
 \caption{Verification of the reference solver. Each check isolates one term of the
-model against a closed form. Figure~\ref{fig:ladder}C.}
+model against a closed form; \(R_f\) is the retardation factor of the front.
+Figure~\ref{fig:ladder}C.}
 \label{tab:l0}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llr}
@@ -256,7 +260,7 @@ model against a closed form. Figure~\ref{fig:ladder}C.}
 check & term isolated & error \\
 \midrule
 inert tracer vs.\ van Genuchten third-type & advection, dispersion, the inlet & \nLzeroTracer{} abs \\
-retarded front, \(R = \nLzeroRetardedR\) & isotherm coupling, equilibrium limit & \nLzeroRetarded\,\% \\
+retarded front, \(R_f = \nLzeroRetardedR\) & isotherm coupling, equilibrium limit & \nLzeroRetarded\,\% \\
 thermal wave, adsorption off & the energy equation & \nLzeroThermal\,\% \\
 linear driving force vs.\ Anzelius--Schumann \cite{anzelius1926uber,schumann1929heat} & kinetics & \nLzeroLDF{} abs \\
 \bottomrule
@@ -502,8 +506,8 @@ so that this section cannot drift from the code it describes.
 The reference is a one-dimensional, non-isothermal packed bed with axial dispersion,
 linear-driving-force kinetics and an energy balance with wall loss. With \(c(z,t)\)
 the gas-phase adsorbate concentration, \(q(z,t)\) the loading per unit particle mass,
-\(T(z,t)\) the bed temperature and \(v\) the \emph{superficial} velocity, the
-equations integrated are
+\(T(z,t)\) the bed temperature, \(v\) the \emph{superficial} velocity and
+\(u = v/\varepsilon_t\) the interstitial one, the equations integrated are
 \begin{align}
 \frac{\partial c}{\partial t} &= D_L \frac{\partial^2 c}{\partial z^2}
  - \frac{v}{\varepsilon_t}\frac{\partial c}{\partial z}
@@ -519,7 +523,10 @@ C_{\mathrm{b}}\frac{\partial T}{\partial t} &= k_z \frac{\partial^2 T}{\partial 
 \end{align}
 with bed heat capacity \(C_{\mathrm{b}} = \varepsilon_t\rho_g C_{pg} +
 (1-\varepsilon_t)\rho_p C_{ps}\) and \(q^{*}\) the dual-site isotherm of
-equation~\eqref{eq:isotherm}. The cluster-to-primary affinity ratio is fixed at
+equation~\eqref{eq:isotherm}. Here \(\varepsilon_t\) is the \emph{interparticle} (bed)
+void fraction and \(\rho_p\) the pellet density, pores included, so the solid term
+counts each pellet once. Gas held inside the pellet pores is not carried as a
+separate phase; it holds a negligible amount of water next to the adsorbed phase. The cluster-to-primary affinity ratio is fixed at
 \nDcBH, and the cluster affinity is set per run so that the cooperative step sits at
 the material's step humidity at the feed temperature. Feed concentration follows
 from relative humidity through the ideal-gas law and a Magnus saturation pressure.
@@ -797,7 +804,8 @@ and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset th
 \nLCsmallest\ \(\to\) \nLClargest\ as training materials go 12 \(\to\) 192, a factor
 of \nLCratio. Every consecutive step is a significant improvement \emph{including
 the last}: 96 \(\to\) 192 gives \nLClastDiff\ with interval
-[\nLClastLo, \nLClastHi]. The exponent is \(n^{-\nLCbeta}\), interval
+[\nLClastLo, \nLClastHi]. In the number of training materials \(N_{\mathrm{mat}}\) the
+error falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\), exponent interval
 [\nLCbetaLo, \nLCbetaHi]. Extrapolated at that exponent --- \emph{outside} the range
 we claim, and stated as an extrapolation because the next sentence forbids it ---
 halving the error would cost about \(\nLCmaterialsForHalving\times\) more materials.
@@ -840,7 +848,9 @@ capacity while sitting well behind the best perceptron. \textbf{Either way, the 
 earlier sweep left it.} The best configuration anywhere is \nLtwoBestFam/\nLtwoBestCfg\
 at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the best L1 arm, the
 perceptron (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\); adjusted for having
-picked the best of \nLtwoSelK\ configurations on the same materials,
+picked the best of \nLtwoSelK\ configurations on the same materials --- the
+\nLtwoNconfigs\ of the sweep less the L1 setting, which appears in it twice and is the
+reference ---
 \(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\), Section~\ref{sec:limitations}). At 48 materials the
 same comparison --- best configuration against the best L1 arm, there gradient
 boosting --- gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
@@ -1020,7 +1030,8 @@ best physics-trained arm fares no better, \nLfourbRefBestBefore\ to
 \nLfourbRefBestAfter. A labelled post-hoc sweep over refinement scope, learning rate
 and step count (Section~\ref{sec:corrections}, B60) asks whether this is a property of
 one configuration: over \nLfourbRefSweepN\ configurations, the best change found at
-any checkpoint is \nLfourbRefSweepBest\,\%, chosen on the held-out materials and so
+any checkpoint is \nLfourbRefSweepBest\,\% of the held-out error (negative means the
+error fell), chosen on the held-out materials and so
 the most generous reading available, and \nLfourbRefSweepNworse\ of the
 \nLfourbRefSweepN\ are worse than the unrefined model at their last checkpoint.
 
@@ -1121,7 +1132,10 @@ said with it: carried across the tested range, the upper end of the slope interv
 allows a change of \nLsixSlopeSpanMax\ nRMSE, about \nLsixSlopeVsEffect\ times the
 main effect below. A Damk\"ohler dependence as large as the benefit itself is
 therefore not ruled out; what is ruled out is a dependence strong enough to have been
-seen at this design's resolution.
+seen at this design's resolution. The axis is also not purely kinetic: for the
+\nDcExtendedPct\,\% of runs whose horizon was extended, Damk\"ohler exceeds the kinetic
+ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\) by the extension factor
+(Section~\ref{sec:methods}), so part of its spread is the length of the run.
 
 \paragraph{The scope of that refutation, stated because it is the strongest attack
 on it.} Kinetic control means Damk\"ohler well below unity, and this dataset never
@@ -1245,15 +1259,20 @@ largest basis the map predicts about \nLfiveVtwoModes\ modes on held-out materia
 earlier version of this section stated the mode count as a property of the map. It
 is not: it is what a given number of training materials buys. Measured against
 material count, modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
-\nLCmodesLarge\ over 12 to 192 materials and are still climbing. The retraction is
+\nLCmodesLarge\ over 12 to 192 materials and are still climbing. That count and the
+\nLfiveVtwoModes\ above, at the same number of training materials, are not the same
+measurement: this one is the L1 perceptron on its own basis, the other the
+decomposition's regressor on the largest basis. They agree on what matters here ---
+a learner predicts a modest leading set of modes and nothing beyond it. The retraction is
 A21, and it withdrew the replacement text for an earlier retraction --- the same
 inference, made twice.
 
 \paragraph{The \(n\)-width is real and was not what binds.} The residual
 \emph{energy} of this snapshot family decays algebraically, as
-\(n^{\nNwidthExpC}\) with \(R^2 = \nNwidthRtwoC\) over \(n = 8\)--64. The
-Kolmogorov \(n\)-width is the residual \emph{norm}, the square root of that, so it
-decays as \(n^{\nNwidthExpErr}\) and halving the error requires
+\(k^{\nNwidthExpC}\) in the number of modes \(k\), with \(R^2 = \nNwidthRtwoC\) over
+\(k = 8\)--64. The Kolmogorov \(n\)-width, whose \(n\) is this mode count, is the
+residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpErr}\)
+and halving the error requires
 \(\nNwidthHalving\times\) the modes permanently. We separate the two because an
 earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
 halving factor computed correctly from the norm --- two numbers in one sentence
@@ -1421,11 +1440,11 @@ core-seconds and say why: a worker's own numerical libraries may use more than o
 thread, so this is an upper bound on the serial cost of a solve and a lower bound on
 what it occupies of a machine.
 
-\paragraph{The accounting.} Against \(n\) screening queries the reference costs \(n\)
-solve-equivalents. The surrogate costs its training set, plus its fit, plus \(n\) times
-whatever a query costs:
+\paragraph{The accounting.} Against \(N_q\) screening queries the reference costs \(N_q\)
+solve-equivalents. The surrogate costs its training set, plus its fit, plus \(N_q\) times
+whatever a query costs, so the two break even at
 \begin{equation}
-n_{\mathrm{be}} \;=\; \frac{n_{\mathrm{train}} + c_{\mathrm{fit}}}{1 - r},
+N_q^{\mathrm{be}} \;=\; \frac{n_{\mathrm{train}} + c_{\mathrm{fit}}}{1 - r},
 \qquad r \;=\; \frac{\text{cost of one query}}{\text{cost of one solve}} .
 \label{eq:breakeven}
 \end{equation}
@@ -1477,7 +1496,7 @@ the approach is the right one, stated in the units the decision is actually made
 
 Second, the learning curve is a price list. Going from 12 training materials to 192
 multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
-\nLCratio{}\(\times\) --- which is the exponent \(n^{-\nLCbeta}\) of
+\nLCratio{}\(\times\) --- which is the exponent \(N_{\mathrm{mat}}^{-\nLCbeta}\) of
 Section~\ref{sec:ladder} restated as money. A practitioner who needs
 \nLCsmallest\ nRMSE should buy \nCostSmallSims\ simulations and stop. The list is
 priced for one fixed learner, the L1 perceptron; L2 found a configuration
@@ -1613,11 +1632,11 @@ validity. Every other number is surrogate-versus-solver.
 
 \paragraph{The dispersion closure needs a more careful statement than we first gave
 it, and we have measured how much.} Our datasets use
-\(D_L = 0.7 D_m + 0.5 d_p u\). The coefficients are attributable to Wakao and
+\(D_L = 0.7 D_m + 0.5 d_p u\), with \(u\) the interstitial velocity. The coefficients are attributable to Wakao and
 Funazkri \cite{wakao1978effect} rather than to the textbook we originally cited, and
 Perry's handbook \cite{levan2019adsorption} presents that form as a \emph{lower bound} for \emph{nonporous}
 particles, noting that the leading coefficient rises to as much as
-\(20/\varepsilon\) depending on the intraparticle mass-transfer mechanism and that
+\(20/\varepsilon_t\) depending on the intraparticle mass-transfer mechanism and that
 for strongly adsorbed species the effective axial dispersion is much larger. Our beds
 are porous, strongly adsorbing frameworks taking up water --- the case that statement
 excludes.
@@ -1678,7 +1697,7 @@ shows the model holds too little water below the step. Separately, the step posi
 in real MOF-303 shifts with temperature \cite{hastings2024high},
 while ours is fixed.
 
-\paragraph{Two parameters are not measurements.} Pellet density and total porosity
+\paragraph{Two parameters are not measurements.} Pellet density and bed porosity
 are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for
 MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
 constant.
@@ -1739,7 +1758,7 @@ gas at the wrong velocity (B72), so its results measure a mis-specified prior an
 withdrawn as statements about this column (A28) until the corrected re-run reports.
 
 \paragraph{What binds.} The map from material parameters to the field, not the
-basis it is expressed in. Error still falls as \(n^{-\nLCbeta}\) with the number of
+basis it is expressed in. Error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with the number of
 training materials at the largest size we can afford, and for the learner of L1 the
 whole of that gain is in the map: a basis refitted on more materials buys nothing
 once the regressor sees the same data. How well the map is learned also depends on

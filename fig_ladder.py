@@ -320,7 +320,7 @@ def panel_l0(c):
     v = json.load(open("verify_solver.json"))
     checks = [("inert tracer vs\nvan Genuchten third-type",
                v["tracer_van_genuchten"]["max_abs_err_vs_third_type"], "advection, dispersion,\nthe Danckwerts inlet"),
-              ("retarded front,\nR = 901", v["retarded_front"]["rel_err"], "isotherm coupling,\nthe equilibrium limit"),
+              ("retarded front,\n$R_f$ = %.0f" % v["retarded_front"]["R"], v["retarded_front"]["rel_err"], "isotherm coupling,\nthe equilibrium limit"),
               ("thermal wave,\nadsorption off", v["thermal_wave"]["rel_err"], "the energy\nequation"),
               ("LDF vs Anzelius–\nSchumann", v["ldf_anzelius_schumann"]["max_abs_err"], "kinetics\n")]
     xs = np.arange(len(checks))
