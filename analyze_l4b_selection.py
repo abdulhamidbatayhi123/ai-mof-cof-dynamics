@@ -24,9 +24,15 @@ OUT = "results/l4b_v2_selection.json"
 
 
 def main():
-    sw = json.load(open(SWEEP))
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sweep", default=SWEEP)
+    ap.add_argument("--verdict", default="results/l4b_v2_verdict.json")
+    ap.add_argument("--out", default=OUT)
+    args = ap.parse_args()
+    sw = json.load(open(args.sweep))
     seeds = sw["seeds"]
-    verdict = json.load(open("results/l4b_v2_verdict.json"))
+    verdict = json.load(open(args.verdict))
     out = {"_what": __doc__.splitlines()[0], "alpha": ALPHA, "n_boot": 4000, "axes": {}}
     for axis in ("time", "material"):
         S = sw["sweep"][axis]
@@ -50,8 +56,8 @@ def main():
               f"per-pair [{per_pair['ci_low']:+.5f}, {per_pair['ci_high']:+.5f}]  "
               f"simultaneous [{r['sim_lo']:+.5f}, {r['sim_hi']:+.5f}]  "
               f"{'SURVIVES' if r['significant_simultaneous'] else 'does NOT survive'} selection")
-    json.dump(out, open(OUT, "w"), indent=2)
-    print(f"wrote {OUT}")
+    json.dump(out, open(args.out, "w"), indent=2)
+    print(f"wrote {args.out}")
 
 
 if __name__ == "__main__":

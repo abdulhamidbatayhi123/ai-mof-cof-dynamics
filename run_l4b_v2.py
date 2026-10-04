@@ -54,7 +54,9 @@ from run_l4b import eval_window, sample_supervised_window
 from v2_common import FIELD_RES, ROOT_V2, get_path, load_or_init, set_path, write_atomic
 from v2_common import best_physics_arm
 
-CKPT_DIR = "data/l4b_v2_ckpt"
+# L4B_CKPT_DIR lets the corrected-residual re-run (PREREG_L4b_v2 amendment, B72) keep
+# its own checkpoints, so the withdrawn run's models stay on disk as its evidence.
+CKPT_DIR = os.environ.get("L4B_CKPT_DIR", "data/l4b_v2_ckpt")
 ARMS = ["data_only",
         # w1e-5 is the PREREG §4.2 extension: the fixed-weight optimum sat on the
         # bottom edge of the original four-decade grid and was NOT saturated

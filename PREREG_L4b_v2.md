@@ -145,3 +145,35 @@ Legacy timings on this machine: data-only ≈ 6 min, physics ≈ 35 min per run 
 8 000 steps. 10 physics arms × 2 axes × 3 seeds ≈ 35 h; data-only 6 runs ≈ 40 min;
 refinement ≈ 2 h; polish ≈ 4 h. Runs after the L1/L2/L7 v2 chain; never
 concurrently with it (shared 16 GB, one training job at a time).
+
+## 6. Amendments
+
+**A-B72, 2026-10-04 -- after every v2 L4b result, before any cell of the corrected re-run.**
+The residual this rung used advected gas at v instead of v/eps_t (ledger B72; proof:
+`results/l4_residual_check.json`), so every verdict above measured a mis-specified
+prior and is withdrawn as a statement about physics (A28). The rung is re-run with
+the corrected residual, which is now gated against the solver (`validate.py`, "the
+training residual is the solver's equation"). Nothing about the design changes except
+what the defect forces and what was already demanded:
+
+1. **Code.** `run_l4.pde_residual` / `boundary_residual` as of commit d29eb9c; the
+   gate must PASS before the first cell.
+2. **Arms.** `data_only` and every physics arm of §2 at the grid the edge rule had
+   already reached: fixed weights 1e-6 ... 1 (seven), gradient-norm at 0.1, 1.0, 10,
+   NTK, self-adaptive. Same axes, seeds 42/43/44, steps, widths, budgets, split.
+   `data_only` is re-trained too (its refinement uses the residual, and a fresh twin
+   removes any doubt about checkpoint provenance).
+3. **Rules unchanged.** The §2 words, the §4 invalidations, the edge rule (an
+   unsaturated optimum at 1e-6 extends the sweep to 1e-7 before any verdict), Q3
+   refinement and Q4 polish as declared.
+4. **Added before the run, not after it:** the selected-arm comparison is also
+   reported with the studentised max-statistic interval over all eligible arms
+   (`selection_adjust.py`, `analyze_l4b_selection.py`), because the referee review
+   showed best-arm selection on the test materials is anti-conservative for a
+   positive verdict. If the per-pair and adjusted intervals disagree, the adjusted
+   one decides the word.
+5. **Outputs.** `results/l4b_v3_results.json`, `results/l4b_v3_refine.json`,
+   `results/l4b_v3_verdict.json`, checkpoints in `data/l4b_v3_ckpt/`. The withdrawn
+   run's files and checkpoints are kept unchanged as its evidence.
+6. **Compute.** 12 physics arms x 2 axes x 3 seeds at ~35 min, plus refinement and
+   polish: about 2-2.5 days, queued after the L5-v2 24k sweep, one job at a time.
