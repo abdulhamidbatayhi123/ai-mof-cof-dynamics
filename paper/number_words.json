@@ -1300,5 +1300,19 @@
   "class": "PROSE",
   "reason": "'between the first two samples' = adjacent stored time points (grid position, not a measured count; screen: warp_level_screen_bc.json)",
   "line_at_review": 273
+ },
+ {
+  "key": "ration (a fixed budget, depth [three] ,",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "audit_l3 configuration depth 3 (design)",
+  "line_at_review": 532
+ },
+ {
+  "key": "each arm at the better of [two] higher learning rates per see",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "audit_l3 lr grid {3e-3, 1e-3} (design)",
+  "line_at_review": 533
  }
 ]

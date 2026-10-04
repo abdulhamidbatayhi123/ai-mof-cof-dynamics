@@ -541,15 +541,20 @@ At matched parameter counts and each family at its own best learning rate, the
 multilayer perceptron beats both Kolmogorov--Arnold families at every budget, with
 all six pairwise comparisons significant. \nLthreeArms\ arms were trained across
 \nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
-Kolmogorov--Arnold optimum was bracketed on both sides. The perceptron selects the
-lowest rate at every budget, which is an edge; rule~4 admits an edge only where the
-metric has saturated, and it has: the next rate up is worse by only
-\nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%, and a better-tuned perceptron could only
-widen its lead. This is the strongest form of protocol rule~4 we achieve anywhere, and the rung where it matters most, because the
-Kolmogorov--Arnold arms are the ones being argued against.
+Kolmogorov--Arnold optimum was bracketed on both sides. Our protocol's rule~4 says an
+optimum on the edge of a sweep is admissible only if the metric has saturated there,
+and otherwise the sweep is extended. The perceptron selects the lowest rate at every
+budget, which is an edge, and it is not saturated in that sense: the next rate up is
+worse by \nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%, so a still lower rate might do
+better. For this verdict the open edge is conservative --- a better-tuned perceptron
+could only widen its lead over arms that are all bracketed --- so we report it rather
+than extend it. The Kolmogorov--Arnold arms, the ones being argued against, are the
+ones whose tuning is complete.
 
 Comparing against the strongest configuration found anywhere rather than the
-matched-budget cell: the best Kolmogorov--Arnold network in the entire study is the
+matched-budget cell --- a separate audit configuration (a fixed budget, depth three,
+each arm at the better of two higher learning rates per seed), which is why its
+perceptron rate differs from the sweep's: the best Kolmogorov--Arnold network in the entire study is the
 \emph{least} Kolmogorov--Arnold-like one, and it reaches \nLthreeBestKan\ against
 the perceptron's \nLthreeBestKanMlp\ --- a difference of \nLthreeBestKanDiff,
 interval [\nLthreeBestKanLo, \nLthreeBestKanHi] --- \nLthreeBestKanSig.
