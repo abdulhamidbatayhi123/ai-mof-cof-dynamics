@@ -1,0 +1,5 @@
+Seven explanations for surrogate error, tested against pre-registered criteria
+A solver checked against closed forms and, unfitted, against a MOF-303 bed
+Learning the parameter-to-field map binds the error; the basis does not
+Choosing models on test data is paid for; one significance claim was withdrawn
+Every number comes from a script; every correction is in a public ledger
