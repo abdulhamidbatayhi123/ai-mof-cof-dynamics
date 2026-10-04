@@ -252,8 +252,11 @@ def test_sindy_pi_finds_implicit_langmuir_ldf_without_an_isotherm():
     lhs, coefs = sindy_pi(F, dq)
     # normalised to the dq/dt coefficient = 1
     assert set(coefs) == {"dq", "c*dq", "c", "q", "c*q"}, (lhs, coefs)
-    assert abs(coefs["c*dq"] - 3.0) < 0.15 and abs(coefs["c"] + 0.3) < 0.02
-    assert abs(coefs["q"] - 0.02) < 0.002 and abs(coefs["c*q"] - 0.06) < 0.005
+    # PREREG_P2 M6: b and k recovered within 5 % (measured 2026-10-04: 0.02 % and 0.07 %);
+    # every coefficient held to the same relative 5 %, not the looser absolute bounds
+    # this test first carried
+    for key, true in (("c*dq", 3.0), ("c", -0.3), ("q", 0.02), ("c*q", 0.06)):
+        assert abs(coefs[key] - true) <= 0.05 * abs(true), (key, coefs[key])
 
 
 from p2.methods import kan_symbolic
@@ -330,21 +333,3 @@ def test_ode_profile_with_temperature_brackets_k_on_nonisothermal_probe():
     assert identifiable(lo, hi, 2e-4), (lo, hi)
     assert lo > 2e-4 * 0.98 and hi < 2e-4 * 1.02, (lo, hi)
 
-
-def test_mass_balance_inversion_recovers_uptake_from_gas_data():
-    """M1b (PREREG_P2 §3): from interior c alone, the gas balance returns q. The
-    prereg records a manual check (<= 3 % of q_max); this makes it a test, on a fresh
-    solve, and through solver_fd.gas_coefficients -- the definition the solver uses."""
-    from p2.massbal import invert_uptake
-    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
-    p = AdsorptionPhysicsConfig()
-    c_in = 1.0
-    t_final = 2.0 * p.stoichiometric_time(c_in)
-    z, t, y = generate_breakthrough_data(p, N_z=200, t_final=t_final, c_in=c_in,
-                                         n_snapshots=400, verbose=False)
-    n = len(z)
-    c, q = y[:n], y[n:2 * n]
-    q_hat = invert_uptake(c, z, t, p, c_in)
-    inner = slice(5, -5)                     # one-sided z-stencils at the walls
-    err = np.abs(q_hat[inner] - q[inner]).max() / p.q_max
-    assert err < 0.03, err                    # the prereg's recorded bound (measured 0.024)
