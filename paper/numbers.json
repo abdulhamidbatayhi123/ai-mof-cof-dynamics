@@ -290,10 +290,10 @@
     "DaMatDecades": "1.35",
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
-    "LedgerA": "27",
-    "LedgerB": "71",
-    "LedgerTotal": "98",
-    "LedgerOwn": "34",
+    "LedgerA": "28",
+    "LedgerB": "74",
+    "LedgerTotal": "102",
+    "LedgerOwn": "36",
     "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 5 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
     "LfourbTimeTwin": "0.0131",
     "LfourbTimeBest": "0.0132",
@@ -309,6 +309,10 @@
     "LfourbTimePolHi": "-0.00074",
     "LfourbTimeSeenRise": "611",
     "LfourbVerdictTime": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 4 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+    "BsevtwoOldResid": "58",
+    "BsevtwoNewResid": "1.0",
+    "BsevtwoNsamples": "30",
+    "BsevtwoNworse": "30",
     "LfourbMatSelLo": "0.00099",
     "LfourbMatSelHi": "0.00278",
     "LfourbSelQ": "2.96",
@@ -1602,6 +1606,22 @@
     "LfourbVerdictTime": {
       "file": "results/l4b_v2_verdict.json",
       "path": "axes.time.verdict"
+    },
+    "BsevtwoOldResid": {
+      "file": "results/l4_residual_check.json",
+      "path": "median_rel_rms_pre_b72_form"
+    },
+    "BsevtwoNewResid": {
+      "file": "results/l4_residual_check.json",
+      "path": "median_rel_rms_solver_form"
+    },
+    "BsevtwoNsamples": {
+      "file": "results/l4_residual_check.json",
+      "path": "n_samples"
+    },
+    "BsevtwoNworse": {
+      "file": "results/l4_residual_check.json",
+      "path": "n_pre_b72_worse"
     },
     "LfourbMatSelLo": {
       "file": "results/l4b_v2_selection.json",

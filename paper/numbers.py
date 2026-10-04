@@ -565,6 +565,13 @@ SPEC = [
     ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
+    # B72 / A28: the residual L4 used, evaluated on the solver's own stored fields
+    ("BsevtwoOldResid", "results/l4_residual_check.json", "median_rel_rms_pre_b72_form",
+     lambda v: f"{100 * v:.0f}"),
+    ("BsevtwoNewResid", "results/l4_residual_check.json", "median_rel_rms_solver_form",
+     lambda v: f"{100 * v:.1f}"),
+    ("BsevtwoNsamples", "results/l4_residual_check.json", "n_samples", "{:d}"),
+    ("BsevtwoNworse", "results/l4_residual_check.json", "n_pre_b72_worse", "{:d}"),
     # referee M3: the selected arm's interval, adjusted for choosing it on the test set
     ("LfourbMatSelLo", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
     ("LfourbMatSelHi", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),

@@ -1141,13 +1141,6 @@
   "line_at_review": 974
  },
  {
-  "key": " [one] searched weight, for several",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'at one searched weight' = a single weight (structural)",
-  "line_at_review": 1086
- },
- {
   "key": "anti-conservative for [one] chosen after looking. For",
   "word": "one",
   "class": "PROSE",
@@ -1181,13 +1174,6 @@
   "class": "PROSE",
   "reason": "'on one encoding' = a single shared encoding (structural)",
   "line_at_review": 32
- },
- {
-  "key": "by \\,\\% at [one] searched weight, an effect th",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'at one searched weight' = a single weight (structural)",
-  "line_at_review": 34
  },
  {
   "key": "Aligning the [two] adsorption fronts would buy",
@@ -1260,20 +1246,6 @@
   "line_at_review": 1340
  },
  {
-  "key": "coefficients [one] by one. A larger basis, a dif",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "idiom 'one by one' (structural)",
-  "line_at_review": 1342
- },
- {
-  "key": "coefficients one by [one] . A larger basis, a different",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "idiom 'one by one' (structural)",
-  "line_at_review": 1342
- },
- {
   "key": "problem, though [one] study on each side is not a g",
   "word": "one",
   "class": "PROSE",
@@ -1314,5 +1286,33 @@
   "class": "DESIGN",
   "reason": "audit_l3 lr grid {3e-3, 1e-3} (design)",
   "line_at_review": 533
+ },
+ {
+  "key": "o no evidence about the right [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun 'one' (structural)",
+  "line_at_review": 666
+ },
+ {
+  "key": " [twice] . Its legacy claim that the re",
+  "word": "twice",
+  "class": "PROSE",
+  "reason": "count of the two reversals enumerated in the same paragraph (structural)",
+  "line_at_review": 1187
+ },
+ {
+  "key": "coefficients [one] by one. A larger basis and a",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "idiom 'one by one' (structural)",
+  "line_at_review": 1386
+ },
+ {
+  "key": "coefficients one by [one] . A larger basis and a differe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "idiom 'one by one' (structural)",
+  "line_at_review": 1386
  }
 ]

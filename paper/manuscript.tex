@@ -52,11 +52,10 @@ proper-orthogonal-decomposition floor falls \(\nFloorDrop\times\); on the full d
 the floor falls \(\nLfiveVtwoFloorDrop\times\) and the coefficient map moves
 \nLfiveVtwoCoefChangePct\,\%. Which learner maps parameters to the field still matters
 --- a Fourier neural operator is \(\nOperatorLever\times\) more accurate than the best
-pointwise regressor on one encoding --- but all of them sit far above the floor. A
-physics residual in the loss makes no difference over time and helps across materials
-by \nLfourbMatGainPct\,\% at one searched weight, an effect that survives correction
-for having chosen that weight; minimised at inference it makes transfer about
-\nLfourbRefTwinFactor\ times worse. Decomposing the equilibrium and kinetic objects
+pointwise regressor on one encoding --- but all of them sit far above the floor. The
+physics-residual rung is withdrawn and being re-run: its residual advected the gas at
+the superficial rather than the interstitial velocity, a defect we found while
+writing this paper's methods and report with the results it invalidates. Decomposing the equilibrium and kinetic objects
 gives a small real benefit (\nLsixDiff\ nRMSE) with no detectable dependence on
 Damk\"ohler number. Closed-form models are \nLsevenRatio\ times worse than learning.
 Aligning the two adsorption fronts would buy \nWarpHeadroomFixed{}\(\times\) if the
@@ -596,6 +595,23 @@ perceptron at every budget and are worse on held-out materials every time.
 
 \subsection{L4 --- the residual as a loss, and physics at inference}
 
+\paragraph{Read this first: the residual of this rung was the wrong equation.} While
+writing the methods of this paper we derived the residual from the code and found
+that its gas mass balance advected the gas at the superficial velocity \(v\) instead
+of the interstitial \(v/\varepsilon_t\) that the solver integrates, with the same
+omission in its inlet condition (Section~\ref{sec:corrections}, B72). Since the gas
+holds almost nothing compared with the solid, the front speed is set by that term, so
+the residual described fronts moving \(\varepsilon_t\) times too slowly. The test is
+direct: evaluated on the solver's own stored fields, the residual this rung used leaves
+\nBsevtwoOldResid\,\% of the adsorption term unexplained, against
+\nBsevtwoNewResid\,\% for the solver's equation, worse in \nBsevtwoNworse\ of
+\nBsevtwoNsamples\ samples. \textbf{Every result below is therefore a measurement of a
+wrong equation used as a prior, not of this column's physics, and none of it may be
+read as ``physics helps'' or ``physics hurts'' (A28).} We report the results because
+they were pre-registered and because they are informative about what a mis-specified
+residual does. The corrected residual is now checked against the solver by a gate,
+and the rung is being re-run with it under a dated amendment to its pre-registration.
+
 \paragraph{Design.} Ten weighting schemes were pre-registered and compared against a
 data-only twin at matched architecture, matched optimiser steps and matched
 supervised budget --- fixed weights over four decades, gradient-norm balancing at
@@ -612,7 +628,7 @@ signature) and is excluded as failed-to-train, never averaged in: \nLfourbNaband
 arms did, leaving \nLfourbNeligible\ eligible on the time axis and, with the second
 extension, \nLfourbNeligibleMat\ on the material axis.
 
-\paragraph{Time axis: no difference, and the legacy claim is withdrawn.} In the
+\paragraph{Time axis, with the residual used: no difference.} In the
 pre-declared words: there is no difference at the best weighting found. The best
 physics arm, the lowest fixed weight, reaches \nLfourbTimeBest\ against the twin's
 \nLfourbTimeTwin, a paired difference with interval [\nLfourbTimeLo, \nLfourbTimeHi]
@@ -633,9 +649,10 @@ arm is significantly better. The pre-registration declared a flip to be the repo
 result, and we report it with its direction rather than as a verdict on physics:
 under the optimiser the physics arm needs, the data-only arm gains more.
 
-\paragraph{Material axis: physics helps, once correctly weighted.} In the pre-declared
-words, physics helps on the material axis and the legacy claim is retracted as a
-weighting artefact. The best arm is the second-smallest fixed weight, and it is now an
+\paragraph{Material axis, with the residual used: the residual arm is better.} In the
+pre-declared words the analyser reports that physics helps on the material axis; with
+the residual this rung used, that sentence means only that this particular prior
+improved the fit. The best arm is the second-smallest fixed weight, and it is now an
 interior optimum: the decade below it, which the edge rule demanded a second time,
 reaches \nLfourbMatBelow\ and the decade above \nLfourbMatAbove, both worse than its
 \nLfourbMatBest. Against the twin's \nLfourbMatTwin\ the paired difference (twin minus
@@ -667,8 +684,9 @@ seen window, and a seen-window error rising by more than \(10\,\%\) means the an
 is insufficient and the result on that axis is scoped. It rose by
 \nLfourbTimeSeenRise\,\% on average. The time-axis refinement result is therefore
 scoped, and the material axis --- which has no anchor by design, because nothing about
-an unseen material is known --- carries the reportable refinement result. \textbf{It
-is strongly negative: physics at inference makes transfer to unseen materials worse.}
+an unseen material is known --- carries the reportable refinement result. \textbf{With the residual used, refinement
+makes transfer to unseen materials worse} --- which is what minimising the wrong
+equation should do, and so no evidence about the right one.
 Refining the twin with the residual alone takes its held-out error from
 \nLfourbRefTwinBefore\ to \nLfourbRefTwinAfter, about \nLfourbRefTwinFactor{} times
 worse (paired difference interval [\nLfourbRefTwinLo, \nLfourbRefTwinHi]), and the
@@ -1130,8 +1148,8 @@ operator cost fit time and nothing else, and the closed forms are cheaper but wo
 Not everything was eliminated, and the levers that remain are not equal. Training
 materials are the one with a price tag attached, and the frontier is where that price
 is paid. Capacity is not eliminated, but a better configuration found by search costs
-fit time, not data. The residual as a loss buys a small gain on held-out materials at
-one searched weight, for several times the twin's training budget. The choice of
+fit time, not data. The residual as a loss is not priced here: its rung is being
+re-run with the corrected equation (B72). The choice of
 operator moves the accuracy without moving the data cost: on the legacy held-out
 materials the Fourier operator reaches \nLfiveFNO, against \nWarpOracle\ for the
 coordinate change of Section~\ref{sec:warp} even when that change is handed the true
@@ -1188,9 +1206,12 @@ direction; A13 withdrew a positive verdict that did not survive the calibrated
 level.
 \end{enumerate}
 
-\paragraph{Four that reversed a headline.} The physics-as-a-loss rung reversed in
-the open: the legacy claim that the residual \emph{hurts} did not survive a sweep of
-weightings and the edge rule, and was withdrawn on both axes (B69). A17 withdrew the explanatory role of the
+\paragraph{Four that reversed a headline.} The physics-as-a-loss rung reversed
+twice. Its legacy claim that the residual \emph{hurts} did not survive a sweep of
+weightings and the edge rule (B69); then every one of its verdicts was withdrawn as a
+statement about physics when the residual itself proved to be the wrong equation (B72,
+A28) --- the largest-scope withdrawal in the ledger, and the only one that voids a
+whole rung. A17 withdrew the explanatory role of the
 Kolmogorov \(n\)-width, which the frozen protocol had called the load-bearing result
 of the ladder --- the bound is real and inactive. A22 turned a null we had described
 as decisive into one that excludes only very large effects. A25 then corrected A22's
@@ -1212,8 +1233,9 @@ year that looks right.
 best of a grid --- of learning rates, capacities, weightings or operator settings ---
 against a single reference, with the best chosen on the same held-out materials the
 comparison is scored on. A per-pair interval is valid for a pair fixed in advance and
-anti-conservative for one chosen after looking. For the one positive verdict that
-rests on such a choice, the material-axis physics arm of L4, we report a studentised
+anti-conservative for one chosen after looking. For the one positive result that
+rests on such a choice, the material-axis physics arm of L4 (itself withdrawn as a
+statement about physics, A28, but a clean test case for the procedure), we report a studentised
 max-statistic cluster bootstrap, the single-step form of the procedure of Romano and
 Wolf \cite{romano2005stepwise}: materials are resampled jointly across all candidate
 arms, each arm's deviation is scaled by its own standard error, and the critical value
@@ -1221,7 +1243,8 @@ is the quantile of the largest scaled deviation (\nLfourbSelQ\ standard errors h
 wider than a single pair needs at this level). The resulting
 interval holds for every candidate at once, so for the selected one however it was
 selected; on simulated families with no true effect it holds its level where the
-naive test on the winner does not. The L4 verdict survives it. The remaining
+naive test on the winner does not. The L4 result survives it, and the procedure
+will be applied unchanged to the corrected re-run. The remaining
 best-of-grid choices select a configuration that is then compared within the same
 rung, and the cleaner remedy for all of them --- selecting on a validation split
 inside the training materials --- is the protocol change we recommend for any rerun.
@@ -1358,10 +1381,9 @@ equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, and the benefit sho
 detectable dependence on Damk\"ohler number, which reads as an inductive bias rather
 than a kinetic identifier --- a weak null, whose interval admits a dependence of the
 benefit's own size.
-The physics residual as a training loss, once its weight is searched as the pre-registration
-requires, helps slightly on held-out materials (\nLfourbMatBest\
-against \nLfourbMatTwin, at a single interior weight) and makes no difference on the
-time axis; the legacy claim that it hurts is withdrawn on both.
+The physics-residual rung returns no verdict on physics: its residual advected the
+gas at the wrong velocity (B72), so its results measure a mis-specified prior and are
+withdrawn as statements about this column (A28) until the corrected re-run reports.
 
 \paragraph{What binds.} The map from material parameters to the field, not the
 basis it is expressed in. Error still falls as \(n^{-\nLCbeta}\) with the number of
@@ -1384,8 +1406,9 @@ two one-dimensional curves that must still be predicted from the same parameters
 \paragraph{What this means for a practitioner.} For a screening surrogate over
 unseen frameworks, two kinds of effort pay: more, and more diverse, training
 materials, and a learner that maps parameters to the whole field rather than to
-coefficients one by one. A larger basis, a different nonlinearity at matched size,
-and a heavier physics penalty do not. The cost accounting of
+coefficients one by one. A larger basis and a different nonlinearity at matched size
+do not; whether a correctly specified physics residual does is the open question the
+re-run of L4 answers. The cost accounting of
 Section~\ref{sec:cost} gives the exchange rate for the first.
 
 \paragraph{What is scoped.} Three verdicts --- L3, L5 and the coordinate change ---

@@ -1,9 +1,9 @@
 {
   "source": "RETRACTIONS.md",
-  "n_part_a": 27,
-  "n_part_b": 71,
-  "n_total": 98,
-  "n_own_error_phrase": 34,
+  "n_part_a": 28,
+  "n_part_b": 74,
+  "n_total": 102,
+  "n_own_error_phrase": 36,
   "own_error_entries": [
     "A17",
     "A18",
@@ -12,6 +12,7 @@
     "A24",
     "A26",
     "A27",
+    "A28",
     "B5",
     "B6",
     "B7",
@@ -38,7 +39,8 @@
     "B62",
     "B64",
     "B65",
-    "B67"
+    "B67",
+    "B72"
   ],
   "note": "n_own_error_phrase counts entries containing the literal words 'our own error'. Several more are self-attributed in other words; they are named in RESULTS.md rather than counted here, because a count needs a rule and 'self-attributed' has no mechanical one."
 }

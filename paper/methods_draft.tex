@@ -1,0 +1,347 @@
+%% ---------------------------------------------------------------------------
+%% DRAFT Methods section (referee item M7). Not yet \input by manuscript.tex.
+%% Every measured number is a macro from paper/numbers.tex. Design constants are
+%% literals, each with a `% source:` line naming the file and function it is read
+%% from. \PENDINGMACRO marks a measured number that has no macro yet; it must be
+%% added to paper/numbers.py before this section is merged.
+%% ---------------------------------------------------------------------------
+\providecommand{\PENDINGMACRO}[1]{\textbf{[PENDING: #1]}}
+
+\section{Methods}
+\label{sec:methods}
+
+\subsection*{Governing model}
+
+% source: solver_fd.py:generate_breakthrough_data (rhs, laplacian, _upwind_div)
+The reference is a one-dimensional, non-isothermal packed bed with axial dispersion,
+linear-driving-force (LDF) kinetics and a lumped energy balance with wall loss. With
+\(c(z,t)\) the gas-phase adsorbate concentration, \(q(z,t)\) the adsorbed loading per
+unit particle mass, \(T(z,t)\) the bed temperature and \(v\) the \emph{superficial}
+velocity, the equations integrated are
+% source: solver_fd.py:generate_breakthrough_data -- dc_dt = D_L*lap - adv_c(u_gas=v/eps_t) - src_factor*dq_dt
+% TODO-VERIFY: the solver_fd.py module docstring writes the mass balance as
+%   eps_t dc/dt = D_L d2c/dz2 - v dc/dz - (1-eps_t) rho_p dq/dt,
+% which differs from the code by a factor eps_t on the dispersion term. The equation
+% below is what rhs() actually integrates; the docstring should be corrected.
+\begin{align}
+\frac{\partial c}{\partial t} &= D_L \frac{\partial^2 c}{\partial z^2}
+ - \frac{v}{\varepsilon_t}\frac{\partial c}{\partial z}
+ - \frac{1-\varepsilon_t}{\varepsilon_t}\,\rho_p \frac{\partial q}{\partial t},
+\label{eq:mass}\\
+% source: solver_fd.py:generate_breakthrough_data -- dq_dt = k_LDF*(qstar_fn(c,T) - q)
+\frac{\partial q}{\partial t} &= k_{\mathrm{LDF}}\bigl(q^{*}(c,T) - q\bigr),
+\label{eq:ldf}\\
+% source: solver_fd.py:generate_breakthrough_data -- alpha_T, u_thermal, heat_factor, wall_factor
+C_{\mathrm{b}}\frac{\partial T}{\partial t} &= k_z \frac{\partial^2 T}{\partial z^2}
+ - v\rho_g C_{pg}\frac{\partial T}{\partial z}
+ + (1-\varepsilon_t)\rho_p(-\Delta H)\frac{\partial q}{\partial t}
+ - \frac{4h_w}{D_{\mathrm{in}}}\,(T - T_w),
+\label{eq:energy}
+\end{align}
+% source: solver_fd.py:AdsorptionPhysicsConfig.C_term
+with bed heat capacity \(C_{\mathrm{b}} = \varepsilon_t\rho_g C_{pg} + (1-\varepsilon_t)\rho_p C_{ps}\)
+and \(q^{*}\) the dual-site isotherm of equation~\eqref{eq:isotherm}. The cluster-to-primary
+affinity ratio is fixed, \(b_{C0}/b_{H0} = 20\), and \(b_{C0}\) is set per run so that
+the cooperative step sits at the material's step humidity at the feed temperature,
+\(b_C(T_{\mathrm{in}})\,c_{\mathrm{step}} = 1\).
+% source: gen_parametric_dataset.py:B_H_RATIO (=20.0) and build_physics (p.b_H0 = p.b0 / B_H_RATIO)
+% source: isotherm.py:calibrate_step; gen_parametric_dataset.py:build_physics (c_step = rh_to_conc(step_rh, T_in))
+Feed concentration follows from relative humidity through the ideal-gas law and a
+Magnus saturation pressure, \(c_{\mathrm{in}} = \mathrm{RH}\,p_{\mathrm{sat}}(T_{\mathrm{in}})/(RT_{\mathrm{in}})\).
+% source: gen_parametric_dataset.py:rh_to_conc, p_sat_water (610.94*exp(17.625*Tc/(Tc+243.04)))
+
+\paragraph{Boundary and initial conditions.} The inlet is of flux (Danckwerts) type for
+both mass and heat: the feed enters advectively and the inlet face carries no
+dispersive or conductive flux,
+% source: solver_fd.py:generate_breakthrough_data.laplacian (lap[0] = (f[1]-f[0])/dz^2) and _upwind_div (f_in at the inlet face)
+\begin{equation}
+\frac{v}{\varepsilon_t}\,c_{\mathrm{in}} = \frac{v}{\varepsilon_t}\,c - D_L\frac{\partial c}{\partial z},
+\qquad
+v\rho_g C_{pg}\,T_{\mathrm{in}} = v\rho_g C_{pg}\,T - k_z\frac{\partial T}{\partial z}
+\qquad (z = 0),
+\label{eq:danckwerts}
+\end{equation}
+% source: solver_fd.py:generate_breakthrough_data.laplacian (lap[-1] = (f[-2]-f[-1])/dz^2)
+with zero gradient, \(\partial c/\partial z = \partial T/\partial z = 0\), at the outlet
+\(z = L\). The bed starts clean and at wall temperature, \(c = q = 0\) and \(T = T_w\),
+and the wall is held at the feed temperature, \(T_w = T_{\mathrm{in}}\).
+% source: solver_fd.py:generate_breakthrough_data (y0 = [0, 0, T_w]); gen_parametric_dataset.py:build_physics (p.T_w = cond["T_in"])
+
+\paragraph{Fixed bed and transport properties.}
+% source: gen_parametric_dataset.py:build_physics (p.L = 0.10; p.D_L = 0.7*2.5e-5 + 0.5*d_p*(v/eps_t))
+% source: solver_fd.py:AdsorptionPhysicsConfig.__init__ (D_in, rho_g, C_pg, C_ps, k_z, h_w)
+Every run uses \(L = 0.10\)\,m, \(D_{\mathrm{in}} = 0.05\)\,m,
+\(\rho_g = 1.2\)\,kg\,m\(^{-3}\), \(C_{pg} = C_{ps} = 1000\)\,J\,kg\(^{-1}\)\,K\(^{-1}\),
+\(k_z = 0.10\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and \(h_w = 10\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial
+dispersion follows the packed-bed correlation \(D_L = 0.7D_m + 0.5\,d_p\,v/\varepsilon_t\)
+with \(D_m = 2.5\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\).
+% TODO-VERIFY: the dispersion correlation uses D_m = 2.5e-5 (gen_parametric_dataset.py:build_physics)
+% while the Glueckauf relation uses D_M_WATER = 2.6e-5 (gen_parametric_dataset.py:D_M_WATER).
+% Small, but two values of one constant in one generator.
+In design v2 the kinetic coefficient is not sampled; it is derived from the particle
+through the Glueckauf relation using the chord slope of the isotherm at the feed,
+% source: gen_parametric_dataset.py:k_ldf_glueckauf; constants EPS_PELLET=0.35, TORTUOSITY=3.0, D_M_WATER=2.6e-5
+\begin{equation}
+k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
+\qquad K = \frac{q^{*}(c_{\mathrm{in}},T_{\mathrm{in}})}{c_{\mathrm{in}}},
+\label{eq:glueckauf}
+\end{equation}
+with pellet porosity \(\varepsilon_p = 0.35\), tortuosity \(\tau_p = 3\) and
+\(D_m = 2.6\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). One \(k_{\mathrm{LDF}}\) is therefore
+constant within a run but differs between conditions of the same material.
+
+\paragraph{Numerics and storage.}
+% source: gen_parametric_dataset.py:SOLVE_NZ (2000), run_one (n_snapshots=600); solver_fd.py:generate_breakthrough_data (BDF, rtol=1e-6, atol=1e-10, jac_sparsity)
+Equations~\eqref{eq:mass}--\eqref{eq:energy} are discretised by the method of lines on
+2000 cell-centred finite volumes (first-order upwind advection, second-order central
+dispersion and conduction) and integrated with SciPy's BDF method at relative and
+absolute tolerances \(10^{-6}\) and \(10^{-10}\), with an explicit Jacobian sparsity
+pattern, to 600 output times. The verification of this solver is in
+Section~\ref{sec:reference}.
+% source: gen_parametric_dataset.py:HORIZON (2.5) and run_one (multipliers HORIZON, 2*, 5*, 12*; exit_ratio >= 0.90)
+Each run is integrated to \(t_{\mathrm{final}} = 2.5\,t_{\mathrm{st}}\), with
+\(t_{\mathrm{st}} = [(1-\varepsilon_t)\rho_p q^{*}(c_{\mathrm{in}},T_{\mathrm{in}}) + \varepsilon_t c_{\mathrm{in}}]\,L/(v c_{\mathrm{in}})\)
+the stoichiometric time; if the outlet has not reached \(0.90\,c_{\mathrm{in}}\) the
+horizon is extended to 5, 12.5 and 30 \(t_{\mathrm{st}}\) in turn and the run is
+rejected only if all four fail.
+% source: solver_fd.py:AdsorptionPhysicsConfig.stoichiometric_time
+% source: gen_parametric_dataset.py:screen (theta in [0.10, 0.995]; K_H finite and > 0; MTZ >= 5 cells; 60 s < t_st < 2e6 s)
+Before solving, a draw is rejected if the feed loads less than 0.10 or more than 0.995
+of capacity, if the Henry constant is not finite and positive, if the isothermal
+mass-transfer zone spans fewer than five solver cells, or if \(t_{\mathrm{st}}\) lies
+outside 60\,s to \(2\times10^{6}\)\,s; \nDataNrejected\ of the design-v2 draws were
+rejected this way and \nDataNsamples\ accepted.
+% source: gen_parametric_dataset.py:run_one (fields = c/c_in, q/q_max, T/T_in, bilinear resample); chain_gen_v2.sh (ADS_STORE_NZ=256, ADS_STORE_NT=256)
+Fields are stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a
+uniform grid in \(z/L\) and \(t/t_{\mathrm{final}}\), bilinearly resampled to
+\(256\times256\) for design v2 and \(512\times256\) for the legacy design, with
+\(t_{\mathrm{final}}\) kept as a per-sample scalar.
+
+\subsection*{Damk\"ohler number}
+
+% source: gen_parametric_dataset.py:run_one ("Da": p.k_LDF * t_final); dataset_summary.py:summarise; run_l6_v2.py:damkohler_per_material
+The Damk\"ohler number used throughout is computed per sample as
+\begin{equation}
+\mathrm{Da} = k_{\mathrm{LDF}}\; t_{\mathrm{final}},
+\label{eq:da}
+\end{equation}
+the LDF rate multiplied by the simulated horizon. The per-material value on which rung
+L6 regresses is the median of Equation~\eqref{eq:da} over that material's accepted
+conditions. Because \(t_{\mathrm{final}}\) is a multiple of \(t_{\mathrm{st}}\) that
+depends on whether the horizon was extended, Equation~\eqref{eq:da} is \(2.5\,k_{\mathrm{LDF}}t_{\mathrm{st}}\)
+for unextended runs and a larger multiple for the
+\PENDINGMACRO{fraction of design-v2 samples whose horizon was extended beyond 2.5 t_st, data/parametric_v2/manifest.json, samples[].horizon_extensions > 0}
+of samples that were extended.
+% TODO-VERIFY: Da therefore carries a factor of the horizon multiplier (2.5, 5 or 12.5;
+% counted from the manifest at drafting time, 0/1/2 extensions) in addition to the
+% kinetic ratio k_LDF*t_st. The paper treats Da as a kinetic-regime axis; decide
+% whether to keep this definition (and say so) or switch to k_LDF*t_st.
+% TODO-VERIFY: pde_adsorption.py:NondimConfig.groups and run_l4.py:build_phys_table
+% define a DIFFERENT "Da" = k_LDF * L / v (convective time). That group is internal
+% to the PINN residual and never reported, but it shares the name.
+
+\subsection*{Parameter space}
+
+% source: gen_parametric_dataset.py:MATERIAL_SPACE_V2, CONDITION_SPACE, sample_design, _sobol_unit; chain_gen_v2.sh (--design v2 --materials 240 --conditions 17 --seed 20260830)
+Materials and operating conditions are sampled separately and crossed, 240 materials
+at 17 conditions each, so that a material is a real grouping in the data
+(Table~\ref{tab:params}). Each set is a scrambled Sobol design (SciPy \texttt{qmc.Sobol},
+the next power of two truncated to the required count) mapped \emph{linearly} onto the
+ranges; no parameter is sampled on a logarithmic scale. Materials use seed 20260830 and
+conditions seed 20260837.
+% source: gen_parametric_dataset.py:main (conditions seed = args.seed + 7)
+The legacy design used by rungs L3 and L5 and the coordinate change differs in three
+ways: independent uniform draws, \(k_{\mathrm{LDF}}\) sampled directly on
+\([0.002, 0.05]\)\,s\(^{-1}\) in place of \(d_p\), and \(d_p\) fixed at 2\,mm; it has
+60 materials at 17 conditions and \PENDINGMACRO{accepted legacy simulations, data/parametric/manifest.json, sum of counts}
+accepted runs.
+% source: gen_parametric_dataset.py:MATERIAL_SPACE (k_LDF 0.002-0.05), sample_material (rng.uniform), build_physics (d_p default 0.002); data/parametric/manifest.json (60 materials, 17 conditions, seed 20260820)
+
+\begin{table}[t]
+\centering
+\caption{The design-v2 parameter space. All eleven are sampled by scrambled Sobol and
+mapped linearly. Every design-v2 surrogate except rung L6 receives exactly these eleven
+values, standardised on its own fitting set; L6 receives observable descriptors instead.}
+\label{tab:params}
+% source: gen_parametric_dataset.py:MATERIAL_SPACE_V2 and CONDITION_SPACE; ladder_data.py:PARAM_KEYS_V2 (input order)
+\begin{tabular}{llll}
+\toprule
+parameter & symbol & units & range \\
+\midrule
+\multicolumn{4}{l}{\emph{material} (8)} \\
+saturation capacity & \(q_{\max}\) & mol\,kg\(^{-1}\) & 8--30 \\
+heat of adsorption & \(\Delta H\) & kJ\,mol\(^{-1}\) & \(-60\) to \(-38\) \\
+step position (relative humidity) & \(\mathrm{RH}_{\mathrm{step}}\) & -- & 0.08--0.45 \\
+cooperativity exponent & \(n\) & -- & 1--6 \\
+Henry-site fraction & \(f_H\) & -- & 0.03--0.25 \\
+particle diameter & \(d_p\) & mm & 1.5--5.0 \\
+particle density & \(\rho_p\) & kg\,m\(^{-3}\) & 700--1400 \\
+bed porosity & \(\varepsilon_t\) & -- & 0.30--0.48 \\
+\midrule
+\multicolumn{4}{l}{\emph{operating condition} (3)} \\
+feed relative humidity & \(\mathrm{RH}_{\mathrm{feed}}\) & -- & 0.15--0.85 \\
+superficial velocity & \(v\) & m\,s\(^{-1}\) & 0.03--0.30 \\
+feed temperature & \(T_{\mathrm{in}}\) & K & 288.15--313.15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Error metric and statistical test}
+
+% source: metrics.py:per_variable_nrmse; v2_common.py:sample_row
+The primary metric is a per-sample normalised root-mean-square error on the
+\emph{concentration} channel. For sample \(s\), with \(\hat c_{ij}\) and \(c_{ij}\) the
+predicted and reference \(c/c_{\mathrm{in}}\) on the rung's evaluation grid
+(\(i\) over \(N_z\) positions, \(j\) over \(N_t\) times),
+\begin{equation}
+\mathrm{nRMSE}_c(s) = \frac{\Bigl[\frac{1}{N_zN_t}\sum_{i,j}(\hat c_{ij}-c_{ij})^2\Bigr]^{1/2}}
+{\max_{i,j} c_{ij} - \min_{i,j} c_{ij}} ,
+\label{eq:nrmse}
+\end{equation}
+the RMSE over the whole space--time field divided by that sample's own reference range.
+% source: gen_parametric_dataset.py:run_one (initial clean bed; exit_ratio >= 0.90 acceptance)
+Because every accepted run starts from a clean bed and ends with the outlet above
+\(0.90\,c_{\mathrm{in}}\), the denominator is at least 0.90, so
+Equation~\eqref{eq:nrmse} is in effect an RMSE in units of the feed concentration and
+cannot be inflated by a vanishing range.
+% source: run_l4b.py:eval_window (range over the FULL reference field, not the window -- A15)
+Where only part of the field is scored (the time-extrapolation axis of rung L4), the
+numerator runs over the scored window but the denominator remains the range of the full
+reference field.
+% source: metrics.py:pooled_mse (raises), per_variable_nrmse (q, T channels)
+The same quantity is computed separately for \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) and
+reported as secondary; the three channels are never pooled, because the temperature
+variance would dominate.
+% source: v2_common.py:exit_nrmse (range < 0.05 raises); run_l7_v2.py (exit curve, 128 times)
+Rung L7 scores the outlet curve only: Equation~\eqref{eq:nrmse} restricted to \(z = L\),
+normalised by the range of the reference outlet curve, which is required to exceed 0.05.
+% source: analyze_l1_v2.py:seed_avg, pooled_folds
+Per-sample errors are averaged over the three training seeds, pooled across held-out
+folds so that each sample appears once, and averaged with equal weight per sample; a
+material therefore contributes in proportion to its number of accepted conditions.
+
+% source: metrics.py:_cluster_bootstrap, compare; analyze_*.py (n_boot=4000)
+Two arms are compared on identical samples by a paired, cluster-robust percentile
+bootstrap: materials are resampled with replacement, all conditions of each drawn
+material are kept, and the mean paired difference is recomputed 4000 times. A
+difference is reported as significant only if the \((1-\alpha)\) percentile interval
+excludes zero. The level \(\alpha\) is calibrated per design rather than set at 0.05.
+% source: calibrate_v2.py:simulate (400 trials, n_boot 600, real cluster sizes) and main (grid 0.05, 0.02, 0.01, 0.005, 0.002; first with FPR <= 5 %)
+Using each design's real conditions-per-material counts, we simulate clustered nulls in
+which the arms tie on average but individual materials favour one or the other, and take
+the largest nominal level in \(\{0.05, 0.02, 0.01, 0.005, 0.002\}\) whose empirical
+false-positive rate does not exceed 5\,\%. This gives \(\alpha = \nAlphaFolds\) for the
+\nNclustFolds-material five-fold design (empirical size \nFprFoldsCal\,\%) and
+\(\alpha = \nAlphaManifest\) for the \nNclustManifest-material split; on the
+\nNclustLegacy-material legacy design we report at the stricter \(\alpha = \nLfiveAlpha\)
+(empirical size \nFprLegacyUsed\,\%).
+% source: run_l6_v2.py:slope_test (material bootstrap of the OLS slope, 4000 draws, ALPHA_V2=0.02)
+Rung L6's primary estimand is instead the ordinary-least-squares slope of the
+per-material paired difference on \(\log_{10}\mathrm{Da}\), with a material bootstrap
+interval at \(\alpha = \nAlphaFolds\).
+% TODO-VERIFY: L4's time axis has 192 clusters and is tested at alpha = 0.02
+% (analyze_l4b_v2.py:ALPHA), a level calibrated at 48 and 240 clusters but not at 192.
+% Both neighbouring calibrations select 0.02, so this is likely harmless; say so or calibrate.
+
+\subsection*{Surrogates, encodings and evaluation designs}
+
+% source: v2_common.py:load_folds; results/l6_v2_folds.json (n_folds 5, fold_seed 20260901)
+Three evaluation designs are used, and each result states which. \emph{Five-fold}: the
+240 design-v2 materials are partitioned into five folds (seed 20260901), every material
+is held out once, and each fit sees 192 materials. \emph{Single split}: the dataset's own
+manifest split, holding out \nNclustManifest\ materials with 192 for training. \emph{Legacy}: the earlier dataset's split, holding out
+\nNclustLegacy\ of 60 materials.
+% source: gen_parametric_dataset.py:main (holdout-materials 0.20, rng seed+1); ladder_data.py:load
+Every learned arm is trained with seeds 42, 43 and 44, sees the same eleven
+standardised parameters (except L6) and is fitted, including any proper orthogonal
+decomposition (POD) basis and scaler, on the fit set only.
+% source: v2_common.py:assert_disjoint, standardise_params; run_l1.py:fit_pod
+Table~\ref{tab:rungs} gives the architecture and training of each rung.
+
+% source: run_l5.py module docstring ("Cross-rung comparison against L1-L4 absolute numbers is NOT valid and is not made.")
+\textbf{Absolute errors are not comparable across rungs.} The rungs differ in dataset
+(design v2 or legacy), in field encoding (\(128\times128\) subsampled from
+\(256\times256\), \(128\times128\) subsampled from \(512\times256\), or the full
+\(512\times256\)), in what is scored (the whole field, a time window, or the outlet
+curve) and in held-out set. An L3 error of \nLthreeMlpLarge\ and an L5 error of
+\nLfiveONet\ are measured on the same legacy materials but on different encodings ---
+L3 on the full \(512\times256\) field, L5 on a \(128\times128\) subsample of it --- and
+their ratio is not an architecture comparison. Only paired comparisons within a rung are
+inferential; Table~\ref{tab:rungs}
+states the encoding of each so that no cross-rung reading is made by accident.
+% source: ladder_data.py:load (field_res index subsampling); run_l3.py:main (ladder_data.load() at stored 512x256); run_l5.py:subsample (NZ_S=NT_S=128); comoving.py:NZ_S, load_c_light
+
+\begin{table}[p]
+\centering
+\caption{Surrogates by rung. ``Five-fold'', ``single split'' and ``legacy'' are the
+three evaluation designs of the text. Field sizes are \(N_z\times N_t\) on the
+evaluation grid. Parameter counts and widths are design choices fixed before training.
+Absolute errors in different rows are not comparable.}
+\label{tab:rungs}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{0.07\textwidth}p{0.13\textwidth}p{0.24\textwidth}p{0.29\textwidth}p{0.19\textwidth}@{}}
+\toprule
+rung & data, design & input \(\to\) output; encoding & architecture and size & training \\
+\midrule
+% source: run_l1_v2.py:main (--modes 64, --seeds 42 43 44, FIELD_RES 128); run_l1.py:make_arm, fit_pod
+L1 & v2, five-fold &
+11 parameters \(\to\) POD coefficients, 64 modes per channel for \(c,q,T\); field \(128\times128\) &
+ridge (\(\lambda=1\)); random forest (300 trees, leaf 2); gradient boosting (400 trees, depth 5, rate 0.06); perceptron \(3\times256\), ReLU, standardised targets &
+scikit-learn; perceptron Adam \(10^{-3}\), early stopping (patience 30, at most 3000 epochs) \\
+% source: learning_curve_v2.py:SIZES (12, 24, 48, 96, 192)
+L1 curve & v2, five-fold & as L1, training materials subsampled to 12, 24, 48, 96, 192 & the L1 perceptron & as L1 \\
+% source: run_l2.py:sweep_configs; run_l2_v2.py:main
+L2 & v2, five-fold & as L1 &
+28 configurations: perceptron width 16--1024 at depth 3; depth 1--10 at width 256; boosting depth 2--10; forest leaf 1--32 & as L1 \\
+% source: run_l3.py:build, RBFKANBlock (grids=8), ChebyKANBlock (degree=7), solve_width, train_one; results/l3_results.json (steps 12000; widths per budget); results/l3_merged.json (grid 3e-5..1e-1)
+L3 & legacy &
+11 parameters (legacy: \(k_{\mathrm{LDF}}\) in place of \(d_p\)) \(\to\) POD coefficients, 64 per channel; full \(512\times256\) field &
+depth 3; GELU perceptron, Gaussian-RBF KAN (8 centres per edge), Chebyshev KAN (degree 7); widths solved to 50k / 200k / 800k parameters within \(\pm10\,\%\): perceptron 114/269/583, RBF 45/98/203, Chebyshev 48/103/215 &
+Adam, cosine to \(\mathrm{lr}/100\), clip 1, 12\,000 full-batch steps, best of a 12\,\% validation split (patience 2000 steps); learning rate per family over \(3\times10^{-5}\)--\(10^{-1}\) \\
+% source: run_l4b_v2.py:ARMS, main (width 192, depth 4, steps 8000, lr 1e-3, n_sup 4096, n_colloc 1024, n_bc 512, polish_iters 500); run_l4.py:ParametricPINN; results/l4b_v2_results.json (n_params 114435, n_eval_time 768, n_eval_material 793)
+L4 & v2; time axis: 192 training materials, \(t/t_{\mathrm{final}}\in[0,0.5]\) seen, \([0.5,1]\) scored; material axis: single split &
+(11 parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head; scored on \(128\times128\) &
+GELU perceptron \(4\times192\) (114\,435 parameters); 13 arms: data-only twin, fixed residual weights \(10^{-6}\)--\(1\), gradient-norm balancing, NTK and self-adaptive weights; a nondimensional interior residual plus boundary and initial terms (see TODO-VERIFY below the table) &
+Adam \(10^{-3}\), cosine, 8000 steps, 4096 data, 1024 collocation and 512 boundary points per step; then 500 L-BFGS iterations (polish) \\
+% source: run_l5.py:DeepONet, RBFKANStack (grids 4), solve_width, subsample, train_eval; run_l5_fno.py:FNOArm, main (layers 4, modes 4/8/16, batch 8); results/l5_merged.json (budget 200000, steps 8000)
+L5 & legacy &
+11 parameters \(\to\) \(c\) field (all three channels trained, \(c\) scored); \(128\times128\) subsampled from \(512\times256\) &
+DeepONet and DeepOKAN, branch and trunk depth 3, \(p\in\{8,\dots,128\}\); FNO, 4 Fourier layers, 4--16 modes; widths solved to 200k parameters (best DeepONet \nLfiveONetWidth, best FNO \nLfiveFNOwidth) &
+Adam, cosine, clip 1, 8000 steps, 32 samples \(\times\) 2048 points (FNO: 8 full fields); \nLfiveNrates\ learning rates over \nLfiveDecades\ decades \\
+% source: l5_bottleneck_v2.py (HistGradientBoostingRegressor max_iter 400, lr 0.06; channel c; 128x128; five folds)
+L5 basis vs.\ map & v2, five-fold &
+11 parameters \(\to\) POD coefficients of \(c\), \(p\in\{8,\dots,128\}\); \(128\times128\) &
+one gradient-boosted regressor per mode (400 iterations, rate 0.06), standardised coefficients & three seeds \\
+% source: run_l6.py:Joint, Separate, sample_rays, train; run_l6_v2.py:main (budget 120000, depth 4, steps 12000, lr 1e-3, n_rays 128, n_t 32); results/l6_v2_results.json (n_desc 54); descriptors.py:build
+L6 & v2, five-fold &
+54 observable descriptors (isotherm at three temperatures, bed and operating values; \(d_p\) and isotherm parameters withheld), \(z\), \(t\) \(\to\) \((c,q,T)\); \(128\times128\) &
+joint: one perceptron; separate: equilibrium head \(q^{*}\), kinetic head \(\log k\), transport head, with \(q\) obtained by integrating Eq.~\eqref{eq:ldf}; both 120k parameters, depth 4 &
+Adam \(10^{-3}\), cosine, 12\,000 steps, 128 rays \(\times\) 32 times per step \\
+% source: run_l7_v2.py; classical.py:MODELS (equilibrium_shock, klinkenberg, constant_pattern)
+L7 & v2, all samples; paired with L1 out of fold &
+parameters \(\to\) outlet curve, 128 times &
+equilibrium shock, Klinkenberg, constant pattern; closed form, nothing fitted & none \\
+% source: warp_verdict.py:pod_hgb, predict_warp (LEVELS 0.05/0.95, P_SHAPE 32, P_WARP 4); comoving2.py:N_SIG 512, SIG_LO -1.5, SIG_HI 2.5; comoving.py:load_c_light
+Warp & legacy &
+11 parameters \(\to\) \(c\) only, \(128\times128\); fixed frame, or the frame \(\sigma=(t-t_{0.05}(z))/(t_{0.95}(z)-t_{0.05}(z))\) on 512 points of \([-1.5,2.5]\) &
+32 POD modes, one gradient-boosted regressor per mode; front trajectories from 4 POD modes of (start, log span) &
+three seeds; oracle arm given the true fronts \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% TODO-VERIFY (L4, important): the physics residual minimised by rung L4
+% (run_l4.py:pde_residual, boundary_residual) does not match Eq. (mass)/(danckwerts)
+% as solved by solver_fd.py. In the code's own scaling (Lambda, Pe = vL/D_L, tau =
+% t_final v / L) the residual's advection coefficient is tau/Lambda, whereas Eq. (mass)
+% nondimensionalised the same way gives tau/(eps_t*Lambda): the residual advects at the
+% superficial speed v, the solver at the interstitial speed v/eps_t (a factor 2.1-3.3
+% over the eps_t range). The inlet residual c* - (1/Pe) dc*/dz* = 1 likewise lacks the
+% eps_t of the solver's Danckwerts condition (eps_t/Pe), and the thermal inlet is
+% Dirichlet (T* = 1) in the residual but flux-type in the solver. Dispersion, kinetics
+% and energy-interior terms match. If confirmed, the residual is not the PDE the data
+% obey, which bears directly on the "physics at inference makes transfer worse" result.
+% Until resolved, the L4 row above should not say "residual of Eqs. (mass)-(energy)".
+% TODO-VERIFY: run_l5_v2.py (DeepONet re-run on the five-fold design) is in progress;
+% no macro exists for it, and this section does not report it.
