@@ -42,7 +42,8 @@
    "held_out_nrmse": 0.0654406169910066,
    "data_cost_solve_equivalents": 196.4,
    "total_amortised_cost_solve_equivalents": 197.72420600823767,
-   "break_even_queries_lower_bound": 197.72420600823767
+   "break_even_queries_lower_bound": 197.72420600823767,
+   "break_even_queries": 197.75396910254884
   },
   {
    "n_materials": 24,
@@ -50,7 +51,8 @@
    "held_out_nrmse": 0.05306470953097169,
    "data_cost_solve_equivalents": 395.4,
    "total_amortised_cost_solve_equivalents": 396.7242060082377,
-   "break_even_queries_lower_bound": 396.7242060082377
+   "break_even_queries_lower_bound": 396.7242060082377,
+   "break_even_queries": 396.7839242399976
   },
   {
    "n_materials": 48,
@@ -58,7 +60,8 @@
    "held_out_nrmse": 0.04651061158470202,
    "data_cost_solve_equivalents": 789.8,
    "total_amortised_cost_solve_equivalents": 791.1242060082376,
-   "break_even_queries_lower_bound": 791.1242060082376
+   "break_even_queries_lower_bound": 791.1242060082376,
+   "break_even_queries": 791.2432926129111
   },
   {
    "n_materials": 96,
@@ -66,7 +69,8 @@
    "held_out_nrmse": 0.04018315673157599,
    "data_cost_solve_equivalents": 1576.8,
    "total_amortised_cost_solve_equivalents": 1578.1242060082377,
-   "break_even_queries_lower_bound": 1578.1242060082377
+   "break_even_queries_lower_bound": 1578.1242060082377,
+   "break_even_queries": 1578.3617584077463
   },
   {
    "n_materials": 192,
@@ -74,17 +78,27 @@
    "held_out_nrmse": 0.034840433249133176,
    "data_cost_solve_equivalents": 3157.6,
    "total_amortised_cost_solve_equivalents": 3158.9242060082374,
-   "break_even_queries_lower_bound": 3158.9242060082374
+   "break_even_queries_lower_bound": 3158.9242060082374,
+   "break_even_queries": 3159.399713590052
   }
  ],
  "headline": {
   "n_train_at_largest": 3157.6,
   "nrmse_at_largest": 0.034840433249133176,
   "break_even_queries_lower_bound": 3158.9242060082374,
-  "_reading": "the surrogate cannot repay its own construction in fewer than this many screening queries, whatever the per-query cost is, because that is what its training set and its fit cost."
+  "_reading": "the surrogate cannot repay its own construction in fewer than this many screening queries, whatever the per-query cost is, because that is what its training set and its fit cost.",
+  "break_even_queries": 3159.399713590052
  },
  "query": {
-  "measured": false,
-  "_note": "run with --time on an idle machine to measure it"
+  "measured": true,
+  "contended": false,
+  "runners_alive": 0,
+  "seconds_per_query_field": 0.0025004604999958246,
+  "seconds_per_query_exit_curve": 0.0005448899999919377,
+  "solve_equivalents_per_query_field": 0.00015050567352070286,
+  "solve_equivalents_per_query_exit_curve": 3.2797573264452406e-05,
+  "speedup_field": 6644.267798067059,
+  "speedup_exit_curve": 30490.060710798025,
+  "_note": "timed on an untrained model of the identical architecture; inference cost depends on the shapes, not the weight values."
  }
 }

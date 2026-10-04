@@ -1103,7 +1103,11 @@ next to the data. And because \(r \ll 1\) --- a forward pass through three
 \nGridNz\ cells carried to breakthrough --- equation~\eqref{eq:breakeven} is bounded
 below by \(n_{\mathrm{train}} + c_{\mathrm{fit}}\) \emph{without measuring \(r\) at
 all}. We report the bound, because a bound that needs no timing cannot be argued with
-by pointing at the hardware.
+by pointing at the hardware. Measured as well, on an idle machine, a full-field
+query takes \nCostQueryMs\ ms, so \(r = \nCostQueryRMant \times 10^{\nCostQueryRExp}\) and a query is about
+\nCostQuerySpeedup\ times cheaper than a solve, which makes the bound and the exact
+break-even indistinguishable. That ratio is per query at the surrogate's stated
+held-out error, not a claim that the surrogate replaces the solver.
 
 \begin{table}[t]
 \centering

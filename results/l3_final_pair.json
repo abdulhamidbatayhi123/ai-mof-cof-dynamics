@@ -1,10 +1,41 @@
 {
-  "mlp": 0.05730004619458985,
-  "rbf_g4": 0.06329517543670489,
-  "diff": -0.005995129242115044,
+  "_source": "l3_final_pair.py (re-run of audit_l3.py's mlp and rbf_kan grids=4)",
+  "mlp": 0.05729924121862583,
+  "rbf_g4": 0.06329408645692779,
+  "diff": -0.005994845238301959,
   "ci": [
-    -0.011961729349907342,
-    -0.0008438059364345571
+    -0.011515398117496497,
+    -0.0009338893972781912
   ],
-  "significant": true
+  "significant": true,
+  "alpha": 0.005,
+  "lr_per_seed": {
+    "mlp": [
+      0.003,
+      0.001,
+      0.001
+    ],
+    "rbf_g4": [
+      0.001,
+      0.001,
+      0.003
+    ]
+  },
+  "comparison": {
+    "arm_a": "mlp",
+    "arm_b": "rbf_g4",
+    "metric": "nrmse_c",
+    "mean_a": 0.05729924121862583,
+    "mean_b": 0.06329408645692779,
+    "mean_diff": -0.005994845238301959,
+    "ci_low": -0.011515398117496497,
+    "ci_high": -0.0009338893972781912,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+  },
+  "audit_means_for_reference": {
+    "mlp": 0.057300046194589845,
+    "rbf_g4": 0.06329517543670489
+  }
 }

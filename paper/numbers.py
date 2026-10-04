@@ -469,6 +469,15 @@ SPEC = [
     ("CostGenWall", "results/cost_accounting.json", "generation.wall_s", lambda x: f"{x / 3600:.1f}"),
     ("CostWorkers", "results/cost_accounting.json", "generation.workers", "{:d}"),
     ("CostTrainSec", "results/cost_accounting.json", "training.median_seconds", "{:.0f}"),
+    # referee minor 11: the per-query cost r, measured on an idle machine
+    ("CostQueryMs", "results/cost_accounting.json", "query.seconds_per_query_field", lambda x: f"{1e3 * x:.1f}"),
+    # r in scientific notation as TWO macros (mantissa, exponent): tex_safe refuses a
+    # backslash in a value, and that guard is worth more than one convenient macro
+    ("CostQueryRMant", "results/cost_accounting.json", "query.solve_equivalents_per_query_field",
+     lambda x: "{:.1f}".format(x / 10 ** math.floor(math.log10(x)))),
+    ("CostQueryRExp", "results/cost_accounting.json", "query.solve_equivalents_per_query_field",
+     lambda x: "{:d}".format(int(math.floor(math.log10(x))))),
+    ("CostQuerySpeedup", "results/cost_accounting.json", "query.speedup_field", lambda x: f"{x:,.0f}".replace(",", "{,}")),
     ("CostTrainEq", "results/cost_accounting.json", "training.solve_equivalents", "{:.1f}"),
     ("CostTrainSeeds", "results/cost_accounting.json", "training.seconds_per_seed",
      lambda v: f"{len(v):d}"),
