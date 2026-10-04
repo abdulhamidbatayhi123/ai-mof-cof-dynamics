@@ -59,3 +59,16 @@ Status words: OPEN, DONE (commit), ANSWERED (not changed, reason given), BLOCKED
 | R1 | B72: L4 residual advected gas at v, not v/eps_t; heat inlet Dirichlet vs flux | FIXED d29eb9c, 587a329; gated; A28 withdrawal; L4b re-run queued (aa91326) |
 | R2 | B73: legacy L2 "1 %" hard-coded in analyser | DONE 93e12e5 |
 | R3 | B74: L5-v2 analyser skipped the step gate on a stale filename; the rule fired | DONE c172e43 (PREREG_L5_v2 A2, 24k re-run running) |
+
+## Venue (a decision for the author; recommendation 2026-10-04)
+The manuscript is ~16k words with a 7-rung ladder, a Methods section, a cost section
+and a full correction ledger. Length should follow the venue, not precede it:
+1. **Computer Methods in Applied Mechanics and Engineering** (current `\journal{}`):
+   long papers are normal; the surrogate/ROM audience is exactly right. Keep as is.
+2. **Digital Discovery (RSC)**: data-driven chemistry, open access, values
+   reproducibility and negative results; reaches the MOF community. Needs ~30 % cut,
+   the ledger narrative to SI (already generated), the Methods partly to SI.
+3. **AIChE Journal / Chemical Engineering Science**: adsorption-process readers; needs
+   the cost and anchor sections foregrounded and a ~8-10k cut.
+Recommendation: (1) for the full falsification paper as written; (2) if reaching the
+reticular-chemistry community matters more than length.
