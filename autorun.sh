@@ -183,6 +183,9 @@ run_job "figures + numbers + build gate" \
   'false' \
   '"$P" -u fig_ladder.py >> autorun.log 2>&1; "$P" -u paper/numbers.py >> autorun.log 2>&1; "$P" -u build_paper.py >> autorun.log 2>&1'
 
+# referee minor 11: measure the per-query cost r the cost section only bounds (idle machine, minutes)
+run_job "cost accounting: time the surrogate query (r)" 'grep -q COST_TIME_DONE cost_time.log 2>/dev/null' '"$P" -u cost_accounting.py --time >> cost_time.log 2>&1 && echo COST_TIME_DONE >> cost_time.log'
+
 # PREREG_L5_v2 A2: the frozen step rule fired; the verdict sweep is re-run at 24k steps
 run_job "L5-v2 sweep at 24k steps (A2)" 'grep -q L5V2_SWEEP24K_DONE l5_v2_24k.log 2>/dev/null' '"$P" -u run_l5_v2.py --families deeponet --steps 24000 --lrs 1e-3 3e-3 1e-2 3e-2 --threads 6 --out results/l5_v2_results_24k.json >> l5_v2_24k.log 2>&1 && echo L5V2_SWEEP24K_DONE >> l5_v2_24k.log'
 run_job "L5-v2 analysis (24k)" 'grep -q L5V2_ANALYSIS24K_DONE l5_v2_analysis_24k.log 2>/dev/null' '"$P" -u analyze_l5_v2.py --res results/l5_v2_results_24k.json --out results/l5_v2_verdict_24k.json > l5_v2_analysis_24k.log 2>&1 && echo L5V2_ANALYSIS24K_DONE >> l5_v2_analysis_24k.log'
