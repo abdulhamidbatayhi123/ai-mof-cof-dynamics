@@ -10,7 +10,7 @@
 \setlength{\emergencystretch}{3em}
 \begin{document}
 \section*{Supplementary Information S1: the correction ledger}
-Generated from RETRACTIONS.md by ledger\_si.py; 28 withdrawn claims (A) and 74 caught defects (B), every entry in full. The main text cites entries by these codes.
+Generated from RETRACTIONS.md by ledger\_si.py; 28 withdrawn claims (A) and 75 caught defects (B), every entry in full. The main text cites entries by these codes.
 
 \subsection*{A1}\label{led:A1}
 \begin{description}[leftmargin=0pt,itemsep=1pt]
@@ -581,5 +581,11 @@ Generated from RETRACTIONS.md by ledger\_si.py; 28 withdrawn claims (A) and 74 c
 \item[Defect.] \emph{A pre-registered gate silently skipped because a filename changed.} PREREG\_L5\_v2 amendment A1 split the step-budget arm into \texttt{\_p8} and \texttt{\_p128} files; \texttt{analyze\_l5\_v2.py} kept reading the old single name, found nothing, and reported the frozen re-budget rule as 'NOT RUN' while both files sat on disk. Run correctly, the rule FIRES (p = 128 improves 18.8 \% at 24k steps), which voids the 8000-step sweep as the basis of the L5-v2 verdict
 \item[Resolution.] \textbf{Fixed before any verdict was written.} The analyser reads every declared file and REFUSES a partial set; the rule's firing is recorded as PREREG\_L5\_v2 amendment A2 and the sweep is re-run at 24k steps on an extended learning-rate grid
 \item[Note.] \emph{Found 2026-10-04 by noticing the analyser printed nothing for an arm that had run.} Absence of output is not absence of a result; a gate whose input can go missing must fail on the absence (B37)
+\end{description}
+\subsection*{B75}\label{led:B75}
+\begin{description}[leftmargin=0pt,itemsep=1pt]
+\item[Defect.] \emph{Two significance claims that did not pay for choosing both arms on the test materials, and one of them unowned.} (a) L5: 'the Fourier neural operator is significantly better than DeepONet' compared the best of 6 FNO cells with the best of 34 DeepONet cells, both selected on the same 12 held-out materials, using a per-pair interval [+0.00015, +0.00984] that barely excluded zero. (b) L3: 'all six pairwise comparisons significant' (perceptron vs each KAN family at each budget, each arm at its best learning rate) had no script that computed it
+\item[Resolution.] \textbf{Corrected.} \texttt{analyze\_l5\_selection.py} and \texttt{analyze\_l3\_selection.py} run one studentised max-statistic cluster bootstrap over every pair of cells the selection could have picked. L5: simultaneous interval [-0.00176, +0.01152]; \textbf{the word 'significantly' is withdrawn}, and the direction alone is reported. L3: the per-pair 6/6 reproduces exactly and is now owned; 4/6 survive the selection and none reverses, so L3's verdict (eliminated) stands with the count corrected. Figure 1 now draws the selection-adjusted interval for L2, L3's note and L5
+\item[Note.] \emph{Found 2026-10-04 by the round-2 internal referee (N4), who noted that 'the one positive result that rests on such a choice' was not the only one.} A correction applied to one result because it looked fragile must be applied to every result built the same way; selection on both sides of a comparison is paid for over the pairs, not over one side
 \end{description}
 \end{document}

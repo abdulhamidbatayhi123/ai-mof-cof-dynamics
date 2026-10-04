@@ -1,0 +1,35 @@
+{
+ "_what": "DeepONet - FNO for the selected pair, simultaneous over every (DeepONet cell, FNO cell) pair; written by analyze_l5_selection.py",
+ "_alpha": 0.005,
+ "_n_clusters": 12,
+ "n_deeponet_cells": 34,
+ "n_fno_cells": 6,
+ "k": 204,
+ "q": 3.7161956645081573,
+ "selected_pair": [
+  "deeponet_p8_lr0.01",
+  "fno_m4_lr0.003"
+ ],
+ "selected": {
+  "mean_diff": 0.004883223797841798,
+  "se": 0.0017867509841135985,
+  "sim_lo": -0.00175669246287684,
+  "sim_hi": 0.011523140058560435,
+  "significant_simultaneous": false
+ },
+ "selected_rel_lo_pct": -6.639689895496901,
+ "selected_rel_hi_pct": 43.55348373609054,
+ "per_pair": {
+  "arm_a": "DeepONet",
+  "arm_b": "FNO",
+  "metric": "nrmse_c",
+  "mean_a": 0.026457447418865826,
+  "mean_b": 0.021574223621024027,
+  "mean_diff": 0.004883223797841798,
+  "ci_low": 0.00015157810982076864,
+  "ci_high": 0.00984086151575278,
+  "significant": true,
+  "verdict": "FNO is better (lower nrmse_c)",
+  "n_materials": 12
+ }
+}

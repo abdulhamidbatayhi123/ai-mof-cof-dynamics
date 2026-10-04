@@ -48,7 +48,8 @@ at matched size in every comparison. On the full design the basis floor falls
 \(\nLfiveVtwoFloorDrop\times\) with basis size while the parameter-to-coefficient map
 moves \nLfiveVtwoCoefChangePct\,\%: the map binds, not the basis. The learner matters
 --- a Fourier neural operator is \(\nOperatorLever\times\) more accurate than the best
-pointwise regressor --- but every learner sits far above the floor. Decomposing
+pointwise regressor, and DeepONet already \(\nONetLever\times\) --- but every learner
+sits far above the floor. Decomposing
 equilibrium and kinetics gives a small real benefit with no detectable Damk\"ohler
 dependence; closed forms are \nLsevenRatio\ times worse than learning; aligning the two
 adsorption fronts would pay \nWarpHeadroomFixed{}\(\times\) only if the fronts were
@@ -184,8 +185,8 @@ four ways: the inputs are a finite-dimensional parameter vector describing a
 held-out materials under a cluster-robust, calibrated test rather than
 in-distribution error; we show the plateau is invariant to basis size while the
 proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\), and calibrate
-the residual against an oracle to an equivalent mode count; and we trace it to a
-measurable physical cause. A similar plateau on a different input type and a
+the residual against an oracle to an equivalent mode count; and we locate it in the
+map from material parameters to the field rather than in the basis. A similar plateau on a different input type and a
 different partial differential equation suggests the wall is not peculiar to either
 problem, though one study on each side is not a general law. A separate line of work formalises how a neural
 operator relates to its own discretisation \cite{bartolucci2023reno};
@@ -453,9 +454,11 @@ use a calibrated level: \(\alpha = \nAlphaFolds\) at \nNclustFolds\ clusters, wh
 achieves an empirical size of \nFprFoldsCal\,\%. One published verdict did not
 survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
 
-\paragraph{Two designs, two levels, both stated.} Rungs L1, L2, L6 and L7 and the
-cost accounting run on the \nNclustFolds-material folds at
-\(\alpha = \nAlphaFolds\). Rungs L3 and L5 and the coordinate change run on the
+\paragraph{Three designs, their levels, all stated.} Rungs L1, L2, L6 and L7, the
+cost accounting and L5's basis-versus-map decomposition run on the
+\nNclustFolds-material folds at \(\alpha = \nAlphaFolds\). Rung L4 runs on the single
+split of \nLfourbMatNmat\ held-out materials at \(\alpha = \nAlphaManifest\). Rung L3,
+L5's operator comparisons and the coordinate change run on the
 earlier \nNclustLegacy-material design and report at \(\alpha = \nLfiveAlpha\),
 which achieves an empirical size of \nFprLegacyUsed\,\% there --- stricter than the
 \(\alpha = \nAlphaLegacySel\) the calibration selected for that design. The nominal
@@ -855,8 +858,13 @@ diagnosis rests on the learning curve of L1.
 \subsection{L3 --- a better basis}
 
 At matched parameter counts and each family at its own best learning rate, the
-multilayer perceptron beats both Kolmogorov--Arnold families at every budget, with
-all six pairwise comparisons significant. \nLthreeArms\ arms were trained across
+multilayer perceptron beats both Kolmogorov--Arnold families at every budget:
+\nLthreeSigPair\ of the \nLthreePairs\ pairwise comparisons are significant as pairs. Both arms
+of each pair are chosen on the held-out materials, so we also pay for those choices
+with one simultaneous interval over all \nLthreeSelK\ pairs of learning rates
+(Section~\ref{sec:limitations}). \nLthreeSigSim\ of the \nLthreePairs\ remain
+significant, and in none is the Kolmogorov--Arnold network the better arm.
+\nLthreeArms\ arms were trained across
 \nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
 Kolmogorov--Arnold optimum was bracketed on both sides. Our protocol's rule~4 says an
 optimum on the edge of a sweep is admissible only if the metric has saturated there,
@@ -964,8 +972,8 @@ fourth question polishes both arms with L-BFGS after Adam
 polishing the twin reaches \nLfourbTimePolTwin\ and the physics arm
 \nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi] --- the data-only
 arm is significantly better. The pre-registration declared a flip to be the reported
-result, and we report it with its direction rather than as a verdict on physics:
-under the optimiser the physics arm needs, the data-only arm gains more.
+result, and we report the numbers; with the residual this rung used, they carry no
+reading about physics.
 
 \paragraph{Material axis, with the residual used: the residual arm is better.} In the
 pre-declared words the analyser reports that physics helps on the material axis; with
@@ -990,10 +998,10 @@ anti-conservative one for a positive. An isolated best weight among
 We therefore recomputed the interval so that it holds for every eligible arm at once,
 and so for the selected one however it was selected (a studentised max-statistic
 cluster bootstrap, Section~\ref{sec:limitations}). It widens to
-[\nLfourbMatSelLo, \nLfourbMatSelHi] and still excludes no difference: the effect
-survives its own selection. Even so, the reading we defend is the modest one --- the
-residual is a weak regulariser across materials at a weight that must itself be found
-by search, not a source of accuracy the data lack.
+[\nLfourbMatSelLo, \nLfourbMatSelHi] and still excludes no difference. That is a
+statement about the residual this rung used and about the procedure, which the
+corrected re-run will be put through unchanged; it is not a statement about what the
+column's physics does as a prior.
 
 \paragraph{Physics at inference.} Test-time refinement --- minimising the residual for
 each held-out unit with no data --- was pre-registered with an invalidation
@@ -1014,9 +1022,7 @@ and step count (Section~\ref{sec:corrections}, B60) asks whether this is a prope
 one configuration: over \nLfourbRefSweepN\ configurations, the best change found at
 any checkpoint is \nLfourbRefSweepBest\,\%, chosen on the held-out materials and so
 the most generous reading available, and \nLfourbRefSweepNworse\ of the
-\nLfourbRefSweepN\ are worse than the unrefined model at their last checkpoint. The
-residual, minimised on its own, pulls the prediction away from the data rather than
-towards the physics the data obey.
+\nLfourbRefSweepN\ are worse than the unrefined model at their last checkpoint.
 
 \begin{figure}[t]
 \centering
@@ -1025,7 +1031,7 @@ towards the physics the data obey.
 \label{fig:operators}
 \end{figure}
 
-\subsection{L5 --- you need an operator}
+\subsection{L5 --- does an operator remove the wall?}
 
 At matched parameter counts and each family at its own best learning rate over
 \nLfiveNrates\ rates spanning \nLfiveDecades\ decades, DeepONet is \textbf{flat in basis size} (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from
@@ -1041,8 +1047,7 @@ floor of the largest. Rule~4 is the rule this rung was most exposed on: at the t
 smallest bases DeepONet's best learning rate first sat on the top of the grid, still
 moving. The grid was extended one rate upward for those arms, the optimum stayed where
 it was and is now interior, and every selected rate in this rung is bracketed --- so
-the Fourier operator's advantage below is not measured against an under-tuned
-DeepONet. \emph{The best DeepONet found anywhere, at the smallest basis, is as
+the Fourier operator below is not compared with an under-tuned DeepONet. \emph{The best DeepONet found anywhere, at the smallest basis, is as
 accurate as an oracle handed the true coefficients of its first
 \nLfiveOracleONet\ modes, and adding basis functions does not move it.}
 
@@ -1054,27 +1059,37 @@ bound through nonlinear reconstruction. Our original rung tested only the family
 theory condemns; that deviation from our own frozen protocol is recorded as B33. The
 prediction was pre-registered before the run.
 
-The Fourier neural operator is significantly better: \nLfiveFNO\ against DeepONet's
-\nLfiveONet, a difference of \nLfiveONetFNOdiff\ with interval
-[\nLfiveONetFNOlo, \nLfiveONetFNOhi]. The margin is marginal: the interval's lower
-end is a small fraction of either error, it rests on the \nNclustLegacy-material
-design, and both arms are the best of grids chosen on those materials, so we do not
-build on its exact size. \textbf{Both halves of this matter and neither may be
-reported without the other.} It is the direction the theory predicts, and it is a
-measurement of what the escape is worth on this physical problem rather than in an
-approximation bound. \textbf{And it does not remove the wall}: it
-sits \(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A \(\nFNOgain\times\) improvement against a bound \(\nFNOxFloor\times\) below it is a dent, not an
-escape.
+The Fourier neural operator is more accurate, \nLfiveFNO\ against DeepONet's
+\nLfiveONet, but \textbf{not significantly so once the choice is paid for}. Taken as a
+pair fixed in advance, the difference of \nLfiveONetFNOdiff\ has interval
+[\nLfiveONetFNOlo, \nLfiveONetFNOhi], which excludes zero by a small fraction of
+either error. But both arms are the best of grids chosen on the same
+\nNclustLegacy\ held-out materials: the best of \nLfiveSelNfno\ Fourier cells against
+the best of \nLfiveSelNonet\ DeepONet cells. Paying for both choices at once --- a
+studentised max-statistic bootstrap over all \nLfiveSelK\ pairs
+(Section~\ref{sec:limitations}), critical value \nLfiveSelQ\ standard errors --- widens
+the interval for the selected pair to [\nLfiveSelLo, \nLfiveSelHi], which includes
+zero. We reported this comparison as significant in an earlier draft and withdraw
+that word (Section~\ref{sec:corrections}, B75). What survives is the direction the
+theory predicts, measured on this physical problem rather than in an approximation
+bound. \textbf{And it does not remove the wall}: the Fourier operator sits
+\(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A
+\(\nFNOgain\times\) improvement, against a reference level \(\nFNOxFloor\times\) below
+it, is a dent and not an escape. That level is the linear-reconstruction floor at
+\(p = 128\), and the Fourier operator is not bound by it.
 
-One row deserves its own sentence. At a matched parameter budget the winning Fourier
+One row deserves its own sentence. At a matched parameter budget the best Fourier
 operator spends it on spectral weights rather than on channels: it is
 \emph{\nLfiveFNOwidth\ channels wide} against the best DeepONet's
-\nLfiveONetWidth, a factor of \nLfiveWidthRatio, and it is the arm that wins. A
-nonlinear reconstruction beats the best linear one with a fraction of the channel
-count, at the same parameter count --- which is the clearest single piece of
-evidence in the rung that the reconstruction, not the capacity, separates these
-families. Note that this is the \emph{matched-budget} comparison and not a reading
-of the mode sweep, for the reason the next paragraph gives.
+\nLfiveONetWidth, a factor of \nLfiveWidthRatio. A nonlinear reconstruction matches
+or beats the best linear one with a fraction of the channel count, at the same
+parameter count. It does not follow that reconstruction is what separates the
+families in general. Proper orthogonal decomposition plus a pointwise regressor and
+DeepONet both reconstruct linearly, and they differ by \(\nONetLever\times\)
+(Section~\ref{sec:mechanism}). Most of the learner lever is therefore training the
+basis and the coefficients together, not making the reconstruction nonlinear. Note
+that this is the \emph{matched-budget} comparison and not a reading of the mode
+sweep, for the reason the next paragraph gives.
 
 \paragraph{Caveat, stated because it is load-bearing.} The Fourier operator's mode
 sweep is confounded with width at a matched budget --- the spectral weights cost
@@ -1373,8 +1388,8 @@ all of the between-material variance cancels, whereas the two-wave and fixed fra
 are separately fitted arms. A smaller difference can therefore be resolved here
 than there, and the two intervals are not comparable. The violations are frequent
 but negligible in magnitude. A monotone-by-construction front predictor is not worth
-building; the remaining headroom is raw predictive accuracy, which points at
-material count rather than at architecture.
+building; the remaining headroom is raw predictive accuracy of the front predictor,
+which more training materials or a better learner could supply.
 
 \paragraph{A constant-pattern objection, pre-empted.} A referee may observe that
 constant-pattern behaviour --- a front propagating without changing shape --- is
@@ -1453,8 +1468,11 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 First, the surrogate at its best accuracy cannot repay its own construction in fewer
 than \nCostBreakEven\ screening queries. Below that the solver is both cheaper
 \emph{and} exact, and building a surrogate is a mistake. Above it --- and a materials
-screen over a framework database is far above it --- the surrogate is the only option
-that finishes. This is not a criticism of the approach; it is the condition under which
+screen over a framework database is far above it --- the surrogate is the cheaper
+option, at the accuracy in the table's last row. The solver still finishes: at
+\nCostSolveSec\ worker-seconds a solve, a large screen is a matter of core-hours, not
+of feasibility, and whether a coarsened solver at matched accuracy narrows that gap
+is a baseline we report separately. This is not a criticism of the approach; it is the condition under which
 the approach is the right one, stated in the units the decision is actually made in.
 
 Second, the learning curve is a price list. Going from 12 training materials to 192
@@ -1503,7 +1521,7 @@ validation gates, in the power simulations, in the citation ledger itself, and i
 the frozen protocol.
 
 We report this for two reasons. The first is that the corrections are load-bearing:
-three of them reversed headline verdicts, and a reader who does not know which
+four of them reversed headline verdicts, and a reader who does not know which
 numbers moved cannot evaluate the ones that did not. The second is evidential.
 Disclosed self-correction is received well, and the Loss-of-Confidence Project
 documents that \cite{rohrer2021loss}; the alternative --- a paper in which nothing ever went wrong --- is
@@ -1542,7 +1560,10 @@ whole rung. A17 withdrew the explanatory role of the
 Kolmogorov \(n\)-width, which the frozen protocol had called the load-bearing result
 of the ladder --- the bound is real and inactive. A22 turned a null we had described
 as decisive into one that excludes only very large effects. A25 then corrected A22's
-replacement in our favour, and is recorded on the same terms.
+replacement in our favour, and is recorded on the same terms; it qualifies A22 rather
+than reversing a fifth headline. The last internal review added B75, which removed
+the word ``significantly'' from the Fourier operator's advantage over DeepONet once
+the choice of both arms on the test materials was paid for.
 
 \paragraph{What remains open.} One entry is deliberately unresolved. The classical
 control in rung L7 uses an approximation attributed in our bibliography to
@@ -1560,22 +1581,24 @@ year that looks right.
 best of a grid --- of learning rates, capacities, weightings or operator settings ---
 against a single reference, with the best chosen on the same held-out materials the
 comparison is scored on. A per-pair interval is valid for a pair fixed in advance and
-anti-conservative for one chosen after looking. For the one positive result that
-rests on such a choice, the material-axis physics arm of L4 (itself withdrawn as a
-statement about physics, A28, but a clean test case for the procedure), we report a studentised
+anti-conservative for one chosen after looking. For these we report a studentised
 max-statistic cluster bootstrap, the single-step form of the procedure of Romano and
 Wolf \cite{romano2005stepwise}: materials are resampled jointly across all candidate
 arms, each arm's deviation is scaled by its own standard error, and the critical value
-is the quantile of the largest scaled deviation (\nLfourbSelQ\ standard errors here,
-wider than a single pair needs at this level). The resulting
-interval holds for every candidate at once, so for the selected one however it was
-selected; on simulated families with no true effect it holds its level where the
-naive test on the winner does not. The L4 result survives it, and the procedure
-will be applied unchanged to the corrected re-run. The same correction applied to
-L2's best configuration, chosen from \nLtwoSelK\ on the held-out materials, leaves its
-gain over the L1 setting at \(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\). The remaining
-best-of-grid choices select a configuration that is then compared within the same
-rung, and the cleaner remedy for all of them --- selecting on a validation split
+is the quantile of the largest scaled deviation. The resulting interval holds for
+every candidate at once, so for the selected one however it was selected; on
+simulated families with no true effect it holds its level where the naive test on the
+winner does not. The worked case is L2: its best configuration, chosen from
+\nLtwoSelK\ on the held-out materials, keeps a gain over the L1 setting of
+\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\) once the choice is paid for. The same procedure
+will be applied unchanged to the corrected L4 re-run (on the withdrawn residual the
+critical value was \nLfourbSelQ\ standard errors, wider than a single pair needs).
+The correction changes one verdict. The Fourier operator's advantage over DeepONet
+rests on two choices made on the test materials, one per family. Paid for over all
+\nLfiveSelK\ pairs, it is no longer significant (Section~\ref{sec:ladder}, B75).
+In L3 both families are taken at their best learning rate. Paid for in the same way,
+\nLthreeSigSim\ of the \nLthreePairs\ comparisons remain significant, and none reverses
+(Section~\ref{sec:ladder}). The cleaner remedy for every such choice --- selecting on a validation split
 inside the training materials --- is the protocol change we recommend for any rerun.
 
 \paragraph{One partial differential equation family.} Everything here is measured on
@@ -1703,7 +1726,8 @@ Kolmogorov--Arnold families on held-out materials in every comparison, so the
 premise that motivated this study is refuted on our own data. Basis size is not the
 lever: the proper-orthogonal-decomposition floor falls \(\nFloorDrop\times\) while
 DeepONet stays flat, and a Fourier neural operator, the remedy the approximation
-theory names, is better and still sits \(\nFNOxFloor\times\) above that floor. The
+theory names, is more accurate --- not significantly, once its selection is paid for
+--- and still sits \(\nFNOxFloor\times\) above that floor. The
 Kolmogorov \(n\)-width is real, and it is inactive; our own frozen protocol named it
 as the load-bearing explanation and was wrong (A17). Structural decomposition of the
 equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, and the benefit shows no
@@ -1726,7 +1750,8 @@ pointwise regressor on proper-orthogonal-decomposition coefficients reaches
 \(\nOperatorLever\) from first to last, larger than the
 \(\nLCratio\times\) that sixteen times more materials buys a fixed learner. What no
 learner escapes is the distance to the floor: the best of them still sits
-\(\nFNOxFloor\times\) above what the basis could represent. A change of coordinates
+\(\nFNOxFloor\times\) above the linear-reconstruction floor at \(p = 128\), a reference
+level it is not bound by. A change of coordinates
 that aligns the two fronts collapses the \(n\)-width and would buy
 \nWarpHeadroomFixed{}\(\times\) if the fronts were known, and nothing detectable when
 they are predicted --- it relocates the obstruction, from a two-dimensional field to

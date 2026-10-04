@@ -678,6 +678,19 @@ SPEC = [
     ("LtwoSelLo", "results/l2_v2_selection.json", "pct_sim_lo", "{:.1f}"),
     ("LtwoSelHi", "results/l2_v2_selection.json", "pct_sim_hi", "{:.1f}"),
     ("LtwoSelK", "results/l2_v2_selection.json", "k", "{:d}"),
+    # L5: DeepONet - FNO for the selected pair, simultaneous over every
+    # (DeepONet cell, FNO cell) pair (round-2 referee N4; RETRACTIONS B75)
+    ("LfiveSelLo", "results/l5_fno_selection.json", "selected.sim_lo", "{:.5f}"),
+    ("LfiveSelHi", "results/l5_fno_selection.json", "selected.sim_hi", "{:.5f}"),
+    ("LfiveSelK", "results/l5_fno_selection.json", "k", "{:d}"),
+    ("LfiveSelNonet", "results/l5_fno_selection.json", "n_deeponet_cells", "{:d}"),
+    ("LfiveSelNfno", "results/l5_fno_selection.json", "n_fno_cells", "{:d}"),
+    ("LfiveSelQ", "results/l5_fno_selection.json", "q", "{:.1f}"),
+    # L3: the six MLP-vs-KAN comparisons, per pair and paid for (analyze_l3_selection.py)
+    ("LthreePairs", "results/l3_selection.json", "n_pairs", "{:d}"),
+    ("LthreeSigPair", "results/l3_selection.json", "n_sig_per_pair", "{:d}"),
+    ("LthreeSigSim", "results/l3_selection.json", "n_sig_simultaneous", "{:d}"),
+    ("LthreeSelK", "results/l3_selection.json", "k", "{:d}"),
     # referee M3: the selected arm's interval, adjusted for choosing it on the test set
     ("LfourbMatSelLo", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
     ("LfourbMatSelHi", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),
@@ -808,6 +821,8 @@ DERIVED = [
      lambda r: r["WmofBtddQ"] / max(r["WmofQmaxHi"]), "{:.1f}"),   # raw value: the design range
     ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
+    ("ONetLever", "L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)",
+     lambda r: r["LfiveRankPodReg"] / r["LfiveRankONet"], "{:.1f}"),
     ("LfourbRefTwinFactor", "material-axis refinement: twin's held-out error after / before",
      lambda r: r["LfourbRefTwinAfter"] / r["LfourbRefTwinBefore"], "{:.0f}"),
     ("LfourbMatGainPct", "L4b material axis: the best physics arm's error reduction, % of the twin's",

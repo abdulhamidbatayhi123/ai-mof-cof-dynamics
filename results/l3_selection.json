@@ -1,0 +1,151 @@
+{
+ "_what": "L3 selected MLP-vs-KAN pairs: per-pair and simultaneous over every (KAN cell, MLP cell) pair at the same budget; written by analyze_l3_selection.py",
+ "_alpha": 0.005,
+ "_n_clusters": 12,
+ "k": 281,
+ "q": 3.7559927189527498,
+ "n_pairs": 6,
+ "n_sig_per_pair": 6,
+ "n_sig_simultaneous": 4,
+ "n_mlp_better_simultaneous": 4,
+ "pairs": {
+  "50000|cheby_kan": {
+   "pair": "50000|cheby_kan@0.03|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.10626485631383072,
+    "mean_b": 0.05639127636751904,
+    "mean_diff": 0.049873579946311676,
+    "ci_low": 0.029014792083120394,
+    "ci_high": 0.07834982230388428,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.049873579946311676,
+    "se": 0.009682010798327634,
+    "sim_lo": 0.01350801788297118,
+    "sim_hi": 0.08623914200965217,
+    "significant_simultaneous": true
+   }
+  },
+  "50000|rbf_kan": {
+   "pair": "50000|rbf_kan@0.003|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.07680803014033764,
+    "mean_b": 0.05639127636751904,
+    "mean_diff": 0.02041675377281861,
+    "ci_low": 0.01023622274386475,
+    "ci_high": 0.03370373064268018,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.02041675377281861,
+    "se": 0.004514444384138222,
+    "sim_lo": 0.0034605335358783157,
+    "sim_hi": 0.037372974009758905,
+    "significant_simultaneous": true
+   }
+  },
+  "200000|cheby_kan": {
+   "pair": "200000|cheby_kan@0.03|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.11201696111786272,
+    "mean_b": 0.05697599844736932,
+    "mean_diff": 0.05504096267049341,
+    "ci_low": 0.03830001788094886,
+    "ci_high": 0.07405271691328734,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.05504096267049341,
+    "se": 0.006675364788460491,
+    "sim_lo": 0.029968341128682244,
+    "sim_hi": 0.08011358421230458,
+    "significant_simultaneous": true
+   }
+  },
+  "200000|rbf_kan": {
+   "pair": "200000|rbf_kan@0.01|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.07032169726318412,
+    "mean_b": 0.05697599844736932,
+    "mean_diff": 0.013345698815814797,
+    "ci_low": 0.00365469852433693,
+    "ci_high": 0.024869341997598996,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.013345698815814797,
+    "se": 0.003914820858923163,
+    "sim_lo": -0.0013583398263049534,
+    "sim_hi": 0.02804973745793455,
+    "significant_simultaneous": false
+   }
+  },
+  "800000|cheby_kan": {
+   "pair": "800000|cheby_kan@0.01|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.10281965951939863,
+    "mean_b": 0.05718892955722223,
+    "mean_diff": 0.04563072996217638,
+    "ci_low": 0.022471871630871946,
+    "ci_high": 0.07763112412417861,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.04563072996217638,
+    "se": 0.010025347104432635,
+    "sim_lo": 0.007975599232953372,
+    "sim_hi": 0.0832858606913994,
+    "significant_simultaneous": true
+   }
+  },
+  "800000|rbf_kan": {
+   "pair": "800000|rbf_kan@0.003|mlp@3e-05",
+   "per_pair": {
+    "arm_a": "kan",
+    "arm_b": "mlp",
+    "metric": "nrmse_c",
+    "mean_a": 0.07023767919098586,
+    "mean_b": 0.05718892955722223,
+    "mean_diff": 0.013048749633763627,
+    "ci_low": 0.0034361053051770144,
+    "ci_high": 0.02551921219094952,
+    "significant": true,
+    "verdict": "mlp is better (lower nrmse_c)",
+    "n_materials": 12
+   },
+   "simultaneous": {
+    "mean_diff": 0.013048749633763627,
+    "se": 0.004253657201608672,
+    "sim_lo": -0.0029279558443994734,
+    "sim_hi": 0.029025455111926727,
+    "significant_simultaneous": false
+   }
+  }
+ }
+}

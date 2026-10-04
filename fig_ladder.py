@@ -93,6 +93,7 @@ def build_rows():
     lc = load("results/learning_curve_v2_verdict.json")
     l2 = load("results/l2_v2_verdict.json")
     l3p = load("results/l3_final_pair.json")
+    l3s = load("results/l3_selection.json")
     l4 = load("results/l4b_v2_verdict.json")
     l5 = load("results/l5_fno_verdict.json")
     l5m = load("results/l5_merged.json")
@@ -117,8 +118,17 @@ def build_rows():
     if key:
         c, fam = cross[key], l2["best_overall"]
         mde = l2["families"][fam[1]].get("mde_last_step")
-        add("L2", "more capacity", f"{fam[1]}/{fam[2]} vs the L1 setting",
-            effect(c, control_is_a=False), "NOT ELIMINATED",
+        eff = effect(c, control_is_a=False)
+        # the best configuration was chosen on the test materials: draw the interval that
+        # pays for the choice (analyze_l2_selection.py), as the text quotes it
+        sel = load("results/l2_v2_selection.json")
+        if sel and sel["selected"] == f"{fam[1]}/{fam[2]}":
+            eff.update(e=sel["pct"], lo=sel["pct_sim_lo"], hi=sel["pct_sim_hi"],
+                       sig=bool(sel["survives_selection"]))
+        else:
+            raise SystemExit("l2_v2_selection.json does not cover the L2 best configuration")
+        add("L2", "more capacity", f"{fam[1]}/{fam[2]} vs the L1 setting (selection-adjusted)",
+            eff, "NOT ELIMINATED",
             "a random forest is still improving at its capacity ceiling; the best configuration is a deeper perceptron (A26, A27)",
             mde=100 * mde["mde_80"] if isinstance(mde, dict) and mde.get("mde_80") else None)
     else:
@@ -131,7 +141,8 @@ def build_rows():
              "significant": l3p["significant"], "n_materials": 12}
         add("L3", "a better basis (KAN)", "strongest KAN vs MLP, matched parameters",
             effect(c, control_is_a=True), "ELIMINATED",
-            "the best KAN anywhere is the least KAN-like; 6/6 budgets significant, every optimum bracketed")
+            "the best KAN anywhere is the least KAN-like; %d/%d comparisons significant after selection, none reversed"
+            % (l3s["n_sig_simultaneous"], l3s["n_pairs"]))
     else:
         missing.append("L3 final pair")
 
@@ -163,10 +174,14 @@ def build_rows():
 
     # L5 — nonlinear reconstruction, and basis size.
     if l5:
-        c = l5["deeponet_vs_fno"]                     # a = DeepONet (control), b = FNO
-        add("L5", "nonlinear reconstruction", "FNO vs the best DeepONet",
-            effect(c, control_is_a=True), "NARROWED, not removed",
-            f"the remedy the theory names does help — and still sits "
+        # Both arms are best-of-grid on the test materials: draw the interval that pays
+        # for both choices (analyze_l5_selection.py, B75), never the per-pair one.
+        sel = load("results/l5_fno_selection.json")["selected"]
+        c = {**l5["deeponet_vs_fno"], "ci_low": sel["sim_lo"], "ci_high": sel["sim_hi"],
+             "significant": sel["significant_simultaneous"]}   # a = DeepONet (control), b = FNO
+        add("L5", "nonlinear reconstruction", "FNO vs the best DeepONet (selection-adjusted)",
+            effect(c, control_is_a=True), "NOT SIGNIFICANT once selected",
+            f"the direction the theory names, not significant after selection (B75); "
             f"{l5['fno_best']['mean'] / l5['pod_floor_p128']:.0f}x above the POD floor")
     else:
         missing.append("L5 FNO verdict")

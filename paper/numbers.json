@@ -295,8 +295,8 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "28",
-    "LedgerB": "74",
-    "LedgerTotal": "102",
+    "LedgerB": "75",
+    "LedgerTotal": "103",
     "LedgerOwn": "36",
     "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 5 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 4 further arms (pi-fixed-w1e-1, pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
     "LfourbTimeTwin": "0.0131",
@@ -408,6 +408,16 @@
     "LtwoSelLo": "17.8",
     "LtwoSelHi": "24.8",
     "LtwoSelK": "26",
+    "LfiveSelLo": "-0.00176",
+    "LfiveSelHi": "0.01152",
+    "LfiveSelK": "204",
+    "LfiveSelNonet": "34",
+    "LfiveSelNfno": "6",
+    "LfiveSelQ": "3.7",
+    "LthreePairs": "6",
+    "LthreeSigPair": "6",
+    "LthreeSigSim": "4",
+    "LthreeSelK": "281",
     "LfourbMatSelLo": "0.00099",
     "LfourbMatSelHi": "0.00278",
     "LfourbSelQ": "2.96",
@@ -463,6 +473,7 @@
     "LsixSlopeVsEffect": "4",
     "WmofBtddRatio": "1.8",
     "OperatorLever": "2.4",
+    "ONetLever": "1.9",
     "LfourbRefTwinFactor": "5",
     "LfourbMatGainPct": "8"
   },
@@ -2099,6 +2110,46 @@
       "file": "results/l2_v2_selection.json",
       "path": "k"
     },
+    "LfiveSelLo": {
+      "file": "results/l5_fno_selection.json",
+      "path": "selected.sim_lo"
+    },
+    "LfiveSelHi": {
+      "file": "results/l5_fno_selection.json",
+      "path": "selected.sim_hi"
+    },
+    "LfiveSelK": {
+      "file": "results/l5_fno_selection.json",
+      "path": "k"
+    },
+    "LfiveSelNonet": {
+      "file": "results/l5_fno_selection.json",
+      "path": "n_deeponet_cells"
+    },
+    "LfiveSelNfno": {
+      "file": "results/l5_fno_selection.json",
+      "path": "n_fno_cells"
+    },
+    "LfiveSelQ": {
+      "file": "results/l5_fno_selection.json",
+      "path": "q"
+    },
+    "LthreePairs": {
+      "file": "results/l3_selection.json",
+      "path": "n_pairs"
+    },
+    "LthreeSigPair": {
+      "file": "results/l3_selection.json",
+      "path": "n_sig_per_pair"
+    },
+    "LthreeSigSim": {
+      "file": "results/l3_selection.json",
+      "path": "n_sig_simultaneous"
+    },
+    "LthreeSelK": {
+      "file": "results/l3_selection.json",
+      "path": "k"
+    },
     "LfourbMatSelLo": {
       "file": "results/l4b_v2_selection.json",
       "path": "axes.material.selected_simultaneous.sim_lo"
@@ -2287,6 +2338,9 @@
     },
     "OperatorLever": {
       "derived": "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)"
+    },
+    "ONetLever": {
+      "derived": "L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)"
     },
     "LfourbRefTwinFactor": {
       "derived": "material-axis refinement: twin's held-out error after / before"

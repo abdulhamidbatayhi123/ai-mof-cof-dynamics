@@ -210,20 +210,6 @@
   "line_at_review": 364
  },
  {
-  "key": "{ [Two] designs, two levels, both sta",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 367
- },
- {
-  "key": "{Two designs, [two] levels, both stated.} Rungs L",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 367
- },
- {
   "key": "preserved gave [seven] per cent (A22). A second corr",
   "word": "seven",
   "class": "PROSE",
@@ -287,13 +273,6 @@
   "line_at_review": 455
  },
  {
-  "key": "all [six] pairwise comparisons signific",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "3 budgets x 2 comparisons (design)",
-  "line_at_review": 487
- },
- {
   "key": "east} Kolmogorov--Arnold-like [one] , and it reaches \\ against",
   "word": "one",
   "class": "PROSE",
@@ -327,13 +306,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 607
- },
- {
-  "key": "ruction beats the best linear [one] with a fraction of the channe",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 611
  },
  {
   "key": "val [ , ], consistent in all [five] folds and all",
@@ -663,13 +635,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 994
- },
- {
-  "key": " [three] of them reversed headline ver",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "the same set the 'Three that reversed a headline' paragraph enumerates",
-  "line_at_review": 995
  },
  {
   "key": "{The classes that recur.} [Five] patterns account for most of",
@@ -1099,20 +1064,6 @@
   "line_at_review": 623
  },
  {
-  "key": "at once, so for the selected [one] however it was",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 1172
- },
- {
-  "key": "ading we defend is the modest [one] --- the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 626
- },
- {
   "key": " [one] configuration: over \\ config",
   "word": "one",
   "class": "PROSE",
@@ -1134,25 +1085,11 @@
   "line_at_review": 974
  },
  {
-  "key": "anti-conservative for [one] chosen after looking. For",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 1165
- },
- {
   "key": "ting --- gave \\( \\,\\%\\), with [six] and eight layers in a",
   "word": "six",
   "class": "DESIGN",
   "reason": "depth grid value 6 of the L2 sweep (design)",
   "line_at_review": 499
- },
- {
-  "key": "ild on its exact size. {Both [halves] of this matter and neither ma",
-  "word": "halves",
-  "class": "PROSE",
-  "reason": "'both halves' of a statement (structural)",
-  "line_at_review": 687
  },
  {
   "key": "s drawn as a level). {B}~The [two] terms of a linear",
@@ -1587,5 +1524,89 @@
   "class": "PROSE",
   "reason": "'one reported heat' = a single source's value (structural)",
   "line_at_review": 582
+ },
+ {
+  "key": "with [one] simultaneous interval over al",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a single interval: article, not a count",
+  "line_at_review": 838
+ },
+ {
+  "key": "[ , ], which excludes [zero] by a small fraction of",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "zero is the null value of a difference",
+  "line_at_review": 1039
+ },
+ {
+  "key": " [zero] . We reported this comparison",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "zero is the null value of a difference",
+  "line_at_review": 1046
+ },
+ {
+  "key": "or beats the best linear [one] with a fraction of the channe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1059
+ },
+ {
+  "key": "anti-conservative for [one] chosen after looking. For the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1552
+ },
+ {
+  "key": "at once, so for the selected [one] however it was selected; on",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1557
+ },
+ {
+  "key": "The correction changes [one] verdict. The Fourier operator",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the L5 FNO verdict (B75), read off the two selection files",
+  "line_at_review": 1564
+ },
+ {
+  "key": "rests on [two] choices made on the test mate",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "one choice per family, by construction of the comparison",
+  "line_at_review": 1565
+ },
+ {
+  "key": "s made on the test materials, [one] per family. Paid for over all",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "distributive, not a count",
+  "line_at_review": 1565
+ },
+ {
+  "key": "{ [Three] designs, their levels, all st",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three evaluation designs of Methods, each named in the paragraph",
+  "line_at_review": 433
+ },
+ {
+  "key": " [four] of them reversed headline ver",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "the four entries named one by one under 'Four that reversed a headline' (B69, B72/A28, A17, A22)",
+  "line_at_review": 1500
+ },
+ {
+  "key": "than reversing a [fifth] headline. The last internal r",
+  "word": "fifth",
+  "class": "PROSE",
+  "reason": "ordinal in an argument, not a measured count",
+  "line_at_review": 1540
  }
 ]
