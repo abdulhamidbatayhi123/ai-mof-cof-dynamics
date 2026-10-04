@@ -14,7 +14,9 @@ driver runs the rest, each exactly as the prereg declares, with the same freeze 
   m8   KAN symbolic extraction, best configuration, on the DECLARED SUBGRID (all Da x
        sigma in {0.5, 2 %} x eps in {0, 2 %} x both isotherms x Pe x1, O1), 3 replicates;
        success = success_L1. Runs only if its per-fit cost gate passed (COST_GATES).
-  m5   ODR-BINDy on the same subgrid, 3 replicates, behind its own cost gate.
+  m5   EIV best-subset (classical mixed LS-TLS on the single rate law, p2/eiv.py) on
+       every non-isothermal L1 cell, O1, every (sigma, eps), 20 replicates, strong form;
+       success = success_L1. Pure linear algebra, so it needs no cost gate.
 
     python p2_grid_extra.py {m6,m9,l2,m8,m5}
 """
@@ -62,6 +64,44 @@ def fit_m9(obs):
     return co, success_manifold(co)
 
 
+def fit_m5(obs, sigma, eps):
+    """M5 as run: EIV best-subset (p2/eiv.py) on Lib-B, strong form. Error SDs are the
+    DECLARED observation errors (an experimenter knows instrument noise and roughly how
+    good the isotherm is): sigma x channel range for c, q, T; eps x |q*| for the measured
+    isotherm (plus its sensitivity to the c-noise); first-order propagation to products;
+    the target's SD is the Savitzky-Golay derivative of white noise of the q-channel SD,
+    measured, not assumed."""
+    from p2.eiv import eiv_best_subset
+    t = obs["t"]
+    ch = obs["channels"]
+    rc, rq, rT = (float(np.ptp(ch[k])) for k in ("c", "q", "T"))
+    sc, sq, sT = sigma * rc, sigma * rq, sigma * rT
+    from scipy.signal import savgol_coeffs
+    qsm = obs["qstar_meas"]
+
+    def build(c, q, T):
+        lib = lib_b(c, q, T, qsm(c, T))
+        h = 1e-6 * max(float(np.ptp(c)), 1e-12)         # dq*/dc by a direct finite difference
+        lib["_dqs_dc"] = (qsm(c + h, T) - qsm(c, T)) / h
+        return lib, derivative(q, t)
+
+    F, y = _stack_probes(obs, build)
+    dqs = F.pop("_dqs_dc")
+    qs = F["qstar"]
+    sd = {"1": 0.0, "c": sc, "q": sq, "T": sT,
+          "c*q": np.sqrt((F["q"] * sc) ** 2 + (F["c"] * sq) ** 2),
+          "q^2": np.abs(2 * F["q"] * sq), "c^2": np.abs(2 * F["c"] * sc),
+          "qstar": np.sqrt((eps * qs) ** 2 + (dqs * sc) ** 2)}
+    # the Savitzky-Golay derivative is a linear filter: white noise of SD s comes out
+    # with SD s * ||h|| (h its coefficients) -- exact, no random draw needed
+    dt = float(t[1] - t[0])
+    w = min(21, (len(t) // 2) * 2 - 1)
+    gain = float(np.linalg.norm(savgol_coeffs(w, min(3, w - 1), deriv=1, delta=dt)))
+    sd_y = sq * gain if sigma > 0 else 1e-12
+    co = eiv_best_subset(F, y, sd, sd_y)
+    return co, success_L1(co)
+
+
 def _gate(method):
     if not os.path.exists(COST_GATES):
         sys.exit(f"REFUSED: {COST_GATES} missing -- run the pre-freeze cost pilot first")
@@ -74,7 +114,7 @@ def _gate(method):
 def run(cmd, man):
     out = f"results/p2_extra_{cmd}.json"
     res = json.load(open(out)) if os.path.exists(out) else {"freeze_commit": frozen()[1], "rows": {}}
-    if cmd in ("m8", "m5"):
+    if cmd == "m8":
         _gate(cmd)
     for name, rec in sorted(man.items()):
         iso, law = rec["iso"], rec["law"]
@@ -90,7 +130,11 @@ def run(cmd, man):
             if law != "L2":
                 continue
             grid = itertools.product(SIGMAS, EPSS, range(N_REP), SOLVERS, FORMS)
-        else:   # m8, m5: the declared subgrid
+        elif cmd == "m5":
+            if iso == "langmuir_iso" or law != "L1":
+                continue
+            grid = itertools.product(SIGMAS, EPSS, range(N_REP), ("eiv_best_subset",), ("strong",))
+        else:   # m8: the declared subgrid
             if iso == "langmuir_iso" or law != "L1" or rec["pe_mult"] != 1.0:
                 continue
             grid = itertools.product(SUB_SIGMAS, SUB_EPSS, range(SUB_REP), (cmd,), ("strong",))
@@ -119,9 +163,7 @@ def run(cmd, man):
                     co = methods.kan_symbolic(V, y, seed=rep)
                     ok = success_L1(co)
                 else:   # m5
-                    from p2.odr_grid import fit_odr_bindy      # wired after its cost pilot
-                    co = fit_odr_bindy(obs)
-                    ok = success_L1(co)
+                    co, ok = fit_m5(obs, sigma, eps)
                 res["rows"][key] = {"success": bool(ok), "support": sorted(co), "sec": time.time() - t1}
             except Exception as e:   # recorded, never dropped
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}

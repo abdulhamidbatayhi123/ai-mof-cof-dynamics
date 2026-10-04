@@ -406,3 +406,46 @@ def test_grid_extra_m9_recovers_the_slow_manifold_near_equilibrium():
     from p2_grid_extra import fit_m9
     co, ok = fit_m9(_synthetic_obs(k=20.0))   # k = 2 is not near equilibrium on this system
     assert ok, co
+
+
+def test_eiv_best_subset_recovers_ldf_and_matches_m4_at_zero_error():
+    """M5 as run (p2/eiv.py): at (near-)zero declared error it must find the L1 law and
+    agree with M4's exact enumeration on the support."""
+    from p2.eiv import eiv_best_subset
+    from p2.methods import best_subset
+    s = ldf_series(k=0.02, n=200)
+    F = lib_b(s["c"], s["q"], s["T"], s["qstar"])
+    dq = derivative(s["q"], s["t"])
+    sd = {k: 1e-6 * np.std(v) for k, v in F.items()}
+    co = eiv_best_subset(F, dq, sd, 1e-6 * np.std(dq))
+    assert success_L1(co), co
+    assert set(co) == set(best_subset(F, dq)), (co, best_subset(F, dq))
+
+
+def test_mixed_ls_tls_removes_the_attenuation_bias_ols_suffers():
+    """The classical EIV property M5 relies on: with error in the regressor, OLS slopes
+    are attenuated; TLS with the declared error SDs is not (here y = 2 x + 1, x noisy)."""
+    from p2.eiv import mixed_ls_tls
+    rng = np.random.default_rng(0)
+    x = rng.uniform(0, 1, 20000)
+    y = 2.0 * x + 1.0 + rng.normal(0, 0.05, x.size)
+    xn = x + rng.normal(0, 0.15, x.size)
+    X = np.column_stack([xn, np.ones_like(xn)])
+    ols = np.linalg.lstsq(X, y, rcond=None)[0]
+    tls = mixed_ls_tls(X, y, [0.15, 0.0], 0.05)
+    assert abs(ols[0] - 2.0) > 0.2          # attenuated
+    assert abs(tls[0] - 2.0) < 0.05, tls    # corrected
+    assert abs(tls[1] - 1.0) < 0.05, tls
+
+
+def test_grid_extra_m5_matches_m4_at_zero_noise_through_the_grid_wrapper():
+    """p2_grid_extra.fit_m5 end to end (declared SDs, derivative gain, finite-difference
+    dq*/dc) at zero noise: recovers L1 and agrees with M4. NOT asserted: recovery under
+    noise -- at 0.1 % noise on this 5-probe, 200-sample system both M4 and M5 fail in
+    the strong form (measured 2026-10-04), which is the boundary the grid maps, not a
+    defect a unit test should hide."""
+    from p2_grid_extra import fit_m5
+    obs = _synthetic_obs()
+    co, ok = fit_m5(obs, 0.0, 0.0)
+    assert ok, co
+    assert set(co) == set(discover_o1(obs, "best_subset", "strong")), co
