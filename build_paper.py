@@ -372,6 +372,18 @@ def main():
         print(f"\nCOMPILED: paper/manuscript.pdf; {len(over)} overfull box(es) wider than 20 pt")
         for ln in over:
             print("  " + ln[:100])
+        # Supplementary S1, regenerated from RETRACTIONS.md on every compile so the codes
+        # the paper cites and the ledger a reader looks them up in cannot disagree
+        r = subprocess.run([sys.executable, os.path.join(ROOT, "ledger_si.py")], cwd=ROOT,
+                           capture_output=True, text=True)
+        r2 = subprocess.run([tect, "si_ledger.tex"], cwd=os.path.join(ROOT, "paper"),
+                            capture_output=True, text=True) if r.returncode == 0 else r
+        missing = [ln for ln in (r2.stdout + r2.stderr).splitlines()
+                   if "Missing character" in ln or "could not represent" in ln]
+        if r.returncode != 0 or r2.returncode != 0 or missing:
+            print("\nSI LEDGER REFUSED:\n  " + "\n  ".join((missing or [r2.stderr.strip()[-400:]])[:5]))
+            sys.exit(1)
+        print("COMPILED: paper/si_ledger.pdf (Supplementary S1, from RETRACTIONS.md)")
 
 
 if __name__ == "__main__":

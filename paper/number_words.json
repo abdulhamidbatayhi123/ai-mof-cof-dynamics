@@ -1580,5 +1580,12 @@
   "class": "DESIGN",
   "reason": "the two waves of the inflected isotherm (physics, design)",
   "line_at_review": 104
+ },
+ {
+  "key": "build so that the [two] cannot disagree.",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "'the two' = the paper and the ledger (structural)",
+  "line_at_review": 1704
  }
 ]
