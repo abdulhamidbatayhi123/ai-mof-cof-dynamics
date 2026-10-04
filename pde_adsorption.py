@@ -87,9 +87,9 @@ def term_coefficients(nondim, physics):
     v_T = physics.rho_g * physics.C_pg / physics.C_term
 
     return {
-        "mass_gas": {
+        "mass_gas": {        # B72: gas at the interstitial speed v/eps_t
             "dc/dt": 1.0 / Lam,
-            "dc/dz": tau / Lam,
+            "dc/dz": tau / (physics.eps_t * Lam),
             "d2c/dz2": tau / (Pe * Lam),
             "dq/dt": 1.0,
         },
@@ -142,10 +142,12 @@ def compute_adsorption_pde_residuals(model, z_s, t_s, nondim, physics):
     q_star_s = q_star_torch(c_dim, T_dim, physics) / nondim.q_ref
 
     # ── gas mass balance, normalised by the adsorption sink ──
-    #   (1/Lam) dc*/dt* + (tau/Lam) dc*/dz* - (tau/(Pe Lam)) d2c*/dz*2 + dq*/dt* = 0
+    #   (1/Lam) dc*/dt* + (tau/(eps Lam)) dc*/dz* - (tau/(Pe Lam)) d2c*/dz*2 + dq*/dt* = 0
+    # B72 (2026-10-04): the eps_t was missing, i.e. gas moved at v instead of v/eps_t.
+    eps = physics.eps_t
     res_mass_g = (
         (1.0 / Lam) * dcs_dts
-        + (tau / Lam) * dcs_dzs
+        + (tau / (eps * Lam)) * dcs_dzs
         - (tau / (Pe * Lam)) * d2cs_dzs2
         + dqs_dts
     )
@@ -192,8 +194,8 @@ def boundary_residuals(model, t_s, nondim, physics):
     c0, T0 = out0[:, 0:1], out0[:, 2:3]
     dc0 = torch.autograd.grad(c0, z0, ones, create_graph=True)[0]
 
-    # inlet: c* - (1/Pe) dc*/dz* = 1   (flux matching)
-    res_in_c = c0 - (1.0 / Pe) * dc0 - 1.0
+    # inlet: c* - (eps/Pe) dc*/dz* = 1   (flux matching at v/eps_t; B72, was 1/Pe)
+    res_in_c = c0 - (physics.eps_t / Pe) * dc0 - 1.0
     res_in_T = T0 - physics.T_in / nondim.T_ref
 
     out1 = model(z1, t_s)

@@ -137,6 +137,20 @@ class AdsorptionPhysicsConfig:
         return width, int(np.ceil(20 * self.L / width))
 
 
+def gas_coefficients(physics):
+    """(u_gas, src_factor) of the gas mass balance this solver integrates:
+
+        dc/dt = D_L d2c/dz2 - u_gas dc/dz - src_factor dq/dt,
+        u_gas = v / eps_t (interstitial),  src_factor = (1 - eps_t) rho_p / eps_t.
+
+    Exposed as a function so that every physics residual can be CHECKED against the
+    equation the data obey (validate.py, gate on the residual coefficients). The L4
+    residual moved gas at v instead of v/eps_t for the life of the project (B72):
+    a residual written down separately from the solver drifts from it silently.
+    """
+    return physics.v / physics.eps_t, (1 - physics.eps_t) * physics.rho_p / physics.eps_t
+
+
 def axial_dispersion(v, eps_t, d_p, D_m=2.5e-5):
     """Packed-bed axial dispersion correlation (Ruthven): D_L = 0.7 D_m + 0.5 d_p u.
 
@@ -218,9 +232,8 @@ def generate_breakthrough_data(
     z_centers = np.linspace(dz / 2, physics.L - dz / 2, N_z)
 
     C_term = physics.C_term
-    u_gas = physics.v / physics.eps_t                        # interstitial gas speed
+    u_gas, src_factor = gas_coefficients(physics)            # ONE definition (B72)
     u_thermal = physics.v * physics.rho_g * physics.C_pg / C_term
-    src_factor = (1 - physics.eps_t) * physics.rho_p / physics.eps_t
     heat_factor = (1 - physics.eps_t) * physics.rho_p * (-physics.delta_H) / C_term
     wall_factor = (4 * physics.h_w / physics.D_in) / C_term
     alpha_T = physics.k_z / C_term

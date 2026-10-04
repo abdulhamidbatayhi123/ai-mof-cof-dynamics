@@ -1,0 +1,221 @@
+{
+  "_what": "Does L4's gas-mass residual vanish on the solver's own fields?  (B72 check)",
+  "n_samples": 30,
+  "seed": 20261004,
+  "median_rel_rms_pre_b72_form": 0.5829672756641539,
+  "median_rel_rms_solver_form": 0.010170014128121902,
+  "median_ratio_pre_b72_over_solver": 57.40652947534616,
+  "n_pre_b72_worse": 30,
+  "rows": [
+    {
+      "mat": 91,
+      "cond": 6,
+      "eps_t": 0.44597029287368056,
+      "rel_rms_pre_b72_form": 0.5358502082447896,
+      "rel_rms_solver_form": 0.011949613370751318
+    },
+    {
+      "mat": 101,
+      "cond": 7,
+      "eps_t": 0.3516936341486871,
+      "rel_rms_pre_b72_form": 0.6253204139584083,
+      "rel_rms_solver_form": 0.01127453836231436
+    },
+    {
+      "mat": 1,
+      "cond": 15,
+      "eps_t": 0.3308286512643099,
+      "rel_rms_pre_b72_form": 0.64811714749223,
+      "rel_rms_solver_form": 0.011443314228958237
+    },
+    {
+      "mat": 228,
+      "cond": 12,
+      "eps_t": 0.44821553232148287,
+      "rel_rms_pre_b72_form": 0.5418684170668168,
+      "rel_rms_solver_form": 0.008557611364998654
+    },
+    {
+      "mat": 97,
+      "cond": 2,
+      "eps_t": 0.3951287356764078,
+      "rel_rms_pre_b72_form": 0.5942937786065329,
+      "rel_rms_solver_form": 0.006350981978898361
+    },
+    {
+      "mat": 195,
+      "cond": 9,
+      "eps_t": 0.4520966963097453,
+      "rel_rms_pre_b72_form": 0.528678918000105,
+      "rel_rms_solver_form": 0.010165848834627457
+    },
+    {
+      "mat": 146,
+      "cond": 11,
+      "eps_t": 0.42318359306082126,
+      "rel_rms_pre_b72_form": 0.5633623621917672,
+      "rel_rms_solver_form": 0.007748990991513043
+    },
+    {
+      "mat": 221,
+      "cond": 8,
+      "eps_t": 0.44934378711506723,
+      "rel_rms_pre_b72_form": 0.5252210566177677,
+      "rel_rms_solver_form": 0.012381179146170259
+    },
+    {
+      "mat": 51,
+      "cond": 12,
+      "eps_t": 0.43383150922134517,
+      "rel_rms_pre_b72_form": 0.5533359811948708,
+      "rel_rms_solver_form": 0.007027750104506464
+    },
+    {
+      "mat": 228,
+      "cond": 10,
+      "eps_t": 0.44821553232148287,
+      "rel_rms_pre_b72_form": 0.5402007575355969,
+      "rel_rms_solver_form": 0.009614229761562608
+    },
+    {
+      "mat": 234,
+      "cond": 4,
+      "eps_t": 0.34494285117834805,
+      "rel_rms_pre_b72_form": 0.6265749910409408,
+      "rel_rms_solver_form": 0.011896025960271964
+    },
+    {
+      "mat": 222,
+      "cond": 12,
+      "eps_t": 0.40835499314591284,
+      "rel_rms_pre_b72_form": 0.5753793658506728,
+      "rel_rms_solver_form": 0.007619491588573342
+    },
+    {
+      "mat": 148,
+      "cond": 7,
+      "eps_t": 0.4120135262422263,
+      "rel_rms_pre_b72_form": 0.5753218452624629,
+      "rel_rms_solver_form": 0.0067434580192393045
+    },
+    {
+      "mat": 20,
+      "cond": 13,
+      "eps_t": 0.4271270054206252,
+      "rel_rms_pre_b72_form": 0.5620759938349673,
+      "rel_rms_solver_form": 0.010216981249316656
+    },
+    {
+      "mat": 2,
+      "cond": 16,
+      "eps_t": 0.3714686185866594,
+      "rel_rms_pre_b72_form": 0.6027837429858469,
+      "rel_rms_solver_form": 0.011295598574214829
+    },
+    {
+      "mat": 108,
+      "cond": 8,
+      "eps_t": 0.3253768936358392,
+      "rel_rms_pre_b72_form": 0.6514872246622302,
+      "rel_rms_solver_form": 0.010978745357242603
+    },
+    {
+      "mat": 152,
+      "cond": 13,
+      "eps_t": 0.39905021896585824,
+      "rel_rms_pre_b72_form": 0.5928471470997848,
+      "rel_rms_solver_form": 0.006683350575971323
+    },
+    {
+      "mat": 11,
+      "cond": 10,
+      "eps_t": 0.3057748181372881,
+      "rel_rms_pre_b72_form": 0.6806628437621215,
+      "rel_rms_solver_form": 0.016038108121880817
+    },
+    {
+      "mat": 61,
+      "cond": 3,
+      "eps_t": 0.3586834874376654,
+      "rel_rms_pre_b72_form": 0.6089082216136222,
+      "rel_rms_solver_form": 0.013684820549264788
+    },
+    {
+      "mat": 227,
+      "cond": 3,
+      "eps_t": 0.3579894806072116,
+      "rel_rms_pre_b72_form": 0.6270950489101844,
+      "rel_rms_solver_form": 0.007649980217442634
+    },
+    {
+      "mat": 201,
+      "cond": 14,
+      "eps_t": 0.4770073102042079,
+      "rel_rms_pre_b72_form": 0.5097129860163676,
+      "rel_rms_solver_form": 0.013236309918971439
+    },
+    {
+      "mat": 11,
+      "cond": 5,
+      "eps_t": 0.3057748181372881,
+      "rel_rms_pre_b72_form": 0.6826088900835792,
+      "rel_rms_solver_form": 0.0056904640013446545
+    },
+    {
+      "mat": 5,
+      "cond": 6,
+      "eps_t": 0.4610763681493699,
+      "rel_rms_pre_b72_form": 0.5141135521415244,
+      "rel_rms_solver_form": 0.010174179421616346
+    },
+    {
+      "mat": 132,
+      "cond": 10,
+      "eps_t": 0.38883732290938494,
+      "rel_rms_pre_b72_form": 0.5905551854776349,
+      "rel_rms_solver_form": 0.009195411544452628
+    },
+    {
+      "mat": 103,
+      "cond": 16,
+      "eps_t": 0.42881596863269805,
+      "rel_rms_pre_b72_form": 0.5487265600292308,
+      "rel_rms_solver_form": 0.010696235134827753
+    },
+    {
+      "mat": 171,
+      "cond": 0,
+      "eps_t": 0.41925674417987463,
+      "rel_rms_pre_b72_form": 0.5588436020880049,
+      "rel_rms_solver_form": 0.007661761494907948
+    },
+    {
+      "mat": 55,
+      "cond": 13,
+      "eps_t": 0.3791697546467185,
+      "rel_rms_pre_b72_form": 0.6076834178043654,
+      "rel_rms_solver_form": 0.00815157688032691
+    },
+    {
+      "mat": 20,
+      "cond": 14,
+      "eps_t": 0.4271270054206252,
+      "rel_rms_pre_b72_form": 0.5596026773608894,
+      "rel_rms_solver_form": 0.008249370728258711
+    },
+    {
+      "mat": 147,
+      "cond": 9,
+      "eps_t": 0.3224892161786556,
+      "rel_rms_pre_b72_form": 0.6478973613188865,
+      "rel_rms_solver_form": 0.01681419963598555
+    },
+    {
+      "mat": 154,
+      "cond": 16,
+      "eps_t": 0.3804595850408077,
+      "rel_rms_pre_b72_form": 0.599542239373956,
+      "rel_rms_solver_form": 0.010305685792554267
+    }
+  ]
+}

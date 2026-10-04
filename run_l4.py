@@ -164,7 +164,15 @@ def pde_residual(model, params_z, phys_batch, z, t, tau_batch):
     Lam, Pe, Da = P["Lambda"], P["Pe"], P["Da"]
     beta, St, Pe_T, vT = P["beta"], P["St"], P["Pe_T"], P["v_T"]
 
-    res_mass = (dc_dt / Lam) + (tau / Lam) * dc_dz - (tau / (Pe * Lam)) * d2c + dq_dt
+    # B72 (2026-10-04): the gas is advected at the INTERSTITIAL speed v/eps_t and the
+    # sink carries (1-eps)rho_p/eps -- solver_fd.gas_coefficients. Until this date the
+    # residual had tau/Lam on the advection term, i.e. gas moving at v, a front eps_t
+    # times too slow; every L4/L4b result before this commit used that form. The
+    # dispersion term tau/(Pe Lam) was and is right: the solver applies D_L itself,
+    # not D_L/eps_t (its docstring's eps-form notwithstanding) -- the coefficient gate
+    # caught a first version of this fix that wrongly divided it by eps too.
+    eps = P["eps"]
+    res_mass = (dc_dt / Lam) + (tau / (eps * Lam)) * dc_dz - (tau / (Pe * Lam)) * d2c + dq_dt
     res_kin = dq_dt / (tau * Da) - (q_star - q)
     res_en = dT_dt + tau * vT * dT_dz - (tau / Pe_T) * d2T - beta * dq_dt + tau * St * (T - 1.0)
     return res_mass, res_kin, res_en
@@ -179,7 +187,7 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
     wrong inflow — and it did: without these terms the physics arm still diverged
     by a factor of 5,480 outside the training time window (defect B20).
 
-      inlet  z=0 :  c* - (1/Pe) dc*/dz* = 1        flux matching (c scaled by c_in)
+      inlet  z=0 :  c* - (eps/Pe) dc*/dz* = 1      flux matching (c scaled by c_in; B72)
                     T* = T_in / T_ref = 1
       outlet z=1 :  dc*/dz* = 0,  dT*/dz* = 0      convective outflow
     """
@@ -197,7 +205,10 @@ def boundary_residual(model, params_z, phys_batch, t, tau_batch):
     dc1 = torch.autograd.grad(c1, z1, ones, create_graph=True)[0]
     dT1 = torch.autograd.grad(T1, z1, ones, create_graph=True)[0]
 
-    return (c0 - (1.0 / Pe) * dc0 - 1.0), (T0 - 1.0), dc1, dT1
+    # B72: the solver's inlet carries zero dispersive flux with gas at v/eps_t, so
+    # flux matching is  c* - (eps/Pe) dc*/dz* = 1  (was 1/Pe).
+    eps = phys_batch["eps"]
+    return (c0 - (eps / Pe) * dc0 - 1.0), (T0 - 1.0), dc1, dT1
 
 
 def build_phys_table(raw_params, device, keys):
@@ -227,7 +238,7 @@ def build_phys_batch(raw_params, idx, device, keys):
     fix had never been exercised (defect B40).
     """
     out_keys = ("q_max", "delta_H", "b0", "b_H0", "c_in", "T_in", "isotherm_n",
-                "henry_fraction", "Lambda", "Pe", "Da", "beta", "St", "Pe_T", "v_T", "t_ref")
+                "henry_fraction", "Lambda", "Pe", "Da", "beta", "St", "Pe_T", "v_T", "t_ref", "eps")
     cols = {k: [] for k in out_keys}
     for i in idx:
         p = physics_from_params(raw_params[i], keys)
@@ -245,6 +256,7 @@ def build_phys_batch(raw_params, idx, device, keys):
         cols["Pe_T"].append(Ct * p.v * p.L / p.k_z)
         cols["v_T"].append(p.rho_g * p.C_pg / Ct)
         cols["t_ref"].append(t_ref)
+        cols["eps"].append(eps)       # B72: the gas moves at v/eps_t, not v
     return {k: torch.tensor(v, dtype=torch.float32, device=device).unsqueeze(1)
             for k, v in cols.items()}
 
