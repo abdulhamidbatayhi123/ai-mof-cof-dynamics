@@ -1,7 +1,8 @@
 cff-version: 1.2.0
 title: >-
-  Where does physical knowledge belong in a surrogate? A pre-registered
-  falsification ladder for MOF/COF adsorption column dynamics
+  What binds a surrogate: a pre-registered falsification ladder for transfer
+  to unseen adsorbent parameter sets in metal-organic framework
+  water-adsorption columns
 message: If you use this software or its results, please cite it.
 type: software
 authors:
@@ -10,18 +11,18 @@ authors:
     email: abdulbatayhi@gmail.com
 repository-code: "https://github.com/REPLACE-ME/ai-mof-cof-dynamics"
 abstract: >-
-  A pre-registered falsification ladder testing seven candidate explanations for
-  the transfer gap in surrogate models of MOF/COF adsorption columns: more data,
-  more capacity, a richer edge basis (KAN), a PDE residual loss, operator
-  learning, structural identification, and whether learning is needed at all.
-  Six are eliminated. The binding constraint is measured directly — the
-  parameter-to-coefficient map — and the one intervention that moves it is a
-  two-wave change of coordinates that removes both front trajectories before
-  projection. Includes a verified finite-difference reference solver, a
-  cluster-robust calibrated inference protocol, and a public corrections ledger.
+  A pre-registered falsification ladder testing seven candidate explanations
+  for the error of surrogate models of metal-organic framework water-adsorption
+  columns on adsorbents they have never seen: more training materials, more
+  capacity, Kolmogorov-Arnold networks, a physics residual in the loss, operator
+  learning, structural identification of the kinetic and equilibrium objects,
+  and whether learning is needed at all. Each verdict is reported in words
+  declared in advance; the results are in the accompanying manuscript. Includes
+  a verified finite-difference reference solver, a calibrated cluster-robust
+  inference protocol, a build that refuses any number not resolved from a
+  results file, and a public correction ledger.
 keywords:
   - metal-organic frameworks
-  - covalent organic frameworks
   - atmospheric water harvesting
   - breakthrough curves
   - operator learning
