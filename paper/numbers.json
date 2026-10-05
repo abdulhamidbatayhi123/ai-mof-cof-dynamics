@@ -336,6 +336,10 @@
     "WmofEightStep": "0.07",
     "WmofStepLo": "0.08",
     "WmofCauHeat": "-61",
+    "SchemP": "8",
+    "SchemNheld": "201",
+    "SchemTruePct": "1.4",
+    "SchemLearnPct": "5.1",
     "ChemBelowStepPct": "14",
     "ChemBelowStepLegPct": "18",
     "ChemWeakNPct": "10",
@@ -1832,6 +1836,22 @@
     "WmofCauHeat": {
       "file": "results/water_mofs.json",
       "path": "materials.CAU-10-H.dH.lo"
+    },
+    "SchemP": {
+      "file": "results/schematic_modes.json",
+      "path": "P"
+    },
+    "SchemNheld": {
+      "file": "results/schematic_modes.json",
+      "path": "n_heldout"
+    },
+    "SchemTruePct": {
+      "file": "results/schematic_modes.json",
+      "path": "heldout_mean_nrmse_true_weights"
+    },
+    "SchemLearnPct": {
+      "file": "results/schematic_modes.json",
+      "path": "heldout_mean_nrmse_learned_weights"
     },
     "ChemBelowStepPct": {
       "file": "results/chem_coverage.json",

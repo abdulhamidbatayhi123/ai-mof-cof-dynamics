@@ -608,7 +608,12 @@ SPEC = [
     ("WmofEightStep", "results/water_mofs.json", "materials.MOF-801.RH_step.lo", "{:.2f}"),
     ("WmofStepLo", "results/water_mofs.json", "design.RH_step", lambda r: f"{min(r):g}"),
     ("WmofCauHeat", "results/water_mofs.json", "materials.CAU-10-H.dH.lo", "{:.0f}"),
-    ("ChemBelowStepPct", "results/chem_coverage.json", "v2.pct_fed_below_step", "{:.0f}"),
+    # Figure 0, row 2: templates versus recipe (schematic_modes.py)
+    ("SchemP", "results/schematic_modes.json", "P", "{:d}"),
+    ("SchemNheld", "results/schematic_modes.json", "n_heldout", "{:d}"),
+    ("SchemTruePct", "results/schematic_modes.json", "heldout_mean_nrmse_true_weights", lambda x: f"{100 * x:.1f}"),
+    ("SchemLearnPct", "results/schematic_modes.json", "heldout_mean_nrmse_learned_weights", lambda x: f"{100 * x:.1f}"),
+    ("ChemBelowStepPct","results/chem_coverage.json", "v2.pct_fed_below_step", "{:.0f}"),
     ("ChemBelowStepLegPct", "results/chem_coverage.json", "legacy.pct_fed_below_step", "{:.0f}"),
     ("ChemWeakNPct", "results/chem_coverage.json", "v2.pct_weakly_cooperative", "{:.0f}"),
     ("ChemWeakN", "results/chem_coverage.json", "v2.weak_n_threshold", "{:g}"),

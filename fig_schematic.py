@@ -1,7 +1,10 @@
 """Figure 0 -- what a surrogate maps (referee minor 15: a schematic for non-specialists).
 
 Reads results/schematic_sample.json (owner: schematic_sample.py, which picks a real
-stored sample by a fixed rule). Draws nothing it computes: the field and the outlet
+stored sample by a fixed rule) and, for the second row ("templates versus recipe",
+internal referees' clarity item 4), results/schematic_modes.json (owner:
+schematic_modes.py: POD templates, and one held-out field rebuilt with true and with
+learned weights). Draws nothing it computes: the field and the outlet
 curve are the stored solver output; the two front markers are placed at the outlet
 curve's own features (the first stored sample above zero, and its steepest rise).
 
@@ -17,6 +20,7 @@ import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch, Rectangle
 
 SRC = "results/schematic_sample.json"
+MODES = "results/schematic_modes.json"
 
 
 def main():
@@ -25,8 +29,9 @@ def main():
     ex = np.array(d["exit_curve"])
     t = np.linspace(0.0, 1.0, ex.size)
 
-    fig = plt.figure(figsize=(12.5, 3.6))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.25, 1.0, 1.0], wspace=0.55)
+    fig = plt.figure(figsize=(12.5, 7.6))
+    outer = fig.add_gridspec(2, 1, hspace=0.55)
+    gs = outer[0].subgridspec(1, 3, width_ratios=[1.25, 1.0, 1.0], wspace=0.55)
 
     # A: the column and the parameter set
     ax = fig.add_subplot(gs[0]); ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
@@ -65,6 +70,37 @@ def main():
     ax.set_xlabel("time  t / t$_{final}$", fontsize=8.5); ax.set_ylabel("outlet  c / c$_{in}$", fontsize=8.5)
     ax.set_xlim(0, 1); ax.set_ylim(-0.02, 1.05); ax.tick_params(labelsize=7.5)
     ax.set_title("C   the breakthrough curve", fontsize=9.5, loc="left")
+
+    # D-F: how a template model builds the field, and where its error comes from
+    m = json.load(open(MODES))
+    g2 = outer[1].subgridspec(1, 3, width_ratios=[1.25, 1.0, 1.0], wspace=0.55)
+    gd = g2[0].subgridspec(1, 3, wspace=0.12)
+    for k in range(3):
+        ax = fig.add_subplot(gd[k])
+        tk = np.array(m["templates"][k]); v = np.abs(tk).max()
+        ax.imshow(tk, origin="lower", aspect="auto", extent=(0, 1, 0, 1), cmap="RdBu_r", vmin=-v, vmax=v)
+        ax.set_xticks([]); ax.set_yticks([])
+        ax.set_xlabel(f"template {k + 1}", fontsize=8)
+        if k == 0:
+            ax.set_title("D   stored templates (first three of %d)" % m["P"], fontsize=9.5, loc="left")
+    fig.text(0.245, 0.03, "field  ≈  Σ  weight$_k$ × template$_k$ ;   the weights come from the 11 numbers",
+             fontsize=8.5, ha="center", style="italic")
+    for slot, key, err, title in (
+            (1, "rebuilt_true_weights", m["nrmse_true_weights"], "E   perfect weights"),
+            (2, "rebuilt_learned_weights", m["nrmse_learned_weights"], "F   learned weights, unseen material")):
+        ax = fig.add_subplot(g2[slot])
+        ax.imshow(np.array(m[key]), origin="lower", aspect="auto", extent=(0, 1, 0, 1),
+                  cmap="viridis", vmin=0, vmax=1)
+        ax.set_xlabel("time  t / t$_{final}$", fontsize=8.5); ax.set_ylabel("position  z / L", fontsize=8.5)
+        ax.tick_params(labelsize=7.5)
+        ax.set_title(title, fontsize=9.5, loc="left")
+        ax.text(0.03, 0.95, f"error {100 * err:.1f} %  (this field)", transform=ax.transAxes,
+                fontsize=7.8, color="w", va="top")
+    fig.text(0.5, -0.01,
+             "Same %d templates in E and F. Mean over all %d held-out fields: %.1f %% with perfect weights, "
+             "%.1f %% with learned weights -- the recipe, not the templates, limits accuracy."
+             % (m["P"], m["n_heldout"], 100 * m["heldout_mean_nrmse_true_weights"],
+                100 * m["heldout_mean_nrmse_learned_weights"]), fontsize=8.5, ha="center")
 
     fig.savefig("figures/Fig0_schematic.pdf", bbox_inches="tight")
     fig.savefig("figures/Fig0_schematic.png", dpi=200, bbox_inches="tight")

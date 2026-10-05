@@ -141,7 +141,15 @@ the operating condition. \textbf{B}~One stored solver field of the larger datase
 \(c/c_{\mathrm{in}}\) over position and time, chosen by a fixed rule (the clearest
 complete two-front breakthrough). \textbf{C}~Its outlet curve: a fast front on the
 Henry branch, a slow rise, and the sharp cooperative pore-filling front. A surrogate
-must reproduce such fields for an adsorbent it has never seen.}
+must reproduce such fields for an adsorbent it has never seen. \textbf{D--F}~How a
+template model builds a field, on the legacy dataset (Section~\ref{sec:mechanism}).
+\textbf{D}~The first three stored templates (proper-orthogonal-decomposition modes of
+the training fields). \textbf{E}~A held-out field rebuilt from \nSchemP\ templates with
+its true weights. \textbf{F}~The same templates with weights learned from the material's
+parameters by gradient boosting, for a material the model never saw; the field shown is
+the held-out case of median error. Over all \nSchemNheld\ held-out fields the error is
+\nSchemTruePct\,\% with perfect weights and \nSchemLearnPct\,\% with learned ones: the
+recipe for the weights, not the templates, limits accuracy.}
 \label{fig:schematic}
 \end{figure}
 
