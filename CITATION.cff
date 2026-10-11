@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 title: >-
-  Code, results and pre-registrations for: What limits machine-learning
-  surrogates on unseen adsorbents? A pre-registered falsification study of
-  metal-organic framework water-adsorption columns
+  Code, results and pre-registrations for: Basis or map? A pre-registered
+  decomposition of the error of reduced-order and neural-operator surrogates of
+  non-isothermal adsorption columns on unseen adsorbents
 message: If you use this software or its results, please cite it.
 type: software
 authors:

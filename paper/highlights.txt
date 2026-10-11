@@ -1,5 +1,5 @@
-Seven explanations for surrogate error, tested against pre-registered criteria
-A solver checked against closed forms and, unfitted, against a MOF-303 bed
-Beyond a few modes the parameter-to-field map binds the error, not the basis
+A diagnostic separates basis error from map error in parametric surrogates
+Beyond a few modes the parameter-to-coefficient map binds the error, not the basis
+Seven explanations tested against pre-registered, selection-corrected criteria
+A small physics-residual weight cuts held-out error 9 %; larger weights hurt
 A coarse solve beats the perceptron surrogates below 25,400 queries
-Every number comes from a script; every correction is in a public ledger

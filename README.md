@@ -1,12 +1,12 @@
-# What limits machine-learning surrogates on unseen adsorbents?
+# Basis or map? What limits reduced-order and neural-operator surrogates on unseen adsorbents
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23302587.svg)](https://doi.org/10.5281/zenodo.23302587)
 
 Archived release: Zenodo, doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587) (v1.0-preprint). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
 
-A pre-registered falsification study of metal–organic framework water-adsorption
-columns (Paper 1), and the pre-registration of Paper 2 (when can AI discover adsorption
-kinetics?).
+Paper 1: *Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents* (prepared for Computer Methods in Applied Mechanics
+and Engineering). Paper 2: the pre-registration of a Registered Report, *when can AI
+discover adsorption kinetics?*
 
 Surrogates of adsorption columns are usually judged by how well they fit. This project
 asks a different question: **when a surrogate must predict an adsorbent it has never

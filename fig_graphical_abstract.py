@@ -45,8 +45,8 @@ def main():
 
     # ---- left: the question
     q = fig.add_axes([0.0, 0.0, 0.25, 1.0]); q.axis("off")
-    q.text(0.06, 0.90, "What limits\nmachine-learning\nsurrogates on\nunseen MOFs?",
-           fontsize=8.0, fontweight="bold", va="top", color=fs.C["dark"], linespacing=1.15)
+    q.text(0.06, 0.90, "Basis or map?\nWhat limits\nsurrogates on\nunseen adsorbents?",
+           fontsize=7.0, fontweight="bold", va="top", color=fs.C["dark"], linespacing=1.15)
     steps = ["isotherm and pellet\nparameters", "surrogate", "breakthrough\nfield"]
     ys = [0.42, 0.27, 0.12]
     for y, s in zip(ys, steps):
