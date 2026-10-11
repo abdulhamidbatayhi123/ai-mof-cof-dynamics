@@ -1622,5 +1622,12 @@
   "class": "PROSE",
   "reason": "name of the two-front frame",
   "line_at_review": 1445
+ },
+ {
+  "key": "front is located ( [one] level, or a pair); the hatche",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1380
  }
 ]

@@ -77,7 +77,7 @@ def main():
         b.text(i, mean + sd + 0.0012, f"{mean:.4f}", ha="center", va="bottom", fontsize=6.6)
     b.set_xticks(range(3)); b.set_xticklabels([a_[0] for a_ in arms])
     b.set_ylabel("held-out nRMSE (c)")
-    b.set_title("B  Predicted fronts recover none of it")
+    b.set_title("B  Predicted fronts: no detectable gain")
     top = v["means"]["fixed"]
     bracket(b, 0, 1, top * 1.22, "no difference")
     headroom = v["means"]["fixed"] / v["means"]["two_wave_oracle"]

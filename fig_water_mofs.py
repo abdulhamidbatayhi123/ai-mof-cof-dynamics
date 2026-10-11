@@ -27,8 +27,8 @@ MARK = {"MOF-303": "o", "MOF-801": "s", "CAU-10-H": "D", "Al-fumarate": "^", "MI
         "Co2Cl2(BTDD)": "P"}
 # label offsets in points, chosen so labels do not cover points or bars
 OFFSET = {
-    ("RH_step", "MOF-303"): (6, 6), ("RH_step", "MOF-801"): (-4, -12), ("RH_step", "CAU-10-H"): (6, -10),
-    ("RH_step", "Al-fumarate"): (6, 5), ("RH_step", "MIL-160(Al)"): (-5, -14), ("RH_step", "Co2Cl2(BTDD)"): (6, -3),
+    ("RH_step", "MOF-303"): (6, 6), ("RH_step", "MOF-801"): (8, -14), ("RH_step", "CAU-10-H"): (6, -10),
+    ("RH_step", "Al-fumarate"): (6, 5), ("RH_step", "MIL-160(Al)"): (6, 34), ("RH_step", "Co2Cl2(BTDD)"): (6, -3),
     ("henry_fraction", "MOF-303"): (6, 4), ("henry_fraction", "MOF-801"): (6, 2),
     ("henry_fraction", "CAU-10-H"): (6, -3), ("henry_fraction", "Al-fumarate"): (6, -13),
     ("henry_fraction", "MIL-160(Al)"): (6, 3), ("henry_fraction", "Co2Cl2(BTDD)"): (6, 4),
@@ -60,6 +60,9 @@ def draw(ax, d, xk, yk, sx=1.0):
                     lw=0.9, color=col, zorder=3)
         ax.annotate(key.replace("Co2Cl2", "Co$_2$Cl$_2$"), (sx * mid(x), mid(y)), textcoords="offset points",
                     xytext=OFFSET.get((xk, key), (6, 4)), fontsize=6.6, color=col,
+                    # a label moved far from a crowded point gets a leader line
+                    arrowprops=(dict(arrowstyle="-", lw=0.5, color=col, shrinkA=1, shrinkB=3)
+                                if max(map(abs, OFFSET.get((xk, key), (6, 4)))) > 20 else None),
                     ha="right" if OFFSET.get((xk, key), (6, 4))[0] < 0 else "left")
 
 

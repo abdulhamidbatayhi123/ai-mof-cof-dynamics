@@ -1416,7 +1416,9 @@ real and inactive; this paragraph has to hold both statements together.
 \includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
 \caption{The two-front frame (legacy design). \textbf{A}~Modes needed for 99.9\,\% of
 training variance in each frame: aligning one front raises the count, aligning both
-lowers it. \textbf{B}~Held-out error: with predicted fronts the two-front frame is not
+lowers it. Tick labels give the level of \(c/c_{\mathrm{in}}\) at which each aligned
+front is located (one level, or a pair); the hatched pair was excluded by its
+interpolation guard. \textbf{B}~Held-out error: with predicted fronts the two-front frame is not
 distinguishable from the fixed frame (the interval runs from
 \nWarpPredImproveMax\,\% better to \nWarpPredDegradeMax\,\% worse, \nWarpNmat\
 materials); handed the true fronts (hollow) it is better, an upper bound rather than a
