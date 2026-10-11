@@ -117,7 +117,7 @@ machine learning for fluid-related partial differential equations, determine tha
 method compare against a weak baseline, and find reporting biases widespread. That
 finding served as the design brief for this study.
 Grossmann and co-workers \cite{grossmann2024pinn}, comparing physics-informed networks against the finite
-element method on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
+element method (FEM) on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
 that the networks did not outperform FEM \emph{in their study}. That is a scoped
 result, and we scope ours the same way.
 
@@ -160,13 +160,15 @@ complete two-front breakthrough). \textbf{C}~Its outlet curve: a fast front on t
 Henry branch, a slow rise, and the sharp cooperative pore-filling front. A surrogate
 must reproduce such fields for an adsorbent it has never seen. \textbf{D--F}~How a
 template model builds a field, on the legacy dataset (Section~\ref{sec:mechanism}).
-\textbf{D}~The first three stored templates (proper-orthogonal-decomposition modes of
+\textbf{D}~The first three stored templates (POD modes of
 the training fields). \textbf{E}~A held-out field rebuilt from \nSchemP\ templates with
 its true weights. \textbf{F}~The same templates with weights learned from the material's
 parameters by gradient boosting, for a material the model never saw; the field shown is
 the held-out case of median error. Over all \nSchemNheld\ held-out fields the error is
 \nSchemTruePct\,\% with perfect weights and \nSchemLearnPct\,\% with learned ones: the
-recipe for the weights, not the templates, limits accuracy.}
+recipe for the weights, not the templates, limits accuracy. \(c\), \(q\) and \(T\) are
+the gas-phase water concentration, the adsorbed loading and the temperature; RH, relative
+humidity; \(v\), superficial velocity.}
 \label{fig:schematic}
 \end{figure}
 
@@ -195,7 +197,7 @@ and adsorbents, metal--organic frameworks among them, have been screened at the
 process level with the help of learned models
 \cite{leperi2019development,burns2020prediction}. On the numerical side, the arms of
 our first rungs are a non-intrusive reduced-order model in the sense of Hesthaven and
-Ubbiali \cite{hesthaven2018non}: a proper-orthogonal-decomposition basis with a
+Ubbiali \cite{hesthaven2018non}: a POD basis with a
 learned map from parameters to its coefficients. To the surrogate, a ``material'' is a
 point in the space of isotherm and bed parameters of Table~\ref{tab:params}, with its
 kinetics derived from them, and a sample adds the operating conditions; the
@@ -220,7 +222,7 @@ four ways: the inputs are a finite-dimensional parameter vector describing a
 \emph{material} rather than a discretised input function; evaluation is transfer to
 held-out materials under a cluster-robust, calibrated test rather than
 in-distribution error; we show that beyond the first few modes the plateau barely moves with basis size while
-the proper-orthogonal-decomposition floor beneath it falls \(\nLfiveVtwoFloorDrop\times\), and calibrate
+the POD floor beneath it falls \(\nLfiveVtwoFloorDrop\times\), and calibrate
 the residual against an oracle to an equivalent mode count; and we locate it in the
 map from material parameters to the field rather than in the basis. A similar plateau on a different input type and a
 different partial differential equation suggests the wall is not peculiar to either
@@ -403,7 +405,8 @@ The measured curve shows first leak at \nAnchorTfiveExp\ minutes, a Henry-branch
 plateau at \nAnchorPlateauExp{} of the inlet, and 50\,\% arrival at
 \nAnchorTfiftyExp\ minutes. Our solver, with nothing tuned, gives 50\,\% arrival at
 \nAnchorTfiftyModel\ minutes and a plateau at \nAnchorPlateauModel, with
-\(\mathrm{nRMSE} = \nAnchorNrmse\) against the digitised effluent points, against
+a normalised root-mean-square error (nRMSE, equation~\eqref{eq:nrmse}) of \nAnchorNrmse\
+against the digitised effluent points, against
 \nAnchorNrmseComsol\ for the authors' own two-dimensional COMSOL model with fitted kinetics.
 The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 bed
 does, and the cited isotherm produces it. As the next paragraph says, it does not
@@ -429,7 +432,7 @@ not satisfy.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
-\caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, \emph{one point per material}; the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
+\caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, one point per material, by split. \textbf{B}~Damk\"ohler number per material (the median over its conditions), the axis rung L6's primary estimand is regressed on, with the informative band of Section~\ref{sec:dataset}. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57); \(K_H\) is the Henry constant of equation~\eqref{eq:isotherm}.}
 \label{fig:dataset}
 \end{figure}
 
@@ -450,7 +453,7 @@ Damk\"ohler number is reported with its denominator attached, because the two us
 summaries differ, and either, quoted unlabelled, cannot be reconciled with the
 other. \emph{Per sample} (\nDataNsamples\ values): median
 \nDaSampleMedian, range \nDaSampleMin--\nDaSampleMax, \nDaSampleBand\,\% in the
-informative band. \emph{Per material} (\nDataNmaterials\ values, each the median
+informative band (Damk\"ohler 5 to 60, the band declared in the L6 pre-registration). \emph{Per material} (\nDataNmaterials\ values, each the median
 over that material's own conditions, and the axis that rung L6's slope test
 regresses on): median \nDaMatMedian, range \nDaMatMin--\nDaMatMax, spanning \nDaMatDecades{}
 decades, \nDaMatBand\,\% in band.
@@ -595,7 +598,7 @@ we report both rather than reconcile them after the data were generated.
 \paragraph{Numerics and storage} Equations~\eqref{eq:mass}--\eqref{eq:energy} are
 discretised by the method of lines on \nGridNz\ cell-centred finite volumes
 (first-order upwind advection, central dispersion and conduction) and integrated with
-SciPy's implicit BDF method at relative and absolute tolerances
+SciPy's implicit backward-differentiation-formula (BDF) method at relative and absolute tolerances
 \(10^{\nDcRtolExp}\) and \(10^{\nDcAtolExp}\) to \nDcSnapshots\ output times;
 Section~\ref{sec:reference} verifies the solver. Each run is integrated to
 \nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
@@ -744,7 +747,7 @@ partitioned into five folds, every material is held out once, and each fit sees 
 other four folds. The \emph{single split} holds out the dataset's own
 \nLfourbMatNmat\ test materials. The \emph{legacy} design holds out \nNclustLegacy\
 of the earlier dataset's \nDcNmatLeg\ materials. Every learned arm is trained with
-three seeds and fitted (including any proper-orthogonal-decomposition basis and any
+three seeds and fitted (including any POD basis and any
 scaler) on its fitting set only, which is asserted disjoint from the held-out
 materials before every fit.
 
@@ -758,7 +761,10 @@ encoding and a metric, so their absolute errors are comparable.
 
 \begin{table}[p]
 \centering
-\caption{Surrogates by rung. Absolute errors in different rows are not comparable.}
+\caption{Surrogates by rung. Absolute errors in different rows are not comparable.
+POD, proper orthogonal decomposition; NTK, neural tangent kernel; L-BFGS, limited-memory
+Broyden--Fletcher--Goldfarb--Shanno; DeepOKAN, a DeepONet with Kolmogorov--Arnold layers;
+\(p\), basis size.}
 \label{tab:rungs}
 \scriptsize
 \renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{4pt}
@@ -834,7 +840,7 @@ normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
-\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the proper-orthogonal-decomposition floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}).}
+\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}).}
 \label{fig:rungs}
 \end{figure}
 
@@ -846,7 +852,7 @@ Section~\ref{sec:methods} gives the designs and their levels.
 \subsection{L1: more data}
 
 \paragraph{The arms} Pooled out of fold over 240 held-out materials, with 64
-proper-orthogonal-decomposition modes per channel, the multilayer perceptron is the
+POD modes per channel, the multilayer perceptron is the
 best fixed-basis arm at \nLoneMLP, ahead of gradient boosting at \nLoneXGB, random
 forest at \nLoneRF\ and ridge at \nLoneRidge. Against gradient boosting the
 difference is \nLoneMLPvsXGBdiff\ with confidence interval
@@ -855,7 +861,7 @@ every one of the five folds. This reverses the earlier result at 48
 materials, where the three nonlinear arms were indistinguishable and the perceptron
 had the worst point estimate.
 
-The floor moved too. The proper-orthogonal-decomposition floor is \nLonePodFloor,
+The floor moved too. The POD floor is \nLonePodFloor,
 and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: 192 training materials instead of 48 improved the arm, and improved the floor beneath it by more.
 
 \paragraph{The learning curve, and the rung's actual verdict} The curve is measured
@@ -1108,7 +1114,8 @@ and DeepONet improves only from \(p = 8\) to \(p = 16\). \textbf{C}~Paired diffe
 against \(p = 8\), as a percentage of the error at \(p = 8\): on the legacy design
 (grey) every interval spans zero; on the full design (blue) every larger basis is
 better. Per-pair intervals; the \(p = 128\) comparison also survives the
-selection adjustment (A29).}
+selection adjustment (A29). DeepOKAN, a DeepONet with Kolmogorov--Arnold layers; FNO,
+Fourier neural operator.}
 \label{fig:operators}
 \end{figure}
 
@@ -1136,7 +1143,7 @@ interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero. Stated as what it exc
 a sixteenfold increase in basis size could not have improved this arm by more than
 \nLfiveFlatImproveMax\,\% of its error. The larger design found an improvement
 well inside that bound, which is exactly why a null on \nNclustLegacy\ held-out
-materials could not be the last word. Meanwhile its own proper-orthogonal-decomposition
+materials could not be the last word. Meanwhile its own POD
 floor falls from \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of
 \(\nFloorDrop\). The best DeepONet found anywhere, at the smallest basis, sits
 \(\nONetxFloor\times\) above the floor of the largest. Rule~4 is the rule this rung was
@@ -1150,7 +1157,7 @@ accurate as an oracle handed the true coefficients of its first
 
 \paragraph{The arm the theory names} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
 architectures with a linear reconstruction step (DeepONet, PCA-Net, and
-proper-orthogonal-decomposition-plus-regressor) are lower-bounded on
+POD-plus-regressor) are lower-bounded on
 advection-dominated problems, and that the Fourier neural operator escapes that
 bound through nonlinear reconstruction. Our original rung tested only the family the
 theory condemns; that deviation from our own frozen protocol is recorded as B33. The
@@ -1312,7 +1319,7 @@ training materials, still rising at the largest size affordable.}
 \end{figure}
 
 \paragraph{In plain terms} Most models here build a breakthrough field as a weighted
-sum of stored template shapes (proper orthogonal decomposition plus a regressor, and
+sum of stored template shapes (POD plus a regressor, and
 DeepONet); the Fourier operator learns the field directly. A template model can be
 limited by its templates or by its recipe for weighting them from a material's
 isotherm and pellet properties. It is the recipe: with perfect weights the templates
@@ -1342,7 +1349,7 @@ predicting the mean, and
 Against an oracle reconstruction handed the true coefficients for its first \(k\)
 modes, the best DeepONet found anywhere performs like a \nLfiveOracleONet-mode
 oracle, and the best Fourier operator like a \nLfiveOracleFNO-mode one. Three
-independent function classes (proper orthogonal decomposition plus random forest,
+independent function classes (POD plus random forest,
 plus gradient boosting, and DeepONet) are flat in rank on the legacy design while the floor falls by a factor of \nFloorDrop{} (on the full design DeepONet gains a little up to \(p = 16\), A29). Training basis and coefficients together, or learning the
 whole field at once, is worth a constant factor, up to \(\nOperatorLever\times\)
 from the pointwise regressor to the Fourier operator on this encoding, a lever of
@@ -1462,9 +1469,11 @@ arms computed in the same run, and a paired cluster bootstrap by material.
 
 \begin{table}[t]
 \centering
-\caption{The two-wave frame. The oracle arm is handed the true front trajectories
-and is \emph{not} comparable with any arm that is not; it is reported to size the
-remaining headroom, never as a result.}
+\caption{The two-front frame against the fixed frame (legacy design). Differences are
+the fixed frame's nRMSE minus the arm's, so positive means the arm is better; CI is the
+cluster-bootstrap confidence interval. The oracle arm is handed the true front
+trajectories and is \emph{not} comparable with any arm that is not; it sizes the
+remaining headroom and is not a result.}
 \label{tab:warp}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrl}
@@ -1472,8 +1481,8 @@ remaining headroom, never as a result.}
 arm & held-out nRMSE & verdict vs.\ the fixed frame \\
 \midrule
 fixed frame & \nWarpFixed & reference \\
-two-wave, predicted fronts & \nWarpPredicted & \nWarpPredDiff, CI [\nWarpPredLo, \nWarpPredHi]: no difference \\
-two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \nWarpOracleHi]: significant \\
+two-front, predicted fronts & \nWarpPredicted & \nWarpPredDiff, CI [\nWarpPredLo, \nWarpPredHi]: no difference \\
+two-front, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \nWarpOracleHi]: significant \\
 \bottomrule
 \end{tabular}}
 \end{table}

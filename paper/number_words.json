@@ -126,13 +126,6 @@
   "line_at_review": 391
  },
  {
-  "key": "with it fixed on all 192; the [two] lie on top of each other. {C",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 417
- },
- {
   "key": "every the [five] folds. This reverses the earl",
   "word": "five",
   "class": "DESIGN",
@@ -987,13 +980,6 @@
   "line_at_review": 1779
  },
  {
-  "key": "{D}~The first [three] stored templates (proper-orth",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the figure draws three templates by construction (fig_schematic.py)",
-  "line_at_review": 122
- },
- {
   "key": "ose seen-window error exceeds [three] times the twin's has abandone",
   "word": "three",
   "class": "DESIGN",
@@ -1407,13 +1393,6 @@
   "line_at_review": 1674
  },
  {
-  "key": "t. {A}~The material space, { [one] point per material}; the lege",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 413
- },
- {
   "key": "(with [two] amendments to its protocol ma",
   "word": "two",
   "class": "DESIGN",
@@ -1601,5 +1580,47 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1820
+ },
+ {
+  "key": "{D}~The first [three] stored templates (POD modes o",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three templates shown in panel D",
+  "line_at_review": 123
+ },
+ {
+  "key": "set. {A}~The material space, [one] point per material, by split.",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 395
+ },
+ {
+  "key": "with it fixed on all 192; the [two] lie on top of each other; \\(N",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two curves of the panel",
+  "line_at_review": 803
+ },
+ {
+  "key": "{The [two] -front frame against the fixed",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "name of the two-front frame",
+  "line_at_review": 1432
+ },
+ {
+  "key": " [two] -front, predicted fronts & &",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "name of the two-front frame",
+  "line_at_review": 1444
+ },
+ {
+  "key": " [two] -front, oracle fronts & & ,",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "name of the two-front frame",
+  "line_at_review": 1445
  }
 ]
