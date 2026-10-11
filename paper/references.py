@@ -101,21 +101,29 @@ REFS = [
         author="Francesca Bartolucci and Emmanuel de B{\\'e}zenac and Bogdan Raoni{\\'c} and "
                "Roberto Molinaro and Siddhartha Mishra and Rima Alaifari",
         title="Representation equivalent neural operators: a framework for alias-free operator learning",
-        booktitle="Advances in Neural Information Processing Systems (NeurIPS)",
-        volume="36", year="2023", eprint="2305.19913", archiveprefix="arXiv"),
+        booktitle="Advances in Neural Information Processing Systems 36 (NeurIPS 2023)",
+        pages="69661--69672", year="2023", doi="10.52202/075280-3051"),
      "Six-author list checked character by character against arXiv, DBLP and the NeurIPS "
      "proceedings page. Diagnostic framework -- do NOT cite as a solved problem.", False),
-    ("herde2024poseidon", V, "article", dict(
+    ("herde2024poseidon", V, "inproceedings", dict(
         author="Maximilian Herde and Bogdan Raoni{\\'c} and Tobias Rohner and Roger K{\\\"a}ppeli "
                "and Roberto Molinaro and Emmanuel de B{\\'e}zenac and Siddhartha Mishra",
         title="Poseidon: efficient foundation models for {PDEs}",
-        journal="arXiv preprint", year="2024", eprint="2405.19101", archiveprefix="arXiv"),
-     "B42: A23 originally carried MPP's identifier here. Poseidon is 2405.19101.", False),
-    ("mccabe2023multiple", V, "article", dict(
-        author="Michael McCabe and others",
-        title="Multiple physics pretraining for physical surrogate models",
-        journal="arXiv preprint", year="2023", eprint="2310.02994", archiveprefix="arXiv"),
-     "The identifier A23 had attached to Poseidon.", False),
+        booktitle="Advances in Neural Information Processing Systems 37 (NeurIPS 2024)",
+        pages="72525--72624", year="2024", doi="10.52202/079017-2311"),
+     "B42: A23 originally carried MPP's identifier here. Poseidon is 2405.19101. Published "
+     "version (NeurIPS 2024) taken from its Crossref record 2026-10-11; seven authors match.", False),
+    ("mccabe2023multiple", V, "inproceedings", dict(
+        author="Michael McCabe and Bruno R{\\'e}galdo-Saint Blancard and Liam Parker and Ruben Ohana "
+               "and Miles Cranmer and Alberto Bietti and Michael Eickenberg and Siavash Golkar and "
+               "Geraud Krawezik and Francois Lanusse and Mariel Pettee and Tiberiu Tesileanu and "
+               "Kyunghyun Cho and Shirley Ho",
+        title="Multiple physics pretraining for spatiotemporal surrogate models",
+        booktitle="Advances in Neural Information Processing Systems 37 (NeurIPS 2024)",
+        pages="119301--119335", year="2024", doi="10.52202/079017-3791"),
+     "The identifier A23 had attached to Poseidon. Published at NeurIPS 2024 under a changed title "
+     "(arXiv 2310.02994 was 'Multiple physics pretraining for physical surrogate models'); record and "
+     "fourteen authors from Crossref 2026-10-11.", False),
     ("krass2025mofsimbench", V, "article", dict(
         author="Kra{\\ss} and Huang and Moosavi",
         title="{MOFSimBench}: evaluating universal machine learning interatomic potentials in "
@@ -471,11 +479,13 @@ REFS = [
         title="Dimensionality reduction and reduced-order modeling for traveling wave physics",
         journal="Theoretical and Computational Fluid Dynamics", volume="34", number="4",
         pages="385--400", year="2020", doi="10.1007/s00162-020-00529-9"), "", False),
-    ("gowrachari2025cross", V, "article", dict(
+    ("gowrachari2025cross", V, "incollection", dict(
         author="Harshith Gowrachari and Giovanni Stabile and Gianluigi Rozza",
         title="Model reduction for transport-dominated problems via cross-correlation based "
               "snapshot registration",
-        journal="arXiv preprint", year="2025", eprint="2501.01299", archiveprefix="arXiv"),
+        booktitle="Scientific Machine Learning", series="SEMA SIMAI Springer Series",
+        publisher="Springer Nature Switzerland", pages="199--218", year="2026",
+        doi="10.1007/978-3-032-11527-0_10"),
      "A NEGATIVE result in our favour: registration ROM has not been taken into "
      "separation-process column fields. A search summary claimed otherwise and was wrong.",
      False),

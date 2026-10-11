@@ -1,0 +1,452 @@
+{
+ "_what": "Audit every DOI-bearing bibliography entry against its Crossref record.",
+ "n_entries": 74,
+ "n_ok": 55,
+ "n_flagged": 9,
+ "rows": {
+  "lanthaler2023nonlinear": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "heinlein2026error": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "bartolucci2023reno": {
+   "doi": "10.52202/075280-3051",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "herde2024poseidon": {
+   "doi": "10.52202/079017-2311",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "mccabe2023multiple": {
+   "doi": "10.52202/079017-3791",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "krass2025mofsimbench": {
+   "doi": "10.1038/s41524-025-01872-3",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "pai2020generalized": {
+   "doi": "10.1021/acs.iecr.0c02339",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Industrial \\& Engineering Chemistry Research' vs crossref 'Industrial &amp; Engineering Chemistry Research'"
+   ]
+  },
+  "hesthaven2018non": {
+   "doi": "10.1016/j.jcp.2018.02.037",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "subraveti2019machine": {
+   "doi": "10.1021/acs.iecr.9b04173",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Industrial \\& Engineering Chemistry Research' vs crossref 'Industrial &amp; Engineering Chemistry Research'"
+   ]
+  },
+  "burns2020prediction": {
+   "doi": "10.1021/acs.est.9b07407",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "title: bib 'Prediction of {MOF} performance in vacuum swing adsorption systems for postcombustion {CO$_2$} capture based on integrated molecular simulations, process optimizations, and machine learning models' vs crossref 'Prediction\nof MOF Performance in Vacuum Swing Adsorption\nSystems for Postcombustion CO2 Capture Based on Integrated Molecular Simulations, Process\nOptimizations, and Machine Learning Models'",
+    "journal: bib 'Environmental Science \\& Technology' vs crossref 'Environmental Science &amp; Technology'"
+   ]
+  },
+  "leperi2019development": {
+   "doi": "10.1021/acssuschemeng.9b01418",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "title: bib 'Development of a general evaluation metric for rapid screening of adsorbent materials for postcombustion {CO$_2$} capture' vs crossref 'Development of a General Evaluation Metric for Rapid Screening of Adsorbent Materials for Postcombustion CO<sub>2</sub> Capture'",
+    "journal: bib 'ACS Sustainable Chemistry \\& Engineering' vs crossref 'ACS Sustainable Chemistry &amp; Engineering'"
+   ]
+  },
+  "hanikel2019rapid": {
+   "doi": "10.1021/acscentsci.9b00745",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "fathieh2018practical": {
+   "doi": "10.1126/sciadv.aat3198",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "furukawa2014water": {
+   "doi": "10.1021/ja500330a",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "solovyeva2021cau": {
+   "doi": "10.1021/acs.langmuir.0c02729",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "frohlich2016water": {
+   "doi": "10.1039/c6ta01757f",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "laurenz2020novel": {
+   "doi": "10.3390/en13113003",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "solovyeva2021mil": {
+   "doi": "10.3390/en14123586",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "aumond2026adsorption": {
+   "doi": "10.1021/acsomega.5c11973",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "lenzen2019metal": {
+   "doi": "10.1038/s41467-019-10960-0",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "rieth2017record": {
+   "doi": "10.1021/acscentsci.7b00186",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "pai2022experimental": {
+   "doi": "10.1016/j.seppur.2022.120783",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "ceccanti2026deep": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "wang2021understanding": {
+   "doi": "10.1137/20M1318043",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "wang2022when": {
+   "doi": "10.1016/j.jcp.2021.110768",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "romano2005stepwise": {
+   "doi": "10.1111/j.1468-0262.2005.00615.x",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "mcclenny2023self": {
+   "doi": "10.1016/j.jcp.2022.111722",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "rathore2024challenges": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "mcgreivy2024weak": {
+   "doi": "10.1038/s42256-024-00897-5",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "grossmann2024pinn": {
+   "doi": "10.1093/imamat/hxae011",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "rohrer2021loss": {
+   "doi": "10.1177/1745691620964106",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "abueidda2025deepokan": {
+   "doi": "10.1016/j.cma.2024.117699",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "shukla2024comprehensive": {
+   "doi": "10.1016/j.cma.2024.117290",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "wang2025kinn": {
+   "doi": "10.1016/j.cma.2024.117518",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "kiyani2025optimizing": {
+   "doi": "10.1016/j.cma.2025.118308",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "rigas2026training": {
+   "doi": "10.1016/j.cma.2026.118761",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "reiss2018shifted": {
+   "doi": "10.1137/17M1140571",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "krah2025robust": {
+   "doi": "10.1137/24M164392X",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "krah2023front": {
+   "doi": "10.1007/s10915-023-02210-9",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "zorawski2024neural": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "papapicco2022nnspod": {
+   "doi": "10.1016/j.cma.2022.114687",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "taddei2020registration": {
+   "doi": "10.1137/19M1271270",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "taddei2026erratum": {
+   "doi": "10.1137/24M1639579",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "zucatti2026model": {
+   "doi": "10.1016/j.jcp.2026.114958",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "nair2019transported": {
+   "doi": "10.1002/nme.5998",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "mendible2020dimensionality": {
+   "doi": "10.1007/s00162-020-00529-9",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "gowrachari2025cross": {
+   "doi": "10.1007/978-3-032-11527-0_10",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "ohlberger2016reduced": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "ohlberger2013nonlinear": {
+   "doi": "10.1016/j.crma.2013.10.028",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "greif2019decay": {
+   "doi": "10.1016/j.aml.2019.05.013",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "title: bib 'Decay of the {Kolmogorov} {N}-width for wave problems' vs crossref 'Decay of the Kolmogorov\n                    <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\" id=\"d1e145\" altimg=\"si13.svg\">\n                      <mml:mi>N</mml:mi>\n                    </mml:math>\n                    -width for wave problems'"
+   ]
+  },
+  "kneip1992statistical": {
+   "doi": "10.1214/aos/1176348769",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "ramsay1998curve": {
+   "doi": "10.1111/1467-9868.00129",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "vangenuchten1982analytical": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "ogata1961solution": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "pearson1959note": {
+   "doi": "10.1016/0009-2509(59)80063-4",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "danckwerts1953continuous": {
+   "doi": "10.1016/0009-2509(53)80001-1",
+   "state": "PARTIAL",
+   "status": "OK",
+   "problems": []
+  },
+  "glueckauf1955theory": {
+   "doi": "10.1039/TF9555101540",
+   "state": "PARTIAL",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Transactions of the Faraday Society' vs crossref 'Trans. Faraday Soc.'"
+   ]
+  },
+  "glueckauf1947theory": {
+   "doi": "10.1039/jr9470001315",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "klinkenberg1948numerical": {
+   "doi": "10.1021/ie50466a034",
+   "state": "PARTIAL",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Industrial \\& Engineering Chemistry' vs crossref 'Industrial &amp; Engineering Chemistry'"
+   ]
+  },
+  "klinkenberg1954heat": {
+   "doi": "10.1021/ie50539a021",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Industrial \\& Engineering Chemistry' vs crossref 'Industrial &amp; Engineering Chemistry'"
+   ]
+  },
+  "anzelius1926uber": {
+   "status": "NO DOI",
+   "state": "PARTIAL"
+  },
+  "schumann1929heat": {
+   "doi": "10.1016/S0016-0032(29)91186-8",
+   "state": "PARTIAL",
+   "status": "OK",
+   "problems": []
+  },
+  "dodo2000model": {
+   "doi": "10.1016/S0008-6223(99)00159-1",
+   "state": "PARTIAL",
+   "status": "OK",
+   "problems": []
+  },
+  "dodo2009new": {
+   "doi": "10.1016/j.carbon.2009.01.039",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "buttersack2019modeling": {
+   "doi": "10.1039/C8CP07751G",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "wakao1978effect": {
+   "doi": "10.1016/0009-2509(78)85120-3",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "edwards1968gas": {
+   "doi": "10.1016/0009-2509(68)87056-3",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "levan2019adsorption": {
+   "status": "NO DOI",
+   "state": "VERIFIED"
+  },
+  "knox2016limitations": {
+   "doi": "10.1021/acs.iecr.6b00516",
+   "state": "VERIFIED",
+   "status": "MISMATCH",
+   "problems": [
+    "journal: bib 'Industrial \\& Engineering Chemistry Research' vs crossref 'Industrial &amp; Engineering Chemistry Research'"
+   ]
+  },
+  "hanikel2021evolution": {
+   "doi": "10.1126/science.abj0890",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "lassitter2024mass": {
+   "doi": "10.1016/j.ces.2023.119430",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "hastings2024high": {
+   "doi": "10.1021/acs.jpcc.4c01733",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "bozbiyik2017stepped": {
+   "doi": "10.1007/s10450-016-9847-0",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  },
+  "lee2026scaleup": {
+   "doi": "10.2139/ssrn.6874257",
+   "state": "VERIFIED",
+   "status": "OK",
+   "problems": []
+  }
+ }
+}
