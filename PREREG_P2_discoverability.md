@@ -469,3 +469,9 @@ measured a bug in our wrapper, not the machine (RETRACTIONS B76). The wrapper no
 placeholder names and maps them back (`p2/pysr_method.safe_names`, with a test). The gate is
 re-run unchanged (same planted law, noise, seeds and limits: 1800 s and 3 GB per fit); its
 outcome is recorded here before the freeze.
+
+**M7 gate, re-run 2026-10-11 after the B76 fixes (placeholder names; serial parallelism, which
+PySR requires for a deterministic seeded search).** All three seeds recover the planted law
+exactly as k(q* - q): k = 0.019994, 0.019992, 0.019943 against k_true = 0.02 (relative error
+3.1e-4, 4.2e-4, 2.9e-3), in 35, 5 and 5 s at a peak of 0.97 GB -- inside both limits. Decision,
+in the declared words: **"INCLUDE M7 on its declared subgrid."** (`results/p2_pilot_m7.json`.)
