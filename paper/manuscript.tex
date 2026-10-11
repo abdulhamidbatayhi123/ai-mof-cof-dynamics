@@ -144,7 +144,7 @@ a theoretical lower bound for any method that sums a fixed basis.
 \item[Twin.] The data-only model a physics-informed arm is compared with: identical
 architecture, data and budget, without the physics term.
 \item[Damk\"ohler number.] The product of the linear-driving-force rate constant and
-the simulated duration (Section~\ref{sec:methods}); large values mean the solid stays
+the simulated duration (Section~\ref{sec:model}); large values mean the solid stays
 near equilibrium over the run, small values kinetic control. Because some runs were
 extended, it also carries the length of the run.
 \item[Henry branch, step.] The low-humidity, near-linear part of the water isotherm,
@@ -262,14 +262,101 @@ predicted (Section~\ref{sec:warp}).
 \end{enumerate}
 
 %% ===========================================================================
+\section{The governing model}
+\label{sec:model}
+
+The reference is a one-dimensional, non-isothermal packed bed with axial dispersion,
+linear-driving-force (LDF) kinetics and an energy balance with wall loss. With \(c(z,t)\)
+the gas-phase adsorbate concentration, \(q(z,t)\) the loading per unit particle mass,
+\(T(z,t)\) the bed temperature, \(v\) the \emph{superficial} velocity and
+\(u = v/\varepsilon_t\) the interstitial one, the equations integrated are
+\begin{align}
+\frac{\partial c}{\partial t} &= D_L \frac{\partial^2 c}{\partial z^2}
+ - \frac{v}{\varepsilon_t}\frac{\partial c}{\partial z}
+ - \frac{1-\varepsilon_t}{\varepsilon_t}\,\rho_p \frac{\partial q}{\partial t},
+\label{eq:mass}\\
+\frac{\partial q}{\partial t} &= k_{\mathrm{LDF}}\bigl(q^{*}(c,T) - q\bigr),
+\label{eq:ldf}\\
+C_{\mathrm{b}}\frac{\partial T}{\partial t} &= k_z \frac{\partial^2 T}{\partial z^2}
+ - v\rho_g C_{pg}\frac{\partial T}{\partial z}
+ + (1-\varepsilon_t)\rho_p(-\Delta H)\frac{\partial q}{\partial t}
+ - \frac{4h_w}{D_{\mathrm{in}}}\,(T - T_w),
+\label{eq:energy}
+\end{align}
+with bed heat capacity \(C_{\mathrm{b}} = \varepsilon_t\rho_g C_{pg} +
+(1-\varepsilon_t)\rho_p C_{ps}\) and \(q^{*}\) the dual-site isotherm of
+equation~\eqref{eq:isotherm}. Here \(\varepsilon_t\) is the \emph{interparticle} (bed)
+void fraction and \(\rho_p\) the pellet density, pores included, so the solid term
+counts each pellet once. Gas held inside the pellet pores is not carried as a
+separate phase; it holds a negligible amount of water next to the adsorbed phase. The cluster-to-primary affinity ratio is fixed at
+\nDcBH, and the cluster affinity is set per run so that the cooperative step sits at
+the material's step humidity at the feed temperature. Feed concentration follows
+from relative humidity through the ideal-gas law and a Magnus saturation pressure.
+
+\paragraph{Boundary and initial conditions} Both inlets are of flux (Danckwerts)
+type: on the feed side of the inlet face there is no dispersion or conduction, so the
+feed's advective flux equals the bed's advective plus dispersive (or conductive) flux
+just inside it,
+\begin{equation}
+\frac{v}{\varepsilon_t}\,c_{\mathrm{in}} = \frac{v}{\varepsilon_t}\,c - D_L\frac{\partial c}{\partial z},
+\qquad
+v\rho_g C_{pg}\,T_{\mathrm{in}} = v\rho_g C_{pg}\,T - k_z\frac{\partial T}{\partial z}
+\qquad (z = 0),
+\label{eq:danckwerts}
+\end{equation}
+with zero gradient at the outlet \(z = L\). The bed starts clean, \(c = q = 0\), at
+the wall temperature, which is held at the feed temperature.
+
+\paragraph{Fixed properties} Every run uses \(L = \nDcL\)\,m, \(D_{\mathrm{in}} =
+\nDcDin\)\,m, \(\rho_g = \nDcRhog\)\,kg\,m\(^{-3}\), \(C_{pg} = \nDcCp\) and \(C_{ps} =
+\nDcCps\)\,J\,kg\(^{-1}\)\,K\(^{-1}\), \(k_z = \nDcKz\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and
+\(h_w = \nDcHw\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial dispersion follows the packed-bed
+correlation \(D_L = 0.7D_m + 0.5\,d_p v/\varepsilon_t\) with \(D_m =
+\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the larger dataset the kinetic
+coefficient is not sampled but derived from the particle by the Glueckauf relation,
+\begin{equation}
+k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
+\qquad K = \frac{q^{*}(c_{\mathrm{in}},T_{\mathrm{in}})}{c_{\mathrm{in}}},
+\label{eq:glueckauf}
+\end{equation}
+with pellet porosity \(\varepsilon_p = \nDcGlEpsp\), tortuosity \(\tau_p = \nDcGlTau\)
+and \(D_m = \nDcGlDm\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). The generator therefore uses
+two slightly different values of the molecular diffusivity, one in each correlation;
+we report both rather than reconcile them after the data were generated.
+
+\paragraph{Numerics and storage} Equations~\eqref{eq:mass}--\eqref{eq:energy} are
+discretised by the method of lines on \nGridNz\ cell-centred finite volumes
+(first-order upwind advection, central dispersion and conduction) and integrated with
+SciPy's implicit backward-differentiation-formula (BDF) method at relative and absolute tolerances
+\(10^{\nDcRtolExp}\) and \(10^{\nDcAtolExp}\) to \nDcSnapshots\ output times;
+Section~\ref{sec:reference} verifies the solver. Each run is integrated to
+\nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
+the horizon is extended to \nDcHorizonExt\ stoichiometric times in turn, which
+\nDcExtendedPct\,\% of the accepted runs of the larger dataset needed. A draw is
+rejected before solving if its feed loads too little or too much of capacity, its
+Henry constant is not finite and positive, its isothermal mass-transfer zone is not
+resolved by the grid, or its stoichiometric time is implausible; \nDataNrejected\ of
+the larger dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
+stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a uniform
+grid in \(z/L\) and \(t/t_{\mathrm{final}}\), at \(\nDcStoreV\times\nDcStoreV\) for the
+larger dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
+
+\paragraph{Damk\"ohler number} The Damk\"ohler number used throughout is computed per
+sample as \(\mathrm{Da} = k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), and rung L6 regresses
+on its per-material median. Because the horizon is a multiple of the stoichiometric
+time that depends on whether it was extended, Da carries that multiple as well as the
+kinetic ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\); for the \nDcExtendedPct\,\% of runs
+that were extended it is larger than the kinetic ratio by the extension factor. We keep the
+definition the pre-registration used and state this property rather than redefine
+the axis after the result.
+
+%% ===========================================================================
 \section{The reference and its verification}
 \label{sec:reference}
 
 Every surrogate number in this paper is \emph{surrogate-versus-solver}, so the
-solver is verified rather than asserted. The model is a one-dimensional non-isothermal
-packed bed with axial dispersion, a linear-driving-force (LDF) kinetic closure and a
-coupled energy balance (Section~\ref{sec:methods}). The inlet is a third- or flux-type
-boundary condition. That choice matters, and it was initially made wrongly: our first verification compared the solver against Ogata and
+solver of Section~\ref{sec:model} is verified rather than asserted. Its inlet is the
+third- or flux-type condition of equation~\eqref{eq:danckwerts}. That choice matters, and it was initially made wrongly: our first verification compared the solver against Ogata and
 Banks \cite{ogata1961solution}, who solve the \emph{first-} or concentration-type inlet. Against the correct
 closed form (van Genuchten and Alves \cite{vangenuchten1982analytical}, who give the third-type solution), the
 error falls to \nLzeroTracer{} absolute, an improvement of more than an order of
@@ -539,96 +626,9 @@ admits.
 \section{Methods}
 \label{sec:methods}
 
-Every design constant below is read by \texttt{design\_constants.py} from the
-dataset manifests, the generator's own physics builder and the solver's signature,
-so that this section cannot drift from the code it describes.
-
-\subsection*{Governing model}
-
-The reference is a one-dimensional, non-isothermal packed bed with axial dispersion,
-linear-driving-force kinetics and an energy balance with wall loss. With \(c(z,t)\)
-the gas-phase adsorbate concentration, \(q(z,t)\) the loading per unit particle mass,
-\(T(z,t)\) the bed temperature, \(v\) the \emph{superficial} velocity and
-\(u = v/\varepsilon_t\) the interstitial one, the equations integrated are
-\begin{align}
-\frac{\partial c}{\partial t} &= D_L \frac{\partial^2 c}{\partial z^2}
- - \frac{v}{\varepsilon_t}\frac{\partial c}{\partial z}
- - \frac{1-\varepsilon_t}{\varepsilon_t}\,\rho_p \frac{\partial q}{\partial t},
-\label{eq:mass}\\
-\frac{\partial q}{\partial t} &= k_{\mathrm{LDF}}\bigl(q^{*}(c,T) - q\bigr),
-\label{eq:ldf}\\
-C_{\mathrm{b}}\frac{\partial T}{\partial t} &= k_z \frac{\partial^2 T}{\partial z^2}
- - v\rho_g C_{pg}\frac{\partial T}{\partial z}
- + (1-\varepsilon_t)\rho_p(-\Delta H)\frac{\partial q}{\partial t}
- - \frac{4h_w}{D_{\mathrm{in}}}\,(T - T_w),
-\label{eq:energy}
-\end{align}
-with bed heat capacity \(C_{\mathrm{b}} = \varepsilon_t\rho_g C_{pg} +
-(1-\varepsilon_t)\rho_p C_{ps}\) and \(q^{*}\) the dual-site isotherm of
-equation~\eqref{eq:isotherm}. Here \(\varepsilon_t\) is the \emph{interparticle} (bed)
-void fraction and \(\rho_p\) the pellet density, pores included, so the solid term
-counts each pellet once. Gas held inside the pellet pores is not carried as a
-separate phase; it holds a negligible amount of water next to the adsorbed phase. The cluster-to-primary affinity ratio is fixed at
-\nDcBH, and the cluster affinity is set per run so that the cooperative step sits at
-the material's step humidity at the feed temperature. Feed concentration follows
-from relative humidity through the ideal-gas law and a Magnus saturation pressure.
-
-\paragraph{Boundary and initial conditions} Both inlets are of flux (Danckwerts)
-type: on the feed side of the inlet face there is no dispersion or conduction, so the
-feed's advective flux equals the bed's advective plus dispersive (or conductive) flux
-just inside it,
-\begin{equation}
-\frac{v}{\varepsilon_t}\,c_{\mathrm{in}} = \frac{v}{\varepsilon_t}\,c - D_L\frac{\partial c}{\partial z},
-\qquad
-v\rho_g C_{pg}\,T_{\mathrm{in}} = v\rho_g C_{pg}\,T - k_z\frac{\partial T}{\partial z}
-\qquad (z = 0),
-\label{eq:danckwerts}
-\end{equation}
-with zero gradient at the outlet \(z = L\). The bed starts clean, \(c = q = 0\), at
-the wall temperature, which is held at the feed temperature.
-
-\paragraph{Fixed properties} Every run uses \(L = \nDcL\)\,m, \(D_{\mathrm{in}} =
-\nDcDin\)\,m, \(\rho_g = \nDcRhog\)\,kg\,m\(^{-3}\), \(C_{pg} = \nDcCp\) and \(C_{ps} =
-\nDcCps\)\,J\,kg\(^{-1}\)\,K\(^{-1}\), \(k_z = \nDcKz\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and
-\(h_w = \nDcHw\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial dispersion follows the packed-bed
-correlation \(D_L = 0.7D_m + 0.5\,d_p v/\varepsilon_t\) with \(D_m =
-\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the larger dataset the kinetic
-coefficient is not sampled but derived from the particle by the Glueckauf relation,
-\begin{equation}
-k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
-\qquad K = \frac{q^{*}(c_{\mathrm{in}},T_{\mathrm{in}})}{c_{\mathrm{in}}},
-\label{eq:glueckauf}
-\end{equation}
-with pellet porosity \(\varepsilon_p = \nDcGlEpsp\), tortuosity \(\tau_p = \nDcGlTau\)
-and \(D_m = \nDcGlDm\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). The generator therefore uses
-two slightly different values of the molecular diffusivity, one in each correlation;
-we report both rather than reconcile them after the data were generated.
-
-\paragraph{Numerics and storage} Equations~\eqref{eq:mass}--\eqref{eq:energy} are
-discretised by the method of lines on \nGridNz\ cell-centred finite volumes
-(first-order upwind advection, central dispersion and conduction) and integrated with
-SciPy's implicit backward-differentiation-formula (BDF) method at relative and absolute tolerances
-\(10^{\nDcRtolExp}\) and \(10^{\nDcAtolExp}\) to \nDcSnapshots\ output times;
-Section~\ref{sec:reference} verifies the solver. Each run is integrated to
-\nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
-the horizon is extended to \nDcHorizonExt\ stoichiometric times in turn, which
-\nDcExtendedPct\,\% of the accepted runs of the larger dataset needed. A draw is
-rejected before solving if its feed loads too little or too much of capacity, its
-Henry constant is not finite and positive, its isothermal mass-transfer zone is not
-resolved by the grid, or its stoichiometric time is implausible; \nDataNrejected\ of
-the larger dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
-stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a uniform
-grid in \(z/L\) and \(t/t_{\mathrm{final}}\), at \(\nDcStoreV\times\nDcStoreV\) for the
-larger dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
-
-\paragraph{Damk\"ohler number} The Damk\"ohler number used throughout is computed per
-sample as \(\mathrm{Da} = k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), and rung L6 regresses
-on its per-material median. Because the horizon is a multiple of the stoichiometric
-time that depends on whether it was extended, Da carries that multiple as well as the
-kinetic ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\); for the \nDcExtendedPct\,\% of runs
-that were extended it is larger than the kinetic ratio by the extension factor. We keep the
-definition the pre-registration used and state this property rather than redefine
-the axis after the result.
+Every design constant in this section and in Section~\ref{sec:model} is read by
+\texttt{design\_constants.py} from the dataset manifests, the generator's own physics
+builder and the solver's signature, so that the text cannot drift from the code.
 
 \subsection*{Parameter space}
 
