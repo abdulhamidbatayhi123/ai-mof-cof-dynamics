@@ -450,7 +450,7 @@ not satisfy.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
-\caption{Dataset v2. \textbf{A}~The material space, \emph{one point per material}; the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
+\caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, \emph{one point per material}; the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
 \label{fig:dataset}
 \end{figure}
 
@@ -859,6 +859,11 @@ normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \label{fig:rungs}
 \end{figure}
 
+Figure~\ref{fig:ladder}A summarises every rung's effect and verdict, and
+Figure~\ref{fig:rungs} shows the rungs that measure a curve. Each verdict below is set in
+italics in the wording fixed in its pre-registration before the run;
+Section~\ref{sec:methods} gives the designs and their levels.
+
 \subsection{L1: more data}
 
 \paragraph{The arms} Pooled out of fold over 240 held-out materials, with 64
@@ -889,8 +894,8 @@ error falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\), exponent interval
 we claim, and labelled an extrapolation because the claim below excludes it),
 halving the error would cost about \(\nLCmaterialsForHalving\times\) more materials.
 
-\textbf{Verdict, in the pre-declared words: the materials axis is NOT ELIMINATED at
-the largest size available.} We claim no extrapolation beyond twice the measured
+\emph{Verdict: the materials axis is not eliminated at the largest size
+available.} We claim no extrapolation beyond twice the measured
 range.
 
 \paragraph{What more materials buy, and what they do not} Refitting the basis on
@@ -905,11 +910,11 @@ The conditions axis behaves differently: exponent \nLCcondBeta, \nLCexpRatio{} o
 exponent. Both axes are open; materials are the one that matters.
 
 \paragraph{The regressor class} If the map binds, a different regressor class on the
-same coefficients might bind less. The pre-registered baseline (PREREG\_BASELINES \S1)
-replaces the perceptron with a Gaussian process on the same proper-orthogonal-decomposition
-coefficients, folds and materials (hyperparameters fitted on a subset, amendment A1,
-because a full marginal-likelihood fit was infeasible on this machine). In the
-pre-declared words there is \emph{\nBgpVerdict}: \nBgpGp\ against \nBgpMlp, interval
+same coefficients might bind less. The first pre-registered baseline replaces the perceptron with a Gaussian process on
+the same POD coefficients, folds and materials (kernel hyperparameters fitted on a
+subset of each fold, by a pre-registration amendment made before any baseline ran,
+because a full marginal-likelihood fit would have taken hundreds of hours of
+computation). \emph{Verdict: \nBgpVerdict}: \nBgpGp\ against \nBgpMlp, interval
 [\nBgpLo, \nBgpHi]; the design detects a \nBgpMde\,\% effect with \(80\,\%\) power. Two
 very different function classes reach the same error from the same per-mode inputs:
 for a map fitted mode by mode, the regressor class is not the lever. How the map is
@@ -927,7 +932,7 @@ grown forest, the ceiling of its capacity knob. The decisive evidence is decoupl
 gradient boosting drops its training error by more than an order of magnitude across
 the depth sweep while held-out error passes through a minimum and then rises.
 
-\textbf{Verdict, in the pre-declared words: capacity is NOT ELIMINATED.} The rule
+\emph{Verdict: capacity is not eliminated.} The rule
 eliminates it only if every family has saturated, and one has not: the random forest
 is still improving at its last step (fully grown trees, \nLtwoRfBest; last-step
 interval [\nLtwoRfLastLo, \nLtwoRfLastHi]). The rule then asks for the sweep to be
@@ -1058,8 +1063,8 @@ material axis, leaving \nLfourbNeligible\ and \nLfourbNeligibleMat\ eligible. On
 axes the best arm is an interior fixed weight, so the pre-registered edge rule
 (rule~4) is not engaged.
 
-\paragraph{Time axis: no difference} In the pre-declared words: there is no
-difference at the best weighting found. The best physics arm reaches
+\paragraph{Time axis: no difference} \emph{Verdict: there is no difference at the
+best weighting found.} The best physics arm reaches
 \nLfourbTimeBest\ against the twin's \nLfourbTimeTwin, a paired difference with
 interval [\nLfourbTimeLo, \nLfourbTimeHi] over \nLfourbTimeNmat\ materials; the
 design detects a \nLfourbTimeMDE\,\% effect with \(80\,\%\) power. The legacy statement
@@ -1071,8 +1076,8 @@ so under the second-order optimiser the data-only arm is significantly better on
 axis. The pre-registration declared a flip to be the reported result, and we report
 it as one.
 
-\paragraph{Material axis: the residual helps, at small weights only} In the
-pre-declared words: physics helps once correctly weighted. The best arm, a fixed weight
+\paragraph{Material axis: the residual helps, at small weights only} \emph{Verdict:
+physics helps once correctly weighted.} The best arm, a fixed weight
 of \(10^{\nLfourbBestWeightExp}\), reaches \nLfourbMatBest\ against the twin's \nLfourbMatTwin\ on
 \nLfourbMatNmat\ held-out materials, interval [\nLfourbMatLo, \nLfourbMatHi] for twin
 minus physics; the gain is \nLfourbMatGainPct\,\% of the error. It is not an isolated weight:
@@ -1132,9 +1137,9 @@ selection adjustment (A29).}
 
 \paragraph{Basis size, on the full design: a small gain, complete early} The
 pre-registered re-measurement on the \nNclustFolds-material five-fold design
-(PREREG\_L5\_v2 amendments A2 and A3; Section~\ref{sec:corrections}, B74), at the step budget
-amendment A2 set (tripled), answers the rung's primary question in its
-pre-declared words: \textbf{\nLfiveVtwoVerdict}. DeepONet at \(p = 128\) reaches
+(with two amendments to its protocol made before the run: a tripled step budget, and
+an interval that pays for the learning-rate choice; B74), answers the rung's primary
+question. \emph{Verdict: \nLfiveVtwoVerdict}. DeepONet at \(p = 128\) reaches
 \nLfiveVtwoPhigh\ against \nLfiveVtwoPeight\ at \(p = 8\), interval
 [\nLfiveVtwoDiffLo, \nLfiveVtwoDiffHi]; paid for over both learning-rate choices the
 interval is [\nLfiveVtwoSelLo, \nLfiveVtwoSelHi] (\nLfiveVtwoSelWords). The gain is
@@ -1274,9 +1279,9 @@ detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits jus
 under it, so the point estimate may be optimistic and the lower bound is the
 conservative reading.
 
-\paragraph{Verdict, in the pre-declared words} Structural decomposition gives a
+\paragraph{Verdict} \emph{Structural decomposition gives a
 small but real and reproducible improvement in transfer to unseen materials, with no
-detectable dependence on Damk\"ohler number. The pattern is that of an
+detectable dependence on Damk\"ohler number.} The pattern is that of an
 inductive bias rather than a kinetic identifier, which is not what the hypothesis
 predicted. As the slope interval shows, however, a kinetic component of the
 benefit's own size is not excluded, so this reading is the better-supported one
@@ -1284,25 +1289,23 @@ rather than an established one. This is a more precise statement than either a n
 positive, and it is available only because the mechanism was pre-registered as the
 primary estimand and could therefore fail on its own terms.
 
-\subsection{L7: is learning needed at all}
+\subsection{L7: is learning needed at all?}
 
-Scored like for like on the exit curve, because the closed forms predict a curve and
+Arms are scored like for like on the outlet curve, because the closed forms predict a curve and
 not a field. The learned arm's out-of-fold prediction reaches \nLsevenLearned{}
 against \nLsevenKlinkenberg\ for the best closed form, \nLsevenShock\ for
 equilibrium theory and \nLsevenPattern\ for constant-pattern theory. The best closed
 form is \nLsevenRatio{}\(\times\) worse, with difference \nLsevenDiff\ and interval
-[\nLsevenLo, \nLsevenHi]. \textbf{Verdict, in the pre-declared words: LEARNING
-IS JUSTIFIED} on dataset v2: every classical form is significantly worse than the
-learned reference on the exit curve.
+[\nLsevenLo, \nLsevenHi]. \emph{Verdict: learning is justified} on the larger
+dataset: every classical form is significantly worse than the learned reference on
+the outlet curve.
 
 \paragraph{Fitted closed forms} Scoring the closed forms with nothing
-fitted is the strict test, not the fair one. The pre-registered fitted baseline
-(PREREG\_BASELINES \S3) gives the Klinkenberg form two physically interpretable
+fitted is the strict test, not the fair one. The third pre-registered baseline gives the Klinkenberg form two physically interpretable
 corrections (multipliers on its Henry slope and its rate constant), fitted on each
 fold's training materials and applied unchanged to the held-out ones. It improves
 markedly, to \nBfitFitted, and is still \(\nBfitRatio\times\) worse than the learned
-arm's \nBfitLearned\ (interval [\nBfitLo, \nBfitHi]). In the pre-declared words:
-\emph{\nBfitWords}.
+arm's \nBfitLearned\ (interval [\nBfitLo, \nBfitHi]). \emph{Verdict: \nBfitWords}.
 
 The transferable statement is that a classical model wins exactly when the physics
 it assumes is the physics that is there. Where a problem is linear and time-invariant, a Green's function is the exact
@@ -1625,9 +1628,8 @@ than \nCostBreakEven\ screening queries against the full-resolution solve. Below
 the solver is both cheaper \emph{and} exact, and building a surrogate is a mistake.
 
 The full-resolution solve is, however, not the relevant competitor. The
-pre-registered coarse-solver baseline (PREREG\_BASELINES \S2; Section~\ref{sec:corrections},
-A30) re-solves one sample per material with the same solver on coarser grids. In its
-pre-declared words: \emph{a coarse solve at \(N_z = \nCoarseNz\) matches the surrogate's
+second pre-registered baseline (A30) re-solves one sample per material with the same
+solver on coarser grids. \emph{Verdict: a coarse solve at \(N_z = \nCoarseNz\) matches the surrogate's
 held-out accuracy at \nCoarseSolveEq\ solve-equivalents per query}; in fact it beats
 it, at \nCoarseErrPct\,\% normalised error against the surrogate's \nCoarseTargetPct\,\%,
 about \(\nCoarseAccRatio\times\) more accurate, in about \nCoarseWallMs\,ms
@@ -1975,46 +1977,19 @@ build so that the two cannot disagree.
 \section{Reproducibility}
 \label{sec:reproducibility}
 
-\paragraph{Which pre-registrations are verifiable, and which are self-attested}
-The pre-registrations for rung L6, for rungs L1/L2/L7, for rung L4b and for the
-experimental anchor were committed to version control \emph{before} the first arm of
-each was trained, and the ordering is externally checkable from the repository
-history. The original protocol covering L0--L7 was not; it is self-attested, and is not
-presented as equivalent to the others.
-
-\paragraph{Automated checks} A verification harness of \nGates\ gates runs before any number is
-reported, and no number from a failing category may enter this manuscript. The gates
-encode defects that actually occurred: a plotting script that labels a model curve
-must load a checkpoint or read a recorded results file and demonstrably compute
-nothing itself; a training run whose best step is zero is a hard failure; a physics
-reconstruction must be handed the dataset's own parameter keys with no default.
-
-\paragraph{No result in this manuscript is typed by hand} Every measured quantity
-above is a macro resolved at build time from a named results file through a declared
-path, or a ratio of such macros with its formula declared. A key whose file is
-missing, whose path does not exist, or whose value is not finite is a build failure.
-The remaining literals are design constants (grid values, fold and seed counts),
-thresholds that define a quantity, citation years, and figures quoted from the
-ledger's own history; each has a written reason and a recorded number of occurrences,
-and a new occurrence refuses the build until it is justified again. Numbers written
-as words are held to the same rule. The build checks text, so it cannot prove that a
-literal is not a result; it can only make every one of them visible and argued for. This exists because defect B43 found three quoted comparisons
-(one of them the basis of a retraction) that had no script behind them at all.
-
-\paragraph{Consistency across runners} The
-configuration used as L1's arm appears twice more in L2's capacity sweep, trained by
-a different runner on the same folds, basis and seeds. Their per-sample held-out
-scores agree to \nLtwoIdentity. That is the strongest available evidence that
-the rungs reported over ``the same folds'' really are.
-
-\paragraph{Citations} Nothing is cited until it has been retrieved, not searched.
-That gate has caught a fabricated co-author, a swapped arXiv identifier between two
-papers named in the same sentence, a publisher-supplied identifier pointing at a
-different paper, a missing co-author, two references that do not contain the claim
-they were cited for, and a correlation attributed to the wrong source. References
-that could not be retrieved at the primary, and what each was read through instead, are
-listed below; the list is generated by the same script that decides which references
-are emitted, so it cannot disagree with the bibliography.
+The pre-registrations for rungs L1, L2, L4, L6 and L7 and for the experimental anchor
+were committed to version control before the first arm of each was trained, which the
+repository history shows; the original protocol covering the solver checks and the
+first ladder was not, and it is self-attested. Every measured quantity in this
+manuscript is a macro resolved at build time from a named results file through a
+declared path, and a missing file, path or non-finite value fails the build; the
+remaining literals (design constants, thresholds and citation years) each carry a
+written reason. A verification harness of \nGates\ gates runs before any number is
+reported. The configuration used as L1's arm appears twice more in L2's sweep, trained
+by a different runner on the same folds, basis and seeds, and their per-sample held-out
+scores agree exactly (largest difference \nLtwoIdentity). Every reference was retrieved
+and checked against its publisher's record; the references read through a secondary
+source, and what each was read through, are listed below.
 \input{secondary_sources}
 
 %% ===========================================================================
@@ -2026,7 +2001,7 @@ public repository,
 history, and the release that accompanies this article is archived at Zenodo
 \cite{batayhi2026code}, whose record links every later version. Dataset
 manifests are tracked; the field arrays are regenerable from the generator with the
-recorded seed.
+recorded seed, at a cost of about \nCostGenCoreHours\ core-hours for the larger dataset.
 
 \section*{Declaration of competing interest}
 The author declares no competing interests.
@@ -2041,13 +2016,16 @@ Formal analysis, Investigation, Data curation, Writing -- original draft, Writin
 review \& editing, Visualization, Project administration.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work the author used Claude (Anthropic), an AI
-assistant, extensively, in order to write and test code for the solver, the runners,
-the analysers and the verification harness; to draft and revise the pre-registrations
-and the manuscript text; to retrieve and check bibliographic records; and to act as an
-internal reviewer. Every number in the manuscript is produced by a script from a
-results file (Section~\ref{sec:reproducibility}), and the correction ledger records
-defects whether they originated with the author or with the assistant. After using
+The author chose the research topic and questions, approved the seven candidate
+explanations and their elimination criteria before the runs, approved every verdict and
+conclusion, and read the whole manuscript. During the preparation of this work the
+author used Claude (Anthropic), an AI assistant, as a tool throughout, in order to write
+and test code for the solver, the runners, the analysers and the verification harness;
+to draft and edit the pre-registrations and the manuscript text; to retrieve and check
+bibliographic records; and to check the manuscript for internal inconsistencies. Every
+number in the manuscript is produced by a script from a results file
+(Section~\ref{sec:reproducibility}), and the correction ledger records defects whether
+they originated with the author or with the assistant. After using
 this tool, the author reviewed and edited the content as needed and takes full
 responsibility for the content of the published article.
 

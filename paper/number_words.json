@@ -581,34 +581,6 @@
   "line_at_review": 1183
  },
  {
-  "key": "ists because defect B43 found [three] quoted comparisons",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "B43's three comparisons, each enumerated in the ledger entry it cites",
-  "line_at_review": 1213
- },
- {
-  "key": "tion used as L1's arm appears [twice] more in L2's capacity sweep,",
-  "word": "twice",
-  "class": "DESIGN",
-  "reason": "the L1 configuration occurs once in each of two L2 families (width, depth) by construction",
-  "line_at_review": 1217
- },
- {
-  "key": "pped arXiv identifier between [two] ",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1223
- },
- {
-  "key": "t paper, a missing co-author, [two] references that do not contai",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1225
- },
- {
   "key": "ourier operator like a -mode [one] . Three",
   "word": "one",
   "class": "PROSE",
@@ -1330,27 +1302,6 @@
   "line_at_review": 1089
  },
  {
-  "key": "the strict test, not the fair [one] . The pre-registered fitted ba",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 1230
- },
- {
-  "key": "3) gives the Klinkenberg form [two] physically interpretable",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two fitted multipliers of PREREG_BASELINES §3",
-  "line_at_review": 1231
- },
- {
-  "key": "A30) re-solves [one] sample per material with the",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the baseline's design, PREREG_BASELINES §2",
-  "line_at_review": 1552
- },
- {
   "key": "accurate of the [two] . {For this c",
   "word": "two",
   "class": "PROSE",
@@ -1391,13 +1342,6 @@
   "class": "DESIGN",
   "reason": "the two named discrepancies of the anchor section",
   "line_at_review": 387
- },
- {
-  "key": "2. {A}~The material space, { [one] point per material}; the lege",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "one point per material: a rule, not a count",
-  "line_at_review": 407
  },
  {
   "key": " [three] seeds and fitted (including a",
@@ -1769,5 +1713,61 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1674
+ },
+ {
+  "key": "t. {A}~The material space, { [one] point per material}; the lege",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 413
+ },
+ {
+  "key": "(with [two] amendments to its protocol ma",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two protocol amendments named next",
+  "line_at_review": 1100
+ },
+ {
+  "key": "the strict test, not the fair [one] . The third pre-registered bas",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1264
+ },
+ {
+  "key": "t test, not the fair one. The [third] pre-registered baseline gives",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "ordinal naming the baselines of the baseline protocol",
+  "line_at_review": 1264
+ },
+ {
+  "key": "ne gives the Klinkenberg form [two] physically interpretable",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two corrections named next in parentheses",
+  "line_at_review": 1264
+ },
+ {
+  "key": "ered baseline (A30) re-solves [one] sample per material with the",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1591
+ },
+ {
+  "key": "tion used as L1's arm appears [twice] more in L2's sweep, trained",
+  "word": "twice",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1948
+ },
+ {
+  "key": "c and questions, approved the [seven] candidate",
+  "word": "seven",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1979
  }
 ]
