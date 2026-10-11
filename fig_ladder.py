@@ -159,10 +159,15 @@ def build_rows():
     if c:
         m = ax.get("mde") or {}
         m80 = next((v.get("mde_80") for v in m.values() if isinstance(v, dict) and v.get("mde_80")), None)
-        add("L4b", "physics as a loss", "best physics arm vs its data-only twin",
+        # the best arm was chosen on the test materials: draw the interval that pays for it
+        sel = load("results/l4b_v3_selection.json")["axes"]["material"]["selected_simultaneous"]
+        c = {**c, "ci_low": sel["sim_lo"], "ci_high": sel["sim_hi"],
+             "significant": sel["significant_simultaneous"]}
+        add("L4b", "physics as a loss",
+            "best weight vs data-only twin, unseen materials (selection-adjusted)",
             effect(c, control_is_a=(c["arm_a"] == "data_only")),
-            ax["verdict"].split(".")[0][:36],
-            ax.get("sweep_described", "weighting sweep per PREREG_L4b_v2")[:90],
+            "HELPS AT SMALL WEIGHTS (B72 fixed)",
+            "larger or adaptive weights hurt; no difference on the time axis",
             mde=100 * m80 if m80 else None)
     else:
         rows.append(dict(rung="L4b", hyp="physics as a loss",
@@ -185,14 +190,21 @@ def build_rows():
             f"{l5['fno_best']['mean'] / l5['pod_floor_p128']:.0f}x above the POD floor")
     else:
         missing.append("L5 FNO verdict")
-    c = (l5m or {}).get("paired_vs_smallest_p", {}).get("deeponet_p128")
+    # The basis-size verdict comes from the pre-registered 240-material re-measurement
+    # (PREREG_L5_v2, 24k steps); the legacy 'flat' null is retracted (A29). The interval
+    # drawn is the selection-adjusted one (A3): both p arms sit at their best lr.
+    l5v = load("results/l5_v2_verdict_24k.json")
+    c = (l5v or {}).get("paired_vs_smallest_p", {}).get("deeponet_p128")
     if c:
-        f = l5m["pod_floor"]
-        add("L5", "a bigger basis", "DeepONet p=128 vs p=8",
-            effect(c, control_is_a=True), "NO DIFFERENCE (A17)",
-            f"flat in p while its own n-width bound falls {f['8'] / f['128']:.1f}x beneath it")
-    elif l5m:
-        missing.append("L5 flat-in-p comparison")
+        a3 = l5v["q_l5_selection_adjusted"]["selected"]
+        c = {**c, "ci_low": a3["sim_lo"], "ci_high": a3["sim_hi"],
+             "significant": a3["significant_simultaneous"]}
+        f = l5v["pod_floor_pooled"]
+        add("L5", "a bigger basis", "DeepONet p=128 vs p=8, 240 materials (selection-adjusted)",
+            effect(c, control_is_a=True), "HELPS A LITTLE (A29)",
+            f"gain complete by p=16; its own basis floor falls {f['8'] / f['128']:.0f}x")
+    else:
+        missing.append("L5-v2 basis-size comparison")
 
     # L6 — separate identification (secondary; the primary slope is panel B).
     if l6:
