@@ -217,13 +217,6 @@
   "line_at_review": 745
  },
  {
-  "key": "permanently. We separate the [two] because an",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 752
- },
- {
   "key": "that disagreed by a factor of [two] in the exponent. Any method w",
   "word": "two",
   "class": "PROSE",
@@ -399,13 +392,6 @@
   "line_at_review": 1083
  },
  {
-  "key": "time is bracketed by the last [two] .}",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1084
- },
- {
   "key": "disagreement between the [two] forms is maximised at , wher",
   "word": "two",
   "class": "PROSE",
@@ -418,20 +404,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 1120
- },
- {
-  "key": "ourier operator like a -mode [one] . Three",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun: 'a 5-mode one'",
-  "line_at_review": 736
- },
- {
-  "key": "r operator like a -mode one. [Three] ",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "three function classes compared (design)",
-  "line_at_review": 736
  },
  {
   "key": "with [two] zeolites whose measured isoth",
@@ -593,20 +565,6 @@
   "class": "DESIGN",
   "reason": "ratio of the two designs' nominal alphas, 0.005/0.02, both fixed by protocol",
   "line_at_review": 381
- },
- {
-  "key": "ration (a fixed budget, depth [three] ,",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "audit_l3 configuration depth 3 (design)",
-  "line_at_review": 532
- },
- {
-  "key": "each arm at the better of [two] higher learning rates per see",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "audit_l3 lr grid {3e-3, 1e-3} (design)",
-  "line_at_review": 533
  },
  {
   "key": "with [zero] gradient at the outlet \\(z =",
@@ -782,13 +740,6 @@
   "class": "DESIGN",
   "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
   "line_at_review": 89
- },
- {
-  "key": "air; the [eleven] numbers of Table~ describe t",
-  "word": "eleven",
-  "class": "DESIGN",
-  "reason": "the 11 sampled parameters of the design (Table params)",
-  "line_at_review": 114
  },
  {
   "key": "the operating condition. {B}~ [One] stored solver field of the la",
@@ -1463,13 +1414,6 @@
   "line_at_review": 1744
  },
  {
-  "key": "{ [Three] rungs are exploratory} L3, L5",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three small-design rungs named in the paragraph (L3, L5 operator comparison, warp)",
-  "line_at_review": 1790
- },
- {
   "key": "over . A verdict measured at [one] ",
   "word": "one",
   "class": "PROSE",
@@ -1643,5 +1587,68 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 312
+ },
+ {
+  "key": "air; [eleven] parameters (Section~ ) descri",
+  "word": "eleven",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 116
+ },
+ {
+  "key": "ration (a fixed budget, depth [three] , each arm at the better of tw",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 935
+ },
+ {
+  "key": "ee, each arm at the better of [two] ",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 935
+ },
+ {
+  "key": "ourier operator like a -mode [one] , DeepOKAN like a",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1329
+ },
+ {
+  "key": "-mode [one] and POD with gradient boostin",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1330
+ },
+ {
+  "key": "-mode [one] . Three",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1331
+ },
+ {
+  "key": "-mode one. [Three] ",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1331
+ },
+ {
+  "key": "\\) the modes. We separate the [two] because an",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1375
+ },
+ {
+  "key": "{ [Three] comparisons are exploratory}",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1790
  }
 ]

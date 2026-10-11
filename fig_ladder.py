@@ -126,7 +126,7 @@ def build_rows():
         add("L2", "more capacity", "best configuration vs the L1 setting†",
             eff, "NOT ELIMINATED",
             "a random forest is still improving at its capacity ceiling; the best configuration is a deeper perceptron (A26, A27)",
-            mde=100 * mde["mde_80"] if isinstance(mde, dict) and mde.get("mde_80") else None)
+            mde=None)   # L2 is a positive result; its sweep-step MDE is not a statement the text makes
     else:
         missing.append("L2 cross-comparison vs the L1 setting (run analyze_l2_v2.py)")
 
@@ -319,6 +319,10 @@ def panel_slope(b):
         b.plot(xs, (st["intercept"] + st["slope"] * mid) + s * (xs - mid), color=fs.C["red"],
                lw=1.0, ls=ls, alpha=0.8)
     b.axhline(0, color="k", lw=0.8)
+    # head- and foot-room for the two annotations, so neither covers a data point
+    lo, hi = yv.min(), yv.max()
+    span = hi - lo
+    b.set_ylim(lo - 0.32 * span, hi + 0.22 * span)
     b.set_xlabel("$\\log_{10}$ Damköhler number (median per material)")
     b.set_ylabel("separate minus joint\n(nRMSE per material)")
     b.set_title("B  L6, primary estimand: no detectable dependence on Damköhler")

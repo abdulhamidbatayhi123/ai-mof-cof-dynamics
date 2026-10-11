@@ -160,7 +160,7 @@ the range is extended past it, unless the metric has demonstrably stopped changi
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig0_schematic.pdf}
 \caption{What a surrogate maps. \textbf{A}~A packed bed of adsorbent pellets fed humid
-air; the eleven numbers of Table~\ref{tab:params} describe the adsorbent, the bed and
+air; eleven parameters (Section~\ref{sec:methods}) describe the adsorbent, the bed and
 the operating condition. \textbf{B}~One stored solver field of the larger dataset,
 \(c/c_{\mathrm{in}}\) over position and time, chosen by a fixed rule (the clearest
 complete two-front breakthrough). \textbf{C}~Its outlet curve: a fast front on the
@@ -191,7 +191,7 @@ established in operator learning: Poseidon \cite{herde2024poseidon} pretrains on
 reports that it ``generalizes very well to new physics that is not seen during
 pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining \cite{mccabe2023multiple}
 reports transfer to ``systems with previously unseen physical components''.
-Held-out \emph{materials} is established for interatomic potentials: MOFSimBench \cite{krass2025mofsimbench}
+Testing on held-out \emph{materials} is established for interatomic potentials: MOFSimBench \cite{krass2025mofsimbench}
 evaluates twenty universal machine-learning interatomic potentials on
 metal--organic frameworks. In adsorption-process engineering a surrogate that takes
 the material as an input is also established: MAPLE \cite{pai2020generalized} takes
@@ -206,7 +206,7 @@ process level with the help of learned models
 our first rungs are a non-intrusive reduced-order model in the sense of Hesthaven and
 Ubbiali \cite{hesthaven2018non}: a POD basis with a
 learned map from parameters to its coefficients. To the surrogate, a ``material'' is a
-point in the space of isotherm and bed parameters of Table~\ref{tab:params}, with its
+point in the space of isotherm and bed parameters (Section~\ref{sec:methods}), with its
 kinetics derived from them, and a sample adds the operating conditions; the
 question this paper asks (which term binds the error, the basis or the map) is
 the parametric reduced-order-model question, asked of an adsorption column and
@@ -293,7 +293,7 @@ separate phase; it holds a negligible amount of water next to the adsorbed phase
 the material's step humidity at the feed temperature. Feed concentration follows
 from relative humidity through the ideal-gas law and a Magnus saturation pressure.
 
-\paragraph{Boundary and initial conditions} Both inlets are of flux (Danckwerts)
+\paragraph{Boundary and initial conditions} Both inlet conditions are of flux (Danckwerts)
 type: on the feed side of the inlet face there is no dispersion or conduction, so the
 feed's advective flux equals the bed's advective plus dispersive (or conductive) flux
 just inside it,
@@ -445,7 +445,8 @@ Langmuir.
 Measured across all \nIsoNmat\ sampled materials rather than at two named
 configurations: \(n > 1\) strictly for every material, so the cooperative term
 is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
-But \(K_H\) spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
+But the Henry constant \(K_H = q_{\max} f_H b_H\), the slope of
+equation~\eqref{eq:isotherm} at the origin, spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
 \si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. The
 concentration at which the cooperative term reaches 1\,\% of loading (the top of
 the accessible Henry region) reaches \(10^{\nIsoHenryMax}\) of the feed at best
@@ -589,7 +590,8 @@ survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
 cost accounting, the re-measurement of L5's basis-versus-map decomposition and L5's
 DeepONet basis-size sweep run on the
 \nNclustFolds-material folds at \(\alpha = \nAlphaFolds\). Rung L4 runs on the single
-split (\nLfourbMatNmat\ held-out materials on its material axis) at \(\alpha = \nAlphaManifest\). Rung L3,
+split (\nLfourbMatNmat\ held-out materials on its material axis) at \(\alpha = \nAlphaManifest\)
+(empirical size \nFprManifestCal\,\%). Rung L3,
 L5's operator comparisons, the first measurement of its decomposition and the
 coordinate change run on the earlier \nNclustLegacy-material design and report at \(\alpha = \nLfiveAlpha\),
 which achieves an empirical size of \nFprLegacyUsed\,\% there, stricter than the
@@ -849,7 +851,7 @@ normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
-\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}).}
+\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}). MLP, multilayer perceptron; KAN, Kolmogorov--Arnold network; RBF, radial basis function; nRMSE (\(c\)), the error of equation~\eqref{eq:nrmse} on the concentration channel.}
 \label{fig:rungs}
 \end{figure}
 
@@ -898,7 +900,7 @@ materials, \nLClargestFixed\ against \nLClargest\ at 192. A basis fitted on 12
 materials reconstructs held-out fields as well as one fitted on 192, once the
 regressor sees the same data. \emph{None of the gain is in the basis; all of it is
 in the parameter-to-coefficient map.} Modes whose coefficient map clears
-a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing (Figure~\ref{fig:mechanism}).
+a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing (Section~\ref{sec:mechanism}).
 
 The conditions axis behaves differently: exponent \nLCcondBeta, \nLCexpRatio{} of the material
 exponent. Both axes are open; materials are the one that matters.
@@ -918,7 +920,7 @@ whole field, is worth a constant factor (Section~\ref{sec:mechanism}).
 \subsection{L2: more capacity}
 
 \nLtwoNconfigs{} configurations in both directions around the L1 setting, on the same
-folds and basis. \nLtwoNUshaped{} families are U-shaped with interior optima
+folds and basis. \nLtwoNUshaped{} sweeps are U-shaped with interior optima
 (width \nLtwoWidthBest{} for the perceptron's width, \nLtwoDepthBest{} layers for its depth, tree
 depth \nLtwoXgbBest{} for gradient boosting) and the random forest
 \nLtwoRfShape: it is still improving at its last step, but that step is a fully
@@ -932,7 +934,7 @@ is still improving at its last step (fully grown trees, \nLtwoRfBest; last-step
 interval [\nLtwoRfLastLo, \nLtwoRfLastHi]). The rule then asks for the sweep to be
 extended, and it cannot be: one sample per leaf is the ceiling of that family's
 capacity. The verdict therefore stays as declared. Our interpretation, which is
-not part of the verdict: the \nLtwoNUshaped{} neural and boosting families saturate with interior
+not part of the verdict: the neural and boosting families saturate with interior
 optima, and the one family that has not run out of improvement has run out of
 capacity while sitting well behind the best perceptron. Either way, the optimum is not where the
 earlier sweep left it. The best configuration anywhere is \nLtwoBestName\
@@ -976,10 +978,10 @@ could only widen its lead over arms that are all bracketed, so we report it rath
 than extend it. The Kolmogorov--Arnold arms, the ones being argued against, are the
 ones whose tuning is complete.
 
-Comparing against the strongest configuration found anywhere rather than the
-matched-budget cell, which is a separate audit configuration (a fixed budget, depth three,
-each arm at the better of two higher learning rates per seed), which is why its
-perceptron rate differs from the sweep's: the best Kolmogorov--Arnold network in the entire study is the
+The strongest configuration found anywhere is not the matched-budget cell but a
+separate audit configuration (a fixed budget, depth three, each arm at the better of two
+higher learning rates per seed), which is why its perceptron rate differs from the
+sweep's. In it, the best Kolmogorov--Arnold network in the entire study is the
 \emph{least} Kolmogorov--Arnold-like one, and it reaches \nLthreeBestKan\ against
 the perceptron's \nLthreeBestKanMlp, a difference of \nLthreeBestKanDiff,
 interval [\nLthreeBestKanLo, \nLthreeBestKanHi]: \nLthreeBestKanSig. That interval
@@ -1208,7 +1210,7 @@ sweep is confounded with width at a matched budget: the spectral weights cost
 \(\mathcal{O}(w^2 m^2)\), so width falls as modes rise. The monotone degradation
 across that sweep therefore \emph{cannot} be read as ``more Fourier modes do not
 help''. The basis-size statements are made for DeepONet, where \(p\) and width are
-controlled separately, and is not claimed for the Fourier operator.
+controlled separately, and are not claimed for the Fourier operator.
 
 \subsection{L6: separate identification of the kinetic and equilibrium objects}
 
@@ -1236,7 +1238,7 @@ therefore not ruled out; what is ruled out is a dependence strong enough to have
 seen at this design's resolution. The axis is also not purely kinetic: for the
 \nDcExtendedPct\,\% of runs whose horizon was extended, Damk\"ohler exceeds the kinetic
 ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\) by the extension factor
-(Section~\ref{sec:methods}), so part of its spread is the length of the run.
+(Section~\ref{sec:model}), so part of its spread is the length of the run.
 
 \paragraph{The scope of that refutation} Kinetic control means Damk\"ohler well below unity, and this dataset never
 goes there: its lowest per-material value is \nDaMatMin. The hypothesis predicted
@@ -1248,7 +1250,7 @@ oversight: the kinetic coefficient is not a free parameter in this dataset but i
 derived from particle size through the Glueckauf relation, so
 \(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
 bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
-\nDaPelletsAcross\ pellets across the \nDataBedLenCm\,\si{\centi\metre} column, where a
+\nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
 one-dimensional plug-flow model is no longer the right description. This is the same
 objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
 \(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
@@ -1371,7 +1373,9 @@ predicting the mean, and
 
 Against an oracle reconstruction handed the true coefficients for its first \(k\)
 modes, the best DeepONet found anywhere performs like a \nLfiveOracleONet-mode
-oracle, and the best Fourier operator like a \nLfiveOracleFNO-mode one. Three
+oracle, the best Fourier operator like a \nLfiveOracleFNO-mode one, DeepOKAN like a
+\nLfiveOracleOKAN-mode one and POD with gradient boosting like a
+\nLfiveOraclePodReg-mode one. Three
 independent function classes (POD plus random forest,
 plus gradient boosting, and DeepONet) are flat in rank on the legacy design while the floor falls by a factor of \nFloorDrop{} (on the full design DeepONet gains a little up to \(p = 16\), A29). Training basis and coefficients together, or learning the
 whole field at once, is worth a constant factor, up to \(\nOperatorLever\times\)
@@ -1415,7 +1419,7 @@ inference, made twice.
 \(k = 8\)--64. The Kolmogorov \(n\)-width, whose \(n\) is this mode count, is the
 residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpErr}\)
 and halving the error requires
-\(\nNwidthHalving\times\) the modes permanently. We separate the two because an
+\(\nNwidthHalving\times\) the modes. We separate the two because an
 earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
 halving factor computed correctly from the norm: two numbers in one sentence
 that disagreed by a factor of two in the exponent. Any method whose output is a linear
@@ -1557,7 +1561,7 @@ and the wall clock from the comparison and leaves a ratio a reader can carry to 
 hardware. On ours, the \nCostNSolves\ accepted simulations of the dataset took
 \nCostGenWall\ hours on \nCostWorkers\ workers, so one solve-equivalent is
 \nCostSolveSec\ worker-seconds and the whole training set cost about
-\nCostGenCoreHours\ core-hours. We report worker-seconds rather than
+\nCostGenCoreHours\ worker-hours. We report worker-seconds rather than
 core-seconds because a worker's own numerical libraries may use more than one
 thread, so this is an upper bound on the serial cost of a solve and a lower bound on
 what it occupies of a machine.
@@ -1761,8 +1765,11 @@ not modest for the anchor.
 reported as a limitation rather than as a result. The pre-registered primary uses the
 high-P\'eclet limit of the correlation; the second curve is the \emph{same}
 correlation without that truncation, at the same particle size, velocity and
-molecular diffusivity; the third is the authors' own Bruggeman closure. The measured
-95\,\% arrival time is bracketed by the last two.}
+molecular diffusivity; the third is the authors' own Bruggeman closure for the
+effective dispersion \(D_e\); the fourth repeats that closure at the smallest LDF
+constant \(k\) (in s\(^{-1}\)) that still keeps the step. Pe is the column P\'eclet
+number. The measured 95\,\% arrival time is bracketed by the untruncated correlation and
+the authors' Bruggeman closure.}
 \label{fig:anchorposthoc}
 \end{figure}
 
@@ -1811,7 +1818,7 @@ surrogate built only for harvesting conditions would not need them.
 
 \paragraph{The step does not move between feed temperatures} The cluster affinity is
 set per run so that the step sits at the material's step humidity at the feed
-temperature (Section~\ref{sec:methods}). Within a run the step still moves with the
+temperature (Section~\ref{sec:model}). Within a run the step still moves with the
 local bed temperature through the heat of adsorption, but across runs a material's
 step humidity at the feed temperature is the same by construction. In real MOF-303
 it moves with temperature \cite{hastings2024high}. The
@@ -1827,7 +1834,7 @@ constant.
 measurement on a covalent organic framework (COF) suitable for this comparison, so no
 claim is made for that class.
 
-\paragraph{Three rungs are exploratory} L3, L5's operator comparison and the
+\paragraph{Three comparisons are exploratory} L3, L5's operator comparison and the
 coordinate change are measured over \nNclustLegacy\ held-out materials, L4 over
 \nLfourbMatNmat, and L1, L2, L6 and L7 over \nNclustFolds. A verdict measured at one
 material count need not survive another (A26), so the three small-design verdicts are
@@ -1863,7 +1870,7 @@ each coefficient separately is worth up to \(\nOperatorLever\times\), of the sam
 as the \(\nLCratio\times\) that sixteen times more materials buys a fixed learner.
 
 \paragraph{What is eliminated, and what is not} Capacity is not eliminated: a random
-forest is still improving at its capacity ceiling, while the \nLtwoNUshaped{} neural and
+forest is still improving at its capacity ceiling, while the neural and
 boosting families saturate. At matched parameters a perceptron beats both
 Kolmogorov--Arnold families in every comparison by point estimate, \nLthreeSigSim\ of
 \nLthreePairs\ significantly after selection (exploratory). The Kolmogorov \(n\)-width
@@ -1917,7 +1924,7 @@ public repository,
 history, and the release that accompanies this article is archived at Zenodo
 \cite{batayhi2026code}, whose record links every later version. Dataset
 manifests are tracked; the field arrays are regenerable from the generator with the
-recorded seed, at a cost of about \nCostGenCoreHours\ core-hours for the larger dataset.
+recorded seed, at a cost of about \nCostGenCoreHours\ worker-hours for the larger dataset.
 
 \section*{Declaration of competing interest}
 The author declares no competing interests.

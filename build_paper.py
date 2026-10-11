@@ -63,7 +63,7 @@ _ALLOWED_PAIRS = [
     ("2000", "N_z, a grid size"),
     # the validate.py gate count used to be allow-listed here as "24"; it is a RESULT
     # and is now the macro \nGates, read from results/validation.json
-    ("1", "ordinal / unity; the 1 of 1 - eps_t and 1 + b c in the model equations"),
+    ("1", "ordinal / unity; the 1 of 1 - eps_t and 1 + b c in the model equations; unit exponents such as s^-1"),
     ("2", "ordinal / a term count; squares, square roots and radii (d_p/2) in the model equations and units; chemical-formula subscripts (Co_2Cl_2)"),
     ("3", "seed count and ordinal; the cube in density units (kg m^-3)"),
     ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in; the 4pt column gap of Table 3"),
@@ -119,7 +119,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 34,
+    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 4, "0.5": 2, "0.7": 2, "1": 33, "1.1": 1, "1.5": 1, "2": 34,
     "3": 3, "4": 8, "5": 4, "6": 1, "8": 8, "9.7": 1, "10": 15, "12": 7, "16": 5,
     "20": 1, "24": 1, "48": 4, "50": 2, "60": 2, "64": 3, "76": 1, "79": 1, "80": 5,
     "95": 3, "96": 3, "99.9": 2, "128": 6, "192": 10, "240": 2, "256": 1,
