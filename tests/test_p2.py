@@ -562,3 +562,13 @@ def test_p2_analyze_recovers_planted_verdicts():
     hc = h2c(cells, o1, m5, n_boot=200)
     assert hc["words"].startswith("EIV moves the boundary by"), hc
     assert isinstance(out["H2a"]["words"], str)
+
+
+def test_pysr_safe_names_are_valid_identifiers():
+    """B76: PySR refuses names like 'c*q'; the placeholders must be plain identifiers,
+    one per feature, in order, and must not collide with each other."""
+    from p2.pysr_method import safe_names
+    names = ["c", "q", "T", "c*q", "q^2", "c^2", "qstar"]
+    ph = safe_names(names)
+    assert len(ph) == len(names) and len(set(ph)) == len(ph)
+    assert all(p.isidentifier() and p.replace("_", "").isalnum() for p in ph)

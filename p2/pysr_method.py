@@ -17,11 +17,22 @@ from __future__ import annotations
 import numpy as np
 
 
+def safe_names(names):
+    """PySR accepts only alphanumeric/underscore variable names; Lib-B's are 'c*q', 'q^2'.
+
+    Returns placeholder names f0, f1, ... in the same order. A first version passed the
+    library names straight through, PySR refused every fit, and the M7 pilot recorded
+    the refusals as 'infeasible on this machine' (RETRACTIONS B76).
+    """
+    return [f"f{i}" for i in range(len(names))]
+
+
 def pysr_sr(features: dict, y, seed=0, niterations=40, maxsize=12, timeout_s=1800, procs=2):
     from pysr import PySRRegressor
     import sympy as sp
 
     names = list(features)
+    placeholders = safe_names(names)
     X = np.column_stack([np.asarray(features[n], float) for n in names])
     model = PySRRegressor(
         binary_operators=["+", "-", "*"], unary_operators=[],
@@ -29,15 +40,16 @@ def pysr_sr(features: dict, y, seed=0, niterations=40, maxsize=12, timeout_s=180
         deterministic=True, parallelism="serial" if procs <= 1 else "multithreading",
         timeout_in_seconds=timeout_s, model_selection="best", progress=False, verbosity=0,
         temp_equation_file=True)
-    model.fit(X, np.asarray(y, float), variable_names=names)
+    model.fit(X, np.asarray(y, float), variable_names=placeholders)
     expr = sp.expand(model.sympy())
-    syms = {sp.Symbol(n): n for n in names}
+    syms = {sp.Symbol(ph): n for ph, n in zip(placeholders, names)}
     coefs = {n: 0.0 for n in names}
     for term in sp.Add.make_args(expr):
         c, rest = term.as_coeff_Mul()
         if rest in syms and rest.is_Symbol:
             coefs[syms[rest]] += float(c)
         else:
-            key = str(term if rest == 1 else rest)
+            back = {sp.Symbol(ph): sp.Symbol(n) for ph, n in zip(placeholders, names)}
+            key = str((term if rest == 1 else rest).xreplace(back))
             coefs[key] = coefs.get(key, 0.0) + float(c if rest != 1 else term)
-    return coefs, str(expr)
+    return coefs, str(expr.xreplace({sp.Symbol(ph): sp.Symbol(n) for ph, n in zip(placeholders, names)}))

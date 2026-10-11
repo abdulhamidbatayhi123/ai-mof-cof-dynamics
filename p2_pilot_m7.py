@@ -71,9 +71,16 @@ def main():
         rows.append(row)
         print(f"seed {seed}: {expr}  success={ok}  {wall:.0f}s  peak {box[0] / 2 ** 30:.2f} GB", flush=True)
     n_ok = sum(r["success_L1"] for r in rows)
-    feasible = all(r["wall_s"] <= LIMIT_S and r["peak_rss_gb"] <= LIMIT_GB and r["error"] is None for r in rows)
-    decision = "INCLUDE M7 on its declared subgrid" if (n_ok >= 2 and feasible) else (
-        "M7 NOT RUN: infeasible on this machine" if not feasible else "M7 NOT RUN: fails the known-answer test")
+    # B76: an exception is a SOFTWARE failure, not a resource one -- it must never be
+    # recorded as 'infeasible'; the gate refuses to decide until the error is fixed.
+    errored = [r for r in rows if r["error"] is not None]
+    feasible = all(r["wall_s"] <= LIMIT_S and r["peak_rss_gb"] <= LIMIT_GB for r in rows)
+    if errored:
+        decision = (f"GATE ERRORED ({len(errored)} of {len(rows)} seeds raised; first: "
+                    f"{errored[0]['error'][:120]}) -- no decision; fix and re-run")
+    else:
+        decision = "INCLUDE M7 on its declared subgrid" if (n_ok >= 2 and feasible) else (
+            "M7 NOT RUN: infeasible on this machine" if not feasible else "M7 NOT RUN: fails the known-answer test")
     json.dump({"_what": __doc__.splitlines()[0], "k_true": K_TRUE, "noise": NOISE, "limits": {"wall_s": LIMIT_S,
                "peak_gb": LIMIT_GB}, "rows": rows, "n_success": n_ok, "feasible": feasible, "decision": decision},
               open(OUT, "w"), indent=2)

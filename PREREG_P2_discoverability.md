@@ -452,3 +452,20 @@ gate, M8 behind its cost gate (which it failed: NOT RUN on the grid). Done 2026-
 isothermal-control ground truth (9 cells in `data/p2`; isotherm at T_in identical to
 the Langmuir cells, max |T - T_in| = 0, all reached 95 % breakthrough); the L2 success
 metric and the Lib-A fidelity metric (`p2/metric.py`, tested).
+
+## 11. Pre-freeze pilot outcomes, 2026-10-11 (still before any discovery method has run on any grid cell)
+
+**ODR-BINDy port, five-seed check (`p2_odr_seeds.py`, `results/odr_bindy_seeds.json`).**
+Mean relative coefficient error over the five seeds 0.166 against the reported ~2.2e-3
+(gap ratio ~74); exact 7-term support in 1 of 5 seeds (the other four miss the `y` term of
+dy/dt, two also add a spurious term). Per §3 the port is reported, in the declared words, as
+**"port, accuracy below the reference"**, with that gap stated. As declared, this concerns the
+port's own verification only: M5 on the grid is the EIV best-subset, unchanged.
+
+**M7 PySR inclusion gate (`p2_pilot_m7.py`).** The first run recorded "M7 NOT RUN: infeasible
+on this machine". That decision was **wrong and is withdrawn**: every seed failed with the same
+`ValueError` -- PySR refuses variable names such as `c*q`, which Lib-B uses -- so the gate
+measured a bug in our wrapper, not the machine (RETRACTIONS B76). The wrapper now passes
+placeholder names and maps them back (`p2/pysr_method.safe_names`, with a test). The gate is
+re-run unchanged (same planted law, noise, seeds and limits: 1800 s and 3 GB per fit); its
+outcome is recorded here before the freeze.
