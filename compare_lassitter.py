@@ -156,10 +156,9 @@ def main():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42, "font.size": 9, "axes.grid": True,
-                         "grid.alpha": 0.25, "axes.spines.top": False, "axes.spines.right": False,
-                         "legend.frameon": False})
-    fig, ax = plt.subplots(figsize=(6.2, 3.8))
+    import figstyle as fs
+    fs.apply()
+    fig, ax = plt.subplots(figsize=(5.2, 3.3))
     for key, (t_min, frac) in curves.items():
         if key != pk:
             ax.plot(t_min, frac * RH_IN * 100, color="0.8", lw=0.6, zorder=1)
@@ -171,11 +170,11 @@ def main():
     ax.plot(inl[:, 0], inl[:, 1], "s", ms=3, mfc="none", mec="0.5", zorder=4, label="experiment, inlet")
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
     ax.set_xlabel("time (min)"); ax.set_ylabel("% RH")
-    ax.set_title("MOF-303 bed, 6.35 mm, 32.8 % RH, 298 K — Lassitter et al. 2024 Fig. 10")
-    ax.legend(fontsize=7, loc="lower right")
+    ax.set_title("MOF-303 bed (6.35 mm, 32.8 % RH, 298 K): data of Lassitter et al., Fig. 10")
+    ax.legend(loc="lower right", fontsize=6.6)
     os.makedirs("figures", exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"figures/Fig7_anchor.{ext}", dpi=600, bbox_inches="tight")
+        fig.savefig(f"figures/Fig7_anchor.{ext}", dpi=300)
     print(f"wrote results/lassitter_comparison.json and figures/Fig7_anchor.png/.pdf  [{time.time() - t0:.0f}s]")
 
 

@@ -77,10 +77,9 @@ def main():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42, "font.size": 9, "axes.grid": True,
-                         "grid.alpha": 0.25, "axes.spines.top": False, "axes.spines.right": False,
-                         "legend.frameon": False})
-    fig, ax = plt.subplots(figsize=(6.2, 3.8))
+    import figstyle as fs
+    fs.apply()
+    fig, ax = plt.subplots(figsize=(5.2, 3.3))
     prim = out["runs"]["wakao_dp3mm_k0.2 (primary, for reference)"]
     er = out["runs"]["edwards_richardson_k0.2"]
     brg = out["runs"]["bruggeman_k0.2"]
@@ -100,10 +99,10 @@ def main():
     ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", label="experiment, effluent (digitised)")
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
     ax.set_xlabel("time (min)"); ax.set_ylabel("% RH")
-    ax.set_title("post-hoc dispersion sensitivity — labelled as such, not the result")
-    ax.legend(fontsize=7, loc="lower right")
+    ax.set_title("Post-hoc dispersion sensitivity (not the pre-registered result)")
+    ax.legend(loc="lower right", fontsize=6.6)
     for ext in ("png", "pdf"):
-        fig.savefig(f"figures/Fig7b_anchor_posthoc.{ext}", dpi=600, bbox_inches="tight")
+        fig.savefig(f"figures/Fig7b_anchor_posthoc.{ext}", dpi=300)
     print("wrote results/lassitter_comparison_posthoc.json and figures/Fig7b_anchor_posthoc.png/.pdf")
 
 

@@ -1,19 +1,21 @@
-"""Figure: L5 — the operator rung, and why a bigger basis buys nothing.
+"""Figure 4: basis size, on both designs, and why the legacy null was retracted (A29).
 
-Every series is read from `results/l5_merged.json`, `results/l5_fno_verdict.json` and
-`results/l5_bottleneck.json`. No model is evaluated here.
+Every series is read from results files: `results/l5_merged.json`,
+`results/l5_fno_verdict.json`, `results/l5_bottleneck.json` (legacy design, 12
+held-out materials) and `results/l5_v2_verdict_24k.json`, `results/l5_bottleneck_v2.json`
+(full design, 240 materials in five folds). No model is evaluated here. Drawn at the
+printed width.
 
-This is deliberately NOT a second copy of the mechanism figure. That one decomposes
-the error into its basis and coefficient-map terms; this one is about the ARMS: what
-each family reaches, how flat they are in basis size, and where the Fourier operator
-lands relative to a bound that falls out from under all of them.
+  A  legacy design: held-out error of each operator family against basis size, with
+     the basis floor; the Fourier operator has no basis size and is a level.
+  B  full design: DeepONet against basis size (one point per fold, line through the
+     means), the per-mode gradient-boosting map, and the basis floor.
+  C  the paired differences against p = 8 on both designs: the legacy intervals span
+     zero; on the full design every larger basis is better. Per-pair intervals; the
+     p = 128 comparison also survives the selection adjustment (PREREG_L5_v2 A3).
 
-  A  held-out error against basis size, with the proper-orthogonal-decomposition
-     floor. The floor falls; nothing else does. The Fourier operator has no p and is
-     drawn as a horizontal line.
-  B  the paired comparisons against p = 8, which is what "flat" means here: four
-     intervals, all spanning zero, while the bound beneath falls.
-  C  the oracle calibration --- how many true coefficients each method is worth.
+The mechanism figure (Figure 5) decomposes the error into its basis and map terms;
+this one is about the arms and the basis-size verdict.
 
     python fig_operators.py
 """
@@ -27,23 +29,21 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import NullFormatter
 
-plt.rcParams.update({
-    "figure.dpi": 160, "savefig.dpi": 600, "font.size": 9,
-    "axes.grid": True, "grid.alpha": 0.25, "axes.spines.top": False,
-    "axes.spines.right": False, "legend.frameon": False,
-    "pdf.fonttype": 42, "ps.fonttype": 42, "svg.fonttype": "none",
-})
+import figstyle as fs
+
 OUT = "figures"
-C_ONET, C_OKAN, C_FNO, C_COEF = "#3b6ea5", "#b5423f", "#6a994e", "#e08b3a"
-
 PENDING_RESULTS = ()
 
 
 def main():
+    fs.apply()
     m = json.load(open("results/l5_merged.json"))
     fno = json.load(open("results/l5_fno_verdict.json"))
     bt = json.load(open("results/l5_bottleneck.json"))
+    v2 = json.load(open("results/l5_v2_verdict_24k.json"))
+    bt2 = json.load(open("results/l5_bottleneck_v2.json"))
 
     ps = sorted(int(p) for p in m["pod_floor"])
     floor = np.array([m["pod_floor"][str(p)] for p in ps])
@@ -52,72 +52,80 @@ def main():
     rows = {r["p"]: r for r in bt["rows"]}
     coef = np.array([rows[p]["coef_pred_novel"] for p in ps])
 
-    fig, (a, b, c) = plt.subplots(1, 3, figsize=(12.6, 3.6))
-    fig.subplots_adjust(wspace=0.42)
+    fig, (a, b, c) = plt.subplots(1, 3, figsize=(7.2, 2.75))
+    fig.subplots_adjust(wspace=0.5, top=0.78)
 
-    # ---- A: the arms, and the floor falling out from under them
-    a.loglog(ps, floor, "k--", lw=1.5, marker="o", ms=4, label="POD floor (the n-width bound)")
-    a.loglog(ps, coef, "o-", color=C_COEF, lw=1.7, ms=5, label="POD + strongest regressor")
-    a.loglog(ps, okan, "^-", color=C_OKAN, lw=1.6, ms=5, label="DeepOKAN")
-    a.loglog(ps, onet, "s-", color=C_ONET, lw=1.8, ms=5, label="DeepONet")
-    fb = fno["fno_best"]
-    a.axhline(fb["mean"], color=C_FNO, lw=1.8, ls="-.",
-              label=f"FNO (modes {fb['modes']}, no p)")
-    a.set_xticks(ps); a.set_xticklabels([str(p) for p in ps])
-    a.set_xlabel("basis size $p$"); a.set_ylabel("held-out nRMSE (c), 12 materials")
-    drop = floor[0] / floor[-1]
-    a.set_title(f"A. the bound falls {drop:.0f}x; no arm follows it", fontsize=9.5, loc="left")
-    a.legend(fontsize=6.6, loc="lower left")
-    a.annotate("", xy=(ps[-1], floor[-1]), xytext=(ps[-1], onet[-1]),
-               arrowprops=dict(arrowstyle="<->", color="0.45", lw=1.0))
-    a.text(ps[-1] * 0.92, np.sqrt(floor[-1] * onet[-1]),
-           f"{onet[-1] / floor[-1]:.0f}x", ha="right", fontsize=7.5, color="0.3")
+    def xaxis(ax):
+        ax.set_xscale("log")
+        ax.set_xticks(ps); ax.set_xticklabels([str(p) for p in ps])
+        ax.xaxis.set_minor_formatter(NullFormatter())
+        ax.set_xlabel("basis size $p$")
 
-    # ---- B: what "flat" means -- the paired comparisons against p = 8
-    cmp_ = m["paired_vs_smallest_p"]
-    keys = [f"deeponet_p{p}" for p in ps[1:] if f"deeponet_p{p}" in cmp_]
-    y = np.arange(len(keys))[::-1]
-    for yi, k in zip(y, keys):
-        r = cmp_[k]
-        col = "#8a8a8a" if not r["significant"] else C_ONET
-        b.plot([r["ci_low"], r["ci_high"]], [yi, yi], color=col, lw=2.4,
-               solid_capstyle="butt")
-        b.plot([r["ci_low"], r["ci_high"]], [yi, yi], "|", color=col, ms=8)
-        b.plot([r["mean_diff"]], [yi], "o", color=col, ms=7)
-    b.axvline(0, color="k", lw=1.0)
-    b.set_yticks(y); b.set_yticklabels([k.replace("deeponet_", "") + " vs p8" for k in keys],
-                                       fontsize=8)
-    b.set_xlabel("paired difference in nRMSE vs $p = 8$")
-    n_null = sum(1 for k in keys if not cmp_[k]["significant"])
-    b.set_title(f"B. {n_null}/{len(keys)} intervals span zero", fontsize=9.5, loc="left")
-    b.set_ylim(-0.9, len(keys) - 0.1)
-    b.text(0.5, 0.02, "a sixteenfold larger basis, and no detectable change",
-           transform=b.transAxes, ha="center", va="bottom", fontsize=7, color="0.35")
+    # ---- A: legacy design, the arms and the floor
+    a.plot(ps, floor, "--", color=fs.C["dark"], marker="o", ms=3, lw=1.1)
+    a.plot(ps, coef, "o-", color=fs.ARM_COLOUR["pod_reg"], ms=3)
+    a.plot(ps, okan, "^-", color=fs.ARM_COLOUR["deepokan"], ms=3)
+    a.plot(ps, onet, "s-", color=fs.ARM_COLOUR["deeponet"], ms=3)
+    a.axhline(fno["fno_best"]["mean"], color=fs.ARM_COLOUR["fno"], lw=1.3, ls="-.")
+    a.set_yscale("log"); xaxis(a)
+    a.set_ylabel("held-out nRMSE (c)")
+    a.set_title("A  Legacy, 12 materials")
 
-    # ---- C: the oracle calibration
-    r128 = rows[ps[-1]]
-    r2 = np.array(r128["mode_r2_novel"])
-    k = np.arange(1, len(r2) + 1)
-    cols = np.where(r2 > 0.5, C_ONET, np.where(r2 > 0.2, C_COEF, "0.78"))
-    c.bar(k, np.clip(r2, -0.3, 1.0), color=cols, width=0.9)
-    c.axhline(0.5, color=C_ONET, lw=0.8, ls=":")
-    c.axhline(0.2, color=C_COEF, lw=0.8, ls=":")
-    c.axhline(0.0, color="k", lw=0.6)
-    c.set_xscale("log"); c.set_xlim(0.8, len(r2) + 1); c.set_ylim(-0.3, 1.0)
-    c.set_xlabel(f"POD mode index (at $p = {ps[-1]}$)")
-    c.set_ylabel("$R^2$ of the coefficient map,\nheld-out materials")
-    n5, n2 = int((r2 > 0.5).sum()), int((r2 > 0.2).sum())
-    c.set_title(f"C. only {n5} of {len(r2)} modes clear $R^2>0.5$", fontsize=9.5, loc="left")
-    c.text(0.98, 0.93, f"{n2} clear 0.2\nthe rest are worse than\npredicting the mean",
-           transform=c.transAxes, ha="right", va="top", fontsize=7, color="0.35")
+    # ---- B: full design, DeepONet per fold, the per-mode map, the floor
+    ps2 = sorted(int(p) for p in v2["pod_floor_pooled"])
+    floor2 = np.array([v2["pod_floor_pooled"][str(p)] for p in ps2])
+    on2 = np.array([v2["selected"][f"deeponet_p{p}"]["mean"] for p in ps2])
+    folds = np.array([v2["selected"][f"deeponet_p{p}"]["per_fold"] for p in ps2])
+    coef2 = np.array([bt2["summary"][str(p)]["coef_pred"] for p in ps2])
+    b.plot(ps2, floor2, "--", color=fs.C["dark"], marker="o", ms=3, lw=1.1)
+    b.plot(ps2, coef2, "o-", color=fs.ARM_COLOUR["pod_reg"], ms=3)
+    for j in range(folds.shape[1]):
+        b.plot(ps2, folds[:, j], "o", color=fs.ARM_COLOUR["deeponet"], ms=2, alpha=0.45, mec="none")
+    b.plot(ps2, on2, "s-", color=fs.ARM_COLOUR["deeponet"], ms=3)
+    b.set_yscale("log"); xaxis(b)
+    b.set_ylabel("held-out nRMSE (c)")
+    b.set_title("B  Full design, 240 materials")
+    b.text(0.97, 0.63, f"DeepONet over\nthe floor:\n{on2[0] / floor2[0]:.1f}× at $p$ = 8\n"
+                       f"{on2[-1] / floor2[-1]:.0f}× at $p$ = 128",
+           transform=b.transAxes, ha="right", va="center", fontsize=6.3, color="0.25")
+
+    # ---- C: paired differences against p = 8, both designs
+    leg = m["paired_vs_smallest_p"]
+    full = v2["paired_vs_smallest_p"]
+    rows_c = [p for p in ps[1:]]
+    for i, p in enumerate(rows_c):
+        for off, src, col in ((-0.16, leg, "0.55"), (0.16, full, fs.C["blue"])):
+            r = src.get(f"deeponet_p{p}")
+            if r is None:
+                continue
+            base = (m["selected"]["deeponet_p8"]["mean"] if src is leg
+                    else v2["selected"]["deeponet_p8"]["mean"])
+            lo, hi, mu = (100 * r[k] / base for k in ("ci_low", "ci_high", "mean_diff"))
+            y = len(rows_c) - 1 - i + off
+            c.plot([lo, hi], [y, y], color=col, lw=2.0, solid_capstyle="butt")
+            c.plot([mu], [y], "o", color=col, ms=3.5)
+    c.axvline(0, color="k", lw=0.8)
+    c.set_yticks(range(len(rows_c))); c.set_yticklabels([f"$p$ = {p}" for p in rows_c[::-1]])
+    c.set_xlabel("gain over $p$ = 8 (% of error)")
+    c.set_title("C  Gain over $p$ = 8")
+    c.grid(axis="y", visible=False)
+
+    handles = [plt.Line2D([], [], color=fs.ARM_COLOUR["deeponet"], marker="s", ms=3, label="DeepONet"),
+               plt.Line2D([], [], color=fs.ARM_COLOUR["deepokan"], marker="^", ms=3, label="DeepOKAN"),
+               plt.Line2D([], [], color=fs.ARM_COLOUR["pod_reg"], marker="o", ms=3, label="POD + gradient boosting"),
+               plt.Line2D([], [], color=fs.ARM_COLOUR["fno"], ls="-.", label="Fourier neural operator"),
+               plt.Line2D([], [], color=fs.C["dark"], ls="--", marker="o", ms=3, label="basis floor"),
+               plt.Line2D([], [], color="0.55", lw=2, label="legacy design (C)"),
+               plt.Line2D([], [], color=fs.C["blue"], lw=2, label="full design (C)")]
+    fig.legend(handles=handles, loc="upper center", ncol=4, bbox_to_anchor=(0.5, 1.03),
+               fontsize=6.6, columnspacing=1.0, handlelength=1.8)
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):
-        fig.savefig(f"{OUT}/Fig4_operators.{ext}", bbox_inches="tight")
+        fig.savefig(f"{OUT}/Fig4_operators.{ext}")
     plt.close(fig)
-    print(f"wrote {OUT}/Fig4_operators.png/.pdf  (floor falls {drop:.1f}x; "
-          f"DeepONet {onet[-1]/floor[-1]:.0f}x above it; FNO {fb['mean']/floor[-1]:.0f}x; "
-          f"{n_null}/{len(keys)} paired intervals span zero)")
+    print(f"wrote {OUT}/Fig4_operators.png/.pdf  (legacy floor falls {floor[0] / floor[-1]:.1f}x; "
+          f"full design DeepONet {on2[0]:.4f} -> {on2[-1]:.4f})")
 
 
 if __name__ == "__main__":
