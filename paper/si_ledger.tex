@@ -10,7 +10,7 @@
 \setlength{\emergencystretch}{3em}
 \begin{document}
 \section*{Supplementary Information S1: the correction ledger}
-Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 76 caught defects (B), every entry in full. The main text cites entries by these codes.
+Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 77 caught defects (B), every entry in full. The main text cites entries by these codes.
 
 \subsection*{A1}\label{led:A1}
 \begin{description}[leftmargin=0pt,itemsep=1pt]
@@ -605,5 +605,11 @@ Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 76 c
 \item[Defect.] \emph{Our own error: a bug recorded as a hardware limit.} Paper 2's M7 inclusion gate (\texttt{p2\_pilot\_m7.py}, PREREG\_P2 §3) wrote \textbf{``M7 NOT RUN: infeasible on this machine''}. Every seed had failed with the same exception -- PySR accepts only alphanumeric variable names, and the wrapper passed Lib-B's names (\texttt{c*q}, \texttt{q\textasciicircum{}2}) straight through. Seed 0's 635 s was Julia compiling before the error; seeds 1-2 'ran' in 0 s. The first re-run exposed a second configuration error of the same kind: \texttt{deterministic=True} with multithreading, which PySR also refuses (and the gate, started before its decision rule was fixed, again wrote 'infeasible').
 \item[Resolution.] \textbf{Fixed before the freeze; the decision withdrawn.} \texttt{p2/pysr\_method.safe\_names} passes placeholders and maps them back (test added); the gate is re-run unchanged and its outcome recorded in PREREG\_P2 §11. No grid result existed.
 \item[Note.] \emph{Found 2026-10-11 by noticing that two of three seeds took zero seconds.} The gate's verdict rule counted an exception as a failure to meet the limits, so a software error and an infeasible method produced the same words. \textbf{A gate must distinguish 'it could not run' from 'it ran and failed'.}
+\end{description}
+\subsection*{B77}\label{led:B77}
+\begin{description}[leftmargin=0pt,itemsep=1pt]
+\item[Defect.] \emph{Our own error: a byline asserted from a source that did not say it.} The reference for Perry's Section 16 (9th ed., 2019) listed \textbf{two} authors, as surnames only (``LeVan and Carta''), and CITATIONS.md recorded that the 9th-edition byline of two had been ``confirmed from a publisher document''. The publisher's own citation metadata (AccessEngineering, ISBN 9780071834087) lists \textbf{four}: M. Douglas LeVan, Giorgio Carta, James A. Ritter and Krista S. Walton. The same pass found the Rathore et al. entry still carrying surnames only, three arXiv preprints without their preprint DOIs, and two old sources (Anzelius 1926, Ogata \& Banks 1961) without the DOIs Crossref holds for them.
+\item[Resolution.] \textbf{Fixed.} Four authors and ``Section 16'' from the publisher record; Rathore et al. given full names from the arXiv record and the PMLR 235 pages (42159--42191); preprint DOIs (10.48550) and the Crossref DOIs added, each resolved before use. arXiv's ``related DOI'' for Zorawski et al. was checked again and still belongs to a different paper (B48), so that entry stays a preprint.
+\item[Note.] \emph{Found 2026-10-11 while applying the journal's guide, which asks for preprint DOIs and every available DOI.} A ledger line saying a record was confirmed is itself a claim; it was not re-read until a rule forced a second look. \textbf{Re-read the record, not the note about it.}
 \end{description}
 \end{document}
