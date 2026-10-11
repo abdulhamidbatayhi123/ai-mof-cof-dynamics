@@ -1,14 +1,14 @@
 cff-version: 1.2.0
 title: >-
-  What limits machine-learning surrogates on unseen adsorbents? A
-  pre-registered falsification study of metal-organic framework
-  water-adsorption columns
+  Code, results and pre-registrations for: What limits machine-learning
+  surrogates on unseen adsorbents? A pre-registered falsification study of
+  metal-organic framework water-adsorption columns
 message: If you use this software or its results, please cite it.
 type: software
 authors:
   - given-names: Abdulhamid
     family-names: Batayhi
-    email: abdulbatayhi@gmail.com
+    email: abdulhamid.batayhi@std.yildiz.edu.tr
     orcid: "https://orcid.org/0009-0007-0374-6755"
     affiliation: >-
       Yıldız Technical University, Faculty of Mechanical Engineering,
