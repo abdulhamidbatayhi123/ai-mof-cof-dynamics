@@ -89,8 +89,10 @@ def main():
     fig.text(0.70, 0.835, f"basis {N['LfiveVtwoFloorDrop']}× better, error moves "
              f"{N['LfiveVtwoCoefChangePct']} %", fontsize=5.8, color="0.35", va="top")
 
+    box = matplotlib.transforms.Bbox([[0, 0], [13 * CM, 5 * CM]])
     for ext in ("pdf", "png", "tiff"):
-        fig.savefig(f"figures/graphical_abstract.{ext}", dpi=600, bbox_inches=matplotlib.transforms.Bbox([[0, 0], [13 * CM, 5 * CM]]))
+        kw = {"pil_kwargs": {"compression": "tiff_lzw"}} if ext == "tiff" else {}
+        fig.savefig(f"figures/graphical_abstract.{ext}", dpi=600, bbox_inches=box, **kw)
     print("wrote figures/graphical_abstract.{pdf,png,tiff} at 13 x 5 cm, 600 dpi")
 
 
