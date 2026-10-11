@@ -28,39 +28,11 @@
   "line_at_review": 104
  },
  {
-  "key": " [third] - or flux-type boundary condit",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 145
- },
- {
   "key": "a semi-infinite solution. The [two] boundary conditions differ by",
   "word": "two",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 151
- },
- {
-  "key": "et concentration at the front [half] -height at",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 152
- },
- {
-  "key": "about [one] per cent, invariant across sn",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "the pre-fix closure error recorded in ledger entry B8 (1.02 %) when found; the defective code no longer exists to re-run",
-  "line_at_review": 161
- },
- {
-  "key": "set to [zero] , after which closure improved",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 162
  },
  {
   "key": "e solver. Each check isolates [one] term of the",
@@ -96,20 +68,6 @@
   "class": "DESIGN",
   "reason": "same",
   "line_at_review": 226
- },
- {
-  "key": "A property verified at [one] configuration is not a proper",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 240
- },
- {
-  "key": "pled materials rather than at [two] ",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 242
  },
  {
   "key": "follows. The [two] features move {independently",
@@ -518,46 +476,11 @@
   "line_at_review": 1089
  },
  {
-  "key": "bracketed by the [two] closures. {So a substantial",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1102
- },
- {
-  "key": "and not the bed geometry, but [one] term evaluated",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1103
- },
- {
-  "key": "the digitised effluent. Those [two] shares differ because the err",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1106
- },
- {
   "key": "{ [Two] parameters are not measuremen",
   "word": "Two",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 1120
- },
- {
-  "key": "y saying so, not by inventing [one] , and the title claims only fr",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1127
- },
- {
-  "key": "{ [Three] rungs are measured on the sma",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "counts L3, L5 and the coordinate change, named in the same sentence",
-  "line_at_review": 1130
  },
  {
   "key": "e answer is assembled here in [one] place, because each piece of",
@@ -621,13 +544,6 @@
   "class": "DESIGN",
   "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
   "line_at_review": 236
- },
- {
-  "key": "ls did not survive 192, those [three] verdicts must",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "the three rungs named in the same paragraph",
-  "line_at_review": 1146
  },
  {
   "key": " [three] target ratios , neural-tange",
@@ -803,13 +719,6 @@
   "class": "DESIGN",
   "reason": "ratio of the two designs' nominal alphas, 0.005/0.02, both fixed by protocol",
   "line_at_review": 381
- },
- {
-  "key": "the column between the first [two] samples, and the second front",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "'between the first two samples' = adjacent stored time points (grid position, not a measured count; screen: warp_level_screen_bc.json)",
-  "line_at_review": 273
  },
  {
   "key": "ration (a fixed budget, depth [three] ,",
@@ -1097,41 +1006,6 @@
   "class": "PROSE",
   "reason": "pronoun",
   "line_at_review": 1059
- },
- {
-  "key": "anti-conservative for [one] chosen after looking. For the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 1552
- },
- {
-  "key": "at once, so for the selected [one] however it was selected; on",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 1557
- },
- {
-  "key": "The correction changes [one] verdict. The Fourier operator",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the L5 FNO verdict (B75), read off the two selection files",
-  "line_at_review": 1564
- },
- {
-  "key": "rests on [two] choices made on the test mate",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "one choice per family, by construction of the comparison",
-  "line_at_review": 1565
- },
- {
-  "key": "s made on the test materials, [one] per family. Paid for over all",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "distributive, not a count",
-  "line_at_review": 1565
  },
  {
   "key": "{ [Three] designs, their levels, all st",
@@ -1769,5 +1643,96 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1979
+ },
+ {
+  "key": "e (Section~ ). The inlet is a [third] - or flux-type",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 222
+ },
+ {
+  "key": "et concentration at the front [half] -height at P\\'eclet",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 229
+ },
+ {
+  "key": "bal mass closure off by about [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "the pre-fix closure error recorded in ledger entry B8 (1.02 %) when found; the defective code no longer exists to re-run",
+  "line_at_review": 233
+ },
+ {
+  "key": "et dispersive flux was set to [zero] , after which closure improved",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 234
+ },
+ {
+  "key": "eir Sips term, like ours, has [zero] slope at the origin; we read",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 298
+ },
+ {
+  "key": "pled materials rather than at [two] named",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 309
+ },
+ {
+  "key": "the column between the first [two] samples and the second front",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 332
+ },
+ {
+  "key": "erses. The correction changes [one] verdict: the Fourier operator",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1685
+ },
+ {
+  "key": "bracketed by the [two] closures. A substantial part",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two dispersion closures named in the sentence",
+  "line_at_review": 1743
+ },
+ {
+  "key": "discrepancy is therefore [one] term evaluated at its limit:",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1744
+ },
+ {
+  "key": "{ [Three] rungs are exploratory} L3, L5",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three small-design rungs named in the paragraph (L3, L5 operator comparison, warp)",
+  "line_at_review": 1790
+ },
+ {
+  "key": "over . A verdict measured at [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1792
+ },
+ {
+  "key": "survive another (A26), so the [three] small-design verdicts are",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three small-design rungs named in the paragraph (L3, L5 operator comparison, warp)",
+  "line_at_review": 1793
  }
 ]

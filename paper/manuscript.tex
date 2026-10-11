@@ -256,30 +256,23 @@ system, and of what consumes it (Section~\ref{sec:warp}).
 \section{The reference and its verification}
 \label{sec:reference}
 
-Every surrogate number in this paper is \emph{surrogate-versus-solver}. The solver
-is therefore not a detail, and it is verified rather than asserted.
-
-The model is a one-dimensional non-isothermal packed bed with axial dispersion, a
-linear-driving-force kinetic closure and a coupled energy balance. The inlet is a
-third- or flux-type boundary condition. That choice matters, and it was
-initially made wrongly: our first verification compared the solver against Ogata and
+Every surrogate number in this paper is \emph{surrogate-versus-solver}, so the
+solver is verified rather than asserted. The model is a one-dimensional non-isothermal
+packed bed with axial dispersion, a linear-driving-force (LDF) kinetic closure and a
+coupled energy balance (Section~\ref{sec:methods}). The inlet is a third- or flux-type
+boundary condition. That choice matters, and it was initially made wrongly: our first verification compared the solver against Ogata and
 Banks \cite{ogata1961solution}, who solve the \emph{first-} or concentration-type inlet. Against the correct
 closed form (van Genuchten and Alves \cite{vangenuchten1982analytical}, who give the third-type solution), the
 error falls to \nLzeroTracer{} absolute, an improvement of more than an order of
 magnitude, with the residual maximum at the outlet where a finite column legitimately
 differs from a semi-infinite solution. The two boundary conditions differ by
-\nLzeroBCdiff\,\% of the inlet concentration at the front half-height at
-\(\mathrm{Pe} \approx \nLzeroTracerPe\); the difference does not stay confined to an
-inlet boundary layer, which is why using the wrong reference is not a small matter.
-
-The same choice is vindicated independently. Van Genuchten and Alves state that the
-flux-type condition conserves mass inside a column whereas the concentration-type
-condition causes mass-balance errors that grow with \(D/v\). That is precisely the
-defect we found numerically and separately: a Dirichlet ghost cell in the dispersion
-stencil drove an artificial dispersive influx and left global mass closure off by
-about one per cent, invariant across snapshot counts, until the inlet dispersive flux was
-set to zero, after which closure improved to \(\nMassClosure\,\%\)
-(Section~\ref{sec:corrections}, B8).
+\nLzeroBCdiff\,\% of the inlet concentration at the front half-height at P\'eclet
+number \(\mathrm{Pe} \approx \nLzeroTracerPe\), well outside an inlet boundary layer.
+Van Genuchten and Alves also state that the concentration-type condition causes
+mass-balance errors that grow with \(D/v\), which is the defect we found separately: a
+Dirichlet ghost cell in the dispersion stencil left global mass closure off by about one
+per cent until the inlet dispersive flux was set to zero, after which closure improved
+to \(\nMassClosure\,\%\) (B8).
 
 The solver reproduces \nLzeroNchecks{} closed-form solutions, each isolating one
 term of the model (Table~\ref{tab:l0}), and its grid convergence is \(\nGridConv\,\%\) at
@@ -304,16 +297,11 @@ linear driving force vs.\ Anzelius--Schumann \cite{anzelius1926uber,schumann1929
 \end{tabular}}
 \end{table}
 
-\paragraph{What we read, and what we read through} The Anzelius and Schumann papers
-are closed and carry no abstract in any bibliographic service, so the \(J\)-function
-was verified through Perry's handbook \cite{levan2019adsorption} rather than from either original.
-That is a two-step chain: Perry's carries the integral
-definition of \(J\) and itself attributes it to a later chemical-engineering source we
-could not verify, so our check rests on Perry's transcription. The same is
-true of Danckwerts's 1953 paper \cite{danckwerts1953continuous}, for which we
-additionally cite Pearson's note \cite{pearson1959note}.
-Section~\ref{sec:reproducibility} lists every reference cited through a secondary
-source rather than read at the primary.
+The Anzelius and Schumann papers could not be retrieved, so the \(J\)-function was
+checked through Perry's handbook \cite{levan2019adsorption}; Danckwerts's 1953 paper
+\cite{danckwerts1953continuous} likewise, for which we also cite Pearson's note
+\cite{pearson1959note}. Section~\ref{sec:reproducibility} lists every reference read
+through a secondary source.
 
 %% ===========================================================================
 \section{The physics of the column}
@@ -344,25 +332,22 @@ with \(b_H(T) = b_{H0}\exp(-\Delta H/RT)\) and \(b_C(T) = b_{C0}\exp(-\Delta H/R
 Both affinities carry the same \(\Delta H\), so \(q_{st} = -\Delta H + RT\) holds at
 every loading; it is reproduced to within \nIsoCCmaxErr\,\% at a quarter, a half and three quarters of capacity.
 
-The phrase ``in the spirit of'' is deliberate. Do and Do superpose an \(n\)-layer
-BET primary term with a Sips term; ours is a Langmuir primary term with a Sips term.
-What we take from them is the two-term construction and the fact that \emph{only the
-primary term carries the Henry slope}; their Sips term, like ours, has slope
-exactly zero at the origin \cite{buttersack2019modeling}. We read the Do--Do functional form itself through Buttersack's transcription, because the original paper could not be retrieved; Buttersack proposes a competing isotherm, so his transcription is not an endorsement of the form. Their cluster exponent is fixed; ours is a sampled
-material parameter, which is the later model's treatment \cite{dodo2009new}. Calling equation~\eqref{eq:isotherm} ``the Do--Do form'' would
-be wrong, and it is a correction we made to our own text
-(Section~\ref{sec:corrections}, B56). We call the isotherm family S-shaped, or
-stepped, and attach no IUPAC type to it here. The lower end of the sampled
+Do and Do superpose a Brunauer--Emmett--Teller (BET) primary term with a Sips term;
+ours is a Langmuir primary term with a Sips term. We take from them the two-term
+construction and the fact that \emph{only the primary term carries the Henry slope}
+(their Sips term, like ours, has zero slope at the origin; we read their form through
+Buttersack's transcription \cite{buttersack2019modeling}). Their cluster exponent is
+fixed; ours is a sampled material parameter, the later model's treatment
+\cite{dodo2009new}. We call the isotherm S-shaped, or stepped, and attach no IUPAC type
+to it (B56). The lower end of the sampled
 cooperativity is only weakly stepped: \nChemWeakNPct\,\% of the materials of the
 larger dataset have \(n < \nChemWeakN\), where the cooperative term is close to
 Langmuir.
 
 \subsection{Henry's law holds everywhere; the region where it dominates does not}
 
-A property verified at one configuration is not a property of a parameter space.
-This is the error class of A18, A21 and A26 applied to the isotherm rather than to a
-sample size. Measured across all \nIsoNmat\ sampled materials rather than at two
-named configurations: \(n > 1\) strictly for every material, so the cooperative term
+Measured across all \nIsoNmat\ sampled materials rather than at two named
+configurations: \(n > 1\) strictly for every material, so the cooperative term
 is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
 But \(K_H\) spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
 \si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. The
@@ -371,12 +356,10 @@ the accessible Henry region) reaches \(10^{\nIsoHenryMax}\) of the feed at best
 and a median of \(10^{\nIsoHenryMed}\), but lies below \(10^{-3}\) of the feed for
 \nIsoHenryBelowMilli\ materials and below \(10^{-6}\) for \nIsoHenryBelowMicro. For
 those the isotherm is effectively Sips-like at every concentration the column
-visits. In the units of a water isotherm: at fixed temperature the concentration is
-proportional to relative humidity, so for a median material the near-linear uptake
-regime ends at \(10^{\nIsoHenryMed}\) of the feed humidity, and for
-\nIsoHenryBelowMicro\ materials below a millionth of it, which in practice means no
-linear region at all. The design claim is thermodynamic validity by construction, which holds
-everywhere; it is not an experimentally accessible linear regime, which does not.
+visits. Since concentration is proportional to relative humidity at fixed
+temperature, the near-linear uptake regime of a median material ends at
+\(10^{\nIsoHenryMed}\) of the feed humidity. The design guarantees thermodynamic validity
+everywhere, not an experimentally accessible linear regime.
 
 \subsection{An inflected isotherm produces a two-wave breakthrough}
 
@@ -385,16 +368,12 @@ Henry branch arrives first and plateaus; a slow, self-sharpening cooperative sho
 follows. The two features move \emph{independently} with material parameters, and
 their separation at the outlet spans \nGapMin--\nGapMax\ in normalised time, a
 factor of \nGapRange\ across the legacy parameter space, where it shapes the field
-every surrogate must reproduce. On the larger dataset that carries most rungs, the
-picture is less clean, as also noted in
-Section~\ref{sec:limitations}: at its stored time resolution the Henry wave crosses
-the column between the first two samples, and the second front is mostly a gradual,
-dispersive rise rather than a sharp shock. The two-wave structure is therefore the
-mechanism behind the legacy design's fields and behind the coordinate change of
-Section~\ref{sec:warp}, which is measured there; on the larger dataset it is present
-but not resolved well enough to align, and no verdict on that dataset depends on it.
+every surrogate must reproduce. On the larger dataset, at its stored time resolution,
+the Henry wave crosses the column between the first two samples and the second front is
+mostly a gradual, dispersive rise; the two-wave structure is present there but not
+resolved well enough to align, and no verdict on that dataset depends on it.
 
-This is established behaviour, not our observation. LeVan and Carta \cite{levan2019adsorption} give the
+This is established behaviour. LeVan and co-workers \cite{levan2019adsorption} give the
 mechanism: an unfavourable dimensionless isotherm admits a simple wave because low
 concentrations travel faster than high ones, a favourable isotherm admits no simple
 wave and the solution is a shock, and a favourable isotherm with mass-transfer
@@ -1734,26 +1713,19 @@ year that looks right.
 \paragraph{Best-of-grid selection on the test materials} Several comparisons pit the
 best of a grid (of learning rates, capacities, weightings or operator settings)
 against a single reference, with the best chosen on the same held-out materials the
-comparison is scored on. A per-pair interval is valid for a pair fixed in advance and
-anti-conservative for one chosen after looking. For these we report a studentised
-max-statistic cluster bootstrap, the single-step form of the procedure of Romano and
-Wolf \cite{romano2005stepwise}: materials are resampled jointly across all candidate
-arms, each arm's deviation is scaled by its own standard error, and the critical value
-is the quantile of the largest scaled deviation. The resulting interval holds for
-every candidate at once, so for the selected one however it was selected; on
-simulated families with no true effect it holds its level where the naive test on the
-winner does not. The worked case is L2: its best configuration, chosen from
-\nLtwoSelK\ on the held-out materials, keeps a gain over the L1 setting of
-\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\) once the choice is paid for. The same procedure
-was applied unchanged to the corrected L4 re-run, whose material-axis gain survives it
-(critical value \nLfourbSelQ\ standard errors; Section~\ref{sec:ladder}).
-The correction changes one verdict. The Fourier operator's advantage over DeepONet
-rests on two choices made on the test materials, one per family. Paid for over all
-\nLfiveSelK\ pairs, it is no longer significant (Section~\ref{sec:ladder}, B75).
-In L3 both families are taken at their best learning rate. Paid for in the same way,
-\nLthreeSigSim\ of the \nLthreePairs\ comparisons remain significant, and none reverses
-(Section~\ref{sec:ladder}). The cleaner remedy for every such choice (selecting on a validation split
-inside the training materials) is the protocol change we recommend for any rerun.
+comparison is scored on. A per-pair interval is anti-conservative for a pair chosen after looking, so for
+these we report a studentised max-statistic cluster bootstrap, the single-step form of
+the procedure of Romano and Wolf \cite{romano2005stepwise}: materials are resampled
+jointly across all candidate arms, each arm's deviation is scaled by its own standard
+error, and the critical value is the quantile of the largest scaled deviation, so the
+interval holds for every candidate at once. L2's best configuration, chosen from
+\nLtwoSelK, keeps a gain of \(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\) over the L1 setting; the
+corrected L4 re-run's material-axis gain survives (critical value \nLfourbSelQ\ standard
+errors); in L3, \nLthreeSigSim\ of the \nLthreePairs\ comparisons remain significant and
+none reverses. The correction changes one verdict: the Fourier operator's advantage over
+DeepONet, paid for over all \nLfiveSelK\ pairs, is no longer significant (B75). Selecting
+on a validation split inside the training materials is the protocol change we recommend
+for any rerun.
 
 \paragraph{One partial differential equation family} Everything here is measured on
 one model of one process. The ladder is a method; its verdicts are not claimed
@@ -1767,20 +1739,14 @@ validity. Every other number is surrogate-versus-solver.
 
 \paragraph{The dispersion closure needs a more careful statement than we first gave
 it, and its effect is measured} Our datasets use
-\(D_L = 0.7 D_m + 0.5 d_p u\), with \(u\) the interstitial velocity. The coefficients are attributable to Wakao and
-Funazkri \cite{wakao1978effect} rather than to the textbook we originally cited, and
-Perry's handbook \cite{levan2019adsorption} presents that form as a \emph{lower bound} for \emph{nonporous}
-particles, noting that the leading coefficient rises to as much as
-\(20/\varepsilon_t\) depending on the intraparticle mass-transfer mechanism and that
-for strongly adsorbed species the effective axial dispersion is much larger. Our beds
-are porous, strongly adsorbing frameworks taking up water, which is the case that statement
-excludes.
-
-That form is also the high-particle-P\'eclet \emph{limit} of Edwards and Richardson's
-correlation \cite{edwards1968gas}, whose mechanical coefficient carries an extra
-factor \(\left[1 + 9.7\,D_m/(d_p u)\right]^{-1}\). Whether the limit applies is a
-question about our own parameter space, so we measured it rather than assuming it.
-On the interstitial velocity the particle P\'eclet number \(d_p u / D_m\) runs
+\(D_L = 0.7 D_m + 0.5 d_p u\), with \(u\) the interstitial velocity, a form due to Wakao
+and Funazkri \cite{wakao1978effect} that Perry's handbook \cite{levan2019adsorption}
+presents as a \emph{lower bound} for \emph{nonporous} particles; for porous, strongly
+adsorbing particles such as ours the effective axial dispersion is larger. The form is
+also the high-particle-P\'eclet \emph{limit} of Edwards and Richardson's correlation
+\cite{edwards1968gas}, whose mechanical coefficient carries an extra factor
+\(\left[1 + 9.7\,D_m/(d_p u)\right]^{-1}\), so we measured whether the limit applies.
+The particle P\'eclet number \(d_p u / D_m\) runs
 \nPePartMin--\nPePartMax\ across the dataset, median \nPePartMed, spanning
 \nPePartDecades{} decades. Over that range the two published forms disagree by a
 median factor of \nDispRatioMed, exceeding \(1.1\times\) for \nDispFracAboveTenPct\,\%
@@ -1814,23 +1780,17 @@ not a fit, and not the pre-registered result) moves the 95\,\% arrival time from
 effluent from \nAnchorNrmse\ to \nAnchorNrmseER\ (Figure~\ref{fig:anchorposthoc}).
 The authors' own Bruggeman closure goes further, to \nAnchorNrmseBrug, but overshoots
 in the other direction at \nAnchorTninetyfiveBrug\ minutes; the measured value is
-bracketed by the two closures. \emph{So a substantial part of the anchor's second
-named discrepancy is not the solver and not the bed geometry, but one term evaluated
-at its limit}: removing the truncation removes \nAnchorTcutPct\,\% of the model's
-excess 95\,\% arrival time over the measurement, and \nAnchorNrmseCutPct\,\% of its
-error against the digitised effluent. Those two shares differ because the error is
-dominated by the first-wave timing, which no dispersion closure touches; this is
-itself the reason to quote both rather than an average of them. None of this affects
-a surrogate result, because the solver is the reference
-whatever closure it uses and every arm sees the same reference; it bounds how far the
-reference may be read as physical.
+bracketed by the two closures. A substantial part of the anchor's second named
+discrepancy is therefore one term evaluated at its limit: removing the truncation
+removes \nAnchorTcutPct\,\% of the model's excess 95\,\% arrival time and
+\nAnchorNrmseCutPct\,\% of its error against the digitised effluent (the error is
+dominated by the first-wave timing, which no dispersion closure touches). None of this
+affects a surrogate result, because every arm sees the same reference; it bounds how far
+the reference may be read as physical.
 
-\paragraph{The isotherm's low-humidity branch is wrong, and we know by how much}
-The Henry fraction was fitted to the step position and the capacity, never to
-dynamics. The anchor comparison is the first measurement that constrains it and
-shows the model holds too little water below the step. Separately, the step position
-in real MOF-303 shifts with temperature \cite{hastings2024high},
-while ours is fixed.
+\paragraph{The isotherm's low-humidity branch is too weak} The Henry fraction was
+fitted to the step position and the capacity, never to dynamics; the anchor comparison
+shows the model holds too little water below the step.
 
 \paragraph{Part of the heat range is occupied by no placed framework} The sampled
 heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
@@ -1863,32 +1823,23 @@ are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No cit
 MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
 constant.
 
-\paragraph{No covalent-organic-framework case exists} We searched and did not find
-a published COF breakthrough measurement suitable for this comparison. The gap is
-closed by saying so, not by inventing one, and the title claims only frameworks of
-the class we actually model.
+\paragraph{No covalent organic framework case} We found no published breakthrough
+measurement on a covalent organic framework (COF) suitable for this comparison, so no
+claim is made for that class.
 
-\paragraph{Three rungs are measured on the smaller dataset} L3, L5 and the
-coordinate change are measured over \nNclustLegacy\ held-out materials, while L1, L2, L6 and
-L7 are measured over 240. Given that A26 exists precisely because a verdict measured
-at 48 training materials did not survive 192, those three verdicts must
-be read as scoped to the material count at which they were taken. The ordering of L3
-has the same sign at every budget; it is large against the Chebyshev family, and
+\paragraph{Three rungs are exploratory} L3, L5's operator comparison and the
+coordinate change are measured over \nNclustLegacy\ held-out materials, L4 over
+\nLfourbMatNmat, and L1, L2, L6 and L7 over \nNclustFolds. A verdict measured at one
+material count need not survive another (A26), so the three small-design verdicts are
+exploratory and scoped to that count. L3's ordering has the same sign at every budget;
 against the Gaussian radial-basis family at the two larger budgets it is not
-significant once selection is paid for. The oracle gap of the
-coordinate change is large; the other headline statements of these rungs are nulls,
-whose resolution is the weakest in the paper at this design. For L5 the re-measurement
-has been made: on the larger design the legacy flat-in-basis null did not survive (A29),
-which is the clearest demonstration in this paper of why these scopes matter. For the coordinate change it is
-not possible as designed, and the reason is itself a result: the pre-registered
-landmark screen fails on every fold of the larger dataset, because its fronts do not
-have the shape the two-wave frame aligns. The Henry wave is not resolved at the
-stored time resolution, and the second front is a gradual, dispersive rise rather
-than a shock, so even a landmark placed relative to each cell's own
-plateau falls within two samples of the start in at least \nWarpScreenBoundaryMin\,\%
-of cells on every one of the \nWarpScreenNfolds\ folds. The coordinate-change result is
-therefore scoped to the smaller design, where the fronts are resolved, and we do not
-redefine the landmark until a screen passes.
+significant once selection is paid for. For L5 the re-measurement on the larger design
+was made, and the legacy flat-in-basis null did not survive (A29). For the coordinate
+change it is not possible as designed: the pre-registered landmark screen fails on every
+fold of the larger dataset, because a landmark placed relative to each cell's own
+plateau falls within two samples of the start in at least \nWarpScreenBoundaryMin\,\% of
+cells on every one of the \nWarpScreenNfolds\ folds, so that result stays scoped to the
+smaller design.
 
 %% ===========================================================================
 \section{Conclusions}
