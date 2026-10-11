@@ -12,6 +12,13 @@
 
 \usepackage{amsmath,amssymb}
 \usepackage{array}
+\usepackage{rotating}
+% Figures stay in the section that cites them, near their first mention; the default
+% float fractions deferred every full-width figure to the end of the document.
+\usepackage[section]{placeins}
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}\setcounter{totalnumber}{4}
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{graphicx}
@@ -107,9 +114,7 @@ This framing changes what counts as evidence. A surrogate cannot beat its own
 reference on accuracy, because the reference defines the target
 (Section~\ref{sec:reference} measures rather than assumes how good it is). A
 synthetic study can therefore only measure
-accuracy per unit inference cost, or accuracy from less information. Two defects in
-our own frozen protocol came from forgetting this, and both are recorded in
-Section~\ref{sec:corrections}.
+accuracy per unit inference cost, or accuracy from less information.
 
 It also changes what counts as a strong result. McGreivy and Hakim \cite{mcgreivy2024weak}, surveying
 machine learning for fluid-related partial differential equations, determine that
@@ -145,11 +150,13 @@ extended, it also carries the length of the run.
 \item[Henry branch, step.] The low-humidity, near-linear part of the water isotherm,
 and the sharp cooperative step of pore filling above it; together they produce the two
 adsorption fronts of Section~\ref{sec:physics}.
+\item[Codes A\(n\), B\(n\).] Entries of the correction ledger (Section~\ref{sec:corrections}
+and Supplementary S1): A for a withdrawn claim, B for a caught defect.
 \item[Edge rule.] An optimum found at the edge of a tuning range does not count until
 the range is extended past it, unless the metric has demonstrably stopped changing.
 \end{description}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig0_schematic.pdf}
 \caption{What a surrogate maps. \textbf{A}~A packed bed of adsorbent pellets fed humid
@@ -208,11 +215,9 @@ generalisation tested across initial conditions \cite{ceccanti2026deep}. What we
 not find is the combination tested here: transient fields rather than steady-state
 indicators, inflected water isotherms rather than Langmuir ones, and a held-out
 material test that is cluster-robust and calibrated and asks what binds the error
-rather than whether it is small. We find no operator-learning study that evaluates
-transfer to held-out materials. The papers that would otherwise falsify this claim
-are cited alongside it, because an earlier and broader version of it was falsified
-by exactly those papers
-(Section~\ref{sec:corrections}, A23).
+rather than whether it is small. To our knowledge, transfer to held-out materials has
+not been evaluated for operator learners on transient adsorption fields (A23 records an
+earlier, broader version of this claim that the works cited above falsified).
 
 Heinlein and Taraz \cite{heinlein2026error} establish, for DeepONets on Korteweg--de~Vries and Burgers
 equations, that the error is branch-dominated at large internal dimension, that the
@@ -233,11 +238,12 @@ than studied here.
 
 \paragraph{Contributions}
 \begin{enumerate}
-\item A diagnostic that separates basis error from map error in the optimal POD basis,
-calibrated against an oracle given the exact coefficients, and applied to perceptron,
-gradient-boosting, DeepONet and Fourier-operator surrogates on held-out materials
-(Section~\ref{sec:mechanism}); because the basis is the optimal one, the conclusion
-cannot depend on the basis any particular method learned.
+\item A surrogate-agnostic decomposition of held-out error into a basis term and a map
+term in the optimal POD basis (equation~\eqref{eq:split}), applicable to any non-intrusive
+reduced-order model with a linear reconstruction and calibrated, through an oracle given
+the exact coefficients, as an equivalent mode count for gradient-boosting, DeepONet,
+DeepOKAN and Fourier-operator surrogates (Section~\ref{sec:mechanism}); because the basis
+is the optimal one, the conclusion cannot depend on the basis any method learned.
 \item A pre-registered test protocol for parametric surrogates: seven named candidate
 explanations of the transfer error, each with its eliminating evidence declared before
 the run, a cluster bootstrap calibrated on the design, a correction for choosing the
@@ -250,8 +256,9 @@ solve of the same model (Section~\ref{sec:cost}).
 against a published MOF-303 packed bed whose two-wave shape and half-breakthrough time
 it reproduces and whose first-wave timing it does not (Section~\ref{sec:anchor}). This
 single shallow bed is an anchor, not a validation.
-\item A measurement of what an established change of coordinates buys on this
-system, and of what consumes it (Section~\ref{sec:warp}).
+\item A test of a two-front change of coordinates of shifted-POD type: it reduces the
+mode count when the fronts are known and gives no detectable gain when they are
+predicted (Section~\ref{sec:warp}).
 \end{enumerate}
 
 %% ===========================================================================
@@ -384,7 +391,7 @@ breakthrough on aluminium fumarate, and report that it is feed-condition depende
 a single step at low water partial pressure, a stepped profile at higher partial
 pressure.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig7_anchor.pdf}
 \caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. Data of Lassitter and co-workers~\cite{lassitter2024mass} (their Fig.~10, digitised): a \nAnchorBedLenMm\,mm bed fed at \nAnchorRH\,\% relative humidity and \nAnchorTK\,K. Blue: the pre-registered primary run with the cited MOF-303 parameters. Grey: the pre-declared band over the quantities the source does not give (the kinetic constant \(k\), the pellet size \(d_p\) that sets dispersion, and the thermal coupling). Dashed: the authors' COMSOL model, whose kinetics they fitted. The measured effluent shows an early leak, from uptake on the low-humidity (primary) sites, to an intermediate plateau near \nAnchorPlateauExp{} of the feed, then a cooperative shock much later in the run. This is the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed about \nAnchorPelletsDeep{} pellets deep.}
@@ -429,7 +436,7 @@ not satisfy.
 \section{Dataset, splits and statistics}
 \label{sec:dataset}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
 \caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, one point per material, by split. \textbf{B}~Damk\"ohler number per material (the median over its conditions), the axis rung L6's primary estimand is regressed on, with the informative band of Section~\ref{sec:dataset}. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57); \(K_H\) is the Henry constant of equation~\eqref{eq:isotherm}.}
@@ -479,7 +486,9 @@ best of several on the test materials we widen its interval to pay for that choi
 Materials are held out, not conditions. Every five-fold rung on this dataset (L1, L2,
 L6, L7 and the re-measurements of L5) reports over the same partition of the
 \nNclustFolds\ materials, so those rungs are compared over the same held-out set in the
-same folds; L4 uses the dataset's single split of \nLfourbMatNmat\ held-out materials.
+same folds. L4's material axis uses the dataset's single split of \nLfourbMatNmat\
+held-out materials, and its time axis scores a held-out window on that split's
+\nLfourbTimeNmat\ training materials.
 
 Errors are strongly clustered by material, and a test that ignores that
 over-rejects. Measured under a realistic null, the percentile cluster bootstrap
@@ -493,7 +502,7 @@ survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
 cost accounting, the re-measurement of L5's basis-versus-map decomposition and L5's
 DeepONet basis-size sweep run on the
 \nNclustFolds-material folds at \(\alpha = \nAlphaFolds\). Rung L4 runs on the single
-split of \nLfourbMatNmat\ held-out materials at \(\alpha = \nAlphaManifest\). Rung L3,
+split (\nLfourbMatNmat\ held-out materials on its material axis) at \(\alpha = \nAlphaManifest\). Rung L3,
 L5's operator comparisons, the first measurement of its decomposition and the
 coordinate change run on the earlier \nNclustLegacy-material design and report at \(\alpha = \nLfiveAlpha\),
 which achieves an empirical size of \nFprLegacyUsed\,\% there, stricter than the
@@ -658,7 +667,7 @@ designer cares about most, is not placed: the sources report isotherms, not fitt
 step exponents, and fitting equation~\eqref{eq:isotherm} to digitised curves would be
 a new measurement, not a reading of the literature.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/FigS2_water_mofs.pdf}
 \caption{Published water-harvesting frameworks against the sampled parameter space
@@ -759,16 +768,16 @@ cross-rung reading is made by accident. The one exception is stated where it is 
 (Section~\ref{sec:cost}): L5's operators and the coordinate change share a split, an
 encoding and a metric, so their absolute errors are comparable.
 
-\begin{table}[p]
+\begin{sidewaystable}
 \centering
 \caption{Surrogates by rung. Absolute errors in different rows are not comparable.
 POD, proper orthogonal decomposition; NTK, neural tangent kernel; L-BFGS, limited-memory
 Broyden--Fletcher--Goldfarb--Shanno; DeepOKAN, a DeepONet with Kolmogorov--Arnold layers;
 \(p\), basis size.}
 \label{tab:rungs}
-\scriptsize
+\footnotesize
 \renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.065\textwidth}>{\raggedright\arraybackslash}p{0.105\textwidth}>{\raggedright\arraybackslash}p{0.205\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}>{\raggedright\arraybackslash}p{0.185\textwidth}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.06\textheight}>{\raggedright\arraybackslash}p{0.11\textheight}>{\raggedright\arraybackslash}p{0.2\textheight}>{\raggedright\arraybackslash}p{0.33\textheight}>{\raggedright\arraybackslash}p{0.19\textheight}@{}}
 \toprule
 rung & data, design & input \(\to\) output; encoding & architecture & training \\
 \midrule
@@ -795,7 +804,7 @@ L5 basis size & larger, five-fold & as L5 & DeepONet over basis size \(p\), matc
 as L5, step budget tripled \\
 L5 basis vs.\ map & legacy; larger, five-fold &
 parameters \(\to\) POD coefficients of \(c\) over basis size &
-one gradient-boosted regressor per mode & three seeds \\
+one gradient-boosted regressor per mode & one seed (legacy), three seeds (larger) \\
 L6 & larger, five-fold &
 \nMthSixNdesc\ observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
 joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; both \nMthSixBudget\ parameters, depth \nMthSixDepth &
@@ -809,16 +818,16 @@ POD plus one gradient-boosted regressor per mode; front trajectories from a POD 
 three seeds; oracle arm given the true fronts \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{sidewaystable}
 
 %% ===========================================================================
 \section{The ladder}
 \label{sec:ladder}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig1_ladder.pdf}
-\caption{The falsification ladder. \textbf{A}~Each rung's intervention as a
+\caption{The seven pre-registered hypotheses and their outcomes. \textbf{A}~Each rung's intervention as a
 percentage of that rung's own control, with its cluster-robust confidence interval;
 positive means the intervention reduces held-out error. A dagger marks an interval
 that pays for choosing the arm as the best of a grid on the held-out materials (L2,
@@ -837,7 +846,7 @@ normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \label{fig:ladder}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
 \caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}).}
@@ -1016,8 +1025,7 @@ perceptron at every budget and are worse on held-out materials every time.
 
 \subsection{L4: the residual as a loss, and physics at inference}
 
-\paragraph{The residual was the wrong equation once; this rung was re-run with the
-right one} While writing the methods of this paper we derived the residual from the
+\paragraph{Residual formulation} While writing the methods of this paper we derived the residual from the
 code and found that its gas mass balance advected the gas at the superficial velocity
 \(v\) instead of the interstitial \(v/\varepsilon_t\) that the solver integrates, with
 the same omission in its inlet condition (Section~\ref{sec:corrections}, B72). Since
@@ -1101,7 +1109,7 @@ residual is now the solver's own equation, so this is not a mis-specified prior:
 this problem, minimising the right equation without data moves a good prediction away
 from the truth. We report that as a measurement and do not claim its cause.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig4_operators.pdf}
 \caption{Basis size on both designs. \textbf{A}~Legacy design (\nNclustLegacy\ held-out
@@ -1123,9 +1131,9 @@ Fourier neural operator.}
 
 \paragraph{Basis size, on the full design: a small gain, complete early} The
 pre-registered re-measurement on the \nNclustFolds-material five-fold design
-(with two amendments to its protocol made before the run: a tripled step budget, and
-an interval that pays for the learning-rate choice; B74), answers the rung's primary
-question. \emph{Verdict: \nLfiveVtwoVerdict}. DeepONet at \(p = 128\) reaches
+(with two amendments made before any verdict was computed: a tripled step budget,
+triggered by the protocol's own budget rule after the first sweep, and an interval that
+pays for the learning-rate choice; B74) answers the rung's primary question. \emph{Verdict: \nLfiveVtwoVerdict}. DeepONet at \(p = 128\) reaches
 \nLfiveVtwoPhigh\ against \nLfiveVtwoPeight\ at \(p = 8\), interval
 [\nLfiveVtwoDiffLo, \nLfiveVtwoDiffHi]; paid for over both learning-rate choices the
 interval is [\nLfiveVtwoSelLo, \nLfiveVtwoSelHi] (\nLfiveVtwoSelWords). The gain is
@@ -1156,7 +1164,7 @@ accurate as an oracle handed the true coefficients of its first
 \nLfiveOracleONet\ modes.}
 
 \paragraph{The arm the theory names} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
-architectures with a linear reconstruction step (DeepONet, PCA-Net, and
+architectures with a linear reconstruction step (DeepONet, PCA-Net, a principal-component network, and
 POD-plus-regressor) are lower-bounded on
 advection-dominated problems, and that the Fourier neural operator escapes that
 bound through nonlinear reconstruction. Our original rung tested only the family the
@@ -1218,9 +1226,9 @@ That asymmetry is exactly what the hypothesis needs.
 \paragraph{Primary estimand: not supported, and a weak null} The separate-versus-joint
 difference shows no detectable dependence on Damk\"ohler number: slope \nLsixSlope\
 per decade, interval [\nLsixSlopeLo, \nLsixSlopeHi], Pearson \(r = \nLsixSlopeR\),
-over \nLsixDaDecades\ decades of the informative band, Damk\"ohler
-\nDaMatMin--\nDaMatMax\ per material (Figure~\ref{fig:ladder}B). In the pre-declared
-words, \textbf{the mechanism is not supported}. There is a limit to what the null
+over \nLsixDaDecades\ decades of per-material Damk\"ohler number
+(\nDaMatMin--\nDaMatMax; \nDaMatBand\,\% of materials inside the informative band;
+Figure~\ref{fig:ladder}B). \emph{Verdict: the mechanism is not supported.} There is a limit to what the null
 excludes: carried across the tested range, the upper end of the slope interval
 allows a change of \nLsixSlopeSpanMax\ nRMSE, about \nLsixSlopeVsEffect\ times the
 main effect below. A Damk\"ohler dependence as large as the benefit itself is
@@ -1279,7 +1287,8 @@ primary estimand and could therefore fail on its own terms.
 
 Arms are scored like for like on the outlet curve, because the closed forms predict a curve and
 not a field. The learned arm's out-of-fold prediction reaches \nLsevenLearned{}
-against \nLsevenKlinkenberg\ for the best closed form, \nLsevenShock\ for
+against \nLsevenKlinkenberg\ for the best closed form, Klinkenberg's approximation
+\cite{klinkenberg1948numerical,klinkenberg1954heat}, \nLsevenShock\ for
 equilibrium theory and \nLsevenPattern\ for constant-pattern theory. The best closed
 form is \nLsevenRatio{}\(\times\) worse, with difference \nLsevenDiff\ and interval
 [\nLsevenLo, \nLsevenHi]. \emph{Verdict: learning is justified} on the larger
@@ -1305,7 +1314,7 @@ fast kinetics.
 \section{What binds the error}
 \label{sec:mechanism}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig5_mechanism.pdf}
 \caption{What binds the error: the learned map, mode by mode. Full design, the
@@ -1329,7 +1338,21 @@ the legacy design the most accurate learner by point estimate still sits
 \(\nLfiveVtwoXfloorHigh\times\) above it at the largest basis.
 
 A linear reconstruction can fail in exactly two ways: the basis cannot represent the
-field, or the map from parameters to coefficients cannot be learned. We separate
+field, or the map from parameters to coefficients cannot be learned. For a surrogate whose prediction \(\hat u\) lies in the span of an orthonormal basis
+\(\{\phi_k\}_{k \le p}\), such as POD with a regressor, the error of each sample splits
+exactly, because the two terms are orthogonal:
+\begin{equation}
+\lVert u - \hat u \rVert^2 \;=\; \underbrace{\lVert u - \Pi_p u \rVert^2}_{\text{basis}}
+\;+\; \underbrace{\textstyle\sum_{k \le p} \bigl(c_k - \hat c_k\bigr)^2}_{\text{map}},
+\qquad c_k = \langle u, \phi_k \rangle ,
+\label{eq:split}
+\end{equation}
+in the discrete norm of the stored grid, with \(\Pi_p\) the orthogonal projection onto
+the basis. The first term is the basis floor; the second is the error of the learned map
+from parameters to coefficients. An oracle handed the exact first \(k\) coefficients
+calibrates any learner, including those whose output is not in that span, as an
+equivalent mode count; for those learners the floor is a reference level rather than a
+bound. We separate
 them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
 particular method happened to learn (Figure~\ref{fig:operators}B on the full design).
 
@@ -1411,7 +1434,7 @@ real and inactive; this paragraph has to hold both statements together.
 \section{The coordinate change, and where the obstruction moved}
 \label{sec:warp}
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
 \caption{The two-front frame (legacy design). \textbf{A}~Modes needed for 99.9\,\% of
@@ -1682,13 +1705,6 @@ B41); comparison against a weak configuration of the competitor (A20, B14, B22, 
 undertrained arms scored as architectures (A19, B24); and power and calibration (A13,
 A22, A25).
 
-\paragraph{What remains open} One entry is deliberately unresolved. The classical
-control in rung L7 uses an approximation attributed in our bibliography to
-Klinkenberg's 1948 paper \cite{klinkenberg1948numerical}, while the standard
-secondary source attributes that equation to a different Klinkenberg paper of 1954
-\cite{klinkenberg1954heat}. Neither is retrievable
-electronically, and the ambiguity is recorded rather than settled by choosing the
-year that looks right.
 
 %% ===========================================================================
 \section{Limitations}
@@ -1738,7 +1754,7 @@ of samples and \(1.5\times\) for \nDispFracAboveHalf\,\%, with a worst case of
 \nDispRatioMax. The disagreement is bounded and modest for the dataset, but it is
 not modest for the anchor.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig7b_anchor_posthoc.pdf}
 \caption{Post-hoc dispersion sensitivity on the anchor bed, labelled as such and
@@ -1877,19 +1893,19 @@ at every build.
 \section{Reproducibility}
 \label{sec:reproducibility}
 
-The pre-registrations for rungs L1, L2, L4, L6 and L7 and for the experimental anchor
-were committed to version control before the first arm of each was trained, which the
-repository history shows; the original protocol covering the solver checks and the
-first ladder was not, and it is self-attested. Every measured quantity in this
+The pre-registrations for rungs L1, L2, L4, L6 and L7, the L5 re-measurement, the three
+baselines and the experimental anchor were committed to version control before the first
+arm of each was trained, which the repository history shows; the original protocol for
+the solver checks and the first rungs predates version control. Every measured quantity in this
 manuscript is a macro resolved at build time from a named results file through a
 declared path, and a missing file, path or non-finite value fails the build; the
-remaining literals (design constants, thresholds and citation years) each carry a
-written reason. A verification harness of \nGates\ gates runs before any number is
+remaining literals (design constants, thresholds, citation years, and figures quoted
+from the literature or from the ledger's history) each carry a written reason. A verification harness of \nGates\ gates runs before any number is
 reported. The configuration used as L1's arm appears twice more in L2's sweep, trained
 by a different runner on the same folds, basis and seeds, and their per-sample held-out
-scores agree exactly (largest difference \nLtwoIdentity). Every reference was retrieved
-and checked against its publisher's record; the references read through a secondary
-source, and what each was read through, are listed below.
+scores agree exactly (largest difference \nLtwoIdentity). Every reference's bibliographic record was checked against its publisher's record;
+the references that could not be read at the primary source, and what each was read
+through, are listed below.
 \input{secondary_sources}
 
 %% ===========================================================================

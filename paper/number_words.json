@@ -1,12 +1,5 @@
 [
  {
-  "key": "curacy from less information. [Two] defects in",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 68
- },
- {
   "key": "pretraining'' across [fifteen] downstream tasks, and Multipl",
   "word": "fifteen",
   "class": "CITED",
@@ -749,13 +742,6 @@
   "line_at_review": 642
  },
  {
-  "key": "-boosted regressor per mode & [three] seeds \\\\",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "seeds 42/43/44 (protocol)",
-  "line_at_review": 632
- },
- {
   "key": "able descriptors (isotherm at [three] temperatures, bed and operati",
   "word": "three",
   "class": "DESIGN",
@@ -1204,25 +1190,11 @@
   "line_at_review": 235
  },
  {
-  "key": "right [one] } While writing the methods of",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 973
- },
- {
   "key": "{What Table~ says} [Three] conclusions follow, the third",
   "word": "Three",
   "class": "DESIGN",
   "reason": "the three numbered conclusions that follow",
   "line_at_review": 1558
- },
- {
-  "key": "{What remains open} [One] entry is deliberately unresol",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1689
  },
  {
   "key": "e metal--organic framework . [Seven] candidate",
@@ -1258,13 +1230,6 @@
   "class": "PROSE",
   "reason": "grammar: a single system",
   "line_at_review": 138
- },
- {
-  "key": "ause the basis is the optimal [one] , the conclusion",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 197
  },
  {
   "key": "ol for parametric surrogates: [seven] named candidate",
@@ -1391,13 +1356,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1674
- },
- {
-  "key": "(with [two] amendments to its protocol ma",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two protocol amendments named next",
-  "line_at_review": 1100
  },
  {
   "key": "the strict test, not the fair [one] . The third pre-registered bas",
@@ -1629,5 +1587,61 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1380
+ },
+ {
+  "key": "is the optimal [one] , the conclusion cannot depend",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 199
+ },
+ {
+  "key": "A test of a [two] -front change of coordinates o",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "name of the two-front frame",
+  "line_at_review": 212
+ },
+ {
+  "key": "-boosted regressor per mode & [one] seed (legacy), three seeds (l",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the seed count of the legacy decomposition (l5_bottleneck.py)",
+  "line_at_review": 760
+ },
+ {
+  "key": "per mode & one seed (legacy), [three] seeds (larger) \\\\",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the seed count of the larger-design decomposition (l5_bottleneck_v2.py SEEDS)",
+  "line_at_review": 760
+ },
+ {
+  "key": "{The [seven] pre-registered hypotheses and",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the seven pre-registered hypotheses H1-H7",
+  "line_at_review": 783
+ },
+ {
+  "key": "(with [two] amendments made before any ve",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two protocol amendments named next",
+  "line_at_review": 1087
+ },
+ {
+  "key": "exactly, because the [two] terms are orthogonal:",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of the equation",
+  "line_at_review": 1296
+ },
+ {
+  "key": "7, the L5 re-measurement, the [three] ",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three pre-registered baselines",
+  "line_at_review": 1849
  }
 ]

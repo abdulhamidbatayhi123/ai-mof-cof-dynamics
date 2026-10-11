@@ -75,8 +75,6 @@ _ALLOWED_PAIRS = [
     ("80", "the power level at which every MDE is quoted"),
     ("99.9", "the training-variance level at which n-widths are counted"),
     # citation years and identifiers
-    ("1948", "citation year"),
-    ("1954", "citation year"),
     ("1953", "citation year"),
     ("1959", "citation year"),
     ("1908", "citation year"),
@@ -121,11 +119,11 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 31,
+    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 34,
     "3": 3, "4": 8, "5": 4, "6": 1, "8": 8, "9.7": 1, "10": 15, "12": 7, "16": 5,
     "20": 1, "24": 1, "48": 4, "50": 2, "60": 2, "64": 3, "76": 1, "79": 1, "80": 5,
     "95": 3, "96": 3, "99.9": 2, "128": 6, "192": 10, "240": 2, "256": 1,
-    "1948": 1, "1953": 1, "1954": 1, "15": 1,
+    "1953": 1, "15": 1,
     "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
@@ -203,7 +201,7 @@ def strip_structural(text):
     text = re.sub(r"\\(begin|end)\{[^}]*\}", " ", text)
     # table LAYOUT is not a quantity: column widths p{0.25\textwidth} and the row
     # stretch \renewcommand{\arraystretch}{1.15} (added with the Methods tables)
-    text = re.sub(r"\{[0-9.]+\\(textwidth|linewidth|columnwidth)\}", " ", text)
+    text = re.sub(r"\{[0-9.]+\\(textwidth|linewidth|columnwidth|textheight)\}", " ", text)
     text = re.sub(r"\\renewcommand\{\\arraystretch\}\{[0-9.]+\}", " ", text)
     # Drop the UNIT, keep the VALUE. Stripping both let six experimental inputs reach
     # the paper ungated (audit_hygiene #2).

@@ -1,8 +1,8 @@
 """Figure 5: what binds the error. The learned map, mode by mode, as materials are added.
 
 Every series is read from `results/learning_curve_v2_verdict.json` (full design, five
-folds, the L1 perceptron mapping material parameters to the first 32 POD
-coefficients). No model is evaluated here. Drawn at the printed width.
+folds, the learning curve's per-mode gradient-boosting regressors mapping material
+parameters to the first 32 POD coefficients of c; not the L1 perceptron, B78). No model is evaluated here. Drawn at the printed width.
 
   A  held-out R^2 of the parameter-to-coefficient map for each of the first 32 modes,
      one curve per training-set size: the leading modes are learned first, and each
