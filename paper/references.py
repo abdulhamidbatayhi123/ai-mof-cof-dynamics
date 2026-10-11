@@ -575,7 +575,7 @@ REFS = [
         author="E. Glueckauf and J. I. Coates",
         title="Theory of chromatography. {Part} {IV}. {The} influence of incomplete equilibrium "
               "on the front boundary of chromatograms and on the effectiveness of separation",
-        journal="Journal of the Chemical Society (Resumed)", note="Paper 241", pages="1315", year="1947",
+        journal="Journal of the Chemical Society (Resumed)", pages="1315{.\\ }", year="1947",   # no volume in 1947: the style omits the separator
         doi="10.1039/jr9470001315"),
      "Coates is the co-author most often dropped -- B35's failure mode.", False),
     ("klinkenberg1948numerical", P, "article", dict(
