@@ -49,13 +49,6 @@
   "line_at_review": 145
  },
  {
-  "key": "ten and Alves , who give the [third] -type solution --- the",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 148
- },
- {
   "key": "a semi-infinite solution. The [two] boundary conditions differ by",
   "word": "two",
   "class": "PROSE",
@@ -154,25 +147,11 @@
   "line_at_review": 275
  },
  {
-  "key": " [Two] discrepancies, both attributa",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 299
- },
- {
   "key": "al time comes from evaluating [one] correlation at a limit this b",
   "word": "one",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 309
- },
- {
-  "key": "2. {A}~The material space, { [one] point per material} --- the l",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 319
  },
  {
   "key": "sequence over [eight] material parameters and three",
@@ -231,13 +210,6 @@
   "line_at_review": 417
  },
  {
-  "key": "re those rates, and they span [three] orders of magnitude.}",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 417
- },
- {
   "key": "every the [five] folds. This reverses the earl",
   "word": "five",
   "class": "DESIGN",
@@ -285,13 +257,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 524
- },
- {
-  "key": " [One] row deserves its own sentence",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 607
  },
  {
   "key": "val [ , ], consistent in all [five] folds and all",
@@ -350,32 +315,11 @@
   "line_at_review": 752
  },
  {
-  "key": "d correctly from the norm --- [two] numbers in one sentence",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 754
- },
- {
-  "key": "m the norm --- two numbers in [one] sentence",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 754
- },
- {
   "key": "that disagreed by a factor of [two] in the exponent. Any method w",
   "word": "two",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 755
- },
- {
-  "key": "real and inactive --- the [two] statements this paragraph has",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 766
  },
  {
   "key": "The [two] -transport case is the foundin",
@@ -390,20 +334,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 785
- },
- {
-  "key": "reconstructed with [two] modes --- one per co-moving f",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 786
- },
- {
-  "key": "onstructed with two modes --- [one] per co-moving frame --- again",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 786
  },
  {
   "key": " [eighty] ordinary modes; the general f",
@@ -490,13 +420,6 @@
   "line_at_review": 830
  },
  {
-  "key": " [Two] statements, and both are need",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 850
- },
- {
   "key": "rm with predicted fronts. The [two] ",
   "word": "two",
   "class": "PROSE",
@@ -560,32 +483,11 @@
   "line_at_review": 918
  },
  {
-  "key": "\\) --- a forward pass through [three] ",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "architecture description",
-  "line_at_review": 923
- },
- {
   "key": "256-unit layers and [three] 64-mode reconstructions, agai",
   "word": "three",
   "class": "DESIGN",
   "reason": "architecture description",
   "line_at_review": 924
- },
- {
-  "key": "says.} Three things, and the [third] is that matters.",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 950
- },
- {
-  "key": " [Third] , and this is why the negative",
-  "word": "Third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 965
  },
  {
   "key": "ith the held-out error in the [third] column. Every statement here",
@@ -889,13 +791,6 @@
   "line_at_review": 337
  },
  {
-  "key": "{What Table~ says.} [Three] things, and the third is",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "counts the three points the paragraph then lists (First, Second, Third)",
-  "line_at_review": 994
- },
- {
   "key": "predates the last of these by [two] years .",
   "word": "two",
   "class": "CITED",
@@ -915,13 +810,6 @@
   "class": "PROSE",
   "reason": "names the one family (the random forest) in the same sentence",
   "line_at_review": 486
- },
- {
-  "key": "xtended, and it cannot be --- [one] sample per leaf is the ceilin",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "min_samples_leaf = 1, the configuration",
-  "line_at_review": 489
  },
  {
   "key": "plateau falls within [two] samples of the start in at le",
@@ -1006,20 +894,6 @@
   "class": "DESIGN",
   "reason": "the two landmark curves of the two-wave frame (design)",
   "line_at_review": 974
- },
- {
-  "key": "ting --- gave \\( \\,\\%\\), with [six] and eight layers in a",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "depth grid value 6 of the L2 sweep (design)",
-  "line_at_review": 499
- },
- {
-  "key": "s drawn as a level). {B}~The [two] terms of a linear",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two terms of a linear reconstruction (definition)",
-  "line_at_review": 804
  },
  {
   "key": "ading is the better-supported [one] ",
@@ -1188,13 +1062,6 @@
   "class": "DESIGN",
   "reason": "five folds minus the held-out one (design)",
   "line_at_review": 587
- },
- {
-  "key": " [three] seeds and fitted --- includin",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "seeds 42/43/44 (protocol)",
-  "line_at_review": 590
  },
  {
   "key": "L1 & larger, [five] -fold &",
@@ -1505,13 +1372,6 @@
   "line_at_review": 755
  },
  {
-  "key": "e the rung's analysis reports [one] ; for each null",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 786
- },
- {
   "key": "as the learning curve's (the [two] ratios come from different de",
   "word": "two",
   "class": "PROSE",
@@ -1573,13 +1433,6 @@
   "class": "PROSE",
   "reason": "pronoun",
   "line_at_review": 963
- },
- {
-  "key": "budget --- fixed weights over [six] decades, gradient-norm balanc",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the pre-registered fixed-weight sweep, 1e-6 to 1 (PREREG_L4b_v2 and its amendments)",
-  "line_at_review": 981
  },
  {
   "key": "ose seen-window error exceeds [three] times the twin's has abandone",
@@ -1701,13 +1554,6 @@
   "line_at_review": 763
  },
  {
-  "key": "he comparison is unpaired --- [one] sample per",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the baseline's design, PREREG_BASELINES §2",
-  "line_at_review": 1564
- },
- {
   "key": " [six] of them reversed headline ver",
   "word": "six",
   "class": "DESIGN",
@@ -1736,10 +1582,192 @@
   "line_at_review": 1679
  },
  {
-  "key": "{What is scoped.} [Three] verdicts --- L3, L5's operato",
+  "key": "ten and Alves , who give the [third] -type solution), the",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "boundary-condition name (third-type)",
+  "line_at_review": 219
+ },
+ {
+  "key": " [Two] discrepancies remain, and bot",
+  "word": "Two",
+  "class": "DESIGN",
+  "reason": "the two named discrepancies of the anchor section",
+  "line_at_review": 387
+ },
+ {
+  "key": "2. {A}~The material space, { [one] point per material}; the lege",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "one point per material: a rule, not a count",
+  "line_at_review": 407
+ },
+ {
+  "key": " [three] seeds and fitted (including a",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three seeds of Methods",
+  "line_at_review": 720
+ },
+ {
+  "key": "extended, and it cannot be: [one] sample per leaf is the ceilin",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the minimum leaf size of the random forest",
+  "line_at_review": 878
+ },
+ {
+  "key": "oosting) gave \\( \\,\\%\\), with [six] and eight layers in a",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "depth labels of the legacy L2 sweep",
+  "line_at_review": 891
+ },
+ {
+  "key": "ed budget: fixed weights over [six] decades, gradient-norm balanc",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the pre-registered fixed-weight sweep, 1e-6 to 1",
+  "line_at_review": 992
+ },
+ {
+  "key": " [One] further result concerns the c",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "article",
+  "line_at_review": 1128
+ },
+ {
+  "key": "uted correctly from the norm: [two] numbers in one sentence",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two numbers named in the sentence",
+  "line_at_review": 1339
+ },
+ {
+  "key": "from the norm: two numbers in [one] sentence",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "article",
+  "line_at_review": 1339
+ },
+ {
+  "key": "reconstructed with [two] modes (one per co-moving fram",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two co-moving frames",
+  "line_at_review": 1370
+ },
+ {
+  "key": "reconstructed with two modes ( [one] per co-moving frame) against",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "distributive",
+  "line_at_review": 1370
+ },
+ {
+  "key": " [Two] statements are needed here. T",
+  "word": "Two",
+  "class": "DESIGN",
+  "reason": "the two statements that follow",
+  "line_at_review": 1436
+ },
+ {
+  "key": "1\\) (a forward pass through [three] ",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the network's three layers (Methods)",
+  "line_at_review": 1514
+ },
+ {
+  "key": "{What Table~ says.} [Three] conclusions follow, the third",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three numbered conclusions that follow",
+  "line_at_review": 1546
+ },
+ {
+  "key": "Three conclusions follow, the [third] the most important.",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "ordinal",
+  "line_at_review": 1546
+ },
+ {
+  "key": ". The comparison is unpaired ( [one] sample per",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the baseline's design, PREREG_BASELINES §2",
+  "line_at_review": 1560
+ },
+ {
+  "key": " [Third] , the negative results are inf",
+  "word": "Third",
+  "class": "PROSE",
+  "reason": "ordinal of the list",
+  "line_at_review": 1587
+ },
+ {
+  "key": "{What is scoped.} [Three] verdicts (L3, L5's operator c",
   "word": "Three",
   "class": "DESIGN",
   "reason": "the three verdicts named in the sentence",
-  "line_at_review": 1917
+  "line_at_review": 1913
+ },
+ {
+  "key": "e the rung's analysis reports [one] ; for each null the text",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 794
+ },
+ {
+  "key": "arning rate; those rates span [three] orders of magnitude (Section~",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the learning-rate span of L3, LthreeLrDecades in the text",
+  "line_at_review": 807
+ },
+ {
+  "key": "B}~Full design ( \\ materials, [five] folds): DeepONet against \\(p\\",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design",
+  "line_at_review": 1064
+ },
+ {
+  "key": "lds): DeepONet against \\(p\\) ( [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "one point per fold: distributive",
+  "line_at_review": 1064
+ },
+ {
+  "key": "l-decomposition coefficients, [one] curve per number of",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "distributive",
+  "line_at_review": 1268
+ },
+ {
+  "key": "{The [two] -front frame (legacy design).",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two fronts of the isotherm (Section 3)",
+  "line_at_review": 1370
+ },
+ {
+  "key": "iance in each frame: aligning [one] front raises the count, align",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "single-front alignment, one of the two frames compared",
+  "line_at_review": 1371
+ },
+ {
+  "key": "or: with predicted fronts the [two] -front frame ties",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two fronts of the isotherm",
+  "line_at_review": 1372
  }
 ]

@@ -240,7 +240,7 @@ linear-driving-force kinetic closure and a coupled energy balance. The inlet is 
 third- or flux-type boundary condition. That choice matters, and it was
 initially made wrongly: our first verification compared the solver against Ogata and
 Banks \cite{ogata1961solution}, who solve the \emph{first-} or concentration-type inlet. Against the correct
-closed form --- van Genuchten and Alves \cite{vangenuchten1982analytical}, who give the third-type solution --- the
+closed form (van Genuchten and Alves \cite{vangenuchten1982analytical}, who give the third-type solution), the
 error falls to \nLzeroTracer{} absolute, an improvement of more than an order of
 magnitude, with the residual maximum at the outlet where a finite column legitimately
 differs from a semi-infinite solution. The two boundary conditions differ by
@@ -262,8 +262,7 @@ set to zero, after which closure improved to \(\nMassClosure\,\%\)
 \begin{table}[t]
 \centering
 \caption{Verification of the reference solver. Each check isolates one term of the
-model against a closed form; \(R_f\) is the retardation factor of the front.
-Figure~\ref{fig:ladder}C.}
+model against a closed form; \(R_f\) is the retardation factor of the front.}
 \label{tab:l0}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llr}
@@ -408,7 +407,7 @@ The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 be
 does, and the cited isotherm produces it. As the next paragraph says, it does not
 reproduce the first-wave timing (Figure~\ref{fig:anchor}).
 
-Two discrepancies, both attributable, both reported. The first wave arrives
+Two discrepancies remain, and both can be attributed. The first wave arrives
 \emph{too early} in the model (\nAnchorTfiveModel\ minutes against
 \nAnchorTfiveExp\ measured); nothing in the declared band moves it, and what sets it
 is the isotherm's low-relative-humidity branch, whose Henry fraction was fitted to
@@ -428,7 +427,7 @@ not satisfy.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
-\caption{Dataset v2. \textbf{A}~The material space, \emph{one point per material} --- the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
+\caption{Dataset v2. \textbf{A}~The material space, \emph{one point per material}; the legend counts are computed from the split and asserted to partition it, because the figure this replaces iterated over samples while plotting material descriptors and showed no training points at all (Section~\ref{sec:corrections}, B27). \textbf{B}~Damk\"ohler per material, the axis rung L6's primary estimand is regressed on. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57).}
 \label{fig:dataset}
 \end{figure}
 
@@ -741,8 +740,8 @@ partitioned into five folds, every material is held out once, and each fit sees 
 other four folds. The \emph{single split} holds out the dataset's own
 \nLfourbMatNmat\ test materials. The \emph{legacy} design holds out \nNclustLegacy\
 of the earlier dataset's \nDcNmatLeg\ materials. Every learned arm is trained with
-three seeds and fitted --- including any proper-orthogonal-decomposition basis and any
-scaler --- on its fitting set only, which is asserted disjoint from the held-out
+three seeds and fitted (including any proper-orthogonal-decomposition basis and any
+scaler) on its fitting set only, which is asserted disjoint from the held-out
 materials before every fit.
 
 Absolute errors are not comparable across rungs. The rungs differ in
@@ -812,23 +811,24 @@ three seeds; oracle arm given the true fronts \\
 \includegraphics[width=\textwidth]{../figures/Fig1_ladder.pdf}
 \caption{The falsification ladder. \textbf{A}~Each rung's intervention as a
 percentage of that rung's own control, with its cluster-robust confidence interval;
-positive means the intervention reduces held-out error. Where an arm was chosen as
-the best of a grid on the held-out materials (L2, L4, both L5 rows), the interval
-drawn is the one that pays for that choice; L3 draws its strongest single
-pair per pair, and its note gives the count that survives selection. Dashed ticks
-mark a minimum detectable effect where the rung's analysis reports one; for each null
-the text states what its interval excludes. The physics-as-a-loss row is the corrected re-run
-(B72), material axis; the L5 basis row is the \nNclustFolds-material re-measurement (A29). The oracle arm is drawn hollow because it is handed the answer and is an upper
-bound, not a comparable result. \textbf{B}~The primary
-pre-registered estimand of rung L6, in its own units. \textbf{C}~Verification of the
-reference (Table~\ref{tab:l0}).}
+positive means the intervention reduces held-out error. A dagger marks an interval
+that pays for choosing the arm as the best of a grid on the held-out materials (L2,
+L4, both L5 rows); L3 draws its strongest single pair per pair, and its note gives
+the count of comparisons that survive selection. Dashed ticks mark a minimum
+detectable effect where the rung's analysis reports one; for each null the text
+states what its interval excludes. The physics-as-a-loss row is the corrected re-run
+(B72), material axis; the L5 basis row is the \nNclustFolds-material re-measurement
+(A29). The oracle arm is drawn hollow because it is handed the answer and is an upper
+bound, not a comparable result. \textbf{B}~The primary pre-registered estimand of
+rung L6, in its own units: the per-material difference between separate and joint
+heads against Damk\"ohler number, with the fitted slope and its interval.}
 \label{fig:ladder}
 \end{figure}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
-\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the proper-orthogonal-decomposition floor. \textbf{B}~The materials learning curve with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls monotonically. \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; the in-bar labels are those rates, and they span three orders of magnitude.}
+\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the proper-orthogonal-decomposition floor. \textbf{B}~The materials learning curve with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls monotonically. \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}).}
 \label{fig:rungs}
 \end{figure}
 
@@ -867,7 +867,7 @@ materials, \nLClargestFixed\ against \nLClargest\ at 192. A basis fitted on 12
 materials reconstructs held-out fields as well as one fitted on 192, once the
 regressor sees the same data. \emph{None of the gain is in the basis; all of it is
 in the parameter-to-coefficient map.} Modes whose coefficient map clears
-a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing.
+a fifth of the variance grow from \nLCmodesSmall\ to \nLCmodesLarge\ and are still climbing (Figure~\ref{fig:mechanism}).
 
 The conditions axis behaves differently: exponent \nLCcondBeta, \nLCexpRatio{} of the material
 exponent. Both axes are open; materials are the one that matters.
@@ -899,7 +899,7 @@ the depth sweep while held-out error passes through a minimum and then rises.
 eliminates it only if every family has saturated, and one has not: the random forest
 is still improving at its last step (fully grown trees, \nLtwoRfBest; last-step
 interval [\nLtwoRfLastLo, \nLtwoRfLastHi]). The rule then asks for the sweep to be
-extended, and it cannot be --- one sample per leaf is the ceiling of that family's
+extended, and it cannot be: one sample per leaf is the ceiling of that family's
 capacity. The verdict therefore stays as declared. Our interpretation, which is
 not part of the verdict: the \nLtwoNUshaped{} neural and boosting families saturate with interior
 optima, and the one family that has not run out of improvement has run out of
@@ -911,8 +911,8 @@ picked the best of \nLtwoSelK\ configurations on the same materials, namely the
 \nLtwoNconfigs\ of the sweep less the L1 setting, which appears in it twice and is the
 reference:
 \(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\), Section~\ref{sec:limitations}). At 48 materials the
-same comparison --- best configuration against the best L1 arm, there gradient
-boosting --- gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
+same comparison (best configuration against the best L1 arm, there gradient
+boosting) gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
 near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is
 eight. The earlier sentence ``capacity is irrelevant'' was scoped to a material count
 without saying so, and is withdrawn as A26. The wall stands: the best fixed-basis
@@ -1013,7 +1013,7 @@ from the corrected re-run.
 
 \paragraph{Design.} Weighting schemes were pre-registered and compared against a
 data-only twin at matched architecture, matched optimiser steps and matched
-supervised budget --- fixed weights over six decades, gradient-norm balancing at
+supervised budget: fixed weights over six decades, gradient-norm balancing at
 three target ratios \cite{wang2021understanding}, neural-tangent-kernel weighting
 \cite{wang2022when} (with per-point gradient norms as a trace estimate, a stated
 approximation to their eigen-decomposition), and self-adaptive per-point weights
@@ -1082,7 +1082,17 @@ from the truth. We report that as a measurement and do not claim its cause.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig4_operators.pdf}
-\caption{The operator rung, legacy design. \textbf{A}~Held-out error against basis size, with the proper-orthogonal-decomposition floor. The floor falls by more than an order of magnitude and no arm follows it; the Fourier operator has no basis size and is drawn as a horizontal line. \textbf{B}~The paired differences against \(p = 8\) on the legacy design, every interval spanning zero; on the full design the larger bases are significantly better, by \nLfiveVtwoGainPct\,\% of the error (Section~\ref{sec:ladder}, A29). \textbf{C}~Per-mode \(R^2\) of the parameter-to-coefficient map on held-out materials at the largest basis: \nLfiveCountModes\ modes clear \(R^2 > 0.2\), the leading \nLfiveLeadModes\ and \nLfiveIsolatedModes\ isolated later ones, and the median \(R^2\) of the \nLfiveTailModes\ modes after the leading run is \(\nLfiveTailMedian\), worse than predicting the mean.}
+\caption{Basis size on both designs. \textbf{A}~Legacy design (\nNclustLegacy\ held-out
+materials): held-out error of each operator family against basis size \(p\), with the
+basis floor; the Fourier operator has no basis size and is drawn as a level.
+\textbf{B}~Full design (\nNclustFolds\ materials, five folds): DeepONet against \(p\) (one
+faint point per fold, line through the means), the per-mode gradient-boosting map, and
+the basis floor. The floor falls by orders of magnitude; the map's error does not move,
+and DeepONet improves only from \(p = 8\) to \(p = 16\). \textbf{C}~Paired differences
+against \(p = 8\), as a percentage of the error at \(p = 8\): on the legacy design
+(grey) every interval spans zero; on the full design (blue) every larger basis is
+better. Per-pair intervals; the \(p = 128\) comparison also survives the
+selection adjustment (A29).}
 \label{fig:operators}
 \end{figure}
 
@@ -1149,7 +1159,7 @@ bound. It does not remove the wall: the Fourier operator sits
 it, is a dent and not an escape. That level is the linear-reconstruction floor at
 \(p = 128\), and the Fourier operator is not bound by it.
 
-One row deserves its own sentence. At a matched parameter budget the best Fourier
+One further result concerns the channel count. At a matched parameter budget the best Fourier
 operator spends it on spectral weights rather than on channels: it is
 \emph{\nLfiveFNOwidth\ channels wide} against the best DeepONet's
 \nLfiveONetWidth, a factor of \nLfiveWidthRatio. A nonlinear reconstruction matches
@@ -1277,12 +1287,13 @@ fast kinetics.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig5_mechanism.pdf}
-\caption{The mechanism, legacy design. \textbf{A}~Held-out error against basis size: the floor
-falls \(\nFloorDrop\times\) while DeepONet and the pointwise regressors stay flat (on the
-full design DeepONet gains \nLfiveVtwoGainPct\,\% up to \(p = 16\), A29)
-(the Fourier operator has no basis size and is drawn as a level). \textbf{B}~The two terms of a linear
-reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
-\(R^2\) of the coefficient map on held-out materials.}
+\caption{What binds the error: the learned map, mode by mode. Full design, L1
+perceptron. \textbf{A}~Held-out \(R^2\) of the map from material parameters to each of
+the first proper-orthogonal-decomposition coefficients, one curve per number of
+training materials: the leading modes are learned first, and every increase in
+training materials lifts every mode. \textbf{B}~The number of modes whose map clears
+\(R^2 = 0.2\) against the number of training materials, still rising at
+the largest size affordable.}
 \label{fig:mechanism}
 \end{figure}
 
@@ -1298,7 +1309,7 @@ above that level.
 A linear reconstruction can fail in exactly two ways: the basis cannot represent the
 field, or the map from parameters to coefficients cannot be learned. We separate
 them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
-particular method happened to learn (Figure~\ref{fig:mechanism}).
+particular method happened to learn (Figure~\ref{fig:operators}B on the full design).
 
 The basis error falls from \nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes
 from 8 to 128. The coefficient-map error, with gradient boosting as the regressor
@@ -1341,7 +1352,7 @@ largest basis the map predicts about \nLfiveVtwoModes\ modes on held-out materia
 \paragraph{The mode count is scoped to a sample size.} An
 earlier version of this section stated the mode count as a property of the map. It
 is not: it is what a given number of training materials buys. Measured against
-material count, modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
+material count (Figure~\ref{fig:mechanism}), modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
 \nLCmodesLarge\ over 12 to 192 materials and are still climbing. Three counts of
 modes clearing \(R^2 > 0.2\) appear in this paper, and they are the same statistic
 under different conditions: \nLfiveCountModes\ on the legacy design, and
@@ -1360,7 +1371,7 @@ residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpE
 and halving the error requires
 \(\nNwidthHalving\times\) the modes permanently. We separate the two because an
 earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
-halving factor computed correctly from the norm --- two numbers in one sentence
+halving factor computed correctly from the norm: two numbers in one sentence
 that disagreed by a factor of two in the exponent. Any method whose output is a linear
 combination of a fixed basis is bounded below by it. Our frozen protocol called this
 the central result of the ladder and predicted that DeepONet would track it.
@@ -1371,7 +1382,7 @@ with jump discontinuities, which is a bound and not a rate. Our measured decay i
 hypothesis: their fields carry jump discontinuities, ours are smoothed by axial
 dispersion and by finite-rate kinetics, so the worst case their theorem
 constructs does not occur here. That is also why the bound can be simultaneously
-real and inactive --- the two statements this paragraph has to hold together.
+real and inactive; this paragraph has to hold both statements together.
 
 %% ===========================================================================
 \section{The coordinate change, and where the obstruction moved}
@@ -1380,9 +1391,11 @@ real and inactive --- the two statements this paragraph has to hold together.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
-\caption{The two-wave frame. \textbf{A}~Modes for 99.9\,\% of training variance per
-frame. \textbf{B}~The verdict: the predicted-front arm ties the fixed frame, the
-oracle arm is significantly better and is an upper bound.}
+\caption{The two-front frame (legacy design). \textbf{A}~Modes needed for 99.9\,\% of
+training variance in each frame: aligning one front raises the count, aligning both
+lowers it. \textbf{B}~Held-out error: with predicted fronts the two-front frame ties
+the fixed frame; handed the true fronts (hollow) it is better, an upper bound rather
+than a result.}
 \label{fig:warp}
 \end{figure}
 
@@ -1391,7 +1404,7 @@ oracle arm is significantly better and is an upper bound.}
 Aligning multiple transports is not new, and none of it is claimed here.
 The two-transport case is the founding worked example of the shifted proper
 orthogonal decomposition \cite{reiss2018shifted}, where a pressure pulse splitting into two waves is
-reconstructed with two modes --- one per co-moving frame --- against more than
+reconstructed with two modes (one per co-moving frame) against more than
 eighty ordinary modes; the general formulation covers arbitrary numbers of
 independent transports. Multi-front variants follow in several later works \cite{nair2019transported,mendible2020dimensionality,krah2025robust,krah2023front,zorawski2024neural}, and a neural-network shifted decomposition predates the last of these by two years \cite{papapicco2022nnspod}.
 Shape--timescale decomposition of breakthrough curves specifically has been
@@ -1457,7 +1470,7 @@ two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \
 \end{tabular}}
 \end{table}
 
-Two statements, and both are needed. The predicted-front arm does \emph{not} beat the fixed
+Two statements are needed here. The predicted-front arm does \emph{not} beat the fixed
 frame. But the oracle gap is significant and large: given the true front
 trajectories, the same proper-orthogonal-decomposition-plus-regressor arm is
 \nWarpHeadroomFixed{}\(\times\) better \emph{than the fixed frame}, and
@@ -1535,9 +1548,9 @@ N_q^{\mathrm{be}} \;=\; \frac{N_{\mathrm{sim}} + c_{\mathrm{fit}}}{1 - r},
 with \(N_{\mathrm{sim}}\) the number of training simulations and \(c_{\mathrm{fit}}\)
 the fit, both in solve-equivalents. Fitting the reported arm takes \nCostTrainSec\ seconds, median over
 \nCostTrainSeeds\ recorded fits, or \nCostTrainEq\ solve-equivalents, which is noise
-next to the data. And because \(r \ll 1\) --- a forward pass through three
+next to the data. Because \(r \ll 1\) (a forward pass through three
 256-unit layers and three 64-mode reconstructions, against an implicit solve on
-\nGridNz\ cells carried to breakthrough --- equation~\eqref{eq:breakeven} is bounded
+\nGridNz\ cells carried to breakthrough), equation~\eqref{eq:breakeven} is bounded
 below by \(N_{\mathrm{sim}} + c_{\mathrm{fit}}\) \emph{without measuring \(r\) at
 all}. We report the bound because it needs no timing and so does not depend on the
 hardware. Measured as well, on an idle machine, a full-field
@@ -1567,7 +1580,7 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 \end{tabular}}
 \end{table}
 
-\paragraph{What Table~\ref{tab:cost} says.} Three things, and the third is the one that matters.
+\paragraph{What Table~\ref{tab:cost} says.} Three conclusions follow, the third the most important.
 
 First, the surrogate at its best accuracy cannot repay its own construction in fewer
 than \nCostBreakEven\ screening queries against the full-resolution solve. Below that
@@ -1581,8 +1594,8 @@ held-out accuracy at \nCoarseSolveEq\ solve-equivalents per query}; in fact it b
 it, at \nCoarseErrPct\,\% normalised error against the surrogate's \nCoarseTargetPct\,\%,
 about \(\nCoarseAccRatio\times\) more accurate, in about \nCoarseWallMs\,ms
 (\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed or did not reach breakthrough; they
-are reported and excluded from the mean). The comparison is unpaired --- one sample per
-material for the coarse solve, the full held-out set for the surrogate --- and is made
+are reported and excluded from the mean). The comparison is unpaired (one sample per
+material for the coarse solve, the full held-out set for the surrogate) and is made
 against the L1 and L2 perceptrons only, so it is a statement about scale, not a
 paired test. These costs are measured against a production solve timed in
 the same process, \nCoarseTprod\,s, not the generation-time figure above, and the
@@ -1608,7 +1621,7 @@ Section~\ref{sec:mechanism} a larger lever still, so a better learner shifts eve
 down and the frontier with it. The exchange rate between data and error is the
 transferable part, not the absolute rows.
 
-Third, and this is why the negative results in this paper are worth their space: every
+Third, the negative results are informative: every
 rung that was \emph{eliminated} is an intervention that would have added cost without
 buying accuracy. A richer per-edge basis (Kolmogorov--Arnold against perceptron) and,
 beyond a small basis, a larger linear-reconstruction basis cost fit time and nothing
@@ -1934,8 +1947,8 @@ matched size do not. Before building any of it, compare with a coarse numerical 
 surrogates it was compared with. The cost accounting of
 Section~\ref{sec:cost} gives the exchange rate for the first.
 
-\paragraph{What is scoped.} Three verdicts --- L3, L5's operator comparison and the
-coordinate change --- were measured on \nNclustLegacy\ held-out materials rather than
+\paragraph{What is scoped.} Three verdicts (L3, L5's operator comparison and the
+coordinate change) were measured on \nNclustLegacy\ held-out materials rather than
 \nNclustFolds, and must be read at that material count until they are re-measured; L5's
 basis-size verdict has been, and changed (A29). The reference solver reproduces the
 published MOF-303 bed's two-wave shape and its half-breakthrough time with nothing
