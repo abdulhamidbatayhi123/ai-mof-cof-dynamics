@@ -55,8 +55,8 @@ improving the representation \(\nLfiveVtwoFloorDrop\times\) changes that error b
 \nLfiveVtwoGainPct\,\% before levelling. With the column's own equation as a training
 loss, a small weight improves transfer by \nLfourbMatGainPct\,\%; minimising it alone at
 inference makes predictions worse. Fitted closed forms are \nBfitRatio\ times worse
-than learning. A coarse numerical solve is more accurate than every surrogate and
-cheaper below about \nCoarseBreakEven\ queries. \nLedgerA\ withdrawn claims and
+than learning. A coarse numerical solve is more accurate than the perceptron
+surrogates and cheaper below about \nCoarseBreakEven\ queries. \nLedgerA\ withdrawn claims and
 \nLedgerB\ caught defects are reported in full, including a physics residual that once
 moved the gas at the wrong velocity.
 \end{abstract}
@@ -197,8 +197,8 @@ mode-wise spectral bias. We reproduce that signature independently and extend it
 four ways: the inputs are a finite-dimensional parameter vector describing a
 \emph{material} rather than a discretised input function; evaluation is transfer to
 held-out materials under a cluster-robust, calibrated test rather than
-in-distribution error; we show the plateau is invariant to basis size while the
-proper-orthogonal-decomposition floor beneath it falls \(\nFloorDrop\times\), and calibrate
+in-distribution error; we show that beyond the first few modes the plateau barely moves with basis size while
+the proper-orthogonal-decomposition floor beneath it falls \(\nLfiveVtwoFloorDrop\times\), and calibrate
 the residual against an oracle to an equivalent mode count; and we locate it in the
 map from material parameters to the field rather than in the basis. A similar plateau on a different input type and a
 different partial differential equation suggests the wall is not peculiar to either
@@ -486,7 +486,8 @@ achieves an empirical size of \nFprFoldsCal\,\%. One published verdict did not
 survive that calibration and was withdrawn (Section~\ref{sec:corrections}, A13).
 
 \paragraph{Three designs, their levels, all stated.} Rungs L1, L2, L6 and L7, the
-cost accounting and the re-measurement of L5's basis-versus-map decomposition run on the
+cost accounting, the re-measurement of L5's basis-versus-map decomposition and L5's
+DeepONet basis-size sweep run on the
 \nNclustFolds-material folds at \(\alpha = \nAlphaFolds\). Rung L4 runs on the single
 split of \nLfourbMatNmat\ held-out materials at \(\alpha = \nAlphaManifest\). Rung L3,
 L5's operator comparisons, the first measurement of its decomposition and the
@@ -783,6 +784,8 @@ L5 & legacy &
 parameters \(\to\) \(c\) field, subsampled from the stored field &
 DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; all matched to \nMthFiveBudget\ parameters &
 Adam, cosine schedule, \nMthFiveSteps\ steps, per-arm learning-rate grid \\
+L5 basis size & larger, five-fold & as L5 & DeepONet over basis size \(p\), matched parameters &
+Adam, cosine schedule, step budget tripled (PREREG\_L5\_v2 A2), per-arm learning-rate grid \\
 L5 basis vs.\ map & legacy, then re-measured on larger, five-fold &
 parameters \(\to\) POD coefficients of \(c\) over basis size &
 one gradient-boosted regressor per mode & three seeds \\
@@ -877,9 +880,10 @@ coefficients, folds and materials (hyperparameters fitted on a subset, amendment
 because a full marginal-likelihood fit was infeasible on this machine). In the
 pre-declared words there is \emph{\nBgpVerdict}: \nBgpGp\ against \nBgpMlp, interval
 [\nBgpLo, \nBgpHi]; the design detects a \nBgpMde\,\% effect with \(80\,\%\) power. Two
-very different function classes reach the same error from the same inputs, which is
-what a limit set by the information in the training materials, rather than by the
-regressor, predicts.
+very different function classes reach the same error from the same per-mode inputs:
+for a map fitted mode by mode, the regressor class is not the lever. How the map is
+structured is --- training the basis and the coefficients together, or learning the
+whole field, is worth a constant factor (Section~\ref{sec:mechanism}).
 
 \subsection{L2 --- more capacity}
 
@@ -1087,12 +1091,13 @@ from the truth. We report that as a measurement and do not claim its cause.
 
 \paragraph{Basis size, on the full design: a small gain, complete early.} The
 pre-registered re-measurement on the \nNclustFolds-material five-fold design
-(Section~\ref{sec:corrections}, A2, A3) answers the rung's primary question in its
+(PREREG\_L5\_v2 amendments A2 and A3; Section~\ref{sec:corrections}, B74), at the step budget
+amendment A2 set (tripled), answers the rung's primary question in its
 pre-declared words: \textbf{\nLfiveVtwoVerdict}. DeepONet at \(p = 128\) reaches
 \nLfiveVtwoPhigh\ against \nLfiveVtwoPeight\ at \(p = 8\), interval
 [\nLfiveVtwoDiffLo, \nLfiveVtwoDiffHi]; paid for over both learning-rate choices the
 interval is [\nLfiveVtwoSelLo, \nLfiveVtwoSelHi] (\nLfiveVtwoSelWords). The gain is
-\nLfiveVtwoGainPct\,\% of the error and it is complete by \(p = 16\)
+\nLfiveVtwoGainPct\,\% of the error, and by point estimate it is complete by \(p = 16\)
 (\nLfiveVtwoPsixteen); the larger bases are level. At \(p = 8\) DeepONet sits only
 \(\nLfiveVtwoXfloorEight\times\) above its own basis floor, so there the basis does
 bind; by \(p = 128\) it sits \(\nLfiveVtwoXfloorHigh\times\) above it, and the map
@@ -1162,7 +1167,7 @@ sweep, for the reason the next paragraph gives.
 sweep is confounded with width at a matched budget --- the spectral weights cost
 \(\mathcal{O}(w^2 m^2)\), so width falls as modes rise. The monotone degradation
 across that sweep therefore \emph{cannot} be read as ``more Fourier modes do not
-help''. The flat-in-\(p\) statement is made for DeepONet, where \(p\) and width are
+help''. The basis-size statements are made for DeepONet, where \(p\) and width are
 controlled separately, and is not claimed for the Fourier operator.
 
 \subsection{L6 --- separate identification of the kinetic and equilibrium objects}
@@ -1275,8 +1280,9 @@ fast kinetics.
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig5_mechanism.pdf}
-\caption{The mechanism. \textbf{A}~Held-out error against basis size: the floor
-falls \(\nFloorDrop\times\) while DeepONet and the pointwise regressors stay flat
+\caption{The mechanism, legacy design. \textbf{A}~Held-out error against basis size: the floor
+falls \(\nFloorDrop\times\) while DeepONet and the pointwise regressors stay flat (on the
+full design DeepONet gains \nLfiveVtwoGainPct\,\% up to \(p = 16\), A29)
 (the Fourier operator has no basis size and is drawn as a level). \textbf{B}~The two terms of a linear
 reconstruction, measured in the \emph{optimal} basis. \textbf{C}~Per-mode
 \(R^2\) of the coefficient map on held-out materials.}
@@ -1314,7 +1320,7 @@ Against an oracle reconstruction handed the true coefficients for its first \(k\
 modes, the best DeepONet found anywhere performs like a \nLfiveOracleONet-mode
 oracle, and the best Fourier operator like a \nLfiveOracleFNO-mode one. Three
 independent function classes --- proper orthogonal decomposition plus random forest,
-plus gradient boosting, and DeepONet --- are all flat in rank while the floor falls by a factor of \nFloorDrop. Training basis and coefficients together, or learning the
+plus gradient boosting, and DeepONet --- are flat in rank on the legacy design while the floor falls by a factor of \nFloorDrop{} (on the full design DeepONet gains a little up to \(p = 16\), A29). Training basis and coefficients together, or learning the
 whole field at once, is worth a constant factor --- up to \(\nOperatorLever\times\)
 from the pointwise regressor to the Fourier operator on this encoding, a lever of
 the same order as the learning curve's (the two ratios come from different designs,
@@ -1578,11 +1584,15 @@ pre-declared words: \emph{a coarse solve at \(N_z = \nCoarseNz\) matches the sur
 held-out accuracy at \nCoarseSolveEq\ solve-equivalents per query} --- in fact it beats
 it, at \nCoarseErrPct\,\% normalised error against the surrogate's \nCoarseTargetPct\,\%,
 about \(\nCoarseAccRatio\times\) more accurate, in about \nCoarseWallMs\,ms
-(\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed or did not reach breakthrough and
-are counted, not dropped). These costs are measured against a production solve timed in
+(\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed or did not reach breakthrough; they
+are reported and excluded from the mean). The comparison is unpaired --- one sample per
+material for the coarse solve, the full held-out set for the surrogate --- and is made
+against the L1 and L2 perceptrons only, so it is a statement about scale, not a
+paired test. These costs are measured against a production solve timed in
 the same process, \nCoarseTprod\,s, not the generation-time figure above, and the
 surrogate's query is put on the same base. On that basis the surrogate breaks even with
-coarse solving only after about \nCoarseBreakEven\ queries, and it is still the less
+coarse solving only after about \nCoarseBreakEven\ queries (a lower bound: the fit is not
+counted), and it is still the less
 accurate of the two. \textbf{For this one-dimensional column, a surrogate is justified
 only by query volume}: a screen of tens of thousands of candidates or more, or a use in
 which a field must come back in milliseconds, as inside an optimiser or a controller.
@@ -1642,7 +1652,7 @@ validation gates, in the power simulations, in the citation ledger itself, and i
 the frozen protocol.
 
 We report this for two reasons. The first is that the corrections are load-bearing:
-four of them reversed headline verdicts, and a reader who does not know which
+six of them reversed headline verdicts, and a reader who does not know which
 numbers moved cannot evaluate the ones that did not. The second is evidential.
 Disclosed self-correction is received well, and the Loss-of-Confidence Project
 documents that \cite{rohrer2021loss}; the alternative --- a paper in which nothing ever went wrong --- is
@@ -1653,7 +1663,9 @@ less credible, not more.
 \item \textbf{A property measured at one sample size, stated as intrinsic.} A18,
 A21 and A26 are the same error three times: the learning-curve verdict, the
 coefficient-map mode count, and the capacity optimum. Each was true at the size it
-was measured at and false as a general statement.
+was measured at and false as a general statement. A29 is the fourth instance, and the
+first caught by design: the flat-in-basis null of L5, taken on \nNclustLegacy\ held-out
+materials, did not survive its pre-registered re-measurement on \nNclustFolds.
 \item \textbf{Normalising by a quantity that can vanish.} A15 destroyed every
 time-axis number in one rung when a window-local range collapsed after breakthrough;
 B34 and B41 repeated it in diagnostics; and the script written for this paper to
@@ -1672,20 +1684,23 @@ direction; A13 withdrew a positive verdict that did not survive the calibrated
 level.
 \end{enumerate}
 
-\paragraph{Four that reversed a headline.} The physics-as-a-loss rung reversed
-twice. Its legacy claim that the residual \emph{hurts} did not survive a sweep of
+\paragraph{Six that reversed a headline.} The physics-as-a-loss rung reversed
+three times. Its legacy claim that the residual \emph{hurts} did not survive a sweep of
 weightings and the edge rule (B69); then every one of its verdicts was withdrawn as a
 statement about physics when the residual itself proved to be the wrong equation (B72,
-A28) --- the largest-scope withdrawal in the ledger, and the only one that voids a
-whole rung. A17 withdrew the explanatory role of the
+A28) --- the largest-scope withdrawal in the ledger, which voided the whole rung until
+its corrected re-run reported a small benefit on unseen materials. A17 withdrew the explanatory role of the
 Kolmogorov \(n\)-width, which the frozen protocol had called the load-bearing result
 of the ladder --- the bound is real and inactive. A22 turned a null we had described
 as decisive into one that excludes only very large effects. A25 then corrected A22's
 replacement in our favour, and is recorded on the same terms; it qualifies A22 rather
-than reversing a fifth headline. The last internal review added B75, which removed
+than reversing another headline. A29 retracted the flat-in-basis verdict of L5 in its
+own pre-declared words, and A30 revised the cost case once the pre-registered
+coarse-solver baseline proved more accurate than the surrogate. The last internal
+review added B75, which removed
 the word ``significantly'' from the Fourier operator's advantage over DeepONet once
 the choice of both arms on the test materials was paid for. We do not count it among
-the four: the direction of that comparison stands, and only its significance went.
+the six: the direction of that comparison stands, and only its significance went.
 
 \paragraph{What remains open.} One entry is deliberately unresolved. The classical
 control in rung L7 uses an approximation attributed in our bibliography to
@@ -1876,10 +1891,11 @@ Kolmogorov--Arnold families on held-out materials in every comparison by point
 estimate, \nLthreeSigSim\ of \nLthreePairs\ significantly after selection and none
 reversed, so the premise that motivated this study is refuted on our own data. Basis size is a
 small lever and an early one: on the full design DeepONet gains \nLfiveVtwoGainPct\,\% from
-\(p = 8\) to \(p = 16\) and nothing after, while the proper-orthogonal-decomposition floor
+\(p = 8\) to \(p = 16\) and, by point estimate, nothing after, while the proper-orthogonal-decomposition floor
 falls \(\nLfiveVtwoFloorDrop\times\) (A29); and a Fourier neural operator, the remedy the approximation
 theory names, is more accurate --- not significantly, once its selection is paid for
---- and still sits \(\nFNOxFloor\times\) above that floor. The
+--- and on the legacy design still sits \(\nFNOxFloor\times\) above its own floor at
+\(p = 128\). The
 Kolmogorov \(n\)-width is real, and it is inactive; our own frozen protocol named it
 as the load-bearing explanation and was wrong (A17). Structural decomposition of the
 equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, and the benefit shows no
@@ -1918,12 +1934,14 @@ materials, and a learner that maps parameters to the whole field rather than to
 coefficients one by one. A small physics-residual weight helps a little and costs no
 simulations. A larger basis beyond the first few modes and a different nonlinearity at
 matched size do not. And before building any of it, compare with a coarse numerical solve
-(Section~\ref{sec:cost}): on this column it is more accurate than every surrogate here. The cost accounting of
+(Section~\ref{sec:cost}): on this column it is more accurate than the perceptron
+surrogates it was compared with. The cost accounting of
 Section~\ref{sec:cost} gives the exchange rate for the first.
 
-\paragraph{What is scoped.} Three verdicts --- L3, L5 and the coordinate change ---
-were measured on \nNclustLegacy\ held-out materials rather than \nNclustFolds, and must be read at that
-material count until they are re-measured. The reference solver reproduces the
+\paragraph{What is scoped.} Three verdicts --- L3, L5's operator comparison and the
+coordinate change --- were measured on \nNclustLegacy\ held-out materials rather than
+\nNclustFolds, and must be read at that material count until they are re-measured; L5's
+basis-size verdict has been, and changed (A29). The reference solver reproduces the
 published MOF-303 bed's two-wave shape and its half-breakthrough time with nothing
 fitted, and misses its first-wave timing; of the excess in its late arrival time,
 \nAnchorTcutPct\,\% is one dispersion term evaluated at a limit this bed does not

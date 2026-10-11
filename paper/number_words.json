@@ -777,13 +777,6 @@
   "line_at_review": 1145
  },
  {
-  "key": "{What is scoped.} [Three] verdicts --- L3, L5 and the c",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "counts L3, L5 and the coordinate change, named in the same sentence",
-  "line_at_review": 1178
- },
- {
   "key": "bed's shape and its [half] -breakthrough time with nothin",
   "word": "half",
   "class": "PROSE",
@@ -1085,13 +1078,6 @@
   "line_at_review": 381
  },
  {
-  "key": "{ [Four] that reversed a headline.} Th",
-  "word": "Four",
-  "class": "PROSE",
-  "reason": "count of the entries enumerated in the paragraph itself (structural)",
-  "line_at_review": 1155
- },
- {
   "key": "the column between the first [two] samples, and the second front",
   "word": "two",
   "class": "PROSE",
@@ -1111,13 +1097,6 @@
   "class": "DESIGN",
   "reason": "audit_l3 lr grid {3e-3, 1e-3} (design)",
   "line_at_review": 533
- },
- {
-  "key": " [twice] . Its legacy claim that the re",
-  "word": "twice",
-  "class": "PROSE",
-  "reason": "count of the two reversals enumerated in the same paragraph (structural)",
-  "line_at_review": 1187
  },
  {
   "key": "with [zero] gradient at the outlet \\(z =",
@@ -1456,20 +1435,6 @@
   "line_at_review": 433
  },
  {
-  "key": " [four] of them reversed headline ver",
-  "word": "four",
-  "class": "DESIGN",
-  "reason": "the four entries named one by one under 'Four that reversed a headline' (B69, B72/A28, A17, A22)",
-  "line_at_review": 1500
- },
- {
-  "key": "than reversing a [fifth] headline. The last internal r",
-  "word": "fifth",
-  "class": "PROSE",
-  "reason": "ordinal in an argument, not a measured count",
-  "line_at_review": 1540
- },
- {
   "key": "(u = v/ _t\\) the interstitial [one] , the equations integrated are",
   "word": "one",
   "class": "PROSE",
@@ -1566,13 +1531,6 @@
   "class": "PROSE",
   "reason": "pronoun (design)",
   "line_at_review": 1294
- },
- {
-  "key": "the [four] : the direction of that compar",
-  "word": "four",
-  "class": "DESIGN",
-  "reason": "the four entries named under 'Four that reversed a headline'",
-  "line_at_review": 1622
  },
  {
   "key": "dataset ( \\,\\% of the legacy [one] ) are fed",
@@ -1734,5 +1692,54 @@
   "class": "PROSE",
   "reason": "idiom",
   "line_at_review": 1894
+ },
+ {
+  "key": "L5 basis size & larger, [five] -fold & as L5 & DeepONet over",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design of Methods",
+  "line_at_review": 763
+ },
+ {
+  "key": "he comparison is unpaired --- [one] sample per",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the baseline's design, PREREG_BASELINES §2",
+  "line_at_review": 1564
+ },
+ {
+  "key": " [six] of them reversed headline ver",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six entries named under 'Six that reversed a headline' (B69, B72/A28, A17, A22, A29, A30)",
+  "line_at_review": 1631
+ },
+ {
+  "key": "{ [Six] that reversed a headline.} Th",
+  "word": "Six",
+  "class": "DESIGN",
+  "reason": "the six entries named in the paragraph",
+  "line_at_review": 1663
+ },
+ {
+  "key": " [three] times. Its legacy claim that",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "B69, A28 and the corrected re-run, named in the paragraph",
+  "line_at_review": 1664
+ },
+ {
+  "key": "the [six] : the direction of that compar",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six entries named in the paragraph",
+  "line_at_review": 1679
+ },
+ {
+  "key": "{What is scoped.} [Three] verdicts --- L3, L5's operato",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three verdicts named in the sentence",
+  "line_at_review": 1917
  }
 ]

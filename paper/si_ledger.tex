@@ -10,7 +10,7 @@
 \setlength{\emergencystretch}{3em}
 \begin{document}
 \section*{Supplementary Information S1: the correction ledger}
-Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 75 caught defects (B), every entry in full. The main text cites entries by these codes.
+Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 76 caught defects (B), every entry in full. The main text cites entries by these codes.
 
 \subsection*{A1}\label{led:A1}
 \begin{description}[leftmargin=0pt,itemsep=1pt]
@@ -183,7 +183,7 @@ Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 75 c
 \subsection*{A29}\label{led:A29}
 \begin{description}[leftmargin=0pt,itemsep=1pt]
 \item[Claim withdrawn.] \emph{A legacy verdict retracted by its own pre-declared words.} L5's headline on the legacy design -- \textbf{``DeepONet is flat in basis size''} (p = 8 vs p = 128, interval spanning zero, 12 held-out materials) -- and the conclusions built on it (``basis size is not the lever'').
-\item[Replaced with.] \textbf{Retracted as a small-design artefact, in the words PREREG\_L5\_v2 §3 declared before the run:} on the 240-material five-fold design at 24k steps (A2), p = 128 is significantly better than p = 8 (0.0096 vs 0.0109, interval [0.00099, 0.00164]), and the difference survives paying for both learning-rate choices (A3: [0.00088, 0.00173]). The gain is about 12 \% and is complete by p = 16; p = 16-128 are level. At p = 8 DeepONet sits 1.7x above its own basis floor -- there the basis does bind -- and by p = 128 it sits 136x above it.
+\item[Replaced with.] \textbf{Retracted as a small-design artefact, in the words PREREG\_L5\_v2 §3 declared before the run:} on the 240-material five-fold design at 24k steps (PREREG\_L5\_v2 amendment A2), p = 128 is significantly better than p = 8 (0.0096 vs 0.0109, interval [0.00099, 0.00164]), and the difference survives paying for both learning-rate choices (PREREG\_L5\_v2 amendment A3: [0.00088, 0.00173]). The gain is about 12 \% and is complete by p = 16; p = 16-128 are level. At p = 8 DeepONet sits 1.7x above its own basis floor -- there the basis does bind -- and by p = 128 it sits 136x above it.
 \item[Why it was wrong.] \emph{Found by the pre-registered re-measurement (PREREG\_L5\_v2), which exists because A26 showed a legacy verdict could fail to survive the larger design.} The same lesson as A18/A21/A26, a fourth time and this time caught by design rather than by accident: \textbf{a null measured on 12 held-out materials excludes only large effects.}
 \end{description}
 \subsection*{A30}\label{led:A30}
@@ -599,5 +599,11 @@ Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 75 c
 \item[Defect.] \emph{Two significance claims that did not pay for choosing both arms on the test materials, and one of them unowned.} (a) L5: 'the Fourier neural operator is significantly better than DeepONet' compared the best of 6 FNO cells with the best of 34 DeepONet cells, both selected on the same 12 held-out materials, using a per-pair interval [+0.00015, +0.00984] that barely excluded zero. (b) L3: 'all six pairwise comparisons significant' (perceptron vs each KAN family at each budget, each arm at its best learning rate) had no script that computed it
 \item[Resolution.] \textbf{Corrected.} \texttt{analyze\_l5\_selection.py} and \texttt{analyze\_l3\_selection.py} run one studentised max-statistic cluster bootstrap over every pair of cells the selection could have picked. L5: simultaneous interval [-0.00176, +0.01152]; \textbf{the word 'significantly' is withdrawn}, and the direction alone is reported. L3: the per-pair 6/6 reproduces exactly and is now owned; 4/6 survive the selection and none reverses, so L3's verdict (eliminated) stands with the count corrected. Figure 1 now draws the selection-adjusted interval for L2, L3's note and L5
 \item[Note.] \emph{Found 2026-10-04 by the round-2 internal referee (N4), who noted that 'the one positive result that rests on such a choice' was not the only one.} A correction applied to one result because it looked fragile must be applied to every result built the same way; selection on both sides of a comparison is paid for over the pairs, not over one side
+\end{description}
+\subsection*{B76}\label{led:B76}
+\begin{description}[leftmargin=0pt,itemsep=1pt]
+\item[Defect.] \emph{Our own error: a bug recorded as a hardware limit.} Paper 2's M7 inclusion gate (\texttt{p2\_pilot\_m7.py}, PREREG\_P2 §3) wrote \textbf{``M7 NOT RUN: infeasible on this machine''}. Every seed had failed with the same exception -- PySR accepts only alphanumeric variable names, and the wrapper passed Lib-B's names (\texttt{c*q}, \texttt{q\textasciicircum{}2}) straight through. Seed 0's 635 s was Julia compiling before the error; seeds 1-2 'ran' in 0 s. The first re-run exposed a second configuration error of the same kind: \texttt{deterministic=True} with multithreading, which PySR also refuses (and the gate, started before its decision rule was fixed, again wrote 'infeasible').
+\item[Resolution.] \textbf{Fixed before the freeze; the decision withdrawn.} \texttt{p2/pysr\_method.safe\_names} passes placeholders and maps them back (test added); the gate is re-run unchanged and its outcome recorded in PREREG\_P2 §11. No grid result existed.
+\item[Note.] \emph{Found 2026-10-11 by noticing that two of three seeds took zero seconds.} The gate's verdict rule counted an exception as a failure to meet the limits, so a software error and an infeasible method produced the same words. \textbf{A gate must distinguish 'it could not run' from 'it ran and failed'.}
 \end{description}
 \end{document}

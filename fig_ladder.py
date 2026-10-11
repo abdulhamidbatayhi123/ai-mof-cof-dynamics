@@ -166,7 +166,7 @@ def build_rows():
         add("L4b", "physics as a loss",
             "best weight vs data-only twin, unseen materials (selection-adjusted)",
             effect(c, control_is_a=(c["arm_a"] == "data_only")),
-            "HELPS AT SMALL WEIGHTS (B72 fixed)",
+            ax["verdict"].split(" (")[0],   # the pre-declared words, verbatim: PHYSICS HELPS once correctly weighted
             "larger or adaptive weights hurt; no difference on the time axis",
             mde=100 * m80 if m80 else None)
     else:
@@ -201,7 +201,7 @@ def build_rows():
              "significant": a3["significant_simultaneous"]}
         f = l5v["pod_floor_pooled"]
         add("L5", "a bigger basis", "DeepONet p=128 vs p=8, 240 materials (selection-adjusted)",
-            effect(c, control_is_a=True), "HELPS A LITTLE (A29)",
+            effect(c, control_is_a=True), "BASIS SIZE HELPS DeepONet (A29)",   # pre-declared words, PREREG_L5_v2 §3
             f"gain complete by p=16; its own basis floor falls {f['8'] / f['128']:.0f}x")
     else:
         missing.append("L5-v2 basis-size comparison")
