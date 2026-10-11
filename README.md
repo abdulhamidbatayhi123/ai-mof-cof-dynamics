@@ -7,10 +7,10 @@ kinetics?).
 Surrogates of adsorption columns are usually judged by how well they fit. This project
 asks a different question: **when a surrogate must predict an adsorbent it has never
 seen, what binds its error, and which of the standard interventions moves it?** Seven
-candidate explanations were named in advance — more data, more capacity, a richer
+candidate explanations were named in advance (more data, more capacity, a richer
 edge basis (Kolmogorov–Arnold networks), a physics residual in the loss, operator
 learning, structural identification of the kinetic and equilibrium objects, and
-whether learning is needed at all — each with the evidence that would eliminate it,
+whether learning is needed at all), each with the evidence that would eliminate it,
 and tested in order on a verified reference solver.
 
 The answers, in the paper's pre-declared words, are in **`paper/manuscript.pdf`**
@@ -87,7 +87,7 @@ Each was learned by getting it wrong; the ledger records each time.
 4. **Compare against the competitor's strongest configuration.** An optimum on the
    edge of a swept grid is extended before it is believed.
 5. **Never normalise a metric by a quantity that can vanish.**
-6. **A gate that cannot fire protects nothing** — every gate is tested by planting
+6. **A gate that cannot fire protects nothing**: every gate is tested by planting
    the defect it guards against.
 7. **A model of the physics written separately from the solver is checked against
    the solver.** (The physics residual of one rung was not, for most of the project's
