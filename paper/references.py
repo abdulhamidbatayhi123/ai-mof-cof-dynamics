@@ -115,7 +115,7 @@ REFS = [
      "B42: A23 originally carried MPP's identifier here. Poseidon is 2405.19101. Published "
      "version (NeurIPS 2024) taken from its Crossref record 2026-10-11; seven authors match.", False),
     ("mccabe2023multiple", V, "inproceedings", dict(
-        author="Michael McCabe and Bruno R{\\'e}galdo-Saint Blancard and Liam Parker and Ruben Ohana "
+        author="Michael McCabe and Bruno {R{\\'e}galdo-Saint Blancard} and Liam Holden Parker and Ruben Ohana "
                "and Miles Cranmer and Alberto Bietti and Michael Eickenberg and Siavash Golkar and "
                "Geraud Krawezik and Francois Lanusse and Mariel Pettee and Tiberiu Tesileanu and "
                "Kyunghyun Cho and Shirley Ho",
@@ -126,7 +126,7 @@ REFS = [
      "(arXiv 2310.02994 was 'Multiple physics pretraining for physical surrogate models'); record and "
      "fourteen authors from Crossref 2026-10-11.", False),
     ("krass2025mofsimbench", V, "article", dict(
-        author="Kra{\\ss} and Huang and Moosavi",
+        author="Hendrik Kra{\\ss} and Ju Huang and Seyed Mohamad Moosavi",
         title="{MOFSimBench}: evaluating universal machine learning interatomic potentials in "
               "metal--organic framework molecular modeling",
         journal="npj Computational Materials", volume="12", pages="4", year="2025",
@@ -180,7 +180,7 @@ REFS = [
      "Crossref record checked 2026-10-04.", False),
     ("hanikel2019rapid", V, "article", dict(
         author="Nikita Hanikel and Mathieu S. Pr{\\'e}vot and Farhad Fathieh and Eugene A. Kapustin and Hao Lyu and Haoze Wang and Nicolas J. Diercks and T. Grant Glover and Omar M. Yaghi",
-        title="{Rapid Cycling and Exceptional Yield in a Metal-Organic Framework Water Harvester}",
+        title="Rapid cycling and exceptional yield in a metal--organic framework water harvester",
         journal="ACS Central Science",
         volume="5",
         number="10",
@@ -200,7 +200,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04. The desert device used MOF-801, not MOF-303; gives MOF-303 0.48 g/g against Hanikel's 0.45 -- state which is which. (Merged from a duplicate entry, 2026-10-11.)", False),
     ("furukawa2014water", V, "article", dict(
         author="Hiroyasu Furukawa and Felipe G{\\'a}ndara and Yue-Biao Zhang and Juncong Jiang and Wendy L. Queen and Matthew R. Hudson and Omar M. Yaghi",
-        title="{Water Adsorption in Porous Metal--Organic Frameworks and Related Materials}",
+        title="Water adsorption in porous metal--organic frameworks and related materials",
         journal="Journal of the American Chemical Society",
         volume="136",
         number="11",
@@ -210,7 +210,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("solovyeva2021cau", V, "article", dict(
         author="Marina V. Solovyeva and Alexandr I. Shkatulov and Larisa G. Gordeeva and Elizaveta A. Fedorova and Tamara A. Krieger and Yuri I. Aristov",
-        title="{Water Vapor Adsorption on CAU-10- <i>X</i> : Effect of Functional Groups on Adsorption Equilibrium and Mechanisms}",
+        title="Water vapor adsorption on {CAU-10-\\textit{X}}: effect of functional groups on adsorption equilibrium and mechanisms",
         journal="Langmuir",
         volume="37",
         number="2",
@@ -219,8 +219,8 @@ REFS = [
         doi="10.1021/acs.langmuir.0c02729"),
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("frohlich2016water", V, "article", dict(
-        author="Dominik Fr{\\\"o}hlich and Evangelia Pantatosaki and Panagiotis D. Kolokathis and Karen Markey and Helge Reinsch and Max Baumgartner and Monique A. van der Veen and Dirk E. De Vos and Norbert Stock and George K. Papadopoulos and Stefan K. Henninger and Christoph Janiak",
-        title="{Water adsorption behaviour of CAU-10-H: a thorough investigation of its structure--property relationships}",
+        author="Dominik Fr{\\\"o}hlich and Evangelia Pantatosaki and Panagiotis D. Kolokathis and Karen Markey and Helge Reinsch and Max Baumgartner and Monique A. van der Veen and Dirk E. {De Vos} and Norbert Stock and George K. Papadopoulos and Stefan K. Henninger and Christoph Janiak",
+        title="Water adsorption behaviour of {CAU-10-H}: a thorough investigation of its structure--property relationships",
         journal="Journal of Materials Chemistry A",
         volume="4",
         number="30",
@@ -230,7 +230,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("laurenz2020novel", V, "article", dict(
         author="Eric Laurenz and Gerrit F{\\\"u}ldner and Lena Schnabel and Gerhard Schmitz",
-        title="{A Novel Approach for the Determination of Sorption Equilibria and Sorption Enthalpy Used for MOF Aluminium Fumarate with Water}",
+        title="A novel approach for the determination of sorption equilibria and sorption enthalpy used for {MOF} aluminium fumarate with water",
         journal="Energies",
         volume="13",
         number="11",
@@ -240,7 +240,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("solovyeva2021mil", V, "article", dict(
         author="Marina Solovyeva and Irina Krivosheeva and Larisa Gordeeva and Yuri Aristov",
-        title="{MIL-160 as an Adsorbent for Atmospheric Water Harvesting}",
+        title="{MIL-160} as an adsorbent for atmospheric water harvesting",
         journal="Energies",
         volume="14",
         number="12",
@@ -250,7 +250,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("aumond2026adsorption", V, "article", dict(
         author="Thibaud Aumond and Micka{\\\"e}le Bonneau and C{\\'e}cile Daniel and Miriam Perbet and Francis Meunier and David Farrusseng",
-        title="{Adsorption Performances of Water-Stable MIL-160(Al) at Scale: An Alternative to FAM-Z02 in Water Harvesting and Chillers}",
+        title="Adsorption performances of water-stable {MIL-160(Al)} at scale: an alternative to {FAM-Z02} in water harvesting and chillers",
         journal="ACS Omega",
         volume="11",
         number="10",
@@ -270,7 +270,7 @@ REFS = [
      "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
     ("rieth2017record", V, "article", dict(
         author="Adam J. Rieth and Sungwoo Yang and Evelyn N. Wang and Mircea Dinc{\\u{a}}",
-        title="{Record Atmospheric Fresh Water Capture and Heat Transfer with a Material Operating at the Water Uptake Reversibility Limit}",
+        title="Record atmospheric fresh water capture and heat transfer with a material operating at the water uptake reversibility limit",
         journal="ACS Central Science",
         volume="3",
         number="6",
@@ -357,7 +357,11 @@ REFS = [
      "The finding is explicitly 'in our study', on low-dimensional FEM-friendly problems. "
      "The abstract also concedes the networks were faster to evaluate.", False),
     ("rohrer2021loss", V, "article", dict(
-        author="Rohrer and Tierney and Uhlmann and others",
+        author="Julia M. Rohrer and Warren Tierney and Eric L. Uhlmann and Lisa M. DeBruine and "
+               "Tom Heyman and Benedict Jones and Stefan C. Schmukle and Raphael Silberzahn and "
+               "Rebecca M. Will{\\'e}n and Rickard Carlsson and Richard E. Lucas and Julia Strand and "
+               "Simine Vazire and Jessica K. Witt and Thomas R. Zentall and Christopher F. Chabris "
+               "and Tal Yarkoni",
         title="Putting the self in self-correction: findings from the Loss-of-Confidence Project",
         journal="Perspectives on Psychological Science", volume="16", number="6",
         pages="1255--1269", year="2021", doi="10.1177/1745691620964106"), "", False),
@@ -496,7 +500,7 @@ REFS = [
     ("ohlberger2016reduced", V, "inproceedings", dict(
         author="Mario Ohlberger and Stephan Rave",
         title="Reduced basis methods: success, limitations and future challenges",
-        booktitle="Proceedings of ALGORITMY", pages="1--12", year="2016",
+        booktitle="Proceedings of ALGORITMY 2016", pages="1--12", year="2016",
         eprint="1511.02021", archiveprefix="arXiv"),
      "B47: THIS is the slow-n-width citation, not their 2013 paper. It proves a LOWER bound "
      "d_N >= (1/2) N^-1/2 -- write 'decays no faster than', never 'decays like'.", False),
@@ -522,7 +526,7 @@ REFS = [
      "B38: the correct LANDMARK-registration ancestor.", False),
     ("ramsay1998curve", V, "article", dict(
         author="J. O. Ramsay and Xiaochun Li", title="Curve registration",
-        journal="Journal of the Royal Statistical Society: Series B", volume="60",
+        journal="Journal of the Royal Statistical Society: Series B (Statistical Methodology)", volume="60",
         number="2", pages="351--363", year="1998", doi="10.1111/1467-9868.00129"),
      "DOI trap: ...00115 is a DIFFERENT JRSS-B 1998 paper. The landmark-FREE branch, cited "
      "as the canonical curve-registration reference and as the contrast.", False),
@@ -533,14 +537,14 @@ REFS = [
         title="Analytical solutions of the one-dimensional convective-dispersive solute "
               "transport equation",
         institution="U.S. Department of Agriculture, Agricultural Research Service",
-        number="Technical Bulletin 1661", year="1982"),
+        type="Technical Bulletin", number="1661", year="1982"),
      "B10/B59: defines the third- or FLUX-type inlet [9b] and cites Ogata & Banks for the "
      "first-type. It never uses the name 'Danckwerts'. It also states that the flux-type "
      "condition conserves mass where the concentration-type does not -- which is B8.", False),
     ("ogata1961solution", V, "techreport", dict(
         author="Akio Ogata and R. B. Banks",
         title="A solution of the differential equation of longitudinal dispersion in porous media",
-        institution="U.S. Geological Survey", number="Professional Paper 411-A",
+        institution="U.S. Geological Survey", type="Professional Paper", number="411-A",
         pages="A1--A7", year="1961", doi="10.3133/pp411A"),
      "Pages are A1--A7; van Genuchten & Alves cite A1--A9, which is THEIR error. First-type "
      "inlet -- the reference our L0 originally used by mistake.", False),
@@ -569,9 +573,9 @@ REFS = [
      "Coates (1947); the 1955 result carries an extra term. Cite both.", True),
     ("glueckauf1947theory", V, "article", dict(
         author="E. Glueckauf and J. I. Coates",
-        title="Theory of chromatography. {Part} {IV}. The influence of incomplete equilibrium "
+        title="Theory of chromatography. {Part} {IV}. {The} influence of incomplete equilibrium "
               "on the front boundary of chromatograms and on the effectiveness of separation",
-        journal="Journal of the Chemical Society", pages="1315", year="1947",
+        journal="Journal of the Chemical Society (Resumed)", note="Paper 241", pages="1315", year="1947",
         doi="10.1039/jr9470001315"),
      "Coates is the co-author most often dropped -- B35's failure mode.", False),
     ("klinkenberg1948numerical", P, "article", dict(
@@ -665,7 +669,10 @@ REFS = [
      "B51: 0.45 g/g is Fig. 1A; the ~53 kJ/mol is text S10 / Fig. 4, is the DIFFERENTIAL "
      "adsorption enthalpy, and is negative. 25.0 mol/kg is OUR conversion.", False),
     ("lassitter2024mass", V, "article", dict(
-        author="Thomas Lassitter and Nikita Hanikel and Dennis J. Coyle and others",
+        author="Thomas Lassitter and Nikita Hanikel and Dennis J. Coyle and Mohammad I. Hossain and "
+               "Bryce Lipinski and Michael O'Brien and David B. Hall and Jon Hastings and "
+               "Juan Borja and Travis O'Neil and S. Ephraim Neumann and David R. Moore and "
+               "Omar M. Yaghi and T. Grant Glover",
         title="Mass transfer in atmospheric water harvesting systems",
         journal="Chemical Engineering Science", volume="285", pages="119430", year="2024",
         doi="10.1016/j.ces.2023.119430"),
@@ -680,7 +687,7 @@ REFS = [
      "Its 54 kJ/mol is MOF-LA2-1, a DIFFERENT material. It shows the MOF-303 step shifts "
      "with temperature.", False),
     ("bozbiyik2017stepped", V, "article", dict(
-        author="Belgin Bozbiyik and Tom Van Assche and Jeroen Lannoeye and Dirk E. De Vos and "
+        author="Belgin Bozbiyik and Tom {Van Assche} and Jeroen Lannoeye and Dirk E. {De Vos} and "
                "Gino V. Baron and Joeri F. M. Denayer",
         title="Stepped water isotherm and breakthrough curves on aluminium fumarate "
               "metal--organic framework: experimental and modelling study",
