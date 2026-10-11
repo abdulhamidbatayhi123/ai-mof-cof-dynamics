@@ -1818,84 +1818,49 @@ smaller design.
 \section{Conclusions}
 \label{sec:conclusions}
 
-We asked what binds the error of a surrogate for adsorption column dynamics when it
-must predict a material it has never seen, and we asked it as a ladder of
-pre-registered falsification tests rather than as a search for the best-fitting
-network. The answer is assembled here in one place, because each piece of it was
-obtained on a different rung.
+We asked whether the error of a parametric surrogate of an adsorption column on unseen
+materials is set by its basis or by its map, as a ladder of pre-registered tests rather
+than as a search for the best-fitting network.
 
-\paragraph{What is eliminated, and what is not} Capacity is not eliminated under the pre-registered
-rule, because a random forest is still improving at its capacity ceiling; the
-\nLtwoNUshaped{} neural and boosting families saturate. A richer per-edge basis is not
-the lever either: at matched parameters a perceptron beats both
-Kolmogorov--Arnold families on held-out materials in every comparison by point
-estimate, \nLthreeSigSim\ of \nLthreePairs\ significantly after selection and none
-reversed, so the premise that motivated this study is refuted on our own data. Basis size is a
-small lever and an early one: on the full design DeepONet gains \nLfiveVtwoGainPct\,\% from
-\(p = 8\) to \(p = 16\) and, by point estimate, nothing after, while the proper-orthogonal-decomposition floor
-falls \(\nLfiveVtwoFloorDrop\times\) (A29); and a Fourier neural operator, the remedy the approximation
-theory names, is more accurate (not significantly, once its selection is paid for)
-and on the legacy design still sits \(\nFNOxFloor\times\) above its own floor at
-\(p = 128\). The
-Kolmogorov \(n\)-width is real, and it is inactive; our own frozen protocol named it
-as the central explanation and was wrong (A17). Structural decomposition of the
-equilibrium and kinetic objects helps, by \nLsixDiff\ nRMSE, and the benefit shows no
-detectable dependence on Damk\"ohler number, which reads as an inductive bias rather
-than a kinetic identifier; it is a weak null, whose interval admits a dependence of the
-benefit's own size.
-With the column's own equation as a loss (B72 corrected), a small residual weight improves
-transfer to unseen materials by \nLfourbMatGainPct\,\%, surviving selection, while larger or
-adaptive weights hurt, time extrapolation is unchanged, and minimising the residual alone
-at inference makes predictions worse. Physics as a loss is a weak regulariser here, not a
-source of accuracy the data lack.
+\paragraph{What binds} The map from material parameters to the field binds, not the
+basis it is expressed in. Refining the optimal basis \(\nLfiveVtwoFloorDrop\times\)
+changes a per-mode map's error by \nLfiveVtwoCoefChangePct\,\%, and a basis refitted on
+more materials buys nothing once the regressor sees the same data; DeepONet gains
+\nLfiveVtwoGainPct\,\% from basis size, all of it by \(p = 16\) by point estimate. At the
+largest basis DeepONet sits \(\nLfiveVtwoXfloorHigh\times\) above the POD floor on the
+full design, and on the legacy design the most accurate learner by point estimate, a
+Fourier operator, sits \(\nFNOxFloor\times\) above it. Error still falls as
+\(N_{\mathrm{mat}}^{-\nLCbeta}\) with training materials at the largest size we could
+afford. On the legacy design, by point estimate, learning the whole field rather than
+each coefficient separately is worth up to \(\nOperatorLever\times\), of the same order
+as the \(\nLCratio\times\) that sixteen times more materials buys a fixed learner.
 
-\paragraph{What binds} It is the map from material parameters to the field that
-binds, not the basis it is expressed in. Error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with the number of
-training materials at the largest size we can afford, and for the learning-curve learner the
-whole of that gain is in the map: a basis refitted on more materials buys nothing
-once the regressor sees the same data. How well the map is learned also depends on
-the learner, and that lever is not small. On one encoding, split and metric, the best
-pointwise regressor on proper-orthogonal-decomposition coefficients reaches
-\nLfiveRankPodReg, a Kolmogorov--Arnold operator \nLfiveRankOKAN, DeepONet
-\nLfiveRankONet\ and a Fourier neural operator \nLfiveRankFNO, a factor of
-\(\nOperatorLever\) from first to last, of the same order as the
-\(\nLCratio\times\) that sixteen times more materials buys a fixed learner (the first
-measured on the legacy design, the second on the larger one). What no
-learner escapes is the distance to the floor: the most accurate by point estimate still sits
-\(\nFNOxFloor\times\) above the linear-reconstruction floor at \(p = 128\), a reference
-level it is not bound by. A change of coordinates
-that aligns the two fronts collapses the \(n\)-width and would buy
-\nWarpHeadroomFixed{}\(\times\) if the fronts were known, and no detectable gain when
-they are predicted (on \nWarpNmat\ materials; a gain of up to \nWarpPredImproveMax\,\% is not excluded). It relocates the obstruction, from a two-dimensional field to
-two one-dimensional curves that must still be predicted from the same parameters.
+\paragraph{What is eliminated, and what is not} Capacity is not eliminated: a random
+forest is still improving at its capacity ceiling, while the \nLtwoNUshaped{} neural and
+boosting families saturate. At matched parameters a perceptron beats both
+Kolmogorov--Arnold families in every comparison by point estimate, \nLthreeSigSim\ of
+\nLthreePairs\ significantly after selection (exploratory). The Kolmogorov \(n\)-width
+is real and inactive (A17). Separate equilibrium and kinetic heads help by \nLsixDiff\
+nRMSE with no detectable dependence on Damk\"ohler number, which reads as an inductive
+bias. The governing equations' residual as a loss improves transfer to unseen materials
+by \nLfourbMatGainPct\,\% at a small weight, surviving selection, while larger or
+adaptive weights hurt and residual minimisation at inference makes predictions worse: a
+weak regulariser here, not a source of accuracy the data lack. A change of coordinates
+that aligns the two fronts would buy \nWarpHeadroomFixed{}\(\times\) if the fronts were
+known and shows no detectable gain when they are predicted (\nWarpNmat\ materials; a
+gain of up to \nWarpPredImproveMax\,\% is not excluded).
 
-\paragraph{What this means for a practitioner} For a screening surrogate over
-unseen adsorbent parameter sets, two kinds of effort pay: more, and more diverse, training
-materials, and, on the legacy design by point estimate only, a learner that maps
-parameters to the whole field rather than to coefficients one by one. A small physics-residual weight helps a little and costs no
-simulations. A larger basis beyond the first few modes and a different nonlinearity at
-matched size do not. Before building any of it, compare with a coarse numerical solve
-(Section~\ref{sec:cost}): on this column it is more accurate than the perceptron
-surrogates it was compared with. The cost accounting of
-Section~\ref{sec:cost} gives the exchange rate for the first.
-
-\paragraph{What is scoped} Three verdicts (L3, L5's operator comparison and the
-coordinate change) were measured on \nNclustLegacy\ held-out materials rather than
-\nNclustFolds, and must be read at that material count until they are re-measured; L5's
-basis-size verdict has been, and changed (A29). The reference solver reproduces the
-published MOF-303 bed's two-wave shape and its half-breakthrough time with nothing
-fitted, and misses its first-wave timing; of the excess in its late arrival time,
-\nAnchorTcutPct\,\% is one dispersion term evaluated at a limit this bed does not
-satisfy.
-
-\paragraph{What we got wrong} \nLedgerA\ claims were withdrawn and \nLedgerB\
-defects caught in the course of this work, and they are reported in
-Section~\ref{sec:corrections} on the same terms as the results. Several of the
-paper's headline verdicts exist in their present form only because an earlier form
-of them was falsified by a larger measurement. We regard that ledger as a result.
-Every code cited in this paper (A1--A\nLedgerA, B1--B\nLedgerB) is given in full in
-Supplementary Information S1, which is generated from the ledger file itself at every
-build so that the two cannot disagree.
+\paragraph{What this means for a method developer} For a surrogate of this kind, effort
+pays in the map: more and more diverse training materials, and possibly learners that
+map parameters to the whole field. A small residual weight helps a little and costs no
+simulations; a larger basis beyond the first few modes and a different nonlinearity at
+matched size do not. Before building any of it, compare with a coarse numerical solve:
+on this column it is more accurate than the perceptron surrogates and cheaper below
+about \nCoarseBreakEven\ queries (Section~\ref{sec:cost}). The reference itself
+reproduces a published MOF-303 bed's two-wave shape and half-breakthrough time with
+nothing fitted and misses its first-wave timing. Every withdrawn claim and caught defect
+(\nLedgerA\ and \nLedgerB) is listed in Supplementary S1, generated from the ledger file
+at every build.
 
 %% ===========================================================================
 \section{Reproducibility}

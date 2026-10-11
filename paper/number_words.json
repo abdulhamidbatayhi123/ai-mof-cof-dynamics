@@ -434,27 +434,6 @@
   "line_at_review": 1120
  },
  {
-  "key": "e answer is assembled here in [one] place, because each piece of",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1145
- },
- {
-  "key": "bed's shape and its [half] -breakthrough time with nothin",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1181
- },
- {
-  "key": "\\,\\% is [one] dispersion term evaluated at",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1183
- },
- {
   "key": "ourier operator like a -mode [one] . Three",
   "word": "one",
   "class": "PROSE",
@@ -614,34 +593,6 @@
   "class": "PROSE",
   "reason": "pronoun 'one' (structural)",
   "line_at_review": 778
- },
- {
-  "key": "d that lever is not small. On [one] encoding, split and metric, t",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'on one encoding' = a single shared encoding (structural)",
-  "line_at_review": 1326
- },
- {
-  "key": "\\( \\) that [sixteen] times more materials buys a f",
-  "word": "sixteen",
-  "class": "DESIGN",
-  "reason": "12 to 192 training materials is the learning-curve design (16x)",
-  "line_at_review": 1331
- },
- {
-  "key": "that aligns the [two] fronts collapses the \\(n\\)-wi",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two waves of the inflected isotherm (physics, design)",
-  "line_at_review": 1334
- },
- {
-  "key": " [two] curves that m",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two landmark curves of the two-wave frame (design)",
-  "line_at_review": 1337
  },
  {
   "key": "problem, though [one] study on each side is not a g",
@@ -882,13 +833,6 @@
   "line_at_review": 104
  },
  {
-  "key": "build so that the [two] cannot disagree.",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "'the two' = the paper and the ledger (structural)",
-  "line_at_review": 1704
- },
- {
   "key": " [one] perceptron, \\ layers of \\ (",
   "word": "one",
   "class": "PROSE",
@@ -1043,20 +987,6 @@
   "line_at_review": 1779
  },
  {
-  "key": "ign, the second on the larger [one] ). What no",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun (design)",
-  "line_at_review": 1836
- },
- {
-  "key": "een adsorbent parameter sets, [two] kinds of effort pay: more, an",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two kinds named in the sentence",
-  "line_at_review": 1846
- },
- {
   "key": "{D}~The first [three] stored templates (proper-orth",
   "word": "three",
   "class": "DESIGN",
@@ -1125,13 +1055,6 @@
   "class": "PROSE",
   "reason": "dimensionality of a hypothetical device model",
   "line_at_review": 1567
- },
- {
-  "key": "small lever and an early [one] : on the full design DeepONet",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 1854
  },
  {
   "key": "L5 basis size & larger, [five] -fold & as L5 & DeepONet over",
@@ -1316,13 +1239,6 @@
   "line_at_review": 1689
  },
  {
-  "key": "{What is scoped} [Three] verdicts (L3, L5's operator c",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three verdicts named in the sentence",
-  "line_at_review": 1925
- },
- {
   "key": "e metal--organic framework . [Seven] candidate",
   "word": "Seven",
   "class": "DESIGN",
@@ -1454,20 +1370,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1613
- },
- {
-  "key": "d rather than to coefficients [one] by one. A small physics-resid",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1941
- },
- {
-  "key": "r than to coefficients one by [one] . A small physics-residual wei",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1941
  },
  {
   "key": "fect). We report them because [six] reversed",
@@ -1678,5 +1580,26 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1466
+ },
+ {
+  "key": "as the \\( \\) that [sixteen] times more materials buys a f",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "the design ratio of training sizes, 192 over 12",
+  "line_at_review": 1796
+ },
+ {
+  "key": "that aligns the [two] fronts would buy {}\\( \\) if",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two physical fronts of the two-wave structure",
+  "line_at_review": 1809
+ },
+ {
+  "key": "ed bed's shape and [half] -breakthrough time with",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1820
  }
 ]
