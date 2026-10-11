@@ -10,7 +10,7 @@
 \setlength{\emergencystretch}{3em}
 \begin{document}
 \section*{Supplementary Information S1: the correction ledger}
-Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 77 caught defects (B), every entry in full. The main text cites entries by these codes.
+Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 78 caught defects (B), every entry in full. The main text cites entries by these codes.
 
 \subsection*{A1}\label{led:A1}
 \begin{description}[leftmargin=0pt,itemsep=1pt]
@@ -611,5 +611,11 @@ Generated from RETRACTIONS.md by ledger\_si.py; 30 withdrawn claims (A) and 77 c
 \item[Defect.] \emph{Our own error: a byline asserted from a source that did not say it.} The reference for Perry's Section 16 (9th ed., 2019) listed \textbf{two} authors, as surnames only (``LeVan and Carta''), and CITATIONS.md recorded that the 9th-edition byline of two had been ``confirmed from a publisher document''. The publisher's own citation metadata (AccessEngineering, ISBN 9780071834087) lists \textbf{four}: M. Douglas LeVan, Giorgio Carta, James A. Ritter and Krista S. Walton. The same pass found the Rathore et al. entry still carrying surnames only, three arXiv preprints without their preprint DOIs, and two old sources (Anzelius 1926, Ogata \& Banks 1961) without the DOIs Crossref holds for them.
 \item[Resolution.] \textbf{Fixed.} Four authors and ``Section 16'' from the publisher record; Rathore et al. given full names from the arXiv record and the PMLR 235 pages (42159--42191); preprint DOIs (10.48550) and the Crossref DOIs added, each resolved before use. arXiv's ``related DOI'' for Zorawski et al. was checked again and still belongs to a different paper (B48), so that entry stays a preprint.
 \item[Note.] \emph{Found 2026-10-11 while applying the journal's guide, which asks for preprint DOIs and every available DOI.} A ledger line saying a record was confirmed is itself a claim; it was not re-read until a rule forced a second look. \textbf{Re-read the record, not the note about it.}
+\end{description}
+\subsection*{B78}\label{led:B78}
+\begin{description}[leftmargin=0pt,itemsep=1pt]
+\item[Defect.] \emph{Our own error: a result attributed to the wrong learner.} The materials learning curve (\texttt{learning\_curve\_v2.py}) uses the concentration channel only, 32 POD modes and one gradient-boosted regressor per mode; its own docstring says it is not comparable to L1's table. The manuscript nonetheless called it ``the L1 perceptron'' in the rung table, the mechanism figure caption, the mode-count paragraph, the cost section and the conclusions, and the abstract stated that ``a perceptron predicts the breakthrough field to 3.5 \%'', which is the curve learner's error (the perceptron's is 3.1 \%). The cost table also paired that learner's errors with the perceptron's fit and query times without saying so.
+\item[Resolution.] \textbf{Fixed.} Every mention names the curve's own learner (basis size read from the results file as a macro); the abstract quotes the perceptron's 3.1 \% and attributes the slope to the per-mode learner; the cost caption states which learner each column belongs to and that the break-even bound needs only the data cost. No number changed.
+\item[Note.] \emph{Found 2026-10-11 by a claims-against-evidence audit before submission.} A label copied from one table to another carried a model name the second table never used. \textbf{Name the learner next to every number it produced.}
 \end{description}
 \end{document}

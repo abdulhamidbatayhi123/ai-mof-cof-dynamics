@@ -94,7 +94,6 @@ _ALLOWED_PAIRS = [
     ("1.1", "a disagreement threshold the text declares, not a measured value"),
     ("1.5", "a disagreement threshold the text declares, not a measured value"),
     ("95", "the 95 % crossing, which DEFINES the t95 breakthrough time"),
-    ("7", "the power of an earlier null, as recorded in retraction A22"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
     ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),
@@ -123,9 +122,9 @@ for _k, _why in _ALLOWED_PAIRS:
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
     "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 4, "0.5": 2, "0.7": 2, "1": 33, "1.1": 1, "1.5": 1, "2": 32,
-    "3": 4, "4": 8, "5": 3, "6": 1, "7": 1, "8": 9, "9.7": 1, "10": 15, "12": 7, "16": 4,
-    "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 4,
-    "95": 3, "96": 3, "99.9": 2, "128": 8, "192": 11, "240": 4, "256": 1,
+    "3": 4, "4": 8, "5": 3, "6": 1, "8": 9, "9.7": 1, "10": 15, "12": 7, "16": 5,
+    "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 5,
+    "95": 3, "96": 3, "99.9": 2, "128": 8, "192": 11, "240": 3, "256": 1,
     "1948": 1, "1953": 1, "1954": 1, "15": 1,
     "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
 }

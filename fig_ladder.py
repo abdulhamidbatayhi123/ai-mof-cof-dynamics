@@ -135,7 +135,7 @@ def build_rows():
         c = {"mean_a": l3p["mlp"], "mean_b": l3p["rbf_g4"], "mean_diff": l3p["diff"],
              "ci_low": min(l3p["ci"]), "ci_high": max(l3p["ci"]),
              "significant": l3p["significant"], "n_materials": 12}
-        add("L3", "a richer basis (KAN)", "best KAN vs MLP, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
+        add("L3", "a richer basis (KAN)", "best KAN vs perceptron, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
             effect(c, control_is_a=True), "ELIMINATED",
             "the best KAN anywhere is the least KAN-like; %d/%d comparisons significant after selection, none reversed"
             % (l3s["n_sig_simultaneous"], l3s["n_pairs"]))
@@ -159,14 +159,14 @@ def build_rows():
         sel = load("results/l4b_v3_selection.json")["axes"]["material"]["selected_simultaneous"]
         c = {**c, "ci_low": sel["sim_lo"], "ci_high": sel["sim_hi"],
              "significant": sel["significant_simultaneous"]}
-        add("L4b", "physics as a loss",
+        add("L4", "physics as a loss",
             "best weight vs data-only twin, unseen materials†",
             effect(c, control_is_a=(c["arm_a"] == "data_only")),
             ax["verdict"].split(" (")[0],   # the pre-declared words, verbatim: PHYSICS HELPS once correctly weighted
             "larger or adaptive weights hurt; no difference on the time axis",
             mde=100 * m80 if m80 else None)
     else:
-        rows.append(dict(rung="L4b", hyp="physics as a loss",
+        rows.append(dict(rung="L4", hyp="physics as a loss",
                          inter="best physics arm vs its data-only twin",
                          e=None, lo=None, hi=None, sig=None, n=48, ctrl=None, mde=None, leak=False,
                          verdict="WITHDRAWN (B72), re-run in flight",
@@ -197,7 +197,7 @@ def build_rows():
              "significant": a3["significant_simultaneous"]}
         f = l5v["pod_floor_pooled"]
         add("L5", "a bigger basis", "DeepONet p = 128 vs p = 8†",
-            effect(c, control_is_a=True), "BASIS SIZE HELPS DeepONet (A29)",   # pre-declared words, PREREG_L5_v2 §3
+            effect(c, control_is_a=True), "BASIS SIZE HELPS DeepONet",   # pre-declared words, PREREG_L5_v2 §3
             f"gain complete by p=16; its own basis floor falls {f['8'] / f['128']:.0f}x")
     else:
         missing.append("L5-v2 basis-size comparison")
@@ -215,18 +215,18 @@ def build_rows():
     # L7 — is a closed form enough? control = the best closed form, intervention = learning.
     if l7:
         c = l7["comparisons"]["mlp vs klinkenberg"]   # a = learned, b = closed form (control)
-        add("L7", "a closed form suffices", "learned vs the best closed form, exit curve",
-            effect(c, control_is_a=False), "CLOSED FORMS ELIMINATED",
+        add("L7", "a closed form suffices", "learned vs the best closed form, outlet curve",
+            effect(c, control_is_a=False), l7["verdict"].split(" on ")[0],   # the pre-declared words, from the results file
             "a classical model wins exactly when the physics it assumes is the physics that is there")
     else:
         missing.append("L7-v2 verdict")
 
     # The coordinate change: the honest arm, then the oracle upper bound.
     if warp:
-        add("warp", "a change of coordinates", "two-front frame, predicted fronts",
+        add("Warp", "a change of coordinates", "two-front frame, predicted fronts",
             effect(warp["fixed_vs_two_wave"], control_is_a=True), "NO DIFFERENCE",
             "the n-width collapses 31 -> 13 modes, and none of it survives front-location error")
-        add("warp", "(the same, true fronts)", "upper bound: handed the true fronts",
+        add("Warp", "(the same, true fronts)", "upper bound: handed the true fronts",
             effect(warp["fixed_vs_oracle"], control_is_a=True),
             "HEADROOM %.2f× over the fixed frame" % (warp["means"]["fixed"] / warp["means"]["two_wave_oracle"]),
             "NOT comparable with any arm not also handed the warp: it sizes the prize, it is not a result",
@@ -235,6 +235,16 @@ def build_rows():
         missing.append("warp verdict")
 
     return rows, missing
+
+
+def sentence_case(v):
+    """Verdict words as prose: all-capital words lowered (acronyms, codes and numbers kept),
+    first letter capitalised. The words themselves are the pre-declared ones."""
+    keep = {"KAN", "FNO", "MDE", "POD", "MLP"}
+    toks = [t.lower() if t.isalpha() and t.isupper() and len(t) > 1 and t not in keep else t
+            for t in v.split(" ")]
+    out = " ".join(toks)
+    return out[:1].upper() + out[1:]
 
 
 def panel_ladder(a, rows):
@@ -267,7 +277,7 @@ def panel_ladder(a, rows):
     # is (y - ylim0) / (ylim1 - ylim0) = (y + 0.85) / (len + 0.60).
     for yi, r in zip(y, rows):
         f = lambda dy: (yi + 0.85 + dy) / (len(rows) + 0.60)
-        a.text(1.03, f(+0.17), r["verdict"], transform=a.transAxes,
+        a.text(1.03, f(+0.17), sentence_case(r["verdict"]), transform=a.transAxes,
                fontsize=6.6, va="center", fontweight="bold", color="0.12")
         a.text(1.03, f(-0.19), f"{r['inter']} ({r['n']} materials)", transform=a.transAxes,
                fontsize=5.9, va="center", color="0.38")

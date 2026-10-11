@@ -1,12 +1,5 @@
 [
  {
-  "key": " [one] breakthrough curve faster; th",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 60
- },
- {
   "key": "curacy from less information. [Two] defects in",
   "word": "Two",
   "class": "PROSE",
@@ -33,13 +26,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 104
- },
- {
-  "key": "red falsification ladder over [seven] named candidate explanations",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
-  "line_at_review": 119
  },
  {
   "key": " [third] - or flux-type boundary condit",
@@ -168,13 +154,6 @@
   "line_at_review": 336
  },
  {
-  "key": "same [five] -fold partition of the 240 mat",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five-fold partition (design)",
-  "line_at_review": 356
- },
- {
   "key": "s an empirical size of \\,\\%. [One] published verdict did not",
   "word": "One",
   "class": "PROSE",
@@ -191,13 +170,6 @@
  {
   "key": "with it fixed on all 192; the [two] lie on top of each other. {C",
   "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 417
- },
- {
-  "key": "lls monotonically. {D}~L3 at [three] matched budgets, each family",
-  "word": "three",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-09-25)",
   "line_at_review": 417
@@ -490,69 +462,6 @@
   "line_at_review": 977
  },
  {
-  "key": "as [one] : three quoted comparisons, in",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 987
- },
- {
-  "key": "as one: [three] quoted comparisons, including",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "B43's three comparisons, each enumerated in the ledger entry it cites",
-  "line_at_review": 987
- },
- {
-  "key": "We report this for [two] reasons. The first is that th",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 994
- },
- {
-  "key": "{A property measured at [one] sample size, stated as intrin",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1003
- },
- {
-  "key": "21 and A26 are the same error [three] times: the learning-curve ver",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "counts the three items enumerated in the same sentence (A18, A21, A26)",
-  "line_at_review": 1004
- },
- {
-  "key": "time-axis number in [one] rung when a window-local rang",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1008
- },
- {
-  "key": "underflows to [zero] .",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1011
- },
- {
-  "key": "ngle learning rate that suits [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1013
- },
- {
-  "key": "family, a [two] -seed selection rule, and a re",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "names a defective rule (a two-seed selection rule)",
-  "line_at_review": 1014
- },
- {
   "key": "{ [One] partial differential equation",
   "word": "One",
   "class": "PROSE",
@@ -740,13 +649,6 @@
   "class": "DESIGN",
   "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
   "line_at_review": 236
- },
- {
-  "key": "{} runs in [one] rung reported the error of a",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "one rung (L3), grammar",
-  "line_at_review": 1030
  },
  {
   "key": "ls did not survive 192, those [three] verdicts must",
@@ -1050,13 +952,6 @@
   "line_at_review": 611
  },
  {
-  "key": "L1 curve & larger, [five] -fold & as L1, training materi",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 615
- },
- {
   "key": "L2 & larger, [five] -fold & as L1 &",
   "word": "five",
   "class": "DESIGN",
@@ -1118,13 +1013,6 @@
   "class": "DESIGN",
   "reason": "seeds 42/43/44 (protocol)",
   "line_at_review": 643
- },
- {
-  "key": "priced for [one] fixed learner, the L1 percept",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one fixed learner' = a single learner (structural)",
-  "line_at_review": 1369
  },
  {
   "key": "[Rung.] [One] pre-registered candidate expl",
@@ -1484,46 +1372,11 @@
   "line_at_review": 1854
  },
  {
-  "key": "coefficients [one] by one. A small physics-resid",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "idiom",
-  "line_at_review": 1894
- },
- {
-  "key": "coefficients one by [one] . A small physics-residual wei",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "idiom",
-  "line_at_review": 1894
- },
- {
   "key": "L5 basis size & larger, [five] -fold & as L5 & DeepONet over",
   "word": "five",
   "class": "DESIGN",
   "reason": "the five-fold design of Methods",
   "line_at_review": 763
- },
- {
-  "key": " [six] of them reversed headline ver",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six entries named under 'Six that reversed a headline' (B69, B72/A28, A17, A22, A29, A30)",
-  "line_at_review": 1631
- },
- {
-  "key": " [three] times. Its legacy claim that",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "B69, A28 and the corrected re-run, named in the paragraph",
-  "line_at_review": 1664
- },
- {
-  "key": "the [six] : the direction of that compar",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six entries named in the paragraph",
-  "line_at_review": 1679
  },
  {
   "key": "ten and Alves , who give the [third] -type solution), the",
@@ -1673,13 +1526,6 @@
   "line_at_review": 1064
  },
  {
-  "key": "l-decomposition coefficients, [one] curve per number of",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "distributive",
-  "line_at_review": 1268
- },
- {
   "key": "{The [two] -front frame (legacy design).",
   "word": "two",
   "class": "DESIGN",
@@ -1692,13 +1538,6 @@
   "class": "DESIGN",
   "reason": "single-front alignment, one of the two frames compared",
   "line_at_review": 1371
- },
- {
-  "key": "or: with predicted fronts the [two] -front frame ties",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two fronts of the isotherm",
-  "line_at_review": 1372
  },
  {
   "key": "is vs.\\ map & legacy; larger, [five] -fold &",
@@ -1736,20 +1575,6 @@
   "line_at_review": 1558
  },
  {
-  "key": "{The classes that recur} [Five] patterns account for most of",
-  "word": "Five",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1645
- },
- {
-  "key": "{ [Six] that reversed a headline} The",
-  "word": "Six",
-  "class": "DESIGN",
-  "reason": "the six entries named in the paragraph",
-  "line_at_review": 1671
- },
- {
   "key": "{What remains open} [One] entry is deliberately unresol",
   "word": "One",
   "class": "PROSE",
@@ -1764,17 +1589,185 @@
   "line_at_review": 1925
  },
  {
-  "key": "We named [seven] candidate explanations in adv",
-  "word": "seven",
+  "key": "e metal--organic framework . [Seven] candidate",
+  "word": "Seven",
   "class": "DESIGN",
   "reason": "the seven pre-registered hypotheses H1-H7",
-  "line_at_review": 19
+  "line_at_review": 22
  },
  {
-  "key": "use \\ held-out materials in [five] folds. For",
+  "key": "d on \\ held-out materials in [five] folds unless",
   "word": "five",
   "class": "DESIGN",
   "reason": "the pre-registered five-fold design",
-  "line_at_review": 22
+  "line_at_review": 24
+ },
+ {
+  "key": "linear reconstruction , has [two] sources of error on a",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two error sources named in the sentence (basis, map)",
+  "line_at_review": 55
+ },
+ {
+  "key": "he coefficients. Which of the [two] binds",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the same two error sources",
+  "line_at_review": 57
+ },
+ {
+  "key": "cal solve) and its outcome on [one] nonlinear system, negative re",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar: a single system",
+  "line_at_review": 138
+ },
+ {
+  "key": "ause the basis is the optimal [one] , the conclusion",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 197
+ },
+ {
+  "key": "ol for parametric surrogates: [seven] named candidate",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the seven pre-registered hypotheses H1-H7",
+  "line_at_review": 199
+ },
+ {
+  "key": "ld out, not conditions. Every [five] -fold rung on this dataset (L1",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the pre-registered five-fold design",
+  "line_at_review": 457
+ },
+ {
+  "key": "L1 curve & larger, [five] -fold & parameters \\( \\) \\ PO",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the pre-registered five-fold design",
+  "line_at_review": 754
+ },
+ {
+  "key": "aining materials subsampled & [one] gradient-boosted regressor pe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 754
+ },
+ {
+  "key": "ode (not the L1 perceptron) & [three] seeds per size \\\\",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
+  "line_at_review": 754
+ },
+ {
+  "key": "curve ( \\ POD modes of \\(c\\), [one] gradient-boosted regressor pe",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 815
+ },
+ {
+  "key": "deepest setting). {D}~L3 at [three] matched budgets, each family",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
+  "line_at_review": 815
+ },
+ {
+  "key": "at every size can be run with [three] ",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
+  "line_at_review": 835
+ },
+ {
+  "key": "hannel only, \\ POD modes and [one] gradient-boosted",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 836
+ },
+ {
+  "key": "arner ( \\ POD modes of \\(c\\), [one] gradient-boosted regressor",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1280
+ },
+ {
+  "key": "the first POD coefficients, [one] curve per number of training",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1282
+ },
+ {
+  "key": "or: with predicted fronts the [two] -front frame is not",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "name of the two-front frame",
+  "line_at_review": 1387
+ },
+ {
+  "key": "priced for [one] fixed learner, the learning c",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1613
+ },
+ {
+  "key": "d rather than to coefficients [one] by one. A small physics-resid",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1941
+ },
+ {
+  "key": "r than to coefficients one by [one] . A small physics-residual wei",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1941
+ },
+ {
+  "key": "fect). We report them because [six] reversed",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six ledger entries named in the paragraph",
+  "line_at_review": 1656
+ },
+ {
+  "key": "{ [Six] that reversed a headline} Two",
+  "word": "Six",
+  "class": "DESIGN",
+  "reason": "the six ledger entries named in the paragraph",
+  "line_at_review": 1661
+ },
+ {
+  "key": "Six that reversed a headline} [Two] reversed the physics-as-a-los",
+  "word": "Two",
+  "class": "DESIGN",
+  "reason": "the two ledger entries named next (B69, B72)",
+  "line_at_review": 1661
+ },
+ {
+  "key": "The errors recur in [five] classes: a property measured",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five classes listed in the sentence",
+  "line_at_review": 1674
+ },
+ {
+  "key": "asses: a property measured at [one] sample size and stated as",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1674
  }
 ]

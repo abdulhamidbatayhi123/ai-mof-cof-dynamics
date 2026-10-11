@@ -180,12 +180,18 @@ SPEC = [
     ("LClastHi", "results/learning_curve_v2_verdict.json", "axes.materials.steps[3].ci_high", "{:.5f}"),
     ("LCmodesSmall", "results/learning_curve_v2_verdict.json", "axes.materials.rows[0].modes_r2_gt_0.2", "{:d}"),
     ("LCmodesLarge", "results/learning_curve_v2_verdict.json", "axes.materials.rows[4].modes_r2_gt_0.2", "{:d}"),
+    # the learning curve's own encoding (B78): c channel only, this many POD modes, one
+    # gradient-boosted regressor per mode -- NOT the L1 perceptron
+    ("LCpField", "results/learning_curve_v2.json", "p_field", "{:d}"),
     ("LCcondBeta", "results/learning_curve_v2_verdict.json", "axes.conditions.beta", "{:.3f}"),
 
     # ------------------------------------------------------------- L2 on v2
     ("LtwoBest", "results/l2_v2_verdict.json", "best_overall[0]", "{:.4f}"),
     ("LtwoBestFam", "results/l2_v2_verdict.json", "best_overall[1]", "{}"),
     ("LtwoBestCfg", "results/l2_v2_verdict.json", "best_overall[2]", "{}"),
+    # the same configuration in words: family/config codes are not prose
+    ("LtwoBestName", "results/l2_v2_verdict.json", "best_overall",
+     lambda b: {"mlp_depth": "the perceptron of depth {}"}[b[1]].format(b[2].lstrip("d"))),
     ("LtwoPodFloor", "results/l2_v2_verdict.json", "pod_floor_mean", "{:.2e}"),
     ("LtwoDepthShape", "results/l2_v2_verdict.json", "families.mlp_depth.shape", "{}"),
     ("LtwoWidthShape", "results/l2_v2_verdict.json", "families.mlp_width.shape", "{}"),
@@ -656,7 +662,9 @@ SPEC = [
     ("BfitLo", "results/fitted_classical.json", "comparison.ci_low", "{:.4f}"),
     ("BfitHi", "results/fitted_classical.json", "comparison.ci_high", "{:.4f}"),
     # B-GP (analyze_gp_baseline.py; PREREG_BASELINES §1, A1)
-    ("BgpVerdict", "results/gp_baseline_verdict.json", "comparison.verdict", "{}"),
+    # the verdict string names the arms by code ("mlp", "gp"); the manuscript names them in words
+    ("BgpVerdict", "results/gp_baseline_verdict.json", "comparison.verdict",
+     lambda v: v.replace(" mlp ", " the perceptron ").replace(" gp", " the Gaussian process")),
     ("BgpMlp", "results/gp_baseline_verdict.json", "mean_mlp", "{:.4f}"),
     ("BgpGp", "results/gp_baseline_verdict.json", "mean_gp", "{:.4f}"),
     ("BgpLo", "results/gp_baseline_verdict.json", "comparison.ci_low", "{:.4f}"),
