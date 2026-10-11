@@ -188,7 +188,7 @@ REFS = [
         pages="eaat3198",
         year="2018",
         doi="10.1126/sciadv.aat3198"),
-     "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04.", False),
+     "Water-MOF placement (referee M10, results/water_mofs.json); value, location and quote in research/water_mof_parameters.json. Crossref record 2026-10-04. The desert device used MOF-801, not MOF-303; gives MOF-303 0.48 g/g against Hanikel's 0.45 -- state which is which. (Merged from a duplicate entry, 2026-10-11.)", False),
     ("furukawa2014water", V, "article", dict(
         author="Hiroyasu Furukawa and Felipe G{\\'a}ndara and Yue-Biao Zhang and Juncong Jiang and Wendy L. Queen and Matthew R. Hudson and Omar M. Yaghi",
         title="{Water Adsorption in Porous Metal--Organic Frameworks and Related Materials}",
@@ -647,14 +647,6 @@ REFS = [
         doi="10.1126/science.abj0890"),
      "B51: 0.45 g/g is Fig. 1A; the ~53 kJ/mol is text S10 / Fig. 4, is the DIFFERENTIAL "
      "adsorption enthalpy, and is negative. 25.0 mol/kg is OUR conversion.", False),
-    ("fathieh2018practical", V, "article", dict(
-        author="Farhad Fathieh and Markus J. Kalmutzki and Eugene A. Kapustin and "
-               "Peter J. Waller and Jingjing Yang and Omar M. Yaghi",
-        title="Practical water production from desert air",
-        journal="Science Advances", volume="4", number="6", pages="eaat3198", year="2018",
-        doi="10.1126/sciadv.aat3198"),
-     "The desert device used MOF-801, not MOF-303. Gives MOF-303 0.48 g/g against Hanikel's "
-     "0.45 -- reconcile or state which is which.", False),
     ("lassitter2024mass", V, "article", dict(
         author="Thomas Lassitter and Nikita Hanikel and Dennis J. Coyle and others",
         title="Mass transfer in atmospheric water harvesting systems",
@@ -701,6 +693,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--audit", action="store_true")
     args = ap.parse_args()
+
+    # A key entered twice reaches references.bib twice; BibTeX keeps the first, skips the
+    # second and reports it only as an ignored error (found 2026-10-11: fathieh2018practical).
+    seen, dups = set(), []
+    for r in REFS:
+        if r[0] in seen:
+            dups.append(r[0])
+        seen.add(r[0])
+    if dups:
+        sys.exit(f"REFUSED -- duplicate bibliography keys: {sorted(set(dups))}")
 
     emitted, refused = [], []
     for key, state, kind, fields, note, allow in REFS:
