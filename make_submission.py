@@ -90,6 +90,15 @@ def main():
     shutil.copy(os.path.join(ROOT, "paper", "si_ledger.pdf"),
                 os.path.join(OUT, "Supplementary_S1_correction_ledger.pdf"))
 
+    # Vitae: biography (editable) and passport photograph, kept in the private outreach/
+    # folder and never committed; the package says plainly if either is still missing.
+    for name, out_name in (("vitae.docx", "Vitae_Batayhi.docx"), ("photo.jpg", "Vitae_photo_Batayhi.jpg")):
+        src = os.path.join(ROOT, "outreach", name)
+        if os.path.exists(src):
+            shutil.copy(src, os.path.join(OUT, out_name))
+        else:
+            print(f"NOTE: outreach/{name} not found; the vitae item is incomplete")
+
     # --- prove the package compiles alone (scratch copy, so no build files land in it)
     tect = os.path.join(ROOT, "tools", "tectonic.exe")
     with tempfile.TemporaryDirectory() as tmp:
