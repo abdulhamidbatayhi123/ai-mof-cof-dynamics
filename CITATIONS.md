@@ -615,5 +615,6 @@ record them):
 
 | key | source, date | authors as given |
 |---|---|---|
+| batayhi2026code | Zenodo API record 23302587 (DataCite DOI 10.5281/zenodo.23302587), 2026-10-11 | Batayhi, Abdulhamid (ORCID 0009-0007-0374-6755) |
 | levan2019adsorption | accessengineeringlibrary.com, Perry's 9th ed., Section 16 (ISBN 9780071834087), 2026-10-11 | M. Douglas LeVan Ph.D.; Giorgio Carta Ph.D.; James A. Ritter Ph.D.; Krista S. Walton Ph.D. (editors: Don W. Green; Marylee Z. Southard) |
 | levan2019adsorption | (no DOI; Perry's 9th ed.) | no fetchable byline record; reduced to surnames "LeVan and Carta", the form recorded above |

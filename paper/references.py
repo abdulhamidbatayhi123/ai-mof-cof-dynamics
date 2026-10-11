@@ -695,6 +695,17 @@ REFS = [
         howpublished="SSRN preprint", year="2026", doi="10.2139/ssrn.6874257"),
      "Closest prior art on the warp in our own domain: ONE scalar dilation, single-sigmoid "
      "BTCs. Cite prominently and generously.", False),
+
+    # ------------------------------------------------- the data reference (guide, Option C)
+    ("batayhi2026code", V, "misc", dict(
+        author="Abdulhamid Batayhi",
+        title="{[dataset]} {Code, results and pre-registrations for: What limits machine-learning surrogates on unseen adsorbents? A pre-registered falsification study of metal--organic framework water-adsorption columns}",
+        howpublished="Zenodo", note="Version v1.0-preprint", year="2026",
+        doi="10.5281/zenodo.23302587"),
+     "The archived release of this repository. DataCite record read from the Zenodo API "
+     "2026-10-11 (creator, title, version, MIT licence, 48 MB archive); concept DOI "
+     "10.5281/zenodo.23302586 resolves to the latest version. The [dataset] tag is the "
+     "guide's marker for production and is removed in the published article.", False),
 ]
 
 
