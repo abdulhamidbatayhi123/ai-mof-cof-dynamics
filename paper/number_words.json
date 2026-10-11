@@ -1701,20 +1701,6 @@
   "line_at_review": 1372
  },
  {
-  "key": "on is rarely tested. We named [seven] candidate explanations in adv",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the seven pre-registered rungs L1-L7, listed in Table 2",
-  "line_at_review": 17
- },
- {
-  "key": "\\ held-out materials in [five] folds unless stated otherwise",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 21
- },
- {
   "key": "is vs.\\ map & legacy; larger, [five] -fold &",
   "word": "five",
   "class": "DESIGN",
@@ -1776,5 +1762,19 @@
   "class": "DESIGN",
   "reason": "the three verdicts named in the sentence",
   "line_at_review": 1925
+ },
+ {
+  "key": "We named [seven] candidate explanations in adv",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the seven pre-registered hypotheses H1-H7",
+  "line_at_review": 19
+ },
+ {
+  "key": "use \\ held-out materials in [five] folds. For",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the pre-registered five-fold design",
+  "line_at_review": 22
  }
 ]

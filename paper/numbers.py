@@ -674,7 +674,7 @@ SPEC = [
     ("WmofHeatLeast","results/water_mofs.json", "dH_least_exothermic_placed", "{:.0f}"),
     ("WmofHeatMost", "results/water_mofs.json", "dH_most_exothermic_placed", "{:.0f}"),
     # Methods table (referee M7): per-rung sizes and budgets, read from each rung's own results
-    ("MthThreeSteps", "results/l3_results.json", "steps", "{:d}"),
+    ("MthThreeSteps", "results/l3_results.json", "steps", "{:,d}"),
     ("MthThreeDepth", "results/l3_results.json", "depth", "{:d}"),
     ("MthThreeBudgets", "results/l3_results.json", "arms",
      lambda a: "/".join(f"{b // 1000}k" for b in sorted({x["budget"] for x in a}))),
@@ -694,7 +694,7 @@ SPEC = [
     ("MthFiveSteps", "results/l5_merged.json", "encoding.steps", "{:d}"),
     ("MthSixBudget", "results/l6_v2_results.json", "budget", lambda b: f"{b // 1000}k"),
     ("MthSixDepth", "results/l6_v2_results.json", "depth", "{:d}"),
-    ("MthSixSteps", "results/l6_v2_results.json", "steps", "{:d}"),
+    ("MthSixSteps", "results/l6_v2_results.json", "steps", "{:,d}"),
     ("MthSixNdesc", "results/l6_v2_results.json", "n_desc", "{:d}"),
     # Methods (referee M7): design constants read from the code by design_constants.py,
     # so the Methods section cannot drift from the generator and solver it describes
@@ -901,7 +901,7 @@ DERIVED = [
      "time on the coarse baseline's own solve base) costs as much as coarse solving (B-COARSE)",
      lambda r: r["CostLargeSims"] / (
          r["CoarseSolveEq"]["per_nz"][str(r["CoarseSolveEq"]["nz_matching_l1"])]["solve_equivalents"]
-         - r["CostQueryMs"] / r["CoarseSolveEq"]["t_prod_s"]) // 100 * 100, "{:.0f}"),
+         - r["CostQueryMs"] / r["CoarseSolveEq"]["t_prod_s"]) // 100 * 100, "{:,.0f}"),
     ("CoarseAccRatio", "surrogate held-out error over the matching coarse solve's error (B-COARSE)",
      lambda r: r["CoarseSolveEq"]["target_l1_mlp"]
      / r["CoarseSolveEq"]["per_nz"][str(r["CoarseSolveEq"]["nz_matching_l1"])]["mean_nrmse_c"], "{:.0f}"),

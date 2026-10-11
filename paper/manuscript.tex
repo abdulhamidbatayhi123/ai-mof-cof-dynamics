@@ -24,6 +24,10 @@
 % The class footer sets the journal name and the date on one line; the name
 % alone is too long to share it, so the date is dropped from the title page.
 \makeatletter
+% The journal asks for every heading on a line of its own, so the unnumbered
+% paragraph headings are set as display headings rather than run in.
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {1.5ex \@plus .5ex \@minus .2ex}{0.4ex}{\normalfont\normalsize\itshape}}
 \def\ps@pprintTitle{%
   \let\@oddhead\@empty\let\@evenhead\@empty
   \def\@oddfoot{\footnotesize\itshape Preprint submitted to \@journal\hfill}%
@@ -41,40 +45,41 @@
 \title{What limits machine-learning surrogates on unseen adsorbents? A pre-registered
 falsification study of metal--organic framework water-adsorption columns}
 
-\author{Abdulhamid Batayhi}
-\address{Department of Mechatronics Engineering, Faculty of Mechanical Engineering,
-Y\i{}ld\i{}z Technical University, Istanbul, T\"urkiye\\
-ORCID: \href{https://orcid.org/0009-0007-0374-6755}{0009-0007-0374-6755}}
+\author{Abdulhamid Batayhi\corref{cor1}\fnref{orcid}}
+\cortext[cor1]{Corresponding author.}
+\fntext[orcid]{ORCID: \href{https://orcid.org/0009-0007-0374-6755}{0009-0007-0374-6755}.}
 \ead{abdulbatayhi@gmail.com}
+\address{Department of Mechatronics Engineering, Faculty of Mechanical Engineering,
+Y\i{}ld\i{}z Technical University, Y\i{}ld\i{}z Campus, Barbaros Bulvar\i{},
+34349 Be\c{s}ikta\c{s}, Istanbul, T\"urkiye}
 
 \begin{abstract}
-Machine-learning surrogates promise fast screening of metal--organic frameworks (MOFs)
-for water harvesting, but what limits their accuracy on adsorbents they were not trained
-on is rarely tested. We named seven candidate explanations in advance, each with the
-evidence that would eliminate it, and tested them against a solver verified on
-\nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, to a published
-MOF-303 breakthrough curve. Verdicts are reported in pre-declared words, on
-\nNclustFolds\ held-out materials in five folds unless stated otherwise. For an unseen
-adsorbent, a perceptron predicts the breakthrough field to \nLClargestPct\,\%
-normalised error, and the error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with
-the number of training materials at the largest size affordable. Beyond the first few
-modes, accuracy is limited by how well the model learns the map from isotherm and pellet
-properties to the field, not by its ability to represent the field: improving the
-representation \(\nLfiveVtwoFloorDrop\times\) changes that error by
-\nLfiveVtwoCoefChangePct\,\%. Capacity is not eliminated, while Kolmogorov--Arnold
-networks lose to a perceptron of the same size in every comparison by point estimate
-(\nNclustLegacy\ held-out materials). The column's own equation, used as a training loss
-at a small weight, improves transfer by \nLfourbMatGainPct\,\% (\nLfourbMatNmat\ held-out
-materials); used alone at inference, it makes predictions worse. Fitted closed forms are
-\nBfitRatio\ times worse than learning, yet a coarse numerical solve is more accurate
-than the perceptron surrogates and cheaper below about \nCoarseBreakEven\ queries. All \nLedgerA\
-withdrawn claims and \nLedgerB\ caught defects are reported, including a physics residual
-that once moved the gas at the wrong velocity.
+Machine-learning surrogates promise fast screening of metal--organic frameworks for
+water harvesting, but what limits their accuracy on unseen adsorbents is rarely tested.
+We named seven candidate explanations in advance, each with the evidence that would
+eliminate it, and tested them against a solver verified on \nLzeroNchecks{} closed-form
+solutions and compared, with nothing fitted, to a published MOF-303 breakthrough curve.
+Unless stated otherwise, tests use \nNclustFolds\ held-out materials in five folds. For
+an unseen adsorbent, a perceptron predicts the breakthrough field to \nLClargestPct\,\%
+normalised error, and the error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with the
+number of training materials at the largest size affordable. Beyond the first few modes,
+accuracy is limited by learning the map from isotherm and pellet properties to the
+field, not by representing the field: improving the representation
+\(\nLfiveVtwoFloorDrop\times\) changes that error by \nLfiveVtwoCoefChangePct\,\%.
+Capacity is not eliminated, while Kolmogorov--Arnold networks lose to a perceptron of
+the same size in every comparison by point estimate (\nNclustLegacy\ held-out
+materials). The column's own equation, used as a training loss at a small weight,
+improves transfer by \nLfourbMatGainPct\,\% (\nLfourbMatNmat\ held-out materials); used
+alone at inference, it makes predictions worse. Fitted closed forms are \nBfitRatio\
+times worse than learning, yet a coarse numerical solve is more accurate than the
+perceptron surrogates and cheaper below about \nCoarseBreakEven\ queries. All \nLedgerA\
+withdrawn claims and \nLedgerB\ caught defects are reported, including a physics
+residual that once moved the gas at the wrong velocity.
 \end{abstract}
 
 \begin{keyword}
-surrogate models \sep model order reduction \sep adsorption column dynamics \sep
-transfer to unseen adsorbent parameter sets \sep Kolmogorov \(n\)-width \sep pre-registration
+surrogate model \sep model order reduction \sep neural operator \sep
+metal--organic framework \sep fixed-bed adsorption \sep preregistration
 \end{keyword}
 
 \end{frontmatter}
@@ -2023,7 +2028,7 @@ are emitted, so it cannot disagree with the bibliography.
 %% ===========================================================================
 \section*{Data and code availability}
 The solver, every runner and analyser, the verification harness, the
-pre-registrations, the correction ledger and the citation ledger are in the project
+pre-registrations, the correction ledger and the citation ledger are in the project's
 public repository,
 \url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}, with its full commit
 history \textbf{[archived DOI to be added at submission]}. Dataset
@@ -2034,23 +2039,24 @@ recorded seed.
 The author declares no competing interests.
 
 \section*{Funding}
-This research received no specific grant from
-any funding agency in the public, commercial or not-for-profit sectors.
+This research did not receive any specific grant from funding agencies in the public,
+commercial, or not-for-profit sectors.
 
 \section*{CRediT authorship contribution statement}
 \textbf{Abdulhamid Batayhi:} Conceptualization, Methodology, Software, Validation,
 Formal analysis, Investigation, Data curation, Writing -- original draft, Writing --
 review \& editing, Visualization, Project administration.
 
-\section*{Declaration of generative AI and AI-assisted technologies}
-During this work the author used Claude (Anthropic), an AI assistant, extensively:
-to write and test code for the solver, the runners, the analysers and the
-verification harness; to draft and revise the pre-registrations and the manuscript
-text; to retrieve and check bibliographic records; and to act as an internal
-reviewer. Every number in the manuscript is produced by a script from a results file
-(Section~\ref{sec:reproducibility}), and the correction ledger records defects
-whether they originated with the author or with the assistant. The author reviewed
-and edited the content and takes full responsibility for the publication.
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work the author used Claude (Anthropic), an AI
+assistant, extensively, in order to write and test code for the solver, the runners,
+the analysers and the verification harness; to draft and revise the pre-registrations
+and the manuscript text; to retrieve and check bibliographic records; and to act as an
+internal reviewer. Every number in the manuscript is produced by a script from a
+results file (Section~\ref{sec:reproducibility}), and the correction ledger records
+defects whether they originated with the author or with the assistant. After using
+this tool, the author reviewed and edited the content as needed and takes full
+responsibility for the content of the published article.
 
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
