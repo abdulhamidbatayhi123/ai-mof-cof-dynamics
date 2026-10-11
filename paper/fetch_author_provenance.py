@@ -16,7 +16,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from references import REFS, ROOT  # noqa: E402
 
 OUT = os.path.join(ROOT, "paper", "author_provenance.md")
-UA = {"User-Agent": "mof-ladder-citation-gate (mailto:abdulbatayhi@gmail.com)", "Accept": "*/*"}
+# No e-mail address in the agent string: the author's address is not sent to third parties.
+UA = {"User-Agent": "mof-ladder-citation-gate", "Accept": "*/*"}
 
 
 def get(url):

@@ -94,7 +94,8 @@ REFS = [
         author="Alexander Heinlein and Johannes Taraz",
         title="The error of deep operator networks is the sum of its parts: branch--trunk and "
               "mode error decompositions",
-        journal="arXiv preprint", year="2026", eprint="2602.21910", archiveprefix="arXiv"),
+        journal="arXiv preprint", year="2026", eprint="2602.21910", archiveprefix="arXiv",
+        doi="10.48550/arXiv.2602.21910"),
      "Partial priority on L5's mechanism. Cite prominently and differentiate on the four "
      "axes in CITATIONS.md.", False),
     ("bartolucci2023reno", V, "inproceedings", dict(
@@ -289,7 +290,8 @@ REFS = [
         author="Beatrice Ceccanti and Mattia Galanti and Ivo Roghair and Martin van Sint Annaland",
         title="Deep operator networks for surrogate modeling of cyclic adsorption processes "
               "with varying initial conditions",
-        journal="arXiv preprint", year="2026", eprint="2601.09491", archiveprefix="arXiv"),
+        journal="arXiv preprint", year="2026", eprint="2601.09491", archiveprefix="arXiv",
+        doi="10.48550/arXiv.2601.09491"),
      "Operator learning on TVSA; its out-of-distribution axis is INITIAL CONDITIONS, not "
      "materials. Isothermal per the program review.", False),
 
@@ -328,12 +330,13 @@ REFS = [
      "The self-adaptive arm. The JOURNAL title (Crossref) drops the arXiv title's "
      "'using a soft attention mechanism' -- do not copy the arXiv title.", False),
     ("rathore2024challenges", V, "inproceedings", dict(
-        author="Rathore and Lei and Frangella and Lu and Udell",
+        author="Pratik Rathore and Weimu Lei and Zachary Frangella and Lu Lu and Madeleine Udell",
         title="Challenges in training {PINNs}: a loss landscape perspective",
-        booktitle="International Conference on Machine Learning (ICML)", year="2024",
-        eprint="2402.01868", archiveprefix="arXiv"),
-     "The Adam-then-L-BFGS polish (Q4). Surnames only until the arXiv record is fetched "
-     "into author_provenance.md -- rule 11.", False),
+        booktitle="Proceedings of the 41st International Conference on Machine Learning",
+        series="Proceedings of Machine Learning Research", volume="235",
+        pages="42159--42191", year="2024", eprint="2402.01868", archiveprefix="arXiv"),
+     "The Adam-then-L-BFGS polish (Q4). Full names and pages from the PMLR v235 page and the "
+     "arXiv record (2026-10-11); PMLR issues no DOI.", False),
 
     # -------------------------------------------------------- the critique literature
     ("mcgreivy2024weak", V, "article", dict(
@@ -432,7 +435,8 @@ REFS = [
         author="Beata Zorawski and Shubhaditya Burela and Philipp Krah and Arthur Marmin and "
                "Kai Schneider",
         title="Automated transport separation using the neural shifted proper orthogonal decomposition",
-        journal="arXiv preprint", year="2024", eprint="2407.17539", archiveprefix="arXiv"),
+        journal="arXiv preprint", year="2024", eprint="2407.17539", archiveprefix="arXiv",
+        doi="10.48550/arXiv.2407.17539"),
      "B48: do NOT copy arXiv's Related DOI -- it belongs to a different paper. Burela was "
      "missing from our list. Proceedings not peer-reviewed.", False),
     ("papapicco2022nnspod", V, "article", dict(
@@ -537,7 +541,7 @@ REFS = [
         author="Akio Ogata and R. B. Banks",
         title="A solution of the differential equation of longitudinal dispersion in porous media",
         institution="U.S. Geological Survey", number="Professional Paper 411-A",
-        pages="A1--A7", year="1961"),
+        pages="A1--A7", year="1961", doi="10.3133/pp411A"),
      "Pages are A1--A7; van Genuchten & Alves cite A1--A9, which is THEIR error. First-type "
      "inlet -- the reference our L0 originally used by mistake.", False),
     ("pearson1959note", V, "article", dict(
@@ -586,9 +590,9 @@ REFS = [
      "B54: near-duplicate trap -- DOI ...a438 is a one-page item with the same title.", False),
     ("anzelius1926uber", P, "article", dict(
         author="A. Anzelius",
-        title="{\\\"U}ber Erw{\\\"a}rmung vermittels durchstr{\\\"o}mender Medien",
+        title="{{\\\"U}ber Erw{\\\"a}rmung vermittels durchstr{\\\"o}mender Medien}",
         journal="Zeitschrift f{\\\"u}r Angewandte Mathematik und Mechanik", volume="6",
-        number="4", pages="291--294", year="1926"),
+        number="4", pages="291--294", year="1926", doi="10.1002/zamm.19260060404"),
      "B58: closed, no abstract. The J-function was not read from it. Priority is Anzelius; "
      "the name is Schumann's. The English title in circulation is a translation.", True),
     ("schumann1929heat", P, "article", dict(
@@ -633,12 +637,15 @@ REFS = [
         year="1968", doi="10.1016/0009-2509(68)87056-3"),
      "Reduces to the 0.5 coefficient only at high particle Peclet number.", False),
     ("levan2019adsorption", V, "incollection", dict(
-        author="LeVan and Carta",
+        author="M. Douglas LeVan and Giorgio Carta and James A. Ritter and Krista S. Walton",
         title="Adsorption and ion exchange",
-        booktitle="Perry's Chemical Engineers' Handbook", edition="9", publisher="McGraw-Hill",
-        year="2019", chapter="16"),
-     "Byline changes by edition -- the 7th has a third contributor (Yon). The 9th is the "
-     "only one whose authorship was verified from a publisher document.", False),
+        editor="Don W. Green and Marylee Z. Southard",
+        booktitle="Perry's Chemical Engineers' Handbook", edition="9",
+        publisher="McGraw-Hill Education", year="2019", type="{S}ection", chapter="16",
+        isbn="9780071834087"),
+     "Byline changes by edition -- the 7th has a third contributor (Yon). The 9th's four "
+     "authors (LeVan, Carta, Ritter, Walton) are from the publisher's citation metadata on "
+     "AccessEngineering, read 2026-10-11; our entry previously listed two, as surnames.", False),
     ("knox2016limitations", V, "article", dict(
         author="James C. Knox and Armin D. Ebner and M. Douglas LeVan and Robert F. Coker "
                "and James A. Ritter",
