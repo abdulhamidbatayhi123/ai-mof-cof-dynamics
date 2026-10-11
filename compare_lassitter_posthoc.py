@@ -79,28 +79,37 @@ def main():
     import matplotlib.pyplot as plt
     import figstyle as fs
     fs.apply()
-    fig, ax = plt.subplots(figsize=(5.2, 3.3))
+    # No title on the figure (the caption carries it); the legend sits beside the axes,
+    # and the post-hoc arms are grouped under their own heading so that nothing on the
+    # plot can be read as the pre-registered result.
+    fig, ax = plt.subplots(figsize=(7.2, 3.3))
     prim = out["runs"]["wakao_dp3mm_k0.2 (primary, for reference)"]
     er = out["runs"]["edwards_richardson_k0.2"]
     brg = out["runs"]["bruggeman_k0.2"]
     t_min, frac = curves["wakao_dp3mm_k0.2 (primary, for reference)"]
-    ax.plot(t_min, frac * RH_IN * 100, color="#3b6ea5", lw=2.0,
-            label=f"pre-registered primary (high-Pe limit, Pe = {prim['Pe']:.1f})")
+    h_prim, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["blue"], lw=2.0,
+                      label=f"pre-registered primary\n(high-Pe limit, Pe = {prim['Pe']:.1f})")
     t_min, frac = curves["edwards_richardson_k0.2"]
-    ax.plot(t_min, frac * RH_IN * 100, color="#8c5ea8", lw=1.6, ls="--",
-            label=f"POST-HOC: same correlation, full form (Pe = {er['Pe']:.1f})")
+    h_er, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["purple"], lw=1.6, ls="--",
+                    label=f"same correlation, full form\n(Pe = {er['Pe']:.1f})")
     t_min, frac = curves["bruggeman_k0.2"]
-    ax.plot(t_min, frac * RH_IN * 100, color="#e08b3a", lw=1.6, ls="-.",
-            label=f"POST-HOC: authors' Bruggeman D_e (Pe = {brg['Pe']:.1f}), k = 0.2")
+    h_b1, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["orange"], lw=1.6, ls="-.",
+                    label=f"authors' Bruggeman $D_e$\n(Pe = {brg['Pe']:.1f}), $k$ = 0.2")
     t_min, frac = curves["bruggeman_k0.011"]
-    ax.plot(t_min, frac * RH_IN * 100, color="#6a994e", lw=1.2, ls=":",
-            label="POST-HOC: Bruggeman D_e, k = 0.011 (step minimum)")
-    ax.plot(com[:, 0], com[:, 1], color="crimson", lw=1.0, ls="--", label="authors' COMSOL (fitted CSFR kinetics)")
-    ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", label="experiment, effluent (digitised)")
+    h_b2, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["green"], lw=1.4, ls=":",
+                    label="Bruggeman $D_e$, $k$ = 0.011\n(step minimum)")
+    h_com, = ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--",
+                     label="authors' COMSOL model\n(fitted kinetics)")
+    h_eff, = ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", label="experiment, outlet (digitised)")
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
-    ax.set_xlabel("time (min)"); ax.set_ylabel("% RH")
-    ax.set_title("Post-hoc dispersion sensitivity (not the pre-registered result)")
-    ax.legend(loc="lower right", fontsize=6.6)
+    ax.set_xlabel("time (min)"); ax.set_ylabel("relative humidity (%)")
+    from matplotlib.lines import Line2D
+    head = lambda t: Line2D([], [], color="none", label=t)
+    handles = [h_eff, h_com, h_prim, head("post hoc, not pre-registered:"), h_er, h_b1, h_b2]
+    leg = ax.legend(handles=handles, loc="center left", bbox_to_anchor=(1.02, 0.5), labelspacing=0.8)
+    for t in leg.get_texts():
+        if t.get_text().startswith("post hoc"):
+            t.set_fontstyle("italic")
     for ext in ("png", "pdf"):
         fig.savefig(f"figures/Fig7b_anchor_posthoc.{ext}", dpi=300)
     print("wrote results/lassitter_comparison_posthoc.json and figures/Fig7b_anchor_posthoc.png/.pdf")

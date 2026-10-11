@@ -158,20 +158,23 @@ def main():
     import matplotlib.pyplot as plt
     import figstyle as fs
     fs.apply()
-    fig, ax = plt.subplots(figsize=(5.2, 3.3))
+    # The figure carries no title (the journal puts it in the caption), and the legend
+    # sits beside the axes so that no label covers a curve.
+    fig, ax = plt.subplots(figsize=(7.2, 3.3))
     for key, (t_min, frac) in curves.items():
         if key != pk:
-            ax.plot(t_min, frac * RH_IN * 100, color="0.8", lw=0.6, zorder=1)
-    ax.plot([], [], color="0.8", lw=0.6, label="declared band (k, d_p, thermal), no fitting")
+            ax.plot(t_min, frac * RH_IN * 100, color="0.78", lw=0.6, zorder=1)
+    ax.plot([], [], color="0.78", lw=0.6, label="declared band ($k$, $d_p$, thermal),\nnothing fitted")
     t_min, frac = curves[pk]
-    ax.plot(t_min, frac * RH_IN * 100, color="#3b6ea5", lw=2.0, zorder=3, label="this solver, cited MOF-303, primary")
-    ax.plot(com[:, 0], com[:, 1], color="crimson", lw=1.0, ls="--", zorder=2, label="authors' COMSOL (fitted CSFR kinetics)")
-    ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", zorder=4, label="experiment, effluent (digitised)")
-    ax.plot(inl[:, 0], inl[:, 1], "s", ms=3, mfc="none", mec="0.5", zorder=4, label="experiment, inlet")
+    ax.plot(t_min, frac * RH_IN * 100, color=fs.C["blue"], lw=2.0, zorder=3,
+            label="this solver, cited MOF-303\nparameters (primary)")
+    ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--", zorder=2,
+            label="authors' COMSOL model\n(fitted kinetics)")
+    ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", zorder=4, label="experiment, outlet (digitised)")
+    ax.plot(inl[:, 0], inl[:, 1], "s", ms=3, mfc="none", mec="0.5", zorder=4, label="experiment, inlet (digitised)")
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
-    ax.set_xlabel("time (min)"); ax.set_ylabel("% RH")
-    ax.set_title("MOF-303 bed (6.35 mm, 32.8 % RH, 298 K): data of Lassitter et al., Fig. 10")
-    ax.legend(loc="lower right", fontsize=6.6)
+    ax.set_xlabel("time (min)"); ax.set_ylabel("relative humidity (%)")
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), labelspacing=0.9)
     os.makedirs("figures", exist_ok=True)
     for ext in ("png", "pdf"):
         fig.savefig(f"figures/Fig7_anchor.{ext}", dpi=300)
