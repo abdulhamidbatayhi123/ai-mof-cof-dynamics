@@ -36,28 +36,28 @@ ORCID: \href{https://orcid.org/0009-0007-0374-6755}{0009-0007-0374-6755}}
 \ead{abdulbatayhi@gmail.com}
 
 \begin{abstract}
-We ask what \emph{binds} the error of adsorption-column surrogates on adsorbents they
-have never seen. Seven candidate explanations were named in advance, each with the
-evidence that would eliminate it, and tested on a solver verified against
-\nLzeroNchecks{} closed-form solutions and compared without fitting to a published
-MOF-303 breakthrough curve. Each verdict is reported in pre-declared words, with its
-design (\nNclustFolds\ materials in five folds, a split of \nLfourbMatNmat, or a legacy
-set of \nNclustLegacy). For an unseen adsorbent parameter set, a perceptron trained on
-the largest set predicts the breakthrough field to \nLClargestPct\,\% normalised error.
-Training materials bind: error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) at the
-largest size affordable. Capacity is not eliminated. A perceptron beats
-Kolmogorov--Arnold networks at matched size in every comparison by point estimate (legacy set). Beyond a
-small basis the error is limited by how well the model learns the link from isotherm
-and pellet properties to the field, not by its ability to represent the field:
-improving the representation \(\nLfiveVtwoFloorDrop\times\) changes that error by
-\nLfiveVtwoCoefChangePct\,\%, and a larger operator basis helps by
-\nLfiveVtwoGainPct\,\% before levelling. With the column's own equation as a training
-loss, a small weight improves transfer by \nLfourbMatGainPct\,\%; minimising it alone at
-inference makes predictions worse. Fitted closed forms are \nBfitRatio\ times worse
-than learning. A coarse numerical solve is more accurate than the perceptron
-surrogates and cheaper below about \nCoarseBreakEven\ queries. \nLedgerA\ withdrawn claims and
-\nLedgerB\ caught defects are reported in full, including a physics residual that once
-moved the gas at the wrong velocity.
+Machine-learning surrogates promise fast screening of metal--organic frameworks (MOFs)
+for water harvesting, but what limits their accuracy on adsorbents they were not trained
+on is rarely tested. We named seven candidate explanations in advance, each with the
+evidence that would eliminate it, and tested them against a solver verified on
+\nLzeroNchecks{} closed-form solutions and compared, with nothing fitted, to a published
+MOF-303 breakthrough curve. Verdicts are reported in pre-declared words, on
+\nNclustFolds\ held-out materials in five folds unless stated otherwise. For an unseen
+adsorbent, a perceptron predicts the breakthrough field to \nLClargestPct\,\%
+normalised error, and the error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with
+the number of training materials at the largest size affordable. Beyond the first few
+modes, accuracy is limited by how well the model learns the map from isotherm and pellet
+properties to the field, not by its ability to represent the field: improving the
+representation \(\nLfiveVtwoFloorDrop\times\) changes that error by
+\nLfiveVtwoCoefChangePct\,\%. Capacity is not eliminated, while Kolmogorov--Arnold
+networks lose to a perceptron of the same size in every comparison by point estimate
+(\nNclustLegacy\ held-out materials). The column's own equation, used as a training loss
+at a small weight, improves transfer by \nLfourbMatGainPct\,\% (\nLfourbMatNmat\ held-out
+materials); used alone at inference, it makes predictions worse. Fitted closed forms are
+\nBfitRatio\ times worse than learning, yet a coarse numerical solve is more accurate
+than the surrogates and cheaper below about \nCoarseBreakEven\ queries. All \nLedgerA\
+withdrawn claims and \nLedgerB\ caught defects are reported, including a physics residual
+that once moved the gas at the wrong velocity.
 \end{abstract}
 
 \begin{keyword}

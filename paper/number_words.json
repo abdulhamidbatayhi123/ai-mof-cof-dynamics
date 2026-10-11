@@ -1344,13 +1344,6 @@
   "line_at_review": 1697
  },
  {
-  "key": "have never seen. [Seven] candidate explanations were n",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the seven pre-registered rungs L1-L7, listed in Table 2",
-  "line_at_review": 15
- },
- {
   "key": "ral breakthrough fields share [one] ",
   "word": "one",
   "class": "PROSE",
@@ -1454,13 +1447,6 @@
   "class": "PROSE",
   "reason": "pronoun",
   "line_at_review": 1028
- },
- {
-  "key": "design ( \\ materials in [five] folds, a split of , or a leg",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 21
  },
  {
   "key": "effect with \\(80\\,\\%\\) power. [Two] ",
@@ -1769,5 +1755,19 @@
   "class": "DESIGN",
   "reason": "the two fronts of the isotherm",
   "line_at_review": 1372
+ },
+ {
+  "key": "on is rarely tested. We named [seven] candidate explanations in adv",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the seven pre-registered rungs L1-L7, listed in Table 2",
+  "line_at_review": 17
+ },
+ {
+  "key": "\\ held-out materials in [five] folds unless stated otherwise",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design of Methods",
+  "line_at_review": 21
  }
 ]
