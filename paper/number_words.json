@@ -245,27 +245,6 @@
   "line_at_review": 755
  },
  {
-  "key": "The [two] -transport case is the foundin",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 784
- },
- {
-  "key": "pressure pulse splitting into [two] waves is",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 785
- },
- {
-  "key": " [eighty] ordinary modes; the general f",
-  "word": "eighty",
-  "class": "CITED",
-  "reason": "reported by the cited sPOD paper",
-  "line_at_review": 787
- },
- {
   "key": "{ [One] shift makes it worse; two mak",
   "word": "One",
   "class": "PROSE",
@@ -334,34 +313,6 @@
   "class": "PROSE",
   "reason": "ordinal: the third landmark pair (reclassified; was mislabelled OWED)",
   "line_at_review": 823
- },
- {
-  "key": " [Three] seeds across every stochastic",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "three seeds",
-  "line_at_review": 830
- },
- {
-  "key": "rm with predicted fronts. The [two] ",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 854
- },
- {
-  "key": "than there, and the [two] intervals are not comparable.",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 878
- },
- {
-  "key": "single-front frame: when the [two] fronts move at",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 887
  },
  {
   "key": "cts with no cost axis is only [half] an argument",
@@ -560,13 +511,6 @@
   "line_at_review": 337
  },
  {
-  "key": "predates the last of these by [two] years .",
-  "word": "two",
-  "class": "CITED",
-  "reason": "the 2022 vs 2024 publication dates of the two cited papers",
-  "line_at_review": 831
- },
- {
   "key": "to [one] . Adsorption with an inflected",
   "word": "one",
   "class": "PROSE",
@@ -649,13 +593,6 @@
   "class": "PROSE",
   "reason": "pronoun 'one' (structural)",
   "line_at_review": 623
- },
- {
-  "key": "e oracle's gain, not a modest [one] . With that scope, this is a r",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 971
  },
  {
   "key": "is now `` [two] smooth monotone",
@@ -1267,27 +1204,6 @@
   "line_at_review": 1339
  },
  {
-  "key": "reconstructed with [two] modes (one per co-moving fram",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two co-moving frames",
-  "line_at_review": 1370
- },
- {
-  "key": "reconstructed with two modes ( [one] per co-moving frame) against",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "distributive",
-  "line_at_review": 1370
- },
- {
-  "key": " [Two] statements are needed here. T",
-  "word": "Two",
-  "class": "DESIGN",
-  "reason": "the two statements that follow",
-  "line_at_review": 1436
- },
- {
   "key": "1\\) (a forward pass through [three] ",
   "word": "three",
   "class": "DESIGN",
@@ -1734,5 +1650,33 @@
   "class": "DESIGN",
   "reason": "the three small-design rungs named in the paragraph (L3, L5 operator comparison, warp)",
   "line_at_review": 1793
+ },
+ {
+  "key": " [two] -transport case is the foundin",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1383
+ },
+ {
+  "key": "Table~ gives the result: [three] seeds for every stochastic co",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1420
+ },
+ {
+  "key": "not a modest [one] . With that scope, this is a r",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1447
+ },
+ {
+  "key": "t-pattern scaling : when the [two] fronts move at",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1466
  }
 ]

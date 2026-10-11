@@ -1419,28 +1419,19 @@ result.}
 
 \subsection{Scope and prior art}
 
-Aligning multiple transports is not new, and none of it is claimed here.
-The two-transport case is the founding worked example of the shifted proper
-orthogonal decomposition \cite{reiss2018shifted}, where a pressure pulse splitting into two waves is
-reconstructed with two modes (one per co-moving frame) against more than
-eighty ordinary modes; the general formulation covers arbitrary numbers of
-independent transports. Multi-front variants follow in several later works \cite{nair2019transported,mendible2020dimensionality,krah2025robust,krah2023front,zorawski2024neural}, and a neural-network shifted decomposition predates the last of these by two years \cite{papapicco2022nnspod}.
-Shape--timescale decomposition of breakthrough curves specifically has been
-published \cite{lee2026scaleup}, with a \emph{single} characteristic time and a
-uniform rescaling.
-
-Nor is the map new mathematics. Piecewise landmark registration (a monotone warp
-built by interpolating between identified landmark times) is the standard
-alignment method in functional data analysis \cite{kneip1992statistical}, with a
-landmark-free alternative in Ramsay and Li \cite{ramsay1998curve}, and our two-landmark linear
-case reduces exactly to it. Zucatti and Zahr \cite{zucatti2026model} use landmark-based registration for
-reduced-order models of convection-dominated problems, which is the same primitive
-applied to shock features in space rather than to fronts in time; it is the nearest
-neighbour of this section and we name it as such. Registration-based reduction is
-itself an established family \cite{taddei2020registration,taddei2026erratum}, so this
-narrows our claim rather than restoring novelty.
-
-What is ours is the measurement.
+Aligning multiple transports is not new, and none of it is claimed here. The
+two-transport case is the founding example of the shifted POD \cite{reiss2018shifted},
+multi-front variants follow
+\cite{nair2019transported,mendible2020dimensionality,krah2025robust,krah2023front,zorawski2024neural},
+a neural-network shifted decomposition predates the last of these
+\cite{papapicco2022nnspod}, and breakthrough curves have been decomposed with a single
+characteristic time \cite{lee2026scaleup}. Our two-landmark linear warp is piecewise
+landmark registration from functional data analysis \cite{kneip1992statistical} (a
+landmark-free alternative is in \cite{ramsay1998curve}); Zucatti and Zahr
+\cite{zucatti2026model} apply the same primitive to shock features in reduced-order
+models of convection-dominated problems, and registration-based reduction is an
+established family \cite{taddei2020registration,taddei2026erratum}. What is ours is the
+measurement.
 
 \subsection{One shift makes it worse; two make it much better}
 
@@ -1462,13 +1453,12 @@ collapses the \(n\)-width where one shift inflated it: \nNwidthOriginal\ \(\to\)
 \nNwidthTwoWaveA\ modes, or \nNwidthTwoWaveB\ for the wider landmark pair. A third
 pair was excluded because a narrow window divides by a small span and its
 interpolation floor reached \nComovingFloorPct\,\% of the fixed-frame error it is judged
-against, where the guard's threshold is \(10\,\%\). The guard caught it, and it is
-reported rather than dropped silently.
+against, above the guard's threshold of \(10\,\%\).
 
 \subsection{The verdict, what it can resolve, and the relocation}
 
-Three seeds across every stochastic component, both arms computed in the same run,
-paired cluster bootstrap by material:
+Table~\ref{tab:warp} gives the result: three seeds for every stochastic component, both
+arms computed in the same run, and a paired cluster bootstrap by material.
 
 \begin{table}[t]
 \centering
@@ -1488,21 +1478,13 @@ two-wave, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \
 \end{tabular}}
 \end{table}
 
-Two statements are needed here. The predicted-front arm does \emph{not} beat the fixed
-frame. But the oracle gap is significant and large: given the true front
-trajectories, the same proper-orthogonal-decomposition-plus-regressor arm is
-\nWarpHeadroomFixed{}\(\times\) better \emph{than the fixed frame}, and
-\nWarpHeadroom{}\(\times\) better than the same arm with predicted fronts. The two
-denominators differ and we name which is which, because the quantity of
-interest (what the coordinate change would buy if the fronts were located
-perfectly) is the first.
-
-The gain is therefore not recovered once the fronts are predicted, and this is
-a measured null, not a demonstrated absence. On \nWarpNmat\ held-out materials the
-interval for the predicted-front arm admits anything from a \nWarpPredImproveMax\,\%
-improvement to a \nWarpPredDegradeMax\,\% degradation of the fixed frame; it rules
-out the oracle's gain, not a modest one. With that scope, this is a relocation of the
-obstruction rather than only a null. Through L1--L5 the obstruction was the
+The predicted-front arm does not beat the fixed frame. Given the true front
+trajectories, the same POD-plus-regressor arm is \nWarpHeadroomFixed{}\(\times\) better
+than the fixed frame, which is what perfect front location would buy, and
+\nWarpHeadroom{}\(\times\) better than with predicted fronts. On \nWarpNmat\ held-out
+materials the predicted-front interval admits anything from a \nWarpPredImproveMax\,\%
+improvement to a \nWarpPredDegradeMax\,\% degradation; it rules out the oracle's gain,
+not a modest one. With that scope, this is a relocation of the obstruction. Through L1--L5 the obstruction was the
 parameter-to-coefficient map, at the number of modes a given training set supports. It
 is now ``two smooth monotone one-dimensional curves are not located accurately
 enough'', a better-posed problem, with a target a front-locating model can be held
@@ -1515,24 +1497,15 @@ It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, w
 violate them in none. But projecting onto the constraint set changes \(R^2\) by
 at most \nWarpMonoMaxDRtwo{} and makes the reconstruction significantly
 \emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
-\nMonoDiff\ with interval [\nMonoLo, \nMonoHi]. That interval is much tighter than
-Table~\ref{tab:warp}'s, and the reason is pairing rather than power: the projected
-arm is a deterministic transformation of the raw arm's own predictions, so almost
-all of the between-material variance cancels, whereas the two-wave and fixed frames
-are separately fitted arms. A smaller difference can therefore be resolved here
-than there, and the two intervals are not comparable. The violations are frequent
-but negligible in magnitude. A monotone-by-construction front predictor is not worth
-building; the remaining headroom is raw predictive accuracy of the front predictor,
-which more training materials or a better learner could supply.
+\nMonoDiff\ with interval [\nMonoLo, \nMonoHi] (tighter than Table~\ref{tab:warp}'s
+because the projected arm is a deterministic transformation of the raw arm, so the
+between-material variance cancels). The violations are frequent but negligible; the
+remaining headroom is the front predictor's raw accuracy.
 
-\paragraph{Relation to constant-pattern behaviour} It may be objected that
-constant-pattern behaviour (a front propagating without changing shape) is
-long established in fixed-bed adsorption \cite{knox2016limitations}, and that equation~\eqref{eq:warp} merely
-re-derives constant-pattern scaling. It does not, and the reason is the same
-measurement that killed the single-front frame: when the two fronts move at
-different rates, and their separation varies \nGapRange-fold, no single scale factor
-aligns both. That is precisely the regime a one-parameter dimensionless time cannot
-handle, and it is why the second landmark is doing the work.
+\paragraph{Relation to constant-pattern behaviour} Equation~\eqref{eq:warp} is not
+constant-pattern scaling \cite{knox2016limitations}: when the two fronts move at
+different rates and their separation varies \nGapRange-fold, no single scale factor
+aligns both, which is why the second landmark does the work.
 
 %% ===========================================================================
 \section{What the surrogate costs, and when it repays}
