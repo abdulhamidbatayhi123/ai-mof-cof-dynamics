@@ -1,7 +1,8 @@
-# What binds a surrogate?
+# What limits machine-learning surrogates on unseen adsorbents?
 
-A pre-registered falsification ladder for surrogate models of metal–organic-framework
-water-adsorption columns.
+A pre-registered falsification study of metal–organic framework water-adsorption
+columns (Paper 1), and the pre-registration of Paper 2 (when can AI discover adsorption
+kinetics?).
 
 Surrogates of adsorption columns are usually judged by how well they fit. This project
 asks a different question: **when a surrogate must predict an adsorbent it has never
