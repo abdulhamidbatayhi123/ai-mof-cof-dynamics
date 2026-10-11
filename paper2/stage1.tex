@@ -322,7 +322,7 @@ Replicates are 20 independent ($\sigma$, $\varepsilon$) realisations per cell fo
 and M9 (M8 is not run on the grid; \S\ref{sec:compet}). M6 runs on a separate isothermal
 control: 9 solves, the 9 $\Da$ levels $\times$ $\Pe \times 1$ $\times$ Langmuir, with the
 energy balance switched off (T held at the feed) and the same horizon rule. These solves
-are done; all reached 95\,\% breakthrough. M7, if its inclusion gate passes, needs a Julia search per replicate and so
+are done; all reached 95\,\% breakthrough. M7, which passed its inclusion gate, needs a Julia search per replicate and so
 runs with 3 replicates on a subgrid: all $\Da$ $\times$ $\sigma \in \{0.5\,\%, 2\,\%\}$
 $\times$ $\varepsilon \in \{0, 2\,\%\}$ $\times$ both isotherms $\times$ $\Pe \times 1$
 $\times$ O1, the only observation model M7 can see (Table~\ref{tab:obs}). M1 runs only
@@ -456,15 +456,17 @@ isotherm. Extending either method to that problem would be new method developmen
 was decided before the freeze. The ODR-BINDy Python port, on the authors' Lorenz example
 (500 points, 20\,\% noise), recovers the exact 7-term support. Its relative coefficient
 error is $5.0\times10^{-3}$, against about $2.2\times10^{-3}$ read from the paper's heatmap,
-and it is about 26 times slower (2385\,s). Before the freeze, five noise seeds separate
-single-run scatter from a real gap. The statistic is the mean relative coefficient error
-over the seeds, compared against $10^{-2.65}$. If the gap persists, the port is reported as
-\verdict{port, accuracy below the reference}, with the gap stated. WENDy is reported as
+and it is about 26 times slower (2385\,s). Five noise seeds, run before the freeze, settle
+whether that is scatter or a real gap: the mean relative coefficient error over the seeds is
+0.166 against about $2.2\times10^{-3}$ (a gap of about 74), and the exact support is
+recovered in 1 of 5 seeds. The port is therefore reported, in the declared words, as
+\verdict{port, accuracy below the reference}, with that gap stated; M5 on the grid is
+unaffected. WENDy is reported as
 \verdict{NOT RUN} if no implementation is verified on its authors' own example before the
 freeze.
 % PREREG_P2 s.3 ODR-BINDy port paragraph; results/odr_bindy_verification.json:
-% rel_frobenius_error 0.00498, reported 0.00224, runtime_s 2384.75; p2_odr_seeds.py exists,
-% results/odr_bindy_seeds.json does not yet exist (2026-10-04).
+% rel_frobenius_error 0.00498, reported 0.00224, runtime_s 2384.75; five seeds:
+% results/odr_bindy_seeds.json (mean 0.16560, gap_ratio_mean 73.97), PREREG_P2 s.11.
 
 \item[M6, SINDy-PI \citep{kaheman2020} for rational laws.] M6 is run with Lib-A and
 \emph{no} measured isotherm, on the isothermal control only (\S\ref{sec:axes}), because
@@ -485,9 +487,14 @@ model selection) is run on the known-answer LDF system ($k = 0.02$; 0.5\,\% nois
 \emph{and} on the measured $\qsm$) for 3 seeds. M7 runs on its subgrid if and only if success holds in at least 2 of 3 seeds,
 \emph{and} every search finishes within 30\,min, \emph{and} peak memory stays under
 3\,GB. Otherwise it is reported as NOT RUN, with the pilot's numbers, as ``infeasible on
-this machine'' or ``failing its known-answer test'', in those words. The gate pilot is
-queued behind the companion paper's runs.
-% PREREG_P2 s.3 M7 row; p2_pilot_m7.py; results/p2_pilot_m7.json does not yet exist.
+this machine'' or ``failing its known-answer test'', in those words. \emph{Outcome:} all
+three seeds recover the planted law as $k(\qsm - q)$ with $k$ within 0.3\,\% of its true
+value, in at most 35\,s and under 1\,GB, so M7 is included on its subgrid. A first run of
+the gate recorded ``infeasible on this machine''; that was our own wrapper failing ---
+PySR rejected the library's variable names, then a non-serial deterministic setting --- and
+the decision was withdrawn before the freeze. The gate now refuses to decide when a search
+raises an error, so a software failure cannot again be read as a resource limit.
+% PREREG_P2 s.11; p2_pilot_m7.py; results/p2_pilot_m7.json; RETRACTIONS B76.
 
 \item[M8, KAN symbolic extraction \citep{liu2024}.] M8 follows the original KAN
 procedure. It is not a reimplementation of KANDy \citep{slote2026}, whose code was not
@@ -848,12 +855,12 @@ M9, and restricted the 0.25-decade MDE to O1.
 % PREREG_P2 s.10 items 1-20, "Second pass", "Third pass"; p2_grid_o1.py, p2_grid_o23.py (o2, o2ident,
 % o3), p2_grid_extra.py (m5, m6, m7, m8, m9, l2).
 
-\paragraph{Pending before the freeze.}
-Two items remain. The first is the ODR-BINDy five-seed check, which decides how the port is
-reported on its own example: as verified, or as ``port, accuracy below the reference''. The
-second is the M7 inclusion gate, which decides whether M7 runs or is reported NOT RUN. Both
-rules were written before the runs that decide them. The pre-registration is frozen by a commit after
-these and before any discovery method touches a grid cell. Any later change is a dated,
+\paragraph{The freeze.}
+The two items that remained have reported: the ODR-BINDy port is reported as ``port,
+accuracy below the reference'', and M7 passes its inclusion gate. Both rules were written
+before the runs that decided them. The pre-registration is frozen by a commit that the grid
+drivers check before they will run, and no discovery method has touched a grid cell. The
+confirmatory grid will be run only after in-principle acceptance of this Stage-1 report. Any later change is a dated,
 reasoned amendment, reported as post hoc if made after results exist.
 
 % ---------------------------------------------------------------------
@@ -871,7 +878,7 @@ replicates over about 2600 cells. These take seconds each. Every method has a gr
 and every runner refuses to start before the freeze.
 % p2_grid_o1.py, p2_grid_o23.py, p2_grid_extra.py.
 % PREREG_P2 s.7. 2600 ~ 81 x 16 (sigma, eps) x 2 (O1, O2) = 2592.
-\item M7, if admitted, on its O1 subgrid, and the one-replicate M1 demonstration: about 200
+\item M7 on its O1 subgrid, and the one-replicate M1 demonstration: about 200
 searches or trainings in total.
 \item O2 and O3 identifiability: a full column solve per profile point, 3 replicates on
 the subgrid.
@@ -893,7 +900,7 @@ is a ceiling.
 strongest-configuration method. M1 is run only as a demonstration because of compute. On
 the grid, M5 is a classical errors-in-variables estimator, not a published EIV discovery
 method. ODR-BINDy and WENDy are written for autonomous systems and are reported only on
-their own examples. M7 is gated. M8 fails its known-answer test and is not run on the grid
+their own examples. M7 passed its inclusion gate. M8 fails its known-answer test and is not run on the grid
 by its cost gate, measured on a shared machine. Each is reported in those terms. Lib-B is smaller than first planned, so
 the boundaries are optimistic with respect to library size. Two methods
 recommended by our literature review are not in the competitor set: physics-constrained

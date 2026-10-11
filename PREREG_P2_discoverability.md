@@ -475,3 +475,10 @@ PySR requires for a deterministic seeded search).** All three seeds recover the 
 exactly as k(q* - q): k = 0.019994, 0.019992, 0.019943 against k_true = 0.02 (relative error
 3.1e-4, 4.2e-4, 2.9e-3), in 35, 5 and 5 s at a peak of 0.97 GB -- inside both limits. Decision,
 in the declared words: **"INCLUDE M7 on its declared subgrid."** (`results/p2_pilot_m7.json`.)
+
+**Registered Report timing (decided 2026-10-11, before the freeze).** Paper 2 is submitted
+as a Registered Report. The freeze commit fixes this design; the confirmatory grid is run
+only **after Stage-1 in-principle acceptance**, or, if no journal grants it within six months
+of the freeze, after a dated amendment saying so -- in which case the paper is reported as a
+pre-registered study, not as a Registered Report. Any change requested by Stage-1 reviewers
+is a dated amendment committed before the grid runs.
