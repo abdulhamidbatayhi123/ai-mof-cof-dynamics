@@ -1,0 +1,688 @@
+{
+  "alpha": 0.02,
+  "axes": {
+    "time": {
+      "table": {
+        "data_only": {
+          "seen": 0.014524490137975792,
+          "held": 0.013095832092132139,
+          "held_sd": 0.0013517864055159153,
+          "w_pde_final": 0.0,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-6": {
+          "seen": 0.014348567484578073,
+          "held": 0.013276131095880021,
+          "held_sd": 0.0015136420733095595,
+          "w_pde_final": 1e-06,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-5": {
+          "seen": 0.014081536761093756,
+          "held": 0.013153065178395687,
+          "held_sd": 0.0013526786333854493,
+          "w_pde_final": 1e-05,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-4": {
+          "seen": 0.01406013508221804,
+          "held": 0.014602202889540826,
+          "held_sd": 0.0013254518491796737,
+          "w_pde_final": 0.0001,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-3": {
+          "seen": 0.015637671555951884,
+          "held": 0.018379257544097527,
+          "held_sd": 0.0003615572894644761,
+          "w_pde_final": 0.001,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-2": {
+          "seen": 0.02160110616892376,
+          "held": 0.022439496100762176,
+          "held_sd": 0.0008578575547780386,
+          "w_pde_final": 0.01,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-1": {
+          "seen": 0.03542938441508644,
+          "held": 0.0285181340886993,
+          "held_sd": 0.0008986445370344087,
+          "w_pde_final": 0.10000000000000002,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1": {
+          "seen": 0.11984764540668241,
+          "held": 0.05687534257514118,
+          "held_sd": 0.0018480495380460767,
+          "w_pde_final": 1.0,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t0.1": {
+          "seen": 0.01683247784431943,
+          "held": 0.015908555731294252,
+          "held_sd": 0.000631827636695826,
+          "w_pde_final": 9.552676688478724e-06,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t1.0": {
+          "seen": 0.017905454489664407,
+          "held": 0.01823448737083153,
+          "held_sd": 0.000325417989791869,
+          "w_pde_final": 0.0002140703152818245,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t10": {
+          "seen": 0.04528184337929512,
+          "held": 0.03411363374844869,
+          "held_sd": 0.0027402827434414743,
+          "w_pde_final": 0.43107819969264033,
+          "failed_seeds": []
+        },
+        "pi_ntk": {
+          "seen": 0.027382458509641258,
+          "held": 0.03345353163187307,
+          "held_sd": 0.0012328135444583384,
+          "w_pde_final": 4.050074777336784e-05,
+          "failed_seeds": []
+        },
+        "pi_sa": {
+          "seen": 0.24398539241196382,
+          "held": 0.0636961071985651,
+          "held_sd": 0.000670461082056532,
+          "w_pde_final": 4.925342718760173,
+          "failed_seeds": []
+        }
+      },
+      "eligible": [
+        "pi_fixed_w1e-6",
+        "pi_fixed_w1e-5",
+        "pi_fixed_w1e-4",
+        "pi_fixed_w1e-3",
+        "pi_fixed_w1e-2",
+        "pi_fixed_w1e-1",
+        "pi_gradnorm_t0.1",
+        "pi_gradnorm_t1.0",
+        "pi_ntk"
+      ],
+      "abandoned": [
+        "pi_fixed_w1",
+        "pi_gradnorm_t10",
+        "pi_sa"
+      ],
+      "failed": {
+        "data_only": [],
+        "pi_fixed_w1e-6": [],
+        "pi_fixed_w1e-5": [],
+        "pi_fixed_w1e-4": [],
+        "pi_fixed_w1e-3": [],
+        "pi_fixed_w1e-2": [],
+        "pi_fixed_w1e-1": [],
+        "pi_fixed_w1": [],
+        "pi_gradnorm_t0.1": [],
+        "pi_gradnorm_t1.0": [],
+        "pi_gradnorm_t10": [],
+        "pi_ntk": [],
+        "pi_sa": []
+      },
+      "comparisons_vs_data_only": {
+        "pi_fixed_w1e-6": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-6",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.013276131095880021,
+          "mean_diff": -0.0001802990037478796,
+          "ci_low": -0.000459494095495706,
+          "ci_high": 8.996150672070747e-05,
+          "significant": false,
+          "verdict": "no difference between data_only and pi_fixed_w1e-6",
+          "n_materials": 192
+        },
+        "pi_fixed_w1e-5": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-5",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.013153065178395687,
+          "mean_diff": -5.723308626354785e-05,
+          "ci_low": -0.00036217590038429783,
+          "ci_high": 0.0002419517512875137,
+          "significant": false,
+          "verdict": "no difference between data_only and pi_fixed_w1e-5",
+          "n_materials": 192
+        },
+        "pi_fixed_w1e-4": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-4",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.014602202889540825,
+          "mean_diff": -0.0015063707974086859,
+          "ci_low": -0.0019291203953177198,
+          "ci_high": -0.0010911624455236006,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_fixed_w1e-3": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-3",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.018379257544097527,
+          "mean_diff": -0.0052834254519653874,
+          "ci_low": -0.006063953043699446,
+          "ci_high": -0.004498805946272014,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_fixed_w1e-2": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-2",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.02243949610076217,
+          "mean_diff": -0.009343664008630034,
+          "ci_low": -0.01041218873332759,
+          "ci_high": -0.008337222892201908,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_fixed_w1e-1": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-1",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.0285181340886993,
+          "mean_diff": -0.015422301996567156,
+          "ci_low": -0.017245884135122146,
+          "ci_high": -0.013632473018366608,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_gradnorm_t0.1": {
+          "arm_a": "data_only",
+          "arm_b": "pi_gradnorm_t0.1",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.015908555731294252,
+          "mean_diff": -0.0028127236391621104,
+          "ci_low": -0.0035113303351183354,
+          "ci_high": -0.0021209784693375405,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_gradnorm_t1.0": {
+          "arm_a": "data_only",
+          "arm_b": "pi_gradnorm_t1.0",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.01823448737083153,
+          "mean_diff": -0.005138655278699389,
+          "ci_low": -0.005973341492515058,
+          "ci_high": -0.004331125311121081,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "pi_ntk": {
+          "arm_a": "data_only",
+          "arm_b": "pi_ntk",
+          "metric": "nrmse_c",
+          "mean_a": 0.013095832092132139,
+          "mean_b": 0.03345353163187307,
+          "mean_diff": -0.02035769953974093,
+          "ci_low": -0.022058429560621755,
+          "ci_high": -0.018624300703193878,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 192
+        }
+      },
+      "best_pi": "pi_fixed_w1e-5",
+      "best_pi_vs_data_only": {
+        "arm_a": "data_only",
+        "arm_b": "pi_fixed_w1e-5",
+        "metric": "nrmse_c",
+        "mean_a": 0.013095832092132139,
+        "mean_b": 0.013153065178395687,
+        "mean_diff": -5.723308626354785e-05,
+        "ci_low": -0.00036217590038429783,
+        "ci_high": 0.0002419517512875137,
+        "significant": false,
+        "verdict": "no difference between data_only and pi_fixed_w1e-5",
+        "n_materials": 192
+      },
+      "edge_warning": null,
+      "edge_saturation": null,
+      "sweep_described": "fixed weights over 6 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 3 further arms (pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
+      "mde": {
+        "pi_fixed_w1e-5": {
+          "label": "[time] data_only vs pi_fixed_w1e-5",
+          "alpha": 0.02,
+          "base": 0.013095832092132139,
+          "between_sd": 0.0017848324670073498,
+          "within_sd": 0.0028713711324307284,
+          "between_over_base": 0.1362901153932526,
+          "n_clusters": 192,
+          "n_samples": 768,
+          "trials": 200,
+          "n_boot": 600,
+          "power": {
+            "0.00": 3.0,
+            "0.05": 99.5,
+            "0.10": 100.0,
+            "0.20": 100.0,
+            "0.30": 100.0
+          },
+          "size_at_null": 3.0,
+          "mde_80": 0.05
+        }
+      },
+      "verdict": "NO DIFFERENCE between the data-only twin and the best physics arm pi-fixed-w1e-5 (fixed weights over 6 decades, gradient-norm balancing at 2 target ratios, NTK weighting; 3 further arms (pi-fixed-w1, pi-gradnorm-t10, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy 'hurts' claim is WITHDRAWN.",
+      "polish": {
+        "best_pi": "pi_fixed_w1e-5",
+        "comparison": {
+          "arm_a": "data_only+lbfgs",
+          "arm_b": "pi_fixed_w1e-5+lbfgs",
+          "metric": "nrmse_c",
+          "mean_a": 0.011248154730998924,
+          "mean_b": 0.012372990218586387,
+          "mean_diff": -0.001124835487587461,
+          "ci_low": -0.0014782356295935035,
+          "ci_high": -0.0007925412262803403,
+          "significant": true,
+          "verdict": "data_only+lbfgs is better (lower nrmse_c)",
+          "n_materials": 192
+        },
+        "ordering_flips": true
+      }
+    },
+    "material": {
+      "table": {
+        "data_only": {
+          "seen": 0.013694439891474354,
+          "held": 0.023142899065769773,
+          "held_sd": 0.0022035939396120073,
+          "w_pde_final": 0.0,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-6": {
+          "seen": 0.013371661984617984,
+          "held": 0.02240451609542787,
+          "held_sd": 0.0016297028716169787,
+          "w_pde_final": 1e-06,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-5": {
+          "seen": 0.012607966967253659,
+          "held": 0.02112123029683914,
+          "held_sd": 0.0007583484755864173,
+          "w_pde_final": 1e-05,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-4": {
+          "seen": 0.013440060590053489,
+          "held": 0.022393599515463714,
+          "held_sd": 0.0027045202196859866,
+          "w_pde_final": 0.0001,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-3": {
+          "seen": 0.016179175391193387,
+          "held": 0.024561841106813476,
+          "held_sd": 0.0004789154976719396,
+          "w_pde_final": 0.001,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-2": {
+          "seen": 0.020911797222450127,
+          "held": 0.027329477232173494,
+          "held_sd": 0.0011329550620049309,
+          "w_pde_final": 0.01,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1e-1": {
+          "seen": 0.032169060232667517,
+          "held": 0.03615220271077551,
+          "held_sd": 0.0014784858434596108,
+          "w_pde_final": 0.10000000000000002,
+          "failed_seeds": []
+        },
+        "pi_fixed_w1": {
+          "seen": 0.09055502241325382,
+          "held": 0.0903113537678239,
+          "held_sd": 0.00773465574521419,
+          "w_pde_final": 1.0,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t0.1": {
+          "seen": 0.016714427445953736,
+          "held": 0.024796504948950582,
+          "held_sd": 0.0004639547616681831,
+          "w_pde_final": 1.681888221915733e-05,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t1.0": {
+          "seen": 0.017915517446454032,
+          "held": 0.025740401432765302,
+          "held_sd": 0.00018130598809767116,
+          "w_pde_final": 0.0003541726214433603,
+          "failed_seeds": []
+        },
+        "pi_gradnorm_t10": {
+          "seen": 0.0366635772034998,
+          "held": 0.039202161063215044,
+          "held_sd": 0.002237490912327538,
+          "w_pde_final": 0.300173155775836,
+          "failed_seeds": []
+        },
+        "pi_ntk": {
+          "seen": 0.026898296657236642,
+          "held": 0.03146904820933337,
+          "held_sd": 0.0008359518277347483,
+          "w_pde_final": 6.086396486902309e-05,
+          "failed_seeds": []
+        },
+        "pi_sa": {
+          "seen": 0.1798043621028127,
+          "held": 0.17966185858259434,
+          "held_sd": 0.00451680098518641,
+          "w_pde_final": 4.996902306874593,
+          "failed_seeds": []
+        }
+      },
+      "eligible": [
+        "pi_fixed_w1e-6",
+        "pi_fixed_w1e-5",
+        "pi_fixed_w1e-4",
+        "pi_fixed_w1e-3",
+        "pi_fixed_w1e-2",
+        "pi_fixed_w1e-1",
+        "pi_gradnorm_t0.1",
+        "pi_gradnorm_t1.0",
+        "pi_gradnorm_t10",
+        "pi_ntk"
+      ],
+      "abandoned": [
+        "pi_fixed_w1",
+        "pi_sa"
+      ],
+      "failed": {
+        "data_only": [],
+        "pi_fixed_w1e-6": [],
+        "pi_fixed_w1e-5": [],
+        "pi_fixed_w1e-4": [],
+        "pi_fixed_w1e-3": [],
+        "pi_fixed_w1e-2": [],
+        "pi_fixed_w1e-1": [],
+        "pi_fixed_w1": [],
+        "pi_gradnorm_t0.1": [],
+        "pi_gradnorm_t1.0": [],
+        "pi_gradnorm_t10": [],
+        "pi_ntk": [],
+        "pi_sa": []
+      },
+      "comparisons_vs_data_only": {
+        "pi_fixed_w1e-6": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-6",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.022404516095427863,
+          "mean_diff": 0.0007383829703419061,
+          "ci_low": 0.00027764589867584124,
+          "ci_high": 0.0012880751733503836,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-6 is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-5": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-5",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.021121230296839145,
+          "mean_diff": 0.0020216687689306304,
+          "ci_low": 0.0014149794491345074,
+          "ci_high": 0.002710789346030233,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-5 is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-4": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-4",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.02239359951546371,
+          "mean_diff": 0.000749299550306063,
+          "ci_low": 7.311504288156248e-05,
+          "ci_high": 0.001567105904900957,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-4 is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-3": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-3",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.024561841106813472,
+          "mean_diff": -0.001418942041043701,
+          "ci_low": -0.0021517665206810567,
+          "ci_high": -0.0006046566644088412,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-2": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-2",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.027329477232173494,
+          "mean_diff": -0.004186578166403719,
+          "ci_low": -0.005626491620986544,
+          "ci_high": -0.002890546507579524,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_fixed_w1e-1": {
+          "arm_a": "data_only",
+          "arm_b": "pi_fixed_w1e-1",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.0361522027107755,
+          "mean_diff": -0.013009303645005731,
+          "ci_low": -0.015533702802002426,
+          "ci_high": -0.010683796694060915,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_gradnorm_t0.1": {
+          "arm_a": "data_only",
+          "arm_b": "pi_gradnorm_t0.1",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.024796504948950582,
+          "mean_diff": -0.0016536058831808065,
+          "ci_low": -0.00259343731063949,
+          "ci_high": -0.0006308402254087981,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_gradnorm_t1.0": {
+          "arm_a": "data_only",
+          "arm_b": "pi_gradnorm_t1.0",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.025740401432765302,
+          "mean_diff": -0.0025975023669955258,
+          "ci_low": -0.003593755954119479,
+          "ci_high": -0.0016106818736228625,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_gradnorm_t10": {
+          "arm_a": "data_only",
+          "arm_b": "pi_gradnorm_t10",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.039202161063215044,
+          "mean_diff": -0.01605926199744527,
+          "ci_low": -0.018947186606470653,
+          "ci_high": -0.01347367244648549,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "pi_ntk": {
+          "arm_a": "data_only",
+          "arm_b": "pi_ntk",
+          "metric": "nrmse_c",
+          "mean_a": 0.023142899065769773,
+          "mean_b": 0.03146904820933337,
+          "mean_diff": -0.008326149143563595,
+          "ci_low": -0.00998428588665798,
+          "ci_high": -0.006615898587704778,
+          "significant": true,
+          "verdict": "data_only is better (lower nrmse_c)",
+          "n_materials": 48
+        }
+      },
+      "best_pi": "pi_fixed_w1e-5",
+      "best_pi_vs_data_only": {
+        "arm_a": "data_only",
+        "arm_b": "pi_fixed_w1e-5",
+        "metric": "nrmse_c",
+        "mean_a": 0.023142899065769773,
+        "mean_b": 0.021121230296839145,
+        "mean_diff": 0.0020216687689306304,
+        "ci_low": 0.0014149794491345074,
+        "ci_high": 0.002710789346030233,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 is better (lower nrmse_c)",
+        "n_materials": 48
+      },
+      "edge_warning": null,
+      "edge_saturation": null,
+      "sweep_described": "fixed weights over 6 decades, gradient-norm balancing at 3 target ratios, NTK weighting; 2 further arms (pi-fixed-w1, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1",
+      "mde": {},
+      "verdict": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 6 decades, gradient-norm balancing at 3 target ratios, NTK weighting; 2 further arms (pi-fixed-w1, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
+      "polish": {
+        "best_pi": "pi_fixed_w1e-5",
+        "comparison": {
+          "arm_a": "data_only+lbfgs",
+          "arm_b": "pi_fixed_w1e-5+lbfgs",
+          "metric": "nrmse_c",
+          "mean_a": 0.026899907242361114,
+          "mean_b": 0.025188371395248293,
+          "mean_diff": 0.0017115358471128184,
+          "ci_low": 0.0009834358011771578,
+          "ci_high": 0.0025051109972539223,
+          "significant": true,
+          "verdict": "pi_fixed_w1e-5+lbfgs is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "ordering_flips": false
+      }
+    }
+  },
+  "refine": {
+    "time/data_only": {
+      "comparison": {
+        "arm_a": "data_only before",
+        "arm_b": "data_only after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.013095832092132139,
+        "mean_b": 0.03145685362207789,
+        "mean_diff": -0.01836102152994575,
+        "ci_low": -0.020246435939539602,
+        "ci_high": -0.016580595347421526,
+        "significant": true,
+        "verdict": "data_only before is better (lower nrmse_c)",
+        "n_materials": 192
+      },
+      "seen_before": 0.014524490137975792,
+      "seen_after": 0.07169739167066937,
+      "seen_change_pct": 393.6310396411718,
+      "anchor_insufficient": true,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    },
+    "time/pi_fixed_w1e-5": {
+      "comparison": {
+        "arm_a": "pi_fixed_w1e-5 before",
+        "arm_b": "pi_fixed_w1e-5 after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.013153065178395687,
+        "mean_b": 0.030680842746076253,
+        "mean_diff": -0.01752777756768056,
+        "ci_low": -0.019347046440742588,
+        "ci_high": -0.015718629592755252,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 before is better (lower nrmse_c)",
+        "n_materials": 192
+      },
+      "seen_before": 0.014081536761093756,
+      "seen_after": 0.0652247815059026,
+      "seen_change_pct": 363.19363157942985,
+      "anchor_insufficient": true,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    },
+    "material/data_only": {
+      "comparison": {
+        "arm_a": "data_only before",
+        "arm_b": "data_only after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.023142899065769773,
+        "mean_b": 0.06845380609777543,
+        "mean_diff": -0.04531090703200566,
+        "ci_low": -0.051302407002336126,
+        "ci_high": -0.03891459851082171,
+        "significant": true,
+        "verdict": "data_only before is better (lower nrmse_c)",
+        "n_materials": 48
+      },
+      "seen_before": 0.023142899065769773,
+      "seen_after": 0.06845380609777542,
+      "seen_change_pct": 195.78751522545485,
+      "anchor_insufficient": false,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    },
+    "material/pi_fixed_w1e-5": {
+      "comparison": {
+        "arm_a": "pi_fixed_w1e-5 before",
+        "arm_b": "pi_fixed_w1e-5 after refinement",
+        "metric": "nrmse_c",
+        "mean_a": 0.021121230296839145,
+        "mean_b": 0.06052600160889412,
+        "mean_diff": -0.03940477131205498,
+        "ci_low": -0.04539592195241674,
+        "ci_high": -0.03321954387928902,
+        "significant": true,
+        "verdict": "pi_fixed_w1e-5 before is better (lower nrmse_c)",
+        "n_materials": 48
+      },
+      "seen_before": 0.02112123029683914,
+      "seen_after": 0.06052600160889412,
+      "seen_change_pct": 186.5647538436813,
+      "anchor_insufficient": false,
+      "mde": null,
+      "verdict": "physics at inference makes transfer WORSE"
+    }
+  }
+}

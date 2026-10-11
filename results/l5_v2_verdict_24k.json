@@ -1,0 +1,300 @@
+{
+  "source": [
+    "results/l5_v2_results_24k.json"
+  ],
+  "parity": {
+    "root": "data/parametric_v2",
+    "design_of_data": "v2",
+    "field_res": 128,
+    "nz_s": 128,
+    "nt_s": 128,
+    "budget": 200000,
+    "steps": [
+      24000
+    ]
+  },
+  "alpha": 0.02,
+  "n_clusters_calibrated": 240,
+  "n_boot": 4000,
+  "folds_used": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "complete": true,
+  "min_seeds": 3,
+  "mde_computed": true,
+  "provisional": false,
+  "pod_floor_pooled": {
+    "8": 0.006313987915021419,
+    "16": 0.002672182782050548,
+    "32": 0.0009413795276639784,
+    "64": 0.0002797141149138601,
+    "128": 7.039122031970867e-05
+  },
+  "selected": {
+    "deeponet_p8": {
+      "mean": 0.010884306539984944,
+      "lr": 0.003,
+      "train_c": 0.003774801998709639,
+      "curve": {
+        "0.001": 0.011663587671105575,
+        "0.003": 0.010884306539984944,
+        "0.01": 0.011971478789999403,
+        "0.03": 0.3752232710044737
+      },
+      "x_floor": 1.723840255393967,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
+      "grid": [
+        0.001,
+        0.003,
+        0.01,
+        0.03
+      ],
+      "per_fold": [
+        0.010533184919551884,
+        0.010899921369190737,
+        0.010659837712094698,
+        0.010312431323805316,
+        0.012019123927991872
+      ]
+    },
+    "deeponet_p16": {
+      "mean": 0.009607799730363973,
+      "lr": 0.003,
+      "train_c": 0.002316680053869883,
+      "curve": {
+        "0.001": 0.011284839926462849,
+        "0.003": 0.009607799730363973,
+        "0.01": 0.022402785493741056,
+        "0.03": 0.3497225033321772
+      },
+      "x_floor": 3.5954874774663628,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
+      "grid": [
+        0.001,
+        0.003,
+        0.01,
+        0.03
+      ],
+      "per_fold": [
+        0.00897987290793938,
+        0.009615265479692143,
+        0.009646428561928556,
+        0.00930139049319898,
+        0.010501073869016064
+      ]
+    },
+    "deeponet_p32": {
+      "mean": 0.009553304455772698,
+      "lr": 0.003,
+      "train_c": 0.0020862488696972528,
+      "curve": {
+        "0.001": 0.011356354013714426,
+        "0.003": 0.009553304455772698,
+        "0.01": 0.127049865697235,
+        "0.03": 0.32360026296412214
+      },
+      "x_floor": 10.148196529702641,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
+      "grid": [
+        0.001,
+        0.003,
+        0.01,
+        0.03
+      ],
+      "per_fold": [
+        0.00919883530825047,
+        0.009235554806951901,
+        0.009537747401946853,
+        0.00940879499629587,
+        0.01038551120126162
+      ]
+    },
+    "deeponet_p64": {
+      "mean": 0.009402194744567344,
+      "lr": 0.003,
+      "train_c": 0.0022443635233988365,
+      "curve": {
+        "0.001": 0.011293658315325878,
+        "0.003": 0.009402194744567344,
+        "0.01": 0.22076697783858407,
+        "0.03": 0.4244501936232839
+      },
+      "x_floor": 33.613587027822376,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
+      "grid": [
+        0.001,
+        0.003,
+        0.01,
+        0.03
+      ],
+      "per_fold": [
+        0.009032028513074986,
+        0.009602341397846895,
+        0.009152901162286654,
+        0.008959388215627216,
+        0.01026999320637456
+      ]
+    },
+    "deeponet_p128": {
+      "mean": 0.009578062686887294,
+      "lr": 0.003,
+      "train_c": 0.002724086306989193,
+      "curve": {
+        "0.001": 0.01172268244208759,
+        "0.003": 0.009578062686887294,
+        "0.01": 0.28089654028420047,
+        "0.03": 0.3919622215644732
+      },
+      "x_floor": 136.0689961529983,
+      "unbracketed": false,
+      "edge_binding": false,
+      "edge_sensitivity": 0.0,
+      "grid": [
+        0.001,
+        0.003,
+        0.01,
+        0.03
+      ],
+      "per_fold": [
+        0.009361625474071171,
+        0.009173970714672951,
+        0.009591707104739227,
+        0.009075029162333392,
+        0.010684079127240634
+      ]
+    }
+  },
+  "paired_vs_smallest_p": {
+    "deeponet_p16": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "deeponet p=16",
+      "metric": "nrmse_c",
+      "mean_a": 0.010884306539984944,
+      "mean_b": 0.009607799730363973,
+      "mean_diff": 0.0012765068096209724,
+      "ci_low": 0.0009944514387102076,
+      "ci_high": 0.0015594309828121276,
+      "significant": true,
+      "verdict": "deeponet p=16 is better (lower nrmse_c)",
+      "n_materials": 240
+    },
+    "deeponet_p32": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "deeponet p=32",
+      "metric": "nrmse_c",
+      "mean_a": 0.010884306539984944,
+      "mean_b": 0.009553304455772698,
+      "mean_diff": 0.0013310020842122478,
+      "ci_low": 0.0010700443741175317,
+      "ci_high": 0.0016008173534690793,
+      "significant": true,
+      "verdict": "deeponet p=32 is better (lower nrmse_c)",
+      "n_materials": 240
+    },
+    "deeponet_p64": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "deeponet p=64",
+      "metric": "nrmse_c",
+      "mean_a": 0.010884306539984944,
+      "mean_b": 0.009402194744567344,
+      "mean_diff": 0.0014821117954175991,
+      "ci_low": 0.0011854563882813815,
+      "ci_high": 0.0018001504055241086,
+      "significant": true,
+      "verdict": "deeponet p=64 is better (lower nrmse_c)",
+      "n_materials": 240
+    },
+    "deeponet_p128": {
+      "arm_a": "deeponet p=8",
+      "arm_b": "deeponet p=128",
+      "metric": "nrmse_c",
+      "mean_a": 0.010884306539984944,
+      "mean_b": 0.009578062686887294,
+      "mean_diff": 0.00130624385309765,
+      "ci_low": 0.000991732908305507,
+      "ci_high": 0.0016362263245464773,
+      "significant": true,
+      "verdict": "deeponet p=128 is better (lower nrmse_c)",
+      "n_materials": 240
+    }
+  },
+  "family_at_best": null,
+  "mde": {},
+  "grid_boundary_warnings": [],
+  "anchor_unbracketed": false,
+  "verdict_q_l5": "basis size helps DeepONet on the 240-material design; the legacy flat-in-p verdict is retracted as a small-design artefact",
+  "q_l5_selection_adjusted": {
+    "k": 16,
+    "q": 3.0776276423265516,
+    "selected": {
+      "mean_diff": 0.00130624385309765,
+      "se": 0.00013850085112685121,
+      "sim_lo": 0.0008799898051838981,
+      "sim_hi": 0.0017324979010114017,
+      "significant_simultaneous": true
+    },
+    "words": "the per-pair verdict survives the selection"
+  },
+  "step_sensitivity": {
+    "alpha": 0.02,
+    "n_clusters_calibrated": 48,
+    "threshold": 0.05,
+    "cells": {
+      "deeponet_p8_lr1e-02_fold0": {
+        "means": {
+          "8000": 0.010777061354804789,
+          "24000": 0.010720501628531815
+        },
+        "rel_improvement_long": 0.005248158511017216,
+        "comparison": {
+          "arm_a": "8000 steps",
+          "arm_b": "24000 steps",
+          "metric": "nrmse_c",
+          "mean_a": 0.010777061354804789,
+          "mean_b": 0.010720501628531815,
+          "mean_diff": 5.655972627297347e-05,
+          "ci_low": -0.0008387333536916028,
+          "ci_high": 0.0009034017040115498,
+          "significant": false,
+          "verdict": "no difference between 8000 steps and 24000 steps",
+          "n_materials": 48
+        },
+        "material": false
+      },
+      "deeponet_p128_lr3e-03_fold0": {
+        "means": {
+          "8000": 0.011523765027014727,
+          "24000": 0.009361625474071171
+        },
+        "rel_improvement_long": 0.18762440468674377,
+        "comparison": {
+          "arm_a": "8000 steps",
+          "arm_b": "24000 steps",
+          "metric": "nrmse_c",
+          "mean_a": 0.011523765027014727,
+          "mean_b": 0.009361625474071171,
+          "mean_diff": 0.0021621395529435564,
+          "ci_low": 0.0015600105017021043,
+          "ci_high": 0.0027025203358718793,
+          "significant": true,
+          "verdict": "24000 steps is better (lower nrmse_c)",
+          "n_materials": 48
+        },
+        "material": true
+      }
+    },
+    "rebudget_required": true
+  }
+}

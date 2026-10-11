@@ -1,0 +1,48 @@
+{
+  "_what": "B-GP verdict (PREREG_BASELINES.md \u00a71): a GP on POD coefficients vs the L1-v2 perceptron.",
+  "alpha": 0.02,
+  "n_samples": 3947,
+  "n_materials": 240,
+  "mean_mlp": 0.03060395470056882,
+  "mean_gp": 0.030872128221411693,
+  "comparison": {
+    "arm_a": "mlp",
+    "arm_b": "gp",
+    "metric": "nrmse_c",
+    "mean_a": 0.03060395470056882,
+    "mean_b": 0.030872128221411693,
+    "mean_diff": -0.0002681735208428741,
+    "ci_low": -0.0013155934200305556,
+    "ci_high": 0.0007831256580960581,
+    "significant": false,
+    "verdict": "no difference between mlp and gp",
+    "n_materials": 240
+  },
+  "mde": {
+    "label": "B-GP vs mlp",
+    "alpha": 0.02,
+    "base": 0.03060395470056882,
+    "between_sd": 0.007049643321731105,
+    "within_sd": 0.011277626440716742,
+    "between_over_base": 0.23035073050869717,
+    "n_clusters": 240,
+    "n_samples": 3947,
+    "trials": 400,
+    "n_boot": 600,
+    "power": {
+      "0.00": 2.5,
+      "0.02": 17.25,
+      "0.04": 63.0,
+      "0.06": 93.75,
+      "0.08": 99.75,
+      "0.10": 100.0,
+      "0.15": 100.0,
+      "0.20": 100.0,
+      "0.30": 100.0,
+      "0.50": 100.0
+    },
+    "size_at_null": 2.5,
+    "mde_80": 0.06
+  },
+  "words": "no difference between a Gaussian process and the perceptron"
+}

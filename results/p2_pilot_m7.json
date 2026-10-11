@@ -1,0 +1,41 @@
+{
+  "_what": "PREREG_P2 \u00a73, M7 feasibility gate: does PySR run here, and recover a planted law?",
+  "k_true": 0.02,
+  "noise": 0.005,
+  "limits": {
+    "wall_s": 1800,
+    "peak_gb": 3.0
+  },
+  "rows": [
+    {
+      "seed": 0,
+      "expr": null,
+      "success_L1": false,
+      "wall_s": 634.6892337799072,
+      "peak_rss_gb": 2.804523468017578,
+      "k_rel_err": null,
+      "error": "ValueError: Invalid variable name c*q. Only alphanumeric characters, numbers, and underscores are allowed."
+    },
+    {
+      "seed": 1,
+      "expr": null,
+      "success_L1": false,
+      "wall_s": 0.005051136016845703,
+      "peak_rss_gb": 0.8997459411621094,
+      "k_rel_err": null,
+      "error": "ValueError: Invalid variable name c*q. Only alphanumeric characters, numbers, and underscores are allowed."
+    },
+    {
+      "seed": 2,
+      "expr": null,
+      "success_L1": false,
+      "wall_s": 0.0035223960876464844,
+      "peak_rss_gb": 0.8997726440429688,
+      "k_rel_err": null,
+      "error": "ValueError: Invalid variable name c*q. Only alphanumeric characters, numbers, and underscores are allowed."
+    }
+  ],
+  "n_success": 0,
+  "feasible": false,
+  "decision": "M7 NOT RUN: infeasible on this machine"
+}

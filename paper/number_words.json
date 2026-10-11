@@ -903,39 +903,11 @@
   "line_at_review": 1146
  },
  {
-  "key": "{Design.} [Ten] weighting schemes were pre-re",
-  "word": "Ten",
-  "class": "DESIGN",
-  "reason": "pre-registered arm count (PREREG_L4b_v2 table)",
-  "line_at_review": 549
- },
- {
-  "key": "budget --- fixed weights over [four] decades, gradient-norm balanc",
-  "word": "four",
-  "class": "DESIGN",
-  "reason": "pre-registered fixed-weight range",
-  "line_at_review": 551
- },
- {
   "key": " [three] target ratios , neural-tange",
   "word": "three",
   "class": "DESIGN",
   "reason": "pre-registered gradnorm targets",
   "line_at_review": 552
- },
- {
-  "key": "tended the fixed-weight sweep [one] decade",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "PREREG 4.2 extends one decade",
-  "line_at_review": 558
- },
- {
-  "key": "seen-window error exceeds [three] times the twin's has abandone",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "PREREG 4.1 failed-to-train threshold",
-  "line_at_review": 560
  },
  {
   "key": "eight material parameters and [three] condition parameters (Figure~",
@@ -1050,25 +1022,11 @@
   "line_at_review": 507
  },
  {
-  "key": "anti-conservative [one] for a positive. An isolated b",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 620
- },
- {
   "key": "and so for the selected [one] however it was selected (a st",
   "word": "one",
   "class": "PROSE",
   "reason": "pronoun 'one' (structural)",
   "line_at_review": 623
- },
- {
-  "key": " [one] configuration: over \\ config",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'of one configuration', not a count of results",
-  "line_at_review": 645
  },
  {
   "key": "e oracle's gain, not a modest [one] . With that scope, this is a r",
@@ -1181,13 +1139,6 @@
   "class": "DESIGN",
   "reason": "audit_l3 lr grid {3e-3, 1e-3} (design)",
   "line_at_review": 533
- },
- {
-  "key": "o no evidence about the right [one] .",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 666
  },
  {
   "key": " [twice] . Its legacy claim that the re",
@@ -1713,5 +1664,40 @@
   "class": "DESIGN",
   "reason": "the figure draws three templates by construction (fig_schematic.py)",
   "line_at_review": 122
+ },
+ {
+  "key": "right [one] .} While writing the methods o",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 963
+ },
+ {
+  "key": "budget --- fixed weights over [six] decades, gradient-norm balanc",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the pre-registered fixed-weight sweep, 1e-6 to 1 (PREREG_L4b_v2 and its amendments)",
+  "line_at_review": 981
+ },
+ {
+  "key": "ose seen-window error exceeds [three] times the twin's has abandone",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the pre-registered abandonment threshold (PREREG_L4b_v2 §4.1)",
+  "line_at_review": 987
+ },
+ {
+  "key": "it as [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1005
+ },
+ {
+  "key": "modest [one] : with the column's own equati",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 1028
  }
 ]

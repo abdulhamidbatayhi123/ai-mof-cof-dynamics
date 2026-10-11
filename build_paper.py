@@ -121,7 +121,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
     "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "0.2": 4, "0.5": 2, "0.7": 2, "1": 32, "1.1": 1, "1.5": 1, "2": 33,
-    "3": 3, "4": 7, "5": 3, "6": 1, "7": 1, "8": 4, "9.7": 1, "10": 13, "12": 7,
+    "3": 3, "4": 7, "5": 3, "6": 1, "7": 1, "8": 4, "9.7": 1, "10": 14, "12": 7,
     "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 3,
     "95": 3, "96": 3, "99.9": 2, "128": 4, "192": 11, "240": 4, "256": 1,
     "1948": 1, "1953": 1, "1954": 1, "15": 1,
@@ -302,6 +302,7 @@ def main():
         "results/l5_v2_verdict_24k.json": "analyze_l5_v2.py --out ... (autorun, PREREG_L5_v2 A2)",
         "results/l4b_v3_verdict.json": "analyze_l4b_v2.py --out ... (chain_l4b_v3.sh, B72)",
         "results/l4b_v3_selection.json": "analyze_l4b_selection.py --out ... (chain_l4b_v3.sh, B72)",
+        "results/l4b_v3_results.json": "run_l4b_v2.py --out ... (chain_l4b_v3.sh, B72)",
     }
     import glob
     import importlib.util

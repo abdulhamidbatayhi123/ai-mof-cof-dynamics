@@ -1,0 +1,201 @@
+{
+  "_what": "L4b-v2: the best-physics-arm verdict, adjusted for choosing that arm on the test set.",
+  "alpha": 0.02,
+  "n_boot": 4000,
+  "axes": {
+    "time": {
+      "eligible": [
+        "pi_fixed_w1e-6",
+        "pi_fixed_w1e-5",
+        "pi_fixed_w1e-4",
+        "pi_fixed_w1e-3",
+        "pi_fixed_w1e-2",
+        "pi_fixed_w1e-1",
+        "pi_gradnorm_t0.1",
+        "pi_gradnorm_t1.0",
+        "pi_ntk"
+      ],
+      "k": 9,
+      "q": 2.956578503366591,
+      "selected": "pi_fixed_w1e-5",
+      "selected_simultaneous": {
+        "mean_diff": -5.723308626354785e-05,
+        "se": 0.00012726081470250516,
+        "sim_lo": -0.00043348967533389363,
+        "sim_hi": 0.0003190235028067979,
+        "significant_simultaneous": false
+      },
+      "selected_per_pair": {
+        "ci_low": -0.00036217590038429783,
+        "ci_high": 0.0002419517512875137
+      },
+      "all": {
+        "pi_fixed_w1e-6": {
+          "mean_diff": -0.0001802990037478796,
+          "se": 0.00011760152055681482,
+          "sim_lo": -0.0005279971313893825,
+          "sim_hi": 0.00016739912389362338,
+          "significant_simultaneous": false
+        },
+        "pi_fixed_w1e-5": {
+          "mean_diff": -5.723308626354785e-05,
+          "se": 0.00012726081470250516,
+          "sim_lo": -0.00043348967533389363,
+          "sim_hi": 0.0003190235028067979,
+          "significant_simultaneous": false
+        },
+        "pi_fixed_w1e-4": {
+          "mean_diff": -0.0015063707974086859,
+          "se": 0.00018096234123938214,
+          "sim_lo": -0.002041400165435933,
+          "sim_hi": -0.0009713414293814392,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-3": {
+          "mean_diff": -0.0052834254519653874,
+          "se": 0.0003281439088809487,
+          "sim_lo": -0.006253608678973486,
+          "sim_hi": -0.004313242224957289,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-2": {
+          "mean_diff": -0.009343664008630034,
+          "se": 0.00043633194041701665,
+          "sim_lo": -0.010633713643999218,
+          "sim_hi": -0.00805361437326085,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-1": {
+          "mean_diff": -0.015422301996567156,
+          "se": 0.0007807703482483158,
+          "sim_lo": -0.017730710824264174,
+          "sim_hi": -0.013113893168870138,
+          "significant_simultaneous": true
+        },
+        "pi_gradnorm_t0.1": {
+          "mean_diff": -0.0028127236391621104,
+          "se": 0.0002945703691362571,
+          "sim_lo": -0.0036836440602791296,
+          "sim_hi": -0.001941803218045091,
+          "significant_simultaneous": true
+        },
+        "pi_gradnorm_t1.0": {
+          "mean_diff": -0.005138655278699389,
+          "se": 0.00035631575197091696,
+          "sim_lo": -0.006192130771387504,
+          "sim_hi": -0.004085179786011274,
+          "significant_simultaneous": true
+        },
+        "pi_ntk": {
+          "mean_diff": -0.02035769953974093,
+          "se": 0.0007452334953814067,
+          "sim_lo": -0.02256104087217434,
+          "sim_hi": -0.018154358207307517,
+          "significant_simultaneous": true
+        }
+      },
+      "survives_selection": false
+    },
+    "material": {
+      "eligible": [
+        "pi_fixed_w1e-6",
+        "pi_fixed_w1e-5",
+        "pi_fixed_w1e-4",
+        "pi_fixed_w1e-3",
+        "pi_fixed_w1e-2",
+        "pi_fixed_w1e-1",
+        "pi_gradnorm_t0.1",
+        "pi_gradnorm_t1.0",
+        "pi_gradnorm_t10",
+        "pi_ntk"
+      ],
+      "k": 10,
+      "q": 2.9614910064909625,
+      "selected": "pi_fixed_w1e-5",
+      "selected_simultaneous": {
+        "mean_diff": 0.0020216687689306304,
+        "se": 0.0002811258100270876,
+        "sim_lo": 0.0011891172108429238,
+        "sim_hi": 0.002854220327018337,
+        "significant_simultaneous": true
+      },
+      "selected_per_pair": {
+        "ci_low": 0.0014149794491345074,
+        "ci_high": 0.002710789346030233
+      },
+      "all": {
+        "pi_fixed_w1e-6": {
+          "mean_diff": 0.0007383829703419061,
+          "se": 0.00022120765513143593,
+          "sim_lo": 8.327848910320422e-05,
+          "sim_hi": 0.001393487451580608,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-5": {
+          "mean_diff": 0.0020216687689306304,
+          "se": 0.0002811258100270876,
+          "sim_lo": 0.0011891172108429238,
+          "sim_hi": 0.002854220327018337,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-4": {
+          "mean_diff": 0.000749299550306063,
+          "se": 0.0003222925387131786,
+          "sim_lo": -0.00020516690455215584,
+          "sim_hi": 0.001703766005164282,
+          "significant_simultaneous": false
+        },
+        "pi_fixed_w1e-3": {
+          "mean_diff": -0.001418942041043701,
+          "se": 0.0003269560291794268,
+          "sim_lo": -0.00238721938097657,
+          "sim_hi": -0.00045066470111083186,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-2": {
+          "mean_diff": -0.004186578166403719,
+          "se": 0.0006035645412268883,
+          "sim_lo": -0.005974029127083992,
+          "sim_hi": -0.0023991272057234453,
+          "significant_simultaneous": true
+        },
+        "pi_fixed_w1e-1": {
+          "mean_diff": -0.013009303645005731,
+          "se": 0.0010512384440232885,
+          "sim_lo": -0.016122536842658252,
+          "sim_hi": -0.00989607044735321,
+          "significant_simultaneous": true
+        },
+        "pi_gradnorm_t0.1": {
+          "mean_diff": -0.0016536058831808065,
+          "se": 0.00042888992868653854,
+          "sim_lo": -0.0029237595497605406,
+          "sim_hi": -0.0003834522166010724,
+          "significant_simultaneous": true
+        },
+        "pi_gradnorm_t1.0": {
+          "mean_diff": -0.0025975023669955258,
+          "se": 0.00043533347118092624,
+          "sim_lo": -0.0038867385267223314,
+          "sim_hi": -0.0013082662072687202,
+          "significant_simultaneous": true
+        },
+        "pi_gradnorm_t10": {
+          "mean_diff": -0.01605926199744527,
+          "se": 0.0011855465831746132,
+          "sim_lo": -0.019570247541292978,
+          "sim_hi": -0.012548276453597563,
+          "significant_simultaneous": true
+        },
+        "pi_ntk": {
+          "mean_diff": -0.008326149143563595,
+          "se": 0.0007287282301836431,
+          "sim_lo": -0.01048427124342853,
+          "sim_hi": -0.00616802704369866,
+          "significant_simultaneous": true
+        }
+      },
+      "survives_selection": true
+    }
+  }
+}

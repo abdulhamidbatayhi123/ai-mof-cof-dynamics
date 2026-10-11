@@ -40,9 +40,6 @@ OUT_JSON = os.path.join(ROOT, "paper", "numbers.json")
 # remain. Remove an entry the moment its run lands; a PENDING file that EXISTS is a
 # hard failure, exactly as in validate.py's figure gate.
 PENDING = {   # results files of runs in flight; a file landing REFUSES the build until removed here
-    "results/l5_v2_verdict_24k.json": "L5-v2 at 24k steps (PREREG_L5_v2 A2), autorun",
-    "results/l4b_v3_verdict.json": "L4b re-run with the corrected residual (B72), autorun",
-    "results/l4b_v3_selection.json": "L4b re-run, selection-adjusted interval (B72), autorun",
 }
 PENDING_TEXT = r"\textbf{[PENDING]}"
 
@@ -59,7 +56,7 @@ GATED = {
                         "B71: re-derivation of the paired interval (autorun job 2c)"),
     "LthreeBestKanHi": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
                         "B71: re-derivation of the paired interval (autorun job 2c)"),
-    "LfourbVerdictMaterial": ("chain_l4b_v2_ext2_outer.log", "L4B_V2_EXT2_DONE",
+    "LfourbVerdictMaterial": ("l4b_v3.log", "L4B_V3_DONE",
                               "second PREREG 4.2 edge extension (w1e-6, material axis)"),
 }
 
@@ -565,23 +562,39 @@ SPEC = [
     ("LedgerOwn", "results/ledger_counts.json", "n_own_error_phrase", "{:d}"),
 
     # ---------------------------------------------------------------- L4b-v2
-    ("LfourbVerdictMaterial", "results/l4b_v2_verdict.json", "axes.material.verdict", "{}"),
+    ("LfourbVerdictMaterial", "results/l4b_v3_verdict.json", "axes.material.verdict", "{}"),
     # L4b time axis (final: w1e-5 ties the twin, so the edge rule is satisfied there)
-    ("LfourbTimeTwin", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.mean_a", "{:.4f}"),
-    ("LfourbTimeBest", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.mean_b", "{:.4f}"),
-    ("LfourbTimeLo", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.ci_low", "{:.5f}"),
-    ("LfourbTimeHi", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.ci_high", "{:.5f}"),
-    ("LfourbTimeMDE", "results/l4b_v2_verdict.json", "axes.time.mde",
+    ("LfourbTimeTwin", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourbTimeBest", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourbTimeLo", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.ci_low", "{:.5f}"),
+    ("LfourbTimeHi", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.ci_high", "{:.5f}"),
+    ("LfourbTimeMDE", "results/l4b_v3_verdict.json", "axes.time.mde",
      lambda m: f"{100 * next(v['mde_80'] for v in m.values()):.0f}"),
-    ("LfourbTimeNmat", "results/l4b_v2_verdict.json", "axes.time.best_pi_vs_data_only.n_materials", "{:d}"),
-    ("LfourbNeligible", "results/l4b_v2_verdict.json", "axes.time.eligible", lambda a: str(len(a))),
-    ("LfourbNabandoned", "results/l4b_v2_verdict.json", "axes.time.abandoned", lambda a: str(len(a))),
-    ("LfourbTimePolTwin", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.mean_a", "{:.4f}"),
-    ("LfourbTimePolBest", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.mean_b", "{:.4f}"),
-    ("LfourbTimePolLo", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.ci_low", "{:.5f}"),
-    ("LfourbTimePolHi", "results/l4b_v2_verdict.json", "axes.time.polish.comparison.ci_high", "{:.5f}"),
-    ("LfourbTimeSeenRise", "results/l4b_v2_verdict.json", "refine.time/data_only.seen_change_pct", "{:.0f}"),
-    ("LfourbVerdictTime", "results/l4b_v2_verdict.json", "axes.time.verdict", "{}"),
+    ("LfourbTimeNmat", "results/l4b_v3_verdict.json", "axes.time.best_pi_vs_data_only.n_materials", "{:d}"),
+    ("LfourbNeligible", "results/l4b_v3_verdict.json", "axes.time.eligible", lambda a: str(len(a))),
+    ("LfourbNabandoned", "results/l4b_v3_verdict.json", "axes.time.abandoned", lambda a: str(len(a))),
+    ("LfourbBestWeightExp", "results/l4b_v3_verdict.json", "axes.material.best_pi",
+     lambda name: str(int(name.split("_w1e")[1]))),   # pi_fixed_w1e-5 -> -5
+    ("LfourbNabandonedMat", "results/l4b_v3_verdict.json", "axes.material.abandoned", lambda a: str(len(a))),
+    # the corrected re-run's neighbouring weights on the material axis (is the gain one lucky weight?)
+    ("LfourbMatBelowLo", "results/l4b_v3_verdict.json",
+     "axes.material.comparisons_vs_data_only.pi_fixed_w1e-6.ci_low", "{:.5f}"),
+    ("LfourbMatBelowHi", "results/l4b_v3_verdict.json",
+     "axes.material.comparisons_vs_data_only.pi_fixed_w1e-6.ci_high", "{:.5f}"),
+    ("LfourbMatAboveLo", "results/l4b_v3_verdict.json",
+     "axes.material.comparisons_vs_data_only.pi_fixed_w1e-4.ci_low", "{:.5f}"),
+    ("LfourbMatAboveHi", "results/l4b_v3_verdict.json",
+     "axes.material.comparisons_vs_data_only.pi_fixed_w1e-4.ci_high", "{:.5f}"),
+    ("LfourbNworseMat", "results/l4b_v3_verdict.json", "axes.material.comparisons_vs_data_only",
+     lambda c: str(sum(1 for v in c.values() if v["significant"] and v["mean_diff"] < 0))),
+    ("LfourbNbetterMat", "results/l4b_v3_verdict.json", "axes.material.comparisons_vs_data_only",
+     lambda c: str(sum(1 for v in c.values() if v["significant"] and v["mean_diff"] > 0))),
+    ("LfourbTimePolTwin", "results/l4b_v3_verdict.json", "axes.time.polish.comparison.mean_a", "{:.4f}"),
+    ("LfourbTimePolBest", "results/l4b_v3_verdict.json", "axes.time.polish.comparison.mean_b", "{:.4f}"),
+    ("LfourbTimePolLo", "results/l4b_v3_verdict.json", "axes.time.polish.comparison.ci_low", "{:.5f}"),
+    ("LfourbTimePolHi", "results/l4b_v3_verdict.json", "axes.time.polish.comparison.ci_high", "{:.5f}"),
+    ("LfourbTimeSeenRise", "results/l4b_v3_verdict.json", "refine.time/data_only.seen_change_pct", "{:.0f}"),
+    ("LfourbVerdictTime", "results/l4b_v3_verdict.json", "axes.time.verdict", "{}"),
     # L4b material axis (final after the second edge extension: w1e-5 is interior,
     # bracketed by w1e-6 and w1e-4, so the edge rule is satisfied there)
     # L5-v2 at 24k steps (PREREG_L5_v2 A2) -- PENDING until the run lands
@@ -608,6 +621,38 @@ SPEC = [
     ("WmofEightStep", "results/water_mofs.json", "materials.MOF-801.RH_step.lo", "{:.2f}"),
     ("WmofStepLo", "results/water_mofs.json", "design.RH_step", lambda r: f"{min(r):g}"),
     ("WmofCauHeat", "results/water_mofs.json", "materials.CAU-10-H.dH.lo", "{:.0f}"),
+    # B-COARSE (coarse_solver_baseline.py; PREREG_BASELINES §2). Costs are in
+    # solve-equivalents of the production solve timed IN THE SAME PROCESS (t_prod_s),
+    # not the generation-time worker-seconds of CostSolveSec; the break-even below puts
+    # the surrogate's query on that same base.
+    ("CoarseNz", "results/coarse_solver_baseline.json", "summary.nz_matching_l1", "{:d}"),
+    ("CoarseNzLtwo", "results/coarse_solver_baseline.json", "summary.nz_matching_l2", "{:d}"),
+    ("CoarseErrPct", "results/coarse_solver_baseline.json", "summary",
+     lambda s: f"{100 * s['per_nz'][str(s['nz_matching_l1'])]['mean_nrmse_c']:.1f}"),
+    ("CoarseSolveEq", "results/coarse_solver_baseline.json", "summary",
+     lambda s: f"{s['per_nz'][str(s['nz_matching_l1'])]['solve_equivalents']:.2f}"),
+    ("CoarseWallMs", "results/coarse_solver_baseline.json", "summary",
+     lambda s: f"{1e3 * s['per_nz'][str(s['nz_matching_l1'])]['mean_wall_s']:.0f}"),
+    ("CoarseTprod", "results/coarse_solver_baseline.json", "summary.t_prod_s", "{:.2f}"),
+    ("CoarseNfail", "results/coarse_solver_baseline.json", "summary",
+     lambda s: str(s['per_nz'][str(s['nz_matching_l1'])]['n_failed_or_unaccepted'])),
+    ("CoarseNsamp", "results/coarse_solver_baseline.json", "summary",
+     lambda s: str(s['per_nz'][str(s['nz_matching_l1'])]['n'])),
+    ("CoarseTargetPct", "results/coarse_solver_baseline.json", "summary.target_l1_mlp", lambda x: f"{100 * x:.1f}"),
+    # B-FIT (fitted_classical.py; PREREG_BASELINES §3)
+    ("BfitWords", "results/fitted_classical.json", "words", "{}"),
+    ("BfitFitted", "results/fitted_classical.json", "fitted_mean", "{:.4f}"),
+    ("BfitLearned", "results/fitted_classical.json", "learned_mean", "{:.4f}"),
+    ("BfitRatio", "results/fitted_classical.json", "ratio_fitted_over_learned", "{:.2f}"),
+    ("BfitLo", "results/fitted_classical.json", "comparison.ci_low", "{:.4f}"),
+    ("BfitHi", "results/fitted_classical.json", "comparison.ci_high", "{:.4f}"),
+    # B-GP (analyze_gp_baseline.py; PREREG_BASELINES §1, A1)
+    ("BgpVerdict", "results/gp_baseline_verdict.json", "comparison.verdict", "{}"),
+    ("BgpMlp", "results/gp_baseline_verdict.json", "mean_mlp", "{:.4f}"),
+    ("BgpGp", "results/gp_baseline_verdict.json", "mean_gp", "{:.4f}"),
+    ("BgpLo", "results/gp_baseline_verdict.json", "comparison.ci_low", "{:.4f}"),
+    ("BgpHi", "results/gp_baseline_verdict.json", "comparison.ci_high", "{:.4f}"),
+    ("BgpMde", "results/gp_baseline_verdict.json", "mde.mde_80", lambda x: f"{100 * x:.0f}"),
     # Figure 0, row 2: templates versus recipe (schematic_modes.py)
     ("SchemP", "results/schematic_modes.json", "P", "{:d}"),
     ("SchemNheld", "results/schematic_modes.json", "n_heldout", "{:d}"),
@@ -629,13 +674,13 @@ SPEC = [
      lambda a: "; ".join(f"{lab} " + "/".join(str(w) for _, w in sorted(
          {y["budget"]: y["width"] for y in a if y["family"] == fam}.items()))
          for fam, lab in (("mlp", "perceptron"), ("rbf_kan", "RBF"), ("cheby_kan", "Chebyshev")))),
-    ("MthFourWidth", "results/l4b_v2_results.json", "width", "{:d}"),
-    ("MthFourDepth", "results/l4b_v2_results.json", "depth", "{:d}"),
-    ("MthFourParams", "results/l4b_v2_results.json", "n_params", lambda n: f"{n:,}".replace(",", "{,}")),
-    ("MthFourSteps", "results/l4b_v2_results.json", "steps", "{:d}"),
-    ("MthFourSup", "results/l4b_v2_results.json", "n_sup", "{:d}"),
-    ("MthFourColloc", "results/l4b_v2_results.json", "n_colloc", "{:d}"),
-    ("MthFourBc", "results/l4b_v2_results.json", "n_bc", "{:d}"),
+    ("MthFourWidth", "results/l4b_v3_results.json", "width", "{:d}"),
+    ("MthFourDepth", "results/l4b_v3_results.json", "depth", "{:d}"),
+    ("MthFourParams", "results/l4b_v3_results.json", "n_params", lambda n: f"{n:,}".replace(",", "{,}")),
+    ("MthFourSteps", "results/l4b_v3_results.json", "steps", "{:d}"),
+    ("MthFourSup", "results/l4b_v3_results.json", "n_sup", "{:d}"),
+    ("MthFourColloc", "results/l4b_v3_results.json", "n_colloc", "{:d}"),
+    ("MthFourBc", "results/l4b_v3_results.json", "n_bc", "{:d}"),
     ("MthFiveBudget", "results/l5_merged.json", "encoding.budget", lambda b: f"{b // 1000}k"),
     ("MthFiveSteps", "results/l5_merged.json", "encoding.steps", "{:d}"),
     ("MthSixBudget", "results/l6_v2_results.json", "budget", lambda b: f"{b // 1000}k"),
@@ -714,31 +759,31 @@ SPEC = [
     ("LthreeSigSim", "results/l3_selection.json", "n_sig_simultaneous", "{:d}"),
     ("LthreeSelK", "results/l3_selection.json", "k", "{:d}"),
     # referee M3: the selected arm's interval, adjusted for choosing it on the test set
-    ("LfourbMatSelLo", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
-    ("LfourbMatSelHi", "results/l4b_v2_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),
-    ("LfourbSelQ", "results/l4b_v2_selection.json", "axes.material.q", "{:.2f}"),
-    ("LfourbNeligibleMat", "results/l4b_v2_verdict.json", "axes.material.eligible", lambda a: str(len(a))),
-    ("LfourbMatTwin", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_a", "{:.4f}"),
-    ("LfourbMatBest", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.mean_b", "{:.4f}"),
-    ("LfourbMatLo", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.ci_low", "{:.5f}"),
-    ("LfourbMatHi", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.ci_high", "{:.5f}"),
-    ("LfourbMatNmat", "results/l4b_v2_verdict.json", "axes.material.best_pi_vs_data_only.n_materials", "{:d}"),
-    ("LfourbMatBelow", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-6.held", "{:.4f}"),
-    ("LfourbMatAbove", "results/l4b_v2_verdict.json", "axes.material.table.pi_fixed_w1e-4.held", "{:.4f}"),
+    ("LfourbMatSelLo", "results/l4b_v3_selection.json", "axes.material.selected_simultaneous.sim_lo", "{:.5f}"),
+    ("LfourbMatSelHi", "results/l4b_v3_selection.json", "axes.material.selected_simultaneous.sim_hi", "{:.5f}"),
+    ("LfourbSelQ", "results/l4b_v3_selection.json", "axes.material.q", "{:.2f}"),
+    ("LfourbNeligibleMat", "results/l4b_v3_verdict.json", "axes.material.eligible", lambda a: str(len(a))),
+    ("LfourbMatTwin", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.mean_a", "{:.4f}"),
+    ("LfourbMatBest", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.mean_b", "{:.4f}"),
+    ("LfourbMatLo", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.ci_low", "{:.5f}"),
+    ("LfourbMatHi", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.ci_high", "{:.5f}"),
+    ("LfourbMatNmat", "results/l4b_v3_verdict.json", "axes.material.best_pi_vs_data_only.n_materials", "{:d}"),
+    ("LfourbMatBelow", "results/l4b_v3_verdict.json", "axes.material.table.pi_fixed_w1e-6.held", "{:.4f}"),
+    ("LfourbMatAbove", "results/l4b_v3_verdict.json", "axes.material.table.pi_fixed_w1e-4.held", "{:.4f}"),
     # referee M4: the pre-registered test-time refinement on the material axis
-    ("LfourbRefTwinBefore", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.mean_a", "{:.4f}"),
-    ("LfourbRefTwinAfter", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.mean_b", "{:.3f}"),
-    ("LfourbRefTwinLo", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.ci_low", "{:.3f}"),
-    ("LfourbRefTwinHi", "results/l4b_v2_verdict.json", "refine.material/data_only.comparison.ci_high", "{:.3f}"),
-    ("LfourbRefBestBefore", "results/l4b_v2_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_a", "{:.4f}"),
-    ("LfourbRefBestAfter", "results/l4b_v2_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_b", "{:.3f}"),
+    ("LfourbRefTwinBefore", "results/l4b_v3_verdict.json", "refine.material/data_only.comparison.mean_a", "{:.4f}"),
+    ("LfourbRefTwinAfter", "results/l4b_v3_verdict.json", "refine.material/data_only.comparison.mean_b", "{:.3f}"),
+    ("LfourbRefTwinLo", "results/l4b_v3_verdict.json", "refine.material/data_only.comparison.ci_low", "{:.3f}"),
+    ("LfourbRefTwinHi", "results/l4b_v3_verdict.json", "refine.material/data_only.comparison.ci_high", "{:.3f}"),
+    ("LfourbRefBestBefore", "results/l4b_v3_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_a", "{:.4f}"),
+    ("LfourbRefBestAfter", "results/l4b_v3_verdict.json", "refine.material/pi_fixed_w1e-5.comparison.mean_b", "{:.3f}"),
     ("LfourbRefSweepN", "results/l4b_v2_refine_sweep_summary.json", "n_configs", "{:d}"),
     ("LfourbRefSweepBest", "results/l4b_v2_refine_sweep_summary.json", "best_anywhere.rel_change_pct", "{:.1f}"),
     ("LfourbRefSweepNworse", "results/l4b_v2_refine_sweep_summary.json", "n_configs_worse_at_final", "{:d}"),
-    ("LfourbMatPolTwin", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_a", "{:.4f}"),
-    ("LfourbMatPolBest", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.mean_b", "{:.4f}"),
-    ("LfourbMatPolLo", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.ci_low", "{:.5f}"),
-    ("LfourbMatPolHi", "results/l4b_v2_verdict.json", "axes.material.polish.comparison.ci_high", "{:.5f}"),
+    ("LfourbMatPolTwin", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.mean_a", "{:.4f}"),
+    ("LfourbMatPolBest", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.mean_b", "{:.4f}"),
+    ("LfourbMatPolLo", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.ci_low", "{:.5f}"),
+    ("LfourbMatPolHi", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.ci_high", "{:.5f}"),
 ]
 
 
@@ -843,7 +888,15 @@ DERIVED = [
      lambda r: r["WmofBtddQ"] / max(r["WmofQmaxHi"]), "{:.1f}"),   # raw value: the design range
     ("OperatorLever", "L5 encoding: POD + best pointwise regressor over the best FNO (referee M1)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankFNO"], "{:.1f}"),
-    ("LClargestPct", "the largest learning-curve size's held-out nRMSE, in per cent (abstract)",
+    ("CoarseBreakEven", "queries at which the surrogate (training sims at the largest size, query "
+     "time on the coarse baseline's own solve base) costs as much as coarse solving (B-COARSE)",
+     lambda r: r["CostLargeSims"] / (
+         r["CoarseSolveEq"]["per_nz"][str(r["CoarseSolveEq"]["nz_matching_l1"])]["solve_equivalents"]
+         - r["CostQueryMs"] / r["CoarseSolveEq"]["t_prod_s"]) // 100 * 100, "{:.0f}"),
+    ("CoarseAccRatio", "surrogate held-out error over the matching coarse solve's error (B-COARSE)",
+     lambda r: r["CoarseSolveEq"]["target_l1_mlp"]
+     / r["CoarseSolveEq"]["per_nz"][str(r["CoarseSolveEq"]["nz_matching_l1"])]["mean_nrmse_c"], "{:.0f}"),
+    ("LClargestPct","the largest learning-curve size's held-out nRMSE, in per cent (abstract)",
      lambda r: 100 * r["LClargest"], "{:.1f}"),
     ("ONetLever","L5 encoding: POD + best pointwise regressor over the best DeepONet (round-2 N6)",
      lambda r: r["LfiveRankPodReg"] / r["LfiveRankONet"], "{:.1f}"),

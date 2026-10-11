@@ -983,109 +983,90 @@ perceptron at every budget and are worse on held-out materials every time.
 
 \subsection{L4 --- the residual as a loss, and physics at inference}
 
-\paragraph{Read this first: the residual of this rung was the wrong equation.} While
-writing the methods of this paper we derived the residual from the code and found
-that its gas mass balance advected the gas at the superficial velocity \(v\) instead
-of the interstitial \(v/\varepsilon_t\) that the solver integrates, with the same
-omission in its inlet condition (Section~\ref{sec:corrections}, B72). Since the gas
-holds almost nothing compared with the solid, the front speed is set by that term, so
-the residual described fronts moving \(\varepsilon_t\) times too slowly. The test is
-direct: evaluated on the solver's own stored fields, the residual this rung used leaves
+\paragraph{The residual was the wrong equation once; this rung was re-run with the
+right one.} While writing the methods of this paper we derived the residual from the
+code and found that its gas mass balance advected the gas at the superficial velocity
+\(v\) instead of the interstitial \(v/\varepsilon_t\) that the solver integrates, with
+the same omission in its inlet condition (Section~\ref{sec:corrections}, B72). Since
+the gas holds almost nothing compared with the solid, the front speed is set by that
+term, so the residual described fronts moving \(\varepsilon_t\) times too slowly.
+Evaluated on the solver's own stored fields, that residual leaves
 \nBsevtwoOldResid\,\% of the adsorption term unexplained, against
 \nBsevtwoNewResid\,\% for the solver's equation, worse in \nBsevtwoNworse\ of
-\nBsevtwoNsamples\ samples. \textbf{Every result below is therefore a measurement of a
-wrong equation used as a prior, not of this column's physics, and none of it may be
-read as ``physics helps'' or ``physics hurts'' (A28).} We report the results because
-they were pre-registered and because they are informative about what a mis-specified
-residual does. The corrected residual is now checked against the solver by a gate,
-and the rung is being re-run with it under a dated amendment to its pre-registration.
+\nBsevtwoNsamples\ samples. Every result of the first run was withdrawn as a statement
+about this column (A28). A gate now checks the training residual against the solver's
+own coefficients before any physics-informed run, and the rung was re-run in full
+with the corrected residual under a dated amendment to its pre-registration ---
+same design, seeds, sweep, analysis and verdict words. \textbf{Every number below is
+from the corrected re-run.}
 
-\paragraph{Design.} Ten weighting schemes were pre-registered and compared against a
+\paragraph{Design.} Weighting schemes were pre-registered and compared against a
 data-only twin at matched architecture, matched optimiser steps and matched
-supervised budget --- fixed weights over four decades, gradient-norm balancing at
+supervised budget --- fixed weights over six decades, gradient-norm balancing at
 three target ratios \cite{wang2021understanding}, neural-tangent-kernel weighting
 \cite{wang2022when} (with per-point gradient norms as a trace estimate, a stated
 approximation to their eigen-decomposition), and self-adaptive per-point weights
-\cite{mcclenny2023self} --- because the earlier version of this rung rested on a single
-weighting rule, which is not a defensible basis for the claim that physics hurts. The
-pre-registered edge rule (rule~4: an optimum on the edge of a sweep is admissible only
-if the metric has saturated there) then extended the fixed-weight sweep one decade
-below its lowest weight, and on the material axis a second decade. A physics arm whose
-seen-window error exceeds three times the twin's has abandoned the data fit (the B16
-signature) and is excluded as failed-to-train, never averaged in: \nLfourbNabandoned\
-arms did, leaving \nLfourbNeligible\ eligible on the time axis and, with the second
-extension, \nLfourbNeligibleMat\ on the material axis.
+\cite{mcclenny2023self} --- because an earlier version of this rung rested on a single
+weighting rule, which is not a defensible basis for any verdict on physics. A physics
+arm whose seen-window error exceeds three times the twin's has abandoned the data fit
+(the B16 signature) and is excluded as failed-to-train, never averaged in:
+\nLfourbNabandoned\ arms did on the time axis and \nLfourbNabandonedMat\ on the
+material axis, leaving \nLfourbNeligible\ and \nLfourbNeligibleMat\ eligible. On both
+axes the best arm is an interior fixed weight, so the pre-registered edge rule
+(rule~4) is not engaged.
 
-\paragraph{Time axis, with the residual used: no difference.} In the
-pre-declared words: there is no difference at the best weighting found. The best
-physics arm, the lowest fixed weight, reaches \nLfourbTimeBest\ against the twin's
-\nLfourbTimeTwin, a paired difference with interval [\nLfourbTimeLo, \nLfourbTimeHi]
-over \nLfourbTimeNmat\ materials; the design detects a \nLfourbTimeMDE\,\% effect with
-\(80\,\%\) power. The legacy statement that physics as a loss hurts is withdrawn. This
-verdict exists only because the edge rule was applied: at the lowest weight of the
-original sweep, physics was significantly worse than the twin, and the one further
-decade the rule demanded tied it (Section~\ref{sec:corrections}, B69). On the residual
-then in use, rung L4 is the clearest case in this paper of a pre-registered rule
-changing a result that a reading
-of the rule after seeing the data could have declined to test.
+\paragraph{Time axis: no difference.} In the pre-declared words: there is no
+difference at the best weighting found. The best physics arm reaches
+\nLfourbTimeBest\ against the twin's \nLfourbTimeTwin, a paired difference with
+interval [\nLfourbTimeLo, \nLfourbTimeHi] over \nLfourbTimeNmat\ materials; the
+design detects a \nLfourbTimeMDE\,\% effect with \(80\,\%\) power. The legacy statement
+that physics as a loss hurts is withdrawn. The pre-registration's fourth question
+polishes both arms with L-BFGS after Adam \cite{rathore2024challenges}. Both improve,
+and the twin improves more: after polishing the twin reaches \nLfourbTimePolTwin\ and
+the physics arm \nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi],
+so under the second-order optimiser the data-only arm is significantly better on this
+axis. The pre-registration declared a flip to be the reported result, and we report
+it as one.
 
-\paragraph{Time axis, after polishing: the ordering flips.} The pre-registration's
-fourth question polishes both arms with L-BFGS after Adam
-\cite{rathore2024challenges}. Both improve, and the twin improves more: after
-polishing the twin reaches \nLfourbTimePolTwin\ and the physics arm
-\nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi] --- the data-only
-arm is significantly better. The pre-registration declared a flip to be the reported
-result, and we report the numbers; with the residual this rung used, they carry no
-reading about physics.
+\paragraph{Material axis: the residual helps, at small weights only.} In the
+pre-declared words: physics helps once correctly weighted. The best arm, a fixed weight
+of \(10^{\nLfourbBestWeightExp}\), reaches \nLfourbMatBest\ against the twin's \nLfourbMatTwin\ on
+\nLfourbMatNmat\ held-out materials, interval [\nLfourbMatLo, \nLfourbMatHi] for twin
+minus physics --- \nLfourbMatGainPct\,\% of the error. It is not an isolated weight:
+the decade below reaches \nLfourbMatBelow, interval [\nLfourbMatBelowLo,
+\nLfourbMatBelowHi], and the decade above \nLfourbMatAbove, interval
+[\nLfourbMatAboveLo, \nLfourbMatAboveHi], both also better than the twin. Every
+larger fixed weight and every adaptive scheme is significantly worse
+(\nLfourbNworseMat\ of the \nLfourbNeligibleMat\ eligible arms;
+\nLfourbNbetterMat\ are better). The ordering survives polishing, which makes both
+arms worse on this axis: the twin reaches \nLfourbMatPolTwin\ and the physics arm
+\nLfourbMatPolBest, interval [\nLfourbMatPolLo, \nLfourbMatPolHi].
 
-\paragraph{Material axis, with the residual used: the residual arm is better.} In the
-pre-declared words the analyser reports its positive verdict on the material axis; with
-the residual this rung used, that sentence means only that this particular prior
-improved the fit. The best arm is the second-smallest fixed weight, and it is now an
-interior optimum: the decade below it, which the edge rule demanded a second time,
-reaches \nLfourbMatBelow\ and the decade above \nLfourbMatAbove, both worse than its
-\nLfourbMatBest. Against the twin's \nLfourbMatTwin\ the paired difference (twin minus
-physics) has interval [\nLfourbMatLo, \nLfourbMatHi] over \nLfourbMatNmat\ held-out
-materials, which excludes no difference. The ordering survives polishing, but on this
-axis polishing makes \emph{both} arms worse: after L-BFGS the twin reaches
-\nLfourbMatPolTwin\ and the physics arm \nLfourbMatPolBest, interval
-[\nLfourbMatPolLo, \nLfourbMatPolHi]. The effect is small --- \nLfourbMatGainPct\,\%
-of the error --- and it is confined to a single weight: a decade either side, the
-advantage is gone.
-
-\textbf{This verdict carries a selection caveat.} The pre-registration chose the best physics arm on the same held-out
-materials it is then tested on --- the generous direction for a null, and the
-anti-conservative one for a positive. An isolated best weight among
-\nLfourbNeligibleMat\ eligible arms is exactly the shape a selection artefact takes.
-We therefore recomputed the interval so that it holds for every eligible arm at once,
+\textbf{The choice of the best arm is paid for.} The pre-registration chose the best
+physics arm on the same held-out materials it is then tested on, the anti-conservative
+direction for a positive. Recomputed so that it holds for every eligible arm at once,
 and so for the selected one however it was selected (a studentised max-statistic
-cluster bootstrap, Section~\ref{sec:limitations}). It widens to
-[\nLfourbMatSelLo, \nLfourbMatSelHi] and still excludes no difference. That is a
-statement about the residual this rung used and about the procedure, which the
-corrected re-run will be put through unchanged; it is not a statement about what the
-column's physics does as a prior.
+cluster bootstrap with critical value \nLfourbSelQ\ standard errors,
+Section~\ref{sec:limitations}), the interval becomes [\nLfourbMatSelLo,
+\nLfourbMatSelHi] and still excludes no difference. The reading we defend is the
+modest one: with the column's own equation, a small residual weight is a real but
+weak regulariser for transfer to unseen materials, the weight must itself be found by
+search, and a larger or adaptive weight costs accuracy.
 
-\paragraph{Physics at inference.} Test-time refinement --- minimising the residual for
-each held-out unit with no data --- was pre-registered with an invalidation
-condition: on the time axis it is anchored to the frozen model's own prediction on the
-seen window, and a seen-window error rising by more than \(10\,\%\) means the anchor
-is insufficient and the result on that axis is scoped. It rose by
-\nLfourbTimeSeenRise\,\% on average. The time-axis refinement result is therefore
-scoped, and the material axis --- which has no anchor by design, because nothing about
-an unseen material is known --- carries the reportable refinement result. \textbf{With the residual used, refinement
-makes transfer to unseen materials worse} --- which is what minimising the wrong
-equation should do, and so no evidence about the right one.
-Refining the twin with the residual alone takes its held-out error from
+\paragraph{Physics at inference: worse, even with the right equation.} Test-time
+refinement --- minimising the residual for each held-out unit with no data --- was
+pre-registered with an invalidation condition: on the time axis it is anchored to the
+frozen model's own prediction on the seen window, and a seen-window error rising by
+more than \(10\,\%\) means the anchor is insufficient and the time-axis result is
+scoped. It rose by \nLfourbTimeSeenRise\,\% on average, so the material axis, which
+has no anchor by design, carries the reportable result. \textbf{Refinement makes
+transfer to unseen materials worse}: it takes the twin's held-out error from
 \nLfourbRefTwinBefore\ to \nLfourbRefTwinAfter, about \nLfourbRefTwinFactor{} times
 worse (paired difference interval [\nLfourbRefTwinLo, \nLfourbRefTwinHi]), and the
-best physics-trained arm fares no better, \nLfourbRefBestBefore\ to
-\nLfourbRefBestAfter. A labelled post-hoc sweep over refinement scope, learning rate
-and step count (Section~\ref{sec:corrections}, B60) asks whether this is a property of
-one configuration: over \nLfourbRefSweepN\ configurations, the best change found at
-any checkpoint is \nLfourbRefSweepBest\,\% of the held-out error (negative means the
-error fell), chosen on the held-out materials and so
-the most generous reading available, and \nLfourbRefSweepNworse\ of the
-\nLfourbRefSweepN\ are worse than the unrefined model at their last checkpoint.
+best physics-trained arm from \nLfourbRefBestBefore\ to \nLfourbRefBestAfter. The
+residual is now the solver's own equation, so this is not a mis-specified prior: on
+this problem, minimising the right equation without data moves a good prediction away
+from the truth. We report that as a measurement and do not claim its cause.
 
 \begin{figure}[t]
 \centering
