@@ -37,7 +37,8 @@ def pysr_sr(features: dict, y, seed=0, niterations=40, maxsize=12, timeout_s=180
     model = PySRRegressor(
         binary_operators=["+", "-", "*"], unary_operators=[],
         niterations=niterations, maxsize=maxsize, random_state=seed,
-        deterministic=True, parallelism="serial" if procs <= 1 else "multithreading",
+        deterministic=True, parallelism="serial",   # PySR requires serial for a deterministic,
+        # seeded search; a first version asked for threads and every fit raised (B76)
         timeout_in_seconds=timeout_s, model_selection="best", progress=False, verbosity=0,
         temp_equation_file=True)
     model.fit(X, np.asarray(y, float), variable_names=placeholders)
