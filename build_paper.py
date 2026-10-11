@@ -66,7 +66,7 @@ _ALLOWED_PAIRS = [
     ("1", "ordinal / unity; the 1 of 1 - eps_t and 1 + b c in the model equations"),
     ("2", "ordinal / a term count; squares, square roots and radii (d_p/2) in the model equations and units; chemical-formula subscripts (Co_2Cl_2)"),
     ("3", "seed count and ordinal; the cube in density units (kg m^-3)"),
-    ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in"),
+    ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in; the 4pt column gap of Table 3"),
     ("5", "ordinal / fold count; the exponent of 1e-5 diffusivities, read from code via macros for the mantissa"),
     ("6", "ordinal"),
     ("10", "a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}"),
@@ -122,7 +122,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
     "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "0.2": 4, "0.5": 2, "0.7": 2, "1": 33, "1.1": 1, "1.5": 1, "2": 32,
-    "3": 4, "4": 7, "5": 3, "6": 1, "7": 1, "8": 9, "9.7": 1, "10": 14, "12": 7, "16": 4,
+    "3": 4, "4": 8, "5": 3, "6": 1, "7": 1, "8": 9, "9.7": 1, "10": 14, "12": 7, "16": 4,
     "20": 2, "24": 1, "48": 5, "50": 2, "60": 1, "64": 3, "76": 1, "79": 1, "80": 4,
     "95": 3, "96": 3, "99.9": 2, "128": 8, "192": 11, "240": 4, "256": 1,
     "1948": 1, "1953": 1, "1954": 1, "15": 1,

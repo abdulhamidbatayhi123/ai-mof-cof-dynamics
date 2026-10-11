@@ -77,13 +77,6 @@
   "line_at_review": 162
  },
  {
-  "key": "orm solutions, each isolating [one] term:",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 165
- },
- {
   "key": "e solver. Each check isolates [one] term of the",
   "word": "one",
   "class": "PROSE",
@@ -518,13 +511,6 @@
   "line_at_review": 994
  },
  {
-  "key": "{The classes that recur.} [Five] patterns account for most of",
-  "word": "Five",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1001
- },
- {
   "key": "{A property measured at [one] sample size, stated as intrin",
   "word": "one",
   "class": "PROSE",
@@ -565,13 +551,6 @@
   "class": "PROSE",
   "reason": "names a defective rule (a two-seed selection rule)",
   "line_at_review": 1014
- },
- {
-  "key": "{What remains open.} [One] entry is deliberately unresol",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1031
  },
  {
   "key": "{ [One] partial differential equation",
@@ -1358,13 +1337,6 @@
   "line_at_review": 436
  },
  {
-  "key": ", then re-measured on larger, [five] -fold &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 755
- },
- {
   "key": "as the learning curve's (the [two] ratios come from different de",
   "word": "two",
   "class": "PROSE",
@@ -1419,13 +1391,6 @@
   "class": "DESIGN",
   "reason": "the figure draws three templates by construction (fig_schematic.py)",
   "line_at_review": 122
- },
- {
-  "key": "right [one] .} While writing the methods o",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 963
  },
  {
   "key": "ose seen-window error exceeds [three] times the twin's has abandone",
@@ -1547,13 +1512,6 @@
   "line_at_review": 1631
  },
  {
-  "key": "{ [Six] that reversed a headline.} Th",
-  "word": "Six",
-  "class": "DESIGN",
-  "reason": "the six entries named in the paragraph",
-  "line_at_review": 1663
- },
- {
   "key": " [three] times. Its legacy claim that",
   "word": "three",
   "class": "DESIGN",
@@ -1666,13 +1624,6 @@
   "line_at_review": 1514
  },
  {
-  "key": "{What Table~ says.} [Three] conclusions follow, the third",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three numbered conclusions that follow",
-  "line_at_review": 1546
- },
- {
   "key": "Three conclusions follow, the [third] the most important.",
   "word": "third",
   "class": "PROSE",
@@ -1692,13 +1643,6 @@
   "class": "PROSE",
   "reason": "ordinal of the list",
   "line_at_review": 1587
- },
- {
-  "key": "{What is scoped.} [Three] verdicts (L3, L5's operator c",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three verdicts named in the sentence",
-  "line_at_review": 1913
  },
  {
   "key": "e the rung's analysis reports [one] ; for each null the text",
@@ -1769,5 +1713,68 @@
   "class": "DESIGN",
   "reason": "the five-fold design of Methods",
   "line_at_review": 21
+ },
+ {
+  "key": "is vs.\\ map & legacy; larger, [five] -fold &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design of Methods",
+  "line_at_review": 761
+ },
+ {
+  "key": "L7 & larger, [five] -fold, paired with L1 &",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "the five-fold design of Methods",
+  "line_at_review": 768
+ },
+ {
+  "key": "orm solutions, each isolating [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar: one term each",
+  "line_at_review": 235
+ },
+ {
+  "key": "right [one] } While writing the methods of",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 973
+ },
+ {
+  "key": "{What Table~ says} [Three] conclusions follow, the third",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three numbered conclusions that follow",
+  "line_at_review": 1558
+ },
+ {
+  "key": "{The classes that recur} [Five] patterns account for most of",
+  "word": "Five",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1645
+ },
+ {
+  "key": "{ [Six] that reversed a headline} The",
+  "word": "Six",
+  "class": "DESIGN",
+  "reason": "the six entries named in the paragraph",
+  "line_at_review": 1671
+ },
+ {
+  "key": "{What remains open} [One] entry is deliberately unresol",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 1689
+ },
+ {
+  "key": "{What is scoped} [Three] verdicts (L3, L5's operator c",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the three verdicts named in the sentence",
+  "line_at_review": 1925
  }
 ]

@@ -61,7 +61,9 @@ def main():
           color=[fs.ARM_COLOUR[k] for k in order], width=0.62)
     floor = l1["folds"]["pod_floor_pooled"]["c"]
     a.axhline(floor, color=fs.C["dark"], lw=1.0, ls="--")
-    a.text(-0.4, floor * 1.35, f"basis floor {floor:.1e}", ha="left", fontsize=7, color=fs.C["dark"])
+    mant, ex = f"{floor:.1e}".split("e")
+    a.text(-0.4, floor * 1.35, rf"basis floor ${mant}\times10^{{{int(ex)}}}$", ha="left", fontsize=7,
+           color=fs.C["dark"])
     for xi, k in zip(x, order):
         a.text(xi, tab[k]["c"] * 1.07, f"{tab[k]['c']:.4f}", ha="center", fontsize=6.8)
     a.set_yscale("log")
