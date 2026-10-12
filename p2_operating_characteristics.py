@@ -158,10 +158,44 @@ def amendment():
     print(json.dumps(res, indent=1))
 
 
+def h2a_cells(n_rep, true_spread, n_cells, n_slices=12, slope=3.0, n_sim=300):
+    """h2a() with a chosen number of cells per slice (O1 slices have 135: 9 Da x 15 (sigma,
+    eps) once sigma = eps = 0 is excluded; O2 slices 144)."""
+    rng = np.random.default_rng(6000 + n_rep + int(100 * true_spread) + n_cells)
+    words = {"collapses": 0, "inconclusive": 0, "does_not_collapse": 0, "no_verdict": 0}
+    for _ in range(n_sim):
+        rs = []
+        for s in range(n_slices):
+            b = true_spread if s % 2 else 0.0
+            e = sim_boundary(rng, b, n_rep, slope, rng.uniform(b - 1.5, b + 1.5, n_cells), rising=True)
+            if e is not None:
+                rs.append(e)
+        if len(rs) < 2:
+            words["no_verdict"] += 1
+            continue
+        sp = max(rs) - min(rs)
+        words["collapses" if sp < 0.5 else "does_not_collapse" if sp >= 1.0 else "inconclusive"] += 1
+    return {k: round(v / n_sim, 4) for k, v in words.items()}
+
+
+def amendment2():
+    """Evidence for amendment A2: H2a just below its threshold with O1's 135 cells, the
+    selection bias with a pool of 9 methods, and H2b at 0.35 decade."""
+    t0 = time.time()
+    res = {"h2a_135_cells_n45": {f"{t:.2f}": h2a_cells(45, t, 135) for t in (0.0, 0.25, 0.40, 0.5, 1.0)},
+           "selection_9_methods": selection_bias(9, 15, 45),
+           "h2b_n45_gap_0.35": h2b(45, 0.35)}
+    res["runtime_s"] = round(time.time() - t0, 1)
+    json.dump(res, open("results/p2_operating_characteristics_a2.json", "w", encoding="utf-8"), indent=1)
+    print(json.dumps(res, indent=1))
+
+
 def main():
     import sys
     if "--amendment" in sys.argv:
         return amendment()
+    if "--amendment2" in sys.argv:
+        return amendment2()
     t0 = time.time()
     res = {"model": "frozen planted logistic, 9 Da levels logspace(-1,3), b = 1.3, slope 3/decade",
            "n_sim": N_SIM, "thresholds": {"mde": MDE, "factor2": round(F2, 4),

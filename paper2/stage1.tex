@@ -61,19 +61,20 @@
 \begin{abstract}
 \noindent How fast a porous solid takes up a gas or vapour, its uptake rate law, decides how
 an adsorption separator or a water harvester performs. Equation-discovery methods promise
-to learn this law, not only its coefficient, from column experiments. The one published test recovered the standard law at a single rate and
-noise level, with the equilibrium isotherm supplied exactly. Nobody knows in which regimes
+to learn this law, not only its coefficient, from column experiments. The one published
+test recovered the standard law at a single rate and noise level, with the isotherm
+supplied exactly. Nobody knows in which regimes
 such discovery works, or whether it fails where the rate constant stops being
 identifiable from the data. We propose a pre-registered simulation study on a verified
 model of a non-isothermal column. It varies how fast uptake is compared with the passage
 of the adsorption front (the Damk\"ohler number, over four decades), dispersion,
 noise, error in the supplied isotherm, what is measured (interior probes, or
-only the outlet), the isotherm's shape, including a stepped water isotherm like that of
-MOF-303, and the true law. The strongest discovery methods will be compared with the
-classical identifiability of the rate constant on the same data. Three confirmatory
-hypotheses rest on interior measurements and are decided by pre-declared rules whose
-simulated power is at least 0.95 for effects of 0.4 decade; the outlet-only case is
-reported descriptively.
+only the outlet), the isotherm's shape, including a stepped, MOF-303-like water isotherm,
+and the true law. The strongest discovery methods will be compared with the classical
+identifiability of the rate constant on the same data. Three confirmatory hypotheses rest
+on interior measurements; for the two that compare boundaries, the pre-declared rules have
+simulated power of at least 0.95 at 0.4 decade. The outlet-only case is reported
+descriptively.
 \end{abstract}
 
 % ---------------------------------------------------------------------
@@ -263,7 +264,7 @@ narrows the boundary to a spread of \{x\} decades}.
 % PREREG_P2 s.4.4 "Verdict words for the gaps between thresholds".
 
 \paragraph{H2b: discoverability versus identifiability.}
-For each slice ($\sigma$, $\varepsilon$, observation model, isotherm), we will compare
+For each slice ($\sigma$, $\varepsilon$, observation model, isotherm, $\Pe$), we will compare
 $\Da^{*}_{\mathrm{disc}}$, the 50\,\% crossing of $P(\text{success})$ for the best method,
 with $\Da^{*}_{\mathrm{ident}}$, the boundary beyond which $k$ is no longer practically
 identifiable given the \emph{true} law. Both are 50\,\% crossings from the same logistic
@@ -288,8 +289,9 @@ issued and the range tested will be reported instead (Methods, \S\ref{sec:analys
 \paragraph{H2c: errors-in-variables methods move the boundary.}
 The errors-in-variables (EIV) method on the grid (M5, Methods) shifts
 $\Da^{*}_{\mathrm{disc}}$ upwards relative to the best non-EIV method at $\varepsilon > 0$;
-the predicted size is a factor of 2. H2c holds where the upward shift is detectable, at
-least 0.25 decade; the factor 2 grades the size (amendment A1). The comparison is like for like: both methods in the strong form (M5 is
+the predicted size is a factor of 2. H2c holds at an $\varepsilon$ where the upward shift is
+detectable, at least 0.25 decade, in at least two thirds of the (isotherm, $\Pe$) slices;
+the factor 2 grades the size (amendments A1, A2). The comparison is like for like: both methods in the strong form (M5 is
 strong-form only), on O1. The best non-EIV method over both forms will be reported
 alongside, descriptively.
 \emph{Falsifier:} a shift below the MDE at every $\varepsilon > 0$.
@@ -333,17 +335,17 @@ Spread $<0.5$: \verdict{R collapses the boundary}. Spread $\ge 1$: \verdict{R do
 \addlinespace
 Does discovery fail before, with or after the rate constant stops being identifiable? &
 H2b: compares $\Da^{*}_{\mathrm{disc}}$ (best method) with $\Da^{*}_{\mathrm{ident}}$ (profile likelihood, true law known); confirmatory on O1. &
-Gap $\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$ per O1 slice ($\sigma$, $\varepsilon$, isotherm); the hypothesis-level verdict by the two-thirds rule. &
+Gap $\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$ per O1 slice ($\sigma$, $\varepsilon$, isotherm, $\Pe$), 96 slices; the hypothesis-level verdict by the two-thirds rule. &
 9 $\Da$ levels $\times$ 45 estimation replicates for both boundaries (15 more select the method). Smallest effect of interest 0.40 decade. Simulated: wrong verdict 0.001 at no gap; correct verdict 0.965 at 0.40 decade and 0.998 at 0.50. &
 Same logistic estimator for both boundaries, on the estimation set; percentile bootstrap (2000 resamples) within $\Da$ levels. Sensitivity: success also requiring $\hat k\in[k/2,2k]$. O2 and O3 (3 replicates) descriptive. &
 Gap $\le -0.25$: \verdict{discovery fails before identifiability}. $|$gap$|<0.25$: \verdict{discovery fails with identifiability}. Gap $\ge +0.25$: \verdict{discovery outlives identifiability}. No crossing: no verdict. Overall: the word of $\ge 2/3$ of the slices, else \verdict{mixed}.\\
 \addlinespace
 Does an errors-in-variables fit move the boundary when the isotherm is wrong? &
 H2c: M5 (EIV best-subset) shifts $\Da^{*}_{\mathrm{disc}}$ upwards against the best strong-form non-EIV method at $\varepsilon>0$, on O1; predicted size a factor 2. &
-Shift in $\log_{10}\Da^{*}_{\mathrm{disc}}$, M5 minus the best strong-form non-EIV method, per (isotherm, $\varepsilon>0$) at $\sigma=2\,\%$. &
-45 estimation replicates; for $\varepsilon = 2\,\%$ the 9 levels plus 8 refined levels inside $\pm0.5$ decade of the best non-EIV boundary. Simulated: no false detection; detection 0.997 (refined) and 0.962 (main grid) at 0.40 decade; 0.855 at the predicted factor 2. &
+Shift in $\log_{10}\Da^{*}_{\mathrm{disc}}$, M5 minus the best strong-form non-EIV method, per slice (isotherm, $\Pe$, $\varepsilon>0$) at $\sigma=2\,\%$, 18 slices. &
+45 estimation replicates; for $\varepsilon = 2\,\%$ the 9 levels plus 8 refined levels inside $\pm0.5$ decade of the slice's best non-EIV boundary. Simulated: no false detection; detection 0.997 (refined) and 0.962 (main grid) at 0.40 decade; 0.855 at the predicted factor 2. &
 Same estimator and bootstrap, on the estimation set; the non-EIV method chosen on the selection set; shift against the best non-EIV method over both forms reported descriptively. &
-Holds where the upward shift is $\ge 0.25$. Graded: $\ge \log_{10}2$ (0.30): \verdict{EIV moves the boundary by \{factor\}}; 0.25 to $\log_{10}2$: \verdict{EIV moves the boundary by \{factor\}, detectably but by less than the predicted factor 2}. Below 0.25 at every $\varepsilon>0$: \verdict{EIV does not move the boundary detectably (MDE \{x\})}. Down by at least 0.25: \verdict{EIV moves the boundary DOWN by \{factor\}}.\\
+Holds at an $\varepsilon$ where the upward shift is $\ge 0.25$ in $\ge 2/3$ of its slices. Graded on the median shift: $\ge \log_{10}2$ (0.30): \verdict{EIV moves the boundary by \{factor\}}; 0.25 to $\log_{10}2$: \verdict{EIV moves the boundary by \{factor\}, detectably but by less than the predicted factor 2}. Below 0.25 in every slice at every $\varepsilon>0$: \verdict{EIV does not move the boundary detectably (MDE \{x\})}. Down by at least 0.25: \verdict{EIV moves the boundary DOWN by \{factor\}}.\\
 \addlinespace
 Can a loading-dependent rate at a MOF-like isotherm step be discovered? &
 H2d (exploratory): no directional prediction. &
@@ -636,7 +638,9 @@ squares suffers, and at zero error EIV best-subset recovers L1 with M4's support
 M5 is given the true error levels $\sigma$ and $\varepsilon$, which a practitioner would have
 to estimate. H2c therefore measures what errors-in-variables fitting gains when the error
 variances are known: an upper bound on its benefit in practice. The other methods have no
-use for the error levels and are not given them.
+use for the error levels and are not given them. Because M5 knows what the identifiability
+analysis does not, it takes no part in choosing the best method for H2a and H2b
+(amendment A2); it is used in H2c only, where its advantage is the question.
 % PREREG_P2 s.3 M5 row and s.10; p2/eiv.py; p2_grid_extra.py m5 (fit_m5(obs, sigma, eps)).
 
 \emph{ODR-BINDy \citep{fung2026} and WENDy-IRLS \citep{bortz2023} will be reported on their
@@ -781,7 +785,8 @@ That is more than a quarter of the decision threshold, and it pushes towards the
 \verdict{discovery outlives identifiability}. Separating the two sets removes the bias.
 The identifiability boundary is estimated on the same estimation replicates, so both sides
 of H2b rest on the same 45. A method with too few replicates in a slice for both sets takes
-no part in the selection. Every method's own $\Da^{*}_{\mathrm{disc}}$ will be reported
+no part in the selection, and M5, which is given the true error levels, takes no part in
+the selection for H2a and H2b (amendment A2). Every method's own $\Da^{*}_{\mathrm{disc}}$ will be reported
 alongside.
 % PREREG_P2 s.4.3 as amended by A1 (s.9); p2/analysis.py select_best; p2_analyze.py
 % _best_and_boundary (N_SEL = 15); results/p2_operating_characteristics.json "selection".
@@ -873,11 +878,17 @@ the main grid. At 0.40 decade it reports a detectable shift with probability 0.9
 refined grid ($\varepsilon = 2\,\%$) and 0.962 on the main grid ($\varepsilon = 0.5\,\%$,
 5\,\%). At the predicted factor 2 it does so with probability 0.855 on the refined grid.
 \item \emph{H2a.} Each slice pools many cells, so its $R^{*}$ is precise. In a simulation of
-12 slices of 144 cells, the spread verdict was correct with probability of at least 0.997
-at true spreads of 0, 0.5, 1.0 and 1.5 decade, so precision does not limit H2a.
+12 slices of 144 cells (O2's count), the spread verdict was correct with probability of at
+least 0.997 at true spreads of 0, 0.5, 1.0 and 1.5 decade; with 135 cells (O1's count, the
+noise-free cells excluded) it was correct in every dataset at 0, 0.25, 0.40, 0.5 and 1.0
+decade. Precision does not limit H2a. The simulation spreads the cells' $R$ values evenly,
+which the real design does only roughly; that is a limit of this check, not of H2a's rule.
 \item \emph{Selection.} Choosing the best of six equally good methods and estimating its
-boundary on the same replicates inflated the boundary by 0.071 decade; selecting on 15
-replicates and estimating on the other 45 left a bias of $-0.001$ decade.
+boundary on the same replicates inflated the boundary by 0.071 decade, and the best of nine
+(about the size of the real pool) by 0.078; selecting on 15 replicates and estimating on the
+other 45 left $-0.001$ and $+0.003$ decade.
+\item \emph{The smallest effect of interest.} At 0.35 decade H2b's power is 0.858, below 0.95;
+0.40 decade is the smallest of the simulated effects at which it reaches 0.95.
 \end{itemize}
 These figures depend on how sharp the true boundary is. The standard deviation of one
 boundary estimate at 45 replicates is 0.063 decade at slope 3, 0.091 at slope 1.5 and 0.044
@@ -893,14 +904,19 @@ read with that in mind.
 % 0.526 + 0.329 = 0.855; h2c_main n45: shift 0 not_detectable 1.0; 0.40: 0.895 + 0.067 = 0.962;
 % h2a n45: collapses 1.0 at 0; inconclusive 0.9967 at 0.5; does_not_collapse 1.0 at 1.0, 1.5;
 % selection (6 methods, 15/45): bias_same 0.0708, bias_split -0.0013;
+% results/p2_operating_characteristics_a2.json (--amendment2): h2a_135_cells_n45 collapses 1.0
+% at 0, 0.25, 0.40, inconclusive 1.0 at 0.5, does_not_collapse 1.0 at 1.0; selection_9_methods
+% bias_same 0.078, bias_split 0.0033; h2b_n45_gap_0.35 outlives 0.858;
 % single n45: sd 0.0626 (slope 3), 0.0909 (1.5), 0.0438 (6);
 % h2b_slope_1.5_n45: 0.40 outlives 0.887; 0.50 0.982; 0: 0.024 + 0.024 = 0.048.
 
 \paragraph{H2c refinement grid.}
-A factor-2 shift is 0.30 decade, close to the MDE. H2c will therefore be tested on a refined
-$\Da$ grid of \textbf{8 extra levels, log-uniform within $\pm 0.5$ decade of the best
-non-EIV method's $\Da^{*}_{\mathrm{disc}}$} at O1, $\sigma = 2\,\%$, $\varepsilon = 2\,\%$,
-for each isotherm. The 8 levels lie strictly inside $\pm 0.5$ decade, equally spaced in
+A factor-2 shift is 0.30 decade, close to the decision threshold. H2c will therefore be
+tested on a refined $\Da$ grid of \textbf{8 extra levels, log-uniform within $\pm 0.5$ decade
+of the best strong-form non-EIV method's $\Da^{*}_{\mathrm{disc}}$} at O1, $\sigma = 2\,\%$,
+$\varepsilon = 2\,\%$, for each (isotherm, $\Pe$) slice, that method chosen on the selection
+set and its boundary estimated on the estimation set; no EIV result is read. The 8 levels
+lie strictly inside $\pm 0.5$ decade, equally spaced in
 $\log_{10}\Da$ with the two end points excluded. These levels need new ground-truth
 solves, to be made after the main grid and before any EIV method is run on them. The
 refinement is part of the design, not a post-hoc rescue.
@@ -919,7 +935,7 @@ interval. Slices without a crossing will be listed, never imputed. The verdict w
 follow the thresholds in the Introduction. When the boundary does not collapse, the axis
 that separates the $R^{*}$ values will be named.
 % PREREG_P2 s.4.3 "R and its collapse (H2a)"; p2/analysis.py r_collapse.
-\item[H2b.] For each O1 slice ($\sigma$, $\varepsilon$, isotherm), the gap is
+\item[H2b.] For each O1 slice ($\sigma$, $\varepsilon$, isotherm, $\Pe$), 96 in all, the gap is
 $\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$. Here
 $\Da^{*}_{\mathrm{disc}}$ comes from the best method chosen on the selection set and
 $\Da^{*}_{\mathrm{ident}}$ from the same logistic estimator, both on the estimation set
@@ -942,23 +958,29 @@ $\hat k \in [k/2, 2k]$, the identifiability criterion's own tolerance, and repor
 the primary verdict. If the two differ, both are reported and the primary verdict stands.
 % p2/analysis.py disc_vs_ident (mde 0.25), aggregate_h2b; p2_analyze.py H2b_overall,
 % H2b_k_sensitivity (rows record k_hat, A1); PREREG_P2 s.2 H2b as amended by A1.
-\item[H2c.] H2c will be decided at $\sigma = 2\,\%$ on O1. The shift is
+\item[H2c.] H2c will be decided at $\sigma = 2\,\%$ on O1, per slice (isotherm, $\Pe$,
+$\varepsilon > 0$), 18 in all. In each slice the shift is
 \[
 \log_{10}\Da^{*}_{\mathrm{disc}}(\text{M5}) - \log_{10}\Da^{*}_{\mathrm{disc}}(\text{best
 strong-form non-EIV}),
 \]
-with a bootstrap interval. It will be estimated on the refined grid for $\varepsilon =
-2\,\%$ and on the main grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The shift relative
-to the best non-EIV method over both forms will be reported alongside, descriptively. Both
-boundaries are estimated on the estimation set, the non-EIV method chosen on the selection
-set. The hypothesis holds at a given $\varepsilon$ if the upward shift is at least the
-0.25-decade decision threshold. The verdict words grade its size: at least $\log_{10}2 =
-0.30$ decade gives \verdict{EIV moves the boundary by \{factor\}}, and between the threshold
-and 0.30 decade the intermediate words of the Introduction. (The frozen design made the
-factor 2 itself the criterion; a criterion equal to the predicted effect is met only about
-half the time when the prediction is exactly right, so amendment A1 moved the criterion to
-the detection threshold and kept the factor 2 as the graded words.) The hypothesis is
-falsified if the shift is below the threshold at every $\varepsilon > 0$.
+with a bootstrap interval from paired resamples of the two boundaries. It will be estimated
+on the main grid plus the slice's refined levels for $\varepsilon = 2\,\%$, and on the main
+grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The shift relative to the best non-EIV method
+over both forms will be reported alongside, descriptively. Both boundaries are estimated on
+the estimation set, the non-EIV method chosen on the selection set. The hypothesis
+\emph{holds at a given} $\varepsilon$ if the upward shift is at least the 0.25-decade
+decision threshold in at least two thirds of that $\varepsilon$'s slices with a verdict. The
+verdict words grade the size of the median shift over those slices, and each slice's own
+words are reported: at least $\log_{10}2 = 0.30$ decade gives \verdict{EIV moves the
+boundary by \{factor\}}, and between the threshold and 0.30 decade the intermediate words of
+the Introduction. (The frozen design made the factor 2 itself the criterion; a criterion
+equal to the predicted effect is met only about half the time when the prediction is
+exactly right, so amendment A1 moved the criterion to the detection threshold and kept the
+factor 2 as the graded words.) The hypothesis is falsified if the shift is below the
+threshold in every slice at every $\varepsilon > 0$.
+% p2_analyze.py h2c (A2): slices (isotherm, Pe, eps), shift_interval, per_eps two-thirds
+% rule and median shift; p2/analysis.py shift_interval.
 \item[H2d.] Exploratory. We will report, as a rate per cell, in which ($\sigma$,
 observation) cells the loading-dependent rate is discovered under the L2 criterion of
 \S\ref{sec:metrics}, with no directional prediction and no boundary hypothesis.
@@ -969,9 +991,9 @@ estimates of the boundaries, not significance tests; the bootstrap intervals are
 with every estimate but enter no verdict. The pre-registration specifies no family-wise
 correction, and none will be applied. Multiplicity is instead controlled by the
 operating characteristics of the rules: with 45 estimation replicates, a slice with no true
-gap returns a wrong directional verdict with probability of about 0.001 (pilot P8), so among
-the roughly 30 O1 slices of H2b a spurious verdict is unlikely, and the hypothesis-level
-verdict needs two thirds of the slices to agree. Every slice-level verdict will be
+gap returns a wrong directional verdict with probability of about 0.001 (pilot P8), so
+among the 96 O1 slices of H2b about 0.1 spurious verdict is expected, and the
+hypothesis-level verdict needs two thirds of the slices to agree. Every slice-level verdict will be
 reported. The best-method selection, the one choice made on the data, is made on
 replicates that do not enter the estimate (\S\ref{sec:metrics}).
 % PREREG_P2 s.2, s.4.3 (no multiplicity correction is specified); p2/analysis.py
@@ -1007,12 +1029,14 @@ will be held to the same check.
 \item \emph{Floor and ceiling.} A boundary with all successes, all failures, a slope of the
 wrong sign or a crossing off the grid yields no verdict word, and the tested range is
 reported instead (\S\ref{sec:analysis}).
-\item \emph{Positive control on the grid itself} (amendment A1). In the easiest cell of each
-isotherm, the lowest $\Da$ with no noise and no isotherm error on O1, the best method must
-recover the law and $k$ must be identifiable in at least 90\,\% of the estimation
-replicates. If this fails for an isotherm, no verdict words are issued for that isotherm's
-slices (H2a, H2b, H2c): the failure is reported as the result, and its cause is sought
-before anything else is interpreted.
+\item \emph{Positive control on the grid itself} (amendment A1). In the easiest cells of each
+isotherm, the lowest $\Da$ with no noise and no isotherm error on O1 (all three $\Pe$), the
+best method other than M5 must recover the law and $k$ must be identifiable in at least
+90\,\% of the estimation replicates. If this fails for an isotherm, no verdict words are
+issued for that isotherm's slices (H2a, H2b and its sensitivity analysis, H2c): the failure
+is reported as the result, and its cause is sought before anything else is interpreted. If
+one isotherm fails and the other passes, the passing isotherm's verdicts stand, the
+hypothesis-level verdicts rest on its slices alone, and the withheld isotherm is named.
 % p2/analysis.py positive_control (need = 0.9); p2_analyze.py positive_control, WITHHELD.
 \item \emph{Estimator calibration.} The boundary estimator's coverage (0.94 against a
 nominal 0.95), bias ($+0.012$ decade) and standard deviation (0.089 decade) were measured
@@ -1088,7 +1112,7 @@ pre-registration provides that the grid runs after a dated amendment saying so, 
 study is then reported as a pre-registered study, not as a Registered Report.
 % PREREG_P2 "Registered Report timing (decided 2026-10-11, before the freeze)".
 
-\subsection{Amendment A1 to the frozen design}
+\subsection{Amendments A1 and A2 to the frozen design}
 \label{sec:amend}
 The pre-registration was frozen on 11 October 2026. On 12 October 2026, before any
 discovery method had run on any grid cell, an internal review written to this journal's
@@ -1113,9 +1137,34 @@ A1 also corrects, as errata, statements of fact in the frozen text that no part 
 depends on: the ground-truth solve times, the description of the step case, the bound on
 $kL/u$, and the claim that the H2c refinement's end points coincide with main-grid levels
 (they do only when the boundary falls on a grid level; the 8 levels lie strictly inside
-$\pm0.5$ decade either way). No threshold value, verdict wording, axis, method or library
-changed.
-% PREREG_P2 s.9 (amendment A1); RETRACTIONS.md B79, B81.
+$\pm0.5$ decade either way). No threshold value, axis, method or library changed; A1 adds
+one verdict word (\verdict{mixed}, for H2b) and changes which outcome counts as H2c
+holding.
+
+A second review of the amended plan, the same day and still before any grid run, found
+that the analysis code did not do everything the text said. Amendment A2 (\S9 of the
+pre-registration, under a further freeze commit) therefore:
+\begin{enumerate}
+\item keeps M5 out of the best-method pool of H2a and H2b, because it is given the true
+error levels that the identifiability analysis is not; M5 serves H2c only;
+\item makes $\Pe$ a slicing axis of H2b and H2c, as it already was for H2a. The frozen code
+pooled the three $\Pe$ levels into one boundary, a mixture that the power simulation does not
+describe; per $\Pe$ every slice is one boundary over 9 levels, as simulated. It also stops
+M7, run at $\Pe\times1$ only, from being compared on different cells;
+\item counts a row that raised an error as a failure, as the text always said, where the
+code had dropped it;
+\item adds the outputs the text promised and the code lacked: the bootstrap interval of the
+H2a spread and of each H2c shift, every method's own boundary, and the H2c shift against
+the best method over both forms;
+\item defines H2c at the hypothesis level over its (isotherm, $\Pe$) slices, and sets the
+refinement levels per slice;
+\item extends the withholding of a failed positive control to the sensitivity analysis, and
+says what happens when only one isotherm fails: the other isotherm's verdicts stand and the
+withheld one is named;
+\item removes a crash: the best-method choice no longer runs a one-draw bootstrap, which
+failed when that draw had no crossing.
+\end{enumerate}
+% PREREG_P2 s.9 (amendments A1, A2); RETRACTIONS.md B79, B81, B82.
 
 \subsection{Design limitations}
 \label{sec:limits}
@@ -1260,8 +1309,8 @@ full list is \S10 of the pre-registration.
 The two items that remained have reported: the ODR-BINDy port is reported as ``port,
 accuracy below the reference'', and M7 passes its inclusion gate. Both rules were written
 before the runs that decided them. The pre-registration was frozen by commit d562f19 on
-11 October 2026, and amended once (A1, 12 October 2026, under a new freeze commit) before
-any grid run (\S\ref{sec:amend}); the grid drivers check the latest freeze commit before
+11 October 2026, and amended twice (A1 and A2, 12 October 2026, each under a new freeze
+commit) before any grid run (\S\ref{sec:amend}); the grid drivers check the latest freeze commit before
 they will run, and no discovery method has touched a grid cell. Any later change will be a dated, reasoned amendment,
 reported as post hoc if made after results exist.
 
@@ -1307,9 +1356,9 @@ with a DOI.
 \section*{Protocol registration}
 The pre-registration (\texttt{PREREG\_P2\_discoverability.md}) is public in the study
 repository and frozen at commit \texttt{d562f195ac7e30f0b7abe039946f4f2bd8b3ad6d}
-(11 October 2026), before any discovery method was run on any grid cell, and amended once,
-by A1 (its \S9), under a second commit whose message begins ``FREEZE PREREG\_P2 amendment
-A1'' (12 October 2026), still before any grid run. The file's header still reads
+(11 October 2026), before any discovery method was run on any grid cell, and amended twice,
+by A1 and A2 (its \S9), under commits whose messages begin ``FREEZE PREREG\_P2 amendment
+A1'' and ``\ldots A2'' (12 October 2026, commit 41eac1d for A1), still before any grid run. The file's header still reads
 ``Status: DRAFT, NOT FROZEN'', followed by the statement that it is frozen by a commit; it
 was written before the freeze and left unedited, as A1 records. The freeze is the commit,
 which the grid drivers verify. After in-principle

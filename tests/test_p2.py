@@ -557,12 +557,14 @@ def test_p2_analyze_recovers_planted_verdicts():
     from p2_grid_o1 import N_REP
     cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(4), n_rep=N_REP)
     out = verdicts(cells, o1, {}, ident, rstats, n_boot=200)
-    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
     assert s["best_method"] == "B|strong", s
     assert s["words"] == "discovery fails before identifiability", s
     assert abs(np.log10(s["da_disc"]) - np.log10(30)) < 0.3 and abs(np.log10(s["da_ident"]) - np.log10(300)) < 0.3
     hc = h2c(cells, o1, m5, n_boot=200)
-    assert hc["words"].startswith("EIV moves the boundary by"), hc
+    sl = hc["slices"]["langmuir|pe=1.0|eps=0.02"]
+    assert sl["words"].startswith("EIV moves the boundary by"), hc
+    assert hc["h2c_holds"] and sl["shift_ci"][0] is not None and sl["shift_ci"][0] < sl["shift"] < sl["shift_ci"][1]
     assert isinstance(out["H2a"]["words"], str)
 
 
@@ -635,9 +637,9 @@ def test_p2_analyze_selection_split_and_k_sensitivity():
             o1[f"{nm}|0.02|0.02|{rep}|B|strong"]["k_hat"] = 0.1
             o1[f"{nm}|0.02|0.02|{rep}|A|strong"]["k_hat"] = 0.01
     out = verdicts(cells, o1, {}, ident, rstats, n_boot=100)
-    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
     assert s["best_method"] == "B|strong", s
-    k = out["H2b_k_sensitivity"]["sigma=0.02|eps=0.02|langmuir"]
+    k = out["H2b_k_sensitivity"]["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
     assert abs(np.log10(k["da_disc_k"] or 1e9) - np.log10(30)) > 0.3   # B's successes no longer count
     assert "H2b_overall" in out and "positive_control" in out
 
@@ -655,12 +657,12 @@ def test_refined_cells_enter_h2c_only():
     """A1: refinement cells (flag 'refined') never enter H2a/H2b; in H2c they join the main
     grid at eps = 2 % only. The generator lists them for every Pe multiplier."""
     from p2_analyze import h2c, h2c_refine_levels, verdicts
-    from p2_generate import PE_MULT, refined_cells
+    from p2_generate import refined_cells
     from p2_grid_o1 import N_REP
     cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(6), n_rep=N_REP)
     lv = h2c_refine_levels(cells, o1)
-    assert len(lv["langmuir"]["levels"]) == 8
-    assert len(refined_cells(lv)) == 8 * len(PE_MULT)
+    assert len(lv["langmuir|pe=1.0"]["levels"]) == 8
+    assert len(refined_cells(lv)) == 8 * len(lv) and all(c[2] == 1.0 for c in refined_cells(lv))
     # a refined cell where every method always FAILS: it would distort H2b if it leaked in
     cells["lang_ref"] = {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": 0.2, "refined": True}
     for rep in range(N_REP):
@@ -669,7 +671,53 @@ def test_refined_cells_enter_h2c_only():
         ident[f"lang_ref|0.02|0.02|{rep}|profile|o1"] = {"success": False}
     rstats["lang_ref"] = {"delta": 1.0, "eps_rec": 0.0}
     out = verdicts(cells, o1, {}, ident, rstats, n_boot=100)
-    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
     assert abs(np.log10(s["da_disc"]) - np.log10(30)) < 0.3, s
     hc = h2c(cells, o1, m5, n_boot=100)
-    assert hc["detail"]["langmuir|eps=0.02"]["da_disc_best_strong"] is not None
+    assert hc["slices"]["langmuir|pe=1.0|eps=0.02"]["shift"] is not None
+
+# ---- Amendment A2: errors as failures, M5 out of H2a/H2b, robust intervals
+
+def test_error_rows_count_as_failures_never_dropped():
+    from p2_analyze import _by_da
+    cells = {"x": {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": 1.0, "k_LDF": 0.01}}
+    rows = {"x|0.02|0.02|0|A|strong": {"success": True},
+            "x|0.02|0.02|1|A|strong": {"success": True, "error": "ValueError: boom"}}
+    got = _by_da(rows, cells, lambda c, s, e: True)
+    assert got["A|strong"][1.0] == [1.0, 0.0]
+
+
+def test_m5_oracle_never_becomes_the_h2b_best_method():
+    """A2: M5 knows sigma and eps; even when it is the strongest method it is excluded
+    from H2a/H2b's selection and used in H2c only."""
+    from p2_analyze import verdicts
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(7), n_rep=N_REP)
+    out = verdicts(cells, {**o1, **m5}, {}, ident, rstats, n_boot=50)
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
+    assert s["best_method"] == "B|strong", s
+    assert "eiv_best_subset|strong" not in s["da_disc_by_method"]
+
+
+def test_boundary_without_bootstrap_draws_does_not_crash():
+    from p2.analysis import boundary, select_best
+    rng = np.random.default_rng(3)
+    Da = np.logspace(-1, 3, 9)
+    succ = _logistic_successes(Da, 2.9, -4.0, 15, rng)      # boundary near the top edge
+    b, lo, hi = boundary(succ, n_boot=0)
+    assert lo is None and hi is None
+    select_best({"A": succ})                                 # must not raise (A2)
+
+
+def test_shift_interval_and_spread_interval():
+    from p2.analysis import r_collapse, shift_interval
+    rng = np.random.default_rng(4)
+    Da = np.logspace(-1, 3, 9)
+    a = _logistic_successes(Da, 1.8, -4.0, 45, rng)
+    b = _logistic_successes(Da, 1.2, -4.0, 45, rng)
+    sh, lo, hi = shift_interval(a, b, n_boot=200)
+    assert lo < sh < hi and abs(sh - 0.6) < 0.25
+    R = np.logspace(-1, 3, 9)
+    conds = {f"c{i}": _logistic_successes(R, 1.0 + 0.1 * i, 4.0, 45, rng) for i in range(3)}
+    r = r_collapse(conds, n_boot=100)
+    assert r["spread_ci"][0] is not None and r["spread_ci"][0] <= r["spread_ci"][1]

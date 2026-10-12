@@ -45,10 +45,11 @@ known-answer test in every configuration (xfail strict, recorded). ODR-BINDy por
 limit, stated). M7 PySR INCLUDED (gate passed after the B76 fix).**
 Ground truth: `data/p2/` (81 cells + 9 isothermal; fields gitignored, the manifest is
 tracked; `p2_generate.py`, `--refine` for the H2c refinement cells after the main grid).
-**State (2026-10-12): PREREG_P2 frozen (d562f19) and amended once (A1, §9: 60 replicates
+**State (2026-10-12): PREREG_P2 frozen (d562f19) and amended twice (§9). A1: 60 replicates
 split 15 selection / 45 estimation, smallest effect of interest 0.40 decade, H2c holds on a
 detectable shift, H2b two-thirds rule, on-grid positive control, k-aware sensitivity, the
-refinement grid implemented). Stage 1 prepared for Nature Communications
+refinement grid implemented. A2: M5 (oracle) out of H2a/H2b, Pe a slicing axis of H2b/H2c,
+errors count as failures, promised intervals implemented (RETRACTIONS B82). Stage 1 prepared for Nature Communications
 (`paper2/VENUE_RR.md`, `paper2/stage1.tex`, `check_stage1_p2.py`). The grid runs ONLY after
 in-principle acceptance (or after the six-month clause, by dated amendment).** The drivers
 refuse to run unless the prereg matches its latest `FREEZE PREREG_P2` commit. Order after

@@ -29,16 +29,19 @@ def _fit(x, y, rising=False):
     return float(b)
 
 
-def boundary(successes_by_da, n_boot=2000, seed=0, rising=False):
+def boundary_draws(successes_by_da, n_boot=2000, seed=0, rising=False):
+    """The log10 50 % crossing and its n_boot bootstrap draws (replicates resampled within
+    each level). A draw without a crossing is NaN, so draws from two boundaries made with
+    the same n_boot can be paired index by index. Returns (b or None, array of n_boot)."""
     das = sorted(successes_by_da)
     x = np.concatenate([[np.log10(d)] * len(successes_by_da[d]) for d in das])
     y = np.concatenate([np.asarray(successes_by_da[d], float) for d in das])
     b = _fit(x, y, rising)
+    draws = np.full(n_boot, np.nan)
     if b is None:
-        return None, None, None
+        return None, draws
     rng = np.random.default_rng(seed)
-    boots = []
-    for _ in range(n_boot):
+    for i in range(n_boot):
         xs, ys = [], []
         for d in das:
             s = np.asarray(successes_by_da[d], float)
@@ -47,9 +50,39 @@ def boundary(successes_by_da, n_boot=2000, seed=0, rising=False):
             ys.append(s[idx])
         bb = _fit(np.concatenate(xs), np.concatenate(ys), rising)
         if bb is not None:
-            boots.append(bb)
-    lo, hi = np.percentile(boots, [2.5, 97.5])
-    return 10 ** b, 10 ** lo, 10 ** hi
+            draws[i] = bb
+    return b, draws
+
+
+def _ci(draws):
+    """Percentile 95 % interval of the finite draws, or (None, None) if there are none
+    (A2: an empty set of draws no longer raises)."""
+    d = np.asarray(draws, float)
+    d = d[np.isfinite(d)]
+    if d.size == 0:
+        return None, None
+    lo, hi = np.percentile(d, [2.5, 97.5])
+    return float(lo), float(hi)
+
+
+def boundary(successes_by_da, n_boot=2000, seed=0, rising=False):
+    b, draws = boundary_draws(successes_by_da, n_boot, seed, rising)
+    if b is None:
+        return None, None, None
+    lo, hi = _ci(draws)
+    return 10 ** b, (None if lo is None else 10 ** lo), (None if hi is None else 10 ** hi)
+
+
+def shift_interval(succ_a, succ_b, n_boot=2000, seed=0):
+    """A2: log10 Da*(a) - log10 Da*(b) with a percentile bootstrap interval from paired
+    draws (each boundary resampled independently within its levels). Returns
+    (shift or None, lo, hi)."""
+    a, da = boundary_draws(succ_a, n_boot, seed)
+    b, db = boundary_draws(succ_b, n_boot, seed + 1)
+    if a is None or b is None:
+        return None, None, None
+    lo, hi = _ci(da - db)
+    return float(a - b), lo, hi
 
 
 def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
@@ -59,17 +92,25 @@ def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
     >= one decade -> "R does not collapse the boundary" (the falsifier); between the two
     -> "inconclusive", stated as such. A condition with no crossing is listed, never
     imputed."""
-    rstar, missing = {}, []
-    for cond, succ in successes_by_cond.items():
+    rstar, missing, draws = {}, [], []
+    for i, (cond, succ) in enumerate(successes_by_cond.items()):
         # success RISES with R (more driving force per unit error); a first version
         # used the falling-curve rule of the Da boundary and could never find a crossing
-        est, lo, hi = boundary(succ, n_boot=n_boot, seed=0, rising=True)
-        if est is None:
+        b, d = boundary_draws(succ, n_boot=n_boot, seed=i, rising=True)
+        if b is None:
             missing.append(cond)
         else:
-            rstar[cond] = (est, lo, hi)
+            lo, hi = _ci(d)
+            rstar[cond] = (10 ** b, None if lo is None else 10 ** lo, None if hi is None else 10 ** hi)
+            draws.append(d)
     logs = [np.log10(v[0]) for v in rstar.values()]
     spread = float(max(logs) - min(logs)) if len(logs) >= 2 else None
+    # A2: the bootstrap interval of the spread (stated in s.4.3, missing until A2)
+    spread_ci = (None, None)
+    if len(draws) >= 2 and n_boot > 0:
+        D = np.vstack(draws)
+        ok = np.all(np.isfinite(D), axis=0)
+        spread_ci = _ci((D.max(axis=0) - D.min(axis=0))[ok])
     if spread is None:
         words = "no verdict: fewer than two conditions have a crossing"
     elif spread < spread_ok:
@@ -78,7 +119,8 @@ def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
         words = f"R does not collapse the boundary (spread {spread:.2f} decade)"
     else:
         words = f"inconclusive: R narrows the boundary to a spread of {spread:.2f} decades"
-    return {"rstar": rstar, "no_crossing": missing, "spread_decades": spread, "words": words}
+    return {"rstar": rstar, "no_crossing": missing, "spread_decades": spread,
+            "spread_ci": list(spread_ci), "words": words}
 
 
 def disc_vs_ident(da_disc, da_ident, mde_decades):
@@ -148,7 +190,7 @@ def select_best(by_method_sel, rising=False):
     method label, or None if there is no method."""
     if not by_method_sel:
         return None
-    pts = {m: boundary(s, n_boot=0 or 1, rising=rising)[0] for m, s in by_method_sel.items()}
+    pts = {m: boundary(s, n_boot=0, rising=rising)[0] for m, s in by_method_sel.items()}   # point estimate only (A2)
     pts = {m: v for m, v in pts.items() if v is not None}
     if pts:
         return (min if rising else max)(pts, key=pts.get)

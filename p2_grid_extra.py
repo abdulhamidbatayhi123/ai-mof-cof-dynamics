@@ -5,23 +5,23 @@ driver runs the rest, each exactly as the prereg declares, with the same freeze 
 
   m6   SINDy-PI on the ISOTHERMAL CONTROL (Lib-A without T: no isotherm, no
        temperature), O1, every sigma, eps = 0 (M6 is given no isotherm, so isotherm
-       error does not apply), 20 replicates, strong form; success = p2.metric.success_M6.
+       error does not apply), 60 replicates (A1), strong form; success = p2.metric.success_M6.
   m9   slow-manifold discovery on every non-isothermal L1 cell, O1, every (sigma, eps),
-       20 replicates: the STATE q regressed on q-free features {1, c, T, c^2, q*_meas};
+       60 replicates (A1): the STATE q regressed on q-free features {1, c, T, c^2, q*_meas};
        success = p2.metric.success_manifold.
-  l2   the L2 cells (step isotherm, k(q)), O1, every (sigma, eps), 20 replicates, every
+  l2   the L2 cells (step isotherm, k(q)), O1, every (sigma, eps), 60 replicates (A1), every
        sparse solver in both forms; success = p2.metric.success_L2 (H2d, exploratory).
   m8   KAN symbolic extraction, best configuration, on the DECLARED SUBGRID (all Da x
        sigma in {0.5, 2 %} x eps in {0, 2 %} x both isotherms x Pe x1, O1), 3 replicates;
        success = success_L1. Runs only if its per-fit cost gate passed (COST_GATES).
-  m7   PySR on the same subgrid, 3 replicates, only if its inclusion gate
+  m7   PySR on the same subgrid, 60 replicates (A1), only if its inclusion gate
        (results/p2_pilot_m7.json) says INCLUDE; success = success_L1.
   o1ident  identifiability on O1 (the confirmatory side of H2b): profile likelihood
        of k with the law known, over ALL probes, every non-isothermal L1 cell, every
-       (sigma, eps), 20 replicates; the profile refits k with the MEASURED isotherm
+       (sigma, eps), 60 replicates (A1); the profile refits k with the MEASURED isotherm
        (information parity); success = identifiable.
   m5   EIV best-subset (classical mixed LS-TLS on the single rate law, p2/eiv.py) on
-       every non-isothermal L1 cell, O1, every (sigma, eps), 20 replicates, strong form;
+       every non-isothermal L1 cell, O1, every (sigma, eps), 60 replicates (A1), strong form;
        success = success_L1. Pure linear algebra, so it needs no cost gate.
 
     python p2_grid_extra.py {m6,m9,l2,m8,m5,m7,o1ident}

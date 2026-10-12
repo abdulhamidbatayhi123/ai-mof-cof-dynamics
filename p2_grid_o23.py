@@ -4,7 +4,7 @@ Same freeze guard as p2_grid_o1.py (imported, not re-implemented): refuses to ru
 a 'FREEZE PREREG_P2' commit exists and the prereg is unchanged since it.
 
 O2  interior c, T (q latent): M1b gas-balance inversion, then every O1 solver in both
-    forms -- full grid, 20 replicates (the inversion is cheap).
+    forms -- full grid, 60 replicates (A1; the inversion is cheap).
 O3  outlet c(t), T(t) only: profile likelihood of k through the full column (law
     known) on the declared subgrid -- all Da x sigma in {0.5 %, 2 %} x eps in {0, 2 %}
     x both isotherms x Pe x1, 3 replicates. The identifiability side of H2b.

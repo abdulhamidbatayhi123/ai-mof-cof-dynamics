@@ -47,7 +47,7 @@ ROWS = [
     ["Does discovery fail before, with or after the rate constant stops being identifiable?",
      "H2b: compare Da*_disc (best discovery method) with Da*_ident (profile likelihood, true "
      "law known); confirmatory on O1, descriptive on O2 and O3.",
-     "Gap log10 Da*_disc − log10 Da*_ident per O1 slice (σ, ε, isotherm); the "
+     "Gap log10 Da*_disc − log10 Da*_ident per O1 slice (σ, ε, isotherm, Pe), 96 slices; the "
      "hypothesis-level verdict by the two-thirds rule.",
      "9 Da levels × 45 estimation replicates for both boundaries (15 more select the method). "
      f"Smallest effect of interest 0.40 decade. Simulated: wrong verdict {b_wrong0} at no gap; "
@@ -61,18 +61,19 @@ ROWS = [
     ["Does an errors-in-variables fit move the boundary when the isotherm is wrong?",
      "H2c: M5 (EIV best-subset) shifts Da*_disc upwards against the best strong-form "
      "non-EIV method at ε > 0, on O1; predicted size a factor 2.",
-     "Shift in log10 Da*_disc, M5 minus the best strong-form non-EIV method, per (isotherm, "
-     "ε > 0) at σ = 2 %.",
+     "Shift in log10 Da*_disc, M5 minus the best strong-form non-EIV method, per slice "
+     "(isotherm, Pe, ε > 0) at σ = 2 %, 18 slices.",
      "45 estimation replicates; for ε = 2 % the 9 levels plus 8 refined levels inside "
-     "±0.5 decade of the best non-EIV boundary. Simulated: no false detection; detection "
+     "±0.5 decade of the slice's best non-EIV boundary. Simulated: no false detection; detection "
      f"{c_ref04} (refined) and {c_main04} (main grid) at 0.40 decade; {c_f2} at the "
      "predicted factor 2.",
      "Same estimator and bootstrap, on the estimation set; the non-EIV method chosen on the "
      "selection set; the shift against the best non-EIV method over both forms reported "
      "descriptively.",
-     "Holds where the upward shift is ≥ 0.25. Graded: ≥ log10 2 (0.30): “EIV moves the "
+     "Holds at an ε where the upward shift is ≥ 0.25 in at least two thirds of its slices. "
+     "Graded on the median shift: ≥ log10 2 (0.30): “EIV moves the "
      "boundary by {factor}”; 0.25 to log10 2: “EIV moves the boundary by {factor}, "
-     "detectably but by less than the predicted factor 2”. Below 0.25 at every ε > 0: “EIV "
+     "detectably but by less than the predicted factor 2”. Below 0.25 in every slice at every ε > 0: “EIV "
      "does not move the boundary detectably (MDE {x})”. Down by at least 0.25: “EIV moves the "
      "boundary DOWN by {factor}”."],
     ["Can a loading-dependent rate at a MOF-like isotherm step be discovered?",

@@ -463,6 +463,68 @@ aggregation, positive control, k-aware sensitivity, refined cells, `--refine-lev
 tests in `tests/test_p2.py`. Committed under a commit whose message begins
 `FREEZE PREREG_P2 amendment A1`, which the grid drivers then check.
 
+
+### A2 — 2026-10-12, after A1 (41eac1d), before any discovery method has run on any grid cell
+
+**Why.** A second internal review compared the analysis code with this document and the
+Stage-1 text and found places where the code did not do what they say (RETRACTIONS B82).
+Two of them date from the frozen code. Each is fixed here; A1 stands where A2 does not
+change it.
+
+**A2.1 M5 is an oracle for H2a and H2b.** M5 (EIV best-subset) is given the true σ and ε,
+which the identifiability profile is not. It takes **no part in choosing the best method of
+H2a or H2b** (or of the positive control) and is used in **H2c only**, where its advantage is
+the question. (The frozen `p2_analyze.py` passed M5's rows into H2b's pool.)
+
+**A2.2 Pe is a slicing axis of H2b and H2c.** H2b's slices are **(σ, ε, isotherm, Pe)** on O1,
+96 slices. H2c's are **(isotherm, Pe, ε > 0)** at σ = 2 %, 18 slices. H2a already sliced by
+Pe. The frozen code pooled the three Pe levels into one boundary, a mixture of three that
+the power simulation (one boundary over 9 levels) does not describe. Per Pe, each slice is
+exactly what was simulated. M7, run at Pe×1 only, now competes only in Pe×1 slices instead
+of being compared on different cells. The H2c refinement levels (A1.7) are set **per
+(isotherm, Pe) slice**, around that slice's best strong-form non-EIV boundary; the count of
+refined solves is unchanged (8 × 3 Pe × 2 isotherms).
+
+**A2.3 H2c at the hypothesis level.** H2c **holds at an ε** if the upward shift is ≥ 0.25
+decade in **at least two thirds of that ε's (isotherm, Pe) slices** with a verdict. The size
+words grade the **median** shift over those slices, and each slice's own words are reported.
+H2c is **falsified** if the shift is below 0.25 decade in every slice at every ε > 0.
+
+**A2.4 Errors are failures.** A row that raised an error counts as a failure (success = 0,
+identifiable = 0), as §4.3 says. The frozen code dropped such rows.
+
+**A2.5 Promised outputs implemented.** These are the bootstrap interval of the H2a spread
+(§4.3), the H2c shift's interval (paired bootstrap of the two boundaries), every method's
+own Da*_disc in each H2b slice, and the H2c shift against the best non-EIV method over both
+forms (descriptive).
+
+**A2.6 Withholding.** A failed positive control withholds the k-aware sensitivity analysis
+too. If one isotherm fails and the other passes, the passing isotherm's verdicts stand, the
+hypothesis-level verdicts rest on its slices alone, and the withheld isotherm is named; if
+both fail, no hypothesis-level verdict is issued.
+
+**A2.7 Robustness.** The best-method choice uses point estimates only. The one-draw
+bootstrap it ran before could raise when that draw had no crossing (5 in 600 trials near the
+grid edge).
+
+**Evidence (simulation, `p2_operating_characteristics.py --amendment2`,
+`results/p2_operating_characteristics_a2.json`):**
+- With O1's 135 cells per H2a slice, the spread verdict was correct in every dataset at true
+  spreads of 0, 0.25, 0.40, 0.5 and 1.0 decade.
+- The same-replicate selection bias with a pool of nine methods is 0.078 decade; with the
+  split it is 0.003.
+- H2b's power at 0.35 decade is 0.858, so 0.40 decade is the smallest simulated effect with
+  power ≥ 0.95.
+
+**Errata to A1.** A1.1 lists M5 twice. A1.4's "mixed" is a new verdict word, and A1.3
+changes which outcome counts as H2c holding; A1's closing sentence in the Stage-1 text said
+no verdict wording changed, which is corrected there.
+
+**Code.** `p2/analysis.py` (`boundary_draws`, `_ci`, `shift_interval`, the `r_collapse`
+spread interval, point-estimate `select_best`), `p2_analyze.py` (A2.1–A2.6),
+`p2_generate.py` (refined cells per slice), and tests in `tests/test_p2.py`. Committed under
+a commit whose message begins `FREEZE PREREG_P2 amendment A2`.
+
 ## 10. Pre-freeze revisions, 2026-10-04 (before any discovery method has run on any grid cell)
 Found by drafting the Registered-Report Stage-1 manuscript against this document and
 the code; each fixed here, in the open, rather than silently:

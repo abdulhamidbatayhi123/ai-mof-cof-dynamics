@@ -87,13 +87,13 @@ def cells():
     return out
 
 
-def refined_cells(levels_by_iso):
-    """A1: the H2c refinement cells -- each isotherm's 8 levels (from p2_analyze.py
-    --refine-levels, computed from the main grid before any EIV method sees them) x the
-    three Pe multipliers, law L1. They are flagged 'refined' in the manifest and enter H2c
-    at sigma = eps = 2 % only."""
-    return [(iso, "L1", pe, float(da)) for iso, rec in sorted(levels_by_iso.items())
-            for pe in PE_MULT for da in rec.get("levels", [])]
+def refined_cells(levels_by_slice):
+    """A1/A2: the H2c refinement cells -- for each (isotherm, Pe) slice, its 8 levels (from
+    p2_analyze.py --refine-levels, computed from the main grid before any EIV method sees
+    them), law L1. They are flagged 'refined' in the manifest and enter H2c at
+    sigma = eps = 2 % only."""
+    return [(rec["iso"], "L1", float(rec["pe"]), float(da))
+            for _, rec in sorted(levels_by_slice.items()) for da in rec.get("levels", [])]
 
 
 def name(iso, law, pe, da, refined=False):
