@@ -57,9 +57,9 @@ def main():
     a.set_xticks(n); a.set_xticklabels([str(int(x)) for x in n])
     a.set_xlabel("training materials"); a.set_ylabel("held-out nRMSE (c), 240 materials")
     a.set_title("A. more materials: still falling at 192")
-    a.legend(fontsize=7, loc="upper right")
+    a.legend(fontsize=7.2, loc="upper right")
     a.annotate("last step\nsignificant", xy=(n[-1], refit[-1]), xytext=(n[-2] * 0.75, refit[-1] * 0.93),
-               fontsize=7, color="#3b6ea5", ha="center",
+               fontsize=7.2, color="#3b6ea5", ha="center",
                arrowprops=dict(arrowstyle="-", color="#3b6ea5", lw=0.6))
 
     # B — what becomes predictable
@@ -73,7 +73,7 @@ def main():
     b2.set_ylim(0.7, 0.95); b2.set_ylabel("R² ($t_{hi}$)", color="0.4")
     b2.grid(False)
     h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels()
-    b.legend(h1 + h2, l1 + l2, fontsize=7, loc="upper left")
+    b.legend(h1 + h2, l1 + l2, fontsize=7.2, loc="upper left")
 
     # C — conditions axis
     fr = np.array([r["size"] for r in con["rows"]])
@@ -83,14 +83,14 @@ def main():
     c.errorbar(nt, cr, yerr=csd, fmt="o-", color="#3b6ea5", lw=1.8, ms=5, capsize=3,
                label="fraction of conditions per material")
     for x, y, f in zip(nt, cr, fr):
-        c.text(x, y * 1.04, f"{f:.2f}", fontsize=7, ha="center")
+        c.text(x, y * 1.04, f"{f:.2f}", fontsize=7.2, ha="center")
     cb, (clo, chi) = con["beta"], con["beta_ci"]
     c.plot(nt, cr[0] * (nt / nt[0]) ** (-cb), ":", color="0.35", lw=1,
            label=r"$n^{-%.3f}$  (CI %.3f–%.3f)" % (cb, clo, chi))
     c.set_xscale("log"); c.set_yscale("log")
     c.set_xlabel("training conditions (all 192 materials)"); c.set_ylabel("held-out nRMSE (c)")
     c.set_title("C. more conditions: half the exponent")
-    c.legend(fontsize=7, loc="upper right")
+    c.legend(fontsize=7.2, loc="upper right")
     c.set_ylim(refit.min() * 0.9, refit.max() * 1.1)
 
     os.makedirs(OUT, exist_ok=True)

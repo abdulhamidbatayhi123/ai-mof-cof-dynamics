@@ -615,6 +615,7 @@ record them):
 
 | key | source, date | authors as given |
 |---|---|---|
-| batayhi2026code | Zenodo API records 23302587 (v1.0-preprint, 2026-10-11) and 23305298 (v1.0.1-cmame, 2026-10-12) | Batayhi, Abdulhamid (ORCID 0009-0007-0374-6755) |
+| seader2011separation | Open Library ISBN 9780470481837 (3rd ed., Wiley, 2011), 2026-10-12 | J. D. Seader, Ernest J. Henley, D. Keith Roper |
+| batayhi2026code | Zenodo API records 23302587 (v1.0-preprint, 2026-10-11) and 23305298 (v1.0.1-cmame) and 23306131 (v1.0.2) and 23311637 (v1.0.3) and 23312204 (v1.0.4, 2026-10-12) | Batayhi, Abdulhamid (ORCID 0009-0007-0374-6755) |
 | levan2019adsorption | accessengineeringlibrary.com, Perry's 9th ed., Section 16 (ISBN 9780071834087), 2026-10-11 | M. Douglas LeVan Ph.D.; Giorgio Carta Ph.D.; James A. Ritter Ph.D.; Krista S. Walton Ph.D. (editors: Don W. Green; Marylee Z. Southard) |
 | levan2019adsorption | (no DOI; Perry's 9th ed.) | no fetchable byline record; reduced to surnames "LeVan and Carta", the form recorded above |

@@ -18,7 +18,7 @@ C = {
 }
 ARM_COLOUR = {
     "mlp": C["blue"], "xgb": C["orange"], "rf": C["green"], "ridge": C["red"],
-    "rbf_kan": C["orange"], "cheby_kan": C["red"],
+    "rbf_kan": C["purple"], "cheby_kan": C["teal"],
     "deeponet": C["blue"], "deepokan": C["red"], "fno": C["green"], "pod_reg": C["orange"],
     "floor": C["dark"], "gp": C["purple"],
 }
@@ -37,14 +37,14 @@ def name(key):
 def apply():
     mpl.rcParams.update({
         "font.family": "DejaVu Sans",
-        "font.size": 8.5,
-        "axes.titlesize": 9.5,
+        "font.size": 9.5,
+        "axes.titlesize": 10,
         "axes.titleweight": "normal",
         "axes.titlelocation": "left",
-        "axes.labelsize": 8.5,
-        "xtick.labelsize": 7.8,
-        "ytick.labelsize": 7.8,
-        "legend.fontsize": 7.6,
+        "axes.labelsize": 9.5,
+        "xtick.labelsize": 8.5,
+        "ytick.labelsize": 8.5,
+        "legend.fontsize": 8.2,
         "legend.frameon": False,
         "axes.spines.top": False,
         "axes.spines.right": False,

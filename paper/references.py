@@ -56,11 +56,11 @@ VIA = {
         r"the boundary conditions, read through Pearson~\cite{pearson1959note}",
     "glueckauf1955theory":
         r"the linear-driving-force factor, read through Perry's handbook~\cite{levan2019adsorption} "
-        r"and Cruz, Magalh\~aes and Mendes, who attribute the plain factor to the companion "
+        r"and Cruz, Magalh\~aes and Mendes~\cite{cruz2006generalized}, who attribute the plain factor to the companion "
         r"paper~\cite{glueckauf1947theory}, which is why both are cited",
     "klinkenberg1948numerical":
         r"the breakthrough approximation, read through Seader, Henley and Roper's "
-        r"\emph{Separation Process Principles}, which attributes it to the later "
+        r"\emph{Separation Process Principles}~\cite{seader2011separation}, which attributes it to the later "
         r"paper~\cite{klinkenberg1954heat}; neither primary could be retrieved, so both are cited",
     "anzelius1926uber":
         r"the Anzelius--Schumann solution, read through Perry's handbook~\cite{levan2019adsorption}",
@@ -337,6 +337,30 @@ REFS = [
         pages="42159--42191", year="2024", eprint="2402.01868", archiveprefix="arXiv"),
      "The Adam-then-L-BFGS polish (Q4). Full names and pages from the PMLR v235 page and the "
      "arXiv record (2026-10-11); PMLR issues no DOI.", False),
+    ("lu2021learning", V, "article", dict(
+        author="Lu Lu and Pengzhan Jin and Guofei Pang and Zhongqiang Zhang and "
+               "George Em Karniadakis",
+        title="Learning nonlinear operators via {DeepONet} based on the universal "
+              "approximation theorem of operators",
+        journal="Nature Machine Intelligence", volume="3", number="3", pages="218--229",
+        year="2021", doi="10.1038/s42256-021-00302-5"),
+     "The original DeepONet. Crossref record read 2026-10-12.", False),
+    ("li2021fourier", V, "inproceedings", dict(
+        author="Zongyi Li and Nikola Kovachki and Kamyar Azizzadenesheli and Burigede Liu and "
+               "Kaushik Bhattacharya and Andrew Stuart and Anima Anandkumar",
+        title="Fourier neural operator for parametric partial differential equations",
+        booktitle="International Conference on Learning Representations (ICLR 2021)",
+        year="2021", eprint="2010.08895", archiveprefix="arXiv"),
+     "The original FNO. Authors from the arXiv record, venue from the ICLR 2021 poster page "
+     "(iclr.cc, 2026-10-12); ICLR 2021 has no paginated proceedings and no DOI.", False),
+    ("liu2025kan", V, "inproceedings", dict(
+        author="Ziming Liu and Yixuan Wang and Sachin Vaidya and Fabian Ruehle and "
+               "James Halverson and Marin Solja{\\v{c}}i{\\'c} and Thomas Y. Hou and Max Tegmark",
+        title="{KAN}: {Kolmogorov--Arnold} networks",
+        booktitle="International Conference on Learning Representations (ICLR 2025)",
+        pages="70367--70413", year="2025", eprint="2404.19756", archiveprefix="arXiv"),
+     "The original KAN. Authors from the arXiv record; venue and pages from the "
+     "proceedings.iclr.cc citation metadata (2026-10-12); no DOI.", False),
 
     # -------------------------------------------------------- the critique literature
     ("mcgreivy2024weak", V, "article", dict(
@@ -500,7 +524,7 @@ REFS = [
     ("ohlberger2016reduced", V, "inproceedings", dict(
         author="Mario Ohlberger and Stephan Rave",
         title="Reduced basis methods: success, limitations and future challenges",
-        booktitle="Proceedings of ALGORITMY 2016", pages="1--12", year="2016",
+        booktitle="Proceedings of the Conference Algoritmy 2016", pages="1--12", year="2016",
         eprint="1511.02021", archiveprefix="arXiv"),
      "B47: THIS is the slow-n-width citation, not their 2013 paper. It proves a LOWER bound "
      "d_N >= (1/2) N^-1/2 -- write 'decays no faster than', never 'decays like'.", False),
@@ -703,14 +727,29 @@ REFS = [
      "Closest prior art on the warp in our own domain: ONE scalar dilation, single-sigmoid "
      "BTCs. Cite prominently and generously.", False),
 
+    # ------------------------------------------- the secondary sources named in VIA
+    ("cruz2006generalized", V, "article", dict(
+        author="P. Cruz and F. D. Magalh{\\~a}es and A. Mendes",
+        title="Generalized linear driving force approximation for adsorption of multicomponent mixtures",
+        journal="Chemical Engineering Science", volume="61", number="11", pages="3519--3531",
+        year="2006", doi="10.1016/j.ces.2006.01.001"),
+     "Read for the attribution of the plain LDF factor (their Eq. 44) to Glueckauf and Coates 1947. "
+     "Record from Crossref, 2026-10-12. Named in VIA but missing from the list until the final read.", False),
+    ("seader2011separation", V, "book", dict(
+        author="J. D. Seader and Ernest J. Henley and D. Keith Roper",
+        title="Separation Process Principles: Chemical and Biochemical Operations",
+        edition="3", publisher="Wiley", year="2011", isbn="9780470481837"),
+     "The secondary source for the Klinkenberg erf approximation and its 1954 attribution (B54). "
+     "Edition record from Open Library (ISBN 9780470481837), 2026-10-12.", False),
+
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",
-        title="{[dataset]} {Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents}",
-        howpublished="Zenodo", note="Version v1.0.1-cmame", year="2026",
-        doi="10.5281/zenodo.23305298"),
+        title="{[dataset]} {Code, results and pre-registrations for: The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents}",
+        howpublished="Zenodo", note="Version v1.0.4", year="2026",
+        doi="10.5281/zenodo.23312204"),
      "The archived release of this repository. DataCite record read from the Zenodo API "
-     "2026-10-12 (v1.0.1-cmame: creator, title, version); first version 10.5281/zenodo.23302587; concept DOI "
+     "2026-10-12 (v1.0.4: creator, title, version; v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
      "10.5281/zenodo.23302586 resolves to the latest version. The [dataset] tag is the "
      "guide's marker for production and is removed in the published article.", False),
 ]
@@ -795,8 +834,12 @@ def main():
     with open(os.path.join(ROOT, "paper", "secondary_sources.tex"), "w", encoding="utf-8") as fh:
         fh.write("% GENERATED BY paper/references.py from VIA -- DO NOT EDIT.\n"
                  "\\begin{itemize}\n")
+        # references read through the same source for the same thing share one item
+        groups = {}
         for e in partial:
-            fh.write(f"\\item \\cite{{{e[0]}}}: {VIA[e[0]]}.\n")
+            groups.setdefault(VIA[e[0]], []).append(e[0])
+        for text, keys in groups.items():
+            fh.write(f"\\item \\cite{{{','.join(keys)}}}: {text}.\n")
         fh.write("\\end{itemize}\n")
 
     with open(OUT, "w", encoding="utf-8") as fh:

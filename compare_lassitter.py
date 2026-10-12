@@ -164,10 +164,10 @@ def main():
     for key, (t_min, frac) in curves.items():
         if key != pk:
             ax.plot(t_min, frac * RH_IN * 100, color="0.78", lw=0.6, zorder=1)
-    ax.plot([], [], color="0.78", lw=0.6, label="declared band ($k$, $d_p$, thermal),\nnothing fitted")
+    ax.plot([], [], color="0.78", lw=0.6, label="pre-declared variants\n($k$, $d_p$, thermal), nothing fitted")
     t_min, frac = curves[pk]
     ax.plot(t_min, frac * RH_IN * 100, color=fs.C["blue"], lw=2.0, zorder=3,
-            label="this solver, cited MOF-303\nparameters (primary)")
+            label="reference solver, cited MOF-303\nparameters (primary)")
     ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--", zorder=2,
             label="authors' COMSOL model\n(fitted kinetics)")
     ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", zorder=4, label="experiment, outlet (digitised)")

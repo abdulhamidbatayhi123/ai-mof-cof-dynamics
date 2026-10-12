@@ -72,6 +72,7 @@ def main():
     # ---- A: the material space
     for mask, col in ((~is_held, C_TRAIN), (is_held, C_HELD)):
         a.scatter(100 * step[mask], shape[mask], s=6, alpha=0.8, color=col, edgecolors="none")
+    a.set_xticks([10, 20, 30, 40])
     a.set_xlabel("step position (% RH)")
     a.set_ylabel("cooperativity exponent $n$")
     a.set_title("A  Material space")
@@ -79,7 +80,7 @@ def main():
     # ---- B: Damkoehler per material
     bins = np.logspace(np.log10(da.min()), np.log10(da.max()), 22)
     b.hist(da[~is_held], bins=bins, color=C_TRAIN, alpha=0.9)
-    b.hist(da[is_held], bins=bins, color=C_HELD, alpha=0.9)
+    b.hist(da[is_held], bins=bins, color=C_HELD, histtype="step", lw=1.6)   # outline: training stays visible
     b.set_xscale("log")
     b.set_xlabel("Damköhler number")
     b.set_ylabel("materials")
@@ -89,7 +90,7 @@ def main():
     frac = float(((da >= 5) & (da <= 60)).mean())
     b.text(0.97, 0.97, f"shaded: informative band\n{100 * frac:.0f} % of materials in it\n"
                        f"{np.log10(da.max() / da.min()):.2f} decades in all",
-           transform=b.transAxes, fontsize=6.4, color="0.25", va="top", ha="right")
+           transform=b.transAxes, fontsize=7.2, color="0.25", va="top", ha="right")
 
     # ---- C: the accessible Henry region per material
     lg = np.array([r["log10_c_henry_over_c_in_median"] for r in iso["rows"]])
@@ -100,13 +101,13 @@ def main():
     c.axvline(-3, color=fs.C["red"], lw=1.0, ls="--")
     c.set_xlabel(r"$\log_{10}$(Henry-region top / feed)")
     c.set_ylabel("materials")
-    c.set_title("C  Where Henry's law dominates")
-    c.text(0.03, 0.97, f"$n>1$ for all {iso['n_materials']}:\n$K_H$ finite and positive\n"
+    c.set_title("C  Henry region per material")
+    c.text(0.03, 0.97, f"all {iso['n_materials']} have $n>1$:\n$K_H$ finite, positive\n"
                        f"({iso['K_H']['decades']:.1f} decades)\n\n"
-                       f"{iso['n_henry_region_below_1e3_of_feed']} left of the line:\n"
-                       f"below $10^{{-3}}$ of the feed"
+                       f"{iso['n_henry_region_below_1e3_of_feed']} left of the line\n"
+                       f"(below $10^{{-3}}$ of feed)"
                        + (f"\n{n_clipped} clipped at $10^{{-20}}$" if n_clipped else ""),
-           transform=c.transAxes, fontsize=6.2, color="0.25", va="top")
+           transform=c.transAxes, fontsize=7.2, color="0.25", va="top")
 
     handles = [Line2D([], [], marker="o", ls="", color=C_TRAIN, ms=4),
                Line2D([], [], marker="o", ls="", color=C_HELD, ms=4)]

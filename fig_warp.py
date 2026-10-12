@@ -32,7 +32,7 @@ OUT = "figures"
 
 def bracket(ax, x0, x1, y, text, col="0.25"):
     ax.plot([x0, x0, x1, x1], [y * 0.97, y, y, y * 0.97], color=col, lw=0.8)
-    ax.text((x0 + x1) / 2, y * 1.02, text, ha="center", va="bottom", fontsize=6.6, color=col)
+    ax.text((x0 + x1) / 2, y * 1.02, text, ha="center", va="bottom", fontsize=7.2, color=col)
 
 
 def main():
@@ -47,42 +47,43 @@ def main():
     for pair in ("0.10-0.90", "0.05-0.95", "0.20-0.80"):
         d = c2["pairs_detail"][pair]
         lo, hi = pair.split("-")
-        frames.append((f"{lo}/\n{hi}", d["spectrum"]["0.999"], fs.C["blue"], d["contaminated"]))
+        frames.append((f"{lo}/\n{hi}", d["spectrum"]["0.999"], fs.C["teal"], d["contaminated"]))
 
-    fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 2.9), gridspec_kw={"width_ratios": [1.55, 1]})
-    fig.subplots_adjust(wspace=0.32)
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.3), gridspec_kw={"width_ratios": [1.55, 1]})
+    fig.subplots_adjust(wspace=0.32, bottom=0.24)
 
     x = np.arange(len(frames))
     for i, (name, n, col, bad) in enumerate(frames):
         a.bar(i, n, color=col if not bad else "white", edgecolor=col, hatch="///" if bad else None,
               width=0.68, lw=1.0)
-        a.text(i, n + 2, str(n) + ("\nexcluded" if bad else ""), ha="center", va="bottom", fontsize=6.6)
-    a.set_xticks(x); a.set_xticklabels([f[0] for f in frames], fontsize=6.6)
+        a.text(i, n + 2, str(n) + ("\nexcluded" if bad else ""), ha="center", va="bottom", fontsize=7.2)
+    a.set_xticks(x); a.set_xticklabels([f[0] for f in frames], fontsize=7.2)
     for xc, lab in ((2, "one front aligned"), (5, "two fronts aligned")):
         a.annotate(lab, (xc, 0), xycoords=("data", "axes fraction"), xytext=(0, -26),
-                   textcoords="offset points", ha="center", va="top", fontsize=6.8, color="0.25")
+                   textcoords="offset points", ha="center", va="top", fontsize=7.2, color="0.25")
     a.set_ylabel("POD modes for 99.9 % of variance")
-    a.set_title("A  One shift inflates the mode count; two collapse it")
+    a.set_title("A  Aligning two fronts reduces the mode count")
     a.set_ylim(0, max(f[1] for f in frames) * 1.22)
     gap = c1["two_wave_gap"]
-    a.text(0.98, 0.97, f"the two fronts reach the outlet\n{gap['min']:.3f} to {gap['max']:.3f} of the run apart",
-           transform=a.transAxes, va="top", ha="right", fontsize=6.4, color="0.3")
+    a.text(0.98, 0.97, f"front separation at the outlet:\n{100 * gap['min']:.1f} to {100 * gap['max']:.0f} % of the run",
+           transform=a.transAxes, va="top", ha="right", fontsize=7.2, color="0.3")
 
     arms = [("fixed\nframe", "fixed", fs.C["blue"], True),
-            ("two fronts,\npredicted", "two_wave", fs.C["orange"], True),
-            ("two fronts,\noracle", "two_wave_oracle", fs.C["green"], False)]
+            ("predicted\nfronts", "two_wave", fs.C["orange"], True),
+            ("true fronts\n(bound)", "two_wave_oracle", fs.C["green"], False)]
     for i, (name, key, col, filled) in enumerate(arms):
         mean, sd = v["means"][key], v["sds"][key]
         b.bar(i, mean, yerr=sd, capsize=3, width=0.6, color=col if filled else "white", edgecolor=col, lw=1.3)
-        b.text(i, mean + sd + 0.0012, f"{mean:.4f}", ha="center", va="bottom", fontsize=6.6)
-    b.set_xticks(range(3)); b.set_xticklabels([a_[0] for a_ in arms])
+        b.text(i, mean + sd + 0.0012, f"{mean:.4f}", ha="center", va="bottom", fontsize=7.2)
+    b.set_xticks(range(3)); b.set_xticklabels([a_[0] for a_ in arms], fontsize=7.2)
     b.set_ylabel("held-out nRMSE (c)")
     b.set_title("B  Predicted fronts: no detectable gain")
     top = v["means"]["fixed"]
-    bracket(b, 0, 1, top * 1.22, "no difference")
+    bracket(b, 0, 1, top * 1.22, "no detectable difference")
     headroom = v["means"]["fixed"] / v["means"]["two_wave_oracle"]
-    bracket(b, 0, 2, top * 1.48, f"{headroom:.2f}× with true fronts (upper bound)")
+    bracket(b, 0, 2, top * 1.48, f"{headroom:.2f}× with true fronts")
     b.set_ylim(0, top * 1.78)
+    b.set_xlim(-0.65, 2.45)          # room for the left bracket label
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):

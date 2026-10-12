@@ -152,6 +152,7 @@ SPEC = [
     ("FprFoldsNominal", "results/calibration_v2.json", "v2_5fold.fpr_by_alpha.0.05", "{:.1f}"),
     ("FprFoldsCal", "results/calibration_v2.json", "v2_5fold.fpr_by_alpha.0.02", "{:.1f}"),
     ("AlphaManifest", "results/calibration_v2.json", "v2.alpha", "{:g}"),
+    ("FprManifestCal", "results/calibration_v2.json", "v2.fpr_by_alpha.0.02", "{:.1f}"),
     ("NclustManifest", "results/calibration_v2.json", "v2.n_clusters", "{:d}"),
     ("FprLegacyNominal", "results/calibration_v2.json", "legacy.fpr_by_alpha.0.05", "{:.1f}"),
     ("NclustLegacy", "results/calibration_v2.json", "legacy.n_clusters", "{:d}"),
@@ -655,7 +656,8 @@ SPEC = [
      lambda s: str(s['per_nz'][str(s['nz_matching_l1'])]['n'])),
     ("CoarseTargetPct", "results/coarse_solver_baseline.json", "summary.target_l1_mlp", lambda x: f"{100 * x:.1f}"),
     # B-FIT (fitted_classical.py; PREREG_BASELINES §3)
-    ("BfitWords", "results/fitted_classical.json", "words", "{}"),
+    ("BfitWords", "results/fitted_classical.json", "words",
+     lambda v: re.sub(r"(\d)x\)", "\\1\u00d7)", v)),   # "2.44x)" printed with a true times sign
     ("BfitFitted", "results/fitted_classical.json", "fitted_mean", "{:.4f}"),
     ("BfitLearned", "results/fitted_classical.json", "learned_mean", "{:.4f}"),
     ("BfitRatio", "results/fitted_classical.json", "ratio_fitted_over_learned", "{:.2f}"),

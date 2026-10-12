@@ -22,6 +22,7 @@
     "FprFoldsNominal": "6.5",
     "FprFoldsCal": "2.8",
     "AlphaManifest": "0.02",
+    "FprManifestCal": "5.0",
     "NclustManifest": "48",
     "FprLegacyNominal": "8.5",
     "NclustLegacy": "12",
@@ -362,7 +363,7 @@
     "CoarseNfail": "7",
     "CoarseNsamp": "240",
     "CoarseTargetPct": "3.1",
-    "BfitWords": "learning remains justified against a fitted classical form (2.44x)",
+    "BfitWords": "learning remains justified against a fitted classical form (2.44\u00d7)",
     "BfitFitted": "0.1158",
     "BfitLearned": "0.0474",
     "BfitRatio": "2.44",
@@ -620,6 +621,10 @@
     "AlphaManifest": {
       "file": "results/calibration_v2.json",
       "path": "v2.alpha"
+    },
+    "FprManifestCal": {
+      "file": "results/calibration_v2.json",
+      "path": "v2.fpr_by_alpha.0.02"
     },
     "NclustManifest": {
       "file": "results/calibration_v2.json",

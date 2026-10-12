@@ -56,14 +56,14 @@ def main():
             ax.add_patch(Circle((x, y), 0.11, color="0.6"))
     ax.add_patch(FancyArrowPatch((0.6, 2.9), (2.3, 2.9), arrowstyle="-|>", mutation_scale=10, lw=1.1))
     ax.add_patch(FancyArrowPatch((7.5, 2.9), (9.3, 2.9), arrowstyle="-|>", mutation_scale=10, lw=1.1))
-    ax.text(0.2, 3.75, "humid air\nRH, $v$, $T$", fontsize=6.6, va="bottom")
-    ax.text(7.7, 3.75, "outlet\n$c(L,t)$", fontsize=6.6, va="bottom")
-    ax.text(4.9, 2.0, "packed bed of MOF pellets, length $L$", fontsize=6.6, ha="center", va="top")
+    ax.text(0.2, 3.75, "humid air\nRH, $v$, $T$", fontsize=7.2, va="bottom")
+    ax.text(7.7, 3.75, "outlet\n$c(L,t)$", fontsize=7.2, va="bottom")
+    ax.text(4.9, 2.0, "packed bed of adsorbent pellets, length $L$", fontsize=7.2, ha="center", va="top")
     ax.text(4.9, 5.9, "adsorbent: capacity, heat, step humidity,\ncooperativity, low-humidity fraction;\n"
-                      "pellet size, density; bed porosity", fontsize=6.3, ha="center", va="top",
+                      "pellet size, density; bed porosity", fontsize=7.2, ha="center", va="top",
             color="0.25")
     ax.text(4.9, 0.9, "surrogate: these 11 numbers $\\rightarrow$ $c$, $q$, $T(z,t)$",
-            fontsize=6.6, ha="center", style="italic")
+            fontsize=7.2, ha="center", style="italic")
     ax.set_title("A  The column and its parameters")
 
     # B: the stored concentration field
@@ -71,7 +71,7 @@ def main():
     im = ax.imshow(field, origin="lower", aspect="auto", extent=(0, 1, 0, 1), cmap="viridis", vmin=0, vmax=1)
     field_axes(ax)
     cb = fig.colorbar(im, ax=ax, fraction=0.06, pad=0.03, ticks=[0, 0.5, 1])
-    cb.set_label("$c/c_{in}$", fontsize=7); cb.ax.tick_params(labelsize=6.5)
+    cb.set_label("$c/c_{in}$", fontsize=7.2); cb.ax.tick_params(labelsize=6.5)
     ax.set_title("B  One stored solver field")
 
     # C: its outlet curve, with the two fronts marked at the curve's own features
@@ -79,9 +79,9 @@ def main():
     ax.plot(t, ex, color="k", lw=1.3)
     i_h = int(np.argmax(ex > 0.01))
     i_s = int(np.argmax(np.gradient(ex, t) * (t > t[i_h] + 0.02)))
-    ax.annotate("Henry front", (t[i_h], ex[i_h]), (0.16, 0.10), fontsize=6.4,
+    ax.annotate("Henry front", (t[i_h], ex[i_h]), (0.16, 0.10), fontsize=7.2,
                 arrowprops=dict(arrowstyle="->", lw=0.7))
-    ax.annotate("pore-filling\nfront", (t[i_s], ex[i_s]), (0.40, 0.84), fontsize=6.4, ha="right",
+    ax.annotate("pore-filling\nfront", (t[i_s], ex[i_s]), (0.40, 0.84), fontsize=7.2, ha="right",
                 arrowprops=dict(arrowstyle="->", lw=0.7))
     ax.set_xlabel("time $t/t_{final}$"); ax.set_ylabel("outlet $c/c_{in}$")
     ax.set_xlim(0, 1); ax.set_ylim(-0.02, 1.05)
@@ -95,11 +95,11 @@ def main():
         tk = np.array(m["templates"][k]); v = np.abs(tk).max()
         ax.imshow(tk, origin="lower", aspect="auto", extent=(0, 1, 0, 1), cmap="RdBu_r", vmin=-v, vmax=v)
         ax.grid(False); ax.set_xticks([]); ax.set_yticks([])
-        ax.set_xlabel(f"template {k + 1}", fontsize=6.6)
+        ax.set_xlabel(f"template {k + 1}", fontsize=7.2)
         if k == 0:
             ax.set_title(f"D  Stored templates (3 of {m['P']})")
     fig.text(0.215, 0.015, "field $\\approx$ $\\sum_k$ weight$_k$ $\\times$ template$_k$",
-             fontsize=7, ha="center", style="italic")
+             fontsize=7.2, ha="center", style="italic")
 
     # E, F: one held-out field rebuilt with perfect and with learned weights
     for slot, key, err, title in (
@@ -110,7 +110,7 @@ def main():
                   cmap="viridis", vmin=0, vmax=1)
         field_axes(ax, ylabel=(slot == 1))
         ax.set_title(title)
-        ax.text(0.04, 0.95, f"error {100 * err:.1f} %", transform=ax.transAxes, fontsize=6.6,
+        ax.text(0.04, 0.95, f"nRMSE {100 * err:.1f} %", transform=ax.transAxes, fontsize=7.2,
                 color="w", va="top")
 
     fig.savefig("figures/Fig0_schematic.pdf")

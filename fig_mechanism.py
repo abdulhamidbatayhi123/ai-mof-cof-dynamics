@@ -48,17 +48,17 @@ def main():
         k = np.arange(1, len(r2) + 1)
         col = cmap(0.35 + 0.65 * i / (len(rows) - 1))
         a.plot(k, r2, "-o", color=col, ms=2.4, lw=1.1, label=f"{int(r['n_materials'])}")
-    a.axhline(0.2, color=fs.C["orange"], lw=0.8, ls=":")
+    a.axhline(0.2, color="0.45", lw=0.8, ls=":")
     a.axhline(0.0, color="k", lw=0.6)
     a.set_xlabel("POD mode index")
     a.set_ylabel("held-out $R^2$ of the learned map")
     a.set_xlim(0.5, len(rows[0]["mode_r2"]) + 0.5)
     a.set_ylim(min(-0.25, min(min(r["mode_r2"]) for r in rows) - 0.05), 1.0)
     a.set_title("A  Each mode, as materials are added")
-    a.legend(title="training materials", loc="upper right", ncol=5, fontsize=6.4,
-             title_fontsize=6.6, columnspacing=0.8, handlelength=1.4)
+    a.legend(title="training materials", loc="upper right", ncol=5, fontsize=7.2,
+             title_fontsize=7.2, columnspacing=0.8, handlelength=1.4)
     a.text(len(rows[0]["mode_r2"]), 0.215, "$R^2$ = 0.2", ha="right", va="bottom",
-           fontsize=6.4, color=fs.C["orange"])
+           fontsize=7.2, color="0.45")
 
     m2 = np.array([r["modes_r2_gt_0.2"] for r in rows])
     m5 = np.array([r["modes_r2_gt_0.5"] for r in rows])
@@ -68,8 +68,8 @@ def main():
     b.set_xticks(n); b.set_xticklabels([str(int(v)) for v in n])
     b.xaxis.set_minor_formatter(NullFormatter())
     b.set_xlabel("training materials $N_{mat}$")
-    b.set_ylabel(f"modes predicted (of {len(rows[0]['mode_r2'])})")
-    b.set_ylim(0, max(m2) * 1.25)
+    b.set_ylabel(f"modes above threshold (of {len(rows[0]['mode_r2'])})")
+    b.set_ylim(0, max(m2) + 2)
     b.set_title("B  Predictable modes keep growing")
     b.legend(loc="upper left")
 

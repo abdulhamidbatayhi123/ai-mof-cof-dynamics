@@ -1,10 +1,10 @@
-# Basis or map? What limits reduced-order and neural-operator surrogates on unseen adsorbents
+# The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23305298.svg)](https://doi.org/10.5281/zenodo.23305298)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23312204.svg)](https://doi.org/10.5281/zenodo.23312204)
 
-Archived release: Zenodo, doi:[10.5281/zenodo.23305298](https://doi.org/10.5281/zenodo.23305298) (v1.0.1-cmame; the first version, v1.0-preprint, is doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587)). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
+Archived release: Zenodo, doi:[10.5281/zenodo.23312204](https://doi.org/10.5281/zenodo.23312204) (v1.0.4; the first version, v1.0-preprint, is doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587)). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
 
-Paper 1: *Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents* (prepared for Computer Methods in Applied Mechanics
+Paper 1: *The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents* (prepared for Computer Methods in Applied Mechanics
 and Engineering). Paper 2: the pre-registration of a Registered Report, *when can AI
 discover adsorption kinetics?*
 

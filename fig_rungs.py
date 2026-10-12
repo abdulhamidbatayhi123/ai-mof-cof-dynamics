@@ -56,24 +56,25 @@ def main():
     tab = l1["folds"]["table"]
     order = sorted(tab, key=lambda k: tab[k]["c"])
     x = np.arange(len(order))
-    a.bar(x, [tab[k]["c"] for k in order],
-          yerr=[tab[k].get("c_sd_seeds", 0.0) for k in order], capsize=2.5,
-          color=[fs.ARM_COLOUR[k] for k in order], width=0.62)
+    for xi, k in zip(x, order):
+        a.errorbar([xi], [tab[k]["c"]], yerr=[tab[k].get("c_sd_seeds", 0.0)], fmt="o", ms=6,
+                   capsize=3, color=fs.ARM_COLOUR[k], zorder=3)
     floor = l1["folds"]["pod_floor_pooled"]["c"]
     a.axhline(floor, color=fs.C["dark"], lw=1.0, ls="--")
     mant, ex = f"{floor:.1e}".split("e")
-    a.text(-0.4, floor * 1.35, rf"basis floor ${mant}\times10^{{{int(ex)}}}$", ha="left", fontsize=7,
+    a.text(-0.4, floor * 1.35, rf"basis floor ${mant}\times10^{{{int(ex)}}}$", ha="left", fontsize=7.2,
            color=fs.C["dark"])
     for xi, k in zip(x, order):
-        a.text(xi, tab[k]["c"] * 1.07, f"{tab[k]['c']:.4f}", ha="center", fontsize=6.8)
+        a.text(xi + 0.14, tab[k]["c"], f"{tab[k]['c']:.4f}", ha="left", va="center", fontsize=7.2)
     a.set_yscale("log")
     a.set_ylim(floor * 0.6, max(tab[k]["c"] for k in order) * 2.2)
+    a.set_xlim(-0.5, len(order) - 0.2)
     a.set_xticks(x)
     a.set_xticklabels([fs.name(k).replace(" ", "\n", 1) if len(fs.name(k)) > 10 else fs.name(k)
                        for k in order])
     a.set_ylabel("held-out nRMSE (c)")
     best = l1["folds"]["best"]
-    a.set_title(f"A  L1: the {fs.name(best)} is the best arm in every fold")
+    a.set_title(f"A  L1: the {fs.name(best)} is best in every fold")
 
     # ---- B: the learning curve, refit vs fixed basis
     rows = lc["axes"]["materials"]["rows"]
@@ -83,8 +84,8 @@ def main():
     sd = np.array([r["refit_sd_seeds"] for r in rows])
     b.errorbar(n, refit, yerr=sd, marker="o", ms=4, color=fs.C["blue"], capsize=2.5,
                label="basis refit on each subset")
-    b.plot(n, fixed, marker="s", ms=3.5, lw=1.0, ls="--", color=fs.C["red"], mfc="none",
-           label="basis fixed on all 192")
+    b.plot(n, fixed, marker="s", ms=5, lw=1.0, ls="--", color=fs.C["red"], mfc="none",
+           mew=1.1, zorder=4, label="basis fixed on all 192")
     beta = lc["axes"]["materials"]["beta"]
     ci = lc["axes"]["materials"]["beta_ci"]
     b.plot(n, refit[0] * (n / n[0]) ** (-beta), lw=0.9, color="0.45", ls=":")
@@ -95,9 +96,9 @@ def main():
     b.set_xlabel("training materials $N_{mat}$"); b.set_ylabel("held-out nRMSE (c)")
     b.set_title("B  L1: error keeps falling with materials")
     b.legend(loc="lower left")
-    b.text(0.97, 0.95, f"dotted: fit $\\propto N_{{mat}}^{{-{beta:.3f}}}$ (CI {ci[0]:.3f} to {ci[1]:.3f})\n"
-                       "the two curves coincide:\nnone of the gain is in the basis",
-           transform=b.transAxes, ha="right", va="top", fontsize=6.8, color="0.3")
+    b.text(0.97, 0.97, f"dotted: fit $\\propto N_{{mat}}^{{-\\beta}}$\n$\\beta$ = {beta:.3f} [{ci[0]:.3f}, {ci[1]:.3f}]\n"
+                       "the two curves coincide:\nno gain is in the basis",
+           transform=b.transAxes, ha="right", va="top", fontsize=7.2, color="0.3")
 
     # ---- C: the depth sweep
     dep = l2["families"]["mlp_depth"]["rows"]
@@ -109,11 +110,16 @@ def main():
                label="held out")
     c.plot(cap, train, marker="s", ms=3.5, lw=1.1, color="0.5", ls="--", label="training")
     bi = int(np.argmin(test))
-    c.plot([cap[bi]], [test[bi]], "o", ms=9, mfc="none", mec=fs.C["red"], mew=1.4)
+    c.plot([cap[bi]], [test[bi]], "o", ms=9, mfc="none", mec=fs.C["dark"], mew=1.4)
+    ref = int(l2s["reference"].split("/d")[1])
+    ri = int(np.where(cap == ref)[0][0])
+    c.annotate("L1 setting", (cap[ri], test[ri]), textcoords="offset points", xytext=(18, 14),
+               fontsize=7.2, color="0.35",
+               arrowprops=dict(arrowstyle="-", lw=0.6, color="0.35", shrinkA=0, shrinkB=4))
     c.annotate(f"best: depth {int(cap[bi])}, {l2s['pct']:+.1f} % vs the L1 setting\n"
                f"selection-adjusted [{l2s['pct_sim_lo']:+.1f}, {l2s['pct_sim_hi']:+.1f}] %",
                (cap[bi], test[bi]), textcoords="axes fraction", xytext=(0.03, 0.03), ha="left",
-               fontsize=6.6, color=fs.C["red"])
+               fontsize=7.2, color=fs.C["dark"])
     c.set_xlabel("MLP depth (hidden layers)"); c.set_ylabel("nRMSE (c)")
     c.set_yscale("log")
     c.set_ylim(min(train) * 0.72, max(test) * 1.06)     # an empty band at the bottom for the note
@@ -136,7 +142,7 @@ def main():
     d.legend(loc="upper left")
     d.text(0.98, 0.97, f"{l3s['n_sig_simultaneous']} of {l3s['n_pairs']} significant\n"
                        f"after selection,\nnone reversed",
-           transform=d.transAxes, ha="right", va="top", fontsize=6.8, color="0.3")
+           transform=d.transAxes, ha="right", va="top", fontsize=7.2, color="0.3")
 
     os.makedirs(OUT, exist_ok=True)
     for ext in ("png", "pdf"):
