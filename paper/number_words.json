@@ -1316,24 +1316,31 @@
   "line_at_review": 459
  },
  {
-  "key": " [Seven] explanations of the error on",
+  "key": "blished breakthrough curve. [Seven] explanations of the",
   "word": "Seven",
   "class": "DESIGN",
   "reason": "the seven pre-registered rungs L1-L7",
-  "line_at_review": 24
+  "line_at_review": 25
  },
  {
-  "key": "fail on unseen parameters for [two] reasons: its reduced basis",
+  "key": "an unseen material for [two] reasons: its reduced basis",
   "word": "two",
   "class": "PROSE",
   "reason": "grammar or structural usage",
-  "line_at_review": 17
+  "line_at_review": 19
  },
  {
-  "key": "materials in [five] folds, with a cluster bootstr",
+  "key": "the wrong coefficients. Which [one] limits accuracy decides where",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 21
+ },
+ {
+  "key": "d on \\ held-out materials in [five] folds, with a cluster bootstr",
   "word": "five",
   "class": "DESIGN",
   "reason": "the pre-registered five-fold design",
-  "line_at_review": 25
+  "line_at_review": 27
  }
 ]

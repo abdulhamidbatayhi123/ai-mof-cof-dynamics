@@ -65,21 +65,23 @@ Y\i{}ld\i{}z Technical University, Y\i{}ld\i{}z Campus, Barbaros Bulvar\i{},
 34349 Be\c{s}ikta\c{s}, Istanbul, T\"urkiye}
 
 \begin{abstract}
-A parametric surrogate can fail on unseen parameters for two reasons: its reduced basis
-cannot represent the true field, or its map from parameters to basis coefficients
-predicts the wrong coefficients. Which binds decides where method development should
-go, yet it is rarely measured. We measure it for a one-dimensional, non-isothermal
-convection--dispersion--adsorption model of a packed bed, verified against \nLzeroNchecks{} closed-form solutions and compared,
-unfitted, to a published breakthrough curve of the metal--organic framework MOF-303.
-Seven explanations of the error on unseen adsorbents were registered in advance, each
-with the evidence that would eliminate it, and tested on \nNclustFolds\ held-out
-materials in five folds, with a cluster bootstrap that corrects
-for choosing the best configuration on the test materials. Beyond the first few modes
+Machine-learning surrogates could let designers of metal--organic framework (MOF) water
+harvesters screen many candidate adsorbents without solving the transport equations for
+each. A surrogate fails on an unseen material for one of two reasons: its reduced basis
+cannot represent the true field, or its map from material parameters to basis
+coefficients predicts the wrong coefficients. Which one limits accuracy decides where
+method development should go, yet it is rarely measured. We measure it for a
+one-dimensional, non-isothermal convection--dispersion--adsorption model of a packed
+bed, verified against \nLzeroNchecks{} closed-form solutions and compared,
+unfitted, with a published MOF-303 breakthrough curve. Seven explanations of the
+error were registered in advance, each with the evidence that would eliminate it, and
+tested on \nNclustFolds\ held-out materials in five folds, with a cluster bootstrap
+that corrects for choosing the best configuration on the test materials. Beyond the first few modes
 the map, not the basis, limits accuracy: refining the basis
 \(\nLfiveVtwoFloorDrop\times\) changes a per-mode map's error by
 \nLfiveVtwoCoefChangePct\,\% and a DeepONet's by \nLfiveVtwoGainPct\,\%. More training
-materials still help (error \(\propto N_{\mathrm{mat}}^{-\nLCbeta}\)) and model capacity is
-not eliminated, while Kolmogorov--Arnold networks lose to a same-size perceptron in every
+materials still help (error \(\propto N_{\mathrm{mat}}^{-\nLCbeta}\)) and larger models are
+not ruled out, while Kolmogorov--Arnold networks lose to a same-size perceptron in every
 comparison by point estimate (exploratory, \nNclustLegacy\ materials). A
 physics-residual loss at a small weight improves transfer by \nLfourbMatGainPct\,\%
 (\nLfourbMatNmat\ materials); larger weights hurt. Learning beats fitted closed forms
