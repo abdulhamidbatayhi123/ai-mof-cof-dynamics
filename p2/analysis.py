@@ -8,6 +8,8 @@ there is no crossing inside the tested range -- all successes or all failures, o
 fitted slope with the wrong sign -- because extrapolating a boundary off the grid is
 exactly the unsupported number rule 10 forbids.
 """
+from collections import defaultdict
+
 import numpy as np
 from scipy.optimize import minimize
 
@@ -71,6 +73,36 @@ def boundary(successes_by_da, n_boot=2000, seed=0, rising=False):
         return None, None, None
     lo, hi = _ci(draws)
     return 10 ** b, (None if lo is None else 10 ** lo), (None if hi is None else 10 ** hi)
+
+
+def paired_shift(pairs_by_da, n_boot=2000, seed=0):
+    """A2.5 as written: log10 Da*(a) - log10 Da*(b) where a and b were run on the SAME
+    replicate observations; pairs_by_da = {Da: [(a_outcome, b_outcome), ...]}, one pair per
+    shared replicate. Each bootstrap draw resamples the replicate indices within each Da
+    level once and applies them to both, so the interval keeps the pairing.
+    Returns (shift or None, lo, hi)."""
+    das = sorted(d for d in pairs_by_da if len(pairs_by_da[d]))
+    if not das:
+        return None, None, None
+    arr = {d: np.asarray(pairs_by_da[d], float) for d in das}
+    x = np.concatenate([np.full(len(arr[d]), np.log10(d)) for d in das])
+    fa = _fit(x, np.concatenate([arr[d][:, 0] for d in das]))
+    fb = _fit(x, np.concatenate([arr[d][:, 1] for d in das]))
+    if fa is None or fb is None:
+        return None, None, None
+    rng = np.random.default_rng(seed)
+    draws = np.full(n_boot, np.nan)
+    for i in range(n_boot):
+        ya, yb = [], []
+        for d in das:
+            idx = rng.integers(0, len(arr[d]), len(arr[d]))
+            ya.append(arr[d][idx, 0])
+            yb.append(arr[d][idx, 1])
+        a, b = _fit(x, np.concatenate(ya)), _fit(x, np.concatenate(yb))
+        if a is not None and b is not None:
+            draws[i] = a - b
+    lo, hi = _ci(draws)
+    return float(fa - fb), lo, hi
 
 
 def shift_interval(succ_a, succ_b, n_boot=2000, seed=0):
@@ -214,12 +246,20 @@ def aggregate_h2b(slice_words, share=2.0 / 3.0):
         else:
             none.append(sl)
     n = sum(counted.values())
+    # A1.4 as written: the counts by each slicing axis (the slice key's '|'-separated parts)
+    by_axis = defaultdict(lambda: {w: 0 for w in H2B_WORDS})
+    for sl, w in slice_words.items():
+        if w in H2B_WORDS:
+            for part in str(sl).split("|"):
+                by_axis[part][w] += 1
     if n == 0:
-        return {"words": "no verdict: no slice has a boundary for both", "counts": counted, "no_verdict": none}
+        return {"words": "no verdict: no slice has a boundary for both", "counts": counted,
+                "counts_by_axis": dict(by_axis), "no_verdict": none}
     top = max(counted, key=counted.get)
     words = top if counted[top] >= share * n else (
         "mixed: the position of discovery relative to identifiability depends on the slice")
-    return {"words": words, "counts": counted, "n_with_verdict": n, "no_verdict": none}
+    return {"words": words, "counts": counted, "counts_by_axis": dict(by_axis),
+            "n_with_verdict": n, "no_verdict": none}
 
 
 def positive_control(success, identifiable, need=0.9):

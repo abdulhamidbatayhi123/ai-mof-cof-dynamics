@@ -721,3 +721,69 @@ def test_shift_interval_and_spread_interval():
     conds = {f"c{i}": _logistic_successes(R, 1.0 + 0.1 * i, 4.0, 45, rng) for i in range(3)}
     r = r_collapse(conds, n_boot=100)
     assert r["spread_ci"][0] is not None and r["spread_ci"][0] <= r["spread_ci"][1]
+
+# ---- B83: the analysis code conforms to the A1/A2 text
+
+def test_a_method_run_on_part_of_a_slice_cannot_be_selected():
+    """A2.2 as written: a method run on only some (cell, sigma, eps) of a slice (like M7 on
+    4 of 16 noise pairs) takes no part in the selection, however well it does there."""
+    from p2_analyze import _best
+    from p2_grid_o1 import N_REP
+    cells = {f"c{d:.3g}": {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": float(d)}
+             for d in np.logspace(-1, 3, 9)}
+    P = lambda d, b: 1.0 / (1.0 + np.exp(4.0 * (np.log10(d) - np.log10(b))))
+    rng = np.random.default_rng(8)
+    rows = {}
+    for nm, c in cells.items():
+        for s in (0.005, 0.02):
+            for rep in range(N_REP):
+                rows[f"{nm}|{s}|0.0|{rep}|A|strong"] = {"success": bool(rng.uniform() < P(c["Da"], 10))}
+            # M7-like: only at sigma = 0.005, and much better there
+        for rep in range(N_REP):
+            rows[f"{nm}|0.005|0.0|{rep}|M7|strong"] = {"success": bool(rng.uniform() < P(c["Da"], 300))}
+    assert _best(rows, cells, lambda c, s, e: True) == "A|strong"
+
+
+def test_paired_shift_keeps_the_pairing():
+    from p2.analysis import paired_shift
+    rng = np.random.default_rng(9)
+    Da = np.logspace(-1, 3, 9)
+    P = lambda d, b: 1.0 / (1.0 + np.exp(4.0 * (np.log10(d) - b)))
+    pairs = {float(d): [(float(u < P(d, 1.8)), float(u < P(d, 1.2))) for u in rng.uniform(size=45)]
+             for d in Da}
+    sh, lo, hi = paired_shift(pairs, n_boot=200)
+    assert lo < sh < hi and abs(sh - 0.6) < 0.25
+    assert paired_shift({}, n_boot=10) == (None, None, None)
+
+
+def test_h2b_counts_by_axis():
+    from p2.analysis import aggregate_h2b
+    w = "discovery fails before identifiability"
+    r = aggregate_h2b({"sigma=0.02|eps=0.0|langmuir|pe=1.0": w,
+                       "sigma=0.02|eps=0.02|step|pe=1.0": w})
+    assert r["counts_by_axis"]["sigma=0.02"][w] == 2 and r["counts_by_axis"]["step"][w] == 1
+
+
+def test_h2c_withheld_and_strict_falsification():
+    """A2.6: with every isotherm withheld there is no H2c verdict; A2.3: falsified only if
+    EVERY slice has a verdict below the threshold."""
+    from p2_analyze import h2c
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(10), n_rep=N_REP)
+    r = h2c(cells, o1, m5, n_boot=20, withheld=("langmuir",))
+    assert r["words"].startswith("withheld") and r["h2c_holds"] is None
+    flat = {k: {"success": True} for k in m5}              # no crossing -> no verdict
+    r = h2c(cells, o1, flat, n_boot=20)
+    assert r["h2c_falsified"] is False
+
+
+def test_descriptive_o23_runs_on_planted_rows():
+    from p2_analyze import descriptive_o23
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(11), n_rep=N_REP)
+    o2 = {k.replace("|0.02|0.02|", "|0.02|0.02|"): v for k, v in o1.items()}
+    o2i = {f"{nm}|0.02|0.02|{r}": {"identifiable": bool(np.random.default_rng(r).uniform() < 0.5)}
+           for nm in cells for r in range(3)}
+    res = descriptive_o23(cells, o2, o2i, {}, n_boot=20)
+    s = res["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
+    assert s["O2_best_method"] == "B|strong" and s["O3_da_ident"] is None

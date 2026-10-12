@@ -1085,7 +1085,8 @@ All computation will run on one CPU workstation without a GPU, one training job 
 through a job queue with a completion test per job.
 \begin{itemize}
 \item Ground truth: the 81 solves and the 9 isothermal-control solves are complete; the
-H2c refinement will add 8 $\Da$ levels per isotherm after the main grid.
+H2c refinement will add 48 solves after the main grid (8 $\Da$ levels for each of the 6
+(isotherm, $\Pe$) slices).
 \item O1 and O2 regression methods (M2--M6, M9, and M1b followed by the O1 methods) at 60
 replicates over about 2600 cells. These take seconds each. Every method has a grid runner,
 and every runner refuses to start unless the pre-registration matches its latest freeze
@@ -1096,10 +1097,12 @@ commit.
 65\,h at 60 replicates (54 cells $\times$ 16 ($\sigma$, $\varepsilon$) $\times$ 60).
 % PREREG_P2 s.10 "O1 identifiability (2026-10-04)": 4.5 s per replicate (~22 h at 20);
 % 4.5 x 54 x 16 x 60 / 3600 = 64.8 h.
-\item M7 on its O1 subgrid at 60 replicates: 4320 searches of at most 35\,s each, so at
-most about 42\,h; and the one-replicate M1 demonstration.
-% 18 cells (9 Da x 2 isotherms, Pe x1) x 4 (sigma, eps) x 60 = 4320; 35 s from
-% results/p2_pilot_m7.json (slowest gate search).
+\item M7 on its O1 subgrid at 60 replicates, and on the refined cells of its $\Pe\times1$
+slices: 5280 searches of at most 35\,s each, so at most about 51\,h; and the one-replicate M1
+demonstration.
+% 18 cells (9 Da x 2 isotherms, Pe x1) x 4 (sigma, eps) x 60 = 4320, plus refined 8 levels
+% x 2 isotherms x 60 = 960 -> 5280; 35 s from results/p2_pilot_m7.json (slowest gate search);
+% 5280 x 35 / 3600 = 51.3 h.
 \item O2 and O3 identifiability: a full column solve per profile point, 3 replicates on
 the subgrid.
 \end{itemize}
