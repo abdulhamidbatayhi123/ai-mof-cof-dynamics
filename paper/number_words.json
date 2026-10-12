@@ -1330,17 +1330,10 @@
   "line_at_review": 17
  },
  {
-  "key": "ng coefficients. Which of the [two] binds decides where method de",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 19
- },
- {
-  "key": "materials in [five] folds unless stated otherwise",
+  "key": "materials in [five] folds, with a cluster bootstr",
   "word": "five",
   "class": "DESIGN",
   "reason": "the pre-registered five-fold design",
-  "line_at_review": 26
+  "line_at_review": 25
  }
 ]

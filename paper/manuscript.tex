@@ -67,27 +67,25 @@ Y\i{}ld\i{}z Technical University, Y\i{}ld\i{}z Campus, Barbaros Bulvar\i{},
 \begin{abstract}
 A parametric surrogate can fail on unseen parameters for two reasons: its reduced basis
 cannot represent the true field, or its map from parameters to basis coefficients
-predicts the wrong coefficients. Which of the two binds decides where method development
-should go, yet it is rarely measured. We measure it for a one-dimensional,
-non-isothermal convection--dispersion--adsorption model of a packed bed, solved by
-finite volumes, verified against \nLzeroNchecks{} closed-form solutions and compared,
+predicts the wrong coefficients. Which binds decides where method development should
+go, yet it is rarely measured. We measure it for a one-dimensional, non-isothermal
+convection--dispersion--adsorption model of a packed bed, verified against \nLzeroNchecks{} closed-form solutions and compared,
 unfitted, to a published breakthrough curve of the metal--organic framework MOF-303.
 Seven explanations of the error on unseen adsorbents were registered in advance, each
 with the evidence that would eliminate it, and tested on \nNclustFolds\ held-out
-materials in five folds unless stated otherwise, with a cluster bootstrap that corrects
+materials in five folds, with a cluster bootstrap that corrects
 for choosing the best configuration on the test materials. Beyond the first few modes
 the map, not the basis, limits accuracy: refining the basis
 \(\nLfiveVtwoFloorDrop\times\) changes a per-mode map's error by
 \nLfiveVtwoCoefChangePct\,\% and a DeepONet's by \nLfiveVtwoGainPct\,\%. More training
 materials still help (error \(\propto N_{\mathrm{mat}}^{-\nLCbeta}\)) and model capacity is
 not eliminated, while Kolmogorov--Arnold networks lose to a same-size perceptron in every
-comparison by point estimate (exploratory, \nNclustLegacy\ materials). The governing
-equations' residual, as a training loss at a small weight, improves transfer by
-\nLfourbMatGainPct\,\% (\nLfourbMatNmat\ materials); larger weights hurt. A perceptron on
-proper-orthogonal-decomposition coefficients reaches \nCoarseTargetPct\,\% normalised
-error, and fitted closed forms are \nBfitRatio\ times worse than learning, yet a coarse
-finite-volume solve is more accurate still and cheaper below about \nCoarseBreakEven\
-queries. Effort is better spent on the coefficient map and on training data than on
+comparison by point estimate (exploratory, \nNclustLegacy\ materials). A
+physics-residual loss at a small weight improves transfer by \nLfourbMatGainPct\,\%
+(\nLfourbMatNmat\ materials); larger weights hurt. Learning beats fitted closed forms
+\nBfitRatio-fold, yet a coarse finite-volume solve is more accurate than the perceptron
+surrogates (\nCoarseTargetPct\,\% normalised error) and cheaper below about
+\nCoarseBreakEven\ queries. Effort is better spent on the coefficient map and on training data than on
 richer bases.
 \end{abstract}
 
