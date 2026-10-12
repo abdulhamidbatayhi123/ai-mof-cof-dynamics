@@ -745,11 +745,11 @@ REFS = [
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",
-        title="{[dataset]} {Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents}",
-        howpublished="Zenodo", note="Version v1.0.3", year="2026",
-        doi="10.5281/zenodo.23311637"),
+        title="{[dataset]} {Code, results and pre-registrations for: The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents}",
+        howpublished="Zenodo", note="Version v1.0.4", year="2026",
+        doi="10.5281/zenodo.23312204"),
      "The archived release of this repository. DataCite record read from the Zenodo API "
-     "2026-10-12 (v1.0.3: creator, title, version; v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
+     "2026-10-12 (v1.0.4: creator, title, version; v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
      "10.5281/zenodo.23302586 resolves to the latest version. The [dataset] tag is the "
      "guide's marker for production and is removed in the published article.", False),
 ]
