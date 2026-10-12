@@ -525,6 +525,17 @@ spread interval, point-estimate `select_best`), `p2_analyze.py` (A2.1–A2.6),
 `p2_generate.py` (refined cells per slice), and tests in `tests/test_p2.py`. Committed under
 a commit whose message begins `FREEZE PREREG_P2 amendment A2`.
 
+### A3 — 2026-10-12, after A2 (f87f843), before any discovery method has run on any grid cell
+
+**Timing.** The "Registered Report timing" paragraph (§11) let the grid run only after Stage-1
+in-principle acceptance, or, without it, after a dated amendment saying so, in which case
+the paper is reported as a pre-registered study. This is that amendment. The author has
+decided not to wait for a Stage-1 decision; the Stage-1 manuscript was never submitted. The
+confirmatory grid runs now, exactly as frozen and amended by A1 and A2, and the paper is
+reported as a **pre-registered study, not a Registered Report**. Nothing else changes:
+every hypothesis, metric, threshold, decision rule, replicate count and verdict wording
+stands. The grid drivers check this commit, so no result can predate it.
+
 ## 10. Pre-freeze revisions, 2026-10-04 (before any discovery method has run on any grid cell)
 Found by drafting the Registered-Report Stage-1 manuscript against this document and
 the code; each fixed here, in the open, rather than silently:
