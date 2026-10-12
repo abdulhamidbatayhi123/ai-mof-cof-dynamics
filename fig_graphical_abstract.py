@@ -29,7 +29,7 @@ B = json.load(open("results/l5_bottleneck_v2.json", encoding="utf-8"))
 LADDER = [
     ("L1", "more materials", True, f"helps: error ∝ $N^{{-{N['LCbeta']}}}$"),
     ("L2", "more capacity", True, "not eliminated"),
-    ("L3", "KAN basis", False, "eliminated"),
+    ("L3", "KAN map", False, "eliminated"),
     ("L4", "physics as a loss", True, f"helps {N['LfourbMatGainPct']} %, small weight"),
     ("L5", "bigger basis", True, f"helps {N['LfiveVtwoGainPct']} %, all by $p$ = 16"),
     ("L6", "separate kinetics", False, "no Damköhler effect"),
@@ -45,7 +45,7 @@ def main():
 
     # ---- left: the question
     q = fig.add_axes([0.0, 0.0, 0.25, 1.0]); q.axis("off")
-    q.text(0.06, 0.90, "Basis or map?\nWhat limits\nsurrogates on\nunseen adsorbents?",
+    q.text(0.06, 0.90, "What limits\nsurrogates on\nunseen\nadsorbents?",
            fontsize=7.0, fontweight="bold", va="top", color=fs.C["dark"], linespacing=1.15)
     steps = ["isotherm and pellet\nparameters", "surrogate", "breakthrough\nfield"]
     ys = [0.42, 0.27, 0.12]

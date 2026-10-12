@@ -53,8 +53,8 @@
 
 \begin{frontmatter}
 
-\title{Basis or map? A pre-registered decomposition of the error of reduced-order and
-neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents}
+\title{The coefficient map, not the basis: what limits neural-operator and
+reduced-order surrogates on unseen adsorbents}
 
 \author{Abdulhamid Batayhi\corref{cor1}\fnref{orcid}}
 \cortext[cor1]{Corresponding author.}
@@ -65,34 +65,36 @@ Y\i{}ld\i{}z Technical University, Y\i{}ld\i{}z Campus, Barbaros Bulvar\i{},
 34349 Be\c{s}ikta\c{s}, Istanbul, T\"urkiye}
 
 \begin{abstract}
-Whether the error of a parametric surrogate on unseen parameter sets is set by its
-reduced basis or by the map from parameters to the basis coefficients is rarely
-measured. We measure it for a one-dimensional, non-isothermal
-convection--dispersion--adsorption model of a packed bed, solved by finite volumes,
-verified against \nLzeroNchecks{} closed-form solutions and compared, unfitted, to a
-published breakthrough curve of the metal--organic framework MOF-303. Seven candidate
-explanations of the error on unseen adsorbents were registered in advance with their
-eliminating evidence and tested on \nNclustFolds\ held-out materials in five folds unless
-stated otherwise, with a cluster bootstrap that corrects for choosing the best
-configuration on the test materials. A perceptron on proper-orthogonal-decomposition
-coefficients reaches \nCoarseTargetPct\,\% normalised error, and a per-mode learner's
-error still falls as \(N_{\mathrm{mat}}^{-\nLCbeta}\) with training materials. Beyond the
-first few modes the map, not the basis, limits accuracy: refining the basis
+A parametric surrogate can fail on unseen parameters for two reasons: its reduced basis
+cannot represent the true field, or its map from parameters to basis coefficients
+predicts the wrong coefficients. Which of the two binds decides where method development
+should go, yet it is rarely measured. We measure it for a one-dimensional,
+non-isothermal convection--dispersion--adsorption model of a packed bed, solved by
+finite volumes, verified against \nLzeroNchecks{} closed-form solutions and compared,
+unfitted, to a published breakthrough curve of the metal--organic framework MOF-303.
+Seven explanations of the error on unseen adsorbents were registered in advance, each
+with the evidence that would eliminate it, and tested on \nNclustFolds\ held-out
+materials in five folds unless stated otherwise, with a cluster bootstrap that corrects
+for choosing the best configuration on the test materials. Beyond the first few modes
+the map, not the basis, limits accuracy: refining the basis
 \(\nLfiveVtwoFloorDrop\times\) changes a per-mode map's error by
-\nLfiveVtwoCoefChangePct\,\% and a DeepONet's by \nLfiveVtwoGainPct\,\%. Model capacity is not
-eliminated. Kolmogorov--Arnold networks lose to a same-size perceptron in every
+\nLfiveVtwoCoefChangePct\,\% and a DeepONet's by \nLfiveVtwoGainPct\,\%. More training
+materials still help (error \(\propto N_{\mathrm{mat}}^{-\nLCbeta}\)) and model capacity is
+not eliminated, while Kolmogorov--Arnold networks lose to a same-size perceptron in every
 comparison by point estimate (exploratory, \nNclustLegacy\ materials). The governing
 equations' residual, as a training loss at a small weight, improves transfer by
-\nLfourbMatGainPct\,\% (\nLfourbMatNmat\ materials); larger weights hurt, and residual
-minimisation at inference makes predictions worse. Fitted closed forms are \nBfitRatio\
-times worse than learning, yet a coarse finite-volume solve is more accurate than the
-perceptron surrogates and cheaper below about \nCoarseBreakEven\ queries.
+\nLfourbMatGainPct\,\% (\nLfourbMatNmat\ materials); larger weights hurt. A perceptron on
+proper-orthogonal-decomposition coefficients reaches \nCoarseTargetPct\,\% normalised
+error, and fitted closed forms are \nBfitRatio\ times worse than learning, yet a coarse
+finite-volume solve is more accurate still and cheaper below about \nCoarseBreakEven\
+queries. Effort is better spent on the coefficient map and on training data than on
+richer bases.
 \end{abstract}
 
 \begin{keyword}
-reduced-order model \sep proper orthogonal decomposition \sep neural operator \sep
-physics-informed loss \sep finite volume method \sep packed-bed adsorption \sep
-surrogate model
+neural operator \sep reduced-order model \sep proper orthogonal decomposition \sep
+physics-informed loss \sep packed-bed adsorption \sep metal--organic framework \sep
+pre-registration
 \end{keyword}
 
 \end{frontmatter}
