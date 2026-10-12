@@ -30,7 +30,7 @@ N = json.load(open(os.path.join(ROOT, "paper", "numbers.json"), encoding="utf-8"
 # The highlights, with every number taken from the results (numbers.json).
 HIGHLIGHTS = [
     "A diagnostic separates basis error from map error in parametric surrogates",
-    "Beyond a few modes the parameter-to-coefficient map binds the error, not the basis",
+    "Beyond a few modes the parameter-to-coefficient map, not the basis, limits accuracy",
     "Seven explanations tested against pre-registered, selection-corrected criteria",
     f"A small physics-residual weight cuts held-out error {N['LfourbMatGainPct']} %; larger weights hurt",
     f"A coarse solve beats the perceptron surrogates below {N['CoarseBreakEven']} queries",
