@@ -89,6 +89,10 @@ def main():
     shutil.copy(os.path.join(ROOT, "figures", "graphical_abstract.tiff"), OUT)
     shutil.copy(os.path.join(ROOT, "paper", "si_ledger.pdf"),
                 os.path.join(OUT, "Supplementary_S1_correction_ledger.pdf"))
+    si2 = os.path.join(ROOT, "paper", "si_extended.pdf")
+    if not os.path.exists(si2) or os.path.getmtime(si2) < os.path.getmtime(os.path.join(ROOT, "paper", "manuscript.tex")):
+        refuse("Supplementary S2 is missing or older than the manuscript: run make_si.py")
+    shutil.copy(si2, os.path.join(OUT, "Supplementary_S2_supporting_detail.pdf"))
 
     # Vitae: biography (editable) and passport photograph, kept in the private outreach/
     # folder and never committed; the package says plainly if either is still missing.

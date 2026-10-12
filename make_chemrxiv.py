@@ -47,6 +47,7 @@ def main():
             sys.exit("REFUSED: compile failed:\n  " + "\n  ".join(bad[:10] or [r.stderr[-600:]]))
         shutil.copy(os.path.join(tmp, "manuscript.pdf"), os.path.join(OUT, "manuscript_chemrxiv.pdf"))
     shutil.copy(os.path.join(SUB, "Supplementary_S1_correction_ledger.pdf"), OUT)
+    shutil.copy(os.path.join(SUB, "Supplementary_S2_supporting_detail.pdf"), OUT)
     print(f"wrote {OUT}: manuscript_chemrxiv.pdf (no journal footer) and the supplement")
 
 

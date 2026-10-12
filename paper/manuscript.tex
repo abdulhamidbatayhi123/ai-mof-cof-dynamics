@@ -110,21 +110,15 @@ candidate frameworks wants thousands of breakthrough fields for materials that h
 been simulated, so the quantity that matters is not fit but \emph{transfer}, the error on
 a material the model has never seen.
 
-This framing changes what counts as evidence. A surrogate cannot beat its own
-reference on accuracy, because the reference defines the target
-(Section~\ref{sec:reference} measures rather than assumes how good it is). A
-synthetic study can therefore only measure
-accuracy per unit inference cost, or accuracy from less information.
-
-It also changes what counts as a strong result. McGreivy and Hakim \cite{mcgreivy2024weak}, surveying
-machine learning for fluid-related partial differential equations, determine that
-\emph{79\,\% (60 of 76)} of articles claiming to outperform a standard numerical
-method compare against a weak baseline, and find reporting biases widespread. That
-finding served as the design brief for this study.
-Grossmann and co-workers \cite{grossmann2024pinn}, comparing physics-informed networks against the finite
-element method (FEM) on Poisson, Allen--Cahn and semilinear Schr\"odinger problems, report
-that the networks did not outperform FEM \emph{in their study}. That is a scoped
-result, and we scope ours the same way.
+A surrogate cannot beat its own reference on accuracy, because the reference defines
+the target, so a synthetic study can only measure accuracy per unit cost or accuracy
+from less information. McGreivy and Hakim \cite{mcgreivy2024weak} found that
+\emph{79\,\% (60 of 76)} of articles claiming to outperform a standard numerical method
+in machine learning for fluid-related partial differential equations compare against
+a weak baseline; that finding was the design brief for this study, which therefore
+includes a coarse numerical solve as a baseline. Grossmann and co-workers
+\cite{grossmann2024pinn} report that physics-informed networks did not outperform the
+finite element method \emph{in their study}; we scope our results the same way.
 
 \paragraph{Terms used throughout} The terms below are defined once
 (Figure~\ref{fig:schematic} shows the objects involved).
@@ -139,17 +133,8 @@ does not.
 patterns, the \emph{basis}, here a proper orthogonal decomposition (POD); the
 surrogate's real job is the \emph{map} from the parameter set to the weights. The basis
 floor (POD floor) is the error left when the weights are exact.
-\item[\(n\)-width.] How fast the best possible basis error falls as patterns are added;
-a theoretical lower bound for any method that sums a fixed basis.
 \item[Twin.] The data-only model a physics-informed arm is compared with: identical
 architecture, data and budget, without the physics term.
-\item[Damk\"ohler number.] The product of the linear-driving-force rate constant and
-the simulated duration (Section~\ref{sec:model}); large values mean the solid stays
-near equilibrium over the run, small values kinetic control. Because some runs were
-extended, it also carries the length of the run.
-\item[Henry branch, step.] The low-humidity, near-linear part of the water isotherm,
-and the sharp cooperative step of pore filling above it; together they produce the two
-adsorption fronts of Section~\ref{sec:physics}.
 \item[Codes A\(n\), B\(n\).] Entries of the correction ledger (Section~\ref{sec:corrections}
 and Supplementary S1): A for a withdrawn claim, B for a caught defect.
 \item[Edge rule.] An optimum found at the edge of a tuning range does not count until
@@ -186,55 +171,35 @@ measurement protocol for parametric surrogates (the basis floor against the lear
 map, cluster-robust and selection-corrected inference, and cost against a coarse
 numerical solve) and its outcome on one nonlinear system, negative results included.
 
-\paragraph{Prior art, stated up front} Transfer to held-out \emph{systems} is
-established in operator learning: Poseidon \cite{herde2024poseidon} pretrains on fluid-dynamics equations and
-reports that it ``generalizes very well to new physics that is not seen during
-pretraining'' across fifteen downstream tasks, and Multiple Physics Pretraining \cite{mccabe2023multiple}
-reports transfer to ``systems with previously unseen physical components''.
-Testing on held-out \emph{materials} is established for interatomic potentials: MOFSimBench \cite{krass2025mofsimbench}
-evaluates twenty universal machine-learning interatomic potentials on
-metal--organic frameworks. In adsorption-process engineering a surrogate that takes
-the material as an input is also established: MAPLE \cite{pai2020generalized} takes
-Langmuir isotherm parameters as inputs and predicts cyclic-steady-state performance
-indicators for an arbitrary adsorbent, and it has been validated on a laboratory rig
-with two zeolites whose measured isotherms were not in its training data
-\cite{pai2022experimental}. Machine-learning surrogates of pressure-swing adsorption
-have been used for multiobjective process optimisation \cite{subraveti2019machine},
-and adsorbents, metal--organic frameworks among them, have been screened at the
-process level with the help of learned models
-\cite{leperi2019development,burns2020prediction}. On the numerical side, the arms of
-our first rungs are a non-intrusive reduced-order model in the sense of Hesthaven and
-Ubbiali \cite{hesthaven2018non}: a POD basis with a
-learned map from parameters to its coefficients. To the surrogate, a ``material'' is a
-point in the space of isotherm and bed parameters (Section~\ref{sec:methods}), with its
-kinetics derived from them, and a sample adds the operating conditions; the
-question this paper asks (which term binds the error, the basis or the map) is
-the parametric reduced-order-model question, asked of an adsorption column and
-answered with a pre-registered test. Operator learning has reached cyclic adsorption too, with
-generalisation tested across initial conditions \cite{ceccanti2026deep}. What we do
-not find is the combination tested here: transient fields rather than steady-state
-indicators, inflected water isotherms rather than Langmuir ones, and a held-out
-material test that is cluster-robust and calibrated and asks what binds the error
-rather than whether it is small. To our knowledge, transfer to held-out materials has
-not been evaluated for operator learners on transient adsorption fields (A23 records an
-earlier, broader version of this claim that the works cited above falsified).
+\paragraph{Prior art} Transfer to held-out \emph{systems} is established in operator
+learning, by foundation models pretrained on many equations
+\cite{herde2024poseidon,mccabe2023multiple}, and transfer to held-out \emph{materials}
+for interatomic potentials of metal--organic frameworks \cite{krass2025mofsimbench}.
+In adsorption-process engineering, MAPLE \cite{pai2020generalized} takes Langmuir
+isotherm parameters as inputs and predicts cyclic-steady-state performance for an
+arbitrary adsorbent, validated on a laboratory rig with two unseen zeolites
+\cite{pai2022experimental}; learned surrogates have driven process optimisation
+\cite{subraveti2019machine} and process-level screening of adsorbents, metal--organic
+frameworks among them \cite{leperi2019development,burns2020prediction}; and operator
+learning has reached cyclic adsorption with generalisation across initial conditions
+\cite{ceccanti2026deep}. To the surrogate, a material is a point in the space of
+isotherm and bed parameters (Section~\ref{sec:methods}). What is new here is the
+combination: transient fields rather than steady-state indicators, inflected water
+isotherms rather than Langmuir ones, and a cluster-robust, calibrated held-out-material
+test that asks what binds the error rather than whether it is small. To our knowledge,
+transfer to held-out materials has not been evaluated for operator learners on
+transient adsorption fields (A23 records an earlier, broader version of this claim that
+the works above falsified).
 
 Heinlein and Taraz \cite{heinlein2026error} establish, for DeepONets on Korteweg--de~Vries and Burgers
 equations, that the error is branch-dominated at large internal dimension, that the
-learned trunk can be replaced by a classical basis, and that the branch exhibits
-mode-wise spectral bias. We reproduce that signature independently and extend it in
-four ways: the inputs are a finite-dimensional parameter vector describing a
-\emph{material} rather than a discretised input function; evaluation is transfer to
-held-out materials under a cluster-robust, calibrated test rather than
-in-distribution error; we show that beyond the first few modes the plateau barely moves with basis size while
-the POD floor beneath it falls \(\nLfiveVtwoFloorDrop\times\), and calibrate
-the residual against an oracle to an equivalent mode count; and we locate it in the
-map from material parameters to the field rather than in the basis. A similar plateau on a different input type and a
-different partial differential equation suggests the wall is not peculiar to either
-problem, though one study on each side is not a general law. A separate line of work formalises how a neural
-operator relates to its own discretisation \cite{bartolucci2023reno};
-our encoding is held fixed across every arm, so that axis is controlled rather
-than studied here.
+learned trunk can be replaced by a classical basis, and that the branch shows mode-wise
+spectral bias. We reproduce that signature independently and extend it: the inputs are
+parameters describing a \emph{material}, evaluation is transfer to held-out materials
+under a calibrated test, and beyond the first few modes the error barely moves with
+basis size while the POD floor falls \(\nLfiveVtwoFloorDrop\times\), which locates it in
+the map rather than the basis. How a neural operator relates to its own discretisation
+\cite{bartolucci2023reno} is held fixed here: every arm uses the same encoding.
 
 \paragraph{Contributions}
 \begin{enumerate}
@@ -440,23 +405,11 @@ cooperativity is only weakly stepped: \nChemWeakNPct\,\% of the materials of the
 larger dataset have \(n < \nChemWeakN\), where the cooperative term is close to
 Langmuir.
 
-\subsection{Henry's law holds everywhere; the region where it dominates does not}
-
-Measured across all \nIsoNmat\ sampled materials rather than at two named
-configurations: \(n > 1\) strictly for every material, so the cooperative term
-is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
-But the Henry constant \(K_H = q_{\max} f_H b_H\), the slope of
-equation~\eqref{eq:isotherm} at the origin, spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
-\si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. The
-concentration at which the cooperative term reaches 1\,\% of loading (the top of
-the accessible Henry region) reaches \(10^{\nIsoHenryMax}\) of the feed at best
-and a median of \(10^{\nIsoHenryMed}\), but lies below \(10^{-3}\) of the feed for
-\nIsoHenryBelowMilli\ materials and below \(10^{-6}\) for \nIsoHenryBelowMicro. For
-those the isotherm is effectively Sips-like at every concentration the column
-visits. Since concentration is proportional to relative humidity at fixed
-temperature, the near-linear uptake regime of a median material ends at
-\(10^{\nIsoHenryMed}\) of the feed humidity. The design guarantees thermodynamic validity
-everywhere, not an experimentally accessible linear regime.
+Across all \nIsoNmat\ sampled materials \(n > 1\), so the Henry constant
+\(K_H = q_{\max} f_H b_H\), the slope of equation~\eqref{eq:isotherm} at the origin, is
+finite and positive everywhere; but the region where it dominates is often
+inaccessible: for a median material the near-linear uptake regime ends at
+\(10^{\nIsoHenryMed}\) of the feed humidity (Supplementary S2, Section S1).
 
 \subsection{An inflected isotherm produces a two-wave breakthrough}
 
@@ -644,41 +597,16 @@ directly on \([\nDcKldfLo, \nDcKldfHi]\)\,s\(^{-1}\) instead of being derived fr
 the particle, and a fixed particle size; it has \nDcNmatLeg\ materials and
 \nDcNacceptLeg\ accepted runs.
 
-\paragraph{Where real water-harvesting frameworks sit} The sampled space is meant to
-contain the adsorbents a water harvester would use, so we placed published ones in it
-(Figure~\ref{fig:watermofs}), on the four axes that are properties of the framework
-rather than of the pellet and the packing: step position, capacity, heat of
-adsorption and the fraction of capacity taken below the step. The values come from
-the primary literature, MOF-303 \cite{hanikel2019rapid,fathieh2018practical},
-MOF-801 \cite{furukawa2014water}, CAU-10-H \cite{solovyeva2021cau,frohlich2016water},
+\paragraph{Where real water-harvesting frameworks sit} Six published
+water-harvesting frameworks were placed in the sampled space from the primary
+literature: MOF-303 \cite{hanikel2019rapid,fathieh2018practical}, MOF-801
+\cite{furukawa2014water}, CAU-10-H \cite{solovyeva2021cau,frohlich2016water},
 aluminium fumarate \cite{hanikel2019rapid,laurenz2020novel}, MIL-160(Al)
 \cite{solovyeva2021mil,aumond2026adsorption,lenzen2019metal} and
-Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record}; each point spans the values its
-sources report, which differ in sample, temperature and in how the step is defined,
-and the below-step fractions are mostly read from published figures and are rough.
-Of the \nWmofN, \nWmofInside\ lie inside the sampled ranges on every axis. The
-exceptions are at the edges, and one is far outside: MOF-801's step, at about
-\nWmofEightStep, sits just below the sampled floor of \nWmofStepLo; one reported heat
-for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled range; and
-Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
-\(\nWmofBtddRatio\times\) the largest capacity we sampled, \nWmofQmaxHi. The verdicts of this paper are therefore
-statements about frameworks like MOF-303, aluminium fumarate and MIL-160, and should
-not be carried to record-capacity materials without new data. The cooperativity
-exponent \(n\), the steepness of the step and arguably the property a harvester
-designer cares about most, is not placed: the sources report isotherms, not fitted
-step exponents, and fitting equation~\eqref{eq:isotherm} to digitised curves would be
-a new measurement, not a reading of the literature.
-
-\begin{figure}[!tbp]
-\centering
-\includegraphics[width=\textwidth]{../figures/FigS2_water_mofs.pdf}
-\caption{Published water-harvesting frameworks against the sampled parameter space
-(shaded boxes). \textbf{A}~Step position and capacity. \textbf{B}~Fraction of capacity
-taken below the step and heat of adsorption. Bars span the values reported across
-sources; values, locations in each paper and confidence are recorded in
-\texttt{research/water\_mof\_parameters.json}.}
-\label{fig:watermofs}
-\end{figure}
+Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record}. \nWmofInside\ of the \nWmofN\ lie inside
+the sampled ranges on every axis, so the verdicts of this paper are statements about
+frameworks like MOF-303, aluminium fumarate and MIL-160, not about record-capacity
+materials (Supplementary S2, Section S2 and Figure S1).
 
 \begin{table}[t]
 \centering
@@ -961,155 +889,93 @@ diagnosis rests on the learning curve of L1.
 
 At matched parameter counts and each family at its own best learning rate, the
 multilayer perceptron beats both Kolmogorov--Arnold families at every budget:
-\nLthreeSigPair\ of the \nLthreePairs\ pairwise comparisons are significant as pairs. Both arms
-of each pair are chosen on the held-out materials, so we also pay for those choices
-with one simultaneous interval over all \nLthreeSelK\ pairs of learning rates
-(Section~\ref{sec:limitations}). \nLthreeSigSim\ of the \nLthreePairs\ remain
-significant, and in none is the Kolmogorov--Arnold network the better arm.
-\nLthreeArms\ arms were trained across
-\nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
-Kolmogorov--Arnold optimum was bracketed on both sides. Our protocol's rule~4 says an
-optimum on the edge of a sweep is admissible only if the metric has saturated there,
-and otherwise the sweep is extended. The perceptron selects the lowest rate at every
-budget, which is an edge, and it is not saturated in that sense: the next rate up is
-worse by \nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%, so a still lower rate might do
-better. For this verdict the open edge is conservative: a better-tuned perceptron
-could only widen its lead over arms that are all bracketed, so we report it rather
-than extend it. The Kolmogorov--Arnold arms, the ones being argued against, are the
-ones whose tuning is complete.
+\nLthreeSigPair\ of the \nLthreePairs\ pairwise comparisons are significant as pairs, and
+\nLthreeSigSim\ remain significant once both learning-rate choices are paid for with one
+simultaneous interval over all \nLthreeSelK\ pairs (Section~\ref{sec:limitations}); in
+none is the Kolmogorov--Arnold network the better arm. \nLthreeArms\ arms were trained
+across \nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
+Kolmogorov--Arnold optimum was bracketed on both sides. The perceptron's optimum sits at
+the lowest rate, an open edge (the next rate up is worse by
+\nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%); for this verdict that is conservative,
+because better tuning could only widen the perceptron's lead. Every family was tuned
+over the same grid, and the families' optima lie \nLthreeLrDecades{} orders of
+magnitude apart (Supplementary S2, Section S3). In a separate audit configuration (a
+fixed budget, depth three), the best Kolmogorov--Arnold network in the study is the
+\emph{least} Kolmogorov--Arnold-like one and reaches \nLthreeBestKan\ against the
+perceptron's \nLthreeBestKanMlp\ (difference \nLthreeBestKanDiff, per-pair interval
+[\nLthreeBestKanLo, \nLthreeBestKanHi]).
 
-The strongest configuration found anywhere is not the matched-budget cell but a
-separate audit configuration (a fixed budget, depth three, each arm at the better of two
-higher learning rates per seed), which is why its perceptron rate differs from the
-sweep's. In it, the best Kolmogorov--Arnold network in the entire study is the
-\emph{least} Kolmogorov--Arnold-like one, and it reaches \nLthreeBestKan\ against
-the perceptron's \nLthreeBestKanMlp, a difference of \nLthreeBestKanDiff,
-interval [\nLthreeBestKanLo, \nLthreeBestKanHi]: \nLthreeBestKanSig. That interval
-is per pair: the learning rate of each arm was chosen on the held-out materials, so
-it is the count above, not this pair, that carries the selection.
+\paragraph{The literature is split} Shukla and co-workers
+\cite{shukla2024comprehensive} find spline-based Kolmogorov--Arnold networks less
+accurate and efficient than perceptrons, and polynomial variants comparable but not
+robust; Wang and co-workers \cite{wang2025kinn} and Rigas and co-workers
+\cite{rigas2026training} report Kolmogorov--Arnold architectures that outperform
+perceptron baselines on solid-mechanics and physics-informed problems; and Kiyani and
+co-workers \cite{kiyani2025optimizing} find that optimiser choice dominates accuracy for
+both families, which is why every competitor optimum here is bracketed. A
+Kolmogorov--Arnold operator is not new either: DeepOKAN \cite{abueidda2025deepokan}
+uses the same Gaussian radial basis, and our claim for that arm is the application to
+column-scale transfer (A12). The accurate statement is narrow: on \emph{this} problem,
+at matched parameters, the perceptron wins every comparison by point estimate.
 
-\paragraph{The tuning envelope is itself a result} The families optimise
-\nLthreeLrDecades{} orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
-perceptron at \nLthreeMlpLr. \nLthreeNfailAll{} configurations failed on every seed and
-\nLthreeNfailSome{} more on some seeds; all are excluded and listed, never averaged in. Every family, the perceptron included, was tuned over the same
-learning-rate grid; none was left at a default.
-
-\paragraph{The literature is split}
-Shukla and co-workers \cite{shukla2024comprehensive} report that spline-based
-Kolmogorov--Arnold networks lack
-accuracy and efficiency while modified ones on low-order orthogonal polynomials are
-\emph{comparable} to perceptron baselines but not robust. But Wang and co-workers'
-KINN \cite{wang2025kinn} reports that it ``significantly outperforms MLP regarding accuracy and
-convergence speed'' on solid-mechanics problems, and Rigas and co-workers \cite{rigas2026training} report
-that residual-gated adaptive Kolmogorov--Arnold networks ``consistently outperform
-parameter-matched cPIKANs and PirateNets''; PirateNet is a perceptron
-architecture. Kiyani and co-workers \cite{kiyani2025optimizing} find that optimiser
-choice dominates accuracy for physics-informed models, Kolmogorov--Arnold networks
-included, and that both families improve by orders of magnitude under the \emph{same}
-quasi-Newton schemes, which is why every competitor optimum here is bracketed
-rather than left at a default. Nor is a Kolmogorov--Arnold operator new: DeepOKAN
-\cite{abueidda2025deepokan} is published, data-driven, with the same Gaussian
-radial basis, and our claim for that arm is the application to column-scale transfer
-and nothing more (A12). An earlier draft of this section cited two of these papers for a
-consensus that does not exist (Section~\ref{sec:corrections}, B46). The accurate
-statement is narrower: on \emph{this} problem, at matched
-parameters, with every competitor optimum bracketed, the perceptron wins all
-\nLthreePairs\ comparisons by point estimate and \nLthreeSigSim\ significantly once both
-learning-rate choices are paid for; and the
-papers that disagree are cited here so that the disagreement is visible.
-
-\paragraph{Interpretation} The result is not that Kolmogorov--Arnold networks are
-bad. At a fixed
-budget, parameters spent on per-edge basis richness buy training fit and not
-generalisation, while the same parameters spent on width buy both. The
-Kolmogorov--Arnold arms fit the training set as well as or better than the
-perceptron at every budget and are worse on held-out materials every time.
+\paragraph{Interpretation} The result is not that Kolmogorov--Arnold networks are bad.
+At a fixed budget, parameters spent on per-edge basis richness buy training fit but not
+generalisation, while the same parameters spent on width buy both: the
+Kolmogorov--Arnold arms fit the training set as well as or better than the perceptron
+at every budget and are worse on held-out materials every time.
 
 \subsection{L4: the residual as a loss, and physics at inference}
 
-\paragraph{Residual formulation} While writing the methods of this paper we derived the residual from the
-code and found that its gas mass balance advected the gas at the superficial velocity
-\(v\) instead of the interstitial \(v/\varepsilon_t\) that the solver integrates, with
-the same omission in its inlet condition (Section~\ref{sec:corrections}, B72). Since
-the gas holds almost nothing compared with the solid, the front speed is set by that
-term, so the residual described fronts moving \(\varepsilon_t\) times too slowly.
-Evaluated on the solver's own stored fields, that residual leaves
-\nBsevtwoOldResid\,\% of the adsorption term unexplained, against
-\nBsevtwoNewResid\,\% for the solver's equation, worse in \nBsevtwoNworse\ of
-\nBsevtwoNsamples\ samples. Every result of the first run was withdrawn as a statement
-about this column (A28). A gate now checks the training residual against the solver's
-own coefficients before any physics-informed run, and the rung was re-run in full
-with the corrected residual under a dated amendment to its pre-registration,
-with the same design, seeds, sweep, analysis and verdict words. Every number below is
-from the corrected re-run.
+\paragraph{Residual formulation} The residual of the first run advected the gas at the
+superficial velocity \(v\) instead of the interstitial \(v/\varepsilon_t\) the solver
+integrates (B72): on the solver's own fields it left \nBsevtwoOldResid\,\% of the
+adsorption term unexplained, against \nBsevtwoNewResid\,\% for the solver's equation.
+Every result of that run was withdrawn (A28), a gate now checks the training residual
+against the solver's coefficients, and the rung was re-run in full with the corrected
+residual (equations~\eqref{eq:mass}--\eqref{eq:energy} with \eqref{eq:danckwerts}) and
+the same design, seeds and verdict words. Every number below is from the re-run.
 
-\paragraph{Design} Weighting schemes were pre-registered and compared against a
-data-only twin at matched architecture, matched optimiser steps and matched
-supervised budget: fixed weights over six decades, gradient-norm balancing at
-three target ratios \cite{wang2021understanding}, neural-tangent-kernel weighting
-\cite{wang2022when} (with per-point gradient norms as a trace estimate, a stated
-approximation to their eigen-decomposition), and self-adaptive per-point weights
-\cite{mcclenny2023self}. The range is wide because an earlier version of this rung rested on a single
-weighting rule, which is not a defensible basis for any verdict on physics. A physics
-arm whose seen-window error exceeds three times the twin's has abandoned the data fit
-(the B16 signature) and is excluded as failed-to-train, never averaged in:
-\nLfourbNabandoned\ arms did on the time axis and \nLfourbNabandonedMat\ on the
-material axis, leaving \nLfourbNeligible\ and \nLfourbNeligibleMat\ eligible. On both
-axes the best arm is an interior fixed weight, so the pre-registered edge rule
-(rule~4) is not engaged.
+\paragraph{Design} Each weighting scheme is compared with a data-only twin at matched
+architecture, optimiser steps and supervised budget: fixed weights over six decades,
+gradient-norm balancing at three target ratios \cite{wang2021understanding},
+neural-tangent-kernel weighting \cite{wang2022when} (per-point gradient norms as a trace
+estimate) and self-adaptive per-point weights \cite{mcclenny2023self}. An arm whose
+seen-window error exceeds three times the twin's has abandoned the data fit and is
+excluded as failed-to-train (\nLfourbNabandoned\ on the time axis,
+\nLfourbNabandonedMat\ on the material axis). On both axes the best arm is an interior
+fixed weight, so the edge rule is not engaged.
 
 \paragraph{Time axis: no difference} \emph{Verdict: there is no difference at the
-best weighting found.} The best physics arm reaches
-\nLfourbTimeBest\ against the twin's \nLfourbTimeTwin, a paired difference with
-interval [\nLfourbTimeLo, \nLfourbTimeHi] over \nLfourbTimeNmat\ materials; the
-design detects a \nLfourbTimeMDE\,\% effect with \(80\,\%\) power. The legacy statement
-that physics as a loss hurts is withdrawn. The pre-registration's fourth question
-polishes both arms with L-BFGS after Adam \cite{rathore2024challenges}. Both improve,
-and the twin improves more: after polishing the twin reaches \nLfourbTimePolTwin\ and
-the physics arm \nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi],
-so under the second-order optimiser the data-only arm is significantly better on this
-axis. The pre-registration declared a flip to be the reported result, and we report
-it as one.
+best weighting found.} The best physics arm reaches \nLfourbTimeBest\ against the
+twin's \nLfourbTimeTwin\ (interval [\nLfourbTimeLo, \nLfourbTimeHi], \nLfourbTimeNmat\
+materials; minimum detectable effect \nLfourbTimeMDE\,\%), so the legacy claim that the
+residual hurts is withdrawn. After a pre-registered L-BFGS polish
+\cite{rathore2024challenges} the twin improves more (\nLfourbTimePolTwin\ against
+\nLfourbTimePolBest, interval [\nLfourbTimePolLo, \nLfourbTimePolHi]): under the
+second-order optimiser the data-only arm is significantly better on this axis.
 
 \paragraph{Material axis: the residual helps, at small weights only} \emph{Verdict:
-physics helps once correctly weighted.} The best arm, a fixed weight
-of \(10^{\nLfourbBestWeightExp}\), reaches \nLfourbMatBest\ against the twin's \nLfourbMatTwin\ on
-\nLfourbMatNmat\ held-out materials, interval [\nLfourbMatLo, \nLfourbMatHi] for twin
-minus physics; the gain is \nLfourbMatGainPct\,\% of the error. It is not an isolated weight:
-the decade below reaches \nLfourbMatBelow, interval [\nLfourbMatBelowLo,
-\nLfourbMatBelowHi], and the decade above \nLfourbMatAbove, interval
-[\nLfourbMatAboveLo, \nLfourbMatAboveHi], both also better than the twin. Every
-larger fixed weight and every adaptive scheme is significantly worse
-(\nLfourbNworseMat\ of the \nLfourbNeligibleMat\ eligible arms;
-\nLfourbNbetterMat\ are better). The ordering survives polishing, which makes both
-arms worse on this axis: the twin reaches \nLfourbMatPolTwin\ and the physics arm
-\nLfourbMatPolBest, interval [\nLfourbMatPolLo, \nLfourbMatPolHi].
-
-The choice of the best arm is paid for. The pre-registration chose the best
-physics arm on the same held-out materials it is then tested on, the anti-conservative
-direction for a positive. Recomputed so that it holds for every eligible arm at once,
-and so for the selected one however it was selected (a studentised max-statistic
-cluster bootstrap with critical value \nLfourbSelQ\ standard errors,
-Section~\ref{sec:limitations}), the interval becomes [\nLfourbMatSelLo,
-\nLfourbMatSelHi] and still excludes no difference. Our interpretation is the
-modest one: with the column's own equation, a small residual weight is a real but
-weak regulariser for transfer to unseen materials, the weight must itself be found by
-search, and a larger or adaptive weight costs accuracy.
+physics helps once correctly weighted.} A fixed weight of \(10^{\nLfourbBestWeightExp}\)
+reaches \nLfourbMatBest\ against the twin's \nLfourbMatTwin\ on \nLfourbMatNmat\
+held-out materials (interval [\nLfourbMatLo, \nLfourbMatHi]), a gain of
+\nLfourbMatGainPct\,\%; the decades either side are also better than the twin, while
+every larger fixed weight and every adaptive scheme is significantly worse
+(\nLfourbNworseMat\ of \nLfourbNeligibleMat\ eligible arms). The best arm was chosen on
+the test materials, so we recompute its interval to hold for every eligible arm at once
+(a studentised max-statistic cluster bootstrap, critical value \nLfourbSelQ\ standard
+errors; Section~\ref{sec:limitations}): [\nLfourbMatSelLo, \nLfourbMatSelHi], still
+excluding no difference. A small residual weight is a real but weak regulariser for
+transfer, the weight must itself be searched for, and larger weights cost accuracy.
 
 \paragraph{Physics at inference: worse, even with the right equation} Test-time
-refinement (minimising the residual for each held-out unit with no data) was
-pre-registered with an invalidation condition: on the time axis it is anchored to the
-frozen model's own prediction on the seen window, and a seen-window error rising by
-more than \(10\,\%\) means the anchor is insufficient and the time-axis result is
-scoped. It rose by \nLfourbTimeSeenRise\,\% on average, so the material axis, which
-has no anchor by design, carries the reportable result. Refinement makes
-transfer to unseen materials worse: it takes the twin's held-out error from
-\nLfourbRefTwinBefore\ to \nLfourbRefTwinAfter, about \nLfourbRefTwinFactor{} times
-worse (paired difference interval [\nLfourbRefTwinLo, \nLfourbRefTwinHi]), and the
-best physics-trained arm from \nLfourbRefBestBefore\ to \nLfourbRefBestAfter. The
-residual is now the solver's own equation, so this is not a mis-specified prior: on
-this problem, minimising the right equation without data moves a good prediction away
-from the truth. We report that as a measurement and do not claim its cause.
+refinement minimises the residual for each held-out unit without data. On the time axis
+its pre-registered anchor failed (the seen-window error rose \nLfourbTimeSeenRise\,\%,
+above the \(10\,\%\) limit), so the material axis carries the result: refinement takes
+the twin's held-out error from \nLfourbRefTwinBefore\ to \nLfourbRefTwinAfter, about
+\nLfourbRefTwinFactor{} times worse (interval [\nLfourbRefTwinLo, \nLfourbRefTwinHi]),
+and the best physics arm's from \nLfourbRefBestBefore\ to \nLfourbRefBestAfter. With the
+solver's own equation, minimising the residual without data moves a good prediction
+away from the truth; we report this as a measurement and do not claim its cause.
 
 \begin{figure}[!tbp]
 \centering
@@ -1146,24 +1012,14 @@ bind; by \(p = 128\) it sits \(\nLfiveVtwoXfloorHigh\times\) above it, and the m
 binds. The legacy verdict below is retracted as a small-design artefact (A29).
 
 \paragraph{On the legacy design (retracted as a verdict; kept as a measurement)} At
-matched parameter counts and each family at its own best learning rate over
-\nLfiveNrates\ rates spanning \nLfiveDecades\ decades, DeepONet looked flat in basis
-size (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\),
-interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero. Stated as what it excludes:
-a sixteenfold increase in basis size could not have improved this arm by more than
-\nLfiveFlatImproveMax\,\% of its error. The larger design found an improvement
-well inside that bound, which is exactly why a null on \nNclustLegacy\ held-out
-materials could not be the last word. Meanwhile its own POD
-floor falls from \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of
-\(\nFloorDrop\). The best DeepONet found anywhere, at the smallest basis, sits
-\(\nONetxFloor\times\) above the floor of the largest. Rule~4 is the rule this rung was
-most exposed on: at the two
-smallest bases DeepONet's best learning rate first sat on the top of the grid, still
-moving. The grid was extended one rate upward for those arms, the optimum stayed where
-it was and is now interior, and every selected rate in this rung is bracketed, so
-the Fourier operator below is not compared with an under-tuned DeepONet. \emph{The best DeepONet found anywhere, at the smallest basis, is as
-accurate as an oracle handed the true coefficients of its first
-\nLfiveOracleONet\ modes.}
+matched parameter counts DeepONet looked flat in basis size on the legacy design
+(Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\), interval
+[\nLfiveFlatLo, \nLfiveFlatHi]. The larger design then found an improvement well inside
+the bound that interval left, which is why a null on \nNclustLegacy\ held-out
+materials could not be the last word (A29). \emph{The best DeepONet found anywhere,
+at the smallest basis, is as accurate as an oracle handed the true coefficients of
+its first \nLfiveOracleONet\ modes.} The tuning checks are in Supplementary S2,
+Section S4.
 
 \paragraph{The arm the theory names} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
 architectures with a linear reconstruction step (DeepONet, PCA-Net, a principal-component network, and
@@ -1174,116 +1030,74 @@ theory condemns; that deviation from our own frozen protocol is recorded as B33.
 prediction was pre-registered before the run.
 
 The Fourier neural operator is more accurate, \nLfiveFNO\ against DeepONet's
-\nLfiveONet, but not significantly so once the choice is paid for. Taken as a
-pair fixed in advance, the difference of \nLfiveONetFNOdiff\ has interval
-[\nLfiveONetFNOlo, \nLfiveONetFNOhi], which excludes zero by a small fraction of
-either error. But both arms are the best of grids chosen on the same
-\nNclustLegacy\ held-out materials: the best of \nLfiveSelNfno\ Fourier cells against
-the best of \nLfiveSelNonet\ DeepONet cells. Paying for both choices at once (a
-studentised max-statistic bootstrap over all \nLfiveSelK\ pairs
-with critical value \nLfiveSelQ\ standard errors; Section~\ref{sec:limitations}) widens
-the interval for the selected pair to [\nLfiveSelLo, \nLfiveSelHi], which includes
-zero. We reported this comparison as significant in an earlier draft and withdraw
-that word (Section~\ref{sec:corrections}, B75). What survives is the direction the
-theory predicts, measured on this physical problem rather than in an approximation
-bound. It does not remove the wall: the Fourier operator sits
-\(\nFNOxFloor\times\) above the floor where DeepONet sits \(\nONetxFloor\times\). A
-\(\nFNOgain\times\) improvement, against a reference level \(\nFNOxFloor\times\) below
-it, is a dent and not an escape. That level is the linear-reconstruction floor at
-\(p = 128\), and the Fourier operator is not bound by it.
+\nLfiveONet, but not significantly once its selection is paid for. As a pair fixed in
+advance the difference of \nLfiveONetFNOdiff\ has interval [\nLfiveONetFNOlo,
+\nLfiveONetFNOhi]; but both arms are the best of grids chosen on the same
+\nNclustLegacy\ held-out materials (\nLfiveSelNfno\ Fourier and \nLfiveSelNonet\
+DeepONet cells), and paying for both choices over all \nLfiveSelK\ pairs (critical value
+\nLfiveSelQ\ standard errors) widens it to [\nLfiveSelLo, \nLfiveSelHi], which includes
+zero (B75). What survives is the direction the theory predicts. It does not remove the
+gap: the Fourier operator sits \(\nFNOxFloor\times\) above the linear-reconstruction
+floor at \(p = 128\), where DeepONet sits \(\nONetxFloor\times\), so its
+\(\nFNOgain\times\) improvement is a dent, not an escape (the floor is a reference level
+for the Fourier operator, not a bound).
 
-One further result concerns the channel count. At a matched parameter budget the best Fourier
-operator spends it on spectral weights rather than on channels: it is
-\emph{\nLfiveFNOwidth\ channels wide} against the best DeepONet's
-\nLfiveONetWidth, a factor of \nLfiveWidthRatio. A nonlinear reconstruction matches
-or beats the best linear one with a fraction of the channel count, at the same
-parameter count. It does not follow that reconstruction is what separates the
-families in general. Proper orthogonal decomposition plus a pointwise regressor and
-DeepONet both reconstruct linearly, and they differ by \(\nONetLever\times\)
-(Section~\ref{sec:mechanism}). Most of the learner lever is therefore training the
-basis and the coefficients together, not making the reconstruction nonlinear. Note
-that this is the \emph{matched-budget} comparison and not a reading of the mode
-sweep, for the reason the next paragraph gives.
-
-\paragraph{Caveat} The Fourier operator's mode
-sweep is confounded with width at a matched budget: the spectral weights cost
-\(\mathcal{O}(w^2 m^2)\), so width falls as modes rise. The monotone degradation
-across that sweep therefore \emph{cannot} be read as ``more Fourier modes do not
-help''. The basis-size statements are made for DeepONet, where \(p\) and width are
-controlled separately, and are not claimed for the Fourier operator.
+At a matched budget the best Fourier operator is \emph{\nLfiveFNOwidth\ channels wide}
+against the best DeepONet's \nLfiveONetWidth: a nonlinear reconstruction matches the
+best linear one with a fraction of the channels. Reconstruction is not what separates
+the families in general, though: POD with a pointwise regressor and DeepONet both
+reconstruct linearly and differ by \(\nONetLever\times\) (Section~\ref{sec:mechanism}),
+so most of the learner lever is training the basis and the coefficients together. The
+Fourier operator's mode sweep is confounded with width at a matched budget (its
+spectral weights cost \(\mathcal{O}(w^2 m^2)\)), so basis-size statements are made for
+DeepONet only.
 
 \subsection{L6: separate identification of the kinetic and equilibrium objects}
 
-This was the project's primary hypothesis, and its pre-registration was committed to
-version control before the first arm trained, so its ordering is externally
-verifiable from the repository history, as it is for the other rungs listed in
-Section~\ref{sec:reproducibility}.
-
-Both invalidation checks passed before any verdict was computed. The kinetic object
-is unrecoverable from observable descriptors (\(R^2 = \nLsixKineticRtwo\), worse than
-predicting the mean) while the equilibrium shape is recoverable
-(\(R^2 = \nLsixStepRtwo\) for the step position, \nLsixQmaxRtwo\ for the capacity).
-That asymmetry is exactly what the hypothesis needs.
+This was the project's primary hypothesis: separating the kinetic and equilibrium
+objects should pay most where kinetics dominate. Both invalidation checks passed before
+any verdict was computed: the kinetic object is unrecoverable from observable
+descriptors (\(R^2 = \nLsixKineticRtwo\)) while the equilibrium shape is recoverable
+(\(R^2 = \nLsixStepRtwo\) for the step position, \nLsixQmaxRtwo\ for the capacity),
+the asymmetry the hypothesis needs.
 
 \paragraph{Primary estimand: not supported, and a weak null} The separate-versus-joint
 difference shows no detectable dependence on Damk\"ohler number: slope \nLsixSlope\
 per decade, interval [\nLsixSlopeLo, \nLsixSlopeHi], Pearson \(r = \nLsixSlopeR\),
 over \nLsixDaDecades\ decades of per-material Damk\"ohler number
 (\nDaMatMin--\nDaMatMax; \nDaMatBand\,\% of materials inside the informative band;
-Figure~\ref{fig:ladder}B). \emph{Verdict: the mechanism is not supported.} There is a limit to what the null
-excludes: carried across the tested range, the upper end of the slope interval
-allows a change of \nLsixSlopeSpanMax\ nRMSE, about \nLsixSlopeVsEffect\ times the
-main effect below. A Damk\"ohler dependence as large as the benefit itself is
-therefore not ruled out; what is ruled out is a dependence strong enough to have been
-seen at this design's resolution. The axis is also not purely kinetic: for the
-\nDcExtendedPct\,\% of runs whose horizon was extended, Damk\"ohler exceeds the kinetic
-ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\) by the extension factor
-(Section~\ref{sec:model}), so part of its spread is the length of the run.
+Figure~\ref{fig:ladder}B). \emph{Verdict: the mechanism is not supported.} The null
+is weak: across the tested range the upper end of the slope interval allows a change of
+\nLsixSlopeSpanMax\ nRMSE, about \nLsixSlopeVsEffect\ times the main effect below, so a
+dependence as large as the benefit itself is not ruled out. Part of the axis's spread
+is also run length, for the \nDcExtendedPct\,\% of runs whose horizon was extended
+(Section~\ref{sec:model}).
 
-\paragraph{The scope of that refutation} Kinetic control means Damk\"ohler well below unity, and this dataset never
-goes there: its lowest per-material value is \nDaMatMin. The hypothesis predicted
-that separating the kinetic object pays most where kinetics dominate, and we have
-refuted it over a range whose slow-kinetics end is merely \emph{less fast}, not
-slow. A design that sampled \(\mathrm{Da} < 1\) could in principle recover the
-interaction. We did not sample it, and the reason is structural rather than an
-oversight: the kinetic coefficient is not a free parameter in this dataset but is
-derived from particle size through the Glueckauf relation, so
-\(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
-bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
-\nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
-one-dimensional plug-flow model is no longer the right description. This is the same
-objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
-\(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
-physical inconsistency this dataset was built to remove. The refutation therefore
-holds across the range a physically consistent bed of this kind can occupy, and is
-not a statement about the kinetically-controlled limit.
+\paragraph{The scope of that refutation} The dataset never reaches kinetic
+control: its lowest per-material Damk\"ohler number is \nDaMatMin, and reaching unity
+would need pellets of about \nDaPelletForUnity\,\si{\milli\metre}, beyond a
+one-dimensional model of this bed. The refutation holds across the range a physically
+consistent bed of this kind can occupy, not in the kinetically controlled limit
+(Supplementary S2, Section S5).
 
-\paragraph{Secondary estimand, significant, and a sign reversal} Joint fitting
-gives \nLsixJoint\ and separate identification \nLsixSeparate: separate is better by
-\nLsixDiff, interval [\nLsixLo, \nLsixHi], consistent in all five folds and all
-three seeds. On the earlier dataset separate was \emph{worse}, with an
-interval spanning zero. The direction has flipped, and the earlier number is not
-quoted here because it belongs to a design that could not test the estimand at all.
+\paragraph{Secondary estimand: significant} Joint fitting gives \nLsixJoint\ and
+separate identification \nLsixSeparate: separate is better by \nLsixDiff, interval
+[\nLsixLo, \nLsixHi], consistent in all five folds and all three seeds (on the legacy
+dataset, which could not test the estimand, the sign was reversed and not
+significant).
 
-\paragraph{Why the test has power now, and its limit} The between-material standard
-deviation of the arm difference fell to \nLsixBetweenSD, or
-\nLsixBetweenOverBase\,\% of the base error, from \nLsixLegacyBetweenOverBase\,\% previously, a \(\nLsixNoiseDrop\times\) noise reduction from Sobol sampling and physically consistent
-kinetics. With \nNclustFolds\ clusters instead of \nNclustLegacy, that is what turned an unanswerable
-question into an answerable one. Power is \nLsixPowerFour\,\% at a 4\,\% effect and
-\nLsixPowerTwo\,\% at 2\,\%, with size at the null \nLsixSizeNull\,\%; the minimum
-detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits just
-under it, so the point estimate may be optimistic and the lower bound is the
-conservative reading.
+\paragraph{Why the test has power now} Sobol sampling and physically consistent
+kinetics cut the between-material noise \(\nLsixNoiseDrop\times\); with
+\nNclustFolds\ clusters the minimum detectable effect at 80\,\% power is \nLsixMDE\,\%,
+and the observed effect sits just under it, so the lower bound is the conservative
+reading (Supplementary S2, Section S6).
 
 \paragraph{Verdict} \emph{Structural decomposition gives a
 small but real and reproducible improvement in transfer to unseen materials, with no
-detectable dependence on Damk\"ohler number.} The pattern is that of an
-inductive bias rather than a kinetic identifier, which is not what the hypothesis
-predicted. As the slope interval shows, however, a kinetic component of the
-benefit's own size is not excluded, so this reading is the better-supported one
-rather than an established one. This is a more precise statement than either a null or a naive
-positive, and it is available only because the mechanism was pre-registered as the
-primary estimand and could therefore fail on its own terms.
+detectable dependence on Damk\"ohler number.} The pattern is that of an inductive
+bias rather than a kinetic identifier, which is not what the hypothesis predicted;
+since a kinetic component of the benefit's own size is not excluded, this is the
+better-supported reading rather than an established one.
 
 \subsection{L7: is learning needed at all?}
 
@@ -1329,18 +1143,11 @@ training materials, still rising at the largest size affordable.}
 \label{fig:mechanism}
 \end{figure}
 
-\paragraph{In plain terms} Most models here build a breakthrough field as a weighted
-sum of stored template shapes (POD plus a regressor, and
-DeepONet); the Fourier operator learns the field directly. A template model can be
-limited by its templates or by its recipe for weighting them from a material's
-isotherm and pellet properties. It is the recipe: with perfect weights the templates
-alone would reproduce the field far more accurately than any recipe we can learn. On
-the legacy design the most accurate learner by point estimate still sits
-\(\nFNOxFloor\times\) above that level; on the full design DeepONet sits
-\(\nLfiveVtwoXfloorHigh\times\) above it at the largest basis.
-
-A linear reconstruction can fail in exactly two ways: the basis cannot represent the
-field, or the map from parameters to coefficients cannot be learned. For a surrogate whose prediction \(\hat u\) lies in the span of an orthonormal basis
+Most models here build a breakthrough field as a weighted sum of stored patterns (POD
+with a regressor, and DeepONet); the Fourier operator learns the field directly. A
+model of the first kind can fail in exactly two ways: the basis cannot represent the
+field, or the map from parameters to coefficients cannot be learned. For a surrogate
+whose prediction \(\hat u\) lies in the span of an orthonormal basis
 \(\{\phi_k\}_{k \le p}\), such as POD with a regressor, the error of each sample splits
 exactly, because the two terms are orthogonal:
 \begin{equation}
@@ -1350,89 +1157,57 @@ exactly, because the two terms are orthogonal:
 \label{eq:split}
 \end{equation}
 in the discrete norm of the stored grid, with \(\Pi_p\) the orthogonal projection onto
-the basis. The first term is the basis floor; the second is the error of the learned map
-from parameters to coefficients. An oracle handed the exact first \(k\) coefficients
-calibrates any learner, including those whose output is not in that span, as an
-equivalent mode count; for those learners the floor is a reference level rather than a
-bound. We separate
-them in the \emph{optimal} basis, so that the answer cannot depend on the basis any
-particular method happened to learn (Figure~\ref{fig:operators}B on the full design).
+the basis. The first term is the basis floor; the second is the error of the learned
+map. An oracle handed the exact first \(k\) coefficients calibrates any learner,
+including those whose output is not in that span, as an equivalent mode count; for those
+learners the floor is a reference level rather than a bound. We work in the
+\emph{optimal} basis, so the answer cannot depend on the basis a particular method
+learned.
 
-The basis error falls from \nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes
-from 8 to 128. The coefficient-map error, with gradient boosting as the regressor
-(the better of the regressors tried, at every basis size), moves from
-\nLfiveCoefSmall\ to \nLfiveCoefLarge, a change of \nLfiveCoefChangePct\,\%
-across a sixteenfold change in basis size, against a basis error that falls by
-\(\nFloorDrop\times\) over the same range. The
-per-mode reason is that on held-out materials the map predicts few modes at all:
-\nLfiveCountModes\ clear \(R^2 > 0.2\), the leading \nLfiveLeadModes\ and
-\nLfiveIsolatedModes\ isolated later ones. The median \(R^2\) of the
-\nLfiveTailModes\ modes after the leading run is \(\nLfiveTailMedian\), worse than
-predicting the mean, and
-\nLfiveTailFracNeg\,\% of them are negative.
+\paragraph{The map binds} On the legacy design the basis error falls from
+\nLfiveBasisSmall\ to \nLfiveBasisLarge\ as \(p\) goes from 8 to 128, a factor of
+\(\nFloorDrop\), while the coefficient-map error (gradient boosting, the better
+regressor at every basis size) moves from \nLfiveCoefSmall\ to \nLfiveCoefLarge, a
+change of \nLfiveCoefChangePct\,\%. The reason is that on held-out materials the map
+predicts few modes: \nLfiveCountModes\ clear \(R^2 > 0.2\) (the leading
+\nLfiveLeadModes\ and \nLfiveIsolatedModes\ isolated later ones), and the median \(R^2\)
+of the \nLfiveTailModes\ modes after the leading run is \(\nLfiveTailMedian\), worse than
+predicting the mean. Against the oracle, the best DeepONet performs like a
+\nLfiveOracleONet-mode oracle, the best Fourier operator like a
+\nLfiveOracleFNO-mode one, DeepOKAN like a \nLfiveOracleOKAN-mode one and POD with
+gradient boosting like a \nLfiveOraclePodReg-mode one. Training the basis and the
+coefficients together, or learning the whole field at once, is worth up to
+\(\nOperatorLever\times\) from the pointwise regressor to the Fourier operator (point
+estimates between best-of-grid arms), comparable to the learning curve's gain; it does
+not close the distance to the floor. On the legacy design the most accurate learner by
+point estimate still sits \(\nFNOxFloor\times\) above it.
 
-Against an oracle reconstruction handed the true coefficients for its first \(k\)
-modes, the best DeepONet found anywhere performs like a \nLfiveOracleONet-mode
-oracle, the best Fourier operator like a \nLfiveOracleFNO-mode one, DeepOKAN like a
-\nLfiveOracleOKAN-mode one and POD with gradient boosting like a
-\nLfiveOraclePodReg-mode one. Three
-independent function classes (POD plus random forest,
-plus gradient boosting, and DeepONet) are flat in rank on the legacy design while the floor falls by a factor of \nFloorDrop{} (on the full design DeepONet gains a little up to \(p = 16\), A29). Training basis and coefficients together, or learning the
-whole field at once, is worth a constant factor, up to \(\nOperatorLever\times\)
-from the pointwise regressor to the Fourier operator on this encoding, a lever of
-the same order as the learning curve's (the two ratios come from different designs,
-and the operator ratios are point estimates between best-of-grid arms, with no
-interval of their own).
-It does not close the distance to the
-floor.
+\paragraph{The decomposition holds on the full design} Re-measured where every other
+rung reports (\nLfiveVtwoNmat\ materials, five folds, three seeds;
+Figure~\ref{fig:operators}B), the basis floor falls from \nLfiveVtwoFloorSmall\ to
+\nLfiveVtwoFloorLarge, a factor of \(\nLfiveVtwoFloorDrop\), while the coefficient-map
+error moves from \nLfiveVtwoCoefSmall\ to \nLfiveVtwoCoefLarge, \nLfiveVtwoCoefChangePct\,\%
+of itself (computed before rounding; interval [\nLfiveVtwoCoefLo, \nLfiveVtwoCoefHi]):
+statistically resolved and immaterial. At the largest basis the map predicts about
+\nLfiveVtwoModes\ modes on held-out materials, and DeepONet sits
+\(\nLfiveVtwoXfloorHigh\times\) above the floor.
 
-\paragraph{The decomposition holds on the full design} The numbers above were
-measured on the legacy held-out set, and the claim they carry is the one this paper
-rests on, so we re-measured it where every other rung reports: \nLfiveVtwoNmat\
-materials, five folds pooled out of fold, three seeds. The basis floor falls from
-\nLfiveVtwoFloorSmall\ to \nLfiveVtwoFloorLarge, a factor of
-\(\nLfiveVtwoFloorDrop\); the coefficient-map error moves from \nLfiveVtwoCoefSmall\
-to \nLfiveVtwoCoefLarge, \nLfiveVtwoCoefChangePct\,\% of itself (computed before
-rounding). That change is
-statistically resolved (interval [\nLfiveVtwoCoefLo, \nLfiveVtwoCoefHi]) and
-immaterial: the design is now powerful enough to see a difference far too small to
-matter, and the ratio of the two errors grows with \(p\) exactly as before. At the
-largest basis the map predicts about \nLfiveVtwoModes\ modes on held-out materials.
+\paragraph{The mode count is scoped to a sample size} The number of modes a learner
+predicts is not a property of the map but of the training set: modes clearing
+\(R^2 > 0.2\) grow from \nLCmodesSmall\ to \nLCmodesLarge\ over 12 to 192 materials
+and are still climbing (A21; Supplementary S2, Section S7).
 
-\paragraph{The mode count is scoped to a sample size} An
-earlier version of this section stated the mode count as a property of the map. It
-is not: it is what a given number of training materials buys. Measured against
-material count (Figure~\ref{fig:mechanism}), modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
-\nLCmodesLarge\ over 12 to 192 materials and are still climbing. Three counts of
-modes clearing \(R^2 > 0.2\) appear in this paper, and they are the same statistic
-under different conditions: \nLfiveCountModes\ on the legacy design, and
-\nLCmodesLarge\ and \nLfiveVtwoModes\ on the larger one at the same number of training
-materials, the first for the learning-curve learner on its own basis and the second for the
-decomposition's regressor on the largest basis. They agree on what matters here:
-a learner predicts a modest set of mostly leading modes and little beyond it. The retraction is
-A21, and it withdrew the replacement text for an earlier retraction: the same
-inference, made twice.
-
-\paragraph{The \(n\)-width is real and was not what binds} The residual
-\emph{energy} of this snapshot family decays algebraically, as
-\(k^{\nNwidthExpC}\) in the number of modes \(k\), with \(R^2 = \nNwidthRtwoC\) over
-\(k = 8\)--64. The Kolmogorov \(n\)-width, whose \(n\) is this mode count, is the
-residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpErr}\)
-and halving the error requires
-\(\nNwidthHalving\times\) the modes. We separate the two because an
-earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
-halving factor computed correctly from the norm: two numbers in one sentence
-that disagreed by a factor of two in the exponent. Any method whose output is a linear
-combination of a fixed basis is bounded below by it. Our frozen protocol called this
-the central result of the ladder and predicted that DeepONet would track it.
-The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
-A17. For transport-dominated problems the slow decay is established: Ohlberger
-and Rave \cite{ohlberger2016reduced} prove a \emph{lower} bound of \(\tfrac12 k^{-1/2}\) for linear advection
-with jump discontinuities, which is a bound and not a rate. Our measured decay is faster than that bound, and the reason is the
-hypothesis: their fields carry jump discontinuities, ours are smoothed by axial
-dispersion and by finite-rate kinetics, so the worst case their theorem
-constructs does not occur here. That is also why the bound can be simultaneously
-real and inactive; this paragraph has to hold both statements together.
+\paragraph{The \(n\)-width is real and was not what binds} The Kolmogorov \(n\)-width,
+the smallest error any \(n\)-dimensional linear basis can achieve, is estimated here by
+the POD residual, which for this snapshot family decays as \(k^{\nNwidthExpErr}\) in the
+number of modes \(k\), so halving the
+basis error requires \(\nNwidthHalving\times\) the modes; any method whose output is a
+linear combination of a fixed basis is bounded below by it. Our frozen protocol
+predicted that DeepONet would track this bound; it does not, because the map binds
+first (A17). The decay is faster than the \(\tfrac12 k^{-1/2}\) lower bound Ohlberger
+and Rave \cite{ohlberger2016reduced} prove for linear advection with jump
+discontinuities, because axial dispersion and finite-rate kinetics smooth our fronts
+(Supplementary S2, Section S7).
 
 %% ===========================================================================
 \section{The coordinate change, and where the obstruction moved}
@@ -1529,16 +1304,11 @@ enough'', a better-posed problem, with a target a front-locating model can be he
 to. The oracle's gain is not unique to this route: the Fourier operator of L5 reaches a
 comparable error on the same held-out materials without any oracle.
 
-\paragraph{Monotonicity is not the lever} The obvious first attack is that the
-front predictor does not know the constraints the true trajectories satisfy exactly.
-It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, while the true trajectories
-violate them in none. But projecting onto the constraint set changes \(R^2\) by
-at most \nWarpMonoMaxDRtwo{} and makes the reconstruction significantly
-\emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
-\nMonoDiff\ with interval [\nMonoLo, \nMonoHi] (tighter than Table~\ref{tab:warp}'s
-because the projected arm is a deterministic transformation of the raw arm, so the
-between-material variance cancels). The violations are frequent but negligible; the
-remaining headroom is the front predictor's raw accuracy.
+\paragraph{Monotonicity is not the lever} The predicted fronts violate the
+constraints the true ones satisfy in \nWarpNonmonoLo\,\% of samples, but projecting
+them onto the constraint set makes the reconstruction slightly worse
+(Supplementary S2, Section S8); the remaining headroom is the front predictor's raw
+accuracy.
 
 \paragraph{Relation to constant-pattern behaviour} Equation~\eqref{eq:warp} is not
 constant-pattern scaling \cite{knox2016limitations}: when the two fronts move at
@@ -1549,44 +1319,27 @@ aligns both, which is why the second landmark does the work.
 \section{What the surrogate costs, and when it repays}
 \label{sec:cost}
 
-A surrogate that is never asked enough questions is more expensive than the solver it
-replaces, and the crossing point can be computed. The introduction argued
-that a synthetic study can only measure accuracy per unit cost; this section pays that
-debt, because a ladder of accuracy verdicts with no cost axis is only half an argument
-for a screening tool.
+A surrogate that is never asked enough questions costs more than the solver it
+replaces, and the crossing point can be computed. All costs are in
+\emph{solve-equivalents}, multiples of one reference simulation at production
+settings, so the ratio carries to other hardware; on ours the \nCostNSolves\ accepted
+simulations took \nCostGenWall\ hours on \nCostWorkers\ workers, so one solve-equivalent
+is \nCostSolveSec\ worker-seconds.
 
-\paragraph{The unit} All costs are given in \emph{solve-equivalents}: multiples of one
-reference simulation at production settings. That removes the machine, the thread count
-and the wall clock from the comparison and leaves a ratio a reader can carry to their own
-hardware. On ours, the \nCostNSolves\ accepted simulations of the dataset took
-\nCostGenWall\ hours on \nCostWorkers\ workers, so one solve-equivalent is
-\nCostSolveSec\ worker-seconds and the whole training set cost about
-\nCostGenCoreHours\ worker-hours. We report worker-seconds rather than
-core-seconds because a worker's own numerical libraries may use more than one
-thread, so this is an upper bound on the serial cost of a solve and a lower bound on
-what it occupies of a machine.
-
-\paragraph{The accounting} Against \(N_q\) screening queries the reference costs \(N_q\)
-solve-equivalents. The surrogate costs its training set, plus its fit, plus \(N_q\) times
-whatever a query costs, so the two break even at
+Against \(N_q\) screening queries the reference costs \(N_q\) solve-equivalents and the
+surrogate its training set, its fit and \(N_q\) queries, so the two break even at
 \begin{equation}
 N_q^{\mathrm{be}} \;=\; \frac{N_{\mathrm{sim}} + c_{\mathrm{fit}}}{1 - r},
-\qquad r \;=\; \frac{\text{cost of one query}}{\text{cost of one solve}} .
+\qquad r \;=\; \frac{\text{cost of one query}}{\text{cost of one solve}} ,
 \label{eq:breakeven}
 \end{equation}
-with \(N_{\mathrm{sim}}\) the number of training simulations and \(c_{\mathrm{fit}}\)
-the fit, both in solve-equivalents. Fitting the L1 perceptron takes \nCostTrainSec\ seconds, median over
-\nCostTrainSeeds\ recorded fits, or \nCostTrainEq\ solve-equivalents, which is noise
-next to the data. Because \(r \ll 1\) (a forward pass through three
-256-unit layers and three 64-mode reconstructions, against an implicit solve on
-\nGridNz\ cells carried to breakthrough), equation~\eqref{eq:breakeven} is bounded
-below by \(N_{\mathrm{sim}} + c_{\mathrm{fit}}\) \emph{without measuring \(r\) at
-all}. We report the bound because it needs no timing and so does not depend on the
-hardware. Measured as well, on an idle machine, a full-field
-query takes \nCostQueryMs\ ms, so \(r = \nCostQueryRMant \times 10^{\nCostQueryRExp}\) and a query is about
-\nCostQuerySpeedup\ times cheaper than a solve, which makes the bound and the exact
-break-even indistinguishable. That ratio is per query at the surrogate's stated
-held-out error, not a claim that the surrogate replaces the solver.
+with \(N_{\mathrm{sim}}\) the training simulations and \(c_{\mathrm{fit}}\) the fit, both
+in solve-equivalents. Fitting the L1 perceptron costs \nCostTrainEq\ solve-equivalents
+(median of \nCostTrainSeeds\ fits), noise next to the data, and since \(r \ll 1\)
+equation~\eqref{eq:breakeven} is bounded below by \(N_{\mathrm{sim}} +
+c_{\mathrm{fit}}\) without timing a query at all. Measured on an idle machine, a
+full-field query takes \nCostQueryMs\,ms, \nCostQuerySpeedup\ times cheaper than a
+solve, so the bound and the exact break-even coincide.
 
 \begin{table}[t]
 \centering
@@ -1611,73 +1364,38 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 \end{tabular}}
 \end{table}
 
-\paragraph{What Table~\ref{tab:cost} says} Three conclusions follow, the third the most important.
+\paragraph{What Table~\ref{tab:cost} says} First, the surrogate at its best accuracy
+cannot repay its own construction in fewer than \nCostBreakEven\ queries against the
+full-resolution solve. The full-resolution solve is, however, not the relevant
+competitor. The second pre-registered baseline (A30) re-solves one sample per material
+with the same solver on coarser grids. \emph{Verdict: a coarse solve at
+\(N_z = \nCoarseNz\) matches the surrogate's held-out accuracy at \nCoarseSolveEq\
+solve-equivalents per query}; in fact it is \(\nCoarseAccRatio\times\) more accurate
+(\nCoarseErrPct\,\% normalised error against the perceptron's \nCoarseTargetPct\,\%) in
+about \nCoarseWallMs\,ms (\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed and are
+reported). The comparison is unpaired and made against the L1 and L2 perceptrons only,
+so it is a statement about scale. On a production solve timed in the same process, the
+surrogate breaks even with coarse solving only after about \nCoarseBreakEven\ queries
+(a lower bound), and it remains the less accurate of the two. \emph{For this
+one-dimensional column, a surrogate is justified only by query volume}: a screen of
+tens of thousands of candidates, or a field needed in milliseconds inside an optimiser
+or a controller. A two- or three-dimensional, multi-cycle device model, where a coarse
+solve costs far more, is where the balance can turn; we have not measured it.
 
-First, the surrogate at its best accuracy cannot repay its own construction in fewer
-than \nCostBreakEven\ screening queries against the full-resolution solve. Below that
-the solver is both cheaper \emph{and} exact, and building a surrogate is a mistake.
-
-The full-resolution solve is, however, not the relevant competitor. The
-second pre-registered baseline (A30) re-solves one sample per material with the same
-solver on coarser grids. \emph{Verdict: a coarse solve at \(N_z = \nCoarseNz\) matches the surrogate's
-held-out accuracy at \nCoarseSolveEq\ solve-equivalents per query}; in fact it beats
-it, at \nCoarseErrPct\,\% normalised error against the surrogate's \nCoarseTargetPct\,\%,
-about \(\nCoarseAccRatio\times\) more accurate, in about \nCoarseWallMs\,ms
-(\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed or did not reach breakthrough; they
-are reported and excluded from the mean). The comparison is unpaired (one sample per
-material for the coarse solve, the full held-out set for the surrogate) and is made
-against the L1 and L2 perceptrons only, so it is a statement about scale, not a
-paired test. These costs are measured against a production solve timed in
-the same process, \nCoarseTprod\,s, not the generation-time figure above, and the
-surrogate's query is put on the same base. On that basis the surrogate breaks even with
-coarse solving only after about \nCoarseBreakEven\ queries (a lower bound: the fit is not
-counted), and it is still the less
-accurate of the two. \emph{For this one-dimensional column, a surrogate is justified
-only by query volume}: a screen of tens of thousands of candidates or more, or a use in
-which a field must come back in milliseconds, as inside an optimiser or a controller.
-That is a narrower case than the surrogate literature usually states, and it is the case
-in which every other conclusion of this paper is meant to be read. A
-two- or three-dimensional, multi-cycle device model, where a coarse solve is far more
-expensive, is where the balance can turn; we have not measured it.
-
-Second, the learning curve is a price list. Going from 12 training materials to 192
+Second, the learning curve is a price list: going from 12 to 192 training materials
 multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
-\nLCratio{}\(\times\), which is the exponent \(N_{\mathrm{mat}}^{-\nLCbeta}\) of
-Section~\ref{sec:ladder} restated as money. A practitioner who needs
-\nLCsmallest\ nRMSE should buy \nCostSmallSims\ simulations and stop. The list is
-priced for one fixed learner, the learning curve's per-mode regressor. The L1
-perceptron is already more accurate at the largest size, L2 found a configuration
-\(\nLtwoVsLonePct\,\%\) better than that perceptron, and the operator comparison of
-Section~\ref{sec:mechanism} suggests a larger lever on the legacy design (point
-estimates only), so a better learner shifts every row down and the frontier with it. The exchange rate between data and error is the
-transferable part, not the absolute rows.
+\nLCratio{}\(\times\). The rows are priced for the curve's per-mode regressor; the L1
+perceptron is already more accurate, and L2 found a configuration
+\(\nLtwoVsLonePct\,\%\) better still, so a better learner shifts the whole frontier
+down. The exchange rate between data and error is the transferable part.
 
-Third, the negative results are informative: every
-rung that was \emph{eliminated} is an intervention that would have added cost without
-buying accuracy. A richer per-edge basis (Kolmogorov--Arnold against perceptron) costs
-fit time and nothing else, and the closed forms are cheaper but worse even when fitted.
-L5 is not eliminated (basis size helps DeepONet, A29), but a linear-reconstruction basis
-beyond \(p = 16\), where that gain is already complete by point estimate, also costs
-fit time and nothing else.
-Not everything was eliminated, and the levers that remain are not equal. Training
-materials are the one with a price tag attached, and the frontier is where that price
-is paid. Capacity is not eliminated, but a better configuration found by search costs
-fit time, not data. So does the residual as a loss: its \nLfourbMatGainPct\,\% gain on
-unseen materials costs collocation points and a weight search, not simulations. The choice of
-operator moves the accuracy without moving the data cost: on the legacy held-out
-materials the Fourier operator reaches \nLfiveFNO, against \nWarpOracle\ for the
-coordinate change of Section~\ref{sec:warp} even when that change is handed the true
-fronts, so the warp is no longer the only route on the table that improves accuracy
-at a fixed data cost. This is the one place we compare absolute errors across rungs,
-and it is licensed: L5 and the coordinate change share the legacy split, the same
-subsampled concentration field and the same per-sample normalised error (each
-sample's root-mean-square error over its own range); the subsampling grid is built
-by the same rule in both codes, which implement it separately.
-
-\paragraph{What this is not} It is not a claim that the surrogate and the reference are
-interchangeable. They are not: the reference answers exactly and the surrogate answers
-with the held-out error in the third column. Every statement here is cost \emph{at a
-stated accuracy}, and the accuracy travels with the cost in every row.
+Third, the eliminated rungs are interventions that add cost without buying accuracy: a
+Kolmogorov--Arnold basis costs fit time and nothing else, and the closed forms are
+cheaper but worse even when fitted. Of the levers that remain, only training materials
+cost simulations; a better configuration, a small residual weight
+(\nLfourbMatGainPct\,\%) or a different operator cost fit time or collocation points.
+Every statement here is cost \emph{at a stated accuracy}: the reference answers exactly,
+the surrogate with the held-out error in the third column.
 
 %% ===========================================================================
 \section{Corrections and retractions}
@@ -1741,98 +1459,24 @@ solver-versus-experiment comparison in this paper: one condition, on a bed whose
 aspect ratio is \nAnchorAspect, where a one-dimensional plug-flow model is at the edge of its
 validity. Every other number is surrogate-versus-solver.
 
-\paragraph{The dispersion closure needs a more careful statement than we first gave
-it, and its effect is measured} Our datasets use
-\(D_L = 0.7 D_m + 0.5 d_p u\), with \(u\) the interstitial velocity, a form due to Wakao
-and Funazkri \cite{wakao1978effect} that Perry's handbook \cite{levan2019adsorption}
-presents as a \emph{lower bound} for \emph{nonporous} particles; for porous, strongly
-adsorbing particles such as ours the effective axial dispersion is larger. The form is
-also the high-particle-P\'eclet \emph{limit} of Edwards and Richardson's correlation
-\cite{edwards1968gas}, whose mechanical coefficient carries an extra factor
-\(\left[1 + 9.7\,D_m/(d_p u)\right]^{-1}\), so we measured whether the limit applies.
-The particle P\'eclet number \(d_p u / D_m\) runs
-\nPePartMin--\nPePartMax\ across the dataset, median \nPePartMed, spanning
-\nPePartDecades{} decades. Over that range the two published forms disagree by a
-median factor of \nDispRatioMed, exceeding \(1.1\times\) for \nDispFracAboveTenPct\,\%
-of samples and \(1.5\times\) for \nDispFracAboveHalf\,\%, with a worst case of
-\nDispRatioMax. The disagreement is bounded and modest for the dataset, but it is
-not modest for the anchor.
+\paragraph{The dispersion closure is evaluated at a limit} Our closure is the
+high-particle-P\'eclet limit of Edwards and Richardson's correlation
+\cite{edwards1968gas}, a form due to Wakao and Funazkri \cite{wakao1978effect} that
+Perry's handbook \cite{levan2019adsorption} presents as a lower bound for nonporous
+particles. Across the dataset the full and truncated forms differ by a median factor
+of \nDispRatioMed; on the anchor bed, at a particle P\'eclet number of
+\nAnchorPePart, the truncation removes \nAnchorTcutPct\,\% of the model's excess
+95\,\% arrival time in a labelled post-hoc sensitivity (Supplementary S2, Section S9
+and Figure S2). No surrogate result depends on it, because every arm sees the same
+reference.
 
-\begin{figure}[!tbp]
-\centering
-\includegraphics[width=\textwidth]{../figures/Fig7b_anchor_posthoc.pdf}
-\caption{Post-hoc dispersion sensitivity on the anchor bed, labelled as such and
-reported as a limitation rather than as a result. The pre-registered primary uses the
-high-P\'eclet limit of the correlation; the second curve is the \emph{same}
-correlation without that truncation, at the same particle size, velocity and
-molecular diffusivity; the third is the authors' own Bruggeman closure for the
-effective dispersion \(D_e\); the fourth repeats that closure at the smallest LDF
-constant \(k\) (in s\(^{-1}\)) that still keeps the step. Pe is the column P\'eclet
-number. The measured 95\,\% arrival time is bracketed by the untruncated correlation and
-the authors' Bruggeman closure.}
-\label{fig:anchorposthoc}
-\end{figure}
-
-The anchor bed sits at a particle P\'eclet number of \nAnchorPePart, and the
-disagreement between the two forms is maximised at \nDispWorstPe, where it reaches
-\nDispWorstRatio\(\times\). In other words the one bed in this paper that is compared
-against an experiment is also the one place where the truncation matters most: there
-our closure disperses \nAnchorDispRatio\(\times\) more than the correlation it is the
-limit of, taking the column P\'eclet number from \nAnchorPeColER\ to \nAnchorPeCol.
-Re-solving that bed under the untruncated form (a labelled post-hoc sensitivity,
-not a fit, and not the pre-registered result) moves the 95\,\% arrival time from
-\nAnchorTninetyfiveModel\ to \nAnchorTninetyfiveER\ minutes against
-\nAnchorTninetyfiveExp\ measured, the plateau from \nAnchorPlateauModel\ to
-\nAnchorPlateauER\ against \nAnchorPlateauExp, and the error against the digitised
-effluent from \nAnchorNrmse\ to \nAnchorNrmseER\ (Figure~\ref{fig:anchorposthoc}).
-The authors' own Bruggeman closure goes further, to \nAnchorNrmseBrug, but overshoots
-in the other direction at \nAnchorTninetyfiveBrug\ minutes; the measured value is
-bracketed by the two closures. A substantial part of the anchor's second named
-discrepancy is therefore one term evaluated at its limit: removing the truncation
-removes \nAnchorTcutPct\,\% of the model's excess 95\,\% arrival time and
-\nAnchorNrmseCutPct\,\% of its error against the digitised effluent (the error is
-dominated by the first-wave timing, which no dispersion closure touches). None of this
-affects a surrogate result, because every arm sees the same reference; it bounds how far
-the reference may be read as physical.
-
-\paragraph{The isotherm's low-humidity branch is too weak} The Henry fraction was
-fitted to the step position and the capacity, never to dynamics; the anchor comparison
-shows the model holds too little water below the step.
-
-\paragraph{Part of the heat range is occupied by no placed framework} The sampled
-heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
-water-harvesting frameworks we placed (Figure~\ref{fig:watermofs}) report \nWmofHeatMost\ to
-\nWmofHeatLeast. Near its least exothermic edge the sampled range gives an isosteric
-heat (\(-\Delta H + RT\)) below water's latent heat of vaporisation at room
-temperature, so that water is bound more weakly than in its own liquid. That is the
-regime of hydrophobic adsorbents rather than of the frameworks this paper is
-motivated by. The range was pre-registered and is kept; verdicts averaged over it
-weight that region as heavily as the occupied one.
-
-\paragraph{Not every sample reaches the step} A harvester is operated above its
-step by design; the sampled space is not. \nChemBelowStepPct\,\% of the accepted
-samples of the larger dataset (\nChemBelowStepLegPct\,\% of the legacy one) are fed
-below their material's step humidity, so the feed never reaches pore filling and the
-breakthrough is the primary-site front alone. These samples are in every verdict; a
-surrogate built only for harvesting conditions would not need them.
-
-\paragraph{The step does not move between feed temperatures} The cluster affinity is
-set per run so that the step sits at the material's step humidity at the feed
-temperature (Section~\ref{sec:model}). Within a run the step still moves with the
-local bed temperature through the heat of adsorption, but across runs a material's
-step humidity at the feed temperature is the same by construction. In real MOF-303
-it moves with temperature \cite{hastings2024high}. The
-datasets therefore do not test whether a surrogate transfers
-the temperature dependence of the step.
-
-\paragraph{Two parameters are not measurements} Pellet density and bed porosity
-are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for
-MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
-constant.
-
-\paragraph{No covalent organic framework case} We found no published breakthrough
-measurement on a covalent organic framework (COF) suitable for this comparison, so no
-claim is made for that class.
+\paragraph{The isotherm and the parameter space} The low-humidity branch holds too
+little water, as the anchor shows; part of the sampled heat range is occupied by no
+placed framework; \nChemBelowStepPct\,\% of samples are fed below their step; the step
+does not move with feed temperature as it does in real MOF-303
+\cite{hastings2024high}; pellet density and bed porosity are packing values rather
+than measurements; and no covalent organic framework (COF) breakthrough case suitable
+for comparison exists. Each is quantified in Supplementary S2, Section S9.
 
 \paragraph{Three comparisons are exploratory} L3, L5's operator comparison and the
 coordinate change are measured over \nNclustLegacy\ held-out materials, L4 over

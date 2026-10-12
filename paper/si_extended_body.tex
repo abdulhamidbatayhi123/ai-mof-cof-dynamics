@@ -1,0 +1,274 @@
+\section{Henry's law across the parameter space}
+\label{s2:sec1}
+
+\subsection{Henry's law holds everywhere; the region where it dominates does not}
+
+Measured across all \nIsoNmat\ sampled materials rather than at two named
+configurations: \(n > 1\) strictly for every material, so the cooperative term
+is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
+But the Henry constant \(K_H = q_{\max} f_H b_H\), the slope of
+equation~\eqref{eq:isotherm} at the origin, spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
+\si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. The
+concentration at which the cooperative term reaches 1\,\% of loading (the top of
+the accessible Henry region) reaches \(10^{\nIsoHenryMax}\) of the feed at best
+and a median of \(10^{\nIsoHenryMed}\), but lies below \(10^{-3}\) of the feed for
+\nIsoHenryBelowMilli\ materials and below \(10^{-6}\) for \nIsoHenryBelowMicro. For
+those the isotherm is effectively Sips-like at every concentration the column
+visits. Since concentration is proportional to relative humidity at fixed
+temperature, the near-linear uptake regime of a median material ends at
+\(10^{\nIsoHenryMed}\) of the feed humidity. The design guarantees thermodynamic validity
+everywhere, not an experimentally accessible linear regime.
+
+\section{Where real water-harvesting frameworks sit}
+\label{s2:sec2}
+
+\paragraph{Where real water-harvesting frameworks sit} The sampled space is meant to
+contain the adsorbents a water harvester would use, so we placed published ones in it
+(Figure~\ref{fig:watermofs}), on the four axes that are properties of the framework
+rather than of the pellet and the packing: step position, capacity, heat of
+adsorption and the fraction of capacity taken below the step. The values come from
+the primary literature, MOF-303 \cite{hanikel2019rapid,fathieh2018practical},
+MOF-801 \cite{furukawa2014water}, CAU-10-H \cite{solovyeva2021cau,frohlich2016water},
+aluminium fumarate \cite{hanikel2019rapid,laurenz2020novel}, MIL-160(Al)
+\cite{solovyeva2021mil,aumond2026adsorption,lenzen2019metal} and
+Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record}; each point spans the values its
+sources report, which differ in sample, temperature and in how the step is defined,
+and the below-step fractions are mostly read from published figures and are rough.
+Of the \nWmofN, \nWmofInside\ lie inside the sampled ranges on every axis. The
+exceptions are at the edges, and one is far outside: MOF-801's step, at about
+\nWmofEightStep, sits just below the sampled floor of \nWmofStepLo; one reported heat
+for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled range; and
+Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
+\(\nWmofBtddRatio\times\) the largest capacity we sampled, \nWmofQmaxHi. The verdicts of this paper are therefore
+statements about frameworks like MOF-303, aluminium fumarate and MIL-160, and should
+not be carried to record-capacity materials without new data. The cooperativity
+exponent \(n\), the steepness of the step and arguably the property a harvester
+designer cares about most, is not placed: the sources report isotherms, not fitted
+step exponents, and fitting equation~\eqref{eq:isotherm} to digitised curves would be
+a new measurement, not a reading of the literature.
+
+\begin{figure}[!tbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/FigS2_water_mofs.pdf}
+\caption{Published water-harvesting frameworks against the sampled parameter space
+(shaded boxes). \textbf{A}~Step position and capacity. \textbf{B}~Fraction of capacity
+taken below the step and heat of adsorption. Bars span the values reported across
+sources; values, locations in each paper and confidence are recorded in
+\texttt{research/water\_mof\_parameters.json}.}
+\label{fig:watermofs}
+\end{figure}
+
+\section{The tuning envelope of rung L3}
+\label{s2:sec3}
+
+\paragraph{The tuning envelope is itself a result} The families optimise
+\nLthreeLrDecades{} orders of magnitude apart: the Chebyshev family at \nLthreeChebyLr\ and the
+perceptron at \nLthreeMlpLr. \nLthreeNfailAll{} configurations failed on every seed and
+\nLthreeNfailSome{} more on some seeds; all are excluded and listed, never averaged in. Every family, the perceptron included, was tuned over the same
+learning-rate grid; none was left at a default.
+
+\section{Basis size on the legacy design}
+\label{s2:sec4}
+
+\paragraph{On the legacy design (retracted as a verdict; kept as a measurement)} At
+matched parameter counts and each family at its own best learning rate over
+\nLfiveNrates\ rates spanning \nLfiveDecades\ decades, DeepONet looked flat in basis
+size (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\),
+interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero. Stated as what it excludes:
+a sixteenfold increase in basis size could not have improved this arm by more than
+\nLfiveFlatImproveMax\,\% of its error. The larger design found an improvement
+well inside that bound, which is exactly why a null on \nNclustLegacy\ held-out
+materials could not be the last word. Meanwhile its own POD
+floor falls from \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of
+\(\nFloorDrop\). The best DeepONet found anywhere, at the smallest basis, sits
+\(\nONetxFloor\times\) above the floor of the largest. Rule~4 is the rule this rung was
+most exposed on: at the two
+smallest bases DeepONet's best learning rate first sat on the top of the grid, still
+moving. The grid was extended one rate upward for those arms, the optimum stayed where
+it was and is now interior, and every selected rate in this rung is bracketed, so
+the Fourier operator below is not compared with an under-tuned DeepONet. \emph{The best DeepONet found anywhere, at the smallest basis, is as
+accurate as an oracle handed the true coefficients of its first
+\nLfiveOracleONet\ modes.}
+
+\section{The scope of the L6 refutation}
+\label{s2:sec5}
+
+\paragraph{The scope of that refutation} Kinetic control means Damk\"ohler well below unity, and this dataset never
+goes there: its lowest per-material value is \nDaMatMin. The hypothesis predicted
+that separating the kinetic object pays most where kinetics dominate, and we have
+refuted it over a range whose slow-kinetics end is merely \emph{less fast}, not
+slow. A design that sampled \(\mathrm{Da} < 1\) could in principle recover the
+interaction. We did not sample it, and the reason is structural rather than an
+oversight: the kinetic coefficient is not a free parameter in this dataset but is
+derived from particle size through the Glueckauf relation, so
+\(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
+bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
+\nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
+one-dimensional plug-flow model is no longer the right description. This is the same
+objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
+\(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
+physical inconsistency this dataset was built to remove. The refutation therefore
+holds across the range a physically consistent bed of this kind can occupy, and is
+not a statement about the kinetically-controlled limit.
+
+\section{The power of the L6 test}
+\label{s2:sec6}
+
+\paragraph{Why the test has power now, and its limit} The between-material standard
+deviation of the arm difference fell to \nLsixBetweenSD, or
+\nLsixBetweenOverBase\,\% of the base error, from \nLsixLegacyBetweenOverBase\,\% previously, a \(\nLsixNoiseDrop\times\) noise reduction from Sobol sampling and physically consistent
+kinetics. With \nNclustFolds\ clusters instead of \nNclustLegacy, that is what turned an unanswerable
+question into an answerable one. Power is \nLsixPowerFour\,\% at a 4\,\% effect and
+\nLsixPowerTwo\,\% at 2\,\%, with size at the null \nLsixSizeNull\,\%; the minimum
+detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits just
+under it, so the point estimate may be optimistic and the lower bound is the
+conservative reading.
+
+\section{The mode count and the n-width}
+\label{s2:sec7}
+
+\paragraph{The mode count is scoped to a sample size} An
+earlier version of this section stated the mode count as a property of the map. It
+is not: it is what a given number of training materials buys. Measured against
+material count (Figure~\ref{fig:mechanism}), modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
+\nLCmodesLarge\ over 12 to 192 materials and are still climbing. Three counts of
+modes clearing \(R^2 > 0.2\) appear in this paper, and they are the same statistic
+under different conditions: \nLfiveCountModes\ on the legacy design, and
+\nLCmodesLarge\ and \nLfiveVtwoModes\ on the larger one at the same number of training
+materials, the first for the learning-curve learner on its own basis and the second for the
+decomposition's regressor on the largest basis. They agree on what matters here:
+a learner predicts a modest set of mostly leading modes and little beyond it. The retraction is
+A21, and it withdrew the replacement text for an earlier retraction: the same
+inference, made twice.
+
+\paragraph{The \(n\)-width is real and was not what binds} The residual
+\emph{energy} of this snapshot family decays algebraically, as
+\(k^{\nNwidthExpC}\) in the number of modes \(k\), with \(R^2 = \nNwidthRtwoC\) over
+\(k = 8\)--64. The Kolmogorov \(n\)-width, whose \(n\) is this mode count, is the
+residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpErr}\)
+and halving the error requires
+\(\nNwidthHalving\times\) the modes. We separate the two because an
+earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
+halving factor computed correctly from the norm: two numbers in one sentence
+that disagreed by a factor of two in the exponent. Any method whose output is a linear
+combination of a fixed basis is bounded below by it. Our frozen protocol called this
+the central result of the ladder and predicted that DeepONet would track it.
+The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
+A17. For transport-dominated problems the slow decay is established: Ohlberger
+and Rave \cite{ohlberger2016reduced} prove a \emph{lower} bound of \(\tfrac12 k^{-1/2}\) for linear advection
+with jump discontinuities, which is a bound and not a rate. Our measured decay is faster than that bound, and the reason is the
+hypothesis: their fields carry jump discontinuities, ours are smoothed by axial
+dispersion and by finite-rate kinetics, so the worst case their theorem
+constructs does not occur here. That is also why the bound can be simultaneously
+real and inactive; this paragraph has to hold both statements together.
+
+\section{Monotonicity of the predicted fronts}
+\label{s2:sec8}
+
+\paragraph{Monotonicity is not the lever} The obvious first attack is that the
+front predictor does not know the constraints the true trajectories satisfy exactly.
+It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, while the true trajectories
+violate them in none. But projecting onto the constraint set changes \(R^2\) by
+at most \nWarpMonoMaxDRtwo{} and makes the reconstruction significantly
+\emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
+\nMonoDiff\ with interval [\nMonoLo, \nMonoHi] (tighter than Table~\ref{tab:warp}'s
+because the projected arm is a deterministic transformation of the raw arm, so the
+between-material variance cancels). The violations are frequent but negligible; the
+remaining headroom is the front predictor's raw accuracy.
+
+\section{The dispersion closure, and the limits of the isotherm and the parameter space}
+\label{s2:sec9}
+
+\paragraph{The dispersion closure needs a more careful statement than we first gave
+it, and its effect is measured} Our datasets use
+\(D_L = 0.7 D_m + 0.5 d_p u\), with \(u\) the interstitial velocity, a form due to Wakao
+and Funazkri \cite{wakao1978effect} that Perry's handbook \cite{levan2019adsorption}
+presents as a \emph{lower bound} for \emph{nonporous} particles; for porous, strongly
+adsorbing particles such as ours the effective axial dispersion is larger. The form is
+also the high-particle-P\'eclet \emph{limit} of Edwards and Richardson's correlation
+\cite{edwards1968gas}, whose mechanical coefficient carries an extra factor
+\(\left[1 + 9.7\,D_m/(d_p u)\right]^{-1}\), so we measured whether the limit applies.
+The particle P\'eclet number \(d_p u / D_m\) runs
+\nPePartMin--\nPePartMax\ across the dataset, median \nPePartMed, spanning
+\nPePartDecades{} decades. Over that range the two published forms disagree by a
+median factor of \nDispRatioMed, exceeding \(1.1\times\) for \nDispFracAboveTenPct\,\%
+of samples and \(1.5\times\) for \nDispFracAboveHalf\,\%, with a worst case of
+\nDispRatioMax. The disagreement is bounded and modest for the dataset, but it is
+not modest for the anchor.
+
+\begin{figure}[!tbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig7b_anchor_posthoc.pdf}
+\caption{Post-hoc dispersion sensitivity on the anchor bed, labelled as such and
+reported as a limitation rather than as a result. The pre-registered primary uses the
+high-P\'eclet limit of the correlation; the second curve is the \emph{same}
+correlation without that truncation, at the same particle size, velocity and
+molecular diffusivity; the third is the authors' own Bruggeman closure for the
+effective dispersion \(D_e\); the fourth repeats that closure at the smallest LDF
+constant \(k\) (in s\(^{-1}\)) that still keeps the step. Pe is the column P\'eclet
+number. The measured 95\,\% arrival time is bracketed by the untruncated correlation and
+the authors' Bruggeman closure.}
+\label{fig:anchorposthoc}
+\end{figure}
+
+The anchor bed sits at a particle P\'eclet number of \nAnchorPePart, and the
+disagreement between the two forms is maximised at \nDispWorstPe, where it reaches
+\nDispWorstRatio\(\times\). In other words the one bed in this paper that is compared
+against an experiment is also the one place where the truncation matters most: there
+our closure disperses \nAnchorDispRatio\(\times\) more than the correlation it is the
+limit of, taking the column P\'eclet number from \nAnchorPeColER\ to \nAnchorPeCol.
+Re-solving that bed under the untruncated form (a labelled post-hoc sensitivity,
+not a fit, and not the pre-registered result) moves the 95\,\% arrival time from
+\nAnchorTninetyfiveModel\ to \nAnchorTninetyfiveER\ minutes against
+\nAnchorTninetyfiveExp\ measured, the plateau from \nAnchorPlateauModel\ to
+\nAnchorPlateauER\ against \nAnchorPlateauExp, and the error against the digitised
+effluent from \nAnchorNrmse\ to \nAnchorNrmseER\ (Figure~\ref{fig:anchorposthoc}).
+The authors' own Bruggeman closure goes further, to \nAnchorNrmseBrug, but overshoots
+in the other direction at \nAnchorTninetyfiveBrug\ minutes; the measured value is
+bracketed by the two closures. A substantial part of the anchor's second named
+discrepancy is therefore one term evaluated at its limit: removing the truncation
+removes \nAnchorTcutPct\,\% of the model's excess 95\,\% arrival time and
+\nAnchorNrmseCutPct\,\% of its error against the digitised effluent (the error is
+dominated by the first-wave timing, which no dispersion closure touches). None of this
+affects a surrogate result, because every arm sees the same reference; it bounds how far
+the reference may be read as physical.
+
+\paragraph{The isotherm's low-humidity branch is too weak} The Henry fraction was
+fitted to the step position and the capacity, never to dynamics; the anchor comparison
+shows the model holds too little water below the step.
+
+\paragraph{Part of the heat range is occupied by no placed framework} The sampled
+heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
+water-harvesting frameworks we placed (Figure~\ref{fig:watermofs}) report \nWmofHeatMost\ to
+\nWmofHeatLeast. Near its least exothermic edge the sampled range gives an isosteric
+heat (\(-\Delta H + RT\)) below water's latent heat of vaporisation at room
+temperature, so that water is bound more weakly than in its own liquid. That is the
+regime of hydrophobic adsorbents rather than of the frameworks this paper is
+motivated by. The range was pre-registered and is kept; verdicts averaged over it
+weight that region as heavily as the occupied one.
+
+\paragraph{Not every sample reaches the step} A harvester is operated above its
+step by design; the sampled space is not. \nChemBelowStepPct\,\% of the accepted
+samples of the larger dataset (\nChemBelowStepLegPct\,\% of the legacy one) are fed
+below their material's step humidity, so the feed never reaches pore filling and the
+breakthrough is the primary-site front alone. These samples are in every verdict; a
+surrogate built only for harvesting conditions would not need them.
+
+\paragraph{The step does not move between feed temperatures} The cluster affinity is
+set per run so that the step sits at the material's step humidity at the feed
+temperature (Section~\ref{sec:model}). Within a run the step still moves with the
+local bed temperature through the heat of adsorption, but across runs a material's
+step humidity at the feed temperature is the same by construction. In real MOF-303
+it moves with temperature \cite{hastings2024high}. The
+datasets therefore do not test whether a surrogate transfers
+the temperature dependence of the step.
+
+\paragraph{Two parameters are not measurements} Pellet density and bed porosity
+are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for
+MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
+constant.
+
+\paragraph{No covalent organic framework case} We found no published breakthrough
+measurement on a covalent organic framework (COF) suitable for this comparison, so no
+claim is made for that class.
+
