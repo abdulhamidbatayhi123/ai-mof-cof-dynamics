@@ -1,5 +1,10 @@
 # Paper 2 Stage-1 references (`paper2/stage1.tex`)
 
+**Superseded on 2026-10-12 for bibliographic fields.** `audit_references_p2.py` re-checked
+every entry against Crossref, arXiv and DataCite (`audit_2026-10-12/reference_audit_p2.json`).
+Thirteen preprints are now cited by their versions of record, and gallo2026 by its v2 title
+(RETRACTIONS B80). The table below keeps the 2026-10-04 snapshot and its S-code mapping.
+
 Generated 2026-10-04. One row per source cited in `paper2/stage1.tex`, in order of first citation. S-codes refer to `research/lit_equation_discovery.md`. DOI and arXiv id are exactly as given in that journal; where the journal gives none the cell says MISSING (no DOI was invented or added). Bibliographic fields (authors, title, venue, year) are taken from the fetched Crossref record when a DOI exists, otherwise from the fetched arXiv record; the journal's venue statement is used for arXiv-only items when the journal gives one.
 
 Verification: each DOI fetched with `curl -s https://api.crossref.org/works/<DOI>`; each arXiv id with `http://export.arxiv.org/api/query?id_list=<id>`. No e-mail address or other personal data was sent. VERIFIED = the record resolves and its DOI/title matches the journal's source (title compared by eye against the journal's description, authors against the journal's 'authors as shown'); MISMATCH = resolves to a different work or fails; MISSING = no id in the journal.

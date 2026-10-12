@@ -100,7 +100,10 @@ may not be the single right axis (Pe and isotherm shape are axes); an EIV method
 rescue recovery (then the headline becomes a law about isotherm accuracy); scoop risk
 is moderate (the Santana/Nogueira group, a differentiable-hybrid adsorption group).
 
-**Venue.** Chem. Eng. Sci. / AIChE J. / Digital Discovery (choose at freeze time).
+**Venue (decided 2026-10-12, `paper2/VENUE_RR.md`).** Stage 1 to Nature Communications
+(Registered Report). If declined, or without IPA by 2027-04-11 (the frozen six-month
+clause), the paper is reported as a pre-registered study and sent to Nature Computational
+Science or Nature Chemical Engineering, then AIChE J. / Chem. Eng. Sci.
 
 ## Paper 3 — Thermodynamically consistent learned sorption
 

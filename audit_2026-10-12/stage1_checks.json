@@ -1,0 +1,60 @@
+{
+ "hard": {
+  "prereg_unchanged_since_freeze": true,
+  "log_exists": true,
+  "no_undefined_refs_or_cites": true,
+  "no_latex_errors": true,
+  "title_le_15_words": true,
+  "abstract_le_200_words": true,
+  "abstract_has_no_citation": true,
+  "every_cite_has_bibitem": true,
+  "every_bibitem_cited": true,
+  "crlf_only": true,
+  "verdict_phrases_in_prereg": true
+ },
+ "title_words": 9,
+ "abstract_words": 185,
+ "cited_not_in_bib": [],
+ "bib_not_cited": [],
+ "verdict_phrases_missing_from_prereg": [],
+ "overfull_pt": [
+  4.01413,
+  1.57266,
+  3.48427
+ ],
+ "provenance_sources": [
+  "p2/analysis.py",
+  "p2/eiv.py",
+  "p2/features.py",
+  "p2/identifiability.py",
+  "p2/massbal.py",
+  "p2/methods.py",
+  "p2/metric.py",
+  "p2/weak.py",
+  "p2_generate.log",
+  "research/lit_equation_discovery.md",
+  "results/odr_bindy_seeds.json",
+  "results/odr_bindy_verification.json",
+  "results/p2_cost_gates.json",
+  "results/p2_pilot_generator.json",
+  "results/p2_pilot_m1.json",
+  "results/p2_pilot_m7.json",
+  "results/p2_power_note.json",
+  "tests/test_p2.py"
+ ],
+ "traced_by_hand": {
+  "0.32": "results/p2_power_note.json shift_resolvable_at_power_0.95_decade 0.3208",
+  "0.92": "results/p2_power_note.json power_at_factor_2_shift_log10_2 0.9225",
+  "0.9": "research/lit_equation_discovery.md S1 addendum: Da = kL/v ~ 0.86",
+  "2.4": "tests/test_p2.py mass-balance test comment 'measured 0.024'",
+  "7.5": "tests/test_p2.py success-metric test: -0.0215 against 0.02 accepted",
+  "3.84": "p2/identifiability.py: 2*(max loglik - loglik) <= 3.84",
+  "414": "p2_generate.log: slowest main-grid solve 414 s",
+  "2.6": "requirements_p2_venv.txt: pysr==2.6.1 (software version, printed as 2.6.1)",
+  "0.13": "results/p2_power_note.json sd_difference_if_independent_decade 0.1259",
+  "0.35": "results/p2_power_note.json difference_shift_resolvable_at_power_0.80_decade 0.3526",
+  "0.45": "results/p2_power_note.json difference_shift_resolvable_at_power_0.95_decade 0.4537",
+  "0.67": "results/p2_power_note.json difference_power_at_factor_2_shift 0.667"
+ },
+ "numbers_to_review": []
+}

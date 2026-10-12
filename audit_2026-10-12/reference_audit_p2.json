@@ -1,0 +1,1259 @@
+{
+ "source": "paper2/stage1.tex",
+ "fetched_utc": "2026-10-12T07:18:54Z",
+ "n_entries": 53,
+ "n_with_issues": 2,
+ "entries": {
+  "brunton2016": {
+   "dois": [
+    {
+     "doi": "10.1073/pnas.1517384113",
+     "registry": {
+      "title": "Discovering governing equations from data by sparse identification of nonlinear dynamical systems",
+      "first_author": "Brunton",
+      "year": 2016,
+      "venue": "Proceedings of the National Academy of Sciences",
+      "volume": "113",
+      "page": "3932-3937",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "1509.03580",
+     "record": {
+      "title": "Discovering governing equations from data: Sparse identification of nonlinear dynamical systems",
+      "first_author": "Steven L. Brunton",
+      "doi": "10.1073/pnas.1517384113",
+      "journal_ref": null
+     },
+     "issues": [
+      "title: arXiv 'Discovering governing equations from data: Sparse identification of nonlinear dynamical systems'"
+     ]
+    }
+   ],
+   "published_version": null,
+   "status": "ISSUES"
+  },
+  "rudy2016": {
+   "dois": [
+    {
+     "doi": "10.1126/sciadv.1602614",
+     "registry": {
+      "title": "Data-driven discovery of partial differential equations",
+      "first_author": "Rudy",
+      "year": 2017,
+      "venue": "Science Advances",
+      "volume": "3",
+      "page": "e1602614",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "1609.06401",
+     "record": {
+      "title": "Data-driven discovery of partial differential equations",
+      "first_author": "Samuel H. Rudy",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "messenger2021ode": {
+   "dois": [
+    {
+     "doi": "10.1137/20M1343166",
+     "registry": {
+      "title": "Weak SINDy: Galerkin-Based Data-Driven Model Selection",
+      "first_author": "Messenger",
+      "year": 2021,
+      "venue": "Multiscale Modeling &amp; Simulation",
+      "volume": "19",
+      "page": "1474-1497",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2005.04339",
+     "record": {
+      "title": "Weak SINDy: Galerkin-Based Data-Driven Model Selection",
+      "first_author": "Daniel A. Messenger",
+      "doi": "10.1137/20M1343166",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "messenger2021pde": {
+   "dois": [
+    {
+     "doi": "10.1016/j.jcp.2021.110525",
+     "registry": {
+      "title": "Weak SINDy for partial differential equations",
+      "first_author": "Messenger",
+      "year": 2021,
+      "venue": "Journal of Computational Physics",
+      "volume": "443",
+      "page": "110525",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2007.02848",
+     "record": {
+      "title": "Weak SINDy For Partial Differential Equations",
+      "first_author": "Daniel A. Messenger",
+      "doi": "10.1016/j.jcp.2021.110525",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "reinbold2020": {
+   "dois": [
+    {
+     "doi": "10.1103/PhysRevE.101.010203",
+     "registry": {
+      "title": "Using noisy or incomplete data to discover models of spatiotemporal dynamics",
+      "first_author": "Reinbold",
+      "year": 2020,
+      "venue": "Physical Review E",
+      "volume": "101",
+      "page": "010203",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "1911.03365",
+     "record": {
+      "title": "Using Noisy or Incomplete Data to Discover Models of Spatiotemporal Dynamics",
+      "first_author": "Patrick A. K. Reinbold",
+      "doi": "10.1103/PhysRevE.101.010203",
+      "journal_ref": "Phys. Rev. E 101, 010203 (2020)"
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "fasel2022": {
+   "dois": [
+    {
+     "doi": "10.1098/rspa.2021.0904",
+     "registry": {
+      "title": "Ensemble-SINDy: Robust sparse model discovery in the low-data, high-noise limit, with active learning and control",
+      "first_author": "Fasel",
+      "year": 2022,
+      "venue": "Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+      "volume": "478",
+      "page": "20210904",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2111.10992",
+     "record": {
+      "title": "Ensemble-SINDy: Robust sparse model discovery in the low-data, high-noise limit, with active learning and control",
+      "first_author": "Urban Fasel",
+      "doi": "10.1098/rspa.2021.0904",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "hirsh2021": {
+   "dois": [
+    {
+     "doi": "10.1098/rsos.211823",
+     "registry": {
+      "title": "Sparsifying priors for Bayesian uncertainty quantification in model discovery",
+      "first_author": "Hirsh",
+      "year": 2022,
+      "venue": "Royal Society Open Science",
+      "volume": "9",
+      "page": "211823",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2107.02107",
+     "record": {
+      "title": "Sparsifying Priors for Bayesian Uncertainty Quantification in Model Discovery",
+      "first_author": "Seth M. Hirsh",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "kaheman2020": {
+   "dois": [
+    {
+     "doi": "10.1098/rspa.2020.0279",
+     "registry": {
+      "title": "SINDy-PI: a robust algorithm for parallel implicit sparse identification of nonlinear dynamics",
+      "first_author": "Kaheman",
+      "year": 2020,
+      "venue": "Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+      "volume": "476",
+      "page": "20200279",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2004.02322",
+     "record": {
+      "title": "SINDy-PI: A Robust Algorithm for Parallel Implicit Sparse Identification of Nonlinear Dynamics",
+      "first_author": "Kadierdan Kaheman",
+      "doi": "10.1098/rspa.2020.0279",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "bertsimas2022": {
+   "dois": [
+    {
+     "doi": "10.1007/s11071-022-08178-9",
+     "registry": {
+      "title": "Learning sparse nonlinear dynamics via mixed-integer optimization",
+      "first_author": "Bertsimas",
+      "year": 2023,
+      "venue": "Nonlinear Dynamics",
+      "volume": "111",
+      "page": "6585-6604",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2206.00176",
+     "record": {
+      "title": "Learning Sparse Nonlinear Dynamics via Mixed-Integer Optimization",
+      "first_author": "Dimitris Bertsimas",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "cranmer2023": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2305.01582",
+     "record": {
+      "title": "Interpretable Machine Learning for Science with PySR and SymbolicRegression.jl",
+      "first_author": "Miles Cranmer",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "udrescu2020": {
+   "dois": [
+    {
+     "doi": "10.1126/sciadv.aay2631",
+     "registry": {
+      "title": "AI Feynman: A physics-inspired method for symbolic regression",
+      "first_author": "Udrescu",
+      "year": 2020,
+      "venue": "Science Advances",
+      "volume": "6",
+      "page": "eaay2631",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "1905.11481",
+     "record": {
+      "title": "AI Feynman: a Physics-Inspired Method for Symbolic Regression",
+      "first_author": "Silviu-Marian Udrescu",
+      "doi": null,
+      "journal_ref": "Science Advances, 6:eaay2631, April 15, 2020"
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "santana2023": {
+   "dois": [
+    {
+     "doi": "10.1016/j.ces.2023.119223",
+     "registry": {
+      "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+      "first_author": "Santana",
+      "year": 2023,
+      "venue": "Chemical Engineering Science",
+      "volume": "282",
+      "page": "119223",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2303.13555",
+     "record": {
+      "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+      "first_author": "Vinicius V. Santana",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "valocchi1985": {
+   "dois": [
+    {
+     "doi": "10.1029/wr021i006p00808",
+     "registry": {
+      "title": "Validity of the Local Equilibrium Assumption for Modeling Sorbing Solute Transport Through Homogeneous Soils",
+      "first_author": "Valocchi",
+      "year": 1985,
+      "venue": "Water Resources Research",
+      "volume": "21",
+      "page": "808-820",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "hansen2017": {
+   "dois": [
+    {
+     "doi": "10.1111/gwat.12566",
+     "registry": {
+      "title": "Local Equilibrium and Retardation Revisited",
+      "first_author": "Hansen",
+      "year": 2018,
+      "venue": "Groundwater",
+      "volume": "56",
+      "page": "109-117",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "1703.03087",
+     "record": {
+      "title": "Local equilibrium and retardation revisited",
+      "first_author": "Scott K. Hansen",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "katsoulas2023": {
+   "dois": [
+    {
+     "doi": "10.1016/j.chroma.2023.464345",
+     "registry": {
+      "title": "On the apparent dispersion coefficient of the equilibrium dispersion model: An asymptotic analysis",
+      "first_author": "Katsoulas",
+      "year": 2023,
+      "venue": "Journal of Chromatography A",
+      "volume": "1708",
+      "page": "464345",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "knox2016": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.iecr.6b00516",
+     "registry": {
+      "title": "Limitations of Breakthrough Curve Analysis in Fixed-Bed Adsorption",
+      "first_author": "Knox",
+      "year": 2016,
+      "venue": "Industrial &amp; Engineering Chemistry Research",
+      "volume": "55",
+      "page": "4734-4748",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "ward2022": {
+   "dois": [
+    {
+     "doi": "10.1007/s10450-022-00361-z",
+     "registry": {
+      "title": "Integrated uncertainty quantification and sensitivity analysis of single-component dynamic column breakthrough experiments",
+      "first_author": "Ward",
+      "year": 2022,
+      "venue": "Adsorption",
+      "volume": "28",
+      "page": "161-183",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "taylor2026": {
+   "dois": [
+    {
+     "doi": "10.1016/j.jconhyd.2026.105043",
+     "registry": {
+      "title": "Global sensitivity of laboratory-scale groundwater reactive transport simulations for sorption and degradation: Breakthrough dynamics across Péclet–Damköhler regimes",
+      "first_author": "Taylor",
+      "year": 2026,
+      "venue": "Journal of Contaminant Hydrology",
+      "volume": "283",
+      "page": "105043",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "miyabe2000": {
+   "dois": [
+    {
+     "doi": "10.1016/s0021-9673(00)00537-9",
+     "registry": {
+      "title": "Determination of the lumped mass transfer rate coefficient by frontal analysis",
+      "first_author": "Miyabe",
+      "year": 2000,
+      "venue": "Journal of Chromatography A",
+      "volume": "890",
+      "page": "211-223",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "stanhope2014": {
+   "dois": [
+    {
+     "doi": "10.1137/130937913",
+     "registry": {
+      "title": "Identifiability of Linear and Linear-in-Parameters Dynamical Systems from a Single Trajectory",
+      "first_author": "Stanhope",
+      "year": 2014,
+      "venue": "SIAM Journal on Applied Dynamical Systems",
+      "volume": "13",
+      "page": "1792-1815",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "gallo2026": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2607.18490",
+     "record": {
+      "title": "The Dynamics of Discoverability: How Trajectories and Priors Shape Equation Recovery",
+      "first_author": "Matteo Gallo",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "delgado2025": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2507.00747",
+     "record": {
+      "title": "SINDy on slow manifolds",
+      "first_author": "Diemen Delgado-Cano",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "klishin2024": {
+   "dois": [
+    {
+     "doi": "10.1103/4d98-tdlp",
+     "registry": {
+      "title": "Statistical mechanics of dynamical system identification",
+      "first_author": "Klishin",
+      "year": 2025,
+      "venue": "Physical Review Research",
+      "volume": "7",
+      "page": "033181",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2403.01723",
+     "record": {
+      "title": "Statistical Mechanics of Dynamical System Identification",
+      "first_author": "Andrei A. Klishin",
+      "doi": "10.1103/4d98-tdlp",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "muhammed2025": {
+   "dois": [
+    {
+     "doi": "10.1371/journal.pcbi.1013193",
+     "registry": {
+      "title": "Data-driven identification of biological systems using multi-scale analysis",
+      "first_author": "Muhammed",
+      "year": 2025,
+      "venue": "PLOS Computational Biology",
+      "volume": "21",
+      "page": "e1013193",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "prabhu2025": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.iecr.4c02981",
+     "registry": {
+      "title": "Derivative-Free Domain-Informed Data-Driven Discovery of Sparse Kinetic Models",
+      "first_author": "Prabhu",
+      "year": 2025,
+      "venue": "Industrial &amp; Engineering Chemistry Research",
+      "volume": "64",
+      "page": "2601-2615",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "huang2021": {
+   "dois": [
+    {
+     "doi": "10.1016/j.jcp.2021.110743",
+     "registry": {
+      "title": "Data-driven discovery of multiscale chemical reactions governed by the law of mass action",
+      "first_author": "Huang",
+      "year": 2022,
+      "venue": "Journal of Computational Physics",
+      "volume": "448",
+      "page": "110743",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2101.06589",
+     "record": {
+      "title": "Data-driven discovery of multiscale chemical reactions governed by the law of mass action",
+      "first_author": "Juntao Huang",
+      "doi": "10.1016/j.jcp.2021.110743",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "delahunt2021": {
+   "dois": [
+    {
+     "doi": "10.1109/access.2022.3159335",
+     "registry": {
+      "title": "A Toolkit for Data-Driven Discovery of Governing Equations in High-Noise Regimes",
+      "first_author": "Delahunt",
+      "year": 2022,
+      "venue": "IEEE Access",
+      "volume": "10",
+      "page": "31210-31234",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2111.04870",
+     "record": {
+      "title": "A toolkit for data-driven discovery of governing equations in high-noise regimes",
+      "first_author": "Charles B. Delahunt",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "kaptanoglu2023": {
+   "dois": [
+    {
+     "doi": "10.1007/s11071-023-08525-4",
+     "registry": {
+      "title": "Benchmarking sparse system identification with low-dimensional chaos",
+      "first_author": "Kaptanoglu",
+      "year": 2023,
+      "venue": "Nonlinear Dynamics",
+      "volume": "111",
+      "page": "13143-13164",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2302.10787",
+     "record": {
+      "title": "Benchmarking sparse system identification with low-dimensional chaos",
+      "first_author": "Alan A. Kaptanoglu",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "nogueira2022": {
+   "dois": [
+    {
+     "doi": "10.1002/cjce.24495",
+     "registry": {
+      "title": "Using scientific machine learning to develop universal differential equation for multicomponent adsorption separation systems",
+      "first_author": "B. R. Nogueira",
+      "year": 2022,
+      "venue": "The Canadian Journal of Chemical Engineering",
+      "volume": "100",
+      "page": "2279-2290",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "frandsen2025": {
+   "dois": [
+    {
+     "doi": "10.1002/aic.70045",
+     "registry": {
+      "title": "A systematic screening of neural network‐based hybrid models of adsorption in chromatography processes",
+      "first_author": "Frandsen",
+      "year": 2025,
+      "venue": "AIChE Journal",
+      "volume": "71",
+      "page": "e70045",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "jessop2026": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2609.04011",
+     "record": {
+      "title": "Differentiable Hybrid Modelling for Learning and Optimising Chemical Transport Processes from Experimental Data",
+      "first_author": "Arthur Jessop",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "praditia2022": {
+   "dois": [
+    {
+     "doi": "10.1029/2022WR033149",
+     "registry": {
+      "title": "Learning Groundwater Contaminant Diffusion‐Sorption Processes With a Finite Volume Neural Network",
+      "first_author": "Praditia",
+      "year": 2022,
+      "venue": "Water Resources Research",
+      "volume": "58",
+      "page": "e2022WR033149",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "subraveti2022": {
+   "dois": [
+    {
+     "doi": "10.1016/j.chroma.2022.463037",
+     "registry": {
+      "title": "Can a computer “learn” nonlinear chromatography?: Physics-based deep neural networks for simulation and optimization of chromatographic processes",
+      "first_author": "Subraveti",
+      "year": 2022,
+      "venue": "Journal of Chromatography A",
+      "volume": "1672",
+      "page": "463037",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "scheurer2026": {
+   "dois": [
+    {
+     "doi": "10.3389/frwa.2026.1813791",
+     "registry": {
+      "title": "Efficient confidence interval computation for physics-aware machine learning of diffusion-sorption models",
+      "first_author": "Scheurer",
+      "year": 2026,
+      "venue": "Frontiers in Water",
+      "volume": "8",
+      "page": "1813791",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "haghpanah2023": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.iecr.3c02900",
+     "registry": {
+      "title": "Fitting Adsorption Isotherms with Symbolic Regression",
+      "first_author": "Haghpanah",
+      "year": 2023,
+      "venue": "Industrial &amp; Engineering Chemistry Research",
+      "volume": "62",
+      "page": "22141-22148",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "sharlin2024": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2410.17448",
+     "record": {
+      "title": "In Context Learning and Reasoning for Symbolic Regression with Large Language Models",
+      "first_author": "Samiha Sharlin",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "cornelio2021": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2109.01634",
+     "record": {
+      "title": "AI Descartes: Combining Data and Theory for Derivable Scientific Discovery",
+      "first_author": "Cristina Cornelio",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "fox2023": {
+   "dois": [
+    {
+     "doi": "10.1088/2632-2153/ad4a1e",
+     "registry": {
+      "title": "Incorporating background knowledge in symbolic regression using a computer algebra system",
+      "first_author": "Fox",
+      "year": 2024,
+      "venue": "Machine Learning: Science and Technology",
+      "volume": "5",
+      "page": "025057",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2301.11919",
+     "record": {
+      "title": "Incorporating Background Knowledge in Symbolic Regression using a Computer Algebra System",
+      "first_author": "Charles Fox",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "servia2024": {
+   "dois": [
+    {
+     "doi": "10.1039/d3dd00212h",
+     "registry": {
+      "title": "The automated discovery of kinetic rate models – methodological frameworks",
+      "first_author": "de Carvalho Servia",
+      "year": 2024,
+      "venue": "Digital Discovery",
+      "volume": "3",
+      "page": "954-968",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2301.11356",
+     "record": {
+      "title": "The Automated Discovery of Kinetic Rate Models -- Methodological Frameworks",
+      "first_author": "Miguel Ángel de Carvalho Servia",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "servia2025": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2507.02730",
+     "record": {
+      "title": "Constraint-Guided Symbolic Regression for Data-Efficient Kinetic Model Discovery",
+      "first_author": "Miguel Ángel de Carvalho Servia",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "loman2025": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2510.14140",
+     "record": {
+      "title": "Functional and parametric identifiability for universal differential equations applied to chemical reaction networks",
+      "first_author": "Torkel E Loman",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "katsoulas2026": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.iecr.5c03704",
+     "registry": {
+      "title": "A Diagnostic Procedure for Identifying Isotherm Models in Liquid Chromatography",
+      "first_author": "Katsoulas",
+      "year": 2026,
+      "venue": "Industrial &amp; Engineering Chemistry Research",
+      "volume": "65",
+      "page": "1277-1292",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "abuelmaaty2024": {
+   "dois": [
+    {
+     "doi": "10.1016/j.ecmx.2024.100694",
+     "registry": {
+      "title": "Kinetics of Water Adsorption in Metal-Organic Framework(MOF-303) for Adsorption Cooling Application",
+      "first_author": "Abu EL-Maaty",
+      "year": 2024,
+      "venue": "Energy Conversion and Management: X",
+      "volume": "24",
+      "page": "100694",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "coyle2026": {
+   "dois": [
+    {
+     "doi": "10.1021/acsmaterialslett.6c00580",
+     "registry": {
+      "title": "Sustainable Metal–Organic Framework Water Harvesters in the Artificial Intelligence Era",
+      "first_author": "Coyle",
+      "year": 2026,
+      "venue": "ACS Materials Letters",
+      "volume": "8",
+      "page": "2391-2400",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2605.29179",
+     "record": {
+      "title": "Sustainable Metal-Organic Framework Water Harvesters in the Artificial Intelligence Era",
+      "first_author": "Reid A. Coyle",
+      "doi": "10.1021/acsmaterialslett.6c00580",
+      "journal_ref": "ACS Materials Lett. 2026, 8, 9, 2391-2400"
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "raue2009": {
+   "dois": [
+    {
+     "doi": "10.1093/bioinformatics/btp358",
+     "registry": {
+      "title": "Structural and practical identifiability analysis of partially observed dynamical models by exploiting the profile likelihood",
+      "first_author": "Raue",
+      "year": 2009,
+      "venue": "Bioinformatics",
+      "volume": "25",
+      "page": "1923-1929",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "fung2026": {
+   "dois": [
+    {
+     "doi": "10.1145/3831701",
+     "registry": {
+      "title": "Overcoming error-in-variable or stiffness problem in SINDy-like data-driven model discovery",
+      "first_author": "Fung",
+      "year": 2026,
+      "venue": "ACM Transactions on AI for Science",
+      "volume": null,
+      "page": "3831701",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "bortz2023": {
+   "dois": [
+    {
+     "doi": "10.1007/s11538-023-01208-6",
+     "registry": {
+      "title": "Direct Estimation of Parameters in ODE Models Using WENDy: Weak-Form Estimation of Nonlinear Dynamics",
+      "first_author": "Bortz",
+      "year": 2023,
+      "venue": "Bulletin of Mathematical Biology",
+      "volume": "85",
+      "page": "110",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [
+    {
+     "id": "2302.13271",
+     "record": {
+      "title": "Direct Estimation of Parameters in ODE Models Using WENDy: Weak-form Estimation of Nonlinear Dynamics",
+      "first_author": "David M. Bortz",
+      "doi": "10.1007/s11538-023-01208-6",
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "paper1": {
+   "dois": [
+    {
+     "doi": "10.5281/zenodo.23305298",
+     "registry": {
+      "title": "Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents",
+      "first_author": "Batayhi",
+      "year": 2026,
+      "venue": "Zenodo",
+      "volume": null,
+      "page": null,
+      "type": "datacite:Software"
+     },
+     "issues": [
+      "title: registry 'Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents'"
+     ]
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "ISSUES"
+  },
+  "liu2024": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2404.19756",
+     "record": {
+      "title": "KAN: Kolmogorov-Arnold Networks",
+      "first_author": "Ziming Liu",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "slote2026": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2602.20413",
+     "record": {
+      "title": "KANDy: Kolmogorov-Arnold Networks and Dynamical System Discovery",
+      "first_author": "Kevin Slote",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "spotorno2026": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2602.09988",
+     "record": {
+      "title": "Empirical Stability Analysis of Kolmogorov-Arnold Networks in Hard-Constrained Recurrent Physics-Informed Discovery",
+      "first_author": "Enzo Nicolas Spotorno",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "golub1980": {
+   "dois": [
+    {
+     "doi": "10.1137/0717073",
+     "registry": {
+      "title": "An Analysis of the Total Least Squares Problem",
+      "first_author": "Golub",
+      "year": 1980,
+      "venue": "SIAM Journal on Numerical Analysis",
+      "volume": "17",
+      "page": "883-893",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "golub1987": {
+   "dois": [
+    {
+     "doi": "10.1016/0024-3795(87)90114-5",
+     "registry": {
+      "title": "A generalization of the Eckart-Young-Mirsky matrix approximation theorem",
+      "first_author": "Golub",
+      "year": 1987,
+      "venue": "Linear Algebra and its Applications",
+      "volume": "88-89",
+      "page": "317-327",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  }
+ }
+}

@@ -1,12 +1,23 @@
 % =====================================================================
-% Paper 2 -- Registered Report, STAGE 1 (introduction, methods, analysis plan).
-% Written 2026-10-04 BEFORE any confirmatory result exists.
-% Source of truth for every design element: PREREG_P2_discoverability.md (DRAFT, not frozen).
-% Literature: research/lit_equation_discovery.md (codes S1..S65; each \cite key carries its
-% S-code in paper2/references_p2.md).
-% Number provenance: every number is quoted from the prereg or a results/test file named in a
-% comment beside it. No confirmatory-grid result exists; none is implied.
-% Aligned 2026-10-04 to the REVISED prereg (its s.10 "Pre-freeze revisions", items 1-20).
+% Paper 2 -- Registered Report, STAGE 1, prepared for Nature Communications.
+% Written BEFORE any confirmatory result exists; no discovery method has run on a grid cell.
+% Source of truth for every design element: PREREG_P2_discoverability.md, FROZEN at commit
+% d562f195ac7e30f0b7abe039946f4f2bd8b3ad6d ("FREEZE PREREG_P2", 2026-10-11). Nothing the
+% frozen pre-registration fixes is changed here; where this text and the prereg could
+% differ, the prereg governs.
+% Journal rules applied (read live 2026-10-12, Istanbul):
+%   nature.com/ncomms/submit/registered-reports; nature.com/documents/
+%   ncomms-registered-report-guidelines.pdf (Stage-1 sections, power, future tense, cover
+%   letter); nature.com/documents/updated_ncomms-registered-report-table.docx (design
+%   table columns); nature.com/ncomms/submit/article (title <= 15 words, abstract <= 200
+%   words without references, Introduction first; no pre-submission enquiries);
+%   nature.com/ncomms/submit/policy (author contributions, competing interests, funding,
+%   data and code availability statements); nature.com/nature-portfolio/editorial-
+%   policies/ai (AI use: human accountability and transparent disclosure).
+% Literature: research/lit_equation_discovery.md (codes S1..S65); references checked by
+% audit_references_p2.py -> audit_2026-10-12/reference_audit_p2.json.
+% Number provenance: every number is quoted from the prereg or a results/test/log file
+% named in a comment beside it. Power figures: p2_power_note.py -> results/p2_power_note.json.
 % =====================================================================
 \documentclass[11pt]{article}
 \usepackage[margin=2.5cm]{geometry}
@@ -17,9 +28,14 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{tabularx}
+\usepackage{pdflscape}
+\usepackage{setspace}
+\usepackage{lineno}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\onehalfspacing
+\linenumbers
 
 \newcommand{\Da}{\mathrm{Da}}
 \newcommand{\Pe}{\mathrm{Pe}}
@@ -27,46 +43,43 @@
 \newcommand{\qsm}{q^{*}_{\mathrm{meas}}}
 \newcommand{\verdict}[1]{``\textit{#1}''}
 
-\title{When can AI discover adsorption kinetics? A discoverability map\\[4pt]
-\large Registered Report --- Stage 1: introduction, methods and analysis plan}
-\author{Abdulhamid Batayhi\\[2pt]
+\title{When can AI discover adsorption kinetics? A discoverability map\\[6pt]
+\large Registered Report, Stage 1: introduction, methods and pilot data}
+\author{Abdulhamid Batayhi\\[4pt]
 \small Department of Mechatronics Engineering, Faculty of Mechanical Engineering,\\
-\small Y\i{}ld\i{}z Technical University, Istanbul, T\"urkiye\\
-\small ORCID 0009-0007-0374-6755 \quad abdulhamid.batayhi@std.yildiz.edu.tr}
-\date{Stage-1 draft, 4 October 2026}
+\small Y\i{}ld\i{}z Technical University, Y\i{}ld\i{}z Campus, Barbaros Bulvar\i{},
+34349 Be\c{s}ikta\c{s}, Istanbul, T\"urkiye\\[4pt]
+\small ORCID 0009-0007-0374-6755\\
+\small Correspondence: \href{mailto:abdulhamid.batayhi@std.yildiz.edu.tr}{abdulhamid.batayhi@std.yildiz.edu.tr}}
+\date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Equation-discovery methods (sparse, weak-form, errors-in-variables and symbolic
-regression, and universal differential equations) are proposed for learning the
-adsorption rate law in fixed beds. The one published demonstration on breakthrough data
-recovers the linear-driving-force law at a single kinetic rate and noise level, with the
-isotherm supplied exactly. It is not known for which regimes such discovery succeeds, or
-whether its failure coincides with the classical loss of practical identifiability of the
-mass-transfer coefficient near local equilibrium; that loss is well documented and is not
-claimed as new. We propose a pre-registered simulation study on data from a verified
-non-isothermal column solver. It varies the Damk\"ohler number (nine levels,
-$10^{-1}$--$10^{3}$), the P\'eclet number, noise, isotherm error, the observation model
-(interior profiles with or without the solid loading, or outlet only), isotherm shape
-(Langmuir or a MOF-303-like step) and the true law (constant $k$ or loading-dependent
-$k(q)$). Discovery methods, each in its strongest configuration with documented inclusion
-gates, are compared on one grid with profile-likelihood identifiability of $k$ given the
-true law. Three confirmatory hypotheses, each with a falsifier and pre-declared verdict
-words, ask whether the driving-force-to-error ratio collapses the boundary (H2a), whether
-discovery fails before, with or after identifiability (H2b), and whether
-errors-in-variables methods move the boundary (H2c); H2d, on the MOF case, is exploratory.
-The boundary estimator was calibrated before any discovery run, giving a minimum
-detectable effect of 0.25 decade. Pilots, reported separately, changed only the
-generator, the harness and the feasible method set.
+\noindent Equation-discovery methods promise to learn the rate law of adsorption in a
+fixed bed from data, not only its coefficient. The one published demonstration on
+breakthrough data recovered the linear-driving-force law at a single kinetic rate and
+noise level, with the isotherm supplied exactly. It is not known in which regimes such
+discovery succeeds, or whether it fails where the mass-transfer coefficient stops being
+practically identifiable near local equilibrium, a classical loss that is not claimed as
+new. We propose a pre-registered simulation study on data from a verified
+non-isothermal column solver. It varies the Damk\"ohler number over four decades, the
+P\'eclet number, measurement noise, isotherm error, what is observed (interior profiles
+with or without the solid loading, or the outlet only), isotherm shape (Langmuir or a
+MOF-303-like step) and the true law (constant or loading-dependent rate). Discovery
+methods, each in its strongest configuration, will be compared on one grid with the
+profile-likelihood identifiability of the rate constant. Three confirmatory hypotheses
+ask whether a driving-force-to-error ratio collapses the discovery boundary, whether
+discovery fails before, with or after identifiability, and whether errors-in-variables
+fitting moves the boundary.
 \end{abstract}
 
 % ---------------------------------------------------------------------
 \section{Introduction}
 \label{sec:intro}
 
-\subsection{The question}
+\subsection*{The question}
 A fixed-bed adsorption experiment reports concentrations and temperatures in time,
 usually at the column outlet. The quantity an engineer needs from it is the uptake rate
 law, most often written as the linear driving force (LDF), $\partial q/\partial t =
@@ -76,7 +89,7 @@ coefficient. Sparse regression over a library of candidate terms
 reinbold2020}, ensemble \citep{fasel2022}, Bayesian \citep{hirsh2021}, implicit
 \citep{kaheman2020} and exact mixed-integer \citep{bertsimas2022} variants, symbolic
 regression \citep{cranmer2023,udrescu2020} and neural surrogates embedded in the
-governing equations \citep{santana2023} all make that offer. This paper asks a narrower
+governing equations \citep{santana2023} all make that offer. This study asks a narrower
 question, which can be tested:
 
 \begin{quote}
@@ -85,7 +98,7 @@ experiment can produce, and does discoverability fail at the same boundary as th
 classical practical identifiability of the rate constant, or earlier?}
 \end{quote}
 
-\subsection{What is known and what is not new}
+\subsection*{What is known and what is not new}
 \label{sec:notnew}
 The physical core of the expected failure is classical and is not claimed here. Near
 local equilibrium the mass-transfer coefficient is poorly determined by column data.
@@ -111,22 +124,24 @@ axes of this design.
 The generic failure of sparse regression on such data also has precedents.
 Single-trajectory identifiability of linear-in-parameter systems, the SINDy model class,
 depends on the trajectory's geometry; estimation sensitivity is governed by a condition
-number tied to the data's spatial confinement \citep{stanhope2014}. The smallest
-eigenvalue of the data moment matrix caps recovery for both SINDy and PySR
-\citep{gallo2026}. SINDy becomes ill-conditioned on slow manifolds, where the recoverable
-object is the manifold itself \citep{delgado2025}. Sparse identification shows noise- and
-sparsity-induced phase transitions \citep{klishin2024}. When trajectories cross time-scale
-regimes, SINDy fails to find a single global model \citep{muhammed2025}. Stiffness and
-timescale separation break rate-law discovery in chemical kinetics
-\citep{prabhu2025,huang2021}. Collinear library functionals make the discovered model
-non-unique \citep{delahunt2021}. One benchmark points the other way: on attractor-filling
-chaotic data, SINDy performance showed no significant dependence on scale separation
-\citep{kaptanoglu2023}. Breakthrough data differ from that setting. A breakthrough run is
-a transient single trajectory confined near the slow manifold $q \approx \qs(c,T)$, the
-setting of \citep{stanhope2014,gallo2026,delgado2025}. The design measures this
-confinement directly through library conditioning (\S\ref{sec:mech}).
+number tied to the data's spatial confinement \citep{stanhope2014}. For both SINDy and
+PySR, small eigenvalues of the moment matrix of the candidate functions over the visited
+states mark combinations the data barely distinguish, and a zero eigenvalue makes distinct
+equations indistinguishable \citep{gallo2026}. SINDy becomes ill-conditioned on slow
+manifolds, where the recoverable object is the manifold itself \citep{delgado2025}. Sparse
+identification shows noise- and sparsity-induced phase transitions \citep{klishin2024}.
+When trajectories cross time-scale regimes, SINDy fails to find a single global model
+\citep{muhammed2025}. Stiffness and timescale separation break rate-law discovery in
+chemical kinetics \citep{prabhu2025,huang2021}. Collinear library functionals make the
+discovered model non-unique \citep{delahunt2021}. One benchmark points the other way: on
+attractor-filling chaotic data, SINDy performance showed no significant dependence on
+scale separation \citep{kaptanoglu2023}. Breakthrough data differ from that setting. A
+breakthrough run is a transient single trajectory confined near the slow manifold $q
+\approx \qs(c,T)$, the setting of \citep{stanhope2014,gallo2026,delgado2025}. The design
+measures this confinement directly through library conditioning (Methods,
+\S\ref{sec:mech}).
 
-\subsection{Prior equation discovery for adsorption}
+\subsection*{Prior equation discovery for adsorption}
 The closest prior work is Santana et al.\ \citep{santana2023}. A neural network replaced
 the solid--fluid mass-transfer term of a fixed-bed model (a universal differential
 equation, UDE), was trained on outlet breakthrough curves with 5\,\% Gaussian noise, and
@@ -149,17 +164,17 @@ separated from parametric identifiability \citep{loman2025}, and statistical tes
 been used to decide whether isotherm parameters in liquid chromatography must be
 state-dependent \citep{katsoulas2026}. Three fetched database searches made while compiling
 our literature review (two OpenAlex queries and one arXiv query) found no
-adsorption-\emph{kinetics} discovery study other than \citep{santana2023}. This supports, but does not prove, that the
-regime question is open.
+adsorption-\emph{kinetics} discovery study other than \citep{santana2023}. This supports,
+but does not prove, that the regime question is open.
 % Source: research/lit_equation_discovery.md, "Negative-search evidence" 1 and 2, synthesis (a).
 
 For metal--organic framework (MOF) water sorption the gap is sharper. Water uptake on
 MOF-303 has been fitted with an LDF model by hand, and the specific diffusion rate falls
 markedly where the isotherm inflects \citep{abuelmaaty2024}. A loading-dependent $k(q)$ at
-an isotherm step is an untested discovery target. A 2026 review of AI for MOF water
+an isotherm step is an untested discovery target. A 2026 Perspective on AI for MOF water
 harvesting does not mention kinetics discovery in its abstract \citep{coyle2026}.
 
-\subsection{What this study adds}
+\subsection*{What this study adds}
 Three things are new, if the hypotheses survive. The first is a quantitative
 discoverability boundary for the strongest available discovery methods, with a mechanism:
 the realised driving-force fraction against the combined error of the observations and of
@@ -167,18 +182,20 @@ the isotherm the method is given. The second is a like-for-like comparison of th
 boundary with profile-likelihood identifiability \citep{raue2009} on the same grid, with
 the same noise, isotherm error and observation model. The third is a test of whether an
 errors-in-variables estimator moves the boundary. Isotherm error is an error in a
-regressor, not in the target, and the paper treats it so: the grid uses classical mixed
+regressor, not in the target, and the study treats it so: the grid will use classical mixed
 least-squares--total-least-squares fitting \citep{golub1980,golub1987} inside the exact
 best-subset search. Errors-in-variables equation-discovery methods
-\citep{fung2026,bortz2023} are reported on their own published examples. A negative result
-on any of these is publishable in the registered-report format, and the design is built to
-make it informative. Every null carries its minimum detectable effect, and every method
-that cannot be run in its strongest configuration is reported as such.
+\citep{fung2026,bortz2023} will be reported on their own published examples. A negative
+result on any of these is publishable in the Registered Report format, and the design is
+built to make it informative. Every null will carry its minimum detectable effect, and
+every method that cannot be run in its strongest configuration will be reported as such.
 
-% ---------------------------------------------------------------------
-\section{Hypotheses}
+\subsection*{Aims and hypotheses}
 \label{sec:hyp}
-Let $\delta$ be the realised driving-force fraction, computed from ground truth as the
+The aim is a map of where the rate law can be discovered, set against where its
+coefficient can be identified. Table~\ref{tab:design} summarises each hypothesis with its
+outcome measure, sampling plan, analysis and the interpretation of every outcome. Let
+$\delta$ be the realised driving-force fraction, computed from ground truth as the
 maximum over the observed $(z,t)$,
 \begin{equation}
 \delta = \max_{(z,t)\ \mathrm{observed}}\,\lvert \qs(c,T) - q\rvert / q_{\max}.
@@ -190,9 +207,9 @@ for O2, of the reconstructed state:
 \varepsilon_{\mathrm{eff}} = \sqrt{\sigma^{2} + \varepsilon^{2} + \varepsilon_{\mathrm{rec}}^{2}},
 \end{equation}
 where $\varepsilon_{\mathrm{rec}} = 0$ for O1. For O2 it is the RMS of $(\hat q -
-q)/q_{\max}$ of the mass-balance-inverted uptake (M1b, \S\ref{sec:compet}) against ground
-truth. It is computed once per cell from the noise-free ($\sigma = 0$) O2 observation, so
-it measures the inversion's structural error; the noise is already counted in $\sigma$.
+q)/q_{\max}$ of the mass-balance-inverted uptake (M1b, Methods) against ground truth. It
+will be computed once per cell from the noise-free ($\sigma = 0$) O2 observation, so it
+measures the inversion's structural error; the noise is already counted in $\sigma$.
 Then $R = \delta/\varepsilon_{\mathrm{eff}}$, computed per cell.
 % PREREG_P2 s.4.2 "Combined error and driving force (for H2a)"; s.4.3 "eps_rec".
 
@@ -207,20 +224,20 @@ conditions.
 \verdict{R does not collapse the boundary; the boundary depends additionally on
 \{named axis\}}.
 A spread of at least half a decade but less than one decade neither confirms nor
-falsifies H2a and is reported in the pre-declared words \verdict{inconclusive: R narrows
-the boundary to a spread of \{x\} decades}.
+falsifies H2a and will be reported in the pre-declared words \verdict{inconclusive: R
+narrows the boundary to a spread of \{x\} decades}.
 % PREREG_P2 s.4.4 "Verdict words for the gaps between thresholds".
 
 \paragraph{H2b: discoverability versus identifiability.}
-For each slice ($\sigma$, $\varepsilon$, observation model, isotherm), we compare
+For each slice ($\sigma$, $\varepsilon$, observation model, isotherm), we will compare
 $\Da^{*}_{\mathrm{disc}}$, the 50\,\% crossing of $P(\text{success})$ for the best method,
 with $\Da^{*}_{\mathrm{ident}}$, the boundary beyond which $k$ is no longer practically
 identifiable given the \emph{true} law. Both are 50\,\% crossings from the same logistic
-estimator (\S\ref{sec:ident}). \textbf{H2b is confirmatory on O1 only.} There both
-boundaries rest on 20 replicates per level, and the 0.25-decade MDE applies. On O2 and O3,
-identifiability has 3 replicates on a subgrid, so those comparisons are reported
-descriptively, each with its own bootstrap interval, and carry no verdict word. On O1 there
-are three pre-declared outcomes, reported in these words:
+estimator (Methods, \S\ref{sec:ident}). \textbf{H2b is confirmatory on O1 only.} There
+both boundaries rest on 20 replicates per level, and the 0.25-decade MDE applies. On O2
+and O3, identifiability has 3 replicates on a subgrid, so those comparisons will be
+reported descriptively, each with its own bootstrap interval, and carry no verdict word.
+On O1 there are three pre-declared outcomes, reported in these words:
 \begin{itemize}
 \item \verdict{discovery fails before identifiability}: $\Da^{*}_{\mathrm{disc}} <
 \Da^{*}_{\mathrm{ident}}$ by at least the MDE;
@@ -230,31 +247,85 @@ the MDE;
 \Da^{*}_{\mathrm{ident}}$ by at least the MDE. The method then finds the law's form where
 its coefficient is undetermined.
 \end{itemize}
-When either boundary has no crossing inside the tested range, no verdict word is issued and
-the range tested is reported instead (\S\ref{sec:analysis}).
+When either boundary has no crossing inside the tested range, no verdict word will be
+issued and the range tested will be reported instead (Methods, \S\ref{sec:analysis}).
 
 \paragraph{H2c: errors-in-variables methods move the boundary.}
-The errors-in-variables (EIV) method on the grid (M5, \S\ref{sec:compet}) shifts
+The errors-in-variables (EIV) method on the grid (M5, Methods) shifts
 $\Da^{*}_{\mathrm{disc}}$ by at least a factor of 2 relative to the best non-EIV method at
 $\varepsilon > 0$. The comparison is like for like: both methods in the strong form (M5 is
-strong-form only), on O1. The best non-EIV method over both forms is reported alongside,
-descriptively.
+strong-form only), on O1. The best non-EIV method over both forms will be reported
+alongside, descriptively.
 \emph{Falsifier:} a shift below the MDE at every $\varepsilon > 0$.
 \emph{Pre-declared words:} \verdict{EIV moves the boundary by \{factor\}}, or
 \verdict{EIV does not move the boundary detectably (MDE \{x\})}. A shift at or above the
-MDE but below 0.30 decade (a factor of 2) is reported as \verdict{EIV moves the boundary
-by \{factor\}, detectably but by less than the predicted factor 2}.
+MDE but below 0.30 decade (a factor of 2) will be reported as \verdict{EIV moves the
+boundary by \{factor\}, detectably but by less than the predicted factor 2}, and a shift
+down of at least the MDE as \verdict{EIV moves the boundary DOWN by \{factor\}}, a
+negative result for H2c.
 % PREREG_P2 s.4.4 "Verdict words for the gaps between thresholds".
 
 \paragraph{H2d: the MOF case (exploratory, and labelled so).}
 For a step (Type V) isotherm with a rate that drops at the step, as reported for MOF-303
 \citep{abuelmaaty2024}, is the state dependence $k(q)$ discoverable, and in which
 ($\sigma$, observation) cells? No directional prediction is made, and no confirmatory claim
-rests on H2d. Its success criterion is fixed in \S\ref{sec:metrics}.
+rests on H2d. Its success criterion is fixed in Methods (\S\ref{sec:metrics}).
+
+% ---------------------------------------------------------------------
+% Design table (Nature Communications Stage-1 table; columns as in the journal's template)
+\begin{landscape}
+\begin{table}
+\centering
+\caption{\textbf{Study design table.} Every entry restates the frozen pre-registration
+(PREREG\_P2, commit d562f19); the power figures are derived from its calibration
+(\texttt{p2\_power\_note.py}). MDE, minimum detectable effect; $\Da^{*}$, 50\,\% crossing
+of a logistic fit in $\log_{10}\Da$.}
+\label{tab:design}
+\scriptsize
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.4cm}}
+\toprule
+Question & Hypothesis & Outcome measure & Sampling plan (N, power) & Analysis plan & Interpretation given to different outcomes\\
+\midrule
+Is the discovery boundary set by the driving force relative to the combined error? &
+H2a: $P(\text{success})$ against $R = \delta/\varepsilon_{\mathrm{eff}}$ collapses onto one curve; the spread of $R^{*}$ across slices is below half a decade. &
+Success of the best method per replicate (exact support, correct signs, coefficient ratio $-1$ within 10\,\%); $R^{*}$ per slice. &
+20 replicates per cell; slices are ($\Pe$, isotherm, observation model), O1 and O2, pooling every $\sigma$, $\varepsilon$, $\Da$; cells with $R$ undefined ($\sigma=\varepsilon=0$ on O1) excluded. Decided by thresholds on the spread (0.5 and 1 decade), not by a significance test. &
+Logistic regression of success on $\log_{10}R$ per slice; $R^{*}$ its 50\,\% crossing; spread $=\max-\min$ of $\log_{10}R^{*}$ with a bootstrap interval; slices without a crossing listed, never imputed. &
+Spread $<0.5$: \verdict{R collapses the boundary}. Spread $\ge 1$: \verdict{R does not collapse the boundary; the boundary depends additionally on \{named axis\}}. Between: \verdict{inconclusive: R narrows the boundary to a spread of \{x\} decades}.\\
+\addlinespace
+Does discovery fail before, with or after the rate constant stops being identifiable? &
+H2b: compares $\Da^{*}_{\mathrm{disc}}$ (best method) with $\Da^{*}_{\mathrm{ident}}$ (profile likelihood, true law known); confirmatory on O1. &
+Gap $\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$ per O1 slice ($\sigma$, $\varepsilon$, isotherm). &
+9 $\Da$ levels $\times$ 20 replicates for both boundaries. SD of one boundary estimate 0.089 decade (calibrated on 100 simulated datasets); MDE 0.25 decade at 80\,\% power, two-sided 5\,\%; 0.32 decade at 95\,\%. For a gap between two independent estimates: 0.35 decade at 80\,\%. &
+Same logistic estimator for both boundaries; percentile bootstrap (2000 resamples) within $\Da$ levels; the best method re-selected inside every bootstrap draw. O2 and O3 (3 replicates) descriptive. &
+Gap $\le -0.25$: \verdict{discovery fails before identifiability}. $|$gap$|<0.25$: \verdict{discovery fails with identifiability}. Gap $\ge +0.25$: \verdict{discovery outlives identifiability}. No crossing: no verdict; the tested range is reported.\\
+\addlinespace
+Does an errors-in-variables fit move the boundary when the isotherm is wrong? &
+H2c: M5 (EIV best-subset) shifts $\Da^{*}_{\mathrm{disc}}$ by at least a factor 2 against the best strong-form non-EIV method at $\varepsilon>0$, on O1. &
+Shift in $\log_{10}\Da^{*}_{\mathrm{disc}}$, M5 minus the best strong-form non-EIV method, per (isotherm, $\varepsilon>0$) at $\sigma=2\,\%$. &
+20 replicates; for $\varepsilon = 2\,\%$ a refined grid of 8 extra $\Da$ levels within $\pm0.5$ decade of the best non-EIV boundary. Power to detect the predicted factor 2 (0.30 decade): 0.92 per boundary convention; 0.67 if the two boundary estimates are independent. &
+Same estimator and bootstrap; refined grid at $\varepsilon = 2\,\%$, main grid at $\varepsilon \in \{0.5, 5\}\,\%$; shift against the best non-EIV method over both forms reported descriptively. &
+Shift $\ge \log_{10}2$ (0.30): \verdict{EIV moves the boundary by \{factor\}}. MDE $\le$ shift $<\log_{10}2$: \verdict{EIV moves the boundary by \{factor\}, detectably but by less than the predicted factor 2}. Below the MDE at every $\varepsilon>0$: \verdict{EIV does not move the boundary detectably (MDE \{x\})}. Down by at least the MDE: \verdict{EIV moves the boundary DOWN by \{factor\}}.\\
+\addlinespace
+Can a loading-dependent rate at a MOF-like isotherm step be discovered? &
+H2d (exploratory): no directional prediction. &
+Discovery of $k(q)$ per cell: support contains $\qsm$ and $q$, Spearman $\rho<-0.8$ across 10 bins, top-bin rate $\le 0.6$ of bottom-bin rate. &
+Step isotherm, true law L2, 20 replicates per cell. No power analysis (exploratory). &
+Rate of discovery per ($\sigma$, observation) cell. &
+Reported as rates; no confirmatory claim rests on H2d.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+\end{landscape}
+% Sources: PREREG_P2 s.2, s.4.3, s.4.4, s.10 ("Verdict driver"); results/p2_power_note.json
+% (shift_resolvable_at_power_0.95_decade 0.3208; power_at_factor_2_shift_log10_2 0.9225).
 
 % ---------------------------------------------------------------------
 \section{Methods}
 \label{sec:methods}
+Prospective methods are written in the future tense; what has already been done (the
+ground-truth solves, the harness and its tests, the pilots) is written in the past tense.
 
 \subsection{Ground truth}
 \label{sec:truth}
@@ -280,15 +351,15 @@ truth is stored with a manifest that records every parameter, the stoichiometric
 $t_{\mathrm{stoich}}$, the horizon, and a per-solve breakthrough check
 (\S\ref{sec:pilots}).
 
-\subsection{Design axes}
+\subsection{Design axes and sampling plan}
 \label{sec:axes}
 Table~\ref{tab:axes} lists the axes. The primary Damk\"ohler number is
 $\Da = k\,t_{\mathrm{stoich}}$, the number of kinetic time constants per front passage. The
-residence-time form $kL/u$ is reported alongside but is not the axis. In this column the
-residence time is 0.4\,s, against a front passage of about 7200\,s, so $kL/u = 0.4\,
-\mathrm{s}\times k$. That is $4\times10^{-5}$ to 4 over the pilot's $k = 10^{-4}$--$10$\,s$^{-1}$,
-and at most about 0.04 over the targeted kinetic range, so it cannot separate the regimes
-this study is about (\S\ref{sec:pilots}).
+residence-time form $kL/u$ will be reported alongside but is not the axis. In this column
+the residence time is 0.4\,s, against a front passage of about 7200\,s, so $kL/u = 0.4\,
+\mathrm{s}\times k$. That is $4\times10^{-5}$ to 4 over the pilot's $k =
+10^{-4}$--$10$\,s$^{-1}$, and at most about 0.04 over the targeted kinetic range, so it
+cannot separate the regimes this study is about (\S\ref{sec:pilots}).
 % PREREG_P2 s.4.2; results/p2_pilot_generator.json: Da_res = 0.4 s x k (4e-5 ... 4);
 % t_final 10800.6 s = 1.5 t_stoich -> t_stoich ~ 7200 s.
 \begin{table}[t]
@@ -310,26 +381,48 @@ true law & L1 constant $k$; L2 $k(q)$ (step isotherm only) \\
 \end{tabularx}
 \end{table}
 
-Noise and isotherm error are applied after the solve. Ground truth therefore needs only
-the ($\Da$, $\Pe$, isotherm, law) solves: 9 $\times$ 3 $\times$ 3 = 81, over three
-(isotherm, law) pairs (Langmuir--L1, step--L1, step--L2). These 81 solves are done, at 3--7\,s
-each at the grid's $k$ (the generator pilot measured up to about 300\,s at $k \ge
-0.03$\,s$^{-1}$). Every solve reached 95\,\% breakthrough, some after the horizon was
-extended (\S\ref{sec:pilots}). This is ground truth, not a confirmatory result: no
-discovery method has seen it.
-% PREREG_P2 s.4.2; p2_generate.log "done: 81 cells; without 95 % breakthrough: none".
-Replicates are 20 independent ($\sigma$, $\varepsilon$) realisations per cell for M2--M6
-and M9 (M8 is not run on the grid; \S\ref{sec:compet}). M6 runs on a separate isothermal
-control: 9 solves, the 9 $\Da$ levels $\times$ $\Pe \times 1$ $\times$ Langmuir, with the
-energy balance switched off (T held at the feed) and the same horizon rule. These solves
-are done; all reached 95\,\% breakthrough. M7, which passed its inclusion gate, needs a Julia search per replicate and so
-runs with 3 replicates on a subgrid: all $\Da$ $\times$ $\sigma \in \{0.5\,\%, 2\,\%\}$
-$\times$ $\varepsilon \in \{0, 2\,\%\}$ $\times$ both isotherms $\times$ $\Pe \times 1$
-$\times$ O1, the only observation model M7 can see (Table~\ref{tab:obs}). M1 runs only
-as the minimal demonstration declared in \S\ref{sec:compet}, nothing more.
+\paragraph{What has been generated.} Noise and isotherm error are applied after the
+solve, so ground truth needs only the ($\Da$, $\Pe$, isotherm, law) solves: 9 $\times$ 3
+$\times$ 3 = 81, over three (isotherm, law) pairs (Langmuir--L1, step--L1, step--L2).
+These 81 solves are done. They took 1--414\,s each (median 4\,s); the slowest were
+Langmuir solves at $\Da \ge 316$ with the axial dispersion at $\times 0.2$ or $\times 1$. Every solve reached 95\,\% breakthrough,
+some after the horizon was extended (\S\ref{sec:pilots}). This is ground truth, not a
+confirmatory result: no discovery method has seen it. (The pre-registration states 3--7\,s
+per solve; the log shows the range above. The figure is descriptive, no part of the design
+depends on it, and the erratum is recorded in the project's corrections ledger, entry
+B79.)
+% p2_generate.log: "done: 81 cells; without 95 % breakthrough: none"; per-solve times
+% 1-414 s, median 4 s over the 81 main-grid lines (18 above 7 s); RETRACTIONS.md B79.
+
+\paragraph{Sample and replicates.} The unit of analysis is one replicate: one
+independent ($\sigma$, $\varepsilon$) realisation of the observation of one cell. There
+will be 20 replicates per cell for M2--M6 and M9 (M8 is not run on the grid;
+\S\ref{sec:compet}). M6 will run on a separate isothermal control: 9 solves, the 9 $\Da$
+levels $\times$ $\Pe \times 1$ $\times$ Langmuir, with the energy balance switched off (T
+held at the feed) and the same horizon rule. These solves are done; all reached
+95\,\% breakthrough. M7, which passed its inclusion gate, needs a Julia search per
+replicate and so will run with 3 replicates on a subgrid: all $\Da$ $\times$ $\sigma \in
+\{0.5\,\%, 2\,\%\}$ $\times$ $\varepsilon \in \{0, 2\,\%\}$ $\times$ both isotherms
+$\times$ $\Pe \times 1$ $\times$ O1, the only observation model M7 can see
+(Table~\ref{tab:obs}). M1 will run only as the minimal demonstration declared in
+\S\ref{sec:compet}, nothing more.
+
+\paragraph{Inclusion and exclusion.} No replicate, cell or method output will be
+excluded. A method that raises an error in a cell will be recorded as a failure with the
+error message, never dropped (\S\ref{sec:metrics}). Cells leave an analysis only where
+the design already places them outside it: $R$ is undefined at $\sigma = \varepsilon = 0$
+on O1 (H2a); O3 enters no H2a slice, because M1's single replicate yields no $R^{*}$; O2
+and O3 enter H2b descriptively, without verdict words; and no method is run on an
+observation model it cannot see (Table~\ref{tab:obs}). A boundary that has no crossing
+inside the tested range is not imputed (\S\ref{sec:analysis}). Replicates are never
+re-drawn: every observation is a deterministic function of (cell, replicate, $\sigma$,
+$\varepsilon$, observation model).
+% Errors recorded as failures: p2_grid_o1.py, p2_grid_extra.py, p2_grid_o23.py (code);
+% no-crossing rule PREREG_P2 s.4.3; R undefined at sigma = eps = 0 on O1 and O3 outside H2a:
+% PREREG_P2 s.4.3 and s.10 "Verdict driver"; H2b O2/O3 descriptive: PREREG_P2 s.2.
 
 \paragraph{Observation model, exactly (\texttt{p2\_observe.py}).}
-All methods and the identifiability analysis read data only through one observation
+All methods and the identifiability analysis will read data only through one observation
 function, so every method sees identical corruption. O1 and O2 observe 20 equally spaced
 interior probes, and O3 observes the outlet; every model samples 200 times uniform over
 the solved horizon. Noise is i.i.d.\ Gaussian with standard deviation $\sigma$ times the
@@ -351,27 +444,28 @@ carrying error $\varepsilon$. The earlier exploratory script that motivated this
 included the exact generating law, which was a defect. An earlier draft of the design
 specified degree-3 polynomials, $\exp(-\theta/T)$ factors and $\qs q$ products; the tested
 harness uses the smaller library above. A smaller library makes discovery easier, so the
-boundaries measured here are \emph{optimistic with respect to library size}.
+boundaries to be measured are \emph{optimistic with respect to library size}.
 \item \textbf{Lib-A (agnostic):} Lib-B without $\qsm$. Under L1 the true law is not
 representable in Lib-A, because $\qs$ is not polynomial, so Lib-A cannot succeed by the
-primary metric. It is reported as held-out fidelity only. The agnostic route to the law's
-form is M6 (SINDy-PI) on the isothermal control, which finds the implicit Langmuir--LDF
-structure without any isotherm.
+primary metric. It will be reported as held-out fidelity only. The agnostic route to the
+law's form is M6 (SINDy-PI) on the isothermal control, which finds the implicit
+Langmuir--LDF structure without any isotherm.
 \end{itemize}
 % PREREG_P2 s.3 (libraries); p2/features.py lib_b.
 
 \subsection{Methods compared, each in its strongest configuration}
 \label{sec:compet}
 The rule is that each method is run in its strongest configuration. A method that cannot be
-so run is reported as such and is never replaced silently by a weaker one. Implementation
-choices were fixed against known-answer systems before any grid cell was touched.
+so run will be reported as such and never replaced silently by a weaker one.
+Implementation choices were fixed against known-answer systems before any grid cell was
+touched.
 
 \begin{description}
 \item[M1, the S1 pipeline reproduced.] A UDE with a network in the uptake term, trained
 through the column PDE and read out by sparse and symbolic regression
 \citep{santana2023}. Its settings are at least those of \citep{santana2023}, and stronger
-where those are weak. Feasibility was resolved by a pilot (\S\ref{sec:pilots}): M1 is
-\emph{not run at the declared scale}. It runs only as a labelled demonstration on a
+where those are weak. Feasibility was resolved by a pilot (\S\ref{sec:pilots}): M1 will
+\emph{not be run at the declared scale}. It will run only as a labelled demonstration on a
 minimal subgrid: Langmuir, $\Pe \times 1$, $\sigma = 2\,\%$, $\varepsilon = 0$, O3, the
 9 $\Da$ levels, one replicate, L-BFGS, at most 50 steps. The O3 comparison rests on the
 profile likelihood. This is a compute limit, not a finding about UDEs; on a GPU the same
@@ -385,35 +479,35 @@ from the gas-phase balance,
 \frac{\partial^2 c}{\partial z^2}\Bigr),
 \end{equation}
 with $q$ recovered by time integration from $q(z,0) = 0$. This is how an experimentalist
-with interior probes obtains uptake. It needs no training, and every O1 method then runs
-on its output, which makes it the strongest O2 competitor. Its coefficients come from the
-solver's own definition, so the inversion cannot drift from the forward model. Time
+with interior probes obtains uptake. It needs no training, and every O1 method will then
+run on its output, which makes it the strongest O2 competitor. Its coefficients come from
+the solver's own definition, so the inversion cannot drift from the forward model. Time
 derivatives use the same Savitzky--Golay rule as O1. Space derivatives use centred
 finite differences, because the probe spacing is fixed by the observation model and no
 smoothing window in $z$ may be tuned to the answer.
 % PREREG_P2 s.3 M1b; p2/massbal.py.
-On a fresh solve that is not a grid cell, the inversion recovers $q$ to within the 3\,\%
-of $q_{\max}$ bound recorded in the pre-registration. The test measures a maximum interior
-error of 2.4\,\% (\S\ref{sec:verified}).
+On a fresh solve that is not a grid cell, the inversion recovered $q$ to within the 3\,\%
+of $q_{\max}$ bound recorded in the pre-registration; the test measured a maximum
+interior error of 2.4\,\% (\S\ref{sec:checks}).
 % tests/test_p2.py::test_mass_balance_inversion_recovers_uptake_from_gas_data (comment:
 % "measured 0.024"); commit d142180.
 
 \item[M2, weak-form SINDy \citep{messenger2021ode,messenger2021pde}; M2b, its strong-form
 counterpart.] The weak transform uses compactly supported test functions $\phi(t) =
 ((t-a)(b-t))^{8}$ and integration by parts, so the target needs no derivative of noisy
-data. The test-function support is swept over $\{31, 61, 121\}$ samples and chosen per
-cell by the held-out weak-system residual on every fifth probe. The law is then refitted
-on all probes. A support is admissible only if its training system has at least 3
-equations per library term. On the known-answer test, a long support left an
+data. The test-function support will be swept over $\{31, 61, 121\}$ samples and chosen
+per cell by the held-out weak-system residual on every fifth probe. The law will then be
+refitted on all probes. A support is admissible only if its training system has at least
+3 equations per library term. On the known-answer test, a long support left an
 under-determined weak system that fitted a wrong, dense law with zero residual, which a
 residual criterion would otherwise prefer. M2b is the derivative-based regression on a
-Savitzky--Golay $\mathrm{d}q/\mathrm{d}t$. Both forms run every sparse solver (STLSQ, M3,
-M4).
+Savitzky--Golay $\mathrm{d}q/\mathrm{d}t$. Both forms will run every sparse solver (STLSQ,
+M3, M4).
 % PREREG_P2 s.3 M2 row; p2/run_o1.py choose_support (WEAK_SUPPORTS, MIN_ROWS_PER_TERM = 3);
 % p2/weak.py; p2_grid_o1.py FORMS = ("strong", "weak").
 
 \item[M3, ensemble or Bayesian SINDy \citep{fasel2022,hirsh2021}.] The inclusion
-probability of each term is reported. The implemented configuration is bagged
+probability of each term will be reported. The implemented configuration is bagged
 sequentially thresholded least squares with an inclusion threshold of 0.6.
 % PREREG_P2 s.3 Phase A; p2/methods.py ensemble(inclusion=0.6).
 
@@ -431,7 +525,7 @@ $10^{-4}$ by fitting the estimator's own systematic error. The floor was first s
 $10^{-3}$ from 400-sample tests, where M6 then bought a spurious $q^{2}$ term at zero noise
 on 200 samples. $2\times10^{-3}$ is the smallest of $\{1,2,5\}\times10^{-3}$ that passes,
 calibrated on the known-answer system only. These design facts were forced by
-known-answer tests and are declared before the freeze.
+known-answer tests and declared before the freeze.
 % PREREG_P2 s.3 Phase-A design fact (i); p2/methods.py best_subset(floor=2e-3).
 
 \item[M5, errors-in-variables.] \emph{On the grid, M5 is EIV best-subset.} It runs M4's
@@ -443,92 +537,90 @@ scaled by its \emph{declared} error standard deviation. For the observed channel
 $\sigma$ times the channel range. For $\qsm$ it is $\varepsilon\,\qs$ plus its
 $c$-sensitivity. Products get first-order propagation. The target's standard deviation
 comes from the Savitzky--Golay filter's exact noise gain. Selection uses M4's floored BIC.
-M5 runs on the full O1 grid, with 20 replicates, in the strong form. Two known-answer tests
-check it: total least squares removes the attenuation bias that ordinary least squares
-suffers, and at zero error EIV best-subset recovers L1 with M4's support.
+M5 will run on the full O1 grid, with 20 replicates, in the strong form. Two known-answer
+tests check it: total least squares removes the attenuation bias that ordinary least
+squares suffers, and at zero error EIV best-subset recovers L1 with M4's support.
 % PREREG_P2 s.3 M5 row and s.10; p2/eiv.py; p2_grid_extra.py m5.
 
-\emph{ODR-BINDy \citep{fung2026} and WENDy-IRLS \citep{bortz2023} are reported on their
+\emph{ODR-BINDy \citep{fung2026} and WENDy-IRLS \citep{bortz2023} will be reported on their
 own published examples only.} Both learn \emph{autonomous} ODE systems, in which every
 state is denoised and given its own equation. The target here is one rate equation with
 exogenous $c$ and $T$ inside a PDE, and the dominant error is in a regressor, the measured
 isotherm. Extending either method to that problem would be new method development. This
 was decided before the freeze. The ODR-BINDy Python port, on the authors' Lorenz example
-(500 points, 20\,\% noise), recovers the exact 7-term support. Its relative coefficient
-error is $5.0\times10^{-3}$, against about $2.2\times10^{-3}$ read from the paper's heatmap,
-and it is about 26 times slower (2385\,s). Five noise seeds, run before the freeze, settle
-whether that is scatter or a real gap: the mean relative coefficient error over the seeds is
-0.166 against about $2.2\times10^{-3}$ (a gap of about 74), and the exact support is
-recovered in 1 of 5 seeds. The port is therefore reported, in the declared words, as
-\verdict{port, accuracy below the reference}, with that gap stated; M5 on the grid is
-unaffected. WENDy is reported as
-\verdict{NOT RUN} if no implementation is verified on its authors' own example before the
-freeze.
+(500 points, 20\,\% noise), recovered the exact 7-term support. Its relative coefficient
+error was $5.0\times10^{-3}$, against about $2.2\times10^{-3}$ read from the paper's
+heatmap, and it was about 26 times slower (2385\,s). Five noise seeds, run before the
+freeze, settled whether that was scatter or a real gap: the mean relative coefficient error
+over the seeds was 0.166 against about $2.2\times10^{-3}$ (a gap of about 74), and the
+exact support was recovered in 1 of 5 seeds. The port will therefore be reported, in the
+declared words, as \verdict{port, accuracy below the reference}, with that gap stated; M5
+on the grid is unaffected. WENDy will be reported as \verdict{NOT RUN} if no
+implementation is verified on its authors' own example.
 % PREREG_P2 s.3 ODR-BINDy port paragraph; results/odr_bindy_verification.json:
 % rel_frobenius_error 0.00498, reported 0.00224, runtime_s 2384.75; five seeds:
 % results/odr_bindy_seeds.json (mean 0.16560, gap_ratio_mean 73.97), PREREG_P2 s.11.
 
-\item[M6, SINDy-PI \citep{kaheman2020} for rational laws.] M6 is run with Lib-A and
+\item[M6, SINDy-PI \citep{kaheman2020} for rational laws.] M6 will be run with Lib-A and
 \emph{no} measured isotherm, on the isothermal control only (\S\ref{sec:axes}), because
 $\exp(-\Delta H/RT)$ is not polynomial. Success is the implicit Langmuir--LDF structure
 $\{\mathrm{d}q,\ c\,\mathrm{d}q,\ c,\ q,\ c\,q\}$ with correct signs. Its library is
 $\{1,\ c,\ q,\ c\,q,\ q^{2},\ c^{2}\}$, which is Lib-A without $T$, because $T$ is constant
-on the isothermal control. It runs at every $\sigma$ and at $\varepsilon = 0$ only, because M6
-is given no isotherm and isotherm error does not apply. M6 is verified on
-the known-answer system, with every coefficient (hence $b$ and $k$) recovered within
-5\,\%.
+on the isothermal control. It will run at every $\sigma$ and at $\varepsilon = 0$ only,
+because M6 is given no isotherm and isotherm error does not apply. M6 was verified on the
+known-answer system, with every coefficient (hence $b$ and $k$) recovered within 5\,\%.
 % PREREG_P2 s.3 M6 row and s.10 item 10; tests/test_p2.py line 259:
 % abs(coefs[key] - true) <= 0.05 * abs(true).
 
 \item[M7, constrained symbolic regression with PySR \citep{cranmer2023}.] Julia is
 installed only in an isolated environment. \emph{Inclusion gate, written before any M7
 search:} PySR (binary $+,-,\times$; maximum size 12; 40 iterations; PySR's own ``best''
-model selection) is run on the known-answer LDF system ($k = 0.02$; 0.5\,\% noise on $q$
-\emph{and} on the measured $\qsm$) for 3 seeds. M7 runs on its subgrid if and only if success holds in at least 2 of 3 seeds,
-\emph{and} every search finishes within 30\,min, \emph{and} peak memory stays under
-3\,GB. Otherwise it is reported as NOT RUN, with the pilot's numbers, as ``infeasible on
-this machine'' or ``failing its known-answer test'', in those words. \emph{Outcome:} all
-three seeds recover the planted law as $k(\qsm - q)$ with $k$ within 0.3\,\% of its true
-value, in at most 35\,s and under 1\,GB, so M7 is included on its subgrid. A first run of
-the gate recorded ``infeasible on this machine''; that was our own wrapper failing ---
-PySR rejected the library's variable names, then a non-serial deterministic setting --- and
-the decision was withdrawn before the freeze. The gate now refuses to decide when a search
-raises an error, so a software failure cannot again be read as a resource limit.
+model selection) was run on the known-answer LDF system ($k = 0.02$; 0.5\,\% noise on $q$
+\emph{and} on the measured $\qsm$) for 3 seeds. M7 runs on its subgrid if and only if
+success holds in at least 2 of 3 seeds, \emph{and} every search finishes within 30\,min,
+\emph{and} peak memory stays under 3\,GB. Otherwise it is reported as NOT RUN, with the
+pilot's numbers, as ``infeasible on this machine'' or ``failing its known-answer test'',
+in those words. \emph{Outcome:} all three seeds recovered the planted law as $k(\qsm - q)$
+with $k$ within 0.3\,\% of its true value, in at most 35\,s and under 1\,GB, so M7 will be
+run on its subgrid. A first run of the gate recorded ``infeasible on this machine''; that
+was our own wrapper failing (PySR rejected the library's variable names, then a non-serial
+deterministic setting), and the decision was withdrawn before the freeze. The gate now
+refuses to decide when a search raises an error, so a software failure cannot again be read
+as a resource limit.
 % PREREG_P2 s.11; p2_pilot_m7.py; results/p2_pilot_m7.json; RETRACTIONS B76.
 
 \item[M8, KAN symbolic extraction \citep{liu2024}.] M8 follows the original KAN
 procedure. It is not a reimplementation of KANDy \citep{slote2026}, whose code was not
-opened. It is a secondary method. \emph{It fails its known-answer test at zero noise in
-every configuration tried.} The polynomial library at three sparsity penalties routes the
-law through $q^{2}$. Raw variables on one trajectory use $q$ alone. Raw variables on three
-trajectories return $\{1, \qs, {\qs}^{2}\}$. This is consistent with the reported
+opened. It is a secondary method. \emph{It failed its known-answer test at zero noise in
+every configuration tried.} The polynomial library at three sparsity penalties routed the
+law through $q^{2}$. Raw variables on one trajectory used $q$ alone. Raw variables on three
+trajectories returned $\{1, \qs, {\qs}^{2}\}$. This is consistent with the reported
 fragility of KANs on multiplicative terms \citep{spotorno2026}. M8's grid run was gated on
 cost. Its best configuration is raw variables with sparsity penalty $10^{-3}$. Its subgrid
 is all $\Da$ $\times$ $\sigma \in \{0.5\,\%, 2\,\%\}$ $\times$ $\varepsilon \in \{0, 2\,\%\}$
 $\times$ both isotherms $\times$ $\Pe \times 1$ $\times$ O1, with 3 replicates, which is 216
 fits. The rule, written into the cost pilot before it ran, was that M8 runs only if one fit
 at the grid's size takes at most 300\,s, so at most 18\,h for the subgrid. \emph{The pilot
-measured 1144\,s, so M8 is NOT RUN on the grid.} Over the subgrid that would have been
-about 69\,h. This is a machine limit, reported in those
-words. It was measured while the machine was shared with other long jobs, which the paper
-states. On the same known-answer data the timed fit returned only a constant, consistent
-with the documented failure. M8 is reported on its known-answer tests only.
+measured 1144\,s, so M8 will not be run on the grid.} Over the subgrid that would have
+been about 69\,h. This is a machine limit, and will be reported in those words. It was
+measured while the machine was shared with other long jobs, which the Stage-2 report will
+state. On the same known-answer data the timed fit returned only a constant, consistent
+with the documented failure. M8 will be reported on its known-answer tests only.
 % PREREG_P2 s.10 "M8 cost gate"; results/p2_cost_gates.json: sec_per_fit 1144.4,
 % limit_s 300, fits_on_subgrid 216, projected_h 68.7, support_on_known_answer ["1"];
 % tests/test_p2.py::test_kan_symbolic_recovers_ldf_at_zero_noise (xfail, strict=True).
 
 \item[M9, slow-manifold discovery \citep{delgado2025}.] M9 regresses the \emph{state} $q$,
 not its rate, on the $q$-free features $\{1,\ c,\ T,\ c^{2},\ \qsm\}$ by exact best-subset
-selection. It is expected to win at
-high $\Da$ by returning the isotherm (plus apparent dispersion). It is reported as
-\emph{what is discoverable there}, not as rate-law success. Its own success criterion is
-given in \S\ref{sec:metrics}.
+selection. It is expected to win at high $\Da$ by returning the isotherm (plus apparent
+dispersion). It will be reported as \emph{what is discoverable there}, not as rate-law
+success. Its own success criterion is given in \S\ref{sec:metrics}.
 \end{description}
 
 \paragraph{Which method can see which observation model.}
 This was decided before the freeze; a method is never run where its input does not exist
 (Table~\ref{tab:obs}). O1 is the optimistic ceiling. O2 and O3 are where the
-experimentally realistic answer lies, and O3 is reported first.
+experimentally realistic answer lies, and O3 will be reported first.
 
 \begin{table}[t]
 \centering
@@ -547,7 +639,7 @@ M1b inversion, then every O1 method & --- & yes & no\\
 M1 UDE + sparse/symbolic readout & yes & yes & yes\\
 profile likelihood (law known) & ODE per probe & PDE solve & PDE solve\\
 \bottomrule
-\multicolumn{4}{l}{\footnotesize $^{a}$ Applicable, but NOT RUN on the grid: it failed its cost gate (\S\ref{sec:compet}).}
+\multicolumn{4}{l}{\footnotesize $^{a}$ Applicable, but not run on the grid: it failed its cost gate (\S\ref{sec:compet}).}
 \end{tabular}
 \end{table}
 
@@ -557,10 +649,11 @@ profile likelihood (law known) & ODE per probe & PDE solve & PDE solve\\
 \emph{and} every coefficient has the correct sign. For L1 in Lib-B the support must be
 exactly $\{\qsm, q\}$, with coefficient ratio $-1$ within 10\,\%.
 \textbf{Accuracy (secondary)} is $\lvert\hat k - k\rvert/k \le 10\,\%$, with $\hat k$ the
-negative of the $q$ coefficient. $P(\text{success})$ is computed per cell over
-replicates. $\Da^{*}_{\mathrm{disc}}$ is obtained from a logistic fit in $\log_{10}\Da$,
-with a bootstrap confidence interval over replicates (\S\ref{sec:analysis}). A method that
-raises an error in a cell is recorded as a failure with the error message, never dropped.
+negative of the $q$ coefficient. $P(\text{success})$ will be computed per cell over
+replicates. $\Da^{*}_{\mathrm{disc}}$ will be obtained from a logistic fit in
+$\log_{10}\Da$, with a bootstrap confidence interval over replicates
+(\S\ref{sec:analysis}). A method that raises an error in a cell will be recorded as a
+failure with the error message, never dropped.
 % p2/metric.py success_L1, k_accuracy; p2_grid_o1.py records errors as failures.
 
 \textbf{Success for the other targets}, fixed before the freeze:
@@ -572,26 +665,26 @@ and averaged in 10 equal bins of $q/q_{\max}$ over the observed range. The state
 is \emph{discovered} if and only if three conditions hold: the support contains $\qsm$ and
 $q$; $\hat k$ decreases across the bins (Spearman $\rho < -0.8$); and $\hat k$ in the top
 bin is at most 0.6 of $\hat k$ in the bottom bin. The true $k$ falls to 0.2 of its starting
-value. This is reported as a rate per cell, with no boundary hypothesis.
+value. This will be reported as a rate per cell, with no boundary hypothesis.
 \item \emph{Lib-A fidelity:} the relative RMS error of the predicted
 $\mathrm{d}q/\mathrm{d}t$ (strong form) on the held-out probes (every fifth), per cell.
 \end{itemize}
 % PREREG_P2 s.4.3 ("L2 success, operationally", "Lib-A fidelity"); p2/metric.py
 % success_manifold, success_L2 (n_bins=10, rho_max=-0.8, drop_max=0.6).
 
-\textbf{The best method and its selection.} $\Da^{*}_{\mathrm{disc}}$ is estimated per
+\textbf{The best method and its selection.} $\Da^{*}_{\mathrm{disc}}$ will be estimated per
 method per slice. H2a and H2b use the method with the largest $\Da^{*}_{\mathrm{disc}}$ in
 the slice. Because that choice is made on the same replicates, its interval is a
 bootstrap that resamples replicates \emph{jointly} across methods and re-selects the best
 method inside every draw, so the interval carries the selection. This is the same
 correction as the companion paper's selection-adjusted intervals. Every method's own
-$\Da^{*}_{\mathrm{disc}}$ is reported alongside.
+$\Da^{*}_{\mathrm{disc}}$ will be reported alongside.
 % PREREG_P2 s.4.3 "The 'best method' and its selection".
 
 \subsection{Identifiability criterion}
 \label{sec:ident}
-Identifiability is assessed by the profile likelihood of $k$ \citep{raue2009} with the true
-law known, at the same $\sigma$, $\varepsilon$ and observation model.
+Identifiability will be assessed by the profile likelihood of $k$ \citep{raue2009} with
+the true law known, at the same $\sigma$, $\varepsilon$ and observation model.
 $k$ is \emph{practically identifiable} if and only if the 95\,\% profile interval
 (likelihood-ratio threshold 3.84) lies within $[k/2, 2k]$. In O1 the profile integrates the
 known-law ODE at each probe, driven by observed $c$ and $T$ (monotone cubic interpolation).
@@ -609,24 +702,170 @@ isotherm, so identifiability faces the same isotherm error as discovery.
 % PREREG_P2 s.3 Phase-A design fact (ii); p2/identifiability.py; p2_grid_o23.py run_o3:
 % phys_obs.qstar_fn = obs["qstar_meas"] (information parity).
 
-\textbf{$\Da^{*}_{\mathrm{ident}}$ is estimated exactly like $\Da^{*}_{\mathrm{disc}}$.}
+\textbf{$\Da^{*}_{\mathrm{ident}}$ will be estimated exactly like $\Da^{*}_{\mathrm{disc}}$.}
 Per replicate, $k$ is identifiable or not under the $[k/2, 2k]$ criterion.
-$P(\text{identifiable})$ is fitted against $\log_{10}\Da$ by the same logistic estimator
-(\S\ref{sec:analysis}), and $\Da^{*}_{\mathrm{ident}}$ is its 50\,\% crossing. The two
-boundaries compared in H2b are therefore measured by one estimator.
+$P(\text{identifiable})$ will be fitted against $\log_{10}\Da$ by the same logistic
+estimator (\S\ref{sec:analysis}), and $\Da^{*}_{\mathrm{ident}}$ is its 50\,\% crossing.
+The two boundaries compared in H2b are therefore measured by one estimator.
 % PREREG_P2 s.4.3 "Da*_ident, estimated exactly like Da*_disc".
 
 \subsection{Mechanistic predictors}
 \label{sec:mech}
-For each cell we record $\delta$ from ground truth, the condition number of the library
-Gram matrix, and its smallest eigenvalue, following
+For each cell we will record $\delta$ from ground truth, the condition number of the
+library Gram matrix, and its smallest eigenvalue, following
 \citep{gallo2026,stanhope2014}. These test whether library conditioning, set by how
 closely the data hug $q = \qs$, predicts the boundary. They do not enter any verdict.
 
-\subsection{Implemented and verified components}
-\label{sec:verified}
-The harness is verified on known-answer systems by a test suite (\texttt{tests/test\_p2.py}).
-None of these systems is a grid cell. The components and their checks are:
+\subsection{Analysis plan}
+\label{sec:analysis}
+
+\paragraph{Boundary estimator.}
+$\Da^{*}_{\mathrm{disc}}$, and $R^{*}$ under H2a, is the 50\,\% crossing of an
+unpenalised maximum-likelihood logistic regression of the replicate-level success outcomes
+on $\log_{10}\Da$ (or $\log_{10}R$). The confidence interval is a percentile bootstrap
+(2000 resamples) that resamples replicates \emph{within} each $\Da$ level. The design is
+fixed, and only the stochastic replicates are resampled. No boundary will be reported, and
+no verdict word issued, when there is no crossing inside the tested range: all successes,
+all failures, a fitted slope with the wrong sign, or a crossing off the grid. The tested
+range will be reported instead. A boundary is never extrapolated off the grid.
+% p2/analysis.py boundary(), n_boot default 2000.
+
+\paragraph{Calibration, measured before the freeze.} On 100 simulated datasets with the
+design's grid (9 $\Da$ levels, 20 replicates) and a known boundary, the estimator had
+coverage 0.94 (nominal 0.95), bias $+0.012$ decade, and a standard deviation of the
+estimate of 0.089 decade.
+% PREREG_P2 s.4.4; tests/test_p2.py::test_boundary_ci_has_nominal_coverage_and_no_bias
+% (docstring: "measured once at 100 datasets: coverage 0.94, bias +0.012 decade").
+
+\paragraph{Minimum detectable effect and power.}
+A boundary shift, or a gap between discovery and identifiability, is resolvable at about
+$2.8 \times 0.089 \approx 0.25$ decade (80\,\% power, two-sided 5\,\%). \textbf{The MDE is
+0.25 decade}, and it will be quoted with every null. It applies on O1, where discovery and
+identifiability both rest on 20 replicates per level. O2 and O3 identifiability has 3
+replicates and will be reported descriptively. The $\Da$ grid spacing is half a decade;
+the logistic estimator resolves the crossing well inside one grid step, which is what the
+measured standard deviation shows.
+% PREREG_P2 s.4.4 and s.10 item 1 (the earlier "half a decade" was the grid spacing and is
+% withdrawn).
+The journal asks for power of at least 0.95. The frozen design fixes the MDE at 80\,\%
+power, using the standard deviation of \emph{one} boundary estimate. Under that convention
+and calibration, the shift resolvable at 95\,\% power is 0.32 decade, and the power to
+detect H2c's predicted factor-2 shift (0.30 decade) is 0.92. H2b's gap and H2c's shift are,
+however, differences of two estimated boundaries. If the two estimates were independent,
+the standard deviation of the difference would be $\sqrt{2}\times0.089 \approx 0.13$
+decade: the shift resolvable at 80\,\% power would be 0.35 decade (0.45 decade at 95\,\%),
+and the power for a factor-2 shift 0.67. Both sets of figures restate what the frozen
+design implies; neither changes a threshold or a verdict rule. The verdicts will be read
+with this in mind: a gap or shift between 0.25 and 0.35 decade is near the design's
+resolution. If the editor or reviewers require power 0.95, the replicate count would be
+raised by a dated amendment before any grid run, with the estimator recalibrated by the
+same 100-dataset simulation at the new count, as the pre-registration provides for changes
+requested at Stage 1.
+% Journal: nature.com/documents/ncomms-registered-report-guidelines.pdf (read 2026-10-12):
+% "the a priori power must be 0.95 or higher for all proposed hypothesis tests".
+% results/p2_power_note.json: shift_resolvable_at_power_0.95_decade 0.3208,
+% power_at_factor_2_shift_log10_2 0.9225, power_at_frozen_mde_0.25 0.8021,
+% sd_difference_if_independent_decade 0.1259, difference_shift_resolvable_at_power_0.80
+% 0.3526, _0.95 0.4537, difference_power_at_factor_2_shift 0.667;
+% PREREG_P2 "Registered Report timing" ("Any change requested by Stage-1 reviewers is a
+% dated amendment committed before the grid runs").
+
+\paragraph{H2c refinement grid.}
+A factor-2 shift is 0.30 decade, close to the MDE. H2c will therefore be tested on a refined
+$\Da$ grid of \textbf{8 extra levels, log-uniform within $\pm 0.5$ decade of the best
+non-EIV method's $\Da^{*}_{\mathrm{disc}}$} at O1, $\sigma = 2\,\%$, $\varepsilon = 2\,\%$,
+for each isotherm. The 8 levels lie strictly inside $\pm 0.5$ decade; the endpoints
+coincide with main-grid levels and are not repeated. These levels need new ground-truth
+solves, to be made after the main grid and before any EIV method is run on them. The
+refinement is part of the design, not a post-hoc rescue.
+% PREREG_P2 s.4.4; s.4.3 "H2c resolution".
+
+\paragraph{How each hypothesis will be decided.}
+\begin{description}
+\item[H2a.] $R$ will be computed per cell. Because $\sigma$ and $\varepsilon$ enter $R$
+itself, they are not slicing axes. A slice is one ($\Pe$, isotherm, observation model)
+combination, pooling every $\sigma$, $\varepsilon$ and $\Da$ in it. $P(\text{success})$
+of the best method (\S\ref{sec:metrics}) will be fitted against $\log_{10} R$ by the same
+logistic estimator, and $R^{*}$ is each slice's 50\,\% crossing. Only O1 and O2 enter: on
+O3 the sole discovery method is M1's single-replicate demonstration, which yields no
+$R^{*}$. The spread is $\max - \min$ of $\log_{10} R^{*}$ over slices, with a bootstrap
+interval. Slices without a crossing will be listed, never imputed. The verdict words
+follow the thresholds in the Introduction. When the boundary does not collapse, the axis
+that separates the $R^{*}$ values will be named.
+% PREREG_P2 s.4.3 "R and its collapse (H2a)"; p2/analysis.py r_collapse.
+\item[H2b.] For each O1 slice ($\sigma$, $\varepsilon$, isotherm), the gap is
+$\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$. Here
+$\Da^{*}_{\mathrm{disc}}$ comes from the best method, with its selection-carrying bootstrap
+interval (\S\ref{sec:metrics}), and $\Da^{*}_{\mathrm{ident}}$ from the same logistic
+estimator (\S\ref{sec:ident}). Gap $\le -0.25$ gives \verdict{discovery fails before
+identifiability}; gap $\ge +0.25$ gives \verdict{discovery outlives identifiability};
+otherwise \verdict{discovery fails with identifiability}. O2 and O3 gaps will be reported
+descriptively, with intervals and no verdict words.
+% p2/analysis.py disc_vs_ident (mde 0.25); PREREG_P2 s.2 H2b.
+\item[H2c.] H2c will be decided at $\sigma = 2\,\%$ on O1. The shift is
+\[
+\log_{10}\Da^{*}_{\mathrm{disc}}(\text{M5}) - \log_{10}\Da^{*}_{\mathrm{disc}}(\text{best
+strong-form non-EIV}),
+\]
+with a bootstrap interval. It will be estimated on the refined grid for $\varepsilon =
+2\,\%$ and on the main grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The shift relative
+to the best non-EIV method over both forms will be reported alongside, descriptively. The
+hypothesis holds at a given $\varepsilon$ if the shift is at least $\log_{10}2 = 0.30$
+decade. A shift at or above the MDE but below 0.30 decade takes the intermediate verdict
+words of the Introduction. The hypothesis is falsified if the shift is below the MDE at
+every $\varepsilon > 0$.
+\item[H2d.] Exploratory. We will report, as a rate per cell, in which ($\sigma$,
+observation) cells the loading-dependent rate is discovered under the L2 criterion of
+\S\ref{sec:metrics}, with no directional prediction and no boundary hypothesis.
+\end{description}
+
+\paragraph{Multiple comparisons.} The verdicts are threshold rules applied to the point
+estimates of the boundaries, not significance tests; the bootstrap intervals are reported
+with every estimate but enter no verdict. The pre-registration specifies no family-wise
+correction, and none will be applied. Every slice-level verdict will be reported. The
+best-method selection, the one choice made on the data, is paid for inside the bootstrap
+interval (\S\ref{sec:metrics}).
+% PREREG_P2 s.2, s.4.3 (no multiplicity correction is specified); p2/analysis.py
+% disc_vs_ident and h2c_verdict decide on point estimates.
+
+\paragraph{External anchors (exploratory).}
+First, S1 on the map. The Damk\"ohler number of \citep{santana2023} will be recomputed
+under the definition of \S\ref{sec:axes}, and also in the residence-time form, and plotted.
+Our literature review estimated its residence-time value at about 0.9, which is in the
+kinetically controlled range. If S1 lands in our failure region, the contradiction will be
+reported and diagnosed, not explained away.
+% research/lit_equation_discovery.md S1 addendum: Da = kL/v ~ 0.86 (our computation).
+Second, real MOF-303 data. The best method per regime will be applied to published
+MOF-303 water-uptake kinetics \citep{abuelmaaty2024} and to the digitised breakthrough
+curve the companion paper already uses. No hypothesis rests on either.
+
+\subsection{Outcome-neutral quality checks and positive controls}
+\label{sec:checks}
+These checks are orthogonal to the hypotheses: none depends on whether discovery succeeds.
+\begin{itemize}
+\item \emph{Freeze integrity.} The confirmatory grid drivers refuse to run unless the
+pre-registration is unchanged since the most recent commit titled ``FREEZE PREREG\_P2''.
+There is no override. A dated amendment is therefore made by committing the amended file
+under a new such commit; the drivers then check against it, and the repository history
+keeps every version.
+% p2_grid_o1.py frozen(): latest commit whose subject contains "FREEZE PREREG_P2"; git diff
+% --quiet against it.
+\item \emph{Ground-truth validity.} Every solve must reach 95\,\% breakthrough within its
+horizon; a solve that does not is extended, never silently truncated. All 81 grid solves
+and the 9 isothermal-control solves passed (\S\ref{sec:pilots}). The H2c refinement solves
+will be held to the same check.
+\item \emph{Floor and ceiling.} A boundary with all successes, all failures, a slope of the
+wrong sign or a crossing off the grid yields no verdict word, and the tested range is
+reported instead (\S\ref{sec:analysis}).
+\item \emph{Estimator calibration.} The boundary estimator's coverage (0.94 against a
+nominal 0.95), bias ($+0.012$ decade) and standard deviation (0.089 decade) were measured
+on planted boundaries before the freeze.
+\item \emph{Information parity.} Every method and the identifiability analysis read data
+through one observation function; the profile likelihood receives the same measured
+isotherm as the discovery methods.
+\item \emph{Positive controls: known-answer tests.} The harness is verified on known-answer
+systems by a test suite (\texttt{tests/test\_p2.py}); none of these systems is a grid cell.
+The components and their checks are:
 \begin{itemize}
 \item a synthetic LDF series obeying its law to $10^{-3}$ of the rate scale, and a
 Savitzky--Golay derivative exact to $10^{-3}$ on a smooth series;
@@ -652,106 +891,89 @@ squares, and recovery of L1 with M4's support at zero error;
 \item the L2 success metric and the Lib-A fidelity metric;
 \item SINDy-PI recovering the implicit Langmuir--LDF structure with no isotherm supplied,
 every coefficient within 5\,\%;
-\item the boundary estimator's coverage and bias (\S\ref{sec:analysis}), and the verdict
-functions for H2a and H2b at the pre-declared thresholds;
+\item the boundary estimator's coverage and bias, and the verdict functions for H2a and
+H2b at the pre-declared thresholds;
 \item M8's known-answer test, kept as an expected failure that will break the suite if a
 library change makes it pass.
 \end{itemize}
+\end{itemize}
+
+\subsection{Timeline and compute}
+\label{sec:compute}
+All computation will run on one CPU workstation without a GPU, one training job at a time,
+through a job queue with a completion test per job.
+\begin{itemize}
+\item Ground truth: the 81 solves and the 9 isothermal-control solves are complete; the
+H2c refinement will add 8 $\Da$ levels per isotherm after the main grid.
+\item O1 and O2 regression methods (M2--M6, M9, and M1b followed by the O1 methods) at 20
+replicates over about 2600 cells. These take seconds each. Every method has a grid runner,
+and every runner refuses to start before the freeze.
+% p2_grid_o1.py, p2_grid_o23.py, p2_grid_extra.py.
+% PREREG_P2 s.7. 2600 ~ 81 x 16 (sigma, eps) x 2 (O1, O2) = 2592.
+\item O1 identifiability: the exact linear-LDF update, about 4.5\,s per replicate and
+about 22\,h for the design.
+% PREREG_P2 s.10 "O1 identifiability (2026-10-04)": 4.5 s per replicate, ~22 h.
+\item M7 on its O1 subgrid, and the one-replicate M1 demonstration: about 200
+searches or trainings in total.
+\item O2 and O3 identifiability: a full column solve per profile point, 3 replicates on
+the subgrid.
+\end{itemize}
+The pre-registration was frozen on 11 October 2026 (commit d562f19), before any
+discovery method touched a grid cell. The confirmatory grid will start only after
+in-principle acceptance. We expect to complete it within three months of acceptance and
+propose to resubmit the Stage-2 manuscript within six months of acceptance. If no journal
+grants in-principle acceptance within six months of the freeze, the frozen
+pre-registration provides that the grid runs after a dated amendment saying so, and the
+study is then reported as a pre-registered study, not as a Registered Report.
+% PREREG_P2 "Registered Report timing (decided 2026-10-11, before the freeze)".
+
+\subsection{Design limitations}
+\label{sec:limits}
+\begin{itemize}
+\item \emph{Synthetic data.} The ground truth is a one-dimensional plug-flow-with-dispersion
+model. Non-plug flow, which can corrupt the extraction of LDF and dispersion coefficients
+\citep{knox2016}, is outside the model. O3 is the realistic case and will be reported
+first; O1 is a ceiling.
+\item \emph{Competitor strength.} The claim is only as strong as the weakest
+strongest-configuration method. M1 will be run only as a demonstration because of compute.
+On the grid, M5 is a classical errors-in-variables estimator, not a published EIV
+discovery method. ODR-BINDy and WENDy are written for autonomous systems and will be
+reported only on their own examples. M7 passed its inclusion gate. M8 fails its
+known-answer test and is not run on the grid by its cost gate, measured on a shared
+machine. Each will be reported in those terms. Lib-B is smaller than first planned, so the
+boundaries are optimistic with respect to library size. Two methods recommended by our
+literature review are not in the competitor set: physics-constrained weak-form symbolic
+regression \citep{servia2024,servia2025} and partitioning by time-scale regime
+\citep{muhammed2025}. Their absence is a limitation, not a finding.
+\item \emph{Axis choice.} $\Da$ may not be the right single axis \citep{hansen2017,
+miyabe2000}. That is why $\Pe$ and isotherm shape are axes and why H2a is stated in terms
+of $R$.
+\item \emph{Sampling.} Stiffness relative to the sampling interval breaks discovery in
+chemical kinetics \citep{prabhu2025}. The sampling here is fixed by the observation model,
+so at the highest $\Da$ the kinetic time is short relative to the sampling interval. This
+will be reported, not varied.
+\item \emph{Selection of the best method} per slice favours discovery, and so is
+conservative for the verdict \verdict{discovery fails before identifiability}. Its
+interval carries the selection (\S\ref{sec:metrics}).
+\item \emph{Single machine.} The compute limits are those of one CPU. They decide which
+methods run at scale, not what the methods can do.
+\end{itemize}
+
+\subsection{Use of AI tools}
+\label{sec:ai}
+Claude (Anthropic), a large language model used as an AI assistant, was used extensively
+and under the author's direction. It wrote and tested the method harness, the observation
+model, the grid drivers and the analysis code; it drafted the pre-registration and this
+manuscript, including proposed wording of the hypotheses, thresholds and verdict rules; it
+retrieved bibliographic records and checked each reference against Crossref and arXiv by
+script; and it acted as an internal reviewer. The author chose the topic and the research
+questions, decided between the options proposed, approved every hypothesis, threshold and
+verdict rule before the freeze, and read the whole manuscript. The pre-registration's
+version history, the corrections ledger and the test suite record what was built and
+when. The author takes full responsibility for the content.
 
 % ---------------------------------------------------------------------
-\section{Analysis plan}
-\label{sec:analysis}
-
-\subsection{Boundary estimator}
-$\Da^{*}_{\mathrm{disc}}$, and $R^{*}$ under H2a, is the 50\,\% crossing of an
-unpenalised maximum-likelihood logistic regression of the replicate-level success outcomes
-on $\log_{10}\Da$ (or $\log_{10}R$). The confidence interval is a percentile bootstrap
-(2000 resamples) that resamples replicates \emph{within} each $\Da$ level. The design is
-fixed, and only the stochastic replicates are resampled. No boundary is reported, and no
-verdict word issued, when there is no crossing inside the tested range: all successes, all
-failures, a fitted slope with the wrong sign, or a crossing off the grid. The tested range
-is reported instead. A boundary is never extrapolated off the grid.
-% p2/analysis.py boundary(), n_boot default 2000.
-
-\textbf{Calibration, measured before the freeze.} On 100 simulated datasets with the
-design's grid (9 $\Da$ levels, 20 replicates) and a known boundary, the estimator had
-coverage 0.94 (nominal 0.95), bias $+0.012$ decade, and a standard deviation of the
-estimate of 0.089 decade.
-% PREREG_P2 s.4.4; tests/test_p2.py::test_boundary_ci_has_nominal_coverage_and_no_bias
-% (docstring: "measured once at 100 datasets: coverage 0.94, bias +0.012 decade").
-
-\subsection{Minimum detectable effect}
-A boundary shift, or a gap between discovery and identifiability, is resolvable at about
-$2.8 \times 0.089 \approx 0.25$ decade (80\,\% power, two-sided 5\,\%). \textbf{The MDE is
-0.25 decade}, and it is quoted with every null. It applies on O1, where discovery and
-identifiability both rest on 20 replicates per level. O2 and O3 identifiability has 3
-replicates and is reported descriptively. The $\Da$ grid spacing is half a decade;
-the logistic estimator resolves the crossing well inside one grid step, which is what the
-measured standard deviation shows.
-% PREREG_P2 s.4.4 and s.10 item 1 (the earlier "half a decade" was the grid spacing and is
-% withdrawn).
-
-\subsection{H2c refinement grid}
-A factor-2 shift is 0.30 decade, close to the MDE. H2c is therefore tested on a refined
-$\Da$ grid of \textbf{8 extra levels, log-uniform within $\pm 0.5$ decade of the best
-non-EIV method's $\Da^{*}_{\mathrm{disc}}$} at O1, $\sigma = 2\,\%$, $\varepsilon = 2\,\%$,
-for each isotherm. The 8 levels lie strictly inside $\pm 0.5$ decade; the endpoints
-coincide with main-grid levels and are not repeated. These levels need new ground-truth
-solves, made after the main grid and before any EIV method is run on them. The refinement
-is part of the design, not a post-hoc rescue.
-% PREREG_P2 s.4.4; s.4.3 "H2c resolution".
-
-\subsection{How each hypothesis is decided}
-\begin{description}
-\item[H2a.] $R$ is computed per cell. Because $\sigma$ and $\varepsilon$ enter $R$ itself,
-they are not slicing axes. A slice is one ($\Pe$, isotherm, observation model) combination,
-pooling every $\sigma$, $\varepsilon$ and $\Da$ in it. $P(\text{success})$ of the best
-method (\S\ref{sec:metrics}) is fitted against $\log_{10} R$ by the same logistic
-estimator, and $R^{*}$ is each slice's 50\,\% crossing. Only O1 and O2 enter: on O3 the
-sole discovery method is M1's single-replicate demonstration, which yields no $R^{*}$. The
-spread is $\max - \min$ of $\log_{10} R^{*}$ over slices, with a bootstrap interval. Slices without a crossing are listed, never imputed. The
-verdict words follow the thresholds in \S\ref{sec:hyp}. When the boundary does not
-collapse, the axis that separates the $R^{*}$ values is named.
-% PREREG_P2 s.4.3 "R and its collapse (H2a)"; p2/analysis.py r_collapse.
-\item[H2b.] For each O1 slice ($\sigma$, $\varepsilon$, isotherm), the gap is
-$\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$. Here
-$\Da^{*}_{\mathrm{disc}}$ comes from the best method, with its selection-carrying bootstrap
-interval (\S\ref{sec:metrics}), and $\Da^{*}_{\mathrm{ident}}$ from the same logistic
-estimator (\S\ref{sec:ident}). Gap $\le -0.25$ gives \verdict{discovery fails before
-identifiability}; gap $\ge +0.25$ gives \verdict{discovery outlives identifiability};
-otherwise \verdict{discovery fails with identifiability}. O2 and O3 gaps are reported
-descriptively, with intervals and no verdict words.
-% p2/analysis.py disc_vs_ident (mde 0.25); PREREG_P2 s.2 H2b.
-\item[H2c.] H2c is decided at $\sigma = 2\,\%$ on O1. The shift is
-\[
-\log_{10}\Da^{*}_{\mathrm{disc}}(\text{M5}) - \log_{10}\Da^{*}_{\mathrm{disc}}(\text{best
-strong-form non-EIV}),
-\]
-with a bootstrap interval. It is estimated on the refined grid for $\varepsilon = 2\,\%$
-and on the main grid for $\varepsilon \in \{0.5\,\%, 5\,\%\}$. The shift relative to the
-best non-EIV method over both forms is reported alongside, descriptively. The
-hypothesis holds at a given $\varepsilon$ if the shift is at least $\log_{10}2 = 0.30$
-decade. A shift at or above the MDE but below 0.30 decade takes the intermediate verdict
-words of \S\ref{sec:hyp}. The hypothesis is falsified if the shift is below the MDE at every
-$\varepsilon > 0$.
-\item[H2d.] Exploratory. We report, as a rate per cell, in which ($\sigma$, observation)
-cells the loading-dependent rate is discovered under the L2 criterion of
-\S\ref{sec:metrics}, with no directional prediction and no boundary hypothesis.
-\end{description}
-
-\subsection{External anchors}
-First, S1 on the map. The Damk\"ohler number of \citep{santana2023} will be recomputed
-under the definition of \S\ref{sec:axes}, and also in the residence-time form, and plotted.
-Our literature review estimated its residence-time value at about 0.9, which is in the
-kinetically controlled range. If S1 lands in our failure region, the contradiction is
-reported and diagnosed, not explained away.
-% research/lit_equation_discovery.md S1 addendum: Da = kL/v ~ 0.86 (our computation).
-Second, real MOF-303 data (exploratory). The best method per regime is applied to published
-MOF-303 water-uptake kinetics \citep{abuelmaaty2024} and to the digitised breakthrough curve
-the companion paper already uses. No hypothesis rests on either.
-
-% ---------------------------------------------------------------------
-\section{Pilots: what was measured and what it changed}
+\section{Pilot data}
 \label{sec:pilots}
 Pilot data are excluded from every confirmatory analysis. No discovery method has been run
 on any grid cell. The pilots fall into two kinds. Generator pilots measured the simulator.
@@ -780,10 +1002,12 @@ $k$ range. The targeted $\Da$ range $10^{-1}$--$10^{3}$ therefore corresponds to
 to 4 over the pilot's $k$ range, which is why it is not the axis.
 % PREREG_P2 s.6 items 1-4, 7 and s.4.2; results/p2_pilot_generator.json (exit_final
 % 0.74-0.77 at 1.5 t_stoich; grid_change_rel <= 0.00112; Da_res 4e-5 ... 4).
-The ground-truth solves have since been generated, at 3--7\,s each. All 81 reached
-95\,\% breakthrough within their horizon, some after extension to $8\,t_{\mathrm{stoich}}$.
-Generating ground truth runs no discovery method and is permitted before the freeze.
-% p2_generate.log: "done: 81 cells; without 95 % breakthrough: none"; horizon 8 entries.
+The ground-truth solves have since been generated, at 1--414\,s each (median 4\,s). All 81
+reached 95\,\% breakthrough within their horizon, some after extension to
+$8\,t_{\mathrm{stoich}}$. Generating ground truth runs no discovery method and was
+permitted before the freeze.
+% p2_generate.log: "done: 81 cells; without 95 % breakthrough: none"; horizon 8 entries;
+% per-solve times 1-414 s, median 4 s (RETRACTIONS.md B79).
 
 \paragraph{P2, M1 timing pilot.}
 \emph{Measured} on one cell at $\Da \approx 14$: the differentiable column matches the
@@ -791,7 +1015,7 @@ reference solver to below $5\times10^{-3}$ on the exit curve, and $N_z = 50$ dif
 $N_z = 400$ by 0.55\,\%. On the study CPU a forward solve takes 22\,s, a gradient with
 respect to $k$ 101\,s, and a gradient with respect to a $2\times32$ network 145\,s. That
 allows about 50 training steps in the 2\,h budget, where a UDE needs hundreds to thousands.
-\emph{Changed:} by the rule declared before the pilot, M1 is not run at scale
+\emph{Changed:} by the rule declared before the pilot, M1 will not be run at scale
 (\S\ref{sec:compet}).
 % results/p2_pilot_m1.json: Da 14.40, forward_s 21.5, grad_k_s 101.4, grad_nn_s 145.2,
 % exit_change_50_vs_400 0.0055, epochs_in_2h 49.6.
@@ -806,7 +1030,7 @@ inversion error concentrates at the front, where the kinetic signal is.
 \emph{Changed:} nothing in the methods or thresholds. The fact is declared because it bears
 on H2a: for O2, $\varepsilon_{\mathrm{eff}}$ must include the state-reconstruction error,
 and $\delta$ will be reported against it. The definition of $\varepsilon_{\mathrm{rec}}$ in
-\S\ref{sec:hyp} implements this.
+the Introduction implements this.
 % PREREG_P2 s.6 item 5.
 
 \paragraph{P4, sampling resolution of the O1 profile.}
@@ -814,8 +1038,8 @@ and $\delta$ will be reported against it. The definition of $\varepsilon_{\mathr
 interior probe sits $+0.61\,\%$ high with linear interpolation between 200 snapshots,
 $+0.47\,\%$ with monotone cubic interpolation, and $+0.17\,\%$ at 800 snapshots.
 \emph{Changed:} monotone cubic interpolation was adopted. The bias is immaterial for the
-$[k/2, 2k]$ criterion and is reported with the O1/O2 results. The discovery methods face
-the same sampling.
+$[k/2, 2k]$ criterion and will be reported with the O1/O2 results. The discovery methods
+face the same sampling.
 % PREREG_P2 s.6 item 6.
 
 \paragraph{P5, known-answer tests that forced design facts.}
@@ -823,16 +1047,15 @@ These are M4's BIC residual-variance floor (and its recalibration to $2\times10^
 the grid's 200-sample resolution), the adaptive profile-likelihood refinement, M2's
 admissibility rule of at least 3 equations per library term, the documented M8 failure, and
 the ODR-BINDy accuracy gap (\S\ref{sec:compet}). Each was found on a known-answer system and
-is declared before the freeze.
+declared before the freeze.
 
-\paragraph{P7, M8 cost gate.}
+\paragraph{P6, M8 cost gate.}
 \emph{Measured:} one M8 fit at the grid's size took 1144\,s, against the 300\,s limit
 written in the pilot script before it ran. The machine was shared with other long jobs at
-the time. \emph{Changed:} M8 is not run on the grid
-(\S\ref{sec:compet}).
+the time. \emph{Changed:} M8 will not be run on the grid (\S\ref{sec:compet}).
 % results/p2_cost_gates.json.
 
-\paragraph{P6, pre-freeze revisions.}
+\paragraph{P7, pre-freeze revisions.}
 Drafting this manuscript against the pre-registration and the code exposed 20 places where
 the two disagreed or where the pre-registration was silent. Each was fixed in the
 pre-registration in the open, in a dated list of pre-freeze revisions, before any discovery
@@ -858,125 +1081,85 @@ M9, and restricted the 0.25-decade MDE to O1.
 \paragraph{The freeze.}
 The two items that remained have reported: the ODR-BINDy port is reported as ``port,
 accuracy below the reference'', and M7 passes its inclusion gate. Both rules were written
-before the runs that decided them. The pre-registration is frozen by a commit that the grid
-drivers check before they will run, and no discovery method has touched a grid cell. The
-confirmatory grid will be run only after in-principle acceptance of this Stage-1 report. Any later change is a dated,
-reasoned amendment, reported as post hoc if made after results exist.
+before the runs that decided them. The pre-registration was frozen by commit d562f19 on
+11 October 2026; the grid drivers check that commit before they will run, and no discovery
+method has touched a grid cell. Any later change will be a dated, reasoned amendment,
+reported as post hoc if made after results exist.
 
 % ---------------------------------------------------------------------
-\section{Timeline and compute}
-\label{sec:compute}
-All computation runs on one CPU workstation without a GPU, one training job at a time,
-through a job queue with a completion test per job. The confirmatory grid drivers refuse to
-run until the freeze commit exists and the pre-registration is unchanged since it. There is
-no override.
-\begin{itemize}
-\item Ground truth: the 81 solves and the 9 isothermal-control solves are complete; the
-H2c refinement adds 8 $\Da$ levels per isotherm after the main grid.
-\item O1 and O2 regression methods (M2--M6, M9, and M1b followed by the O1 methods) at 20
-replicates over about 2600 cells. These take seconds each. Every method has a grid runner,
-and every runner refuses to start before the freeze.
-% p2_grid_o1.py, p2_grid_o23.py, p2_grid_extra.py.
-% PREREG_P2 s.7. 2600 ~ 81 x 16 (sigma, eps) x 2 (O1, O2) = 2592.
-\item M7 on its O1 subgrid, and the one-replicate M1 demonstration: about 200
-searches or trainings in total.
-\item O2 and O3 identifiability: a full column solve per profile point, 3 replicates on
-the subgrid.
-\end{itemize}
-Order of work: the remaining pre-freeze items (\S\ref{sec:pilots}), then the freeze, then
-Stage-1 review. The grid runs after in-principle acceptance, or after the internal freeze if
-the author decides not to wait; the Stage-2 report states which.
-% RESEARCH_PROGRAM.md "Format decision (2026-10-04)".
+\section*{Data availability}
+No confirmatory data exist yet. The ground-truth fields are regenerated deterministically
+from the stored manifest by \texttt{p2\_generate.py}, and every corrupted observation is a
+deterministic function of (cell, replicate, $\sigma$, $\varepsilon$, observation model),
+so every number can be reproduced from the code. The pilot results files
+(\texttt{results/p2\_*.json}, \texttt{results/odr\_bindy\_*.json}) and the ground-truth
+generation log are public in the study repository,
+\url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}. At Stage 2 the
+confirmatory results files, the laboratory log of run dates and the data will be deposited
+in a public archive with a DOI (Zenodo), time-stamped to show that they were produced
+after in-principle acceptance.
 
-% ---------------------------------------------------------------------
-\section{Limitations}
-\label{sec:limits}
-\begin{itemize}
-\item \emph{Synthetic data.} The ground truth is a one-dimensional plug-flow-with-dispersion
-model. Non-plug flow, which can corrupt the extraction of LDF and dispersion coefficients
-\citep{knox2016}, is outside the model. O3 is the realistic case and is reported first; O1
-is a ceiling.
-\item \emph{Competitor strength.} The claim is only as strong as the weakest
-strongest-configuration method. M1 is run only as a demonstration because of compute. On
-the grid, M5 is a classical errors-in-variables estimator, not a published EIV discovery
-method. ODR-BINDy and WENDy are written for autonomous systems and are reported only on
-their own examples. M7 passed its inclusion gate. M8 fails its known-answer test and is not run on the grid
-by its cost gate, measured on a shared machine. Each is reported in those terms. Lib-B is smaller than first planned, so
-the boundaries are optimistic with respect to library size. Two methods
-recommended by our literature review are not in the competitor set: physics-constrained
-weak-form symbolic regression \citep{servia2024,servia2025} and partitioning by time-scale
-regime \citep{muhammed2025}. Their absence is a limitation, not a finding.
-\item \emph{Axis choice.} $\Da$ may not be the right single axis \citep{hansen2017,
-miyabe2000}. That is why $\Pe$ and isotherm shape are axes and why H2a is stated in terms
-of $R$.
-\item \emph{Sampling.} Stiffness relative to the sampling interval breaks discovery in
-chemical kinetics \citep{prabhu2025}. The sampling here is fixed by the observation model,
-so at the highest $\Da$ the kinetic time is short relative to the sampling interval. This
-is reported, not varied.
-\item \emph{Selection of the best method} per slice favours discovery, and so is
-conservative for the verdict \verdict{discovery fails before identifiability}. Its
-interval carries the selection (\S\ref{sec:metrics}).
-\item \emph{Single machine.} The compute limits are those of one CPU. They decide which
-methods run at scale, not what the methods can do.
-\end{itemize}
+\section*{Code availability}
+\begin{sloppypar}
+The solver, the harness (\texttt{p2/}), the observation model, the grid drivers, the
+pilots and the tests (\texttt{tests/test\_p2.py}) are public in the study repository,
+\url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}, under the licence
+given there (MIT). Third-party software used: PySR 2.6.1 \citep{cranmer2023} (run from an
+isolated Julia environment) and pykan 0.2.8 \citep{liu2024}; exact versions are pinned in
+\texttt{requirements\_p2\_venv.txt}. The code state at Stage 2 will be archived on Zenodo
+with a DOI.
+\end{sloppypar}
 
-% ---------------------------------------------------------------------
-\section{Data and code availability}
-The solver, harness (\texttt{p2/}), observation model, grid drivers, pilots, tests and the
-pre-registration with its full version history are public in the study repository,
-\url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}; the freeze commit
-will be identified there by its message.
-Ground-truth fields are regenerated deterministically from the manifest. Every corrupted
-observation is a deterministic function of (cell, replicate, $\sigma$, $\varepsilon$,
-observation model), so any reported number can be reproduced from the code. Pilot results
-files are released with the Stage-1 submission. Confirmatory results files will be released
-with Stage 2.
+\section*{Protocol registration}
+The pre-registration (\texttt{PREREG\_P2\_discoverability.md}) is public in the study
+repository and frozen at commit \texttt{d562f195ac7e30f0b7abe039946f4f2bd8b3ad6d}
+(11 October 2026), before any discovery method was run on any grid cell. The file's
+header still reads ``Status: DRAFT, NOT FROZEN'', followed by the statement that it is
+frozen by a commit; it was written before the freeze and left unedited, because any edit
+would itself be an amendment. The freeze is the commit, which the grid drivers verify. After in-principle
+acceptance, the approved Stage-1 protocol will be registered in a recognised repository
+(the journal's figshare space, or OSF), and the Stage-2 manuscript will link to it.
 
-\section*{Declaration of competing interest}
+\section*{Author contributions}
+A.B. conceived the study, chose the research questions, directed the work, approved the
+hypotheses, thresholds, verdict rules and every design decision, and read and approved
+the manuscript. The use of an AI assistant is described in Methods (\S\ref{sec:ai}).
+
+\section*{Competing interests}
 The author declares no competing interests.
 
 \section*{Funding}
-This research received no specific grant from
-any funding agency in the public, commercial or not-for-profit sectors.
-
-\section*{Declaration of generative AI and AI-assisted technologies}
-During this work the author used Claude (Anthropic), an AI assistant, extensively: to
-write and test the method harness, the observation model, the grid drivers and the
-analysis code; to draft and revise the pre-registration and this Stage-1 manuscript; to
-retrieve and check bibliographic records; and to act as an internal reviewer. The
-pre-registration's version history and the test suite record what was built and when.
-The author reviewed and edited the content and takes full responsibility for the
-publication.
+This work received no specific funding.
 
 % ---------------------------------------------------------------------
 \begin{thebibliography}{99}
 \bibitem{brunton2016} Steven L. Brunton, Joshua L. Proctor, J. Nathan Kutz, Discovering governing equations from data by sparse identification of nonlinear dynamical systems, Proceedings of the National Academy of Sciences, vol. 113, 3932-3937 (2016). \href{https://doi.org/10.1073/pnas.1517384113}{doi:10.1073/pnas.1517384113}; \href{https://arxiv.org/abs/1509.03580}{arXiv:1509.03580}.
 
-\bibitem{rudy2016} Samuel H. Rudy, Steven L. Brunton, Joshua L. Proctor, J. Nathan Kutz, Data-driven discovery of partial differential equations, arXiv preprint arXiv:1609.06401 (2016). \href{https://arxiv.org/abs/1609.06401}{arXiv:1609.06401}.
+\bibitem{rudy2016} Samuel H. Rudy, Steven L. Brunton, Joshua L. Proctor, J. Nathan Kutz, Data-driven discovery of partial differential equations, Science Advances, vol. 3, e1602614 (2017). \href{https://doi.org/10.1126/sciadv.1602614}{doi:10.1126/sciadv.1602614}; \href{https://arxiv.org/abs/1609.06401}{arXiv:1609.06401}.
 
 \bibitem{messenger2021ode} Daniel A. Messenger, David M. Bortz, Weak SINDy: Galerkin-Based Data-Driven Model Selection, Multiscale Modeling \& Simulation, vol. 19, 1474-1497 (2021). \href{https://doi.org/10.1137/20M1343166}{doi:10.1137/20M1343166}; \href{https://arxiv.org/abs/2005.04339}{arXiv:2005.04339}.
 
-\bibitem{messenger2021pde} Daniel A. Messenger, David M. Bortz, Weak SINDy For Partial Differential Equations, arXiv preprint arXiv:2007.02848 (2020). \href{https://arxiv.org/abs/2007.02848}{arXiv:2007.02848}.
+\bibitem{messenger2021pde} Daniel A. Messenger, David M. Bortz, Weak SINDy for partial differential equations, Journal of Computational Physics, vol. 443, 110525 (2021). \href{https://doi.org/10.1016/j.jcp.2021.110525}{doi:10.1016/j.jcp.2021.110525}; \href{https://arxiv.org/abs/2007.02848}{arXiv:2007.02848}.
 
-\bibitem{reinbold2020} Patrick A. K. Reinbold, Daniel R. Gurevich, Roman O. Grigoriev, Using Noisy or Incomplete Data to Discover Models of Spatiotemporal Dynamics, Phys. Rev. E 101, 010203 (2020). \href{https://arxiv.org/abs/1911.03365}{arXiv:1911.03365}.
+\bibitem{reinbold2020} Patrick A. K. Reinbold, Daniel R. Gurevich, Roman O. Grigoriev, Using noisy or incomplete data to discover models of spatiotemporal dynamics, Physical Review E, vol. 101, 010203 (2020). \href{https://doi.org/10.1103/PhysRevE.101.010203}{doi:10.1103/PhysRevE.101.010203}; \href{https://arxiv.org/abs/1911.03365}{arXiv:1911.03365}.
 
 \bibitem{fasel2022} U. Fasel, J. N. Kutz, B. W. Brunton, S. L. Brunton, Ensemble-SINDy: Robust sparse model discovery in the low-data, high-noise limit, with active learning and control, Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences, vol. 478, 20210904 (2022). \href{https://doi.org/10.1098/rspa.2021.0904}{doi:10.1098/rspa.2021.0904}; \href{https://arxiv.org/abs/2111.10992}{arXiv:2111.10992}.
 
-\bibitem{hirsh2021} Seth M. Hirsh, David A. Barajas-Solano, J. Nathan Kutz, Sparsifying Priors for Bayesian Uncertainty Quantification in Model Discovery, arXiv preprint arXiv:2107.02107 (2021). \href{https://arxiv.org/abs/2107.02107}{arXiv:2107.02107}.
+\bibitem{hirsh2021} Seth M. Hirsh, David A. Barajas-Solano, J. Nathan Kutz, Sparsifying priors for Bayesian uncertainty quantification in model discovery, Royal Society Open Science, vol. 9, 211823 (2022). \href{https://doi.org/10.1098/rsos.211823}{doi:10.1098/rsos.211823}; \href{https://arxiv.org/abs/2107.02107}{arXiv:2107.02107}.
 
 \bibitem{kaheman2020} Kadierdan Kaheman, J. Nathan Kutz, Steven L. Brunton, SINDy-PI: a robust algorithm for parallel implicit sparse identification of nonlinear dynamics, Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences, vol. 476, 20200279 (2020). \href{https://doi.org/10.1098/rspa.2020.0279}{doi:10.1098/rspa.2020.0279}; \href{https://arxiv.org/abs/2004.02322}{arXiv:2004.02322}.
 
-\bibitem{bertsimas2022} Dimitris Bertsimas, Wes Gurnee, Learning Sparse Nonlinear Dynamics via Mixed-Integer Optimization, arXiv preprint arXiv:2206.00176 (2022). \href{https://arxiv.org/abs/2206.00176}{arXiv:2206.00176}.
+\bibitem{bertsimas2022} Dimitris Bertsimas, Wes Gurnee, Learning sparse nonlinear dynamics via mixed-integer optimization, Nonlinear Dynamics, vol. 111, 6585-6604 (2023). \href{https://doi.org/10.1007/s11071-022-08178-9}{doi:10.1007/s11071-022-08178-9}; \href{https://arxiv.org/abs/2206.00176}{arXiv:2206.00176}.
 
 \bibitem{cranmer2023} Miles Cranmer, Interpretable Machine Learning for Science with PySR and SymbolicRegression.jl, arXiv preprint arXiv:2305.01582 (2023). \href{https://arxiv.org/abs/2305.01582}{arXiv:2305.01582}.
 
-\bibitem{udrescu2020} Silviu-Marian Udrescu, Max Tegmark, AI Feynman: a Physics-Inspired Method for Symbolic Regression, Sci. Adv. 6:eaay2631 (2020). \href{https://arxiv.org/abs/1905.11481}{arXiv:1905.11481}.
+\bibitem{udrescu2020} Silviu-Marian Udrescu, Max Tegmark, AI Feynman: A physics-inspired method for symbolic regression, Science Advances, vol. 6, eaay2631 (2020). \href{https://doi.org/10.1126/sciadv.aay2631}{doi:10.1126/sciadv.aay2631}; \href{https://arxiv.org/abs/1905.11481}{arXiv:1905.11481}.
 
 \bibitem{santana2023} Vinicius V. Santana, Erbet Costa, Carine M. Rebello, Ana Mafalda Ribeiro, Christopher Rackauckas, Idelfonso B.R. Nogueira, Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach, Chemical Engineering Science, vol. 282, 119223 (2023). \href{https://doi.org/10.1016/j.ces.2023.119223}{doi:10.1016/j.ces.2023.119223}; \href{https://arxiv.org/abs/2303.13555}{arXiv:2303.13555}.
 
 \bibitem{valocchi1985} Albert J. Valocchi, Validity of the Local Equilibrium Assumption for Modeling Sorbing Solute Transport Through Homogeneous Soils, Water Resources Research, vol. 21, 808-820 (1985). \href{https://doi.org/10.1029/wr021i006p00808}{doi:10.1029/wr021i006p00808}.
 
-\bibitem{hansen2017} Scott K. Hansen, Velimir V. Vesselinov, Local equilibrium and retardation revisited, arXiv preprint arXiv:1703.03087 (2017). \href{https://arxiv.org/abs/1703.03087}{arXiv:1703.03087}.
+\bibitem{hansen2017} Scott K. Hansen, Velimir V. Vesselinov, Local equilibrium and retardation revisited, Groundwater, vol. 56, 109-117 (2018). \href{https://doi.org/10.1111/gwat.12566}{doi:10.1111/gwat.12566}; \href{https://arxiv.org/abs/1703.03087}{arXiv:1703.03087}.
 
 \bibitem{katsoulas2023} Konstantinos Katsoulas, Monica Tirapelle, Eva Sorensen, Luca Mazzei, On the apparent dispersion coefficient of the equilibrium dispersion model: An asymptotic analysis, Journal of Chromatography A, vol. 1708, 464345 (2023). \href{https://doi.org/10.1016/j.chroma.2023.464345}{doi:10.1016/j.chroma.2023.464345}.
 
@@ -990,11 +1173,11 @@ publication.
 
 \bibitem{stanhope2014} S. Stanhope, J. E. Rubin, D. Swigon, Identifiability of Linear and Linear-in-Parameters Dynamical Systems from a Single Trajectory, SIAM Journal on Applied Dynamical Systems, vol. 13, 1792-1815 (2014). \href{https://doi.org/10.1137/130937913}{doi:10.1137/130937913}.
 
-\bibitem{gallo2026} Matteo Gallo, Fabio Anselmi, Paolo Lazzari, Attractor Geometry Determines the Identifiability Limits of System Discovery, arXiv preprint arXiv:2607.18490 (2026). \href{https://arxiv.org/abs/2607.18490}{arXiv:2607.18490}.
+\bibitem{gallo2026} Matteo Gallo, Fabio Anselmi, Paolo Lazzari, The dynamics of discoverability: how trajectories and priors shape equation recovery, arXiv preprint arXiv:2607.18490v2 (2026). \href{https://arxiv.org/abs/2607.18490}{arXiv:2607.18490}.
 
 \bibitem{delgado2025} Diemen Delgado-Cano, Erick Kracht, Urban Fasel, Benjamin Herrmann, SINDy on slow manifolds, arXiv preprint arXiv:2507.00747 (2025). \href{https://arxiv.org/abs/2507.00747}{arXiv:2507.00747}.
 
-\bibitem{klishin2024} Andrei A. Klishin, Joseph Bakarji, J. Nathan Kutz, Krithika Manohar, Statistical Mechanics of Dynamical System Identification, arXiv preprint arXiv:2403.01723 (2024). \href{https://arxiv.org/abs/2403.01723}{arXiv:2403.01723}.
+\bibitem{klishin2024} Andrei A. Klishin, Joseph Bakarji, J. Nathan Kutz, Krithika Manohar, Statistical mechanics of dynamical system identification, Physical Review Research, vol. 7, 033181 (2025). \href{https://doi.org/10.1103/4d98-tdlp}{doi:10.1103/4d98-tdlp}; \href{https://arxiv.org/abs/2403.01723}{arXiv:2403.01723}.
 
 \bibitem{muhammed2025} Ismaila Muhammed, Dimitris M. Manias, Dimitris A. Goussis, Haralampos Hatzikirou, Data-driven identification of biological systems using multi-scale analysis, PLOS Computational Biology, vol. 21, e1013193 (2025). \href{https://doi.org/10.1371/journal.pcbi.1013193}{doi:10.1371/journal.pcbi.1013193}.
 
@@ -1002,9 +1185,9 @@ publication.
 
 \bibitem{huang2021} Juntao Huang, Yizhou Zhou, Wen-An Yong, Data-driven discovery of multiscale chemical reactions governed by the law of mass action, Journal of Computational Physics, vol. 448, 110743 (2022). \href{https://doi.org/10.1016/j.jcp.2021.110743}{doi:10.1016/j.jcp.2021.110743}; \href{https://arxiv.org/abs/2101.06589}{arXiv:2101.06589}.
 
-\bibitem{delahunt2021} Charles B. Delahunt, J. Nathan Kutz, A toolkit for data-driven discovery of governing equations in high-noise regimes, arXiv preprint arXiv:2111.04870 (2021). \href{https://arxiv.org/abs/2111.04870}{arXiv:2111.04870}.
+\bibitem{delahunt2021} Charles B. Delahunt, J. Nathan Kutz, A toolkit for data-driven discovery of governing equations in high-noise regimes, IEEE Access, vol. 10, 31210-31234 (2022). \href{https://doi.org/10.1109/access.2022.3159335}{doi:10.1109/access.2022.3159335}; \href{https://arxiv.org/abs/2111.04870}{arXiv:2111.04870}.
 
-\bibitem{kaptanoglu2023} Alan A. Kaptanoglu, Lanyue Zhang, Zachary G. Nicolaou, Urban Fasel, Steven L. Brunton, Benchmarking sparse system identification with low-dimensional chaos, arXiv preprint arXiv:2302.10787 (2023). \href{https://arxiv.org/abs/2302.10787}{arXiv:2302.10787}.
+\bibitem{kaptanoglu2023} Alan A. Kaptanoglu, Lanyue Zhang, Zachary G. Nicolaou, Urban Fasel, Steven L. Brunton, Benchmarking sparse system identification with low-dimensional chaos, Nonlinear Dynamics, vol. 111, 13143-13164 (2023). \href{https://doi.org/10.1007/s11071-023-08525-4}{doi:10.1007/s11071-023-08525-4}; \href{https://arxiv.org/abs/2302.10787}{arXiv:2302.10787}.
 
 \bibitem{nogueira2022} Idelfonso B. R. Nogueira, Vinicius V. Santana, Ana M. Ribeiro, Alírio E. Rodrigues, Using scientific machine learning to develop universal differential equation for multicomponent adsorption separation systems, The Canadian Journal of Chemical Engineering, vol. 100, 2279-2290 (2022). \href{https://doi.org/10.1002/cjce.24495}{doi:10.1002/cjce.24495}.
 
@@ -1024,7 +1207,7 @@ publication.
 
 \bibitem{cornelio2021} Cristina Cornelio, Sanjeeb Dash, Vernon Austel, Tyler Josephson, Joao Goncalves, Kenneth Clarkson, Nimrod Megiddo, Bachir El Khadir, Lior Horesh, AI Descartes: Combining Data and Theory for Derivable Scientific Discovery, arXiv preprint arXiv:2109.01634 (2021). \href{https://arxiv.org/abs/2109.01634}{arXiv:2109.01634}.
 
-\bibitem{fox2023} Charles Fox, Neil Tran, Nikki Nacion, Samiha Sharlin, Tyler R. Josephson, Incorporating Background Knowledge in Symbolic Regression using a Computer Algebra System, arXiv preprint arXiv:2301.11919 (2023). \href{https://arxiv.org/abs/2301.11919}{arXiv:2301.11919}.
+\bibitem{fox2023} Charles Fox, Neil Tran, Nikki Nacion, Samiha Sharlin, Tyler R. Josephson, Incorporating background knowledge in symbolic regression using a computer algebra system, Machine Learning: Science and Technology, vol. 5, 025057 (2024). \href{https://doi.org/10.1088/2632-2153/ad4a1e}{doi:10.1088/2632-2153/ad4a1e}; \href{https://arxiv.org/abs/2301.11919}{arXiv:2301.11919}.
 
 \bibitem{servia2024} Miguel Ángel de Carvalho Servia, Ilya Orson Sandoval, King Kuok (Mimi) Hii, Klaus Hellgardt, Dongda Zhang, Ehecatl Antonio del Rio Chanona, The automated discovery of kinetic rate models -- methodological frameworks, Digital Discovery, vol. 3, 954-968 (2024). \href{https://doi.org/10.1039/d3dd00212h}{doi:10.1039/d3dd00212h}; \href{https://arxiv.org/abs/2301.11356}{arXiv:2301.11356}.
 
@@ -1036,15 +1219,15 @@ publication.
 
 \bibitem{abuelmaaty2024} Ahmed E. Abu EL-Maaty, Mahmoud A. Abdalla, Mohamed Essalhi, Mahmoud M. Abdelnaby, Morsi M. Mahmoud, Mohamed A. Habib, Mohamed Antar, Rached Ben-Mansour, Kinetics of Water Adsorption in Metal-Organic Framework(MOF-303) for Adsorption Cooling Application, Energy Conversion and Management: X, vol. 24, 100694 (2024). \href{https://doi.org/10.1016/j.ecmx.2024.100694}{doi:10.1016/j.ecmx.2024.100694}.
 
-\bibitem{coyle2026} Reid A. Coyle, Shyam Chand Pal, Peter Walther, Saeun Park, Bin Feng, Zhiling Zheng, Sustainable Metal-Organic Framework Water Harvesters in the Artificial Intelligence Era, arXiv preprint arXiv:2605.29179 (2026). \href{https://arxiv.org/abs/2605.29179}{arXiv:2605.29179}.
+\bibitem{coyle2026} Reid A. Coyle, Shyam Chand Pal, Peter Walther, Saeun Park, Bin Feng, Zhiling Zheng, Sustainable metal--organic framework water harvesters in the artificial intelligence era, ACS Materials Letters, vol. 8, 2391-2400 (2026). \href{https://doi.org/10.1021/acsmaterialslett.6c00580}{doi:10.1021/acsmaterialslett.6c00580}; \href{https://arxiv.org/abs/2605.29179}{arXiv:2605.29179}.
 
 \bibitem{raue2009} A. Raue, C. Kreutz, T. Maiwald, J. Bachmann, M. Schilling, U. Klingmüller, J. Timmer, Structural and practical identifiability analysis of partially observed dynamical models by exploiting the profile likelihood, Bioinformatics, vol. 25, 1923-1929 (2009). \href{https://doi.org/10.1093/bioinformatics/btp358}{doi:10.1093/bioinformatics/btp358}.
 
 \bibitem{fung2026} Lloyd Fung, Overcoming error-in-variable or stiffness problem in SINDy-like data-driven model discovery, ACM Transactions on AI for Science, 3831701 (2026). \href{https://doi.org/10.1145/3831701}{doi:10.1145/3831701}.
 
-\bibitem{bortz2023} David M. Bortz, Daniel A. Messenger, Vanja Dukic, Direct Estimation of Parameters in ODE Models Using WENDy: Weak-form Estimation of Nonlinear Dynamics, arXiv preprint arXiv:2302.13271 (2023). \href{https://arxiv.org/abs/2302.13271}{arXiv:2302.13271}.
+\bibitem{bortz2023} David M. Bortz, Daniel A. Messenger, Vanja Dukic, Direct estimation of parameters in ODE models using WENDy: weak-form estimation of nonlinear dynamics, Bulletin of Mathematical Biology, vol. 85, 110 (2023). \href{https://doi.org/10.1007/s11538-023-01208-6}{doi:10.1007/s11538-023-01208-6}; \href{https://arxiv.org/abs/2302.13271}{arXiv:2302.13271}.
 
-\bibitem{paper1} A.~Batayhi, Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents, companion manuscript (2026).
+\bibitem{paper1} A.~Batayhi, Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents, companion manuscript (2026); code, results and pre-registrations archived at Zenodo, version v1.0.1-cmame, \href{https://doi.org/10.5281/zenodo.23305298}{doi:10.5281/zenodo.23305298}.
 
 \bibitem{liu2024} Ziming Liu, Yixuan Wang, Sachin Vaidya, Fabian Ruehle, James Halverson, Marin Solja\v{c}i\'c, Thomas Y. Hou, Max Tegmark, KAN: Kolmogorov-Arnold Networks, ICLR 2025 (arXiv 2024). \href{https://arxiv.org/abs/2404.19756}{arXiv:2404.19756}.
 
