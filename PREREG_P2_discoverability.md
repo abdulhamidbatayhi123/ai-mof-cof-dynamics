@@ -536,6 +536,28 @@ reported as a **pre-registered study, not a Registered Report**. Nothing else ch
 every hypothesis, metric, threshold, decision rule, replicate count and verdict wording
 stands. The grid drivers check this commit, so no result can predate it.
 
+### A4 — 2026-10-12, after A3 (237e5f5), before any discovery method has run on any grid cell
+
+**M1's demonstration, implemented.** §3 declares M1, the S1 pipeline, as a labelled
+demonstration: Langmuir, Pe×1, σ = 2 %, ε = 0, O3, the 9 Da levels, one replicate, L-BFGS
+with at most 50 steps. No grid driver existed for it; it is now `p2_grid_extra.py m1`
+(`fit_m1`). The choices that §3 left open are fixed here, before it runs:
+- **UDE.** A 2 × 32 tanh network of (c, q, T, q*) in the uptake term, inputs scaled by
+  c_in, q_max and T_in, as in the M1 pilot. Its output scale is q_max / t_stoich, which
+  needs no knowledge of k.
+- **Training.** The network is trained through the differentiable column (`p2.jaxcol`,
+  N_z = 50, verified against the reference solver in pilot P2). The loss is the
+  range-normalised mean squared error of the outlet c(t) and T(t). The optimiser is SciPy's
+  L-BFGS-B, stopping at 50 iterations or 2 h, whichever comes first; the best parameters
+  seen are kept.
+- **Readout.** The trained network's rate on the solved states is regressed on Lib-B by M4's
+  exact best-subset (sparse readout) and by PySR (symbolic readout, M7's settings).
+- **Success.** `success_L1` on either readout; both are recorded. Like every other method, M1
+  is given the measured isotherm (at ε = 0 the true one).
+
+M1 enters no confirmatory test (§3), so none of this touches a hypothesis. A smoke test on a
+fresh column that is not a grid cell checks the wiring (`tests/test_p2.py`).
+
 ## 10. Pre-freeze revisions, 2026-10-04 (before any discovery method has run on any grid cell)
 Found by drafting the Registered-Report Stage-1 manuscript against this document and
 the code; each fixed here, in the open, rather than silently:

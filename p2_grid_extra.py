@@ -24,7 +24,11 @@ driver runs the rest, each exactly as the prereg declares, with the same freeze 
        every non-isothermal L1 cell, O1, every (sigma, eps), 60 replicates (A1), strong form;
        success = success_L1. Pure linear algebra, so it needs no cost gate.
 
-    python p2_grid_extra.py {m6,m9,l2,m8,m5,m7,o1ident}
+  m1   the S1 pipeline as a labelled demonstration (fit_m1): Langmuir, Pe x1, sigma 2 %,
+       eps 0, O3, 9 Da levels, one replicate; UDE trained through the column by L-BFGS
+       (<= 50 steps, 2 h), read out by sparse (M4) and symbolic (PySR) regression.
+
+    python p2_grid_extra.py {m1,m6,m9,l2,m8,m5,m7,o1ident}
 """
 import itertools
 import json
@@ -43,6 +47,7 @@ from p2_observe import observe
 from v2_common import write_atomic
 
 SUB_SIGMAS, SUB_EPSS, SUB_REP = (0.005, 0.02), (0.0, 0.02), 3
+M1_NZ, M1_MAXITER, M1_BUDGET_S = 50, 50, 7200    # PREREG_P2 s.3 M1: L-BFGS, <= 50 steps, 2 h budget
 COST_GATES = "results/p2_cost_gates.json"      # written by p2_pilot_costs.py, pre-freeze
 
 
@@ -68,6 +73,96 @@ def fit_m9(obs):
         {"1": np.ones_like(c), "c": c, "T": T, "c^2": c ** 2, "qstar": qs(c, T)}, q))
     co = methods.slow_manifold(F, q)
     return co, success_manifold(co)
+
+
+def _m1_rate(c, q, T, qs, args):
+    """The UDE's uptake term: a 2 x 32 tanh network of (c, q, T, q*), as in the M1 pilot,
+    inputs scaled by the feed concentration, the capacity and the feed temperature."""
+    import jax.numpy as jnp
+    x = jnp.stack([c / args["c_in"], q / args["q_max"], (T - args["T_in"]) / 10.0,
+                   qs / args["q_max"]], -1)
+    h = jnp.tanh(x @ args["W1"] + args["b1"])
+    h = jnp.tanh(h @ args["W2"] + args["b2"])
+    return (h @ args["W3"])[..., 0] * args["scale"]
+
+
+def fit_m1(rec, obs, seed=0, maxiter=M1_MAXITER, budget_s=M1_BUDGET_S, n_z=M1_NZ, symbolic=True):
+    """M1, the S1 pipeline as a labelled demonstration (PREREG_P2 s.3): a UDE with a network
+    in the uptake term, trained THROUGH the column model (p2.jaxcol, the differentiable
+    column verified against the reference solver) on the O3 outlet c(t), T(t) by L-BFGS,
+    at most `maxiter` steps or `budget_s` seconds; then read out by M4's exact best-subset
+    (sparse) and by PySR (symbolic) on the trained network's rate over the solved states.
+    The network's output scale is q_max / t_stoich, which needs no knowledge of k.
+    Returns (coefs of the sparse readout, success, details)."""
+    import jax
+    import jax.numpy as jnp
+    from jax.flatten_util import ravel_pytree
+    from scipy.optimize import minimize
+
+    from p2.jaxcol import solve
+    from p2.pysr_method import pysr_sr
+    from p2_observe import physics_for
+    jax.config.update("jax_enable_x64", True)
+    phys = physics_for(rec)
+    phys.D_L = rec["D_L"]
+    ts = np.asarray(obs["t"], float)
+    c_obs, T_obs = np.asarray(obs["channels"]["c"][0]), np.asarray(obs["channels"]["T"][0])
+    rc, rT = float(np.ptp(c_obs)) or 1.0, float(np.ptp(T_obs)) or 1.0
+    k1, k2, k3 = jax.random.split(jax.random.PRNGKey(seed), 3)
+    train = {"W1": 0.3 * jax.random.normal(k1, (4, 32)), "b1": jnp.zeros(32),
+             "W2": 0.3 * jax.random.normal(k2, (32, 32)), "b2": jnp.zeros(32),
+             "W3": 0.3 * jax.random.normal(k3, (32, 1))}
+    fixed = {"scale": rec["q_max"] / rec["t_stoich_s"], "c_in": rec["c_in"],
+             "q_max": rec["q_max"], "T_in": rec["T_in"]}
+    x0, unravel = ravel_pytree(train)
+
+    def loss(x):
+        y = solve(phys, n_z, rec["c_in"], float(ts[-1]), ts, rate=_m1_rate,
+                  args={**unravel(x), **fixed})
+        return (jnp.mean(((y[:, n_z - 1] - c_obs) / rc) ** 2)
+                + jnp.mean(((y[:, 3 * n_z - 1] - T_obs) / rT) ** 2))
+    vg = jax.jit(jax.value_and_grad(loss))
+    t0, best, hist = time.time(), {"f": np.inf, "x": np.asarray(x0)}, []
+
+    class _Budget(Exception):
+        pass
+
+    def fun(x):
+        if time.time() - t0 > budget_s:
+            raise _Budget
+        v, g = vg(jnp.asarray(x))
+        v, g = float(v), np.asarray(g, float)
+        hist.append(v)
+        if v < best["f"]:
+            best.update(f=v, x=np.array(x))
+        return v, g
+    stopped = "maxiter"
+    try:
+        minimize(fun, np.asarray(x0, float), jac=True, method="L-BFGS-B",
+                 options={"maxiter": maxiter, "maxfun": maxiter + 10})
+    except _Budget:
+        stopped = "budget"
+    prm = {**unravel(jnp.asarray(best["x"])), **fixed}
+    y = np.asarray(solve(phys, n_z, rec["c_in"], float(ts[-1]), ts, rate=_m1_rate, args=prm))
+    c, q, T = y[:, :n_z].ravel(), y[:, n_z:2 * n_z].ravel(), y[:, 2 * n_z:].ravel()
+    qs = obs["qstar_meas"](c, T)
+    rate = np.asarray(_m1_rate(jnp.asarray(c), jnp.asarray(q), jnp.asarray(T), jnp.asarray(qs), prm))
+    F = lib_b(c, q, T, qs)
+    co = methods.best_subset(F, rate)
+    ok_sparse = bool(success_L1(co))
+    co_sr, ok_sr = {}, False
+    try:
+        if symbolic:
+            co_sr, _ = pysr_sr({k: v for k, v in F.items() if k != "1"}, rate, seed=seed)
+            ok_sr = bool(success_L1(co_sr))
+    except Exception as e:   # recorded, never dropped
+        co_sr, ok_sr = {"error": f"{type(e).__name__}: {e}"}, False
+    return co, ok_sparse or ok_sr, {"loss_first": hist[0] if hist else None, "loss_best": best["f"],
+                                     "n_evals": len(hist), "stopped": stopped,
+                                     "readout_sparse": {k: float(v) for k, v in co.items()},
+                                     "success_sparse": ok_sparse, "success_symbolic": ok_sr,
+                                     "readout_symbolic": {k: (float(v) if not isinstance(v, str) else v)
+                                                          for k, v in co_sr.items()}}
 
 
 def fit_m5(obs, sigma, eps):
@@ -146,6 +241,12 @@ def run(cmd, man):
             if iso == "langmuir_iso" or law != "L1":
                 continue
             grid = itertools.product(SIGMAS, EPSS, range(N_REP), ("profile",), ("o1",))
+        elif cmd == "m1":
+            # PREREG_P2 s.3: the minimal demonstration -- Langmuir, Pe x1, sigma = 2 %,
+            # eps = 0, O3, the 9 Da levels, one replicate
+            if iso != "langmuir" or law != "L1" or rec["pe_mult"] != 1.0 or rec.get("refined"):
+                continue
+            grid = [(0.02, 0.0, 0, "m1_ude", "o3")]
         elif cmd == "m5":
             if iso == "langmuir_iso" or law != "L1":
                 continue
@@ -164,7 +265,7 @@ def run(cmd, man):
             key = f"{name}|{sigma}|{eps}|{rep}|{solver}|{form}"
             if key in res["rows"]:
                 continue
-            obs = observe(name, rep, sigma, eps, "O1")
+            obs = observe(name, rep, sigma, eps, "O3" if cmd == "m1" else "O1")
             t1 = time.time()
             try:
                 if cmd == "m6":
@@ -198,12 +299,15 @@ def run(cmd, man):
                         derivative(q, obs["t"])))
                     co, _ = pysr_sr(F, y, seed=rep)
                     ok = success_L1(co)
+                elif cmd == "m1":
+                    co, ok, m1_detail = fit_m1(rec, obs, seed=rep)
                 else:   # m5
                     co, ok = fit_m5(obs, sigma, eps)
                 res["rows"][key] = {"success": bool(ok), "sec": time.time() - t1,
                                     **({"interval": co} if cmd == "o1ident" else {"support": sorted(co)}),
                                     # A1: the fitted k, for the k-aware sensitivity analysis
-                                    **({"k_hat": float(-co.get("q", 0.0))} if cmd in ("m5", "m7", "l2") else {})}
+                                    **({"k_hat": float(-co.get("q", 0.0))} if cmd in ("m1", "m5", "m7", "l2") else {}),
+                                    **({"m1": m1_detail} if cmd == "m1" else {})}
             except Exception as e:   # recorded, never dropped
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}
         write_atomic(res, out)

@@ -834,3 +834,22 @@ def test_positive_control_without_discovery_rows_is_not_evaluated():
     ident = {f"x|0.0|0.0|{r}|profile|o1": {"success": True} for r in range(60)}
     out, failed = positive_controls(cells, {}, ident)
     assert out["langmuir"]["passed"] is None and not failed
+
+def test_m1_demo_trains_and_reads_out_on_a_fresh_known_answer_column():
+    """M1 (the S1 pipeline as a demonstration): on a fresh column that is NOT a grid cell
+    (default physics, k = 0.002 s^-1), two L-BFGS steps run through the differentiable
+    column, the loss is finite, and the sparse readout returns a coefficient dict. A smoke
+    test of the wiring; whether the UDE succeeds is the grid's question, not this test's."""
+    from isotherm import q_star_np
+    from p2_grid_extra import fit_m1
+    from solver_fd import AdsorptionPhysicsConfig, generate_breakthrough_data
+    p = AdsorptionPhysicsConfig()
+    p.k_LDF = 0.002
+    t_st = float(p.stoichiometric_time(1.0, p.T_in))
+    z, t, y = generate_breakthrough_data(p, N_z=50, t_final=4 * t_st, n_snapshots=200, verbose=False)
+    rec = {"iso": "langmuir", "D_L": p.D_L, "t_stoich_s": t_st, "c_in": 1.0, "q_max": p.q_max,
+           "T_in": p.T_in}
+    obs = {"t": t, "channels": {"c": y[49][None, :], "T": y[149][None, :]},
+           "qstar_meas": lambda c, T: q_star_np(np.asarray(c, float), np.asarray(T, float), p)}
+    co, ok, d = fit_m1(rec, obs, maxiter=2, budget_s=1800, symbolic=False)
+    assert d["n_evals"] >= 1 and np.isfinite(d["loss_best"]) and isinstance(co, dict)
