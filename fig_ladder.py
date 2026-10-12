@@ -135,7 +135,7 @@ def build_rows():
         c = {"mean_a": l3p["mlp"], "mean_b": l3p["rbf_g4"], "mean_diff": l3p["diff"],
              "ci_low": min(l3p["ci"]), "ci_high": max(l3p["ci"]),
              "significant": l3p["significant"], "n_materials": 12}
-        add("L3", "a richer basis (KAN)", "best KAN vs MLP, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
+        add("L3", "richer per-edge basis (KAN)", "best KAN vs MLP, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
             effect(c, control_is_a=True), "ELIMINATED",
             "the best KAN anywhere is the least KAN-like; %d/%d comparisons significant after selection, none reversed"
             % (l3s["n_sig_simultaneous"], l3s["n_pairs"]))

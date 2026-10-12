@@ -77,13 +77,6 @@
   "line_at_review": 331
  },
  {
-  "key": "minator attached, because the [two] useful",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 336
- },
- {
   "key": "s an empirical size of \\,\\%. [One] published verdict did not",
   "word": "One",
   "class": "PROSE",
@@ -523,13 +516,6 @@
   "class": "DESIGN",
   "reason": "the three evaluation designs of Methods, each named in the paragraph",
   "line_at_review": 433
- },
- {
-  "key": "(u = v/ _t\\) the interstitial [one] , the equations integrated are",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 486
  },
  {
   "key": "stated relative humidity, so [one] material's",
@@ -1335,5 +1321,12 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 861
+ },
+ {
+  "key": "per material), because the [two] useful",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 459
  }
 ]
