@@ -1,7 +1,8 @@
 cff-version: 1.2.0
 title: >-
-  Code, results and pre-registrations for: The coefficient map, not the basis:
-  what limits neural-operator and reduced-order surrogates on unseen adsorbents
+  Code, results and pre-registrations for: The coefficient map, not the basis,
+  limits how machine-learning surrogates of metal–organic framework
+  water-adsorption beds transfer to unseen materials
 message: If you use this software or its results, please cite it.
 type: software
 authors:
