@@ -4,7 +4,7 @@ Columns as in the journal's template (nature.com/documents/updated_ncomms-regist
 report-table.docx, read 2026-10-12): Question | Hypotheses | Outcome Measures | Sampling
 Plan (N, power analyses) | Analysis Plan | Interpretation given to different outcomes.
 The rows restate Table 1 of paper2/stage1.tex, which restates the frozen PREREG_P2
-(commit d562f19); power figures from results/p2_power_note.json. A fresh document is
+(commit d562f19); power figures from results/p2_operating_characteristics.json. A fresh document is
 built here; the publisher's file is not copied.
 
     python make_stage1_table_docx.py   -> paper2/submission/stage1_design_table.docx
@@ -17,11 +17,12 @@ from docx.enum.section import WD_ORIENT
 from docx.shared import Cm, Pt
 
 OUT = "paper2/submission/stage1_design_table.docx"
-pw = json.load(open("results/p2_power_note.json", encoding="utf-8"))
-p95 = f"{pw['shift_resolvable_at_power_0.95_decade']:.2f}"
-p_f2 = f"{pw['power_at_factor_2_shift_log10_2']:.2f}"
-d80 = f"{pw['difference_shift_resolvable_at_power_0.80_decade']:.2f}"
-d_f2 = f"{pw['difference_power_at_factor_2_shift']:.2f}"
+oc = json.load(open("results/p2_operating_characteristics.json", encoding="utf-8"))
+b20, c20 = oc["h2b"]["20"], oc["h2c_refined_grid"]["20"]
+b_null = f"{b20['0.00']['with']:.3f}"
+b_04, b_05 = f"{b20['0.40']['outlives']:.3f}", f"{b20['0.50']['outlives']:.3f}"
+c_f2 = f"{c20['0.30']['moves_by_factor'] + c20['0.30']['detectably_less_than_2']:.3f}"
+c_04 = f"{c20['0.40']['moves_by_factor'] + c20['0.40']['detectably_less_than_2']:.2f}"
 
 HEAD = ["Question", "Hypotheses", "Outcome Measures", "Sampling Plan (N, power analyses)",
         "Analysis Plan", "Interpretation given to different outcomes"]
@@ -46,9 +47,9 @@ ROWS = [
      "law known); confirmatory on O1, descriptive on O2 and O3.",
      "Gap log10 Da*_disc − log10 Da*_ident per O1 slice (σ, ε, isotherm).",
      "9 Da levels × 20 replicates for both boundaries. SD of one boundary estimate 0.089 "
-     "decade (calibrated on 100 simulated datasets before the freeze): MDE 0.25 decade at "
-     f"80 % power, two-sided 5 %; {p95} decade at 95 %. For a gap between two independent "
-     f"estimates: {d80} decade at 80 %.",
+     "decade (calibrated on 100 simulated datasets before the freeze); MDE 0.25 decade. "
+     f"Simulated rule (two independent boundaries): correct verdict {b_null} at no gap; "
+     f"{b_05} at a 0.5-decade gap; {b_04} at 0.4.",
      "Same logistic estimator for both boundaries; percentile bootstrap (2000 resamples) "
      "within Da levels; the best method re-selected inside every bootstrap draw. O2 and O3 "
      "(3 replicates) reported descriptively.",
@@ -61,8 +62,8 @@ ROWS = [
      "Shift in log10 Da*_disc, M5 minus the best strong-form non-EIV method, per (isotherm, "
      "ε > 0) at σ = 2 %.",
      "20 replicates; for ε = 2 % a refined grid of 8 extra Da levels within ±0.5 decade of "
-     "the best non-EIV boundary. Power to detect the predicted factor 2 (0.30 decade): "
-     f"{p_f2} per boundary convention; {d_f2} if the two boundary estimates are independent.",
+     "the best non-EIV boundary. Simulated rule: no false detection at zero shift; shift ≥ MDE "
+     f"detected with probability {c_f2} at the predicted factor 2 and {c_04} at 0.40 decade.",
      "Same estimator and bootstrap; refined grid at ε = 2 %, main grid at ε ∈ {0.5, 5} %; "
      "the shift against the best non-EIV method over both forms reported descriptively.",
      "Shift ≥ log10 2 (0.30): “EIV moves the boundary by {factor}”. MDE ≤ shift < log10 2: “EIV moves the "

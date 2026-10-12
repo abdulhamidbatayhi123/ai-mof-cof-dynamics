@@ -94,8 +94,8 @@ pays it. Checked live on 2026-10-12:
 Stage-1 package (built 2026-10-12): `paper2/stage1.tex` / `.pdf`,
 `paper2/submission/stage1_design_table.docx` (`make_stage1_table_docx.py`),
 `check_stage1_p2.py` → `audit_2026-10-12/stage1_checks.json`, `audit_references_p2.py` →
-`audit_2026-10-12/reference_audit_p2.json`, `p2_power_note.py` →
-`results/p2_power_note.json`. The cover letter is kept private (`outreach/`).
+`audit_2026-10-12/reference_audit_p2.json`, `p2_operating_characteristics.py` →
+`results/p2_operating_characteristics.json`. The cover letter is kept private (`outreach/`).
 
 ## Earlier recommendation (superseded by the cost constraint and the decision above)
 

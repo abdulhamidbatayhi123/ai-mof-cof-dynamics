@@ -1,0 +1,1605 @@
+{
+ "fetched_utc": "2026-10-12T08:35:24Z",
+ "queries": [
+  {
+   "source": "openalex",
+   "query": "sparse identification nonlinear dynamics adsorption",
+   "since": null,
+   "hits": [
+    {
+     "title": "On Kinetics of Phage Adsorption",
+     "year": 2007,
+     "doi": "https://doi.org/10.1529/biophysj.106.102962",
+     "venue": "Biophysical Journal",
+     "date": "2007-04-13"
+    },
+    {
+     "title": "Adaptive Digital Twin Modeling with Control: Integration of Extended Kalman Filter-Based Recursive Sparse Nonlinear Identification with Model Predictive Control",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/s26051734",
+     "venue": "Sensors",
+     "date": "2026-03-09"
+    },
+    {
+     "title": "Physics-Informed Neural Network for adsorption-species analysis using acoustic-wave-based metal oxide gas sensors",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.sna.2026.118246",
+     "venue": "Sensors and Actuators A Physical",
+     "date": "2026-07-17"
+    },
+    {
+     "title": "Data driven model discovery and interpretation for CAR T-cell killing using sparse identification and latent variables",
+     "year": 2023,
+     "doi": "https://doi.org/10.3389/fimmu.2023.1115536",
+     "venue": "Frontiers in Immunology",
+     "date": "2023-05-15"
+    },
+    {
+     "title": "Nonlinear GENERIC-Embedded Neural Networks (N-GENNs): Learning GENERIC dynamics with non-quadratic dissipation potentials",
+     "year": 2026,
+     "doi": null,
+     "venue": "arXiv (Cornell University)",
+     "date": "2026-05-09"
+    },
+    {
+     "title": "Adsorption of 4-(N,N-Dimethylamino)-4′-nitrostilbene on an Amorphous Silica Glass Surface",
+     "year": 2023,
+     "doi": "https://doi.org/10.1021/acs.jpcc.3c05552",
+     "venue": "The Journal of Physical Chemistry C",
+     "date": "2023-11-17"
+    },
+    {
+     "title": "Operator inference for non-intrusive model reduction of systems with non-polynomial nonlinear terms",
+     "year": 2020,
+     "doi": "https://doi.org/10.1016/j.cma.2020.113433",
+     "venue": "Computer Methods in Applied Mechanics and Engineering",
+     "date": "2020-10-07"
+    },
+    {
+     "title": "Native ultrametricity of sparse random ensembles",
+     "year": 2015,
+     "doi": "https://doi.org/10.1088/1751-8113/49/3/035101",
+     "venue": "Journal of Physics A Mathematical and Theoretical",
+     "date": "2015-12-17"
+    },
+    {
+     "title": "Effects of Microplastic Type and Ageing on Cadmium Adsorption",
+     "year": 2026,
+     "doi": "https://doi.org/10.15244/pjoes/225153",
+     "venue": "Polish Journal of Environmental Studies",
+     "date": "2026-08-31"
+    },
+    {
+     "title": "Probing the Solid-Liquid Interface using Single-Molecule Dynamics",
+     "year": 2014,
+     "doi": null,
+     "venue": "CU Scholar (University of Colorado Boulder)",
+     "date": "2014-01-01"
+    },
+    {
+     "title": "Adsorption and surface structure characteristics toward polymeric bottle-brush surfaces via multiscale simulation",
+     "year": 2014,
+     "doi": null,
+     "venue": "OhioLink ETD Center (Ohio Library and Information Network)",
+     "date": "2014-01-01"
+    },
+    {
+     "title": "From Observability to Intervention in Purification: A Critical Framework for Digital Twins, Chemometrics, and Control Across Membranes, Adsorption, and Chromatography",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/purification2030010",
+     "venue": "Purification",
+     "date": "2026-07-13"
+    },
+    {
+     "title": "Multi-method material selection for adsorption using Bayesian approaches",
+     "year": 2025,
+     "doi": "https://doi.org/10.1038/s43246-025-00933-w",
+     "venue": "Communications Materials",
+     "date": "2025-10-02"
+    },
+    {
+     "title": "Nonlinear Autoregressive Neural Network for Antimicrobial Waste Water Treatment",
+     "year": 2022,
+     "doi": "https://doi.org/10.1155/2022/6292200",
+     "venue": "Adsorption Science & Technology",
+     "date": "2022-01-01"
+    },
+    {
+     "title": "Dynamics of hot carriers in plasmonic heterostructures",
+     "year": 2021,
+     "doi": "https://doi.org/10.1515/nanoph-2021-0278",
+     "venue": "Nanophotonics",
+     "date": "2021-08-15"
+    },
+    {
+     "title": "SVGD-HMC Hybrid Inference for Microkinetic Modeling of Novel NOx Adsorption Process",
+     "year": 2026,
+     "doi": "https://doi.org/10.1627/jpi.69.118",
+     "venue": "Journal of the Japan Petroleum Institute",
+     "date": "2026-02-28"
+    },
+    {
+     "title": "Efficient Bayesian Optimization of Industrial-Scale Pressure-Vacuum Swing Adsorption Processes for CO2 Capture",
+     "year": 2022,
+     "doi": "https://doi.org/10.1021/acs.iecr.2c02313",
+     "venue": "Industrial & Engineering Chemistry Research",
+     "date": "2022-08-26"
+    },
+    {
+     "title": "Operability-economics trade-offs in adsorption-based CO2 capture processes",
+     "year": 2024,
+     "doi": "https://doi.org/10.1038/s44172-024-00244-x",
+     "venue": "Communications Engineering",
+     "date": "2024-07-05"
+    },
+    {
+     "title": "Three-dimensional hydrogeological parametrization using sparse piezometric data",
+     "year": 2022,
+     "doi": "https://doi.org/10.5194/hess-26-6147-2022",
+     "venue": "Hydrology and earth system sciences",
+     "date": "2022-12-08"
+    },
+    {
+     "title": "Modelling and identification of paper machine wet end chemistry",
+     "year": 2009,
+     "doi": "https://doi.org/10.14288/1.0065254",
+     "venue": "cIRcle (University of British Columbia)",
+     "date": "2009-01-01"
+    },
+    {
+     "title": "Multiscale Computational and Artificial Intelligence Models of Linear and Nonlinear Composites: A Review",
+     "year": 2024,
+     "doi": "https://doi.org/10.1002/smsc.202300185",
+     "venue": "Small Science",
+     "date": "2024-03-19"
+    },
+    {
+     "title": "Determinants of protein corona adsorption and abundance revealed by interpretable machine learning across nanoparticle systems",
+     "year": 2026,
+     "doi": "https://doi.org/10.1038/s41598-026-55258-6",
+     "venue": "Scientific Reports",
+     "date": "2026-05-30"
+    },
+    {
+     "title": "Reducing adsorption in nanochannels: from fundamental understanding to practical application",
+     "year": 2016,
+     "doi": null,
+     "venue": "University of Groningen research database (University of Groningen / Centre for Information Technology)",
+     "date": "2016-12-07"
+    },
+    {
+     "title": "Multi-Objective Optimisation of Pressure Swing Adsorption Systems via Symbolic Regression",
+     "year": 2026,
+     "doi": "https://doi.org/10.69997/sct.116143",
+     "venue": "Systems and Control Transactions",
+     "date": "2026-06-19"
+    },
+    {
+     "title": "Discovering CO Adsorption and Desorption Pathways from Chemical Reaction Neural Network Modeling of Transient Kinetics Spectroscopy",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/acs.jpclett.5c00665",
+     "venue": "The Journal of Physical Chemistry Letters",
+     "date": "2025-04-01"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "symbolic regression adsorption kinetics",
+   "since": null,
+   "hits": [
+    {
+     "title": "Unraveling the Degradation Kinetics of Genipin-Cross-Linked Chitosan Hydrogels via Symbolic Regression",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/pr13071981",
+     "venue": "Processes",
+     "date": "2025-06-23"
+    },
+    {
+     "title": "Material hardness descriptor derived by symbolic regression",
+     "year": 2024,
+     "doi": "https://doi.org/10.1016/j.jocs.2024.102402",
+     "venue": "Journal of Computational Science",
+     "date": "2024-08-06"
+    },
+    {
+     "title": "Shared Symbolic Backbones for Physically Consistent Multi-Output Symbolic Regression",
+     "year": 2026,
+     "doi": "https://doi.org/10.48550/arxiv.2607.26528",
+     "venue": "arXiv (Cornell University)",
+     "date": "2026-07-29"
+    },
+    {
+     "title": "Impact of the Fitness Function on the Development of Mathematical Models by Symbolic Regression",
+     "year": 2024,
+     "doi": "https://doi.org/10.24857/rgsa.v18n11-242",
+     "venue": "Revista de Gestão Social e Ambiental",
+     "date": "2024-11-27"
+    },
+    {
+     "title": "Predictive modeling of permeability loss at high-barium formation using symbolic regression",
+     "year": 2025,
+     "doi": null,
+     "venue": "Digital library of Zielona Gora (University of Zielona Góra)",
+     "date": "2025-01-01"
+    },
+    {
+     "title": "DASyR-LLM: Domain-Aware Symbolic Regression with LLMs for Kinetic Model Discovery",
+     "year": 2026,
+     "doi": "https://doi.org/10.48550/arxiv.2608.05120",
+     "venue": "arXiv (Cornell University)",
+     "date": "2026-08-05"
+    },
+    {
+     "title": "Symbolic Regression-Based Robust Control of Batch Crystallization: Design and PLC Implementation",
+     "year": 2026,
+     "doi": "https://doi.org/10.1021/acs.iecr.6c01155",
+     "venue": "Industrial & Engineering Chemistry Research",
+     "date": "2026-05-05"
+    },
+    {
+     "title": "Surface tension of nanoparticle dispersions unravelled by size-dependent non-occupied sites free energy versus adsorption kinetics",
+     "year": 2022,
+     "doi": "https://doi.org/10.1038/s41526-022-00234-3",
+     "venue": "npj Microgravity",
+     "date": "2022-11-03"
+    },
+    {
+     "title": "Systematic Investigation of pH Influence on Methylene Blue Adsorption Kinetics by Rice Husk: A Comparative Statistical Analysis of Kinetic Models",
+     "year": 2026,
+     "doi": "https://doi.org/10.29322/ijsrp.16.06.2026.p17411",
+     "venue": "International Journal of Scientific and Research Publications",
+     "date": "2026-06-24"
+    },
+    {
+     "title": "Artificial Neural Network Modeling for Methylene Blue Adsorption onto Rice Husk: Performance Evaluation and Adsorption Kinetics Prediction",
+     "year": 2025,
+     "doi": "https://doi.org/10.29322/ijsrp.15.06.2025.p16217",
+     "venue": "International Journal of Scientific and Research Publications",
+     "date": "2025-06-24"
+    },
+    {
+     "title": "Discovery of new formula accurately determining organic compounds aqueous diffusion coefficients by symbolic regression",
+     "year": 2026,
+     "doi": "https://doi.org/10.59717/j.xinn-geo.2026.100208",
+     "venue": "The Innovation Geoscience",
+     "date": "2026-01-01"
+    },
+    {
+     "title": "ICTAC Kinetics Committee recommendations for analysis of thermal decomposition kinetics",
+     "year": 2022,
+     "doi": "https://doi.org/10.1016/j.tca.2022.179384",
+     "venue": "Thermochimica Acta",
+     "date": "2022-10-31"
+    },
+    {
+     "title": "Explainable Data-driven Modeling of Adsorption Energy in Heterogeneous Catalysis",
+     "year": 2024,
+     "doi": "https://doi.org/10.48550/arxiv.2405.20397",
+     "venue": "arXiv (Cornell University)",
+     "date": "2024-05-30"
+    },
+    {
+     "title": "A Hybrid Manifold Learning and Symbolic Regression-Based QSPR Model for Quinolone Antibiotics with Enhanced Nonlinear Predictive Accuracy",
+     "year": 2026,
+     "doi": "https://doi.org/10.21203/rs.3.rs-9766364/v1",
+     "venue": "Research Square",
+     "date": "2026-05-21"
+    },
+    {
+     "title": "Breakdown of linear correlations in methane activation on doped nickel nanoparticles: physical origins and nonlinear relations revealed by symbolic regression",
+     "year": 2025,
+     "doi": "https://doi.org/10.1039/d5cy01066g",
+     "venue": "Catalysis Science & Technology",
+     "date": "2025-01-01"
+    },
+    {
+     "title": "Grammar-guided symbolic regression as tool for model development of enzymatic reactions",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.dche.2026.100346",
+     "venue": "Digital Chemical Engineering",
+     "date": "2026-09-23"
+    },
+    {
+     "title": "Predictive modeling of permeability loss at high-barium formation using symbolic regression",
+     "year": 2025,
+     "doi": "https://doi.org/10.59441/ijame/209468",
+     "venue": "International Journal of Applied Mechanics and Engineering",
+     "date": "2025-12-05"
+    },
+    {
+     "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+     "year": 2023,
+     "doi": "https://doi.org/10.1016/j.ces.2023.119223",
+     "venue": "Chemical Engineering Science",
+     "date": "2023-08-30"
+    },
+    {
+     "title": "Combining first-principles modeling and symbolic regression for designing efficient single-atom catalysts in Oxygen Evolution Reaction on Mo$_2$CO$_2$ MXenes",
+     "year": 2023,
+     "doi": "https://doi.org/10.48550/arxiv.2305.19551",
+     "venue": "arXiv (Cornell University)",
+     "date": "2023-05-31"
+    },
+    {
+     "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+     "year": 2023,
+     "doi": "https://doi.org/10.48550/arxiv.2303.13555",
+     "venue": "arXiv (Cornell University)",
+     "date": "2023-03-22"
+    },
+    {
+     "title": "Unsupervised Hierarchical Symbolic Regression for Interpretable Property Modeling in Complex Multi‐Variable Systems",
+     "year": 2026,
+     "doi": "https://doi.org/10.1002/advs.202521200",
+     "venue": "Advanced Science",
+     "date": "2026-01-07"
+    },
+    {
+     "title": "Nitrate and fluoride adsorption from aqueous solution by chemically modified palm kernel shells",
+     "year": 2016,
+     "doi": null,
+     "venue": "Universiti Putra Malaysia Institutional Repository (Universiti Putra Malaysia)",
+     "date": "2016-09-01"
+    },
+    {
+     "title": "Interpretable Machine Learning Models and Symbolic Regressions Reveal Transfer of Per- and Polyfluoroalkyl Substances (PFASs) in Plants: A New Small-Data Machine Learning Method to Augment Data and Obtain Predictive Equations",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/toxics13070579",
+     "venue": "Toxics",
+     "date": "2025-07-10"
+    },
+    {
+     "title": "Determination of the Mechanisms of Terbium(III) Biosorption by Bacillus Strains with Adsorption Selectivity for Heavy Rare Earth Elements",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/microorganisms13081753",
+     "venue": "Microorganisms",
+     "date": "2025-07-27"
+    },
+    {
+     "title": "Data-Driven Governing Equations for Agricultural Biomass-Coal Co-Pyrolysis: SINDy Kinetics, Flory-Huggins Synergy, and High-Performance Char",
+     "year": 2026,
+     "doi": "https://doi.org/10.64229/j96g2g58",
+     "venue": "Renewable Energy and Power Quality Journal",
+     "date": "2026-07-14"
+    }
+   ]
+  },
+  {
+   "source": "arxiv",
+   "query": "all:adsorption AND (all:SINDy OR all:\"symbolic regression\" OR all:\"equation discovery\" OR all:\"sparse identification\")",
+   "since": null,
+   "hits": [
+    {
+     "title": "Discovering Physically Interpretable Mathematical Expression for Predicting CO2 Adsorption in Metal-Organic Frameworks via Machine Learning-Symbolic Regression",
+     "id": "2608.14990v1",
+     "published": "2026-08-15"
+    },
+    {
+     "title": "Cooperative adsorption and diffusion trapping induced by AlF3 intercalation in graphite",
+     "id": "2608.05305v1",
+     "published": "2026-08-05"
+    },
+    {
+     "title": "Role of Oxygen during Methane Oxidation on Pd$_1$/PdO$_1$@CeO$_2$ Surface: A Combined Density Functional Theory, Microkinetic, and Machine Learning Approach",
+     "id": "2509.17825v1",
+     "published": "2025-09-22"
+    },
+    {
+     "title": "The Open DAC 2025 Dataset for Sorbent Discovery in Direct Air Capture",
+     "id": "2508.03162v2",
+     "published": "2025-08-05"
+    },
+    {
+     "title": "In Context Learning and Reasoning for Symbolic Regression with Large Language Models",
+     "id": "2410.17448v3",
+     "published": "2024-10-22"
+    },
+    {
+     "title": "Explainable Data-driven Modeling of Adsorption Energy in Heterogeneous Catalysis",
+     "id": "2405.20397v2",
+     "published": "2024-05-30"
+    },
+    {
+     "title": "Combining genetic algorithm and compressed sensing for features and operators selection in symbolic regression",
+     "id": "2403.15816v1",
+     "published": "2024-03-23"
+    },
+    {
+     "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+     "id": "2303.13555v3",
+     "published": "2023-03-22"
+    },
+    {
+     "title": "Incorporating Background Knowledge in Symbolic Regression using a Computer Algebra System",
+     "id": "2301.11919v2",
+     "published": "2023-01-27"
+    },
+    {
+     "title": "AI Descartes: Combining Data and Theory for Derivable Scientific Discovery",
+     "id": "2109.01634v4",
+     "published": "2021-09-03"
+    },
+    {
+     "title": "Can we predict interface dipoles based on molecular properties?",
+     "id": "2107.00638v2",
+     "published": "2021-07-01"
+    },
+    {
+     "title": "Interaction and breakup of droplet pairs in a microchannel Y-junction",
+     "id": "2008.00998v1",
+     "published": "2020-08-03"
+    },
+    {
+     "title": "Fomite transmission and disinfection strategies for SARS-CoV-2 and related viruses",
+     "id": "2005.11443v1",
+     "published": "2020-05-23"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "equation discovery breakthrough curve fixed bed",
+   "since": null,
+   "hits": [
+    {
+     "title": "Fluid Dynamic Study for Copper Removal onto Modified Clay in Fixed Bed",
+     "year": 2013,
+     "doi": "https://doi.org/10.3303/cet1332260",
+     "venue": "Chemical engineering transactions",
+     "date": "2013-06-01"
+    },
+    {
+     "title": "Simultaneous Estimation of LDF Mass Transfer Coefficients and Multicomponent Isotherm Parameters from Breakthrough Curves Using a Two-Stage Strategy",
+     "year": 2026,
+     "doi": "https://doi.org/10.21203/rs.3.rs-10565594/v1",
+     "venue": "Research Square",
+     "date": "2026-08-26"
+    },
+    {
+     "title": "Fixed-Bed Adsorption of an Azo Dye (Methyl Orange) onto Chemically and Thermally Regenerated Activated Carbons",
+     "year": 2023,
+     "doi": "https://doi.org/10.1155/2023/6677710",
+     "venue": "Journal of Chemistry",
+     "date": "2023-12-15"
+    },
+    {
+     "title": "Modeling, control, and optimization of fixed bed reactors",
+     "year": 2002,
+     "doi": null,
+     "venue": "ThinkTech (Texas Tech University)",
+     "date": "2002-12-01"
+    },
+    {
+     "title": "Variability of tracer breakthrough curves in mountain streams: Implications for streamflow measurement by slug injection",
+     "year": 2016,
+     "doi": "https://doi.org/10.1080/07011784.2016.1212676",
+     "venue": "Canadian Water Resources Journal / Revue canadienne des ressources hydriques",
+     "date": "2016-08-22"
+    },
+    {
+     "title": "Breakthrough Curves Prediction of Selenite Adsorption on Chemically Modified Zeolite Using Boosted Decision Tree Algorithms for Water Treatment Applications",
+     "year": 2022,
+     "doi": "https://doi.org/10.3390/w14162519",
+     "venue": "Water",
+     "date": "2022-08-16"
+    },
+    {
+     "title": "The exchange zone height of a fixed-bed cation exchanger",
+     "year": 1958,
+     "doi": null,
+     "venue": "VTechWorks (Virginia Tech)",
+     "date": "1958-01-01"
+    },
+    {
+     "title": "Optimization of batch adsorption and fixed-bed adsorption of vanillin onto resin H103",
+     "year": 2016,
+     "doi": null,
+     "venue": "Universiti Putra Malaysia Institutional Repository (Universiti Putra Malaysia)",
+     "date": "2016-01-01"
+    },
+    {
+     "title": "Adsorption of Pesticides Using Wood-Derived Biochar and Granular Activated Carbon in a Fixed-Bed Column System",
+     "year": 2022,
+     "doi": "https://doi.org/10.3390/w14192937",
+     "venue": "Water",
+     "date": "2022-09-20"
+    },
+    {
+     "title": "Recent Breakthroughs in the Conversion of Ethanol to Butadiene",
+     "year": 2016,
+     "doi": "https://doi.org/10.3390/catal6120203",
+     "venue": "Catalysts",
+     "date": "2016-12-13"
+    },
+    {
+     "title": "Fixed-Bed Adsorption Separation Of Xylene Isomers over SiO2/Silicallite-1 Core-Shell Adsorbents",
+     "year": 2013,
+     "doi": "https://doi.org/10.3329/cerb.v16i1.17470",
+     "venue": "Chemical Engineering Research Bulletin",
+     "date": "2013-12-29"
+    },
+    {
+     "title": "Arsenate Removal from Aqueous Media Using Chitosan-Magnetite Hydrogel by Batch and Fixed-Bed Columns",
+     "year": 2022,
+     "doi": "https://doi.org/10.3390/gels8030186",
+     "venue": "Gels",
+     "date": "2022-03-17"
+    },
+    {
+     "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+     "year": 2023,
+     "doi": "https://doi.org/10.48550/arxiv.2303.13555",
+     "venue": "arXiv (Cornell University)",
+     "date": "2023-03-22"
+    },
+    {
+     "title": "Fixed-bed reactor for magnetic catalysis : development of a numerical model and characterization of Fe wool as a heating agent.",
+     "year": 2025,
+     "doi": "https://doi.org/10.70675/9acedee7z9a53z4a68zb260z24c8576d96f0",
+     "venue": null,
+     "date": "2025-03-27"
+    },
+    {
+     "title": "Modeling and Multi-objective Optimization of a Packed Bed Reactor for Sulfur Dioxide Removal by Magnesium Oxide Using Non-dominated Sorting Genetic Algorithm II",
+     "year": 2021,
+     "doi": "https://doi.org/10.15255/cabeq.2021.1913",
+     "venue": "Chemical and Biochemical Engineering Quarterly",
+     "date": "2021-10-20"
+    },
+    {
+     "title": "Uncertainty quantification through bayesian analysis for a fixed bed experiment of carbon capture using polyethylenimine (PEI) solid sorbents",
+     "year": 2016,
+     "doi": "https://doi.org/10.33915/etd.6107",
+     "venue": null,
+     "date": "2016-01-01"
+    },
+    {
+     "title": "Comparison between produced Tingui biochar versus commercial Norit in the adsorption of acetaminophen and diclofenac: characterization, batch, and fixed bed system",
+     "year": 2024,
+     "doi": "https://doi.org/10.1002/jctb.7794",
+     "venue": "Journal of Chemical Technology & Biotechnology",
+     "date": "2024-12-07"
+    },
+    {
+     "title": "Simulation of Binary CO2/CH4 Mixture Breakthrough Profiles in MIL‐53 (Al)",
+     "year": 2015,
+     "doi": "https://doi.org/10.1155/2015/439382",
+     "venue": "Journal of Nanomaterials",
+     "date": "2015-01-01"
+    },
+    {
+     "title": "Discovery in Reinforcement Learning",
+     "year": 2022,
+     "doi": "https://doi.org/10.7302/6337",
+     "venue": "Deep Blue (University of Michigan)",
+     "date": "2022-01-01"
+    },
+    {
+     "title": "Fluidized Bed Scale-Up for Sustainability Challenges. 2. New Pathway",
+     "year": 2024,
+     "doi": "https://doi.org/10.1021/acs.iecr.4c00421",
+     "venue": "Industrial & Engineering Chemistry Research",
+     "date": "2024-04-29"
+    },
+    {
+     "title": "Utilization of macroporous beads impregnated with Cyanex 572 for effective separation of Sr(II), Y(III), and Zr(IV) from chloride medium: batch and fixed-bed column study",
+     "year": 2024,
+     "doi": "https://doi.org/10.1007/s10967-024-09565-9",
+     "venue": "Journal of Radioanalytical and Nuclear Chemistry",
+     "date": "2024-06-27"
+    },
+    {
+     "title": "Breakthrough projects of the scientific program of the Millimetron Observatory (“Spectrum-M” project)",
+     "year": 2022,
+     "doi": "https://doi.org/10.51194/vak2021.2022.1.1.001",
+     "venue": "ASTRONOMY AT THE EPOCH OF MULTIMESSENGER STUDIES. Proceedings of the VAK-2021 conference, Aug 23–28, 2021",
+     "date": "2022-02-22"
+    },
+    {
+     "title": "Adsorption of 2,4-dichlorophenoxyacetic acid on granular activated carbon from residues of buriti (mauritia flexuosa l.): batch study and fixed bed column",
+     "year": 2024,
+     "doi": null,
+     "venue": "LA Referencia (Red Federada de Repositorios Institucionales de Publicaciones Científicas)",
+     "date": "2024-12-27"
+    },
+    {
+     "title": "Downcomer design in mulitstage fluidized bed systems",
+     "year": 2017,
+     "doi": "https://doi.org/10.34726/hss.2017.46261",
+     "venue": "reposiTUm (TU Wien)",
+     "date": "2017-06-01"
+    },
+    {
+     "title": "Discovery of an oviposition attractant for gravid malaria vectors of the Anopheles gambiae species complex",
+     "year": 2015,
+     "doi": "https://doi.org/10.1186/s12936-015-0636-0",
+     "venue": "Malaria Journal",
+     "date": "2015-03-17"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "universal differential equation adsorption column kinetics",
+   "since": null,
+   "hits": [
+    {
+     "title": "Interpretation of Adsorption Thermodynamics and Kinetics",
+     "year": 2020,
+     "doi": "https://doi.org/10.4236/ojpc.2020.103010",
+     "venue": "Open Journal of Physical Chemistry",
+     "date": "2020-01-01"
+    },
+    {
+     "title": "Adsorption Kinetics: Classical, Fractal, or Fractional?",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/acs.langmuir.5c01726",
+     "venue": "Langmuir",
+     "date": "2025-07-21"
+    },
+    {
+     "title": "Modelling large mass removal in adsorption columns",
+     "year": 2025,
+     "doi": "https://doi.org/10.1016/j.icheatmasstransfer.2025.108652",
+     "venue": "International Communications in Heat and Mass Transfer",
+     "date": "2025-02-07"
+    },
+    {
+     "title": "Role of activated carbon properties in atrazine and paracetamol adsorption equilibrium and kinetics",
+     "year": 2015,
+     "doi": "https://doi.org/10.1016/j.psep.2015.02.013",
+     "venue": "Process Safety and Environmental Protection",
+     "date": "2015-02-20"
+    },
+    {
+     "title": "Finding the Underlying Viscoelastic Constitutive Equation via Universal Differential Equations and Differentiable Physics",
+     "year": 2024,
+     "doi": "https://doi.org/10.48550/arxiv.2501.00556",
+     "venue": "arXiv (Cornell University)",
+     "date": "2024-12-31"
+    },
+    {
+     "title": "Kinetics and Adsorption Equilibrium in the Removal of Azo-Anionic Dyes by Modified Cellulose",
+     "year": 2022,
+     "doi": "https://doi.org/10.3390/su14063640",
+     "venue": "Sustainability",
+     "date": "2022-03-20"
+    },
+    {
+     "title": "Five definitions of adsorption and their relevance to the formulation of dynamic mass balances in gas adsorption columns",
+     "year": 2024,
+     "doi": "https://doi.org/10.1007/s10450-024-00548-6",
+     "venue": "Adsorption",
+     "date": "2024-10-23"
+    },
+    {
+     "title": "Kinetics of phosphate adsorption on iron oxides formed under the influence of citrate",
+     "year": 2000,
+     "doi": "https://doi.org/10.4141/s99-079",
+     "venue": "Canadian Journal of Soil Science",
+     "date": "2000-08-01"
+    },
+    {
+     "title": "Adsorption kinetics and thermodynamics of organophosphorus profenofos pesticide onto Fe/Ni bimetallic nanoparticles",
+     "year": 2016,
+     "doi": "https://doi.org/10.1007/s13762-016-0960-0",
+     "venue": "International Journal of Environmental Science and Technology",
+     "date": "2016-03-01"
+    },
+    {
+     "title": "Leveraging Diffusion Kinetics to Reverse Propane/Propylene Adsorption in Zeolitic Imidazolate Framework-8",
+     "year": 2024,
+     "doi": "https://doi.org/10.1021/acsnano.3c11385",
+     "venue": "ACS Nano",
+     "date": "2024-01-16"
+    },
+    {
+     "title": "Comparison of Cr(VI) Adsorption Using Synthetic Schwertmannite Obtained by Fe3+ Hydrolysis and Fe2+ Oxidation: Kinetics, Isotherms and Adsorption Mechanism",
+     "year": 2021,
+     "doi": "https://doi.org/10.3390/ijms22158175",
+     "venue": "International Journal of Molecular Sciences",
+     "date": "2021-07-30"
+    },
+    {
+     "title": "Surface Tension and Adsorption Kinetics of Volatile Organic Amphiphiles in Aqueous Solution",
+     "year": 2011,
+     "doi": null,
+     "venue": "UWSpace (University of Waterloo)",
+     "date": "2011-08-11"
+    },
+    {
+     "title": "Designing a simple volumetric apparatus for measuring gas adsorption equilibria and kinetics of sorption. Application and validation for CO2, CH4 and N2 adsorption in binder-free beads of 4A zeolite",
+     "year": 2021,
+     "doi": "https://doi.org/10.1016/j.cej.2021.130538",
+     "venue": "Chemical Engineering Journal",
+     "date": "2021-06-08"
+    },
+    {
+     "title": "Thermodynamic modelling of adsorption isotherms and kinetics for gas storage and cooling applications",
+     "year": 2015,
+     "doi": "https://doi.org/10.32657/10356/65837",
+     "venue": null,
+     "date": "2015-01-01"
+    },
+    {
+     "title": "Application of ANN and EA for description of metal ions sorption on chitosan foamed structure—Equilibrium and dynamics of packed column",
+     "year": 2010,
+     "doi": "https://doi.org/10.1016/j.compchemeng.2010.05.012",
+     "venue": "Computers & Chemical Engineering",
+     "date": "2010-06-09"
+    },
+    {
+     "title": "Heat Effects in Adsorption: Modeling with Equations of State for Confined Fluids",
+     "year": 2016,
+     "doi": null,
+     "venue": "OakTrust (Texas A&M University Libraries)",
+     "date": "2016-02-17"
+    },
+    {
+     "title": "Generalised analytical method unravels framework-dependent kinetics of adsorption-induced structural transition in flexible metal–organic frameworks",
+     "year": 2023,
+     "doi": "https://doi.org/10.1038/s41467-023-42448-3",
+     "venue": "Nature Communications",
+     "date": "2023-11-08"
+    },
+    {
+     "title": "Eco-Friendly Carbon Nanotubes Reinforced with Sodium Alginate/Polyacrylic Acid for Enhanced Adsorption of Copper Ions: Kinetics, Isotherm, and Mechanism Adsorption Studies",
+     "year": 2024,
+     "doi": "https://doi.org/10.3390/molecules29194518",
+     "venue": "Molecules",
+     "date": "2024-09-24"
+    },
+    {
+     "title": "A Mini-Review of Coupled Convection-Diffusion Equations in a Fixed-Bed Adsorption",
+     "year": 2020,
+     "doi": "https://doi.org/10.1088/1757-899x/767/1/012031",
+     "venue": "IOP Conference Series Materials Science and Engineering",
+     "date": "2020-02-01"
+    },
+    {
+     "title": "Adsorption of Fluoride from Water Using Aluminum Coated Sand: Kinetics, Equilibrium, Effect of pH, and Coexisting Ions",
+     "year": 2022,
+     "doi": "https://doi.org/10.4236/gep.2022.1012013",
+     "venue": "Journal of Geoscience and Environment Protection",
+     "date": "2022-01-01"
+    },
+    {
+     "title": "Kinetics-informed neural networks",
+     "year": 2022,
+     "doi": "https://doi.org/10.1016/j.cattod.2022.04.002",
+     "venue": "Catalysis Today",
+     "date": "2022-04-08"
+    },
+    {
+     "title": "Surfactant adsorption to soil components and soils",
+     "year": 2016,
+     "doi": "https://doi.org/10.1016/j.cis.2016.01.006",
+     "venue": "Advances in Colloid and Interface Science",
+     "date": "2016-02-14"
+    },
+    {
+     "title": "Carbon dioxide separation and capture by adsorption: a review",
+     "year": 2023,
+     "doi": "https://doi.org/10.1007/s10311-023-01589-z",
+     "venue": "Environmental Chemistry Letters",
+     "date": "2023-03-16"
+    },
+    {
+     "title": "Accelerated CO2 Separation and Adsorption Kinetics on Carbon Using Resonant Vibrations: A Process Intensification Strategy",
+     "year": 2026,
+     "doi": "https://doi.org/10.5772/intechopen.1013522",
+     "venue": "IntechOpen eBooks",
+     "date": "2026-01-28"
+    },
+    {
+     "title": "Enhancement of Trihalomethane Adsorption Capacity Using Chitosan-Modified Coconut Shell Activated Carbon: Adsorption Characteristics and Mechanisms",
+     "year": 2024,
+     "doi": "https://doi.org/10.3390/w16223304",
+     "venue": "Water",
+     "date": "2024-11-18"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "linear driving force rate law discovery machine learning",
+   "since": "2025-06-01",
+   "hits": [
+    {
+     "title": "Machine Learning for Photocatalytic Materials Design and Discovery",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/cryst15121034",
+     "venue": "Crystals",
+     "date": "2025-12-03"
+    },
+    {
+     "title": "Optimized Machine Learning for Autonomous Enzymatic Reaction Intensification in a Self‐Driving Lab",
+     "year": 2025,
+     "doi": "https://doi.org/10.1002/bit.70038",
+     "venue": "Biotechnology and Bioengineering",
+     "date": "2025-08-04"
+    },
+    {
+     "title": "MLMarker: a machine learning framework for tissue inference and biomarker discovery",
+     "year": 2026,
+     "doi": "https://doi.org/10.1186/s13059-026-04125-8",
+     "venue": "Genome biology",
+     "date": "2026-06-24"
+    },
+    {
+     "title": "A state-of-the-art review on machine learning techniques for driving behavior analysis: clustering and classification approaches",
+     "year": 2025,
+     "doi": "https://doi.org/10.1007/s40747-025-01988-5",
+     "venue": "Complex & Intelligent Systems",
+     "date": "2025-07-15"
+    },
+    {
+     "title": "The Convergence Frontier: Integrating Machine Learning and High Performance Quantum Computing for Next-Generation Drug Discovery",
+     "year": 2026,
+     "doi": "https://doi.org/10.48550/arxiv.2603.17790",
+     "venue": "HAL (Le Centre pour la Communication Scientifique Directe)",
+     "date": "2026-03-18"
+    },
+    {
+     "title": "Artificial Intelligence and Machine Learning Models",
+     "year": 2026,
+     "doi": "https://doi.org/10.58830/ozgur.pub1403",
+     "venue": "Özgür Yayınları eBooks",
+     "date": "2026-09-04"
+    },
+    {
+     "title": "Informed machine learning for complex data",
+     "year": 2025,
+     "doi": "https://doi.org/10.1016/j.neucom.2025.132505",
+     "venue": "Neurocomputing",
+     "date": "2025-12-22"
+    },
+    {
+     "title": "Machine learning for estimation and control of quantum systems",
+     "year": 2025,
+     "doi": "https://doi.org/10.1093/nsr/nwaf269",
+     "venue": "National Science Review",
+     "date": "2025-07-07"
+    },
+    {
+     "title": "Impact of Mathematical Optimization on Machine Learning: A Bibliometric Review",
+     "year": 2025,
+     "doi": "https://doi.org/10.36941/jesr-2025-0172",
+     "venue": "Journal of Educational and Social Research",
+     "date": "2025-09-05"
+    },
+    {
+     "title": "Phase Stability and Transformations in Lead Mixed Halide Perovskites from Machine Learning Force Fields",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/acs.chemmater.5c01730",
+     "venue": "Chemistry of Materials",
+     "date": "2025-09-30"
+    },
+    {
+     "title": "Learning Biomolecular Motion: The Physics-Informed Machine Learning Paradigm",
+     "year": 2025,
+     "doi": "https://doi.org/10.48550/arxiv.2511.06585",
+     "venue": "arXiv (Cornell University)",
+     "date": "2025-11-10"
+    },
+    {
+     "title": "Machine Learning for Analyzing Effects of Various Factors on Business Economic",
+     "year": 2026,
+     "doi": "https://doi.org/10.66972/ada2120269",
+     "venue": "Applied Decision Analytics",
+     "date": "2026-01-09"
+    },
+    {
+     "title": "Review: machine learning approaches for diverse alloy systems",
+     "year": 2025,
+     "doi": "https://doi.org/10.1007/s10853-025-11154-4",
+     "venue": "Journal of Materials Science",
+     "date": "2025-07-17"
+    },
+    {
+     "title": "Machine learning pipelines for the design of solid-state electrolytes",
+     "year": 2025,
+     "doi": "https://doi.org/10.1039/d5mh01525a",
+     "venue": "Materials Horizons",
+     "date": "2025-11-15"
+    },
+    {
+     "title": "Applications and Advances of Machine Learning in the Development of Solid-State Electrolytes for Lithium-Ion Batteries",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/acsomega.5c08467",
+     "venue": "ACS Omega",
+     "date": "2025-12-01"
+    },
+    {
+     "title": "REVISITING TRADE LIBERALIZATION AND ECONOMIC GROWTH IN PAKISTAN: A NON-LINEAR MACHINE LEARNING APPROACH",
+     "year": 2025,
+     "doi": null,
+     "venue": "Center for Management Science Research",
+     "date": "2025-07-17"
+    },
+    {
+     "title": "Machine Learning for Physical Modeling",
+     "year": 2026,
+     "doi": null,
+     "venue": "Brno University of Technology Digital Library (Brno University of Technology)",
+     "date": "2026-01-01"
+    },
+    {
+     "title": "Empowering material defect research with machine learning",
+     "year": 2026,
+     "doi": "https://doi.org/10.55092/aimat20260012",
+     "venue": "AI & Materials",
+     "date": "2026-09-28"
+    },
+    {
+     "title": "Challenges and Opportunities in Machine Learning for Light‐Emitting Polymers",
+     "year": 2026,
+     "doi": "https://doi.org/10.1002/marc.202500850",
+     "venue": "Macromolecular Rapid Communications",
+     "date": "2026-01-06"
+    },
+    {
+     "title": "Interpretable machine learning for shoreline forecasting",
+     "year": 2026,
+     "doi": "https://doi.org/10.1038/s41598-026-37403-3",
+     "venue": "Scientific Reports",
+     "date": "2026-02-28"
+    },
+    {
+     "title": "A Knowledge Graph-Based Pipeline for Literature-Based Discovery in Scientific Research: A Machine Learning Pilot Study",
+     "year": 2026,
+     "doi": "https://doi.org/10.58830/ozgur.pub1403.c5641",
+     "venue": "Özgür Yayınları eBooks",
+     "date": "2026-09-04"
+    },
+    {
+     "title": "Modeling Polymeric Drug Release: The Emerging Role of Machine Learning",
+     "year": 2026,
+     "doi": "https://doi.org/10.1002/wnan.70057",
+     "venue": "Wiley Interdisciplinary Reviews Nanomedicine and Nanobiotechnology",
+     "date": "2026-03-01"
+    },
+    {
+     "title": "Research Frontiers in Machine Learning & Knowledge Extraction",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/make8010006",
+     "venue": "Machine Learning and Knowledge Extraction",
+     "date": "2025-12-29"
+    },
+    {
+     "title": "Machine learning application in molecular science research field",
+     "year": 2026,
+     "doi": "https://doi.org/10.25259/ajc_856_2025",
+     "venue": "Arabian Journal of Chemistry",
+     "date": "2026-06-16"
+    },
+    {
+     "title": "The Price Equation Reveals a Universal Force–Metric–Bias Law of Algorithmic Learning and Natural Selection",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/e27111129",
+     "venue": "Entropy",
+     "date": "2025-10-31"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "identifiability mass transfer coefficient breakthrough local equilibrium",
+   "since": "2025-06-01",
+   "hits": [
+    {
+     "title": "Effect of solvent composition on adsorption isotherms based on multi-component breakthrough curve analysis and application of a multi-component BET model",
+     "year": 2026,
+     "doi": "https://doi.org/10.1007/s10450-026-00683-2",
+     "venue": "Adsorption",
+     "date": "2026-03-27"
+    },
+    {
+     "title": "Rosetta Stone of Neural Mass Models",
+     "year": 2025,
+     "doi": null,
+     "venue": "arXiv (Cornell University)",
+     "date": "2025-12-04"
+    },
+    {
+     "title": "The development of mass spectrometry-based approaches for the diagnosis of hemoglobinopathies",
+     "year": 2026,
+     "doi": "https://doi.org/10.82444/warw.33634405",
+     "venue": "Warwick Research Archive Portal (University of Warwick)",
+     "date": "2026-09-11"
+    },
+    {
+     "title": "Direct observation of coexisting local and nonlocal turbulence in a magnetically confined plasma",
+     "year": 2025,
+     "doi": "https://doi.org/10.1038/s42005-025-02454-x",
+     "venue": "Communications Physics",
+     "date": "2025-12-10"
+    },
+    {
+     "title": "Examining the conditions to achieve successful fraction transfer in two-dimensional supercritical fluid chromatography",
+     "year": 2025,
+     "doi": "https://doi.org/10.1016/j.chroma.2025.466355",
+     "venue": "Journal of Chromatography A",
+     "date": "2025-09-05"
+    },
+    {
+     "title": "Reduced Integer–Fractional Dynamics of Hydrothermal Memory in Volcanic Gas and Isotope Signals",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/math14122139",
+     "venue": "Mathematics",
+     "date": "2026-06-15"
+    },
+    {
+     "title": "A Nine-Compartment Nonlinear Epidemic Model with Spline-Based Identification of Time-Varying Transmission and Vaccination Dynamics: Application to the COVID-19 Third Wave in Italy",
+     "year": 2026,
+     "doi": "https://doi.org/10.48550/arxiv.2606.07413",
+     "venue": "arXiv (Cornell University)",
+     "date": "2026-06-05"
+    },
+    {
+     "title": "Channel-Anchored Relaxation Maps for Electrochemical Impedance Spectroscopy: A Complementary Perspective to DRT",
+     "year": 2026,
+     "doi": "https://doi.org/10.1021/jacsau.6c00849",
+     "venue": "JACS Au",
+     "date": "2026-08-14"
+    },
+    {
+     "title": "A dimensionless framework for adsorber dynamics",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.tsep.2026.104569",
+     "venue": "Thermal Science and Engineering Progress",
+     "date": "2026-02-12"
+    },
+    {
+     "title": "Combined effects of ultrasound and [bmim][cl] on heavy oil–solid separation: experiments and molecular dynamics simulations",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.ultsonch.2026.108019",
+     "venue": "Ultrasonics Sonochemistry",
+     "date": "2026-08-22"
+    },
+    {
+     "title": "Zeolite-supported metal chloride sorbent materials under sorption-enhanced ammonia synthesis reaction conditions for H2 storage: Mechanisms, micro-kinetics and modelling",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.cej.2026.182590",
+     "venue": "Chemical Engineering Journal",
+     "date": "2026-09-01"
+    },
+    {
+     "title": "Stress distribution characteristics and gas seepage behavior induced by protective seam mining under ultra-long interlayer spacing",
+     "year": 2026,
+     "doi": "https://doi.org/10.1007/s40789-026-00909-2",
+     "venue": "International Journal of Coal Science & Technology",
+     "date": "2026-05-26"
+    },
+    {
+     "title": "A Dynamics-Informed Gaussian Process Framework for 2D Stochastic Navier-Stokes via Quasi-Gaussianity",
+     "year": 2026,
+     "doi": "https://doi.org/10.2139/ssrn.6553015",
+     "venue": "SSRN Electronic Journal",
+     "date": "2026-01-01"
+    },
+    {
+     "title": "Control Mechanism of Water Shield on Pressure Dynamics of CO2 Huff-n-Puff and Crude Oil Mobilization Effect in Tight Reservoirs",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/pr14152508",
+     "venue": "Processes",
+     "date": "2026-08-05"
+    },
+    {
+     "title": "Process Intensification Strategies for Esterification: Kinetic Modeling, Reactor Design, and Sustainable Applications",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/ijms26157214",
+     "venue": "International Journal of Molecular Sciences",
+     "date": "2025-07-25"
+    },
+    {
+     "title": "Digital infrastructure and county-level common prosperity: Evidence from China's information entering villages and households pilot policy",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.iref.2026.105761",
+     "venue": "International Review of Economics & Finance",
+     "date": "2026-08-25"
+    },
+    {
+     "title": "Going high-throughput: Dynamic conformations and interactions in vivo",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.mrl.2026.200306",
+     "venue": "Magnetic Resonance Letters",
+     "date": "2026-08-04"
+    },
+    {
+     "title": "Multi-species ion exchange model with competitive adsorption for iron removal in PEM water electrolysis",
+     "year": 2025,
+     "doi": "https://doi.org/10.1016/j.cherd.2025.09.009",
+     "venue": "Process Safety and Environmental Protection",
+     "date": "2025-09-13"
+    },
+    {
+     "title": "Quantifying Non-Fickian Pollutant Transport in Layered Heterogeneous Media Under Non-Uniform Flow Field: Bimodal Transport and Sub-Diffusion",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/w18111309",
+     "venue": "Water",
+     "date": "2026-05-28"
+    },
+    {
+     "title": "Introduction",
+     "year": 2026,
+     "doi": "https://doi.org/10.82018/9791221183467-1",
+     "venue": "G. Giappichelli eBooks",
+     "date": "2026-02-20"
+    },
+    {
+     "title": "A Cross-Scale Design Grammar for Functional Matter: Integrating Synthetic Pathways, Reaction Mechanisms, Self-Assembly, Interfaces, Defect Chemistry, Multimodal Characterization, Predictive Modeling, and Performance Validation",
+     "year": 2026,
+     "doi": "https://doi.org/10.36348/sijcms.2026.v09i02.002",
+     "venue": "Scholars International Journal of Chemistry and Material Sciences",
+     "date": "2026-03-19"
+    },
+    {
+     "title": "Ocena potenciala elektrokemijske impedančne spektroskopije kot podpornega orodja pri modeliranju z nadomestnimi vezji v sistemih za upravljanje baterij.",
+     "year": 2026,
+     "doi": null,
+     "venue": "University of Maribor digital library (University of Maribor)",
+     "date": "2026-07-01"
+    },
+    {
+     "title": "Assessing the Potential of Electrochemical Impedance Spectroscopy as a Supporting Tool for Equivalent Circuit Modeling in Battery Management Systems",
+     "year": 2026,
+     "doi": "https://doi.org/10.18690/jet.19.1.83-108.2026",
+     "venue": "Journal of Energy Technology",
+     "date": "2026-07-15"
+    },
+    {
+     "title": "Level measurement, regional differences and dynamic evolution of new quality productivity in the Yellow River Basin",
+     "year": 2026,
+     "doi": "https://doi.org/10.1057/s41599-026-07579-0",
+     "venue": "Humanities and Social Sciences Communications",
+     "date": "2026-05-11"
+    },
+    {
+     "title": "Physics-Informed Neural Networks in Aerospace Engineering: A Systematic Review of Architectures, Training Strategies, and Open Challenges",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/app16136282",
+     "venue": "Applied Sciences",
+     "date": "2026-06-23"
+    }
+   ]
+  },
+  {
+   "source": "openalex",
+   "query": "metal-organic framework water adsorption kinetics machine learning discovery",
+   "since": "2025-06-01",
+   "hits": [
+    {
+     "title": "Water Adsorption in Metal–Organic Frameworks: Characteristics, Mechanisms, and Structure–Property Relationships",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/jacs.5c10686",
+     "venue": "Journal of the American Chemical Society",
+     "date": "2025-09-10"
+    },
+    {
+     "title": "Interpretable Machine-Learning Prediction of PPCP Adsorption by Metal–Organic Frameworks Using Different Molecular Fingerprints",
+     "year": 2026,
+     "doi": "https://doi.org/10.2139/ssrn.7300027",
+     "venue": "SSRN Electronic Journal",
+     "date": "2026-01-01"
+    },
+    {
+     "title": "Machine learning to design metal–organic frameworks: progress and challenges from a data efficiency perspective",
+     "year": 2025,
+     "doi": "https://doi.org/10.1039/d5mh01467k",
+     "venue": "Materials Horizons",
+     "date": "2025-12-04"
+    },
+    {
+     "title": "Metal–Organic Frameworks, Covalent Organic Frameworks, and Metal–Covalent Organic Frameworks for Aqueous PFAS Adsorption: Synthesis, Structural Engineering, and Remediation Performance",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/ma19163470",
+     "venue": "Materials",
+     "date": "2026-08-17"
+    },
+    {
+     "title": "Machine learning-accelerated discovery of covalent organic frameworks for hydrogen peroxide photosynthesis",
+     "year": 2026,
+     "doi": "https://doi.org/10.1038/s44160-026-01037-0",
+     "venue": "Nature Synthesis",
+     "date": "2026-03-25"
+    },
+    {
+     "title": "Next-generation MOFs for atmospheric water harvesting: The role of machine learning techniques",
+     "year": 2025,
+     "doi": "https://doi.org/10.1016/j.ccr.2025.217211",
+     "venue": "Coordination Chemistry Reviews",
+     "date": "2025-10-04"
+    },
+    {
+     "title": "Sustainable Metal–Organic Framework Water Harvesters in the Artificial Intelligence Era",
+     "year": 2026,
+     "doi": "https://doi.org/10.1021/acsmaterialslett.6c00580",
+     "venue": "ACS Materials Letters",
+     "date": "2026-08-13"
+    },
+    {
+     "title": "THE EFFECT OF PORE SIZE ON THE ADSORPTION OF GASES WITHIN METAL ORGANIC FRAMEWORKS",
+     "year": 2025,
+     "doi": "https://doi.org/10.26434/chemrxiv-2025-86ckf",
+     "venue": "ChemRxiv",
+     "date": "2025-07-02"
+    },
+    {
+     "title": "Advancing metal organic framework and covalent organic framework design via the digital-intelligent paradigm",
+     "year": 2025,
+     "doi": "https://doi.org/10.1039/d5dd00401b",
+     "venue": "Digital Discovery",
+     "date": "2025-11-18"
+    },
+    {
+     "title": "Machine-Learning-Guided Design of Nanostructured Metal Oxide Photoanodes for Photoelectrochemical Water Splitting: From Material Discovery to Performance Optimization",
+     "year": 2025,
+     "doi": "https://doi.org/10.3390/nano15120948",
+     "venue": "Nanomaterials",
+     "date": "2025-06-18"
+    },
+    {
+     "title": "Machine learning-driven insights into metal-organic frameworks desalination: Predictive Modeling and sensitivity analysis for material selection",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.aitf.2026.100055",
+     "venue": "AI Thermal Fluids",
+     "date": "2026-09-29"
+    },
+    {
+     "title": "Leveraging advanced ensemble learning techniques for methane uptake prediction in metal organic frameworks",
+     "year": 2025,
+     "doi": "https://doi.org/10.1038/s41598-025-17028-8",
+     "venue": "Scientific Reports",
+     "date": "2025-08-29"
+    },
+    {
+     "title": "HULU: A unified Monte Carlo framework for adsorption simulations with machine learning potentials",
+     "year": 2026,
+     "doi": "https://doi.org/10.26599/nr.2026.94908548",
+     "venue": "Nano Research",
+     "date": "2026-02-14"
+    },
+    {
+     "title": "Framework-templated gas lattices in metal-organic frameworks",
+     "year": 2026,
+     "doi": "https://doi.org/10.1038/s41467-026-74776-5",
+     "venue": "Nature Communications",
+     "date": "2026-06-23"
+    },
+    {
+     "title": "Core–Shell Metal–Organic Framework Composites: A Review of Synthetic Strategies and Applications in Catalysis and Adsorption",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/molecules31060956",
+     "venue": "Molecules",
+     "date": "2026-03-12"
+    },
+    {
+     "title": "Optimizing Mixtures of Metal–Organic Frameworks for Robust and Bespoke Passive Atmospheric Water Harvesting",
+     "year": 2025,
+     "doi": "https://doi.org/10.1021/acsengineeringau.5c00051",
+     "venue": "ACS Engineering Au",
+     "date": "2025-11-03"
+    },
+    {
+     "title": "Selective Benzene Capture by Metal‐Organic Frameworks",
+     "year": 2025,
+     "doi": "https://doi.org/10.1002/adfm.202507286",
+     "venue": "Advanced Functional Materials",
+     "date": "2025-07-23"
+    },
+    {
+     "title": "The rise of generative AI for metal-organic framework design and synthesis",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.matt.2026.102748",
+     "venue": "Matter",
+     "date": "2026-03-30"
+    },
+    {
+     "title": "Explainable machine learning–based decision support for predicting heavy metal adsorption by diatomite",
+     "year": 2026,
+     "doi": "https://doi.org/10.1016/j.ceja.2026.101481",
+     "venue": "Chemical Engineering Journal Advances",
+     "date": "2026-10-01"
+    },
+    {
+     "title": "A Transferable Force Field for Simulating Adsorption in Metal–Organic Frameworks with Open Metal Sites Based on the 12–6–4 Lennard-Jones Potential",
+     "year": 2026,
+     "doi": "https://doi.org/10.1021/acs.jcim.5c02893",
+     "venue": "Journal of Chemical Information and Modeling",
+     "date": "2026-01-24"
+    },
+    {
+     "title": "Physics-Constrained Artificial Intelligence for Accelerated Experimental Discovery of Metal-Organic Frameworks in Gas Separation",
+     "year": 2026,
+     "doi": "https://doi.org/10.26434/chemrxiv.15000616/v2",
+     "venue": "ChemRxiv",
+     "date": "2026-03-08"
+    },
+    {
+     "title": "Physics-Constrained Artificial Intelligence for Accelerated Experimental Discovery of Metal-Organic Frameworks in Gas Separation",
+     "year": 2026,
+     "doi": "https://doi.org/10.26434/chemrxiv.15000616/v1",
+     "venue": "ChemRxiv",
+     "date": "2026-03-04"
+    },
+    {
+     "title": "Metal–Organic Framework Materials for Hydrogen Storage Applications",
+     "year": 2026,
+     "doi": "https://doi.org/10.3390/molecules31152643",
+     "venue": "Molecules",
+     "date": "2026-07-29"
+    },
+    {
+     "title": "Drug Delivery With Metal–Organic Frameworks",
+     "year": 2026,
+     "doi": "https://doi.org/10.1002/anov.70037",
+     "venue": "Angewandte Chemie Novit",
+     "date": "2026-09-01"
+    },
+    {
+     "title": "Strategic Evolution of Bifunctional Metal–Organic Frameworks for Electrocatalysis",
+     "year": 2026,
+     "doi": "https://doi.org/10.1002/cctc.202501759",
+     "venue": "ChemCatChem",
+     "date": "2026-01-01"
+    }
+   ]
+  },
+  {
+   "source": "arxiv",
+   "query": "all:\"breakthrough curve\" AND (all:\"machine learning\" OR all:\"neural\")",
+   "since": null,
+   "hits": [
+    {
+     "title": "Parameter Estimation in River Transport Models With Immobile Phase Exchange Using Dimensional Analysis and Reduced-Order Models",
+     "id": "2510.19664v1",
+     "published": "2025-10-22"
+    },
+    {
+     "title": "Solving Approximation Tasks with Greedy Deep Kernel Methods",
+     "id": "2508.08759v2",
+     "published": "2025-08-12"
+    },
+    {
+     "title": "Greedy Kernel Methods for Approximating Breakthrough Curves for Reactive Flow from 3D Porous Geometry Data",
+     "id": "2405.19170v1",
+     "published": "2024-05-29"
+    },
+    {
+     "title": "Efficient hybrid modeling and sorption model discovery for non-linear advection-diffusion-sorption systems: A systematic scientific machine learning approach",
+     "id": "2303.13555v3",
+     "published": "2023-03-22"
+    },
+    {
+     "title": "Machine learning methods for prediction of breakthrough curves in reactive porous media",
+     "id": "2301.04998v1",
+     "published": "2023-01-12"
+    },
+    {
+     "title": "On the Performance of Machine Learning Methods for Breakthrough Curve Prediction",
+     "id": "2204.11719v1",
+     "published": "2022-04-25"
+    },
+    {
+     "title": "Machine-learning of nonlocal kernels for anomalous subsurface transport from breakthrough curves",
+     "id": "2201.11146v2",
+     "published": "2022-01-26"
+    },
+    {
+     "title": "Machine learning for graph-based representations of three-dimensional discrete fracture networks",
+     "id": "1705.09866v4",
+     "published": "2017-05-27"
+    }
+   ]
+  },
+  {
+   "source": "arxiv",
+   "query": "all:\"equation discovery\" AND all:identifiability",
+   "since": null,
+   "hits": [
+    {
+     "title": "Geometry-physics confounding impairs PDE learning across varying domains",
+     "id": "2609.38623v1",
+     "published": "2026-09-29"
+    },
+    {
+     "title": "Identifying ODEs from Unstructured Data with Causal Representation Learning",
+     "id": "2609.37083v1",
+     "published": "2026-09-29"
+    },
+    {
+     "title": "Equation discovery with Bayesian tree-adjoining grammars",
+     "id": "2609.31368v1",
+     "published": "2026-09-25"
+    },
+    {
+     "title": "Physical Law Ecology: mapping multi-mechanism ecologies as the zeroth step of data-driven scientific discovery",
+     "id": "2609.08536v1",
+     "published": "2026-09-08"
+    },
+    {
+     "title": "Continuous data assimilation in steady Navier-Stokes equations with unknown viscosity: robust and efficient solvers and fast parameter recovery",
+     "id": "2609.02862v1",
+     "published": "2026-09-02"
+    },
+    {
+     "title": "Data Driven Equation Discovery for Phase-Ordering Dynamics : From Allen Cahn to the Ising Model",
+     "id": "2608.20404v2",
+     "published": "2026-08-04"
+    },
+    {
+     "title": "Library Reachability in LSR-Synth: How Anti-Memorization Design Changes the Measurement of Symbolic Discovery",
+     "id": "2607.28684v1",
+     "published": "2026-07-30"
+    },
+    {
+     "title": "From Observation to Insight: Mechanistic World Models and the Quest for Autonomous Discovery",
+     "id": "2607.12474v2",
+     "published": "2026-07-14"
+    },
+    {
+     "title": "Discovering Latent Response Laws in Forced Physical Systems",
+     "id": "2607.09801v1",
+     "published": "2026-07-09"
+    },
+    {
+     "title": "Language models guide symbolic equation discovery by controlling search",
+     "id": "2607.04156v1",
+     "published": "2026-07-05"
+    },
+    {
+     "title": "Dictionaries, Not Darwin: Set-Level Selection Beats LLM Evolution in Scientific Equation Discovery",
+     "id": "2607.04108v1",
+     "published": "2026-07-05"
+    },
+    {
+     "title": "Data-Driven Equation Discovery for Nonlinear Liquid Film Flows",
+     "id": "2606.13336v1",
+     "published": "2026-06-11"
+    },
+    {
+     "title": "Towards Diverse Scientific Hypothesis Search with Large Language Models",
+     "id": "2606.10587v1",
+     "published": "2026-06-09"
+    },
+    {
+     "title": "Data-driven discovery of governing differential equations across physical systems",
+     "id": "2606.09638v1",
+     "published": "2026-06-08"
+    },
+    {
+     "title": "Influence-Guided Symbolic Regression: Scientific Discovery via LLM-Driven Equation Search with Granular Feedback",
+     "id": "2605.29184v1",
+     "published": "2026-05-27"
+    },
+    {
+     "title": "EMMA: Extracting Multiple physical parameters from Multimodal Data",
+     "id": "2605.24047v1",
+     "published": "2026-05-21"
+    },
+    {
+     "title": "Revealing dynamics of non-autonomous complex systems from data",
+     "id": "2605.13878v1",
+     "published": "2026-05-10"
+    },
+    {
+     "title": "PyCC.id: A package for hypothesis-driven equation discovery with structural identifiability",
+     "id": "2606.05191v1",
+     "published": "2026-05-07"
+    },
+    {
+     "title": "Fast and principled equation discovery from chaos to climate",
+     "id": "2604.11929v2",
+     "published": "2026-04-13"
+    },
+    {
+     "title": "Symmetry-Informed Term Filtering for Continuum Equation Discovery",
+     "id": "2604.01592v1",
+     "published": "2026-04-02"
+    },
+    {
+     "title": "Predicting Dynamics of Ultra-Large Complex Systems by Inferring Governing Equations",
+     "id": "2604.00599v1",
+     "published": "2026-04-01"
+    },
+    {
+     "title": "Symmetry-Constrained Language-Guided Program Synthesis for Discovering Governing Equations from Noisy and Partial Observations",
+     "id": "2603.06869v1",
+     "published": "2026-03-06"
+    },
+    {
+     "title": "Integrating prior knowledge in equation discovery: Interpretable symmetry-informed neural networks and symbolic regression via characteristic curves",
+     "id": "2601.21720v1",
+     "published": "2026-01-29"
+    },
+    {
+     "title": "A joint optimization approach to identifying sparse dynamics using least squares kernel collocation",
+     "id": "2511.18555v2",
+     "published": "2025-11-23"
+    },
+    {
+     "title": "Rediscovering shallow water equations from experimental data",
+     "id": "2511.05486v1",
+     "published": "2025-11-07"
+    },
+    {
+     "title": "Towards Fast Coarse-graining and Equation Discovery with Foundation Inference Models",
+     "id": "2510.12618v2",
+     "published": "2025-10-14"
+    },
+    {
+     "title": "Multi-Task Equation Discovery",
+     "id": "2509.25400v1",
+     "published": "2025-09-29"
+    },
+    {
+     "title": "Sparse Equation Matching: A Derivative-Free Learning for General-Order Dynamical Systems",
+     "id": "2507.20072v2",
+     "published": "2025-07-26"
+    },
+    {
+     "title": "Deep Symbolic Optimization: Reinforcement Learning for Symbolic Mathematics",
+     "id": "2505.10762v1",
+     "published": "2025-05-16"
+    },
+    {
+     "title": "A Bayesian Approach for Discovering Time- Delayed Differential Equation from Data",
+     "id": "2501.02934v1",
+     "published": "2025-01-06"
+    },
+    {
+     "title": "KAN/MultKAN with Physics-Informed Spline fitting (KAN-PISF) for ordinary/partial differential equation discovery of nonlinear dynamic systems",
+     "id": "2411.11801v1",
+     "published": "2024-11-18"
+    },
+    {
+     "title": "Governing equation discovery of a complex system from snapshots",
+     "id": "2410.16694v1",
+     "published": "2024-10-22"
+    },
+    {
+     "title": "Physics-informed AI and ML-based sparse system identification algorithm for discovery of PDE's representing nonlinear dynamic systems",
+     "id": "2410.10023v1",
+     "published": "2024-10-13"
+    },
+    {
+     "title": "Adaptation of uncertainty-penalized Bayesian information criterion for parametric partial differential equation discovery",
+     "id": "2408.08106v1",
+     "published": "2024-08-15"
+    },
+    {
+     "title": "Principal Component Analysis for Equation Discovery",
+     "id": "2401.04797v1",
+     "published": "2024-01-09"
+    },
+    {
+     "title": "Learning Closed-form Equations for Subgrid-scale Closures from High-fidelity Data: Promises and Challenges",
+     "id": "2306.05014v3",
+     "published": "2023-06-08"
+    },
+    {
+     "title": "MAntRA: A framework for model agnostic reliability analysis",
+     "id": "2212.06303v1",
+     "published": "2022-12-13"
+    },
+    {
+     "title": "Model-agnostic stochastic model predictive control",
+     "id": "2211.13012v1",
+     "published": "2022-11-23"
+    },
+    {
+     "title": "Bayesian Spline Learning for Equation Discovery of Nonlinear Dynamics with Quantified Uncertainty",
+     "id": "2210.08095v1",
+     "published": "2022-10-14"
+    },
+    {
+     "title": "Learning governing physics from output only measurements",
+     "id": "2208.05609v1",
+     "published": "2022-08-11"
+    }
+   ]
+  }
+ ]
+}

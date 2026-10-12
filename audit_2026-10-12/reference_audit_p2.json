@@ -1,7 +1,7 @@
 {
  "source": "paper2/stage1.tex",
- "fetched_utc": "2026-10-12T07:18:54Z",
- "n_entries": 53,
+ "fetched_utc": "2026-10-12T08:57:03Z",
+ "n_entries": 56,
  "n_with_issues": 2,
  "entries": {
   "brunton2016": {
@@ -790,6 +790,50 @@
    "published_version": null,
    "status": "OK"
   },
+  "xu2022": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2201.11146",
+     "record": {
+      "title": "Machine-learning of nonlocal kernels for anomalous subsurface transport from breakthrough curves",
+      "first_author": "Xiao Xu",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "crossref_candidate": {
+    "doi": "10.2172/1842267",
+    "title": "Machine-Learning of Nonlocal Kernels for Anomalous Subsurface Transport from Breakthrough Curves",
+    "venue": "",
+    "year": 2022,
+    "type": "report"
+   },
+   "status": "OK"
+  },
+  "shukla2025": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.jpclett.5c00665",
+     "registry": {
+      "title": "Discovering CO Adsorption and Desorption Pathways from Chemical Reaction Neural Network Modeling of Transient Kinetics Spectroscopy",
+      "first_author": "Shukla",
+      "year": 2025,
+      "venue": "The Journal of Physical Chemistry Letters",
+      "volume": "16",
+      "page": "3562-3570",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
   "praditia2022": {
    "dois": [
     {
@@ -1031,6 +1075,26 @@
       "venue": "Energy Conversion and Management: X",
       "volume": "24",
       "page": "100694",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "sakanaka2023": {
+   "dois": [
+    {
+     "doi": "10.1038/s41467-023-42448-3",
+     "registry": {
+      "title": "Generalised analytical method unravels framework-dependent kinetics of adsorption-induced structural transition in flexible metal–organic frameworks",
+      "first_author": "Sakanaka",
+      "year": 2023,
+      "venue": "Nature Communications",
+      "volume": "14",
+      "page": "6862",
       "type": "journal-article"
      },
      "issues": []

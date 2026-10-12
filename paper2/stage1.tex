@@ -17,7 +17,8 @@
 % Literature: research/lit_equation_discovery.md (codes S1..S65); references checked by
 % audit_references_p2.py -> audit_2026-10-12/reference_audit_p2.json.
 % Number provenance: every number is quoted from the prereg or a results/test/log file
-% named in a comment beside it. Power figures: p2_power_note.py -> results/p2_power_note.json.
+% named in a comment beside it. Power figures: p2_operating_characteristics.py ->
+% results/p2_operating_characteristics.json (pilot P8).
 % =====================================================================
 \documentclass[11pt]{article}
 \usepackage[margin=2.5cm]{geometry}
@@ -152,7 +153,12 @@ kinetic rate and one noise level were studied \citep{santana2023}. The same grou
 universal ODE on experimental multicomponent fixed-bed data \citep{nogueira2022} and
 screened ten hybrid placements of neural networks in chromatography models
 \citep{frandsen2025}. Differentiable finite-volume hybrids now learn constitutive laws
-from transport experiments \citep{jessop2026}. On the equilibrium side, neural
+from transport experiments \citep{jessop2026}, and nonlocal transport kernels have been
+learned from sparse breakthrough curves \citep{xu2022}. In surface science, chemical
+reaction neural networks fitted to transient spectroscopy of CO on Pd(111) produced
+candidate adsorption mechanisms that fit the same data equally well yet predict distinct
+coverage dynamics \citep{shukla2025}: a learned mechanism, too, can be practically
+non-identifiable. On the equilibrium side, neural
 surrogates infer the isotherm from column dynamics \citep{praditia2022,subraveti2022}.
 Bootstrap confidence intervals then reveal distinct learned sorption closures with similar
 predictions, which is practical non-identifiability of a learned closure
@@ -162,16 +168,21 @@ symbolic regression with information criteria and design of experiments exists f
 catalysis \citep{servia2024,servia2025}. Function-level identifiability of UDEs has been
 separated from parametric identifiability \citep{loman2025}, and statistical tests have
 been used to decide whether isotherm parameters in liquid chromatography must be
-state-dependent \citep{katsoulas2026}. Three fetched database searches made while compiling
-our literature review (two OpenAlex queries and one arXiv query) found no
-adsorption-\emph{kinetics} discovery study other than \citep{santana2023}. This supports,
-but does not prove, that the regime question is open.
-% Source: research/lit_equation_discovery.md, "Negative-search evidence" 1 and 2, synthesis (a).
+state-dependent \citep{katsoulas2026}. Three database searches made while compiling our
+literature review (two OpenAlex queries and one arXiv query), re-run on 12 October 2026
+together with seven further queries, found no study that discovers an adsorption rate law
+from column data other than \citep{santana2023}. This supports, but does not prove, that
+the regime question is open.
+% Source: research/lit_equation_discovery.md, "Negative-search evidence" 1 and 2, synthesis (a);
+% re-run: lit_recheck_p2.py -> audit_2026-10-12/lit_recheck_p2.json (10 queries, every hit listed).
 
 For metal--organic framework (MOF) water sorption the gap is sharper. Water uptake on
 MOF-303 has been fitted with an LDF model by hand, and the specific diffusion rate falls
-markedly where the isotherm inflects \citep{abuelmaaty2024}. A loading-dependent $k(q)$ at
-an isotherm step is an untested discovery target. A 2026 Perspective on AI for MOF water
+markedly where the isotherm inflects \citep{abuelmaaty2024}. For flexible MOFs, the
+kinetics of adsorption-induced structural transitions were resolved by time-resolved
+diffraction and a hand-built model, and found to depend strongly on the framework
+\citep{sakanaka2023}. A loading-dependent $k(q)$ at an isotherm step is an untested
+discovery target. A 2026 Perspective on AI for MOF water
 harvesting does not mention kinetics discovery in its abstract \citep{coyle2026}.
 
 \subsection*{What this study adds}
@@ -277,8 +288,8 @@ rests on H2d. Its success criterion is fixed in Methods (\S\ref{sec:metrics}).
 \begin{table}
 \centering
 \caption{\textbf{Study design table.} Every entry restates the frozen pre-registration
-(PREREG\_P2, commit d562f19); the power figures are derived from its calibration
-(\texttt{p2\_power\_note.py}). MDE, minimum detectable effect; $\Da^{*}$, 50\,\% crossing
+(PREREG\_P2, commit d562f19); the power figures are simulated operating characteristics of
+the frozen rules (pilot P8, \texttt{p2\_operating\_characteristics.py}). MDE, minimum detectable effect; $\Da^{*}$, 50\,\% crossing
 of a logistic fit in $\log_{10}\Da$.}
 \label{tab:design}
 \scriptsize
@@ -297,14 +308,14 @@ Spread $<0.5$: \verdict{R collapses the boundary}. Spread $\ge 1$: \verdict{R do
 Does discovery fail before, with or after the rate constant stops being identifiable? &
 H2b: compares $\Da^{*}_{\mathrm{disc}}$ (best method) with $\Da^{*}_{\mathrm{ident}}$ (profile likelihood, true law known); confirmatory on O1. &
 Gap $\log_{10}\Da^{*}_{\mathrm{disc}} - \log_{10}\Da^{*}_{\mathrm{ident}}$ per O1 slice ($\sigma$, $\varepsilon$, isotherm). &
-9 $\Da$ levels $\times$ 20 replicates for both boundaries. SD of one boundary estimate 0.089 decade (calibrated on 100 simulated datasets); MDE 0.25 decade at 80\,\% power, two-sided 5\,\%; 0.32 decade at 95\,\%. For a gap between two independent estimates: 0.35 decade at 80\,\%. &
+9 $\Da$ levels $\times$ 20 replicates for both boundaries. SD of one boundary estimate 0.089 decade (calibrated on 100 simulated datasets); MDE 0.25 decade. Simulated rule (two independent boundaries): correct verdict 0.946 at no gap; 0.975 at a 0.5-decade gap; 0.869 at 0.4. &
 Same logistic estimator for both boundaries; percentile bootstrap (2000 resamples) within $\Da$ levels; the best method re-selected inside every bootstrap draw. O2 and O3 (3 replicates) descriptive. &
 Gap $\le -0.25$: \verdict{discovery fails before identifiability}. $|$gap$|<0.25$: \verdict{discovery fails with identifiability}. Gap $\ge +0.25$: \verdict{discovery outlives identifiability}. No crossing: no verdict; the tested range is reported.\\
 \addlinespace
 Does an errors-in-variables fit move the boundary when the isotherm is wrong? &
 H2c: M5 (EIV best-subset) shifts $\Da^{*}_{\mathrm{disc}}$ by at least a factor 2 against the best strong-form non-EIV method at $\varepsilon>0$, on O1. &
 Shift in $\log_{10}\Da^{*}_{\mathrm{disc}}$, M5 minus the best strong-form non-EIV method, per (isotherm, $\varepsilon>0$) at $\sigma=2\,\%$. &
-20 replicates; for $\varepsilon = 2\,\%$ a refined grid of 8 extra $\Da$ levels within $\pm0.5$ decade of the best non-EIV boundary. Power to detect the predicted factor 2 (0.30 decade): 0.92 per boundary convention; 0.67 if the two boundary estimates are independent. &
+20 replicates; for $\varepsilon = 2\,\%$ a refined grid of 8 extra $\Da$ levels within $\pm0.5$ decade of the best non-EIV boundary. Simulated rule: no false detection at zero shift; shift $\ge$ MDE detected with probability 0.761 at the predicted factor 2 and 0.98 at 0.40 decade. &
 Same estimator and bootstrap; refined grid at $\varepsilon = 2\,\%$, main grid at $\varepsilon \in \{0.5, 5\}\,\%$; shift against the best non-EIV method over both forms reported descriptively. &
 Shift $\ge \log_{10}2$ (0.30): \verdict{EIV moves the boundary by \{factor\}}. MDE $\le$ shift $<\log_{10}2$: \verdict{EIV moves the boundary by \{factor\}, detectably but by less than the predicted factor 2}. Below the MDE at every $\varepsilon>0$: \verdict{EIV does not move the boundary detectably (MDE \{x\})}. Down by at least the MDE: \verdict{EIV moves the boundary DOWN by \{factor\}}.\\
 \addlinespace
@@ -318,8 +329,8 @@ Reported as rates; no confirmatory claim rests on H2d.\\
 \end{tabularx}
 \end{table}
 \end{landscape}
-% Sources: PREREG_P2 s.2, s.4.3, s.4.4, s.10 ("Verdict driver"); results/p2_power_note.json
-% (shift_resolvable_at_power_0.95_decade 0.3208; power_at_factor_2_shift_log10_2 0.9225).
+% Sources: PREREG_P2 s.2, s.4.3, s.4.4, s.10 ("Verdict driver");
+% results/p2_operating_characteristics.json (pilot P8; see the power paragraph in Methods).
 
 % ---------------------------------------------------------------------
 \section{Methods}
@@ -747,26 +758,48 @@ the logistic estimator resolves the crossing well inside one grid step, which is
 measured standard deviation shows.
 % PREREG_P2 s.4.4 and s.10 item 1 (the earlier "half a decade" was the grid spacing and is
 % withdrawn).
-The journal asks for power of at least 0.95. The frozen design fixes the MDE at 80\,\%
-power, using the standard deviation of \emph{one} boundary estimate. Under that convention
-and calibration, the shift resolvable at 95\,\% power is 0.32 decade, and the power to
-detect H2c's predicted factor-2 shift (0.30 decade) is 0.92. H2b's gap and H2c's shift are,
-however, differences of two estimated boundaries. If the two estimates were independent,
-the standard deviation of the difference would be $\sqrt{2}\times0.089 \approx 0.13$
-decade: the shift resolvable at 80\,\% power would be 0.35 decade (0.45 decade at 95\,\%),
-and the power for a factor-2 shift 0.67. Both sets of figures restate what the frozen
-design implies; neither changes a threshold or a verdict rule. The verdicts will be read
-with this in mind: a gap or shift between 0.25 and 0.35 decade is near the design's
-resolution. If the editor or reviewers require power 0.95, the replicate count would be
-raised by a dated amendment before any grid run, with the estimator recalibrated by the
-same 100-dataset simulation at the new count, as the pre-registration provides for changes
-requested at Stage 1.
+\paragraph{Operating characteristics of the decision rules (power).}
+The journal asks for power of at least 0.95. The verdicts here are threshold rules on point
+estimates, not significance tests, so their power is the probability that each rule returns
+the correct verdict when the truth is known. We simulated exactly that (pilot P8,
+\S\ref{sec:pilots}) with the frozen ingredients only: planted logistic boundaries as in the
+calibration (slope 3 per decade), the 9 $\Da$ levels, 20 replicates, the frozen estimator
+and the frozen thresholds, 1000 datasets per condition. The two boundaries that H2b and
+H2c compare were drawn independently, which is conservative if, as expected, estimates
+made on the same replicates are positively correlated.
+\begin{itemize}
+\item \emph{H2b.} With no true gap, the rule returns \verdict{discovery fails with
+identifiability} with probability 0.946; it wrongly returns one of the other two verdicts
+with probability 0.054. With a true gap of 0.30, 0.40 and 0.50 decade it returns the correct
+directional verdict with probability 0.654, 0.869 and 0.975.
+\item \emph{H2c} (refined grid, $\varepsilon = 2\,\%$). With no true shift it never reports
+a detectable shift. At the predicted factor 2 (0.30 decade) a shift of at least the MDE is
+reported with probability 0.761, and the full verdict \verdict{EIV moves the boundary by
+\{factor\}} with probability 0.489, as expected when the true value sits on the threshold.
+At 0.40 decade a shift is detected with probability 0.98 (0.901 for the full verdict), and at
+0.50 decade with probability 0.995 or more.
+\item \emph{H2a.} Each slice pools many cells, so its $R^{*}$ is precise; in a simulation of
+12 slices of 144 cells, the spread verdict was correct in every dataset at true spreads of
+0, 0.5, 1.0 and 1.5 decade. Precision does not limit H2a.
+\end{itemize}
+The frozen design therefore reaches power 0.95 for H2b at true gaps of about half a
+decade (a factor of about 3) and for H2c at shifts of 0.40 decade (a factor of 2.5), with a
+false-verdict rate of at most 0.054 when there is no effect. Effects between the MDE and
+those sizes are detected with lower probability, and the verdicts will be read accordingly.
+These figures depend on how sharp the true boundary is: the standard deviation of one
+boundary estimate is 0.088 decade at slope 3, 0.143 at slope 1.5 and 0.068 at slope 6. With
+40 replicates, H2b would reach 0.95 at 0.40 decade, with a false-verdict rate of 0.008. If
+the editor or reviewers set the smallest effect of interest there, the replicate count will
+be raised to 40 by a dated amendment before any grid run, as the pre-registration provides
+for changes requested at Stage 1.
 % Journal: nature.com/documents/ncomms-registered-report-guidelines.pdf (read 2026-10-12):
 % "the a priori power must be 0.95 or higher for all proposed hypothesis tests".
-% results/p2_power_note.json: shift_resolvable_at_power_0.95_decade 0.3208,
-% power_at_factor_2_shift_log10_2 0.9225, power_at_frozen_mde_0.25 0.8021,
-% sd_difference_if_independent_decade 0.1259, difference_shift_resolvable_at_power_0.80
-% 0.3526, _0.95 0.4537, difference_power_at_factor_2_shift 0.667;
+% p2_operating_characteristics.py -> results/p2_operating_characteristics.json: h2b n20 gap
+% 0: with 0.946, before 0.024, outlives 0.03; gaps 0.30/0.40/0.50: outlives 0.654/0.869/0.975;
+% n40 gap 0: with 0.992; gap 0.40: outlives 0.95; h2c_refined n20 shift 0: not_detectable 1.0;
+% shift log10 2: moves 0.489 + detectably 0.272 = 0.761; 0.40: 0.901 + 0.079 = 0.98;
+% 0.50: 0.995 + 0.005; h2a 12 slices: verdict correct at 0, 0.5, 1.0, 1.5; single-boundary SD
+% 0.0882 (slope 3), 0.1428 (1.5), 0.0684 (6) at n 20.
 % PREREG_P2 "Registered Report timing" ("Any change requested by Stage-1 reviewers is a
 % dated amendment committed before the grid runs").
 
@@ -976,9 +1009,9 @@ when. The author takes full responsibility for the content.
 \section{Pilot data}
 \label{sec:pilots}
 Pilot data are excluded from every confirmatory analysis. No discovery method has been run
-on any grid cell. The pilots fall into two kinds. Generator pilots measured the simulator.
+on any grid cell. The pilots fall into three kinds. Generator pilots measured the simulator.
 Feasibility and verification pilots ran methods only on known-answer systems or on fresh
-solves that are not grid cells.
+solves that are not grid cells. One pilot (P8) simulated the decision rules alone.
 
 \paragraph{P1, generator pilot.}
 \emph{Measured:} for $k$ on a log grid, the residence-time and run Damk\"ohler numbers,
@@ -1085,6 +1118,16 @@ before the runs that decided them. The pre-registration was frozen by commit d56
 11 October 2026; the grid drivers check that commit before they will run, and no discovery
 method has touched a grid cell. Any later change will be a dated, reasoned amendment,
 reported as post hoc if made after results exist.
+
+\paragraph{P8, operating characteristics of the frozen rules (after the freeze, before any
+grid run).}
+\emph{Measured} on 12 October 2026, for the journal's power requirement: how often each
+frozen decision rule returns each verdict when planted boundaries are known (Methods,
+power paragraph). It used the frozen estimator and thresholds on simulated success
+outcomes only; no ground truth, grid cell or discovery method was involved.
+\emph{Changed:} nothing. The design keeps 20 replicates; the option of 40, and what it
+would buy, is stated for the reviewers.
+% p2_operating_characteristics.py -> results/p2_operating_characteristics.json (runtime 863 s).
 
 % ---------------------------------------------------------------------
 \section*{Data availability}
@@ -1195,6 +1238,10 @@ This work received no specific funding.
 
 \bibitem{jessop2026} Arthur Jessop, Mohammed Alsubeihi, Ben Moseley, Ashwin Kumar Rajagopalan, Differentiable Hybrid Modelling for Learning and Optimising Chemical Transport Processes from Experimental Data, arXiv preprint arXiv:2609.04011 (2026). \href{https://arxiv.org/abs/2609.04011}{arXiv:2609.04011}.
 
+\bibitem{xu2022} Xiao Xu, Marta D'Elia, Christian Glusa, John T. Foster, Machine-learning of nonlocal kernels for anomalous subsurface transport from breakthrough curves, arXiv preprint arXiv:2201.11146 (2022). \href{https://arxiv.org/abs/2201.11146}{arXiv:2201.11146}.
+
+\bibitem{shukla2025} Jay Shukla, Xiaohui Qu, Zubin Darbari, Marija Iloska, J. Anibal Boscoboinik, Qin Wu, Discovering CO adsorption and desorption pathways from chemical reaction neural network modeling of transient kinetics spectroscopy, The Journal of Physical Chemistry Letters, vol. 16, 3562-3570 (2025). \href{https://doi.org/10.1021/acs.jpclett.5c00665}{doi:10.1021/acs.jpclett.5c00665}.
+
 \bibitem{praditia2022} Timothy Praditia, Matthias Karlbauer, Sebastian Otte, Sergey Oladyshkin, Martin V. Butz, Wolfgang Nowak, Learning Groundwater Contaminant Diffusion-Sorption Processes With a Finite Volume Neural Network, Water Resources Research, vol. 58, e2022WR033149 (2022). \href{https://doi.org/10.1029/2022WR033149}{doi:10.1029/2022WR033149}.
 
 \bibitem{subraveti2022} Sai Gokul Subraveti, Zukui Li, Vinay Prasad, Arvind Rajendran, Can a computer ``learn'' nonlinear chromatography?: Physics-based deep neural networks for simulation and optimization of chromatographic processes, Journal of Chromatography A, vol. 1672, 463037 (2022). \href{https://doi.org/10.1016/j.chroma.2022.463037}{doi:10.1016/j.chroma.2022.463037}.
@@ -1218,6 +1265,8 @@ This work received no specific funding.
 \bibitem{katsoulas2026} Konstantinos Katsoulas, Federico Galvanin, Luca Mazzei, Eva Sorensen, A Diagnostic Procedure for Identifying Isotherm Models in Liquid Chromatography, Industrial \& Engineering Chemistry Research, vol. 65, 1277-1292 (2026). \href{https://doi.org/10.1021/acs.iecr.5c03704}{doi:10.1021/acs.iecr.5c03704}.
 
 \bibitem{abuelmaaty2024} Ahmed E. Abu EL-Maaty, Mahmoud A. Abdalla, Mohamed Essalhi, Mahmoud M. Abdelnaby, Morsi M. Mahmoud, Mohamed A. Habib, Mohamed Antar, Rached Ben-Mansour, Kinetics of Water Adsorption in Metal-Organic Framework(MOF-303) for Adsorption Cooling Application, Energy Conversion and Management: X, vol. 24, 100694 (2024). \href{https://doi.org/10.1016/j.ecmx.2024.100694}{doi:10.1016/j.ecmx.2024.100694}.
+
+\bibitem{sakanaka2023} Yuta Sakanaka, Shotaro Hiraide, Iori Sugawara, Hajime Uematsu, Shogo Kawaguchi, Minoru T. Miyahara, Satoshi Watanabe, Generalised analytical method unravels framework-dependent kinetics of adsorption-induced structural transition in flexible metal--organic frameworks, Nature Communications, vol. 14, 6862 (2023). \href{https://doi.org/10.1038/s41467-023-42448-3}{doi:10.1038/s41467-023-42448-3}.
 
 \bibitem{coyle2026} Reid A. Coyle, Shyam Chand Pal, Peter Walther, Saeun Park, Bin Feng, Zhiling Zheng, Sustainable metal--organic framework water harvesters in the artificial intelligence era, ACS Materials Letters, vol. 8, 2391-2400 (2026). \href{https://doi.org/10.1021/acsmaterialslett.6c00580}{doi:10.1021/acsmaterialslett.6c00580}; \href{https://arxiv.org/abs/2605.29179}{arXiv:2605.29179}.
 

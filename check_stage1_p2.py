@@ -93,18 +93,21 @@ for s in sources:
         src_text += "\n" + open(s, encoding="utf-8", errors="replace").read()
 # Numbers traced by hand: value as printed -> where it comes from (rounded or derived).
 TRACED = {
-    "0.32": "results/p2_power_note.json shift_resolvable_at_power_0.95_decade 0.3208",
-    "0.92": "results/p2_power_note.json power_at_factor_2_shift_log10_2 0.9225",
     "0.9": "research/lit_equation_discovery.md S1 addendum: Da = kL/v ~ 0.86",
     "2.4": "tests/test_p2.py mass-balance test comment 'measured 0.024'",
     "7.5": "tests/test_p2.py success-metric test: -0.0215 against 0.02 accepted",
     "3.84": "p2/identifiability.py: 2*(max loglik - loglik) <= 3.84",
     "414": "p2_generate.log: slowest main-grid solve 414 s",
     "2.6": "requirements_p2_venv.txt: pysr==2.6.1 (software version, printed as 2.6.1)",
-    "0.13": "results/p2_power_note.json sd_difference_if_independent_decade 0.1259",
-    "0.35": "results/p2_power_note.json difference_shift_resolvable_at_power_0.80_decade 0.3526",
-    "0.45": "results/p2_power_note.json difference_shift_resolvable_at_power_0.95_decade 0.4537",
-    "0.67": "results/p2_power_note.json difference_power_at_factor_2_shift 0.667",
+    "0.761": "results/p2_operating_characteristics.json h2c_refined n20 log10 2: 0.489 + 0.272",
+    "0.98": "results/p2_operating_characteristics.json h2c_refined n20 0.40: 0.901 + 0.079",
+    "0.054": "results/p2_operating_characteristics.json h2b n20 gap 0: before 0.024 + outlives 0.03",
+    "0.088": "results/p2_operating_characteristics.json single_boundary n20 slope 3 sd 0.0882",
+    "0.143": "results/p2_operating_characteristics.json single_boundary n20 slope 1.5 sd 0.1428",
+    "0.068": "results/p2_operating_characteristics.json single_boundary n20 slope 6 sd 0.0684",
+    "863": "results/p2_operating_characteristics.json runtime_s 862.8",
+    "0.008": "results/p2_operating_characteristics.json h2b n40 gap 0: before 0.004 + outlives 0.004",
+    "144": "p2_operating_characteristics.py h2a(): 144 cells per slice (simulation setting)",
 }
 prose = body.split(BS + "begin{document}")[1]
 prose = re.sub(r"(?<!\\)%.*", "", prose)
