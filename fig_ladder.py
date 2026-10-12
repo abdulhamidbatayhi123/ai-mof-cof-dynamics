@@ -135,7 +135,7 @@ def build_rows():
         c = {"mean_a": l3p["mlp"], "mean_b": l3p["rbf_g4"], "mean_diff": l3p["diff"],
              "ci_low": min(l3p["ci"]), "ci_high": max(l3p["ci"]),
              "significant": l3p["significant"], "n_materials": 12}
-        add("L3", "a richer basis (KAN)", "best KAN vs perceptron, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
+        add("L3", "a richer basis (KAN)", "best KAN vs MLP, one pair; %d of %d pairs survive selection" % (l3s["n_sig_simultaneous"], l3s["n_pairs"]),
             effect(c, control_is_a=True), "ELIMINATED",
             "the best KAN anywhere is the least KAN-like; %d/%d comparisons significant after selection, none reversed"
             % (l3s["n_sig_simultaneous"], l3s["n_pairs"]))
@@ -206,7 +206,7 @@ def build_rows():
     if l6:
         c = l6["pooled"]                              # a = joint (control), b = separate
         add("L6", "separate identification", "separate vs joint heads",
-            effect(c, control_is_a=True), "BENEFIT REAL",
+            effect(c, control_is_a=True), "BENEFIT REAL, no Damköhler dependence (B)",
             "no detectable dependence on Damköhler (panel B): a weak null, read as an inductive bias",
             mde=100 * l6m["mde_80"] if l6m else None)
     else:
@@ -215,7 +215,7 @@ def build_rows():
     # L7 — is a closed form enough? control = the best closed form, intervention = learning.
     if l7:
         c = l7["comparisons"]["mlp vs klinkenberg"]   # a = learned, b = closed form (control)
-        add("L7", "a closed form suffices", "learned vs the best closed form, outlet curve",
+        add("L7", "a closed form suffices", "MLP vs the best unfitted closed form (Klinkenberg), outlet curve",
             effect(c, control_is_a=False), l7["verdict"].split(" on ")[0],   # the pre-declared words, from the results file
             "a classical model wins exactly when the physics it assumes is the physics that is there")
     else:
@@ -223,10 +223,10 @@ def build_rows():
 
     # The coordinate change: the honest arm, then the oracle upper bound.
     if warp:
-        add("Warp", "a change of coordinates", "two-front frame, predicted fronts",
+        add("Two-front frame", "predicted fronts", "vs the fixed frame",
             effect(warp["fixed_vs_two_wave"], control_is_a=True), "NO DIFFERENCE",
             "the n-width collapses 31 -> 13 modes, and none of it survives front-location error")
-        add("Warp", "(the same, true fronts)", "upper bound: handed the true fronts",
+        add("Two-front frame", "true fronts", "upper bound: handed the true fronts",
             effect(warp["fixed_vs_oracle"], control_is_a=True),
             "HEADROOM %.2f× over the fixed frame" % (warp["means"]["fixed"] / warp["means"]["two_wave_oracle"]),
             "NOT comparable with any arm not also handed the warp: it sizes the prize, it is not a result",
@@ -241,7 +241,9 @@ def sentence_case(v):
     """Verdict words as prose: all-capital words lowered (acronyms, codes and numbers kept),
     first letter capitalised. The words themselves are the pre-declared ones."""
     keep = {"KAN", "FNO", "MDE", "POD", "MLP"}
-    toks = [t.lower() if t.isalpha() and t.isupper() and len(t) > 1 and t not in keep else t
+    core = lambda t: t.strip(".,;:()")
+    toks = [t.lower() if core(t).isalpha() and core(t).isupper() and len(core(t)) > 1
+            and core(t) not in keep else t
             for t in v.split(" ")]
     out = " ".join(toks)
     return out[:1].upper() + out[1:]
@@ -254,7 +256,7 @@ def panel_ladder(a, rows):
                else C_MOVES if r["e"] > 0 else C_HURTS)
         if r["e"] is None:
             a.plot([0], [yi], marker="|", ms=12, color="0.6")
-            a.text(1.5, yi, "in flight", va="center", fontsize=6.8, color="0.45", style="italic")
+            a.text(1.5, yi, "in flight", va="center", fontsize=7.2, color="0.45", style="italic")
         else:
             a.plot([r["lo"], r["hi"]], [yi, yi], color=col, lw=1.8, solid_capstyle="butt", alpha=0.95)
             a.plot([r["lo"], r["hi"]], [yi, yi], "|", color=col, ms=5)
@@ -262,7 +264,7 @@ def panel_ladder(a, rows):
                    **({"mfc": "white", "mec": col, "mew": 1.4} if r["leak"] else {"color": col}))
         if r["mde"]:
             a.plot([-r["mde"], r["mde"]], [yi - 0.32, yi - 0.32], color="0.5", lw=1.1, ls=(0, (2, 1.6)))
-            a.text(r["mde"] + 1.0, yi - 0.32, f"MDE {r['mde']:.0f} %", va="center", fontsize=5.8, color="0.45")
+            a.text(r["mde"] + 1.0, yi - 0.32, f"MDE {r['mde']:.0f} %", va="center", fontsize=7.2, color="0.45")
 
     a.axvline(0, color="k", lw=1.0)
     a.set_yticks(y)
@@ -278,17 +280,17 @@ def panel_ladder(a, rows):
     for yi, r in zip(y, rows):
         f = lambda dy: (yi + 0.85 + dy) / (len(rows) + 0.60)
         a.text(1.03, f(+0.17), sentence_case(r["verdict"]), transform=a.transAxes,
-               fontsize=6.6, va="center", fontweight="bold", color="0.12")
+               fontsize=7.2, va="center", fontweight="bold", color="0.12")
         a.text(1.03, f(-0.19), f"{r['inter']} ({r['n']} materials)", transform=a.transAxes,
-               fontsize=5.9, va="center", color="0.38")
-    a.set_title("A  Seven named candidates and what the evidence said")
+               fontsize=7.2, va="center", color="0.38")
+    a.set_title("A  Seven pre-registered hypotheses, and the two-front frame")
     a.legend(handles=[
         Line2D([], [], color=C_MOVES, lw=2.4, label="reduces the error, significantly"),
         Line2D([], [], color=C_HURTS, lw=2.4, label="increases it, significantly"),
         Line2D([], [], color=C_NULL, lw=2.4, label="no detectable difference"),
         Line2D([], [], color=C_LEAK, lw=2.4, marker="o", mfc="white",
                label="oracle arm: an upper bound, not a comparable result"),
-    ], fontsize=6.3, loc="upper left", bbox_to_anchor=(-0.42, -0.16), ncol=2, columnspacing=1.2)
+    ], fontsize=7.2, loc="upper left", bbox_to_anchor=(-0.42, -0.16), ncol=2, columnspacing=1.2)
 
 
 def panel_slope(b):
@@ -315,25 +317,27 @@ def panel_slope(b):
     xs = np.linspace(x.min(), x.max(), 50)
     b.plot(xs, st["intercept"] + st["slope"] * xs, color=fs.C["red"], lw=1.5, label="fitted slope")
     mid = 0.5 * (x.min() + x.max())
-    for s, ls in ((st["ci_low"], (0, (3, 2))), (st["ci_high"], (0, (3, 2)))):
-        b.plot(xs, (st["intercept"] + st["slope"] * mid) + s * (xs - mid), color=fs.C["red"],
-               lw=1.0, ls=ls, alpha=0.8)
+    # the slope's confidence band, pivoting about the mid-range point
+    lo_line = (st["intercept"] + st["slope"] * mid) + st["ci_low"] * (xs - mid)
+    hi_line = (st["intercept"] + st["slope"] * mid) + st["ci_high"] * (xs - mid)
+    b.fill_between(xs, np.minimum(lo_line, hi_line), np.maximum(lo_line, hi_line),
+                   color=fs.C["red"], alpha=0.18, lw=0, label="slope interval")
     b.axhline(0, color="k", lw=0.8)
     # head- and foot-room for the two annotations, so neither covers a data point
     lo, hi = yv.min(), yv.max()
     span = hi - lo
-    b.set_ylim(lo - 0.32 * span, hi + 0.22 * span)
+    b.set_ylim(lo - 0.40 * span, hi + 0.40 * span)
     b.set_xlabel("$\\log_{10}$ Damköhler number (median per material)")
     b.set_ylabel("separate minus joint\n(nRMSE per material)")
     b.set_title("B  L6, primary estimand: no detectable dependence on Damköhler")
     b.text(0.985, 0.05,
-           f"slope {st['slope']:+.5f} nRMSE per decade, CI [{st['ci_low']:+.5f}, {st['ci_high']:+.5f}]: not significant\n"
+           f"slope {st['slope']:+.4f} nRMSE per decade, CI [{st['ci_low']:+.4f}, {st['ci_high']:+.4f}]: not significant\n"
            f"Pearson r = {st['pearson_r']:.3f} over {st['log10_da_range'][1] - st['log10_da_range'][0]:.2f} decades, "
            f"{st['n_materials']} materials",
-           transform=b.transAxes, ha="right", va="bottom", fontsize=6.2, color="0.3",
+           transform=b.transAxes, ha="right", va="bottom", fontsize=7.2, color="0.3",
            bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5))
     b.text(0.015, 0.96, "H1 predicted a positive slope: separation should pay most where kinetics dominate",
-           transform=b.transAxes, ha="left", va="top", fontsize=6.2, color="0.4")
+           transform=b.transAxes, ha="left", va="top", fontsize=7.2, color="0.4")
 
 
 def panel_l0(c):
@@ -348,18 +352,18 @@ def panel_l0(c):
     # two kinds of error share this log axis; each bar says which (round-2 referee N12)
     kinds = ("max abs., of c_in", "relative", "relative", "max abs., of c_in")
     for x, (name, val, what), kind in zip(xs, checks, kinds):
-        c.text(x, val * 1.5, f"{val:.1e}\n{kind}", ha="center", fontsize=6.4, linespacing=1.1)
+        c.text(x, val * 1.5, f"{val:.1e}\n{kind}", ha="center", fontsize=7.2, linespacing=1.1)
     c.set_yscale("log")
     c.set_ylim(3.5e-5, 2e-2)
     c.set_xticks(xs)
     # what each check isolates goes under its tick: inside the bar it was white on
     # white wherever the bar was short (round-3 referee c2)
-    c.set_xticklabels([k[0] + "\n" + k[2].strip() for k in checks], fontsize=6.2)
+    c.set_xticklabels([k[0] + "\n" + k[2].strip() for k in checks], fontsize=7.2)
     c.set_ylabel("error vs the\nclosed form")
     c.set_title("C.   L0 — the reference is verified, not asserted", fontsize=9.5, loc="left")
     closure = json.load(open("results/validation.json"))["by_gate"]["global mass balance closes"]["values"]["default"]
     c.text(0.985, 0.93, f"global mass closure {100 * closure:.2g} %", transform=c.transAxes,
-           ha="right", va="top", fontsize=6.6, color="0.35")
+           ha="right", va="top", fontsize=7.2, color="0.35")
 
 
 def main():

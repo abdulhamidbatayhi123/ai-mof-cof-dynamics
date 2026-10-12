@@ -48,7 +48,7 @@ def draw(ax, d, xk, yk, sx=1.0):
     ax.add_patch(Rectangle((sx * x0, y0), sx * (x1 - x0), y1 - y0, color="0.92", zorder=0))
     ax.add_patch(Rectangle((sx * x0, y0), sx * (x1 - x0), y1 - y0, fill=False, ec="0.55", lw=0.8,
                            ls="--", zorder=1))
-    ax.text(sx * x1, y1, "sampled range ", ha="right", va="bottom", fontsize=6.4, color="0.4")
+    ax.text(sx * x1, y1, "sampled range ", ha="right", va="bottom", fontsize=7.2, color="0.4")
     for name, m in d["materials"].items():
         key = short(name)
         x, y = m.get(xk), m.get(yk)
@@ -59,7 +59,7 @@ def draw(ax, d, xk, yk, sx=1.0):
                     yerr=[[mid(y) - y["lo"]], [y["hi"] - mid(y)]], fmt=mk, ms=4.5, capsize=2,
                     lw=0.9, color=col, zorder=3)
         ax.annotate(key.replace("Co2Cl2", "Co$_2$Cl$_2$"), (sx * mid(x), mid(y)), textcoords="offset points",
-                    xytext=OFFSET.get((xk, key), (6, 4)), fontsize=6.6, color=col,
+                    xytext=OFFSET.get((xk, key), (6, 4)), fontsize=7.2, color=col,
                     # a label moved far from a crowded point gets a leader line
                     arrowprops=(dict(arrowstyle="-", lw=0.5, color=col, shrinkA=1, shrinkB=3)
                                 if max(map(abs, OFFSET.get((xk, key), (6, 4)))) > 20 else None),

@@ -448,13 +448,6 @@
   "line_at_review": 633
  },
  {
-  "key": "perceptron and [two] Kolmogorov--Arnold families (",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two KAN families of L3 (design)",
-  "line_at_review": 620
- },
- {
   "key": " [one] gradient-boosted regressor pe",
   "word": "one",
   "class": "PROSE",
@@ -726,13 +719,6 @@
   "class": "DESIGN",
   "reason": "the pre-registered five-fold design",
   "line_at_review": 24
- },
- {
-  "key": "linear reconstruction , has [two] sources of error on a",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two error sources named in the sentence (basis, map)",
-  "line_at_review": 55
  },
  {
   "key": "he coefficients. Which of the [two] binds",
@@ -1328,5 +1314,40 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 1053
+ },
+ {
+  "key": "[ , ]: a [sixteenfold] larger basis could have impro",
+  "word": "sixteenfold",
+  "class": "DESIGN",
+  "reason": "p = 128 over p = 8, the pre-registered basis-size range",
+  "line_at_review": 974
+ },
+ {
+  "key": "ion such as DeepONet , has [two] sources of error on a",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 55
+ },
+ {
+  "key": "perceptron and [two] Kolmogorov--Arnold families",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 677
+ },
+ {
+  "key": "(A29). The last [two] rows are the two-front frame",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 723
+ },
+ {
+  "key": "9). The last two rows are the [two] -front frame of Section~ , wit",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 723
  }
 ]

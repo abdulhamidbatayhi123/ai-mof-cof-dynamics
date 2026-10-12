@@ -337,6 +337,30 @@ REFS = [
         pages="42159--42191", year="2024", eprint="2402.01868", archiveprefix="arXiv"),
      "The Adam-then-L-BFGS polish (Q4). Full names and pages from the PMLR v235 page and the "
      "arXiv record (2026-10-11); PMLR issues no DOI.", False),
+    ("lu2021learning", V, "article", dict(
+        author="Lu Lu and Pengzhan Jin and Guofei Pang and Zhongqiang Zhang and "
+               "George Em Karniadakis",
+        title="Learning nonlinear operators via {DeepONet} based on the universal "
+              "approximation theorem of operators",
+        journal="Nature Machine Intelligence", volume="3", number="3", pages="218--229",
+        year="2021", doi="10.1038/s42256-021-00302-5"),
+     "The original DeepONet. Crossref record read 2026-10-12.", False),
+    ("li2021fourier", V, "inproceedings", dict(
+        author="Zongyi Li and Nikola Kovachki and Kamyar Azizzadenesheli and Burigede Liu and "
+               "Kaushik Bhattacharya and Andrew Stuart and Anima Anandkumar",
+        title="Fourier neural operator for parametric partial differential equations",
+        booktitle="International Conference on Learning Representations (ICLR 2021)",
+        year="2021", eprint="2010.08895", archiveprefix="arXiv"),
+     "The original FNO. Authors from the arXiv record, venue from the ICLR 2021 poster page "
+     "(iclr.cc, 2026-10-12); ICLR 2021 has no paginated proceedings and no DOI.", False),
+    ("liu2025kan", V, "inproceedings", dict(
+        author="Ziming Liu and Yixuan Wang and Sachin Vaidya and Fabian Ruehle and "
+               "James Halverson and Marin Solja{\\v{c}}i{\\'c} and Thomas Y. Hou and Max Tegmark",
+        title="{KAN}: {Kolmogorov--Arnold} networks",
+        booktitle="International Conference on Learning Representations (ICLR 2025)",
+        pages="70367--70413", year="2025", eprint="2404.19756", archiveprefix="arXiv"),
+     "The original KAN. Authors from the arXiv record; venue and pages from the "
+     "proceedings.iclr.cc citation metadata (2026-10-12); no DOI.", False),
 
     # -------------------------------------------------------- the critique literature
     ("mcgreivy2024weak", V, "article", dict(
@@ -500,7 +524,7 @@ REFS = [
     ("ohlberger2016reduced", V, "inproceedings", dict(
         author="Mario Ohlberger and Stephan Rave",
         title="Reduced basis methods: success, limitations and future challenges",
-        booktitle="Proceedings of ALGORITMY 2016", pages="1--12", year="2016",
+        booktitle="Proceedings of the Conference Algoritmy 2016", pages="1--12", year="2016",
         eprint="1511.02021", archiveprefix="arXiv"),
      "B47: THIS is the slow-n-width citation, not their 2013 paper. It proves a LOWER bound "
      "d_N >= (1/2) N^-1/2 -- write 'decays no faster than', never 'decays like'.", False),

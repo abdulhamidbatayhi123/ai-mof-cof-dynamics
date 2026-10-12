@@ -99,7 +99,7 @@ surrogate model
 
 A surrogate built on a reduced basis, whether a non-intrusive reduced-order model with a
 learned parameter-to-coefficient map \cite{hesthaven2018non} or a neural operator with a
-linear reconstruction \cite{lanthaler2023nonlinear}, has two sources of error on a
+linear reconstruction \cite{lanthaler2023nonlinear} such as DeepONet \cite{lu2021learning}, has two sources of error on a
 parameter set it has not seen: the basis, which bounds how well any field can be
 represented, and the map from parameters to the coefficients. Which of the two binds
 decides where a method developer's effort pays, and it is rarely measured. We measure it
@@ -149,7 +149,7 @@ air; eleven parameters (Section~\ref{sec:methods}) describe the adsorbent, the b
 the operating condition. \textbf{B}~One stored solver field of the larger dataset,
 \(c/c_{\mathrm{in}}\) over position and time, chosen by a fixed rule (the clearest
 complete two-front breakthrough). \textbf{C}~Its outlet curve: a fast front on the
-Henry branch, a slow rise, and the sharp cooperative pore-filling front. A surrogate
+Henry branch (the near-linear, low-humidity part of the isotherm), a slow rise, and the sharp cooperative pore-filling front. A surrogate
 must reproduce such fields for an adsorbent it has never seen. \textbf{D--F}~How a
 template model builds a field, on the legacy dataset (Section~\ref{sec:mechanism}).
 \textbf{D}~The first three stored templates (POD modes of
@@ -158,7 +158,8 @@ its true weights. \textbf{F}~The same templates with weights learned from the ma
 parameters by gradient boosting, for a material the model never saw; the field shown is
 the held-out case of median error. Over all \nSchemNheld\ held-out fields the error is
 \nSchemTruePct\,\% with perfect weights and \nSchemLearnPct\,\% with learned ones: the
-recipe for the weights, not the templates, limits accuracy. \(c\), \(q\) and \(T\) are
+recipe for the weights, not the templates, limits accuracy. Panels D--F share the axes
+of B, and E and F its colour scale; in D, red is positive and blue negative. \(c\), \(q\) and \(T\) are
 the gas-phase water concentration, the adsorbed loading and the temperature; RH, relative
 humidity; \(v\), superficial velocity.}
 \label{fig:schematic}
@@ -207,7 +208,7 @@ the map rather than the basis. How a neural operator relates to its own discreti
 term in the optimal POD basis (equation~\eqref{eq:split}), applicable to any non-intrusive
 reduced-order model with a linear reconstruction and calibrated, through an oracle given
 the exact coefficients, as an equivalent mode count for gradient-boosting, DeepONet,
-DeepOKAN and Fourier-operator surrogates (Section~\ref{sec:mechanism}); because the basis
+DeepOKAN \cite{abueidda2025deepokan} and Fourier-operator \cite{li2021fourier} surrogates (Section~\ref{sec:mechanism}); because the basis
 is the optimal one, the conclusion cannot depend on the basis any method learned.
 \item A pre-registered test protocol for parametric surrogates: seven named candidate
 explanations of the transfer error, each with its eliminating evidence declared before
@@ -435,7 +436,7 @@ pressure.
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig7_anchor.pdf}
-\caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. Data of Lassitter and co-workers~\cite{lassitter2024mass} (their Fig.~10, digitised): a \nAnchorBedLenMm\,mm bed fed at \nAnchorRH\,\% relative humidity and \nAnchorTK\,K. Blue: the pre-registered primary run with the cited MOF-303 parameters. Grey: the pre-declared band over the quantities the source does not give (the kinetic constant \(k\), the pellet size \(d_p\) that sets dispersion, and the thermal coupling). Dashed: the authors' COMSOL model, whose kinetics they fitted. The measured effluent shows an early leak, from uptake on the low-humidity (primary) sites, to an intermediate plateau near \nAnchorPlateauExp{} of the feed, then a cooperative shock much later in the run. This is the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed about \nAnchorPelletsDeep{} pellets deep.}
+\caption{The reference solver against a published MOF-303 packed bed, with no parameter fitted to the curve. Data of Lassitter and co-workers~\cite{lassitter2024mass} (their Fig.~10, digitised): a \nAnchorBedLenMm\,mm bed fed at \nAnchorRH\,\% relative humidity and \nAnchorTK\,K. Blue: the pre-registered primary run with the cited MOF-303 parameters. Grey lines: pre-declared variants of the quantities the source does not give (the kinetic constant \(k\), the pellet size \(d_p\) that sets dispersion, and the thermal coupling). Dashed: the authors' COMSOL model, whose kinetics they fitted. Circles and squares: the measured outlet and inlet. The measured effluent shows an early leak, from uptake on the low-humidity (primary) sites, to an intermediate plateau near \nAnchorPlateauExp{} of the feed, then a cooperative shock much later in the run. This is the two-wave structure of Section~\ref{sec:physics}, in a real bed at conditions that are fully on record. The two named discrepancies are visible: the modelled first wave arrives far too early, which the isotherm's low-humidity branch sets, and the shock is too dispersed, which the axial-dispersion closure sets on a bed about \nAnchorPelletsDeep{} pellets deep.}
 \label{fig:anchor}
 \end{figure}
 
@@ -480,7 +481,7 @@ not satisfy.
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig2_dataset.pdf}
-\caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, one point per material, by split. \textbf{B}~Damk\"ohler number per material (the median over its conditions), the axis rung L6's primary estimand is regressed on, with the informative band of Section~\ref{sec:dataset}. \textbf{C}~The accessible Henry region per material: Henry's law holds for every material, and the region over which it dominates does not (B57); \(K_H\) is the Henry constant of equation~\eqref{eq:isotherm}.}
+\caption{Materials, Damk\"ohler range and Henry region of the larger dataset. \textbf{A}~The material space, one point per material, by split. \textbf{B}~Damk\"ohler number per material (the median over its conditions), the axis rung L6's primary estimand is regressed on, with the informative band of Section~\ref{sec:dataset}; held-out materials are drawn as an outline. \textbf{C}~The accessible Henry region per material, its top being the largest concentration at which the cooperative term still contributes a negligible share of the loading, shown relative to the median feed (dashed line: \(10^{-3}\) of the feed): Henry's law holds for every material, and the region over which it dominates does not (B57); \(K_H\) is the Henry constant of equation~\eqref{eq:isotherm}.}
 \label{fig:dataset}
 \end{figure}
 
@@ -695,7 +696,7 @@ dataset, in field encoding, in what is scored (the whole field, a time window or
 outlet curve) and in held-out set. Only paired comparisons within a rung are
 inferential, and Table~\ref{tab:rungs} states each rung's encoding so that no
 cross-rung reading is made by accident. The one exception is stated where it is used
-(Section~\ref{sec:cost}): L5's operators and the coordinate change share a split, an
+(Section~\ref{sec:warp}): L5's operators and the coordinate change share a split, an
 encoding and a metric, so their absolute errors are comparable.
 
 \begin{sidewaystable}
@@ -720,7 +721,7 @@ L2 & larger, five-fold & as L1 &
 perceptron width and depth, boosting depth, forest leaf size, swept in both directions & as L1 \\
 L3 & legacy &
 parameters \(\to\) POD coefficients; full stored field &
-perceptron and two Kolmogorov--Arnold families (Gaussian radial basis, Chebyshev), depth \nMthThreeDepth, matched to \nMthThreeBudgets\ parameters; widths \nMthThreeWidths &
+perceptron and two Kolmogorov--Arnold \cite{liu2025kan} families (Gaussian radial basis, Chebyshev), depth \nMthThreeDepth, matched to \nMthThreeBudgets\ parameters; widths \nMthThreeWidths &
 Adam, cosine schedule, \nMthThreeSteps\ steps, per-family learning-rate grid \\
 L4 & larger; time axis and single split &
 (parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head &
@@ -766,11 +767,13 @@ the count of comparisons that survive selection. Dashed ticks mark a minimum
 detectable effect where the rung's analysis reports one; for each null the text
 states what its interval excludes. The physics-as-a-loss row is the corrected re-run
 (B72), material axis; the L5 basis row is the \nNclustFolds-material re-measurement
-(A29). The oracle arm is drawn hollow because it is handed the answer and is an upper
+(A29). The last two rows are the two-front frame of Section~\ref{sec:warp}, with
+predicted and with true front trajectories, against the fixed frame. The oracle arm is
+drawn hollow because it is handed the answer and is an upper
 bound, not a comparable result. \textbf{B}~The primary pre-registered estimand of
 rung L6, in its own units: the per-material difference between separate and joint
 heads against Damk\"ohler number, with the fitted slope and its interval; H1 is the
-hypothesis L6 tests. KAN, Kolmogorov--Arnold network; FNO, Fourier neural operator;
+hypothesis L6 tests. MLP, multilayer perceptron; KAN, Kolmogorov--Arnold network; FNO, Fourier neural operator;
 MDE, minimum detectable effect at 80\,\% power; CI, confidence interval; nRMSE,
 normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \label{fig:ladder}
@@ -876,7 +879,8 @@ same comparison (best configuration against the best L1 arm, there gradient
 boosting) gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
 near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is
 eight. The earlier sentence ``capacity is irrelevant'' was scoped to a material count
-without saying so, and is withdrawn as A26. The wall stands: the best fixed-basis
+without saying so, and is withdrawn as A26. The wall, the gap between the best
+surrogate and the basis floor, stands: the best fixed-basis
 surrogate still sits \(\nLtwoXfloor\times\) above the floor.
 
 What changes with the material count is \emph{which} configuration is best, not that
@@ -888,7 +892,7 @@ diagnosis rests on the learning curve of L1.
 \subsection{L3: a better basis}
 
 At matched parameter counts and each family at its own best learning rate, the
-multilayer perceptron beats both Kolmogorov--Arnold families at every budget:
+multilayer perceptron beats both Kolmogorov--Arnold network \cite{liu2025kan} families at every budget:
 \nLthreeSigPair\ of the \nLthreePairs\ pairwise comparisons are significant as pairs, and
 \nLthreeSigSim\ remain significant once both learning-rate choices are paid for with one
 simultaneous interval over all \nLthreeSelK\ pairs (Section~\ref{sec:limitations}); in
@@ -1014,8 +1018,9 @@ binds. The legacy verdict below is retracted as a small-design artefact (A29).
 \paragraph{On the legacy design (retracted as a verdict; kept as a measurement)} At
 matched parameter counts DeepONet looked flat in basis size on the legacy design
 (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\), interval
-[\nLfiveFlatLo, \nLfiveFlatHi]. The larger design then found an improvement well inside
-the bound that interval left, which is why a null on \nNclustLegacy\ held-out
+[\nLfiveFlatLo, \nLfiveFlatHi]: a sixteenfold larger basis could have improved this arm
+by at most \nLfiveFlatImproveMax\,\% of its error. The larger design then found an
+improvement well inside that bound, which is why a null on \nNclustLegacy\ held-out
 materials could not be the last word (A29). \emph{The best DeepONet found anywhere,
 at the smallest basis, is as accurate as an oracle handed the true coefficients of
 its first \nLfiveOracleONet\ modes.} The tuning checks are in Supplementary S2,
@@ -1137,9 +1142,10 @@ fast kinetics.
 learning-curve learner (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor
 per mode). \textbf{A}~Held-out \(R^2\) of the map from material parameters to each of
 the first POD coefficients, one curve per number of training materials: the leading
-modes are learned first, and every increase in training materials lifts every mode.
-\textbf{B}~The number of modes whose map reaches \(R^2 > 0.2\) against the number of
-training materials, still rising at the largest size affordable.}
+modes are learned first, and each increase in training materials lifts nearly every
+mode. \textbf{B}~The number of modes whose map reaches \(R^2 > 0.2\) (solid) and
+\(R^2 > 0.5\) (dashed) against the number of training materials, still rising at the
+largest size affordable.}
 \label{fig:mechanism}
 \end{figure}
 
@@ -1189,7 +1195,9 @@ Figure~\ref{fig:operators}B), the basis floor falls from \nLfiveVtwoFloorSmall\ 
 error moves from \nLfiveVtwoCoefSmall\ to \nLfiveVtwoCoefLarge, \nLfiveVtwoCoefChangePct\,\%
 of itself (computed before rounding; interval [\nLfiveVtwoCoefLo, \nLfiveVtwoCoefHi]):
 statistically resolved and immaterial. At the largest basis the map predicts about
-\nLfiveVtwoModes\ modes on held-out materials, and DeepONet sits
+\nLfiveVtwoModes\ modes on held-out materials (the learning-curve learner, on its own
+\nLCpField-mode basis, clears \nLCmodesLarge\ at the same 192 training materials;
+Supplementary S2, Section S7), and DeepONet sits
 \(\nLfiveVtwoXfloorHigh\times\) above the floor.
 
 \paragraph{The mode count is scoped to a sample size} The number of modes a learner
@@ -1464,8 +1472,9 @@ high-particle-P\'eclet limit of Edwards and Richardson's correlation
 \cite{edwards1968gas}, a form due to Wakao and Funazkri \cite{wakao1978effect} that
 Perry's handbook \cite{levan2019adsorption} presents as a lower bound for nonporous
 particles. Across the dataset the full and truncated forms differ by a median factor
-of \nDispRatioMed; on the anchor bed, at a particle P\'eclet number of
-\nAnchorPePart, the truncation removes \nAnchorTcutPct\,\% of the model's excess
+of \nDispRatioMed; on the anchor bed, at a particle P\'eclet number
+\(d_p u/D_m\) of \nAnchorPePart\ (\(u\), interstitial velocity; \(D_m\), molecular
+diffusivity), using the full form instead removes \nAnchorTcutPct\,\% of the model's excess
 95\,\% arrival time in a labelled post-hoc sensitivity (Supplementary S2, Section S9
 and Figure S2). No surrogate result depends on it, because every arm sees the same
 reference.

@@ -64,7 +64,7 @@ _ALLOWED_PAIRS = [
     # and is now the macro \nGates, read from results/validation.json
     ("1", "ordinal / unity; the 1 of 1 - eps_t and 1 + b c in the model equations; unit exponents such as s^-1"),
     ("2", "ordinal / a term count; squares, square roots and radii (d_p/2) in the model equations and units; chemical-formula subscripts (Co_2Cl_2)"),
-    ("3", "seed count and ordinal; the cube in density units (kg m^-3)"),
+    ("3", "seed count and ordinal; the cube in density units (kg m^-3); the exponent of the 10^-3-of-feed Henry-region threshold drawn in the dataset figure"),
     ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in; the 4pt column gap of Table 3"),
     ("5", "ordinal / fold count; the exponent of 1e-5 diffusivities, read from code via macros for the mantissa; the lower edge of the informative Damkohler band, a threshold declared in PREREG_L6_v2"),
     ("10", "a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}; the source figure number of the anchor data (Lassitter et al., Fig. 10)"),
@@ -85,7 +85,7 @@ _ALLOWED_PAIRS = [
     ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
     ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
-    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
+    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel B"),
     ("95", "the 95 % crossing, which DEFINES the t95 breakthrough time"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
@@ -114,10 +114,10 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 3, "0.5": 1, "0.7": 1, "1": 24, "2": 27,
-    "3": 2, "4": 4, "5": 4, "8": 7, "10": 10, "12": 7, "16": 3,
+    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 3, "0.5": 2, "0.7": 1, "1": 24, "2": 28,
+    "3": 3, "4": 4, "5": 4, "8": 7, "10": 11, "12": 7, "16": 3,
     "20": 1, "24": 1, "48": 4, "50": 2, "60": 2, "64": 1, "76": 1, "79": 1, "80": 4,
-    "95": 1, "96": 3, "99.9": 2, "128": 6, "192": 10, "240": 2, 
+    "95": 1, "96": 3, "99.9": 2, "128": 6, "192": 11, "240": 2, 
     "1953": 1, "15": 1,
     "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
 }
