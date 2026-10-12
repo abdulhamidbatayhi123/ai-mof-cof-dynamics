@@ -135,12 +135,19 @@ identification shows noise- and sparsity-induced phase transitions \citep{klishi
 When trajectories cross time-scale regimes, SINDy fails to find a single global model
 \citep{muhammed2025}. Stiffness and timescale separation break rate-law discovery in
 chemical kinetics \citep{prabhu2025,huang2021}. Collinear library functionals make the
-discovered model non-unique \citep{delahunt2021}. One benchmark points the other way: on
-attractor-filling chaotic data, SINDy performance showed no significant dependence on
-scale separation \citep{kaptanoglu2023}. Breakthrough data differ from that setting. A
-breakthrough run is a transient single trajectory confined near the slow manifold $q
-\approx \qs(c,T)$, the setting of \citep{stanhope2014,gallo2026,delgado2025}. The design
-measures this confinement directly through library conditioning (Methods,
+discovered model non-unique \citep{delahunt2021}. Three results set general limits. Learning
+a closed-form model from noisy data has a phase transition: above a noise level, no method
+can recover the true model \citep{fajardo2023}. Weak-form SINDy has its own critical noise
+level \citep{messenger2024}. And a system's equations can be uniquely recovered from a
+trajectory only under strong conditions, which chaos satisfies; non-chaotic dynamics and
+dynamics with conserved quantities generally do not \citep{shumaylov2025}. Benchmarks on
+attractor-filling chaotic data, where SINDy's performance showed no significant dependence on
+scale separation \citep{kaptanoglu2023}, are therefore the easy case. A breakthrough run is
+the hard one: a transient, non-chaotic single trajectory that settles onto the slow manifold
+$q \approx \qs(c,T)$, the setting of \citep{stanhope2014,gallo2026,delgado2025}. These
+results say that discovery must fail somewhere for such data; none says where, for which
+methods, or how that compares with what classical identifiability already predicts. The
+design measures the confinement directly through library conditioning (Methods,
 \S\ref{sec:mech}).
 
 \subsection*{Prior equation discovery for adsorption}
@@ -164,7 +171,7 @@ surrogates infer the isotherm from column dynamics \citep{praditia2022,subraveti
 Bootstrap confidence intervals then reveal distinct learned sorption closures with similar
 predictions, which is practical non-identifiability of a learned closure
 \citep{scheurer2026}. Symbolic regression has rediscovered isotherms
-\citep{haghpanah2023,sharlin2024,cornelio2021,fox2023}. Kinetic rate-law discovery by
+\citep{haghpanah2023,sharlin2024,cornelio2023,fox2023}. Kinetic rate-law discovery by
 symbolic regression with information criteria and design of experiments exists for batch
 catalysis \citep{servia2024,servia2025}. Function-level identifiability of UDEs has been
 separated from parametric identifiability \citep{loman2025}, and statistical tests have
@@ -179,12 +186,18 @@ the regime question is open.
 
 For metal--organic framework (MOF) water sorption the gap is sharper. Water uptake on
 MOF-303 has been fitted with an LDF model by hand, and the specific diffusion rate falls
-markedly where the isotherm inflects \citep{abuelmaaty2024}. For flexible MOFs, the
-kinetics of adsorption-induced structural transitions were resolved by time-resolved
-diffraction and a hand-built model, and found to depend strongly on the framework
-\citep{sakanaka2023}. A loading-dependent $k(q)$ at an isotherm step is an untested
-discovery target. A 2026 Perspective on AI for MOF water
-harvesting does not mention kinetics discovery in its abstract \citep{coyle2026}.
+markedly where the isotherm inflects \citep{abuelmaaty2024}. Frequency-response
+measurements explain why: in MOF-303 the water diffusion rate passes through a minimum at
+the steep step of the isotherm, because the isotherm's slope changes there, not because the
+molecules move more slowly, and the LDF approximation is least accurate exactly at the step
+\citep{lassitter2024,hastings2024}. At high humidity water also condenses into clusters
+before it diffuses, which a two-concentration model describes better than LDF
+\citep{ma2025}. For
+flexible MOFs, the kinetics of adsorption-induced structural transitions were resolved by
+time-resolved diffraction and a hand-built model, and found to depend strongly on the
+framework \citep{sakanaka2023}. A loading-dependent $k(q)$ at an isotherm step is therefore
+real, measured by hand, and an untested target for discovery. A 2026 Perspective on AI for
+MOF water harvesting does not mention kinetics discovery in its abstract \citep{coyle2026}.
 
 \subsection*{What this study adds}
 Three things are new, if the hypotheses survive. The first is a quantitative
@@ -1183,10 +1196,24 @@ discovery method. ODR-BINDy and WENDy are written for autonomous systems and wil
 reported only on their own examples. M7 passed its inclusion gate. M8 fails its
 known-answer test and is not run on the grid by its cost gate, measured on a shared
 machine. Each will be reported in those terms. Lib-B is smaller than first planned, so the
-boundaries are optimistic with respect to library size. Two methods recommended by our
-literature review are not in the competitor set: physics-constrained weak-form symbolic
-regression \citep{servia2024,servia2025} and partitioning by time-scale regime
-\citep{muhammed2025}. Their absence is a limitation, not a finding.
+boundaries are optimistic with respect to library size. Several methods are not in the
+competitor set: physics-constrained weak-form symbolic regression
+\citep{servia2024,servia2025}, partitioning by time-scale regime \citep{muhammed2025},
+Bayesian identification by reversible-jump sampling \citep{champneys2025}, the
+maximum-likelihood extension of WENDy \citep{rummel2025}, and parallel symbolic enumeration
+\citep{ruan2025}. ``Strongest configuration'' therefore means the strongest configuration of
+each method compared, not the strongest method that exists. Their absence is a limitation,
+not a finding.
+\item \emph{The MOF case.} The true law L2 lets the rate fall across the isotherm step and
+stay low. In MOF-303 the measured rate has a minimum at the step, set by the isotherm's slope,
+and the LDF form itself is least accurate there \citep{lassitter2024,hastings2024}. L2 is
+therefore a simplified, monotone stand-in for that behaviour, and the physically natural
+target, a rate tied to the isotherm's slope, cannot be expressed in Lib-B. H2d is
+exploratory for these reasons.
+\item \emph{Interior measurements.} O1 assumes the solid loading is measured inside the bed.
+That is demanding but no longer hypothetical: X-ray computed tomography has imaged the
+adsorbed phase inside a breakthrough column \citep{buchner2026}. Designing such experiments
+for identifiability \citep{wang2022pyomo} is outside this study.
 \item \emph{Axis choice.} $\Da$ may not be the right single axis \citep{hansen2017,
 miyabe2000}. That is why $\Pe$ and isotherm shape are axes and why H2a is stated in terms
 of $R$.
@@ -1449,7 +1476,6 @@ This work received no specific funding.
 
 \bibitem{sharlin2024} Samiha Sharlin, Tyler R. Josephson, In Context Learning and Reasoning for Symbolic Regression with Large Language Models, arXiv preprint arXiv:2410.17448 (2024). \href{https://arxiv.org/abs/2410.17448}{arXiv:2410.17448}.
 
-\bibitem{cornelio2021} Cristina Cornelio, Sanjeeb Dash, Vernon Austel, Tyler Josephson, Joao Goncalves, Kenneth Clarkson, Nimrod Megiddo, Bachir El Khadir, Lior Horesh, AI Descartes: Combining Data and Theory for Derivable Scientific Discovery, arXiv preprint arXiv:2109.01634 (2021). \href{https://arxiv.org/abs/2109.01634}{arXiv:2109.01634}.
 
 \bibitem{fox2023} Charles Fox, Neil Tran, Nikki Nacion, Samiha Sharlin, Tyler R. Josephson, Incorporating background knowledge in symbolic regression using a computer algebra system, Machine Learning: Science and Technology, vol. 5, 025057 (2024). \href{https://doi.org/10.1088/2632-2153/ad4a1e}{doi:10.1088/2632-2153/ad4a1e}; \href{https://arxiv.org/abs/2301.11919}{arXiv:2301.11919}.
 
@@ -1483,6 +1509,29 @@ This work received no specific funding.
 \bibitem{golub1980} Gene H. Golub, Charles F. Van Loan, An analysis of the total least squares problem, SIAM Journal on Numerical Analysis, vol. 17(6), 883-893 (1980). \href{https://doi.org/10.1137/0717073}{doi:10.1137/0717073}.
 
 \bibitem{golub1987} G. H. Golub, Alan Hoffman, G. W. Stewart, A generalization of the Eckart-Young-Mirsky matrix approximation theorem, Linear Algebra and its Applications, vol. 88-89, 317-327 (1987). \href{https://doi.org/10.1016/0024-3795(87)90114-5}{doi:10.1016/0024-3795(87)90114-5}.
+\bibitem{fajardo2023} Oscar Fajardo-Fontiveros, Ignasi Reichardt, Harry R. De Los R\'{i}os, Jordi Duch, Marta Sales-Pardo, Roger Guimer\`{a}, Fundamental limits to learning closed-form mathematical models from data, Nature Communications, vol. 14, 1043 (2023). \href{https://doi.org/10.1038/s41467-023-36657-z}{doi:10.1038/s41467-023-36657-z}.
+
+\bibitem{messenger2024} Daniel A Messenger, David M Bortz, Asymptotic consistency of the WSINDy algorithm in the limit of continuum data, IMA Journal of Numerical Analysis, vol. 45, 3264--3312 (2025). \href{https://doi.org/10.1093/imanum/drae086}{doi:10.1093/imanum/drae086}.
+
+\bibitem{hastings2024} Jon Hastings, Thomas Lassitter, Zhiling Zheng, Saumil Chheda, J. Ilja Siepmann, Laura Gagliardi, Omar M. Yaghi, T. Grant Glover, High-Temperature Water Adsorption Isotherms and Ambient Temperature Water Diffusion Rates on Water Harvesting Metal--Organic Frameworks, The Journal of Physical Chemistry C, vol. 128, 11328--11339 (2024). \href{https://doi.org/10.1021/acs.jpcc.4c01733}{doi:10.1021/acs.jpcc.4c01733}.
+
+\bibitem{lassitter2024} Thomas Lassitter, Nikita Hanikel, Dennis J. Coyle, Mohammad I. Hossain, Bryce Lipinski, Michael O'Brien, David B. Hall, Jon Hastings, Juan Borja, Travis O'Neil, S. Ephraim Neumann, David R. Moore, Omar M. Yaghi, T. Grant Glover, Mass transfer in atmospheric water harvesting systems, Chemical Engineering Science, vol. 285, 119430 (2024). \href{https://doi.org/10.1016/j.ces.2023.119430}{doi:10.1016/j.ces.2023.119430}.
+
+\bibitem{ma2025} Chunye Ma, Jiawang Li, Guang Wang, Zhigang Li, Wei Su, Yanguang Zhou, Microscopic Kinetics of Water Adsorption in Metal--Organic Frameworks, Nano Letters, vol. 25, 5778--5783 (2025). \href{https://doi.org/10.1021/acs.nanolett.5c00343}{doi:10.1021/acs.nanolett.5c00343}.
+
+\bibitem{champneys2025} Max D. Champneys, Timothy J. Rogers, BINDy: Bayesian identification of nonlinear dynamics with reversible-jump Markov-chain Monte Carlo, Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences, vol. 481, 20240620 (2025). \href{https://doi.org/10.1098/rspa.2024.0620}{doi:10.1098/rspa.2024.0620}.
+
+\bibitem{ruan2025} Kai Ruan, Yilong Xu, Ze-Feng Gao, Yang Liu, Yike Guo, Ji-Rong Wen, Hao Sun, Discovering physical laws with parallel symbolic enumeration, Nature Computational Science, vol. 6, 53--66 (2025). \href{https://doi.org/10.1038/s43588-025-00904-8}{doi:10.1038/s43588-025-00904-8}.
+
+\bibitem{buchner2026} David B\"{u}chner, Ronny Pini, Unary and Binary Dynamic Column Breakthrough Experiments with Carbon Dioxide and Nitrogen Imaged by X-ray Computed Tomography, Langmuir, vol. 42, 14716--14732 (2026). \href{https://doi.org/10.1021/acs.langmuir.6c00250}{doi:10.1021/acs.langmuir.6c00250}.
+
+\bibitem{wang2022pyomo} Jialu Wang, Alexander W. Dowling, Pyomo.DOE: An open-source package for model-based design of experiments in Python, AIChE Journal, vol. 68, e17813 (2022). \href{https://doi.org/10.1002/aic.17813}{doi:10.1002/aic.17813}.
+
+\bibitem{cornelio2023} Cristina Cornelio, Sanjeeb Dash, Vernon Austel, Tyler R. Josephson, Joao Goncalves, Kenneth L. Clarkson, Nimrod Megiddo, Bachir El Khadir, Lior Horesh, Combining data and theory for derivable scientific discovery with AI-Descartes, Nature Communications, vol. 14, 1777 (2023). \href{https://doi.org/10.1038/s41467-023-37236-y}{doi:10.1038/s41467-023-37236-y}.
+
+\bibitem{shumaylov2025} Zakhar Shumaylov, Peter Zaika, Philipp Scholl, Gitta Kutyniok, Lior Horesh, Carola-Bibiane Sch\"{o}nlieb, When is a System Discoverable from Data? Discovery Requires Chaos, arXiv preprint arXiv:2511.08860 (2025). \href{https://arxiv.org/abs/2511.08860}{arXiv:2511.08860}.
+
+\bibitem{rummel2025} Nic Rummel, Daniel A. Messenger, Stephen Becker, Vanja Dukic, David M. Bortz, WENDy for Nonlinear-in-Parameters ODEs, arXiv preprint arXiv:2502.08881 (2025). \href{https://arxiv.org/abs/2502.08881}{arXiv:2502.08881}.
 \end{thebibliography}
 
 \end{document}

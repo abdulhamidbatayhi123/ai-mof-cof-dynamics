@@ -1,8 +1,8 @@
 {
  "source": "paper2/stage1.tex",
- "fetched_utc": "2026-10-12T08:57:03Z",
- "n_entries": 56,
- "n_with_issues": 2,
+ "fetched_utc": "2026-10-12T16:05:08Z",
+ "n_entries": 67,
+ "n_with_issues": 3,
  "entries": {
   "brunton2016": {
    "dois": [
@@ -931,23 +931,6 @@
    "published_version": null,
    "status": "OK"
   },
-  "cornelio2021": {
-   "dois": [],
-   "arxiv": [
-    {
-     "id": "2109.01634",
-     "record": {
-      "title": "AI Descartes: Combining Data and Theory for Derivable Scientific Discovery",
-      "first_author": "Cristina Cornelio",
-      "doi": null,
-      "journal_ref": null
-     },
-     "issues": []
-    }
-   ],
-   "published_version": null,
-   "status": "OK"
-  },
   "fox2023": {
    "dois": [
     {
@@ -1209,9 +1192,9 @@
   "paper1": {
    "dois": [
     {
-     "doi": "10.5281/zenodo.23305298",
+     "doi": "10.5281/zenodo.23312204",
      "registry": {
-      "title": "Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents",
+      "title": "Code, results and pre-registrations for: The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents",
       "first_author": "Batayhi",
       "year": 2026,
       "venue": "Zenodo",
@@ -1220,7 +1203,7 @@
       "type": "datacite:Software"
      },
      "issues": [
-      "title: registry 'Code, results and pre-registrations for: Basis or map? A pre-registered decomposition of the error of reduced-order and neural-operator surrogates of non-isothermal adsorption columns on unseen adsorbents'"
+      "title: registry 'Code, results and pre-registrations for: The coefficient map, not the basis: what limits neural-operator and reduced-order surrogates on unseen adsorbents'"
      ]
     }
    ],
@@ -1316,6 +1299,242 @@
     }
    ],
    "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "fajardo2023": {
+   "dois": [
+    {
+     "doi": "10.1038/s41467-023-36657-z",
+     "registry": {
+      "title": "Fundamental limits to learning closed-form mathematical models from data",
+      "first_author": "Fajardo-Fontiveros",
+      "year": 2023,
+      "venue": "Nature Communications",
+      "volume": "14",
+      "page": "1043",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "messenger2024": {
+   "dois": [
+    {
+     "doi": "10.1093/imanum/drae086",
+     "registry": {
+      "title": "Asymptotic consistency of the WSINDy algorithm in the limit of continuum data",
+      "first_author": "Messenger",
+      "year": 2025,
+      "venue": "IMA Journal of Numerical Analysis",
+      "volume": "45",
+      "page": "3264-3312",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "hastings2024": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.jpcc.4c01733",
+     "registry": {
+      "title": "High-Temperature Water Adsorption Isotherms and Ambient Temperature Water Diffusion Rates on Water Harvesting Metal–Organic Frameworks",
+      "first_author": "Hastings",
+      "year": 2024,
+      "venue": "The Journal of Physical Chemistry C",
+      "volume": "128",
+      "page": "11328-11339",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "lassitter2024": {
+   "dois": [
+    {
+     "doi": "10.1016/j.ces.2023.119430",
+     "registry": {
+      "title": "Mass transfer in atmospheric water harvesting systems",
+      "first_author": "Lassitter",
+      "year": 2024,
+      "venue": "Chemical Engineering Science",
+      "volume": "285",
+      "page": "119430",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "ma2025": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.nanolett.5c00343",
+     "registry": {
+      "title": "Microscopic Kinetics of Water Adsorption in Metal–Organic Frameworks",
+      "first_author": "Ma",
+      "year": 2025,
+      "venue": "Nano Letters",
+      "volume": "25",
+      "page": "5778-5783",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "champneys2025": {
+   "dois": [
+    {
+     "doi": "10.1098/rspa.2024.0620",
+     "registry": {
+      "title": "BINDy: Bayesian identification of nonlinear dynamics with reversible-jump Markov-chain Monte Carlo",
+      "first_author": "Champneys",
+      "year": 2025,
+      "venue": "Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+      "volume": "481",
+      "page": "20240620",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "ruan2025": {
+   "dois": [
+    {
+     "doi": "10.1038/s43588-025-00904-8",
+     "registry": {
+      "title": "Discovering physical laws with parallel symbolic enumeration",
+      "first_author": "Ruan",
+      "year": 2025,
+      "venue": "Nature Computational Science",
+      "volume": "6",
+      "page": "53-66",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "buchner2026": {
+   "dois": [
+    {
+     "doi": "10.1021/acs.langmuir.6c00250",
+     "registry": {
+      "title": "Unary and Binary Dynamic Column Breakthrough Experiments with Carbon Dioxide and Nitrogen Imaged by X-ray Computed Tomography",
+      "first_author": "Büchner",
+      "year": 2026,
+      "venue": "Langmuir",
+      "volume": "42",
+      "page": "14716-14732",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "wang2022pyomo": {
+   "dois": [
+    {
+     "doi": "10.1002/aic.17813",
+     "registry": {
+      "title": "<scp>Pyomo.DOE</scp>\n                    : An open‐source package for model‐based design of experiments in Python",
+      "first_author": "Wang",
+      "year": 2022,
+      "venue": "AIChE Journal",
+      "volume": "68",
+      "page": "e17813",
+      "type": "journal-article"
+     },
+     "issues": [
+      "title: registry '<scp>Pyomo.DOE</scp>\n                    : An open‐source package for model‐based design of experiments in Python'"
+     ]
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "ISSUES"
+  },
+  "cornelio2023": {
+   "dois": [
+    {
+     "doi": "10.1038/s41467-023-37236-y",
+     "registry": {
+      "title": "Combining data and theory for derivable scientific discovery with AI-Descartes",
+      "first_author": "Cornelio",
+      "year": 2023,
+      "venue": "Nature Communications",
+      "volume": "14",
+      "page": "1777",
+      "type": "journal-article"
+     },
+     "issues": []
+    }
+   ],
+   "arxiv": [],
+   "published_version": null,
+   "status": "OK"
+  },
+  "shumaylov2025": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2511.08860",
+     "record": {
+      "title": "When is a System Discoverable from Data? Discovery Requires Chaos",
+      "first_author": "Zakhar Shumaylov",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
+   "published_version": null,
+   "status": "OK"
+  },
+  "rummel2025": {
+   "dois": [],
+   "arxiv": [
+    {
+     "id": "2502.08881",
+     "record": {
+      "title": "WENDy for Nonlinear-in-Parameters ODEs",
+      "first_author": "Nic Rummel",
+      "doi": null,
+      "journal_ref": null
+     },
+     "issues": []
+    }
+   ],
    "published_version": null,
    "status": "OK"
   }
