@@ -79,14 +79,18 @@ def run_o3(man):
             import copy
             phys_obs = copy.copy(phys)
             phys_obs.qstar_fn = obs["qstar_meas"]
-            lo, hi = profile_interval_outlet(phys_obs, rec["c_in"], obs["t"], obs["channels"]["c"][0],
-                                             obs["channels"]["T"][0], sigma_c=max(sigma, 1e-4) * rng_c,
-                                             sigma_T=max(sigma, 1e-4) * rng_T, n_z=100)
-            res["rows"][key] = {"lo": lo, "hi": hi, "k": rec["k_LDF"],
-                                "identifiable": bool(identifiable(lo, hi, rec["k_LDF"])),
-                                "sec": time.time() - t0}
+            try:
+                lo, hi = profile_interval_outlet(phys_obs, rec["c_in"], obs["t"], obs["channels"]["c"][0],
+                                                 obs["channels"]["T"][0], sigma_c=max(sigma, 1e-4) * rng_c,
+                                                 sigma_T=max(sigma, 1e-4) * rng_T, n_z=100)
+                res["rows"][key] = {"lo": lo, "hi": hi, "k": rec["k_LDF"],
+                                    "identifiable": bool(identifiable(lo, hi, rec["k_LDF"])),
+                                    "sec": time.time() - t0}
+            except Exception as ex:   # recorded as not identifiable, never dropped (A2.4, B84)
+                res["rows"][key] = {"identifiable": False, "error": f"{type(ex).__name__}: {ex}",
+                                    "k": rec["k_LDF"], "sec": time.time() - t0}
             write_atomic(res, out)
-            print(f"O3 {key:<50} [{lo:.3g}, {hi:.3g}] k={rec['k_LDF']:.3g}", flush=True)
+            print(f"O3 {key:<50} {res['rows'][key]}", flush=True)
 
 
 def run_o2_ident(man):
@@ -112,15 +116,19 @@ def run_o2_ident(man):
             t0 = time.time()
             phys_obs = copy.copy(phys)
             phys_obs.qstar_fn = obs["qstar_meas"]       # information parity, as on O3
-            lo, hi = profile_interval_probes(phys_obs, rec["c_in"], obs["t"], obs["z"],
-                                             obs["channels"]["c"], obs["channels"]["T"],
-                                             sigma_c=max(sigma, 1e-4) * rng_c,
-                                             sigma_T=max(sigma, 1e-4) * rng_T, n_z=100)
-            res["rows"][key] = {"lo": lo, "hi": hi, "k": rec["k_LDF"],
-                                "identifiable": bool(identifiable(lo, hi, rec["k_LDF"])),
-                                "sec": time.time() - t0}
+            try:
+                lo, hi = profile_interval_probes(phys_obs, rec["c_in"], obs["t"], obs["z"],
+                                                 obs["channels"]["c"], obs["channels"]["T"],
+                                                 sigma_c=max(sigma, 1e-4) * rng_c,
+                                                 sigma_T=max(sigma, 1e-4) * rng_T, n_z=100)
+                res["rows"][key] = {"lo": lo, "hi": hi, "k": rec["k_LDF"],
+                                    "identifiable": bool(identifiable(lo, hi, rec["k_LDF"])),
+                                    "sec": time.time() - t0}
+            except Exception as ex:   # recorded as not identifiable, never dropped (A2.4, B84)
+                res["rows"][key] = {"identifiable": False, "error": f"{type(ex).__name__}: {ex}",
+                                    "k": rec["k_LDF"], "sec": time.time() - t0}
             write_atomic(res, out)
-            print(f"O2-ident {key:<50} [{lo:.3g}, {hi:.3g}] k={rec['k_LDF']:.3g}", flush=True)
+            print(f"O2-ident {key:<50} {res['rows'][key]}", flush=True)
 
 
 def main():

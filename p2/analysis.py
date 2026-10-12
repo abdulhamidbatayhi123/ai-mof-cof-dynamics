@@ -105,18 +105,6 @@ def paired_shift(pairs_by_da, n_boot=2000, seed=0):
     return float(fa - fb), lo, hi
 
 
-def shift_interval(succ_a, succ_b, n_boot=2000, seed=0):
-    """A2: log10 Da*(a) - log10 Da*(b) with a percentile bootstrap interval from paired
-    draws (each boundary resampled independently within its levels). Returns
-    (shift or None, lo, hi)."""
-    a, da = boundary_draws(succ_a, n_boot, seed)
-    b, db = boundary_draws(succ_b, n_boot, seed + 1)
-    if a is None or b is None:
-        return None, None, None
-    lo, hi = _ci(da - db)
-    return float(a - b), lo, hi
-
-
 def r_collapse(successes_by_cond, spread_ok=0.5, spread_fail=1.0, n_boot=2000):
     """H2a (PREREG_P2 §2). Each condition maps R-level -> replicate successes. The
     50 % crossing R* is estimated per condition; the spread is max - min of log10 R*.

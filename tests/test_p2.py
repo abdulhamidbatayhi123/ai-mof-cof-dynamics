@@ -710,13 +710,8 @@ def test_boundary_without_bootstrap_draws_does_not_crash():
 
 
 def test_shift_interval_and_spread_interval():
-    from p2.analysis import r_collapse, shift_interval
+    from p2.analysis import r_collapse
     rng = np.random.default_rng(4)
-    Da = np.logspace(-1, 3, 9)
-    a = _logistic_successes(Da, 1.8, -4.0, 45, rng)
-    b = _logistic_successes(Da, 1.2, -4.0, 45, rng)
-    sh, lo, hi = shift_interval(a, b, n_boot=200)
-    assert lo < sh < hi and abs(sh - 0.6) < 0.25
     R = np.logspace(-1, 3, 9)
     conds = {f"c{i}": _logistic_successes(R, 1.0 + 0.1 * i, 4.0, 45, rng) for i in range(3)}
     r = r_collapse(conds, n_boot=100)
@@ -787,3 +782,55 @@ def test_descriptive_o23_runs_on_planted_rows():
     res = descriptive_o23(cells, o2, o2i, {}, n_boot=20)
     s = res["sigma=0.02|eps=0.02|langmuir|pe=1.0"]
     assert s["O2_best_method"] == "B|strong" and s["O3_da_ident"] is None
+
+# ---- B84: words follow the rules; design-cell coverage; not-evaluated positive control
+
+def test_h2c_words_follow_the_hold_and_falsify_rules():
+    """Graded 'moves' words only where H2c holds at that eps; otherwise say it does not hold,
+    with the count; 'does not move detectably' only if every slice is below threshold."""
+    import p2_analyze as pa
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(12), n_rep=N_REP)
+    r = pa.h2c(cells, o1, m5, n_boot=20)
+    pe = r["per_eps"][0.02]
+    assert pe["holds"] and pe["words"].startswith("EIV moves the boundary by")
+    # the referee's case: 3 of 6 detectable -> does not hold, and neither graded words
+    r = pa.h2c_eps_rule([0.1, 0.1, 0.2, 0.4, 0.4, 0.4])
+    assert not r["holds"] and r["words"].startswith("H2c does not hold at this eps (3 of 6")
+    # every slice below the threshold -> the 'does not move detectably' words
+    assert pa.h2c_eps_rule([0.1, 0.0, -0.1])["words"].startswith("EIV does not move the boundary detectably")
+    # a slice without a verdict blocks the falsifier words
+    assert pa.h2c_eps_rule([0.1, None])["words"].startswith("H2c does not hold")
+    assert pa.h2c_eps_rule([0.4, 0.4, 0.1])["holds"]
+
+
+def test_extra_rows_of_one_method_do_not_exclude_the_others():
+    """Coverage is checked against the slice's design cells, not the union of what exists:
+    a method with rows on cells outside the slice's design keeps nobody out."""
+    from p2_analyze import _best
+    from p2_grid_o1 import N_REP
+    cells = {f"c{d:.3g}": {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": float(d)}
+             for d in np.logspace(-1, 3, 9)}
+    P = lambda d, b: 1.0 / (1.0 + np.exp(4.0 * (np.log10(d) - np.log10(b))))
+    rng = np.random.default_rng(13)
+    rows = {}
+    for nm, c in cells.items():
+        for rep in range(N_REP):
+            u = rng.uniform(size=2)
+            rows[f"{nm}|0.02|0.02|{rep}|A|strong"] = {"success": bool(u[0] < P(c["Da"], 30))}
+            rows[f"{nm}|0.02|0.02|{rep}|B|strong"] = {"success": bool(u[1] < P(c["Da"], 10))}
+    keep = lambda c, s, e: s == 0.02 and e == 0.02
+    assert _best(rows, cells, keep) == "A|strong"
+    # B also has rows at another (sigma, eps) that the slice excludes: no effect
+    for nm in cells:
+        for rep in range(N_REP):
+            rows[f"{nm}|0.005|0.0|{rep}|B|strong"] = {"success": True}
+    assert _best(rows, cells, keep) == "A|strong"
+
+
+def test_positive_control_without_discovery_rows_is_not_evaluated():
+    from p2_analyze import positive_controls
+    cells = {"x": {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": 0.1}}
+    ident = {f"x|0.0|0.0|{r}|profile|o1": {"success": True} for r in range(60)}
+    out, failed = positive_controls(cells, {}, ident)
+    assert out["langmuir"]["passed"] is None and not failed

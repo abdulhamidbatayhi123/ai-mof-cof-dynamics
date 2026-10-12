@@ -133,7 +133,11 @@ def _best(rows, cells, keep, metric="success"):
     sel = _by_da(rows, cells, keep, _sel, metric)
     est = _by_da(rows, cells, keep, _est, metric)
     cs, ce = _coverage(rows, cells, keep, _sel), _coverage(rows, cells, keep, _est)
-    full = set().union(*ce.values()) if ce else set()
+    # the slice's DESIGN cells: every manifest cell the slice admits, at every (sigma, eps)
+    # the slice's rows use -- not merely what is present, so a method with extra rows cannot
+    # exclude the others (B84)
+    se = {(s, e) for cov in ce.values() for (_, s, e) in cov}
+    full = {(name, s, e) for name, c in cells.items() for (s, e) in se if keep(c, s, e)}
     cand = {m: v for m, v in _complete(sel, est).items() if cs.get(m) == full and ce.get(m) == full}
     return select_best(cand)
 
@@ -150,6 +154,12 @@ def _best_and_boundary(rows, cells, keep, n_boot, metric="success"):
 def _main_grid(rows, cells):
     """Rows of main-grid cells only: the H2c refinement cells (A1) enter H2c alone."""
     return {k: v for k, v in rows.items() if not cells[_parse(k)[0]].get("refined")}
+
+
+def _main_cells(cells):
+    """The manifest without the H2c refinement cells: outside H2c they are not part of any
+    slice's design, so the coverage rule must not ask any method to have run on them."""
+    return {n: c for n, c in cells.items() if not c.get("refined")}
 
 
 def _no_oracle(rows):
@@ -176,7 +186,7 @@ def positive_controls(cells, o1, ident_rows):
         best = _best(o1, cells, keep)
         succ = _by_da(o1, cells, keep, _est).get(best, {}).get(das[0], []) if best else []
         idf = _by_da(ident_rows, cells, keep, _est).get("profile|o1", {}).get(das[0], [])
-        if not succ and not idf:          # no zero-noise rows (e.g. a partial grid): not evaluated
+        if not succ:                      # no zero-noise discovery rows (partial grid): not evaluated (B84)
             out[iso] = {"passed": None, "note": "no rows at sigma = eps = 0, lowest Da"}
             continue
         passed, detail = positive_control(succ, idf)
@@ -188,6 +198,7 @@ def positive_controls(cells, o1, ident_rows):
 
 def verdicts(cells, o1_rows, o2_rows, ident_rows, rstats, n_boot=2000):
     o1_rows, o2_rows, ident_rows = (_main_grid(r, cells) for r in (o1_rows, o2_rows, ident_rows))
+    cells = _main_cells(cells)
     o1, o2 = _no_oracle(o1_rows), _no_oracle(o2_rows)
     sig_eps = sorted({(_parse(k)[1], _parse(k)[2]) for k in o1})
     isos, pes = _isotherms(cells), _pes(cells)
@@ -295,11 +306,7 @@ def h2c(cells, o1_rows, m5_rows, n_boot=2000, withheld=()):
     per_eps = {}
     for e, d in by_eps.items():
         vals = [v for v in d.values() if v is not None]
-        holds = bool(vals) and sum(v >= MDE for v in vals) >= (2.0 / 3.0) * len(vals)
-        med = float(np.median(vals)) if vals else None
-        per_eps[e] = {"n_slices_with_verdict": len(vals), "n_detectable": int(sum(v >= MDE for v in vals)),
-                      "holds": holds, "median_shift": med,
-                      "words": h2c_verdict({e: med}, MDE)["words"] if med is not None else "no verdict"}
+        per_eps[e] = h2c_eps_rule(list(d.values()))
     every = [v for d in by_eps.values() for v in d.values()]
     out = {"slices": slices, "per_eps": per_eps,
            "h2c_holds": any(p["holds"] for p in per_eps.values()),
@@ -309,6 +316,27 @@ def h2c(cells, o1_rows, m5_rows, n_boot=2000, withheld=()):
     if withheld and len(withheld) == len(_isotherms(cells)):          # A2.6
         out.update({"h2c_holds": None, "h2c_falsified": None, "words": WITHHELD})
     return out
+
+
+def h2c_eps_rule(shifts):
+    """H2c at one eps over its (isotherm, Pe) slices (A2.3; words per B84). `shifts` has one
+    entry per slice, None where the slice has no verdict. Holds if >= 2/3 of the slices with
+    a verdict are >= the threshold; the graded 'moves' words only where it holds; the
+    'does not move' (or 'DOWN') words only where EVERY slice has a verdict below it."""
+    vals = [v for v in shifts if v is not None]
+    n_det = int(sum(v >= MDE for v in vals))
+    holds = bool(vals) and n_det >= (2.0 / 3.0) * len(vals)
+    med = float(np.median(vals)) if vals else None
+    if not vals:
+        words = "no verdict"
+    elif holds:
+        words = h2c_verdict({0: med}, MDE)["words"]          # holds => median >= 0.25
+    elif len(vals) == len(shifts) and all(v < MDE for v in vals):
+        words = h2c_verdict({0: med}, MDE)["words"]
+    else:
+        words = f"H2c does not hold at this eps ({n_det} of {len(vals)} slices detectable)"
+    return {"n_slices_with_verdict": len(vals), "n_detectable": n_det, "holds": holds,
+            "median_shift": med, "words": words}
 
 
 def _pairs(m5_rows, rows, method, cells, keep):
@@ -344,6 +372,7 @@ def descriptive_o23(cells, o2_rows, o2_ident, o3_ident, n_boot=2000):
                 out[c["Da"]].append(0.0 if "error" in r else float(r.get("identifiable", False)))
         return dict(out)
     o2 = _no_oracle(_main_grid(o2_rows, cells))
+    cells = _main_cells(cells)
     res = {}
     for iso in _isotherms(cells):
         for s in (0.005, 0.02):
@@ -369,6 +398,7 @@ def h2c_refine_levels(cells, o1_rows):
     at O1, sigma = eps = 2 %, main grid; the method chosen on the selection set and its
     boundary estimated on the estimation set. No EIV result is read."""
     rows = _no_oracle(_main_grid(o1_rows, cells))
+    cells = _main_cells(cells)
     strong = {k: v for k, v in rows.items() if _parse(k)[5] == "strong"}
     out = {}
     for iso in _isotherms(cells):
