@@ -112,11 +112,11 @@ a material the model has never seen.
 
 A surrogate cannot beat its own reference on accuracy, because the reference defines
 the target, so a synthetic study can only measure accuracy per unit cost or accuracy
-from less information. McGreivy and Hakim \cite{mcgreivy2024weak} found that
-\emph{79\,\% (60 of 76)} of articles claiming to outperform a standard numerical method
-in machine learning for fluid-related partial differential equations compare against
-a weak baseline; that finding was the design brief for this study, which therefore
-includes a coarse numerical solve as a baseline. Grossmann and co-workers
+from less information. In a survey of machine learning for fluid-related partial differential equations,
+McGreivy and Hakim \cite{mcgreivy2024weak} found that \emph{79\,\% (60 of 76)} of
+articles claiming to beat a standard numerical method compared against a weak
+baseline; that finding was this study's design brief, and is why a coarse numerical
+solve is one of its baselines. Grossmann and co-workers
 \cite{grossmann2024pinn} report that physics-informed networks did not outperform the
 finite element method \emph{in their study}; we scope our results the same way.
 
@@ -374,7 +374,8 @@ through a secondary source.
 Water uptake in atmospheric-water-harvesting frameworks is small below a threshold
 relative humidity (in our parameter space the primary sites hold a fraction
 \(f_H = \nDcFhLo\)--\(\nDcFhHi\) of capacity there; Table~\ref{tab:params}), then
-rises almost vertically as pore filling proceeds cooperatively, then saturates. That step is what makes these materials useful.
+rises almost vertically as pore filling proceeds cooperatively, then saturates. We call
+the low-humidity, near-linear part the Henry branch and the steep rise the step. That step is what makes these materials useful.
 Single-site Langmuir cannot produce it: its second derivative is negative
 everywhere, verified numerically as zero inflection points, and it predicts the
 largest uptake gradient as \(c \to 0\), the opposite of the mechanism. A bare
@@ -458,10 +459,10 @@ a normalised root-mean-square error (nRMSE, equation~\eqref{eq:nrmse}) of \nAnch
 against the digitised effluent points, against
 \nAnchorNrmseComsol\ for the authors' own two-dimensional COMSOL model with fitted kinetics.
 The two-wave breakthrough of Section~\ref{sec:physics} is what a real MOF-303 bed
-does, and the cited isotherm produces it. As the next paragraph says, it does not
-reproduce the first-wave timing (Figure~\ref{fig:anchor}).
+does, and the cited isotherm produces it. It does not reproduce the first-wave
+timing (Figure~\ref{fig:anchor}).
 
-Two discrepancies remain, and both can be attributed. The first wave arrives
+Two discrepancies remain, and each has an identified cause. The first wave arrives
 \emph{too early} in the model (\nAnchorTfiveModel\ minutes against
 \nAnchorTfiveExp\ measured); nothing in the declared band moves it, and what sets it
 is the isotherm's low-relative-humidity branch, whose Henry fraction was fitted to
@@ -469,9 +470,8 @@ the step position and the capacity only. This is the first dynamic measurement t
 constrains it, and it is a limitation of our MOF-303 parameterisation rather than of
 the solver. The shock is \emph{too dispersed}: the axial-dispersion closure gives a
 column P\'eclet number of \nAnchorPeCol\ on a bed about \nAnchorPelletsDeep{} pellets deep, where a
-packed-bed correlation does not apply. That discrepancy is now measured rather than
-attributed: Section~\ref{sec:limitations} shows that \nAnchorTcutPct\,\% of the
-excess arrival time comes from evaluating one correlation at a limit this bed does
+packed-bed correlation does not apply. Its share is measured: Supplementary S2, Section S9 shows that \nAnchorTcutPct\,\% of the
+excess 95\,\% arrival time comes from evaluating one correlation at a limit this bed does
 not satisfy.
 
 %% ===========================================================================
@@ -670,10 +670,8 @@ material are kept, and the mean paired difference is recomputed. A difference is
 reported as significant only if the percentile interval excludes zero, at a level
 calibrated per design: simulating clustered nulls with each design's real
 conditions-per-material counts, we take the largest nominal level on a fixed grid
-whose empirical false-positive rate does not exceed the target. This gives
-\(\alpha = \nAlphaFolds\) for the five-fold design (empirical size \nFprFoldsCal\,\%);
-on the legacy design we report at the stricter \(\alpha = \nLfiveAlpha\) (empirical
-size \nFprLegacyUsed\,\%). The time axis of rung L4 has an intermediate number of
+whose empirical false-positive rate does not exceed the target. The resulting levels
+are given in Section~\ref{sec:dataset}. The time axis of rung L4 has an intermediate number of
 clusters, at which no calibration was run; it uses the level both neighbouring
 designs select. Rung L6's primary estimand is the least-squares slope of the
 per-material paired difference on \(\log_{10}\mathrm{Da}\), with a material bootstrap
@@ -782,7 +780,7 @@ normalised root-mean-square error (equation~\eqref{eq:nrmse}).}
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig3_rungs.pdf}
-\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span three orders of magnitude (Section~\ref{sec:ladder}). MLP, multilayer perceptron; KAN, Kolmogorov--Arnold network; RBF, radial basis function; nRMSE (\(c\)), the error of equation~\eqref{eq:nrmse} on the concentration channel.}
+\caption{The rungs that measure a curve. \textbf{A}~L1's fixed-basis arms over 240 held-out materials, against the POD floor. \textbf{B}~The materials learning curve (\nLCpField\ POD modes of \(c\), one gradient-boosted regressor per mode) with the basis refit on each subset and with it fixed on all 192; the two lie on top of each other; \(N_{\mathrm{mat}}\) is the number of training materials. \textbf{C}~L2's capacity sweep: held-out error is U-shaped in depth while training error falls almost monotonically (it rises only at the deepest setting). \textbf{D}~L3 at three matched budgets, each family at its own best learning rate; those rates span \nLthreeLrDecades{} orders of magnitude (Supplementary S2, Section S3). MLP, multilayer perceptron; KAN, Kolmogorov--Arnold network; RBF, radial basis function; nRMSE (\(c\)), the error of equation~\eqref{eq:nrmse} on the concentration channel.}
 \label{fig:rungs}
 \end{figure}
 
@@ -799,12 +797,12 @@ best fixed-basis arm at \nLoneMLP, ahead of gradient boosting at \nLoneXGB, rand
 forest at \nLoneRF\ and ridge at \nLoneRidge. Against gradient boosting the
 difference is \nLoneMLPvsXGBdiff\ with confidence interval
 [\nLoneMLPvsXGBlo, \nLoneMLPvsXGBhi]; it is significant, and the perceptron is ahead in
-every one of the five folds. This reverses the earlier result at 48
-materials, where the three nonlinear arms were indistinguishable and the perceptron
+every one of the five folds. This reverses the earlier result with 48
+training materials (the legacy design), where the three nonlinear arms were indistinguishable and the perceptron
 had the worst point estimate.
 
 The floor moved too. The POD floor is \nLonePodFloor,
-and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis is even less the constraint than it was}: 192 training materials instead of 48 improved the arm, and improved the floor beneath it by more.
+and the best arm sits \(\nLoneXfloor\times\) above it. On the smaller dataset the same comparison gave \nLoneLegacyXfloorMin--\nLoneLegacyXfloorMax\(\times\), against \(\nLoneXfloor\times\) now, so \emph{the basis constrains the error even less than before}: 192 training materials instead of 48 improved the arm, and improved the floor beneath it by more.
 
 \paragraph{The learning curve, and the rung's actual verdict} The curve is measured
 with a lighter learner than the arms above, so that every size can be run with three
@@ -853,7 +851,7 @@ whole field, is worth a constant factor (Section~\ref{sec:mechanism}).
 \nLtwoNconfigs{} configurations in both directions around the L1 setting, on the same
 folds and basis. \nLtwoNUshaped{} sweeps are U-shaped with interior optima
 (width \nLtwoWidthBest{} for the perceptron's width, \nLtwoDepthBest{} layers for its depth, tree
-depth \nLtwoXgbBest{} for gradient boosting) and the random forest
+depth \nLtwoXgbBest{} for gradient boosting), and the random forest's error
 \nLtwoRfShape: it is still improving at its last step, but that step is a fully
 grown forest, the ceiling of its capacity knob. The decisive evidence is decoupling:
 gradient boosting drops its training error by more than an order of magnitude across
@@ -869,12 +867,11 @@ not part of the verdict: the neural and boosting families saturate with interior
 optima, and the one family that has not run out of improvement has run out of
 capacity while sitting well behind the best perceptron. Either way, the optimum is not where the
 earlier sweep left it. The best configuration anywhere is \nLtwoBestName\
-at \nLtwoBest, which is \(\nLtwoVsLonePct\,\%\) better than the best L1 arm, the
-perceptron (interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\); adjusted for having
-picked the best of \nLtwoSelK\ configurations on the same materials, namely the
-\nLtwoNconfigs\ of the sweep less the L1 setting, which appears in it twice and is the
-reference:
-\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\), Section~\ref{sec:limitations}). At 48 materials the
+at \nLtwoBest, \(\nLtwoVsLonePct\,\%\) better than the best L1 arm, the perceptron
+(interval \(\nLtwoVsLoneLo\)--\(\nLtwoVsLoneHi\,\%\)). Adjusted for picking it from
+\nLtwoSelK\ configurations on the same materials (the \nLtwoNconfigs\ of the sweep less
+the L1 setting, which appears in it twice and is the reference), the gain is
+\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\) (Section~\ref{sec:limitations}). With 48 training materials (the legacy design) the
 same comparison (best configuration against the best L1 arm, there gradient
 boosting) gave \(\nLtwoLegacyVsLonePct\,\%\), with six and eight layers in a
 near-tie (\nLtwoLegacyDsix{} against \nLtwoLegacyDeight) where at 192 the optimum is
@@ -899,15 +896,16 @@ simultaneous interval over all \nLthreeSelK\ pairs (Section~\ref{sec:limitations
 none is the Kolmogorov--Arnold network the better arm. \nLthreeArms\ arms were trained
 across \nLthreeNrates\ learning rates spanning \nLthreeDecades\ decades, until every
 Kolmogorov--Arnold optimum was bracketed on both sides. The perceptron's optimum sits at
-the lowest rate, an open edge (the next rate up is worse by
-\nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%); for this verdict that is conservative,
+the lowest rate, an open edge that the edge rule would ask us to extend (the next
+rate up is worse by \nLthreeEdgeSatMin--\nLthreeEdgeSatMax\,\%). We do not extend it,
 because better tuning could only widen the perceptron's lead. Every family was tuned
 over the same grid, and the families' optima lie \nLthreeLrDecades{} orders of
 magnitude apart (Supplementary S2, Section S3). In a separate audit configuration (a
-fixed budget, depth three), the best Kolmogorov--Arnold network in the study is the
-\emph{least} Kolmogorov--Arnold-like one and reaches \nLthreeBestKan\ against the
-perceptron's \nLthreeBestKanMlp\ (difference \nLthreeBestKanDiff, per-pair interval
-[\nLthreeBestKanLo, \nLthreeBestKanHi]).
+fixed budget, depth three), the best Kolmogorov--Arnold network in the study reaches
+\nLthreeBestKan\ against the perceptron's \nLthreeBestKanMlp\ (difference
+\nLthreeBestKanDiff, per-pair interval [\nLthreeBestKanLo, \nLthreeBestKanHi], which
+excludes zero; both learning rates were chosen on the held-out materials, so the
+selection-adjusted count above carries the inference).
 
 \paragraph{The literature is split} Shukla and co-workers
 \cite{shukla2024comprehensive} find spline-based Kolmogorov--Arnold networks less
@@ -1021,9 +1019,7 @@ matched parameter counts DeepONet looked flat in basis size on the legacy design
 [\nLfiveFlatLo, \nLfiveFlatHi]: a sixteenfold larger basis could have improved this arm
 by at most \nLfiveFlatImproveMax\,\% of its error. The larger design then found an
 improvement well inside that bound, which is why a null on \nNclustLegacy\ held-out
-materials could not be the last word (A29). \emph{The best DeepONet found anywhere,
-at the smallest basis, is as accurate as an oracle handed the true coefficients of
-its first \nLfiveOracleONet\ modes.} The tuning checks are in Supplementary S2,
+materials could not be the last word (A29). The tuning checks are in Supplementary S2,
 Section S4.
 
 \paragraph{The arm the theory names} Lanthaler and co-workers \cite{lanthaler2023nonlinear} prove that operator
@@ -1031,8 +1027,8 @@ architectures with a linear reconstruction step (DeepONet, PCA-Net, a principal-
 POD-plus-regressor) are lower-bounded on
 advection-dominated problems, and that the Fourier neural operator escapes that
 bound through nonlinear reconstruction. Our original rung tested only the family the
-theory condemns; that deviation from our own frozen protocol is recorded as B33. The
-prediction was pre-registered before the run.
+theory condemns; that deviation from our own frozen protocol is recorded as B33. That
+the Fourier operator would beat DeepONet was registered before the run.
 
 The Fourier neural operator is more accurate, \nLfiveFNO\ against DeepONet's
 \nLfiveONet, but not significantly once its selection is paid for. As a pair fixed in
@@ -1041,8 +1037,8 @@ advance the difference of \nLfiveONetFNOdiff\ has interval [\nLfiveONetFNOlo,
 \nNclustLegacy\ held-out materials (\nLfiveSelNfno\ Fourier and \nLfiveSelNonet\
 DeepONet cells), and paying for both choices over all \nLfiveSelK\ pairs (critical value
 \nLfiveSelQ\ standard errors) widens it to [\nLfiveSelLo, \nLfiveSelHi], which includes
-zero (B75). What survives is the direction the theory predicts. It does not remove the
-gap: the Fourier operator sits \(\nFNOxFloor\times\) above the linear-reconstruction
+zero (B75). What survives is the direction the theory predicts, but the Fourier operator does
+not remove the gap: the Fourier operator sits \(\nFNOxFloor\times\) above the linear-reconstruction
 floor at \(p = 128\), where DeepONet sits \(\nONetxFloor\times\), so its
 \(\nFNOgain\times\) improvement is a dent, not an escape (the floor is a reference level
 for the Fourier operator, not a bound).
@@ -1079,8 +1075,9 @@ is also run length, for the \nDcExtendedPct\,\% of runs whose horizon was extend
 (Section~\ref{sec:model}).
 
 \paragraph{The scope of that refutation} The dataset never reaches kinetic
-control: its lowest per-material Damk\"ohler number is \nDaMatMin, and reaching unity
-would need pellets of about \nDaPelletForUnity\,\si{\milli\metre}, beyond a
+control: its lowest per-material Damk\"ohler number is \nDaMatMin, and, because
+\(k_{\mathrm{LDF}}\) is derived from pellet size (equation~\eqref{eq:glueckauf}),
+reaching unity would need pellets of about \nDaPelletForUnity\,\si{\milli\metre}, beyond a
 one-dimensional model of this bed. The refutation holds across the range a physically
 consistent bed of this kind can occupy, not in the kinetically controlled limit
 (Supplementary S2, Section S5).
@@ -1094,8 +1091,8 @@ significant).
 \paragraph{Why the test has power now} Sobol sampling and physically consistent
 kinetics cut the between-material noise \(\nLsixNoiseDrop\times\); with
 \nNclustFolds\ clusters the minimum detectable effect at 80\,\% power is \nLsixMDE\,\%,
-and the observed effect sits just under it, so the lower bound is the conservative
-reading (Supplementary S2, Section S6).
+and the observed effect sits just under it, so the point estimate may be optimistic
+and the lower end of its interval is the conservative reading (Supplementary S2, Section S6).
 
 \paragraph{Verdict} \emph{Structural decomposition gives a
 small but real and reproducible improvement in transfer to unseen materials, with no
@@ -1184,7 +1181,8 @@ predicting the mean. Against the oracle, the best DeepONet performs like a
 gradient boosting like a \nLfiveOraclePodReg-mode one. Training the basis and the
 coefficients together, or learning the whole field at once, is worth up to
 \(\nOperatorLever\times\) from the pointwise regressor to the Fourier operator (point
-estimates between best-of-grid arms), comparable to the learning curve's gain; it does
+estimates between best-of-grid arms), comparable to the learning curve's
+\(\nLCratio\times\), which comes from the full design; it does
 not close the distance to the floor. On the legacy design the most accurate learner by
 point estimate still sits \(\nFNOxFloor\times\) above it.
 
@@ -1346,7 +1344,7 @@ in solve-equivalents. Fitting the L1 perceptron costs \nCostTrainEq\ solve-equiv
 (median of \nCostTrainSeeds\ fits), noise next to the data, and since \(r \ll 1\)
 equation~\eqref{eq:breakeven} is bounded below by \(N_{\mathrm{sim}} +
 c_{\mathrm{fit}}\) without timing a query at all. Measured on an idle machine, a
-full-field query takes \nCostQueryMs\,ms, \nCostQuerySpeedup\ times cheaper than a
+full-field query takes \nCostQueryMs\,ms, about \nCostQuerySpeedup\ times less than a
 solve, so the bound and the exact break-even coincide.
 
 \begin{table}[t]
@@ -1380,11 +1378,11 @@ with the same solver on coarser grids. \emph{Verdict: a coarse solve at
 \(N_z = \nCoarseNz\) matches the surrogate's held-out accuracy at \nCoarseSolveEq\
 solve-equivalents per query}; in fact it is \(\nCoarseAccRatio\times\) more accurate
 (\nCoarseErrPct\,\% normalised error against the perceptron's \nCoarseTargetPct\,\%) in
-about \nCoarseWallMs\,ms (\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed and are
-reported). The comparison is unpaired and made against the L1 and L2 perceptrons only,
-so it is a statement about scale. On a production solve timed in the same process, the
+about \nCoarseWallMs\,ms (\nCoarseNfail\ of \nCoarseNsamp\ coarse solves failed; they are
+reported and excluded from the mean). The comparison is unpaired and made against the L1 and L2 perceptrons only,
+so it is a statement about scale. With both costs measured against a production solve timed in the same process, the
 surrogate breaks even with coarse solving only after about \nCoarseBreakEven\ queries
-(a lower bound), and it remains the less accurate of the two. \emph{For this
+(a lower bound, since the fit is not counted), and it remains the less accurate of the two. \emph{For this
 one-dimensional column, a surrogate is justified only by query volume}: a screen of
 tens of thousands of candidates, or a field needed in milliseconds inside an optimiser
 or a controller. A two- or three-dimensional, multi-cycle device model, where a coarse

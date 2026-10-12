@@ -105,13 +105,6 @@
   "line_at_review": 429
  },
  {
-  "key": "materials, where the [three] nonlinear arms were indisting",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 430
- },
- {
   "key": "claim no extrapolation beyond [twice] the measured",
   "word": "twice",
   "class": "DESIGN",
@@ -392,13 +385,6 @@
   "line_at_review": 570
  },
  {
-  "key": "\\( = \\) for the [five] -fold design (empirical size",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 574
- },
- {
   "key": " [Three] evaluation designs are used,",
   "word": "Three",
   "class": "DESIGN",
@@ -546,13 +532,6 @@
   "line_at_review": 486
  },
  {
-  "key": "setting, which appears in it [twice] and is the",
-  "word": "twice",
-  "class": "DESIGN",
-  "reason": "mlp_depth/d3 and mlp_width/w256 are the same configuration (analyze_l2_selection.SAME_AS_REF)",
-  "line_at_review": 828
- },
- {
   "key": "stated relative humidity, so [one] material's",
   "word": "one",
   "class": "PROSE",
@@ -616,13 +595,6 @@
   "line_at_review": 219
  },
  {
-  "key": " [Two] discrepancies remain, and bot",
-  "word": "Two",
-  "class": "DESIGN",
-  "reason": "the two named discrepancies of the anchor section",
-  "line_at_review": 387
- },
- {
   "key": " [three] seeds and fitted (including a",
   "word": "three",
   "class": "DESIGN",
@@ -649,13 +621,6 @@
   "class": "PROSE",
   "reason": "pronoun",
   "line_at_review": 794
- },
- {
-  "key": "arning rate; those rates span [three] orders of magnitude (Section~",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the learning-rate span of L3, LthreeLrDecades in the text",
-  "line_at_review": 807
  },
  {
   "key": "B}~Full design ( \\ materials, [five] folds): DeepONet against \\(p\\",
@@ -1288,13 +1253,6 @@
   "line_at_review": 856
  },
  {
-  "key": "east} Kolmogorov--Arnold-like [one] and reaches \\ against the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 857
- },
- {
   "key": "[ , ], consistent in all [five] folds and all three seeds (on",
   "word": "five",
   "class": "DESIGN",
@@ -1349,5 +1307,33 @@
   "class": "PROSE",
   "reason": "grammar or structural usage",
   "line_at_review": 723
+ },
+ {
+  "key": " [Two] discrepancies remain, and eac",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 418
+ },
+ {
+  "key": "the legacy design), where the [three] nonlinear arms were indisting",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 755
+ },
+ {
+  "key": "setting, which appears in it [twice] and is the reference), the ga",
+  "word": "twice",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 827
+ },
+ {
+  "key": "excludes [zero] ; both learning rates were cho",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "grammar or structural usage",
+  "line_at_review": 861
  }
 ]
