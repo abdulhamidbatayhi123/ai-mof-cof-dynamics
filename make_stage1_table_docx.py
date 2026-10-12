@@ -4,7 +4,7 @@ Columns as in the journal's template (nature.com/documents/updated_ncomms-regist
 report-table.docx, read 2026-10-12): Question | Hypotheses | Outcome Measures | Sampling
 Plan (N, power analyses) | Analysis Plan | Interpretation given to different outcomes.
 The rows restate Table 1 of paper2/stage1.tex, which restates the frozen PREREG_P2
-(commit d562f19); power figures from results/p2_operating_characteristics.json. A fresh document is
+(commit d562f19, as amended by A1); power figures from results/p2_operating_characteristics.json (n = 45). A fresh document is
 built here; the publisher's file is not copied.
 
     python make_stage1_table_docx.py   -> paper2/submission/stage1_design_table.docx
@@ -18,11 +18,12 @@ from docx.shared import Cm, Pt
 
 OUT = "paper2/submission/stage1_design_table.docx"
 oc = json.load(open("results/p2_operating_characteristics.json", encoding="utf-8"))
-b20, c20 = oc["h2b"]["20"], oc["h2c_refined_grid"]["20"]
-b_null = f"{b20['0.00']['with']:.3f}"
-b_04, b_05 = f"{b20['0.40']['outlives']:.3f}", f"{b20['0.50']['outlives']:.3f}"
-c_f2 = f"{c20['0.30']['moves_by_factor'] + c20['0.30']['detectably_less_than_2']:.3f}"
-c_04 = f"{c20['0.40']['moves_by_factor'] + c20['0.40']['detectably_less_than_2']:.2f}"
+b45, cr45, cm45 = oc["h2b"]["45"], oc["h2c_refined_grid"]["45"], oc["h2c_main_grid"]["45"]
+det = lambda d: d["moves_by_factor"] + d["detectably_less_than_2"]
+b_wrong0 = f"{b45['0.00']['before'] + b45['0.00']['outlives']:.3f}"
+b_04, b_05 = f"{b45['0.40']['outlives']:.3f}", f"{b45['0.50']['outlives']:.3f}"
+c_ref04, c_main04, c_f2 = f"{det(cr45['0.40']):.3f}", f"{det(cm45['0.40']):.3f}", f"{det(cr45['0.30']):.3f}"
+h2a_min = f"{min(max(v.values()) for v in oc['h2a_12_slices']['45'].values()):.3f}"
 
 HEAD = ["Question", "Hypotheses", "Outcome Measures", "Sampling Plan (N, power analyses)",
         "Analysis Plan", "Interpretation given to different outcomes"]
@@ -33,9 +34,10 @@ ROWS = [
      "half a decade.",
      "Success of the best method per replicate (exact support, correct signs, coefficient "
      "ratio −1 within 10 %); R* (50 % crossing) per slice.",
-     "20 replicates per cell; slices are (Pe, isotherm, observation model), O1 and O2, pooling "
-     "every σ, ε and Da; cells with R undefined (σ = ε = 0 on O1) excluded. Decided by "
-     "thresholds on the spread (0.5 and 1 decade), not by a significance test.",
+     "60 replicates per cell (15 select the best method, 45 estimate); slices are (Pe, "
+     "isotherm, observation model), O1 and O2, pooling every σ, ε and Da; cells with R "
+     "undefined (σ = ε = 0 on O1) excluded. Thresholds on the spread (0.5 and 1 decade); "
+     f"simulated verdict correct with probability ≥ {h2a_min}.",
      "Logistic regression of success on log10 R per slice; R* its 50 % crossing; spread = "
      "max − min of log10 R* with a bootstrap interval; slices without a crossing listed, "
      "never imputed.",
@@ -45,36 +47,39 @@ ROWS = [
     ["Does discovery fail before, with or after the rate constant stops being identifiable?",
      "H2b: compare Da*_disc (best discovery method) with Da*_ident (profile likelihood, true "
      "law known); confirmatory on O1, descriptive on O2 and O3.",
-     "Gap log10 Da*_disc − log10 Da*_ident per O1 slice (σ, ε, isotherm).",
-     "9 Da levels × 20 replicates for both boundaries. SD of one boundary estimate 0.089 "
-     "decade (calibrated on 100 simulated datasets before the freeze); MDE 0.25 decade. "
-     f"Simulated rule (two independent boundaries): correct verdict {b_null} at no gap; "
-     f"{b_05} at a 0.5-decade gap; {b_04} at 0.4.",
-     "Same logistic estimator for both boundaries; percentile bootstrap (2000 resamples) "
-     "within Da levels; the best method re-selected inside every bootstrap draw. O2 and O3 "
-     "(3 replicates) reported descriptively.",
+     "Gap log10 Da*_disc − log10 Da*_ident per O1 slice (σ, ε, isotherm); the "
+     "hypothesis-level verdict by the two-thirds rule.",
+     "9 Da levels × 45 estimation replicates for both boundaries (15 more select the method). "
+     f"Smallest effect of interest 0.40 decade. Simulated: wrong verdict {b_wrong0} at no gap; "
+     f"correct verdict {b_04} at 0.40 decade and {b_05} at 0.50.",
+     "Same logistic estimator for both boundaries, on the estimation set; percentile "
+     "bootstrap (2000 resamples) within Da levels. Sensitivity: success also requiring "
+     "k̂ in [k/2, 2k]. O2 and O3 (3 replicates) descriptive.",
      "Gap ≤ −0.25: “discovery fails before identifiability”. |gap| < 0.25: “discovery fails "
-     "with identifiability”. Gap ≥ +0.25: “discovery outlives identifiability”. No crossing "
-     "in the tested range: no verdict; the range is reported."],
+     "with identifiability”. Gap ≥ +0.25: “discovery outlives identifiability”. No crossing: "
+     "no verdict. Overall: the word of at least two thirds of the slices, else “mixed”."],
     ["Does an errors-in-variables fit move the boundary when the isotherm is wrong?",
-     "H2c: M5 (EIV best-subset) shifts Da*_disc by at least a factor 2 relative to the best "
-     "strong-form non-EIV method at ε > 0, on O1.",
+     "H2c: M5 (EIV best-subset) shifts Da*_disc upwards against the best strong-form "
+     "non-EIV method at ε > 0, on O1; predicted size a factor 2.",
      "Shift in log10 Da*_disc, M5 minus the best strong-form non-EIV method, per (isotherm, "
      "ε > 0) at σ = 2 %.",
-     "20 replicates; for ε = 2 % a refined grid of 8 extra Da levels within ±0.5 decade of "
-     "the best non-EIV boundary. Simulated rule: no false detection at zero shift; shift ≥ MDE "
-     f"detected with probability {c_f2} at the predicted factor 2 and {c_04} at 0.40 decade.",
-     "Same estimator and bootstrap; refined grid at ε = 2 %, main grid at ε ∈ {0.5, 5} %; "
-     "the shift against the best non-EIV method over both forms reported descriptively.",
-     "Shift ≥ log10 2 (0.30): “EIV moves the boundary by {factor}”. MDE ≤ shift < log10 2: “EIV moves the "
-     "boundary by {factor}, detectably but by less than the predicted factor 2”. Below the "
-     "MDE at every ε > 0: “EIV does not move the boundary detectably (MDE {x})”. Down by at "
-     "least the MDE: “EIV moves the boundary DOWN by {factor}”."],
+     "45 estimation replicates; for ε = 2 % the 9 levels plus 8 refined levels inside "
+     "±0.5 decade of the best non-EIV boundary. Simulated: no false detection; detection "
+     f"{c_ref04} (refined) and {c_main04} (main grid) at 0.40 decade; {c_f2} at the "
+     "predicted factor 2.",
+     "Same estimator and bootstrap, on the estimation set; the non-EIV method chosen on the "
+     "selection set; the shift against the best non-EIV method over both forms reported "
+     "descriptively.",
+     "Holds where the upward shift is ≥ 0.25. Graded: ≥ log10 2 (0.30): “EIV moves the "
+     "boundary by {factor}”; 0.25 to log10 2: “EIV moves the boundary by {factor}, "
+     "detectably but by less than the predicted factor 2”. Below 0.25 at every ε > 0: “EIV "
+     "does not move the boundary detectably (MDE {x})”. Down by at least 0.25: “EIV moves the "
+     "boundary DOWN by {factor}”."],
     ["Can a loading-dependent rate at a MOF-like isotherm step be discovered?",
      "H2d (exploratory): no directional prediction.",
      "Discovery of k(q) per cell: support contains q*_meas and q; Spearman ρ < −0.8 across 10 "
      "bins; top-bin rate ≤ 0.6 of bottom-bin rate.",
-     "Step isotherm, true law L2, 20 replicates per cell. No power analysis (exploratory).",
+     "Step isotherm, true law L2, 60 replicates per cell. No power analysis (exploratory).",
      "Rate of discovery per (σ, observation) cell.",
      "Reported as rates; no confirmatory claim rests on H2d."],
 ]
@@ -88,7 +93,7 @@ for side in ("left_margin", "right_margin", "top_margin", "bottom_margin"):
 doc.add_paragraph().add_run(
     "Study design table: When can AI discover adsorption kinetics? A discoverability map "
     "(Registered Report, Stage 1). Every entry restates the frozen pre-registration "
-    "(PREREG_P2, commit d562f19).").bold = True
+    "(PREREG_P2, commit d562f19, as amended by A1).").bold = True
 t = doc.add_table(rows=1 + len(ROWS), cols=len(HEAD))
 t.style = "Table Grid"
 for j, h in enumerate(HEAD):

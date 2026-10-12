@@ -26,7 +26,7 @@ from v2_common import write_atomic
 
 SIGMAS = (0.0, 0.005, 0.02, 0.05)
 EPSS = (0.0, 0.005, 0.02, 0.05)
-N_REP = 20
+N_REP = 60   # A1 (PREREG_P2 s.9): 15 selection + 45 estimation replicates (was 20)
 FORMS = ("strong", "weak")
 OUT = "results/p2_o1.json"
 PREREG = "PREREG_P2_discoverability.md"
@@ -53,7 +53,9 @@ def main():
         if rec["law"] != "L1" or rec["iso"] == "langmuir_iso":
             continue   # the isothermal control is M6's only (p2_grid_extra.py m6); L2 (k(q)) has its own success definition: p2_grid_o1_l2, exploratory (H2d)
         t0 = time.time()
-        for sigma, eps, rep, solver, form in itertools.product(SIGMAS, EPSS, range(N_REP), SOLVERS, FORMS):
+        # A1: an H2c refinement cell is run at sigma = eps = 2 % only
+        sig, eps_ = ((0.02,), (0.02,)) if rec.get("refined") else (SIGMAS, EPSS)
+        for sigma, eps, rep, solver, form in itertools.product(sig, eps_, range(N_REP), SOLVERS, FORMS):
             key = f"{name}|{sigma}|{eps}|{rep}|{solver}|{form}"
             if key in res["rows"]:
                 continue
@@ -62,6 +64,7 @@ def main():
                 co = discover_o1(obs, solver, form)
                 res["rows"][key] = {"success": bool(success_L1(co)),
                                     "k_acc": float(k_accuracy(co, rec["k_LDF"])),
+                                    "k_hat": float(-co.get("q", 0.0)),   # A1: k-aware sensitivity
                                     "support": sorted(co)}
             except Exception as e:   # recorded, never dropped
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}

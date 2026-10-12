@@ -551,9 +551,11 @@ def _planted_grid(rng, n_rep=20):
 
 def test_p2_analyze_recovers_planted_verdicts():
     """The verdict driver on a simulated grid with planted boundaries: H2b must pick B and
-    say 'fails before identifiability' (30 vs 300); H2c must see EIV move it up ~3x."""
+    say 'fails before identifiability' (30 vs 300); H2c must see EIV move it up ~3x.
+    A1: the grid has N_REP replicates, split into selection and estimation sets."""
     from p2_analyze import h2c, verdicts
-    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(4))
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(4), n_rep=N_REP)
     out = verdicts(cells, o1, {}, ident, rstats, n_boot=200)
     s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
     assert s["best_method"] == "B|strong", s
@@ -572,3 +574,102 @@ def test_pysr_safe_names_are_valid_identifiers():
     ph = safe_names(names)
     assert len(ph) == len(names) and len(set(ph)) == len(ph)
     assert all(p.isidentifier() and p.replace("_", "").isalnum() for p in ph)
+
+
+# ---- Amendment A1 (PREREG_P2 s.9): selection split, aggregation, positive control, k-aware
+
+def test_select_best_uses_only_what_it_is_given():
+    """A1: the best method is chosen from the selection replicates; the largest crossing
+    wins, and with no crossing anywhere the highest mean success wins."""
+    from p2.analysis import select_best
+    rng = np.random.default_rng(2)
+    Da = np.logspace(-1, 3, 9)
+    by_m = {"A": _logistic_successes(Da, 1.0, -4.0, 20, rng),
+            "B": _logistic_successes(Da, 2.0, -4.0, 20, rng)}
+    assert select_best(by_m) == "B"
+    flat = {"A": {float(d): [1.0] * 20 for d in Da}, "B": {float(d): [0.0] * 20 for d in Da}}
+    assert select_best(flat) == "A"
+    assert select_best({}) is None
+
+
+def test_aggregate_h2b_two_thirds_rule():
+    from p2.analysis import aggregate_h2b
+    w = "discovery fails before identifiability"
+    o = "discovery outlives identifiability"
+    assert aggregate_h2b({"a": w, "b": w, "c": o})["words"] == w
+    assert aggregate_h2b({"a": w, "b": o})["words"].startswith("mixed")
+    r = aggregate_h2b({"a": w, "b": "no boundary on the grid for one of the two; reported as the range tested"})
+    assert r["words"] == w and r["no_verdict"] == ["b"]
+    assert aggregate_h2b({"a": "no boundary"})["words"].startswith("no verdict")
+
+
+def test_positive_control_threshold():
+    from p2.analysis import positive_control
+    assert positive_control([1.0] * 36 + [0.0] * 4, [1.0] * 40)[0]
+    assert not positive_control([1.0] * 35 + [0.0] * 5, [1.0] * 40)[0]
+    assert not positive_control([], [1.0] * 40)[0]
+
+
+def test_h2c_holds_on_a_detectable_upward_shift():
+    """A1: H2c holds at an eps if the upward shift reaches the decision threshold."""
+    from p2.analysis import h2c_verdict
+    r = h2c_verdict({0.02: 0.27, 0.05: 0.1}, 0.25)
+    assert r["h2c_holds"] and r["holds_by_eps"] == {0.02: True, 0.05: False} and not r["h2c_falsified"]
+    r = h2c_verdict({0.02: 0.1, 0.05: -0.3}, 0.25)
+    assert not r["h2c_holds"] and r["h2c_falsified"]
+
+
+def test_p2_analyze_selection_split_and_k_sensitivity():
+    """A1 on a planted grid: selection uses replicates < N_SEL only (a method that is best
+    ONLY on the estimation replicates is not chosen); the k-aware sensitivity counts a
+    success only if k_hat is within [k/2, 2k]; the positive control is reported."""
+    from p2_analyze import N_SEL, verdicts
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(5), n_rep=N_REP)
+    for nm, c in cells.items():
+        c["k_LDF"] = 0.01
+        for rep in range(N_REP):
+            # C: never succeeds on the selection set, always on the estimation set
+            o1[f"{nm}|0.02|0.02|{rep}|C|strong"] = {"success": rep >= N_SEL, "k_hat": 0.01}
+            # B keeps its successes but its k is off by 10x: k-aware success never holds
+            o1[f"{nm}|0.02|0.02|{rep}|B|strong"]["k_hat"] = 0.1
+            o1[f"{nm}|0.02|0.02|{rep}|A|strong"]["k_hat"] = 0.01
+    out = verdicts(cells, o1, {}, ident, rstats, n_boot=100)
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    assert s["best_method"] == "B|strong", s
+    k = out["H2b_k_sensitivity"]["sigma=0.02|eps=0.02|langmuir"]
+    assert abs(np.log10(k["da_disc_k"] or 1e9) - np.log10(30)) > 0.3   # B's successes no longer count
+    assert "H2b_overall" in out and "positive_control" in out
+
+
+def test_refine_levels_are_strictly_inside_half_a_decade():
+    """A1: 8 levels, equally spaced in log10 Da, strictly inside +-0.5 decade."""
+    from p2.analysis import refine_levels
+    lv = np.log10(refine_levels(30.0))
+    assert len(lv) == 8 and np.all(np.abs(lv - np.log10(30.0)) < 0.5)
+    assert np.allclose(np.diff(lv), 1.0 / 9.0)
+    assert refine_levels(None) == []
+
+
+def test_refined_cells_enter_h2c_only():
+    """A1: refinement cells (flag 'refined') never enter H2a/H2b; in H2c they join the main
+    grid at eps = 2 % only. The generator lists them for every Pe multiplier."""
+    from p2_analyze import h2c, h2c_refine_levels, verdicts
+    from p2_generate import PE_MULT, refined_cells
+    from p2_grid_o1 import N_REP
+    cells, o1, m5, ident, rstats = _planted_grid(np.random.default_rng(6), n_rep=N_REP)
+    lv = h2c_refine_levels(cells, o1)
+    assert len(lv["langmuir"]["levels"]) == 8
+    assert len(refined_cells(lv)) == 8 * len(PE_MULT)
+    # a refined cell where every method always FAILS: it would distort H2b if it leaked in
+    cells["lang_ref"] = {"iso": "langmuir", "law": "L1", "pe_mult": 1.0, "Da": 0.2, "refined": True}
+    for rep in range(N_REP):
+        for m in ("A", "B"):
+            o1[f"lang_ref|0.02|0.02|{rep}|{m}|strong"] = {"success": False}
+        ident[f"lang_ref|0.02|0.02|{rep}|profile|o1"] = {"success": False}
+    rstats["lang_ref"] = {"delta": 1.0, "eps_rec": 0.0}
+    out = verdicts(cells, o1, {}, ident, rstats, n_boot=100)
+    s = out["H2b"]["sigma=0.02|eps=0.02|langmuir"]
+    assert abs(np.log10(s["da_disc"]) - np.log10(30)) < 0.3, s
+    hc = h2c(cells, o1, m5, n_boot=100)
+    assert hc["detail"]["langmuir|eps=0.02"]["da_disc_best_strong"] is not None

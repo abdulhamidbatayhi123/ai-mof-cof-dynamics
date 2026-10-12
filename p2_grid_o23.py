@@ -35,8 +35,8 @@ def run_o2(man):
     out = "results/p2_o2.json"
     res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1" or rec["iso"] == "langmuir_iso":
-            continue
+        if rec["law"] != "L1" or rec["iso"] == "langmuir_iso" or rec.get("refined"):
+            continue   # A1: H2c refinement cells are O1-only
         phys = physics_for(rec)
         phys.D_L = rec["D_L"]
         t0 = time.time()
@@ -48,7 +48,8 @@ def run_o2(man):
             try:
                 co = discover_o2(obs, phys, solver, form)
                 res["rows"][key] = {"success": bool(success_L1(co)),
-                                    "k_acc": float(k_accuracy(co, rec["k_LDF"])), "support": sorted(co)}
+                                    "k_acc": float(k_accuracy(co, rec["k_LDF"])), "support": sorted(co),
+                                    "k_hat": float(-co.get("q", 0.0))}   # A1: k-aware sensitivity
             except Exception as e:
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}
         write_atomic(res, out)
@@ -59,7 +60,7 @@ def run_o3(man):
     out = "results/p2_o3_ident.json"
     res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso":
+        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso" or rec.get("refined"):
             continue
         phys = physics_for(rec)
         phys.D_L = rec["D_L"]
@@ -96,7 +97,7 @@ def run_o2_ident(man):
     out = "results/p2_o2_ident.json"
     res = json.load(open(out)) if os.path.exists(out) else {"rows": {}}
     for name, rec in sorted(man.items()):
-        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso":
+        if rec["law"] != "L1" or rec["pe_mult"] != 1.0 or rec["iso"] == "langmuir_iso" or rec.get("refined"):
             continue
         phys = physics_for(rec)
         phys.D_L = rec["D_L"]

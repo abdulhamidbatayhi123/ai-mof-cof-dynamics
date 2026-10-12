@@ -128,6 +128,8 @@ def run(cmd, man):
             sys.exit(f"m7: NOT RUN by its pre-registered inclusion gate ({g.get('decision', 'pilot not run')})")
     for name, rec in sorted(man.items()):
         iso, law = rec["iso"], rec["law"]
+        if rec.get("refined") and cmd not in ("m5", "m7"):
+            continue   # A1: H2c refinement cells serve H2c only (M5, M7 and the O1 solvers)
         if cmd == "m6":
             if iso != "langmuir_iso":
                 continue
@@ -147,11 +149,16 @@ def run(cmd, man):
         elif cmd == "m5":
             if iso == "langmuir_iso" or law != "L1":
                 continue
-            grid = itertools.product(SIGMAS, EPSS, range(N_REP), ("eiv_best_subset",), ("strong",))
+            grid = itertools.product(*(((0.02,), (0.02,)) if rec.get("refined") else (SIGMAS, EPSS)),
+                                     range(N_REP), ("eiv_best_subset",), ("strong",))
         else:   # m8, m7: the declared subgrid
             if iso == "langmuir_iso" or law != "L1" or rec["pe_mult"] != 1.0:
                 continue
-            grid = itertools.product(SUB_SIGMAS, SUB_EPSS, range(SUB_REP), (cmd,), ("strong",))
+            # A1: M7 runs at the full replicate count on its subgrid, so it can take part in
+            # the selection/estimation split; M8 (not run, cost gate) keeps the declared 3
+            grid = itertools.product(*(((0.02,), (0.02,)) if rec.get("refined") else (SUB_SIGMAS, SUB_EPSS)),
+                                     range(N_REP if cmd == "m7" else SUB_REP),
+                                     (cmd,), ("strong",))
         t0 = time.time()
         for sigma, eps, rep, solver, form in grid:
             key = f"{name}|{sigma}|{eps}|{rep}|{solver}|{form}"
@@ -194,7 +201,9 @@ def run(cmd, man):
                 else:   # m5
                     co, ok = fit_m5(obs, sigma, eps)
                 res["rows"][key] = {"success": bool(ok), "sec": time.time() - t1,
-                                    **({"interval": co} if cmd == "o1ident" else {"support": sorted(co)})}
+                                    **({"interval": co} if cmd == "o1ident" else {"support": sorted(co)}),
+                                    # A1: the fitted k, for the k-aware sensitivity analysis
+                                    **({"k_hat": float(-co.get("q", 0.0))} if cmd in ("m5", "m7", "l2") else {})}
             except Exception as e:   # recorded, never dropped
                 res["rows"][key] = {"success": False, "error": f"{type(e).__name__}: {e}"}
         write_atomic(res, out)

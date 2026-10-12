@@ -40,14 +40,20 @@ Verified on known answers: M2 strong + M2b weak-form, M3 ensemble, M4 exact
 best-subset (BIC with a derivative floor), M6 SINDy-PI (isothermal), M9
 slow-manifold, M1b mass-balance inversion (O2), profile likelihood (ODE and full
 column, outlet-only), the Da* estimator (coverage 0.94). **M8 KAN fails its
-known-answer test in every configuration (xfail strict, recorded). M5 ODR-BINDy
-port: exact support on Lorenz but 2.3x the reported error, 26x slower — NOT yet
-verified; five-seed check owed. M1 UDE is NOT RUN at scale (145 s per gradient;
-compute limit, stated). M7 PySR not built (needs Julia; RAM-limited).**
-Ground truth: `data/p2/` (81 cells, gitignored; `p2_generate.py`).
-`p2_grid_o1.py` REFUSES to run until a `FREEZE PREREG_P2` commit exists.
-Before the freeze: M5 five-seed check, M7 decision, O2/O3 grid drivers, the H2a
-(R collapse) and H2b analysis code.
+known-answer test in every configuration (xfail strict, recorded). ODR-BINDy port:
+"port, accuracy below the reference" (five seeds). M1 UDE is NOT RUN at scale (compute
+limit, stated). M7 PySR INCLUDED (gate passed after the B76 fix).**
+Ground truth: `data/p2/` (81 cells + 9 isothermal; fields gitignored, the manifest is
+tracked; `p2_generate.py`, `--refine` for the H2c refinement cells after the main grid).
+**State (2026-10-12): PREREG_P2 frozen (d562f19) and amended once (A1, §9: 60 replicates
+split 15 selection / 45 estimation, smallest effect of interest 0.40 decade, H2c holds on a
+detectable shift, H2b two-thirds rule, on-grid positive control, k-aware sensitivity, the
+refinement grid implemented). Stage 1 prepared for Nature Communications
+(`paper2/VENUE_RR.md`, `paper2/stage1.tex`, `check_stage1_p2.py`). The grid runs ONLY after
+in-principle acceptance (or after the six-month clause, by dated amendment).** The drivers
+refuse to run unless the prereg matches its latest `FREEZE PREREG_P2` commit. Order after
+IPA: main grid (o1, o2, extra m5/m6/m7/m9/l2/o1ident, o23) → `p2_analyze.py --refine-levels`
+→ `p2_generate.py --refine` → o1 and m5/m7 on the refined cells → `p2_analyze.py`.
 
 ---
 

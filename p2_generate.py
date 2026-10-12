@@ -20,6 +20,7 @@ Resumable: an existing cell file is skipped.
 
     python p2_generate.py            # all cells
     python p2_generate.py --list     # cells only
+    python p2_generate.py --refine   # A1: the H2c refinement cells (after the main grid)
 """
 from __future__ import annotations
 
@@ -86,8 +87,17 @@ def cells():
     return out
 
 
-def name(iso, law, pe, da):
-    return f"{iso}_{law}_pe{pe:g}_da{da:.3g}"
+def refined_cells(levels_by_iso):
+    """A1: the H2c refinement cells -- each isotherm's 8 levels (from p2_analyze.py
+    --refine-levels, computed from the main grid before any EIV method sees them) x the
+    three Pe multipliers, law L1. They are flagged 'refined' in the manifest and enter H2c
+    at sigma = eps = 2 % only."""
+    return [(iso, "L1", pe, float(da)) for iso, rec in sorted(levels_by_iso.items())
+            for pe in PE_MULT for da in rec.get("levels", [])]
+
+
+def name(iso, law, pe, da, refined=False):
+    return f"{iso}_{law}_pe{pe:g}_da{da:.3g}" + ("_ref" if refined else "")
 
 
 def solve_cell(iso, law, pe, da):
@@ -120,8 +130,14 @@ def solve_cell(iso, law, pe, da):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--refine", action="store_true",
+                    help="A1: solve the H2c refinement cells listed in results/p2_h2c_refine_levels.json")
     a = ap.parse_args()
-    todo = cells()
+    if a.refine:
+        lv = json.load(open("results/p2_h2c_refine_levels.json"))
+        todo = [c + (True,) for c in refined_cells(lv)]
+    else:
+        todo = [c + (False,) for c in cells()]
     if a.list:
         for c in todo:
             print(name(*c))
@@ -135,7 +151,8 @@ def main():
         f = os.path.join(OUT, nm + ".npz")
         if os.path.exists(f) and nm in man["cells"]:
             continue
-        rec, z, t, c, q, T = solve_cell(*cell)
+        rec, z, t, c, q, T = solve_cell(*cell[:4])
+        rec["refined"] = bool(cell[4])
         np.savez_compressed(f, z=z, t=t, c=c.astype(np.float32), q=q.astype(np.float32),
                             T=T.astype(np.float32))
         man["cells"][nm] = rec

@@ -7,7 +7,8 @@ simulates exactly that, with the frozen ingredients only:
 
   * planted boundaries as in the frozen calibration (tests/test_p2.py): P(success) =
     1 / (1 + exp(a (log10 Da - b))), slope a = 3 per decade (1.5 and 6 as sensitivity),
-    9 Da levels logspace(-1, 3), 20 replicates per level (40 for comparison);
+    9 Da levels logspace(-1, 3), 20 replicates per level (the frozen design) and 45
+    (the estimation set of amendment A1, PREREG_P2 s.9);
   * the frozen estimator p2.analysis._fit (unpenalised logistic ML, no crossing -> None);
   * the frozen thresholds: H2b gap +-0.25 decade (the MDE); H2c shift >= log10 2 for
     "moves by {factor}", >= 0.25 for "detectably but by less", <= -0.25 for "DOWN";
@@ -119,19 +120,62 @@ def h2a(n_rep, true_spread, n_slices=12, slope=3.0, n_sim=300):
     return {k: round(v / n_sim, 4) for k, v in words.items()}
 
 
+def selection_bias(n_methods=6, n_sel=20, n_est=40, n_sim=500, slope=3.0):
+    """Best-of-K selection (PREREG_P2 s.4.3) with K methods whose TRUE boundaries are equal.
+    'same': select the largest Da* and report it from the same replicates (frozen rule).
+    'split': select on n_sel replicates, report the chosen method's boundary from n_est
+    independent replicates (amendment A1). Methods are simulated independently, which
+    maximises the bias of 'same' (methods sharing replicates are positively correlated)."""
+    rng = np.random.default_rng(5000 + n_methods)
+    same, split = [], []
+    for _ in range(n_sim):
+        sel = [sim_boundary(rng, B0, n_sel + n_est, slope) for _ in range(n_methods)]
+        sel = [b for b in sel if b is not None]
+        if sel:
+            same.append(max(sel) - B0)
+        pick = [sim_boundary(rng, B0, n_sel, slope) for _ in range(n_methods)]
+        if any(p is not None for p in pick):
+            est = sim_boundary(rng, B0, n_est, slope)     # chosen method, fresh replicates
+            if est is not None:
+                split.append(est - B0)
+    return {"n_methods": n_methods, "n_sel": n_sel, "n_est": n_est,
+            "bias_same_replicates_decade": round(float(np.mean(same)), 4),
+            "sd_same": round(float(np.std(same, ddof=1)), 4),
+            "bias_split_decade": round(float(np.mean(split)), 4),
+            "sd_split": round(float(np.std(split, ddof=1)), 4)}
+
+
+def amendment():
+    """Evidence for amendment A1: replicate counts and the selection split."""
+    t0 = time.time()
+    res = {"h2b_gap_0.40": {str(n): h2b(n, 0.40) for n in (40, 45, 50)},
+           "h2b_gap_0": {str(n): h2b(n, 0.0) for n in (40, 45, 50)},
+           "h2b_gap_0.40_slope_1.5": {str(n): h2b(n, 0.40, slope=1.5) for n in (40, 50)},
+           "h2c_main_grid_n40": {f"{s:.2f}": h2c(40, s, False) for s in (0.0, 0.40)},
+           "selection": [selection_bias(6, 20, 40), selection_bias(6, 10, 50)]}
+    res["runtime_s"] = round(time.time() - t0, 1)
+    json.dump(res, open("results/p2_operating_characteristics_a1.json", "w", encoding="utf-8"), indent=1)
+    print(json.dumps(res, indent=1))
+
+
 def main():
+    import sys
+    if "--amendment" in sys.argv:
+        return amendment()
     t0 = time.time()
     res = {"model": "frozen planted logistic, 9 Da levels logspace(-1,3), b = 1.3, slope 3/decade",
            "n_sim": N_SIM, "thresholds": {"mde": MDE, "factor2": round(F2, 4),
                                           "h2a": [0.5, 1.0]},
-           "single_boundary": [single(n, a) for n in (20, 40) for a in (1.5, 3.0, 6.0)],
+           "single_boundary": [single(n, a) for n in (20, 45) for a in (1.5, 3.0, 6.0)],
            "h2b": {str(n): {f"{g:.2f}": h2b(n, g) for g in (0.0, 0.25, 0.30, 0.40, 0.50, 0.75, 1.0)}
-                   for n in (20, 40)},
+                   for n in (20, 45)},
            "h2c_refined_grid": {str(n): {f"{s:.2f}": h2c(n, s, True) for s in (0.0, 0.25, F2, 0.40, 0.50, 0.75, 1.0)}
-                                for n in (20, 40)},
-           "h2c_main_grid": {str(n): {f"{s:.2f}": h2c(n, s, False) for s in (0.0, F2, 0.50, 1.0)}
-                             for n in (20,)},
-           "h2a_12_slices": {str(n): {f"{t:.1f}": h2a(n, t) for t in (0.0, 0.5, 1.0, 1.5)} for n in (20,)}}
+                                for n in (20, 45)},
+           "h2c_main_grid": {str(n): {f"{s:.2f}": h2c(n, s, False) for s in (0.0, F2, 0.40, 0.50, 1.0)}
+                             for n in (20, 45)},
+           "h2a_12_slices": {str(n): {f"{t:.1f}": h2a(n, t) for t in (0.0, 0.5, 1.0, 1.5)} for n in (20, 45)},
+           "h2b_slope_1.5_n45": {f"{g:.2f}": h2b(45, g, slope=1.5) for g in (0.0, 0.40, 0.50, 0.75)},
+           "selection": [selection_bias(6, 15, 45)]}
     res["runtime_s"] = round(time.time() - t0, 1)
     json.dump(res, open(OUT, "w", encoding="utf-8"), indent=1)
     print(json.dumps(res, indent=1))

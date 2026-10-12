@@ -373,7 +373,95 @@ is queued in `autorun.sh` with a done-test; one training job at a time.
   reported first; S8 on non-plug flow is cited as a limitation).
 
 ## 9. Amendments
-(none — amendments are what changes AFTER the freeze)
+### A1 — 2026-10-12, after the freeze (d562f19), before any discovery method has run on any grid cell
+
+**Why.** An internal review written to the Stage-1 criteria of the target journal (Nature
+Communications Registered Reports, which require a priori power ≥ 0.95 for every test)
+found four weaknesses in the frozen analysis plan, each confirmed by simulation of the frozen
+estimator and thresholds on planted boundaries (`p2_operating_characteristics.py`, pilot P8;
+`results/p2_operating_characteristics.json`, `results/p2_operating_characteristics_a1.json`).
+No grid result existed or was looked at. Every change below is made through this section, as
+§0 requires; §2–§5 are not edited. Where they and A1 differ, A1 governs.
+
+**A1.1 Replicates and the selection split.** 20 → **60 replicates per cell** for every
+grid run that had 20 (M2–M6, M9, L2, M5, O1 identifiability, O2 discovery), and M7 on its
+subgrid 3 → 60. M8 (not run) and O2/O3 identifiability (3, descriptive) are unchanged.
+Replicates **0–14 are the selection set**: they are used ONLY to choose the best method of
+a slice (§4.3). Replicates **15–59 are the estimation set**: every boundary that enters a
+verdict (Da*_disc, Da*_ident, R*, the H2c shift) is estimated on them. §4.3's
+selection-carrying bootstrap is replaced: intervals are percentile bootstraps over the
+estimation replicates. *Evidence:* choosing the best of six equally good methods on the
+replicates that also estimate its boundary inflated it by 0.071 decade (more than a quarter
+of the 0.25-decade threshold, and towards "discovery outlives identifiability"); with the
+split the bias is −0.001 decade. A method without replicates in both sets at every level of
+a slice takes no part in the selection (this also fixes a latent defect: M7's 3 replicates,
+mixed into the O1 rows, would have mis-indexed the joint bootstrap).
+
+**A1.2 Threshold, smallest effect of interest, power.** §4.4 derived the MDE as
+2.8 × 0.089 = 0.25 decade from the SD of ONE boundary estimate; H2b's gap and H2c's shift
+are differences of TWO estimated boundaries, so that derivation does not give their power.
+The value 0.25 decade is kept as the **decision threshold** of H2b and H2c, and every verdict
+word that says "MDE" refers to it. The **smallest effect of interest is 0.40 decade** (a
+factor 2.5 in Da: just under the grid's half-decade spacing, the smallest difference that
+would change which tested Da level an experimenter should aim at). Simulated operating
+characteristics at 45 estimation replicates, two boundaries drawn independently
+(conservative): H2b — wrong directional verdict 0.001 at no gap, correct verdict 0.965 at
+0.40 decade, 0.998 at 0.50; H2c — no false detection at zero shift, detection 0.997
+(refined grid) and 0.962 (main grid) at 0.40 decade, 0.855 at the predicted factor 2;
+H2a — verdict correct with probability ≥ 0.997 at true spreads 0, 0.5, 1.0, 1.5 decade. For a
+shallow boundary (slope 1.5 instead of 3) H2b's power at 0.40 decade is 0.887 and at 0.50
+decade 0.982; this is reported with the verdicts.
+
+**A1.3 H2c's criterion.** The frozen rule made H2c hold only if the shift reached a factor 2,
+i.e. the criterion equalled the predicted effect, which is met only about half the time
+when the prediction is exactly right (0.49 in simulation, at any replicate count). H2c now
+**holds at an ε if the upward shift is ≥ 0.25 decade** (detectable); the factor-2 words
+grade the size; the falsifier is unchanged (below 0.25 decade at every ε > 0). The verdict
+words are unchanged.
+
+**A1.4 H2b's hypothesis-level verdict.** The word held by **at least two thirds of the O1
+slices that have a verdict** is H2b's verdict; otherwise H2b is reported as "mixed: the
+position of discovery relative to identifiability depends on the slice", with the counts by
+σ, ε and isotherm. Slices without a crossing are counted and listed, never imputed.
+
+**A1.5 Positive control on the grid (outcome-neutral).** In each isotherm's easiest cell
+(lowest Da, σ = ε = 0, O1), the best method must succeed and k must be identifiable in
+**≥ 90 % of the estimation replicates**. If this fails for an isotherm, no verdict words are
+issued for that isotherm's slices (H2a, H2b, H2c), and the failure is reported as the result.
+
+**A1.6 k-aware sensitivity of H2b (descriptive).** H2b is recomputed with success also
+requiring k̂ ∈ [k/2, 2k] (the identifiability criterion's tolerance) and reported beside the
+primary verdict; if they differ, both are reported and the primary stands. The grid drivers
+record k̂ for every rate-law fit.
+
+**A1.7 The H2c refinement grid, made exact and implemented.** The 8 levels are equally spaced
+in log10 Da strictly inside ±0.5 decade of the best STRONG-form non-EIV method's Da*_disc at
+O1, σ = ε = 2 %, main grid (that method chosen on the selection set, its boundary on the
+estimation set; no EIV result is read: `p2_analyze.py --refine-levels`). They are solved for
+every Pe multiplier, law L1, flagged `refined` in the manifest (`p2_generate.py --refine`),
+run at σ = ε = 2 % only by the O1 solvers, M5 and M7, and enter H2c at ε = 2 % only, together
+with the 9 main levels; they never enter H2a or H2b. (§4.4's "the endpoints coincide with
+main-grid levels" holds only when the boundary falls on a grid level; it is withdrawn.)
+
+**Errata (statements of fact; no design element depends on them).** (a) The 81 ground-truth
+solves took **1–414 s (median 4 s)**, not "3–7 s" (§4.2, §6, §7, §10 item 4); the generator
+pilot's "up to ~300 s" was a pilot measurement (RETRACTIONS B79). (b) The step case does NOT
+change "only the isotherm" (§4.1): `get_mof303_physics()` also sets the bed porosity (0.35),
+particle density (1100 kg/m³), heat of adsorption (−50.5 kJ/mol) and the feed (water at
+30 % RH, 303.15 K); geometry, particle size and flow are shared (B81). (c) k·L/u reaches
+about 0.06 over the grid (k ≤ 0.139 s⁻¹), not "at most ~0.04" (§4.2; B81). (d) The header
+still reads "Status: DRAFT, NOT FROZEN": it predates the freeze; the freeze is the commit.
+(e) The ground-truth manifest is now public (`data/p2/manifest.json`, B81).
+
+**Compute.** O1 identifiability ≈ 65 h (4.5 s × 54 cells × 16 (σ, ε) × 60); M7 ≤ 42 h
+(4320 searches ≤ 35 s); the rest seconds per fit. Within the Stage-1 timeline.
+
+**Code.** `p2_grid_o1.py` (N_REP = 60, k̂), `p2_grid_o23.py`, `p2_grid_extra.py` (k̂; M7 at
+60; refined cells), `p2_generate.py` (`--refine`), `p2/analysis.py` (`select_best`,
+`aggregate_h2b`, `positive_control`, `refine_levels`, H2c holds), `p2_analyze.py` (split,
+aggregation, positive control, k-aware sensitivity, refined cells, `--refine-levels`), with
+tests in `tests/test_p2.py`. Committed under a commit whose message begins
+`FREEZE PREREG_P2 amendment A1`, which the grid drivers then check.
 
 ## 10. Pre-freeze revisions, 2026-10-04 (before any discovery method has run on any grid cell)
 Found by drafting the Registered-Report Stage-1 manuscript against this document and

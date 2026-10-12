@@ -2,7 +2,8 @@
 
 Owner of audit_2026-10-12/stage1_checks.json. Exit 1 if any HARD check fails.
 HARD checks:
-  * the frozen pre-registration is byte-identical to the freeze commit d562f19;
+  * the frozen pre-registration is byte-identical to the freeze commit d562f19 outside
+    s.9 (Amendments), where amendment A1 is appended;
   * the build log has no undefined reference or citation and no LaTeX error;
   * title <= 15 words, abstract <= 200 words with no citation (Nature Communications);
   * every \\cite key has a \\bibitem and every \\bibitem is cited;
@@ -39,9 +40,19 @@ def words(s):
     return [w for w in s.split() if re.search(r"[A-Za-z0-9]", w)]
 
 
-# 1. frozen prereg unchanged since the freeze
+# 1. frozen prereg: outside s.9 (Amendments) byte-identical to the freeze commit; amendments
+#    are appended in s.9 only, as the prereg's header requires
 frozen = subprocess.run(["git", "show", f"{FREEZE}:{PREREG}"], capture_output=True).stdout
-hard["prereg_unchanged_since_freeze"] = frozen == open(PREREG, "rb").read()
+now = open(PREREG, "rb").read()
+
+
+def _outside_s9(b):
+    s9, s10 = "## 9. Amendments".encode(), "## 10. ".encode()
+    i, j = b.index(s9), b.index(s10)
+    return b[:i], b[j:]
+
+
+hard["prereg_frozen_text_unchanged_outside_s9"] = _outside_s9(frozen) == _outside_s9(now)
 
 # 2. build log
 log = open(LOG, encoding="utf-8", errors="replace").read() if os.path.exists(LOG) else ""
@@ -86,7 +97,8 @@ hard["verdict_phrases_in_prereg"] = not missing
 
 # 7. number provenance (REVIEW, not hard)
 sources = set(re.findall(r"(results/[A-Za-z0-9_.\-]+\.json|p2_generate\.log|tests/test_p2\.py"
-                         r"|research/[A-Za-z0-9_.\-]+\.md|p2/[a-z_]+\.py)", tex))
+                         r"|research/[A-Za-z0-9_.\-]+\.md|p2/[a-z_]+\.py|data/p2/manifest\.json"
+                         r"|solver_fd\.py|fetch_real_mof_data\.py|p2_generate\.py|p2_observe\.py)", tex))
 src_text = prereg
 for s in sources:
     if os.path.exists(s):
@@ -99,15 +111,34 @@ TRACED = {
     "3.84": "p2/identifiability.py: 2*(max loglik - loglik) <= 3.84",
     "414": "p2_generate.log: slowest main-grid solve 414 s",
     "2.6": "requirements_p2_venv.txt: pysr==2.6.1 (software version, printed as 2.6.1)",
-    "0.761": "results/p2_operating_characteristics.json h2c_refined n20 log10 2: 0.489 + 0.272",
-    "0.98": "results/p2_operating_characteristics.json h2c_refined n20 0.40: 0.901 + 0.079",
     "0.054": "results/p2_operating_characteristics.json h2b n20 gap 0: before 0.024 + outlives 0.03",
-    "0.088": "results/p2_operating_characteristics.json single_boundary n20 slope 3 sd 0.0882",
-    "0.143": "results/p2_operating_characteristics.json single_boundary n20 slope 1.5 sd 0.1428",
-    "0.068": "results/p2_operating_characteristics.json single_boundary n20 slope 6 sd 0.0684",
-    "863": "results/p2_operating_characteristics.json runtime_s 862.8",
-    "0.008": "results/p2_operating_characteristics.json h2b n40 gap 0: before 0.004 + outlives 0.004",
+    "0.855": "results/p2_operating_characteristics.json h2c_refined n45 log10 2: 0.526 + 0.329",
+    "0.997": "results/p2_operating_characteristics.json h2c_refined n45 0.40: 0.98 + 0.017; h2a n45 >= 0.9967",
+    "0.962": "results/p2_operating_characteristics.json h2c_main n45 0.40: 0.895 + 0.067",
+    "0.063": "results/p2_operating_characteristics.json single_boundary n45 slope 3 sd 0.0626",
+    "0.091": "results/p2_operating_characteristics.json single_boundary n45 slope 1.5 sd 0.0909",
+    "0.044": "results/p2_operating_characteristics.json single_boundary n45 slope 6 sd 0.0438",
+    "0.071": "results/p2_operating_characteristics.json selection bias_same_replicates_decade 0.0708",
+    "0.07": "results/p2_operating_characteristics.json selection bias_same_replicates_decade 0.0708",
+    "0.048": "results/p2_operating_characteristics.json h2b_slope_1.5_n45 gap 0: 0.024 + 0.024",
     "144": "p2_operating_characteristics.py h2a(): 144 cells per slice (simulation setting)",
+    "050": "data/p2/manifest.json step t_stoich_s 31050.4, printed as 31,050",
+    "256": "p2_observe.py hashlib.sha256 (the name SHA-256, not a measured number)",
+    "50.0": "solver_fd.py delta_H = -50000.0 J/mol",
+    "65": "4.5 s x 54 cells x 16 (sigma, eps) x 60 replicates / 3600 = 64.8 h (PREREG_P2 s.10, A1)",
+    "4320": "18 cells (9 Da x 2 isotherms, Pe x1) x 4 (sigma, eps) x 60 replicates (A1)",
+    "42": "4320 searches x 35 s / 3600 = 42 h (results/p2_pilot_m7.json slowest search)",
+    "59": "replicates 15..59: the estimation set (A1, p2_analyze.N_SEL = 15, p2_grid_o1.N_REP = 60)",
+    "14": "replicates 0..14: the selection set (A1)",
+    "2.68": "solver_fd.py D_L = 0.7*2.5e-5 + 0.5*0.002*(0.10/0.40) = 2.675e-4",
+    "3.03": "fetch_real_mof_data.py D_L = 0.7*2.5e-5 + 0.5*0.002*(0.10/0.35) = 3.032e-4",
+    "1.39": "data/p2/manifest.json langmuir k min 1.3888e-05",
+    "0.139": "data/p2/manifest.json langmuir k max 0.13888",
+    "3.22": "data/p2/manifest.json step k min 3.2206e-06",
+    "0.0322": "data/p2/manifest.json step k max 0.032206",
+    "0.504": "data/p2/manifest.json step c_in 0.50429",
+    "0.06": "k L/u = 0.4 s x 0.13888 s^-1 = 0.056 (manifest k max, residence time 0.4 s)",
+    "0.35": "step case: bed porosity 0.35 and residence time L eps_t / v = 0.1 x 0.35 / 0.10 = 0.35 s",
 }
 prose = body.split(BS + "begin{document}")[1]
 prose = re.sub(r"(?<!\\)%.*", "", prose)

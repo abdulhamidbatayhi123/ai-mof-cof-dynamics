@@ -130,6 +130,67 @@ def best_method_boundary(by_method, n_boot=2000, seed=0):
     return best, pts[best], 10 ** lo, 10 ** hi
 
 
+def refine_levels(da_star, n=8, half_width=0.5):
+    """H2c refinement grid (PREREG_P2 s.4.4, made exact by A1): n levels equally spaced in
+    log10 Da strictly inside +-half_width decade of da_star (the two end points excluded)."""
+    if da_star is None:
+        return []
+    x = np.linspace(np.log10(da_star) - half_width, np.log10(da_star) + half_width, n + 2)[1:-1]
+    return [float(v) for v in 10.0 ** x]
+
+
+def select_best(by_method_sel, rising=False):
+    """Amendment A1 (PREREG_P2 s.9): the best method is chosen on the SELECTION replicates
+    only, so its boundary can be estimated without selection bias on the independent
+    ESTIMATION replicates. Chosen: the largest 50 % crossing (the smallest R* when
+    rising). If no method has a crossing on the selection set, the method with the highest
+    mean success is chosen (it may still have one on the estimation set). Returns the
+    method label, or None if there is no method."""
+    if not by_method_sel:
+        return None
+    pts = {m: boundary(s, n_boot=0 or 1, rising=rising)[0] for m, s in by_method_sel.items()}
+    pts = {m: v for m, v in pts.items() if v is not None}
+    if pts:
+        return (min if rising else max)(pts, key=pts.get)
+    return max(by_method_sel, key=lambda m: np.mean([np.mean(v) for v in by_method_sel[m].values()]))
+
+
+H2B_WORDS = ("discovery fails before identifiability", "discovery fails with identifiability",
+             "discovery outlives identifiability")
+
+
+def aggregate_h2b(slice_words, share=2.0 / 3.0):
+    """Amendment A1: the hypothesis-level H2b verdict from the O1 slice verdicts. A word
+    held by at least two thirds of the slices that have a verdict is the overall verdict;
+    otherwise "mixed". Slices without a verdict (no crossing) are counted and listed,
+    never imputed."""
+    counted = {w: 0 for w in H2B_WORDS}
+    none = []
+    for sl, w in slice_words.items():
+        if w in counted:
+            counted[w] += 1
+        else:
+            none.append(sl)
+    n = sum(counted.values())
+    if n == 0:
+        return {"words": "no verdict: no slice has a boundary for both", "counts": counted, "no_verdict": none}
+    top = max(counted, key=counted.get)
+    words = top if counted[top] >= share * n else (
+        "mixed: the position of discovery relative to identifiability depends on the slice")
+    return {"words": words, "counts": counted, "n_with_verdict": n, "no_verdict": none}
+
+
+def positive_control(success, identifiable, need=0.9):
+    """Amendment A1, outcome-neutral check on the grid itself: at sigma = eps = 0, O1, the
+    lowest Da level, the best method must succeed and k must be identifiable in at least
+    `need` of the estimation replicates. Returns (passed, detail)."""
+    fs = float(np.mean(success)) if len(success) else 0.0
+    fi = float(np.mean(identifiable)) if len(identifiable) else 0.0
+    return (fs >= need and fi >= need), {"success_fraction": fs, "identifiable_fraction": fi,
+                                          "n_success": len(success), "n_ident": len(identifiable),
+                                          "need": need}
+
+
 def h2c_verdict(shift_by_eps, mde_decades, factor2=float(np.log10(2.0))):
     """H2c words (PREREG_P2 §2, §4.4): shift = log10 Da*_disc(M5) - log10 Da*_disc(best
     non-EIV, strong form, O1), per eps > 0. Reported for the largest |shift|."""
@@ -147,4 +208,9 @@ def h2c_verdict(shift_by_eps, mde_decades, factor2=float(np.log10(2.0))):
         words = f"EIV moves the boundary DOWN by {10 ** -down:.2f}x"
     else:
         words = f"EIV does not move the boundary detectably (MDE {mde_decades} decade)"
-    return {"words": words, "shifts": shifts}
+    # Amendment A1: H2c HOLDS at an eps if the upward shift is detectable (>= the decision
+    # threshold); the factor-2 words grade the size and are descriptive.
+    holds = {e: v >= mde_decades for e, v in shifts.items()}
+    return {"words": words, "shifts": shifts, "holds_by_eps": holds,
+            "h2c_holds": any(holds.values()),
+            "h2c_falsified": all(v < mde_decades for v in shifts.values())}
