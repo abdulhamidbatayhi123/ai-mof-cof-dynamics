@@ -100,7 +100,9 @@ import pytest as _pytest
     "rng(12) stream cannot be reproduced); 26x slower; lsqnonlin replaced by "
     "Gauss-Newton. Not yet the strongest configuration (PREREG_P2 §3)."))
 def test_lorenz_example_reproduces_reported_accuracy():
-    out = run_lorenz_example()
+    # write=False: a test run must not overwrite the archived verification record that
+    # the prereg and the Stage-1 manuscript cite (its runtime depends on machine load)
+    out = run_lorenz_example(write=False)
     rep = out["reproduced"]
     assert rep["support_correct"], (rep["missing_terms"], rep["extra_terms"])
     assert rep["rel_frobenius_error"] <= REPORTED_REL_ERR, rep["rel_frobenius_error"]

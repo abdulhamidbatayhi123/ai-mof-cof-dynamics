@@ -87,7 +87,7 @@
       789.093724608843,
       796.2927707108131
     ],
-    "runtime_s": 1453.8892832000274,
+    "runtime_s": 2384.7527885000018,
     "denoise_rmse": 0.28770302380025603,
     "noise_rmse": 2.546667073720554,
     "noise_rng": "numpy default_rng(12) (MATLAB rng(12) stream not reproducible)"
