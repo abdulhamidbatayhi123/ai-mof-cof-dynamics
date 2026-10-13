@@ -22,7 +22,7 @@ abstract: >-
   learning, structural identification of the kinetic and equilibrium objects,
   and whether learning is needed at all. Each verdict is reported in words
   declared in advance; the results are in the accompanying manuscript. Includes
-  a verified finite-difference reference solver, a calibrated cluster-robust
+  a verified finite-volume reference solver, a calibrated cluster-robust
   inference protocol, a build that refuses any number not resolved from a
   results file, and a public correction ledger.
 keywords:
@@ -36,3 +36,16 @@ keywords:
   - negative results
   - pre-registration
 license: MIT
+preferred-citation:
+  type: article
+  title: >-
+    The coefficient map, not the basis, limits how machine-learning surrogates
+    of metal–organic framework water-adsorption beds transfer to unseen materials
+  authors:
+    - given-names: Abdulhamid
+      family-names: Batayhi
+      orcid: "https://orcid.org/0009-0007-0374-6755"
+  journal: ChemRxiv
+  year: 2026
+  doi: 10.26434/chemrxiv.15010365/v1
+  url: "https://doi.org/10.26434/chemrxiv.15010365/v1"
