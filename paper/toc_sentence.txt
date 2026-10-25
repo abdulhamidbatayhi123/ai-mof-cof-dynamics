@@ -1,0 +1,1 @@
+On held-out adsorbents, surrogate error comes from predicting the basis coefficients, not from the basis; for this packed bed a coarse numerical solve is more accurate, ranks candidates better and is cheaper for screens below about 20,000.
