@@ -1,0 +1,208 @@
+{
+ "_what": "PREREG_DD_ADDITIONS verdicts",
+ "alpha": 0.02,
+ "n_boot": 4000,
+ "n_samples": 3947,
+ "n_materials": 240,
+ "b1": {
+  "hgb": {
+   "spearman_mean": 0.9626618597327337,
+   "spearman_ci": [
+    0.9494637657291572,
+    0.9712003230499847
+   ],
+   "top10_recall_mean": 0.8703428523234452,
+   "top10_recall_ci": [
+    0.807071598227759,
+    0.907438547123104
+   ],
+   "screening_adequate": true,
+   "coarse_minus_arm_spearman_ci": [
+    0.028662479033089813,
+    0.05033372263455493
+   ],
+   "coarse_minus_arm_recall_ci": [
+    0.08453377121599633,
+    0.18334779612844893
+   ],
+   "ranks_worse_than_coarse": true,
+   "field_nrmse_mean": 0.034785678372441974,
+   "arm_minus_coarse_nrmse_ci": [
+    0.02692674484924508,
+    0.03036012926186821
+   ]
+  },
+  "don": {
+   "spearman_mean": 0.9914143960811063,
+   "spearman_ci": [
+    0.9881342070298696,
+    0.9931667184920605
+   ],
+   "top10_recall_mean": 0.9501031451873937,
+   "top10_recall_ci": [
+    0.9102993047192567,
+    0.9685188005373427
+   ],
+   "screening_adequate": true,
+   "coarse_minus_arm_spearman_ci": [
+    0.006674157451878603,
+    0.011647750349605683
+   ],
+   "coarse_minus_arm_recall_ci": [
+    0.020854167114416265,
+    0.08101874848986342
+   ],
+   "ranks_worse_than_coarse": true,
+   "field_nrmse_mean": 0.009458997073477242,
+   "arm_minus_coarse_nrmse_ci": [
+    0.0024914442883561725,
+    0.004127723311130089
+   ]
+  },
+  "coarse": {
+   "spearman_mean": 0.9998837442229098,
+   "spearman_ci": [
+    0.9997612170005187,
+    0.9998596216106201
+   ],
+   "top10_recall_mean": 0.992540494458653,
+   "top10_recall_ci": [
+    0.97499937998915,
+    1.0
+   ],
+   "screening_adequate": true,
+   "field_nrmse_mean": 0.006167471370531226,
+   "mean_cost_solve_equivalents": 0.13365763253300178
+  }
+ },
+ "b2": {
+  "p95_heldout_material_nrmse": {
+   "hgb_p16": 0.05957990254770921,
+   "deeponet_p16": 0.020420305002891617
+  },
+  "frameworks": {
+   "MOF-303": {
+    "outside_box": [],
+    "n_conditions_ok": 17,
+    "hgb_p16": {
+     "nrmse_c": 0.03228156025121893,
+     "abs_t50_err_s": 1788.0347725534893,
+     "inside_heldout_distribution": true
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.005135665813597555,
+     "abs_t50_err_s": 656.9793231750308,
+     "inside_heldout_distribution": true
+    },
+    "coarse": {
+     "nrmse_c": 0.0075430552944069865,
+     "n_failed": 0
+    }
+   },
+   "MOF-801": {
+    "outside_box": [
+     "delta_H",
+     "step_rh",
+     "isotherm_n"
+    ],
+    "n_conditions_ok": 17,
+    "hgb_p16": {
+     "nrmse_c": 0.04644985182410596,
+     "abs_t50_err_s": 2901.7081627773637,
+     "inside_heldout_distribution": true
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.02421558772651755,
+     "abs_t50_err_s": 1193.3836862088858,
+     "inside_heldout_distribution": false
+    },
+    "coarse": {
+     "nrmse_c": 0.008276487387496896,
+     "n_failed": 0
+    }
+   },
+   "CAU-10-H": {
+    "outside_box": [
+     "isotherm_n"
+    ],
+    "n_conditions_ok": 16,
+    "hgb_p16": {
+     "nrmse_c": 0.0886635737101229,
+     "abs_t50_err_s": 16676.942394459285,
+     "inside_heldout_distribution": false
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.10522660944549443,
+     "abs_t50_err_s": 551.5512159014061,
+     "inside_heldout_distribution": false
+    },
+    "coarse": {
+     "nrmse_c": 0.0046269556835031,
+     "n_failed": 0
+    }
+   },
+   "Al-fumarate (Basolite A520)": {
+    "outside_box": [
+     "isotherm_n"
+    ],
+    "n_conditions_ok": 15,
+    "hgb_p16": {
+     "nrmse_c": 0.07586734479174054,
+     "abs_t50_err_s": 15066.115524917544,
+     "inside_heldout_distribution": false
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.06465334519644636,
+     "abs_t50_err_s": 180.37013090507585,
+     "inside_heldout_distribution": false
+    },
+    "coarse": {
+     "nrmse_c": 0.004622561089553699,
+     "n_failed": 0
+    }
+   },
+   "MIL-160(Al)": {
+    "outside_box": [],
+    "n_conditions_ok": 17,
+    "hgb_p16": {
+     "nrmse_c": 0.025026042378938226,
+     "abs_t50_err_s": 1290.7158647191948,
+     "inside_heldout_distribution": true
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.00458512479039382,
+     "abs_t50_err_s": 218.39760396772334,
+     "inside_heldout_distribution": true
+    },
+    "coarse": {
+     "nrmse_c": 0.00855058449423808,
+     "n_failed": 0
+    }
+   },
+   "Co2Cl2(BTDD)": {
+    "outside_box": [
+     "q_max"
+    ],
+    "n_conditions_ok": 17,
+    "hgb_p16": {
+     "nrmse_c": 0.03047297951188918,
+     "abs_t50_err_s": 5879.136968632397,
+     "inside_heldout_distribution": true
+    },
+    "deeponet_p16": {
+     "nrmse_c": 0.029817019254920137,
+     "abs_t50_err_s": 6016.609597355099,
+     "inside_heldout_distribution": false
+    },
+    "coarse": {
+     "nrmse_c": 0.00416256651513736,
+     "n_failed": 1
+    }
+   }
+  },
+  "kendall_tau_framework_order": {
+   "hgb_p16": 0.5019607843137255,
+   "deeponet_p16": 0.8823529411764706
+  }
+ }
+}

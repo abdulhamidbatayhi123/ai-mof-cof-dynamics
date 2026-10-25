@@ -1,1346 +1,436 @@
 [
  {
-  "key": "a semi-infinite solution. The [two] boundary conditions differ by",
+  "key": "uced basis can fail there for [two] reasons: the basis cannot rep",
   "word": "two",
   "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 151
+  "reason": "the two failure modes of a reduced-basis surrogate, a logical dichotomy",
+  "line_at_review": 9
  },
  {
-  "key": "e solver. Each check isolates [one] term of the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 169
- },
- {
-  "key": "ert tracer vs.\\ van Genuchten [third] -type & advection, dispersion,",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 176
- },
- {
-  "key": "-parameterised [one] .",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 186
- },
- {
-  "key": "here, verified numerically as [zero] inflection points, and it pre",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "a mathematical property of single-site Langmuir (second derivative negative everywhere)",
-  "line_at_review": 210
- },
- {
-  "key": "t a quarter, a half and three [quarters] of capacity.",
-  "word": "quarters",
-  "class": "DESIGN",
-  "reason": "same",
-  "line_at_review": 226
- },
- {
-  "key": "follows. The [two] features move {independently",
+  "key": "surrogate can fail in exactly [two] ways: the",
   "word": "two",
   "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 259
+  "reason": "the two failure modes, a logical dichotomy",
+  "line_at_review": 54
  },
  {
-  "key": "that are fully on record. The [two] named discrepancies are visib",
+  "key": "the [two] in principle , and Heinlein",
   "word": "two",
   "class": "PROSE",
-  "reason": "counts the two discrepancies the same caption names",
-  "line_at_review": 275
- },
- {
-  "key": "al time comes from evaluating [one] correlation at a limit this b",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 309
- },
- {
-  "key": "sequence over [eight] material parameters and three",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "number of sampled material parameters (design)",
-  "line_at_review": 327
- },
- {
-  "key": "onsistent. The later of those [two] papers is closed at the",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 331
- },
- {
-  "key": "s an empirical size of \\,\\%. [One] published verdict did not",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 364
- },
- {
-  "key": "preserved gave [seven] per cent (A22). A second corr",
-  "word": "seven",
-  "class": "PROSE",
-  "reason": "the A22 power figure recorded in ledger entry A22 when found (the flawed simulation it corrects no longer exists)",
-  "line_at_review": 391
- },
- {
-  "key": "every the [five] folds. This reverses the earl",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "number of folds",
-  "line_at_review": 429
- },
- {
-  "key": "claim no extrapolation beyond [twice] the measured",
-  "word": "twice",
-  "class": "DESIGN",
-  "reason": "a declared scope on extrapolation, not a measurement",
-  "line_at_review": 446
- },
- {
-  "key": "ts held-out fields as well as [one] fitted on 192, once the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 452
- },
- {
-  "key": "a [fifth] of the variance grow from \\",
-  "word": "fifth",
-  "class": "DESIGN",
-  "reason": "R^2 > 0.2 threshold -- a declared threshold",
-  "line_at_review": 455
- },
- {
-  "key": "structure violates all [three] closed-form",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 701
- },
- {
-  "key": "{ [One] shift makes it worse; two mak",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 806
- },
- {
-  "key": "{One shift makes it worse; [two] make it much better}",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 806
- },
- {
-  "key": "the [half] -height crossing takes the mod",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 811
- },
- {
-  "key": "d: the separation between the [two] waves spans a factor of , an",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 814
- },
- {
-  "key": "aves spans a factor of , and [one] shift cannot align",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 814
- },
- {
-  "key": " [two] waves whose separation varies",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 815
- },
- {
-  "key": "Using { [two] } shifts, one per wave, and no",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 817
- },
- {
-  "key": "Using {two} shifts, [one] per wave, and normalising the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 817
- },
- {
-  "key": "llapses the \\(n\\)-width where [one] shift inflated it: \\ \\( \\)",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 822
- },
- {
-  "key": "or the wider landmark pair. A [third] ",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "ordinal: the third landmark pair (reclassified; was mislabelled OWED)",
-  "line_at_review": 823
- },
- {
-  "key": "r \\;=\\; { {cost of [one] query}}{ {cost of one solve}}",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 918
- },
- {
-  "key": "{ [One] partial differential equation",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1043
- },
- {
-  "key": " [one] model of one process. The lad",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1044
- },
- {
-  "key": "one model of [one] process. The ladder is a meth",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1044
- },
- {
-  "key": "ent comparison in this paper: [one] condition, on a bed whose",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-09-25)",
-  "line_at_review": 1049
- },
- {
-  "key": "\\,\\% at a quarter, a half and [three] quarters of capacity.",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
-  "line_at_review": 236
- },
- {
-  "key": "produced to within \\,\\% at a [quarter] , a half and three quarters of",
-  "word": "quarter",
-  "class": "DESIGN",
-  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
-  "line_at_review": 236
- },
- {
-  "key": "within \\,\\% at a quarter, a [half] and three quarters of capacit",
-  "word": "half",
-  "class": "DESIGN",
-  "reason": "the three loadings the Clausius-Clapeyron gate checks (design)",
-  "line_at_review": 236
- },
- {
-  "key": "eight material parameters and [three] condition parameters (Figure~",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "number of condition parameters (design)",
-  "line_at_review": 337
- },
- {
-  "key": "to [one] . Adsorption with an inflected",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun: 'an approximation to one'",
-  "line_at_review": 743
- },
- {
-  "key": "ery family has saturated, and [one] has not: the random forest",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "names the one family (the random forest) in the same sentence",
-  "line_at_review": 486
- },
- {
-  "key": "plateau falls within [two] samples of the start in at le",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the G2 guard's declared threshold, 2/(NT-1)",
-  "line_at_review": 1204
- },
- {
-  "key": "gave \\( \\,\\%\\), with six and [eight] layers in a",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "depth grid values of the L2 sweep (design)",
-  "line_at_review": 499
- },
- {
-  "key": " [eight] . The earlier sentence ``capac",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "depth grid value 8 of the L2 sweep (design)",
-  "line_at_review": 501
- },
- {
-  "key": "m moves up from a near-tie to [eight] ",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "depth grid value 8 of the L2 sweep (design)",
-  "line_at_review": 506
- },
- {
-  "key": "d the boosting depth moves by [one] step,",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "one grid step of the boosting-depth sweep (design)",
-  "line_at_review": 507
- },
- {
-  "key": "is now `` [two] smooth monotone",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two landmark curves of the two-wave frame (design)",
-  "line_at_review": 974
- },
- {
-  "key": "ly: the smaller design's is a [quarter] of the larger",
-  "word": "quarter",
-  "class": "DESIGN",
-  "reason": "ratio of the two designs' nominal alphas, 0.005/0.02, both fixed by protocol",
-  "line_at_review": 381
- },
- {
-  "key": "with [zero] gradient at the outlet \\(z =",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "zero-gradient boundary condition (structural)",
-  "line_at_review": 460
- },
- {
-  "key": " [two] slightly different values of",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "two values of D_m in the generator code, each a macro",
-  "line_at_review": 477
- },
- {
-  "key": "of the molecular diffusivity, [one] in each correlation;",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one in each correlation' (structural)",
-  "line_at_review": 477
- },
- {
-  "key": "et and \\( \\) for the legacy [one] .",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun 'one' (structural)",
-  "line_at_review": 495
- },
- {
-  "key": "differs in [three] ways: independent uniform dra",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "count of the differences enumerated in the sentence (structural)",
-  "line_at_review": 513
- },
- {
-  "key": "o the denominator is close to [one] and cannot vanish. Where only",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "denominator ~1 by the acceptance rule (outlet near feed, clean start); a property of the design, not a measurement",
-  "line_at_review": 559
- },
- {
-  "key": " [Two] arms are compared on identica",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "a paired comparison is of two arms (definition)",
-  "line_at_review": 567
- },
- {
-  "key": "percentile interval excludes [zero] , at a level",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "'excludes zero' (structural)",
-  "line_at_review": 570
- },
- {
-  "key": " [Three] evaluation designs are used,",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three evaluation designs enumerated",
-  "line_at_review": 584
- },
- {
-  "key": "{ [five] -fold} design the \\ materials",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 585
- },
- {
-  "key": "partitioned into [five] folds, every material is held",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 586
- },
- {
-  "key": "other [four] folds. The {single split} ho",
-  "word": "four",
-  "class": "DESIGN",
-  "reason": "five folds minus the held-out one (design)",
-  "line_at_review": 587
- },
- {
-  "key": "L1 & larger, [five] -fold &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 611
- },
- {
-  "key": "L2 & larger, [five] -fold & as L1 &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 616
- },
- {
-  "key": "L6 & larger, [five] -fold &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "five folds, fixed by the v2 design",
-  "line_at_review": 633
- },
- {
-  "key": " [one] gradient-boosted regressor pe",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one regressor per mode' (structural)",
-  "line_at_review": 632
- },
- {
-  "key": "POD plus [one] gradient-boosted regressor pe",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one regressor per mode' (structural)",
-  "line_at_review": 642
- },
- {
-  "key": "able descriptors (isotherm at [three] temperatures, bed and operati",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "descriptor design: isotherm evaluated at three temperatures",
-  "line_at_review": 634
- },
- {
-  "key": "(c\\), in a fixed frame or the [two] -front frame of equation~ &",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two-front (two-wave) frame of the warp (design)",
-  "line_at_review": 641
- },
- {
-  "key": " [three] seeds; oracle arm given the t",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "seeds 42/43/44 (protocol)",
-  "line_at_review": 643
- },
- {
-  "key": "[Rung.] [One] pre-registered candidate expl",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "'one candidate explanation' per rung (definition)",
-  "line_at_review": 87
- },
- {
-  "key": "tested by [one] experiment whose possible out",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one experiment' per rung (definition)",
-  "line_at_review": 88
- },
- {
-  "key": "it ran. The [seven] rungs form the {ladder}.",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the pre-registered ladder has seven rungs, L1-L7 (design)",
-  "line_at_review": 89
- },
- {
-  "key": "the operating condition. {B}~ [One] stored solver field of the la",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "'one stored field' = a single illustrated sample (structural)",
-  "line_at_review": 115
- },
- {
-  "key": "complete [two] -front breakthrough). {C}~Its",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two-front breakthrough of the inflected isotherm (physics, design)",
-  "line_at_review": 117
- },
- {
-  "key": " [one] perceptron, \\ layers of \\ (",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "'one perceptron' = a single architecture (structural)",
-  "line_at_review": 680
- },
- {
-  "key": "bed whose shape and [half] -breakthrough time",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "'half-breakthrough time' = the 50 % arrival time, a definition",
-  "line_at_review": 187
- },
- {
-  "key": "{ [Three] designs, their levels, all st",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the three evaluation designs of Methods, each named in the paragraph",
-  "line_at_review": 433
- },
- {
-  "key": "stated relative humidity, so [one] material's",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "a single material: article",
-  "line_at_review": 625
- },
- {
-  "key": "curve at every condition. All [eleven] parameters are sampled by",
-  "word": "eleven",
-  "class": "DESIGN",
-  "reason": "the eleven rows of Table 1, which the caption is attached to",
-  "line_at_review": 626
- },
- {
-  "key": "ral breakthrough fields share [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "a single material",
-  "line_at_review": 433
- },
- {
-  "key": "ists, the test falsely claims [one] only rarely, at",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun (an effect)",
-  "line_at_review": 436
- },
- {
-  "key": "an radial-basis family at the [two] larger budgets it is not",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two larger of the three pre-registered L3 budgets",
-  "line_at_review": 1779
- },
- {
-  "key": "effect with \\(80\\,\\%\\) power. [Two] ",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "the two regressors named in the paragraph",
-  "line_at_review": 855
- },
- {
-  "key": "measurement on the -material [five] -fold design",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 1065
- },
- {
-  "key": "L5 basis size & larger, [five] -fold & as L5 & DeepONet over",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 763
- },
- {
-  "key": "ten and Alves , who give the [third] -type solution), the",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "boundary-condition name (third-type)",
-  "line_at_review": 219
- },
- {
-  "key": " [three] seeds and fitted (including a",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the three seeds of Methods",
-  "line_at_review": 720
- },
- {
-  "key": "extended, and it cannot be: [one] sample per leaf is the ceilin",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the minimum leaf size of the random forest",
-  "line_at_review": 878
- },
- {
-  "key": "oosting) gave \\( \\,\\%\\), with [six] and eight layers in a",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "depth labels of the legacy L2 sweep",
-  "line_at_review": 891
- },
- {
-  "key": "e the rung's analysis reports [one] ; for each null the text",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 794
- },
- {
-  "key": "B}~Full design ( \\ materials, [five] folds): DeepONet against \\(p\\",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design",
-  "line_at_review": 1064
- },
- {
-  "key": "lds): DeepONet against \\(p\\) ( [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "one point per fold: distributive",
-  "line_at_review": 1064
- },
- {
-  "key": "{The [two] -front frame (legacy design).",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two fronts of the isotherm (Section 3)",
-  "line_at_review": 1370
- },
- {
-  "key": "iance in each frame: aligning [one] front raises the count, align",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "single-front alignment, one of the two frames compared",
-  "line_at_review": 1371
- },
- {
-  "key": "is vs.\\ map & legacy; larger, [five] -fold &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 761
- },
- {
-  "key": "L7 & larger, [five] -fold, paired with L1 &",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five-fold design of Methods",
-  "line_at_review": 768
- },
- {
-  "key": "orm solutions, each isolating [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar: one term each",
-  "line_at_review": 235
- },
- {
-  "key": "he coefficients. Which of the [two] binds",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the same two error sources",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 57
  },
  {
-  "key": "cal solve) and its outcome on [one] nonlinear system, negative re",
+  "key": "oefficients. We measure which [one] limits accuracy for a",
   "word": "one",
   "class": "PROSE",
-  "reason": "grammar: a single system",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 11
+ },
+ {
+  "key": ". Which [one] limits accuracy decides where",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 59
+ },
+ {
+  "key": "blished breakthrough curve. [Seven] explanations",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 13
+ },
+ {
+  "key": "real harvesting frameworks. [Seven] candidate explanations of the",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 65
+ },
+ {
+  "key": "{The [seven] pre-registered explanations a",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 242
+ },
+ {
+  "key": "Figure~ summarises the [seven] explanations; each verdict be",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 250
+ },
+ {
+  "key": " [Three] questions organise the paper.",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 76
+ },
+ {
+  "key": "aterials correctly, including [six] published water-harvesting",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 78
+ },
+ {
+  "key": "{ [Six] published frameworks}",
+  "word": "Six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 382
+ },
+ {
+  "key": "extrapolation for [six] materials only. The model des",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 413
+ },
+ {
+  "key": "flux conditions at the inlet, [zero] gradients at the outlet and a",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "a boundary-condition type",
+  "line_at_review": 103
+ },
+ {
+  "key": "truction follows Do and Do . [One] choice",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 124
+ },
+ {
+  "key": "isolating [one] term (an inert tracer against",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 138
  },
  {
-  "key": "ol for parametric surrogates: [seven] named candidate",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the seven pre-registered hypotheses H1-H7",
-  "line_at_review": 199
- },
- {
-  "key": "ld out, not conditions. Every [five] -fold rung on this dataset (L1",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the pre-registered five-fold design",
-  "line_at_review": 457
- },
- {
-  "key": "L1 curve & larger, [five] -fold & parameters \\( \\) \\ PO",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the pre-registered five-fold design",
-  "line_at_review": 754
- },
- {
-  "key": "aining materials subsampled & [one] gradient-boosted regressor pe",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 754
- },
- {
-  "key": "ode (not the L1 perceptron) & [three] seeds per size \\\\",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
-  "line_at_review": 754
- },
- {
-  "key": "curve ( \\ POD modes of \\(c\\), [one] gradient-boosted regressor pe",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 815
- },
- {
-  "key": "deepest setting). {D}~L3 at [three] matched budgets, each family",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
-  "line_at_review": 815
- },
- {
-  "key": "at every size can be run with [three] ",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "design count: seeds or matched budgets, fixed in the pre-registration",
-  "line_at_review": 835
- },
- {
-  "key": "hannel only, \\ POD modes and [one] gradient-boosted",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 836
- },
- {
-  "key": "arner ( \\ POD modes of \\(c\\), [one] gradient-boosted regressor",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1280
- },
- {
-  "key": "the first POD coefficients, [one] curve per number of training",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1282
- },
- {
-  "key": "or: with predicted fronts the [two] -front frame is not",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "name of the two-front frame",
-  "line_at_review": 1387
- },
- {
-  "key": "fect). We report them because [six] reversed",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six ledger entries named in the paragraph",
-  "line_at_review": 1656
- },
- {
-  "key": "{ [Six] that reversed a headline} Two",
-  "word": "Six",
-  "class": "DESIGN",
-  "reason": "the six ledger entries named in the paragraph",
-  "line_at_review": 1661
- },
- {
-  "key": "Six that reversed a headline} [Two] reversed the physics-as-a-los",
-  "word": "Two",
-  "class": "DESIGN",
-  "reason": "the two ledger entries named next (B69, B72)",
-  "line_at_review": 1661
- },
- {
-  "key": "The errors recur in [five] classes: a property measured",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the five classes listed in the sentence",
-  "line_at_review": 1674
- },
- {
-  "key": "asses: a property measured at [one] sample size and stated as",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1674
- },
- {
-  "key": "the strict test, not the fair [one] . The third pre-registered bas",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1264
- },
- {
-  "key": "t test, not the fair one. The [third] pre-registered baseline gives",
+  "key": "nst van Genuchten and Alves's [third] -type solution",
   "word": "third",
   "class": "PROSE",
-  "reason": "ordinal naming the baselines of the baseline protocol",
-  "line_at_review": 1264
+  "reason": "a boundary-condition type (third-type)",
+  "line_at_review": 138
  },
  {
-  "key": "ne gives the Klinkenberg form [two] physically interpretable",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two corrections named next in parentheses",
-  "line_at_review": 1264
- },
- {
-  "key": "tion used as L1's arm appears [twice] more in L2's sweep, trained",
-  "word": "twice",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1948
- },
- {
-  "key": "c and questions, approved the [seven] candidate",
-  "word": "seven",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1979
- },
- {
-  "key": "et concentration at the front [half] -height at P\\'eclet",
+  "key": "d outlet; squares: inlet. The [half] -breakthrough time is",
   "word": "half",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 229
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 152
  },
  {
-  "key": "bal mass closure off by about [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "the pre-fix closure error recorded in ledger entry B8 (1.02 %) when found; the defective code no longer exists to re-run",
-  "line_at_review": 233
- },
- {
-  "key": "et dispersive flux was set to [zero] , after which closure improved",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 234
- },
- {
-  "key": "eir Sips term, like ours, has [zero] slope at the origin; we read",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 298
- },
- {
-  "key": "the column between the first [two] samples and the second front",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 332
- },
- {
-  "key": "erses. The correction changes [one] verdict: the Fourier operator",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1685
- },
- {
-  "key": "over . A verdict measured at [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1792
- },
- {
-  "key": "survive another (A26), so the [three] small-design verdicts are",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the three small-design rungs named in the paragraph (L3, L5 operator comparison, warp)",
-  "line_at_review": 1793
- },
- {
-  "key": " [two] -transport case is the foundin",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1383
- },
- {
-  "key": "Table~ gives the result: [three] seeds for every stochastic co",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1420
- },
- {
-  "key": "not a modest [one] . With that scope, this is a r",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1447
- },
- {
-  "key": "t-pattern scaling : when the [two] fronts move at",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1466
- },
- {
-  "key": "as the \\( \\) that [sixteen] times more materials buys a f",
-  "word": "sixteen",
-  "class": "DESIGN",
-  "reason": "the design ratio of training sizes, 192 over 12",
-  "line_at_review": 1796
- },
- {
-  "key": "that aligns the [two] fronts would buy {}\\( \\) if",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two physical fronts of the two-wave structure",
-  "line_at_review": 1809
- },
- {
-  "key": "ed bed's shape and [half] -breakthrough time with",
+  "key": "; Fig.~ ). The [half] -breakthrough time is largely",
   "word": "half",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1820
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 164
  },
  {
-  "key": "{D}~The first [three] stored templates (POD modes o",
-  "word": "three",
+  "key": "nce (Table~S1). A material is [eight] numbers: capacity, heat of",
+  "word": "eight",
   "class": "DESIGN",
-  "reason": "the three templates shown in panel D",
-  "line_at_review": 123
+  "reason": "the eight material parameters of the design",
+  "line_at_review": 180
  },
  {
-  "key": "set. {A}~The material space, [one] point per material, by split.",
+  "key": "240 materials are split into [five] folds; each surrogate is",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 187
+ },
+ {
+  "key": "asis and scalers included, on [four] folds and scored on the fifth",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 188
+ },
+ {
+  "key": "four folds and scored on the [fifth] , so every",
+  "word": "fifth",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 188
+ },
+ {
+  "key": "with equal weight per sample. [Two] arms are compared on identica",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 201
+ },
+ {
+  "key": "ls, because the conditions of [one] ",
   "word": "one",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 202
+ },
+ {
+  "key": " [two] additions made for this revis",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two pre-registered additions B1 and B2",
+  "line_at_review": 219
+ },
+ {
+  "key": " [Three] early comparisons (rungs L3 a",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the exploratory comparisons on the legacy design, fixed by the protocol",
+  "line_at_review": 221
+ },
+ {
+  "key": "d their outcomes. Each row is [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 242
+ },
+ {
+  "key": "gradient boosting in all [five] folds. On a learning curve ov",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "all folds, the fold count fixed by the design",
+  "line_at_review": 255
+ },
+ {
+  "key": "al benefit, not the predicted [one] }",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 291
+ },
+ {
+  "key": "ing on the outlet curve; with [two] physically",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two corrections fitted in the closed-form arm, fixed by its pre-registration",
+  "line_at_review": 299
+ },
+ {
+  "key": "240-material design. {A}~The [two] terms",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of eq. (split)",
+  "line_at_review": 309
+ },
+ {
+  "key": "e's error splits exactly into [two] orthogonal parts,",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of eq. (split)",
+  "line_at_review": 318
+ },
+ {
+  "key": "is therefore the ratio of the [two] terms, and",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of eq. (split)",
+  "line_at_review": 336
+ },
+ {
+  "key": "very basis size (Fig.~ A). At [eight] modes it",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 330
+ },
+ {
+  "key": "(Fig.~ B). At [eight] modes DeepONet is only",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 339
+ },
+ {
+  "key": "is \\( \\) the basis error at [eight] modes and",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 16
+ },
+ {
+  "key": "es are counted at the cost of [one] production solve, never",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "unit cost definition",
+  "line_at_review": 360
+ },
+ {
+  "key": "each training simulation as [one] production solve, the best su",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "unit cost definition",
+  "line_at_review": 364
+ },
+ {
+  "key": "the [two] , lowers that to about . Both",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 367
+ },
+ {
+  "key": "lve. The balance can turn for [two] - or",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "two- or three-dimensional models",
+  "line_at_review": 369
+ },
+ {
+  "key": "ot counted. A screen of a few [thousand] candidates on this column is",
+  "word": "thousand",
+  "class": "PROSE",
+  "reason": "order-of-magnitude scale of a screen, compared with the break-even macros in the same paragraph",
+  "line_at_review": 368
+ },
+ {
+  "key": "and, for screens below a few [thousand] candidates,",
+  "word": "thousand",
+  "class": "PROSE",
+  "reason": "order-of-magnitude scale of a screen, compared with the break-even macros",
+  "line_at_review": 431
+ },
+ {
+  "key": "{The error budget} [Three] error levels sit side by side",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 395
  },
  {
-  "key": "with it fixed on all 192; the [two] lie on top of each other; \\(N",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two curves of the panel",
-  "line_at_review": 803
- },
- {
-  "key": "{The [two] -front frame against the fixed",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "name of the two-front frame",
-  "line_at_review": 1432
- },
- {
-  "key": " [two] -front, predicted fronts & &",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "name of the two-front frame",
-  "line_at_review": 1444
- },
- {
-  "key": " [two] -front, oracle fronts & & ,",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "name of the two-front frame",
-  "line_at_review": 1445
- },
- {
-  "key": "front is located ( [one] level, or a pair); the hatche",
+  "key": "als only. The model describes [one] adsorption step from a clean",
   "word": "one",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1380
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 413
  },
  {
-  "key": "is the optimal [one] , the conclusion cannot depend",
+  "key": "bed, near equilibrium, in [one] dimension, with no desorption",
   "word": "one",
   "class": "PROSE",
-  "reason": "pronoun",
-  "line_at_review": 199
+  "reason": "grammar or structural usage (reviewed 2026-10-25)",
+  "line_at_review": 414
  },
  {
-  "key": "A test of a [two] -front change of coordinates o",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "name of the two-front frame",
-  "line_at_review": 212
- },
- {
-  "key": "-boosted regressor per mode & [one] seed (legacy), three seeds (l",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the seed count of the legacy decomposition (l5_bottleneck.py)",
-  "line_at_review": 760
- },
- {
-  "key": "per mode & one seed (legacy), [three] seeds (larger) \\\\",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the seed count of the larger-design decomposition (l5_bottleneck_v2.py SEEDS)",
-  "line_at_review": 760
- },
- {
-  "key": "{The [seven] pre-registered hypotheses and",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the seven pre-registered hypotheses H1-H7",
-  "line_at_review": 783
- },
- {
-  "key": "(with [two] amendments made before any ve",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two protocol amendments named next",
-  "line_at_review": 1087
- },
- {
-  "key": "exactly, because the [two] terms are orthogonal:",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two terms of the equation",
-  "line_at_review": 1296
- },
- {
-  "key": "7, the L5 re-measurement, the [three] ",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the three pre-registered baselines",
-  "line_at_review": 1849
- },
- {
-  "key": " [third] - or flux-type condition of eq",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 312
- },
- {
-  "key": "air; [eleven] parameters (Section~ ) descri",
-  "word": "eleven",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 116
- },
- {
-  "key": "{ [Three] comparisons are exploratory}",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1790
- },
- {
-  "key": "er-harvesting frameworks sit} [Six] published",
-  "word": "Six",
-  "class": "DESIGN",
-  "reason": "the six frameworks listed in the sentence",
-  "line_at_review": 588
- },
- {
-  "key": "ated on a laboratory rig with [two] unseen zeolites",
-  "word": "two",
-  "class": "CITED",
-  "reason": "the two zeolites of the cited validation (pai2022experimental)",
-  "line_at_review": 133
- },
- {
-  "key": "ed budget: fixed weights over [six] decades,",
+  "key": "better; on [six] published frameworks they fai",
   "word": "six",
   "class": "DESIGN",
-  "reason": "the pre-registered range of fixed weights",
-  "line_at_review": 920
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 23
  },
  {
-  "key": "gradient-norm balancing at [three] target ratios ,",
-  "word": "three",
+  "key": "yout. {C}~Field error on the [six] named frameworks (blue, DeepO",
+  "word": "six",
   "class": "DESIGN",
-  "reason": "the pre-registered gradient-norm target ratios",
-  "line_at_review": 921
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 387
  },
  {
-  "key": "seen-window error exceeds [three] times the twin's has abandone",
-  "word": "three",
+  "key": "adsorbents, [six] water-harvesting frameworks w",
+  "word": "six",
   "class": "DESIGN",
-  "reason": "the pre-registered failed-to-train threshold",
-  "line_at_review": 924
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 421
  },
  {
-  "key": " [zero] (B75). What survives is the d",
-  "word": "zero",
+  "key": "error (nRMSE of \\(c\\), \\%) on [six] named frameworks, with the pa",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 435
+ },
+ {
+  "key": "ondition, DeepONet orders the [six] frameworks with a mean Kendal",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 465
+ },
+ {
+  "key": "and true [half] -breakthrough time, ranking th",
+  "word": "half",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1020
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 384
  },
  {
-  "key": "best linear [one] with a fraction of the channe",
+  "key": "e held-out materials by their [half] -breakthrough time",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 394
+ },
+ {
+  "key": "largest in the table, yet its [half] -breakthrough time is off by o",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 463
+ },
+ {
+  "key": "hich the outlet first reaches [half] the feed concentration, and",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "the 50 % crossing that defines t50",
+  "line_at_review": 395
+ },
+ {
+  "key": "condition (small points, [one] per condition), with the mean",
   "word": "one",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1028
+  "reason": "one point per condition, figure description",
+  "line_at_review": 385
  },
  {
-  "key": "irst kind can fail in exactly [two] ways: the basis cannot repres",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1140
+  "key": "the share of the true top [tenth] that the arm also places in i",
+  "word": "tenth",
+  "class": "DESIGN",
+  "reason": "the pre-registered top-10 % recall definition",
+  "line_at_review": 397
  },
  {
-  "key": "-mode [one] , DeepOKAN like a -mode one a",
+  "key": "he arm also places in its top [tenth] . Both metrics,",
+  "word": "tenth",
+  "class": "DESIGN",
+  "reason": "the pre-registered top-10 % recall definition",
+  "line_at_review": 397
+ },
+ {
+  "key": "dering candidates; ranking by [one] scalar is an easier task than",
   "word": "one",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1169
+  "reason": "grammar",
+  "line_at_review": 407
  },
  {
-  "key": "e one, DeepOKAN like a -mode [one] and POD with",
-  "word": "one",
+  "key": "than it: per [hundred] true top candidates, DeepONet",
+  "word": "hundred",
   "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1169
+  "reason": "unit conversion of a recall difference to candidates per hundred",
+  "line_at_review": 410
  },
  {
-  "key": "adient boosting like a -mode [one] . Training the basis and the",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1170
- },
- {
-  "key": "rung reports ( \\ materials, [five] folds, three seeds;",
+  "key": "in the [five] -fold test ( \\,\\% for DeepONet",
   "word": "five",
   "class": "DESIGN",
-  "reason": "the pre-registered five-fold design",
-  "line_at_review": 1178
+  "reason": "fold count fixed by the design",
+  "line_at_review": 430
  },
  {
-  "key": "ts ( \\ materials, five folds, [three] seeds;",
-  "word": "three",
+  "key": "tests [six] real frameworks, of which onl",
+  "word": "six",
   "class": "DESIGN",
-  "reason": "the seed count of the design",
-  "line_at_review": 1178
- },
- {
-  "key": "ve-equivalents}, multiples of [one] reference simulation at produ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1316
- },
- {
-  "key": "ok \\ hours on \\ workers, so [one] solve-equivalent",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1318
- },
- {
-  "key": "t and \\(N_q\\) queries, so the [two] break even at",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1322
- },
- {
-  "key": "cost of one query}}{ {cost of [one] solve}} ,",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1325
- },
- {
-  "key": "ered baseline (A30) re-solves [one] sample per material",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1362
- },
- {
-  "key": "ains the less accurate of the [two] . {For this",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1371
- },
- {
-  "key": "or a controller. A [two] - or , multi-",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1374
- },
- {
-  "key": " [Third] , the eliminated rungs are int",
-  "word": "Third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1384
- },
- {
-  "key": "ith the held-out error in the [third] column.",
-  "word": "third",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1390
- },
- {
-  "key": "ate choices are paid for with [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 846
- },
- {
-  "key": "fixed budget, depth [three] ), the best Kolmogorov--Arnold",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 856
- },
- {
-  "key": "[ , ], consistent in all [five] folds and all three seeds (on",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the pre-registered five-fold design",
-  "line_at_review": 1038
- },
- {
-  "key": "ent in all five folds and all [three] seeds (on the legacy",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "the seed count of the design",
-  "line_at_review": 1038
- },
- {
-  "key": "ng rather than an established [one] .",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 1053
- },
- {
-  "key": "[ , ]: a [sixteenfold] larger basis could have impro",
-  "word": "sixteenfold",
-  "class": "DESIGN",
-  "reason": "p = 128 over p = 8, the pre-registered basis-size range",
-  "line_at_review": 974
- },
- {
-  "key": "ion such as DeepONet , has [two] sources of error on a",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 55
- },
- {
-  "key": "perceptron and [two] Kolmogorov--Arnold families",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 677
- },
- {
-  "key": "(A29). The last [two] rows are the two-front frame",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 723
- },
- {
-  "key": "9). The last two rows are the [two] -front frame of Section~ , wit",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 723
- },
- {
-  "key": " [Two] discrepancies remain, and eac",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 418
- },
- {
-  "key": "the legacy design), where the [three] nonlinear arms were indisting",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 755
- },
- {
-  "key": "setting, which appears in it [twice] and is the reference), the ga",
-  "word": "twice",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 827
- },
- {
-  "key": "excludes [zero] ; both learning rates were cho",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 861
- },
- {
-  "key": "per material), because the [two] useful",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 459
- },
- {
-  "key": "blished breakthrough curve. [Seven] explanations of the",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the seven pre-registered rungs L1-L7",
-  "line_at_review": 25
- },
- {
-  "key": "an unseen material for [two] reasons: its reduced basis",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 19
- },
- {
-  "key": "the wrong coefficients. Which [one] limits accuracy decides where",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage",
-  "line_at_review": 21
- },
- {
-  "key": "d on \\ held-out materials in [five] folds, with a cluster bootstr",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "the pre-registered five-fold design",
-  "line_at_review": 27
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 194
  }
 ]

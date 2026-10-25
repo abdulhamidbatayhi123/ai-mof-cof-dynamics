@@ -60,7 +60,7 @@ def main():
             ax.plot(np.full(len(vals), x) + np.linspace(-0.15, 0.15, len(vals)), vals, "o", ms=2.2,
                     color=cols[k], alpha=0.45, mec="none")
             m = v["b1"][k][f"{key}_mean"]; lo, hi = v["b1"][k][f"{key}_ci"]
-            ax.errorbar([x], [m], yerr=[[m - lo], [hi - m]], fmt="s", color=cols[k], ms=4, capsize=3, zorder=3)
+            ax.errorbar([x], [m], yerr=[[max(m - lo, 0.0)], [max(hi - m, 0.0)]], fmt="s", color=cols[k], ms=4, capsize=3, zorder=3)
         ax.set_xticks(range(len(ARMS))); ax.set_xticklabels([l for _, l, _ in ARMS], rotation=25, ha="right")
         ax.set_title(title)
     a.set_ylabel("Spearman, per condition"); b.set_ylabel("recall, per condition")

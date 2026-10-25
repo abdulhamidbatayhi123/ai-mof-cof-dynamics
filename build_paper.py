@@ -57,7 +57,7 @@ _ALLOWED_PAIRS = [
     ("192", "training materials per fold, fixed by the 5-fold design"),
     ("216", "the width of the best DeepONet, an architecture description"),
     ("240", "the material count of the dataset, fixed by design"),
-    ("17", "operating conditions per material, fixed by design"),
+    ("17", "operating conditions per material, fixed by design; the conditions each framework is solved at in B2"),
     ("3947", "accepted simulations, a dataset size"),
     ("2000", "N_z, a grid size"),
     # the validate.py gate count used to be allow-listed here as "24"; it is a RESULT
@@ -86,7 +86,7 @@ _ALLOWED_PAIRS = [
     ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
     ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel B"),
-    ("95", "the 95 % crossing, which DEFINES the t95 breakthrough time"),
+    ("95", "the 95th percentile that defines 'inside the held-out error distribution' in PREREG_DD_ADDITIONS B2"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
     ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),
@@ -94,7 +94,13 @@ _ALLOWED_PAIRS = [
     ("0007", "the author's ORCID iD (URL and label), an identifier"),
     ("0374", "the author's ORCID iD (URL and label), an identifier"),
     ("34349", "the postal code of the author's address (verified on mkt.yildiz.edu.tr), an identifier"),
-    ("6755", "the author's ORCID iD (URL and label), an identifier"),]
+    ("6755", "the author's ORCID iD (URL and label), an identifier"),
+    # Digital Discovery revision (2026-10-25)
+    ("5.5", "the version of the AI model named in the generative-AI statement (Claude Opus 5.5)"),
+    ("0.90", "the Spearman threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
+    ("0.80", "the top-10 % recall threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
+    ("81", "the 81 = (0.9/0.1)^2 of the frozen steepness rule n = ln 81 / ln(p90/p10)"),
+    ("90", "the percentile index of p_90 in the frozen steepness rule"),]
 
 # Merge with a duplicate check: a repeated literal means two different justifications
 # were written for the same number and one of them would be lost.
@@ -114,12 +120,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 4, "0009": 2, "0007": 2, "0374": 2, "6755": 2, "34349": 1, "0.2": 3, "0.5": 2, "0.7": 1, "1": 24, "2": 28,
-    "3": 3, "4": 4, "5": 4, "8": 7, "10": 11, "12": 7, "16": 3,
-    "20": 1, "24": 1, "48": 4, "50": 2, "60": 2, "64": 1, "76": 1, "79": 1, "80": 4,
-    "95": 2, "96": 3, "99.9": 2, "128": 6, "192": 11, "240": 2, 
-    "1953": 1, "15": 1,
-    "216": 0, "17": 0, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0,
+    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 1, "0.5": 0, "0.7": 0, "1": 8, "2": 16, "3": 0, "4": 1, "5": 3, "8": 3, "10": 3, "12": 6, "16": 5, "20": 0, "24": 0, "48": 0, "50": 2, "60": 0, "64": 1, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 7, "192": 3, "240": 6, "1953": 0, "15": 0, "216": 0, "17": 2, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 1,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
     raise SystemExit("build_paper.py: ALLOWED_COUNT and _ALLOWED_PAIRS disagree on "

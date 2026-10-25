@@ -819,12 +819,81 @@ SPEC = [
      "arms.deeponet_p16.fallback.break_even_queries_production_training", lambda x: f"{round(x, -2):,.0f}"),
     ("CvsBeCoarse", "results/coarse_vs_surrogates.json",
      "arms.deeponet_p16.fallback.break_even_queries_coarse_training", lambda x: f"{round(x, -2):,.0f}"),
+    # the two terms of eq. (split), measured apart (l5_mapterm_v2.py; regressors fixed in advance)
+    ("MtFloorEight", "results/l5_mapterm_v2.json", "summary.8.floor", "{:.4f}"),
+    ("MtMapEight", "results/l5_mapterm_v2.json", "summary.8.map_hgb", "{:.4f}"),
+    ("MtRatioEight", "results/l5_mapterm_v2.json", "summary.8.map_over_floor_hgb", "{:.1f}"),
+    ("MtFloorHigh", "results/l5_mapterm_v2.json", "summary.128.floor", "{:.5f}"),
+    ("MtMapHigh", "results/l5_mapterm_v2.json", "summary.128.map_hgb", "{:.4f}"),
+    ("MtRatioHigh", "results/l5_mapterm_v2.json", "summary.128.map_over_floor_hgb", "{:.0f}"),
+    ("MtRidgeEight", "results/l5_mapterm_v2.json", "summary.8.map_ridge", "{:.4f}"),
+    ("MtRidgeHigh", "results/l5_mapterm_v2.json", "summary.128.map_ridge", "{:.4f}"),
     # what the weak primary sites hold, given b_H = b_C/20 (isotherm_belowstep.py)
     ("IbsFill", "results/isotherm_belowstep.json", "primary_fill_at_step", lambda x: f"{100 * x:.1f}"),
     ("IbsShareMed", "results/isotherm_belowstep.json", "primary_share_median", lambda x: f"{100 * x:.0f}"),
     ("IbsBelowMed", "results/isotherm_belowstep.json", "below_step_fraction_median", lambda x: f"{100 * x:.1f}"),
     ("IbsMofFeed", "results/isotherm_belowstep.json", "mof303.primary_fraction_of_qmax_at_feed",
      lambda x: f"{100 * x:.1f}"),
+    # B1 screening, out of fold (PREREG_DD_ADDITIONS; dd_screening_frameworks.py analyse)
+    ("ScrDonSp", "results/dd_additions_verdict.json", "b1.don.spearman_mean", "{:.3f}"),
+    ("ScrDonSpLo", "results/dd_additions_verdict.json", "b1.don.spearman_ci[0]", "{:.3f}"),
+    ("ScrDonSpHi", "results/dd_additions_verdict.json", "b1.don.spearman_ci[1]", "{:.3f}"),
+    ("ScrDonRc", "results/dd_additions_verdict.json", "b1.don.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrDonRcLo", "results/dd_additions_verdict.json", "b1.don.top10_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrDonRcHi", "results/dd_additions_verdict.json", "b1.don.top10_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrHgbSp", "results/dd_additions_verdict.json", "b1.hgb.spearman_mean", "{:.3f}"),
+    ("ScrHgbSpLo", "results/dd_additions_verdict.json", "b1.hgb.spearman_ci[0]", "{:.3f}"),
+    ("ScrHgbSpHi", "results/dd_additions_verdict.json", "b1.hgb.spearman_ci[1]", "{:.3f}"),
+    ("ScrHgbRc", "results/dd_additions_verdict.json", "b1.hgb.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrHgbRcLo", "results/dd_additions_verdict.json", "b1.hgb.top10_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrHgbRcHi", "results/dd_additions_verdict.json", "b1.hgb.top10_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrCoSp", "results/dd_additions_verdict.json", "b1.coarse.spearman_mean", "{:.4f}"),
+    ("ScrCoRc", "results/dd_additions_verdict.json", "b1.coarse.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrCoRcLo", "results/dd_additions_verdict.json", "b1.coarse.top10_recall_ci[0]", lambda x: f"{100 * x:.1f}"),
+    ("ScrDonDspLo", "results/dd_additions_verdict.json", "b1.don.coarse_minus_arm_spearman_ci[0]", "{:.3f}"),
+    ("ScrDonDspHi", "results/dd_additions_verdict.json", "b1.don.coarse_minus_arm_spearman_ci[1]", "{:.3f}"),
+    ("ScrDonDrcLo", "results/dd_additions_verdict.json", "b1.don.coarse_minus_arm_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrDonDrcHi", "results/dd_additions_verdict.json", "b1.don.coarse_minus_arm_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrHgbDrcLo", "results/dd_additions_verdict.json", "b1.hgb.coarse_minus_arm_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrHgbDrcHi", "results/dd_additions_verdict.json", "b1.hgb.coarse_minus_arm_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrDonNr", "results/dd_additions_verdict.json", "b1.don.field_nrmse_mean", lambda x: f"{100 * x:.2f}"),
+    ("ScrHgbNr", "results/dd_additions_verdict.json", "b1.hgb.field_nrmse_mean", lambda x: f"{100 * x:.1f}"),
+    ("ScrCoNr", "results/dd_additions_verdict.json", "b1.coarse.field_nrmse_mean", lambda x: f"{100 * x:.2f}"),
+    ("ScrCoCost", "results/dd_additions_verdict.json", "b1.coarse.mean_cost_solve_equivalents", "{:.2f}"),
+    ("ScrNsamples", "results/dd_additions_verdict.json", "n_samples", "{:d}"),
+] + [  # B2 named frameworks: field error per framework and arm, in %
+    (f"Fw{arm_tag}{fw_tag}", "results/dd_additions_verdict.json", f"b2.frameworks.{fw}.{arm}.nrmse_c",
+     lambda x: f"{100 * x:.1f}")
+    for fw_tag, fw in (("MofThree", "MOF-303"), ("MofEight", "MOF-801"), ("Cau", "CAU-10-H"),
+                       ("Alf", "Al-fumarate (Basolite A520)"), ("Mil", "MIL-160(Al)"), ("Co", "Co2Cl2(BTDD)"))
+    for arm_tag, arm in (("Don", "deeponet_p16"), ("Hgb", "hgb_p16"), ("Co", "coarse"))
+] + [
+    ("FwDonPninetyfive", "results/dd_additions_verdict.json", "b2.p95_heldout_material_nrmse.deeponet_p16",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwHgbPninetyfive", "results/dd_additions_verdict.json", "b2.p95_heldout_material_nrmse.hgb_p16",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwTauDon", "results/dd_additions_verdict.json", "b2.kendall_tau_framework_order.deeponet_p16", "{:.2f}"),
+    ("FwTauHgb", "results/dd_additions_verdict.json", "b2.kendall_tau_framework_order.hgb_p16", "{:.2f}"),
+    ("FwNMofThree", "results/dd_b2_frameworks.json", "frameworks.MOF-303.isotherm_n", "{:.1f}"),
+    ("FwNMofEight", "results/dd_b2_frameworks.json", "frameworks.MOF-801.isotherm_n", "{:.1f}"),
+    ("FwNCau", "results/dd_b2_frameworks.json", "frameworks.CAU-10-H.isotherm_n", "{:.0f}"),
+    ("FwNAlf", "results/dd_b2_frameworks.json", "frameworks.Al-fumarate (Basolite A520).isotherm_n", "{:.1f}"),
+    ("FwQmaxCo", "results/dd_b2_frameworks.json", "frameworks.Co2Cl2(BTDD).q_max", "{:.1f}"),
+    ("FwCauTerrDonMin", "results/dd_additions_verdict.json", "b2.frameworks.CAU-10-H.deeponet_p16.abs_t50_err_s",
+     lambda x: f"{x / 60:.0f}"),
+    ("FwCauTerrHgbH", "results/dd_additions_verdict.json", "b2.frameworks.CAU-10-H.hgb_p16.abs_t50_err_s",
+     lambda x: f"{x / 3600:.1f}"),
+    # counts over the six frameworks, so no tally is typed into the prose
+    ("FwNout", "results/dd_additions_verdict.json", "b2.frameworks",
+     lambda d: f"{sum(1 for r in d.values() if r['outside_box']):d}"),
+    ("FwNin", "results/dd_additions_verdict.json", "b2.frameworks",
+     lambda d: f"{sum(1 for r in d.values() if not r['outside_box']):d}"),
+    ("FwCoMax", "results/dd_additions_verdict.json", "b2.frameworks",
+     lambda d: f"{100 * max(r['coarse']['nrmse_c'] for r in d.values()):.1f}"),
+    ("FwCoFailed", "results/dd_additions_verdict.json", "b2.frameworks",
+     lambda d: f"{sum(r['coarse']['n_failed'] for r in d.values()):d}"),
+    ("FwNcellsFailed", "results/dd_b2_frameworks.json", "cells",
+     lambda d: f"{sum(1 for c in d.values() if not c['ok']):d}"),
 ]
 
 
@@ -834,6 +903,8 @@ SPEC = [
 # They are derived here rather than in the prose for the same reason every other number
 # is: a ratio typed into LaTeX is a number with no script behind it (B43).
 DERIVED = [
+    ("MtMapChangePct", "change of the map term (per-mode boosting) from p = 8 to p = 128, % of p = 8",
+     lambda r: 100.0 * (r["MtMapHigh"] - r["MtMapEight"]) / r["MtMapEight"], "{:+.1f}"),
     ("LthreeBestKanDiff", "perceptron minus best KAN held-out error (both from audit_l3.py)",
      lambda r: r["LthreeBestKanMlp"] - r["LthreeBestKan"], "{:.4f}"),
     # number-words paid 2026-09-27 (paper/number_words.json OWED entries)
