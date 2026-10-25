@@ -26,3 +26,10 @@ matplotlib==3.10.9
 # the BLAS thread count, which changes floating-point reduction order.
 joblib==1.5.3
 threadpoolctl==3.6.0
+
+# Process priority and the test suite (added 2026-10-25, data-review item).
+psutil==7.2.2
+pytest==9.0.3
+
+# Not a Python package: the PDF is built with Tectonic 0.17.0 (tools/tectonic.exe, or any
+# tectonic on PATH; see REPRODUCE.md).
