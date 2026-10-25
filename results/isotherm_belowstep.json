@@ -1,0 +1,1946 @@
+{
+ "_what": "What the \"primary\" (Henry) sites actually hold, given b_H = b_C / 20.",
+ "T_ref": 298.15,
+ "b_C_over_b_H": 20.0,
+ "n_materials": 240,
+ "below_step_fraction_median": 0.07376527236344826,
+ "below_step_fraction_range": [
+  0.016388654305412392,
+  0.31772865275817685
+ ],
+ "primary_share_median": 0.04156206960470938,
+ "primary_fill_at_step": 0.047619047619047616,
+ "f_H_range": [
+  0.03016367694362998,
+  0.24994148375466466
+ ],
+ "mof303": {
+  "f_H": 0.06,
+  "below_step_fraction": 0.05675753228120516,
+  "primary_share_below_step": 0.025783619817997983,
+  "primary_fraction_of_qmax_at_feed": 0.00591346153846154,
+  "primary_fill_at_feed": 0.09855769230769235
+ },
+ "materials": [
+  {
+   "material_id": 0,
+   "f_H": 0.14911842515692114,
+   "n": 3.6812321227043867,
+   "below_step_fraction": 0.06516996245774644,
+   "primary_share": 0.0558084525870797,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 1,
+   "f_H": 0.03016367694362998,
+   "n": 3.2463037399575114,
+   "below_step_fraction": 0.09319516409830582,
+   "primary_share": 0.007894180398389211,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 2,
+   "f_H": 0.11588964361697435,
+   "n": 5.326450531370938,
+   "below_step_fraction": 0.024324394880304287,
+   "primary_share": 0.11620337062828431,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 3,
+   "f_H": 0.23054730046540498,
+   "n": 1.7768313586711884,
+   "below_step_fraction": 0.17944287258726402,
+   "primary_share": 0.031336462732258014,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 4,
+   "f_H": 0.19686728140339255,
+   "n": 1.1042492035776377,
+   "below_step_fraction": 0.259774958168867,
+   "primary_share": 0.01848384864994389,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 5,
+   "f_H": 0.09230708410963416,
+   "n": 5.9819829454645514,
+   "below_step_fraction": 0.016388654305412392,
+   "primary_share": 0.13737505553542634,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 6,
+   "f_H": 0.06717398393899202,
+   "n": 2.593227186240256,
+   "below_step_fraction": 0.13424624084977216,
+   "primary_share": 0.012204362981038493,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 7,
+   "f_H": 0.16915585298091174,
+   "n": 4.356251064687967,
+   "below_step_fraction": 0.042802906005007975,
+   "primary_share": 0.09638954213171505,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 8,
+   "f_H": 0.05411233726888895,
+   "n": 5.430733663029969,
+   "below_step_fraction": 0.022752278798208063,
+   "primary_share": 0.05800795233852309,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 9,
+   "f_H": 0.15945113990455867,
+   "n": 1.4808955267071724,
+   "below_step_fraction": 0.22559842134252778,
+   "primary_share": 0.017238827158676504,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 10,
+   "f_H": 0.2408798033557832,
+   "n": 4.557002013549209,
+   "below_step_fraction": 0.036809941493914894,
+   "primary_share": 0.15960680502549365,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 11,
+   "f_H": 0.13983767246827483,
+   "n": 2.4913859171792865,
+   "below_step_fraction": 0.13328219968535496,
+   "primary_share": 0.025589875814642414,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 12,
+   "f_H": 0.10282757733017206,
+   "n": 3.1639714995399117,
+   "below_step_fraction": 0.09255899114662328,
+   "primary_share": 0.02709612172637972,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 13,
+   "f_H": 0.2208421677723527,
+   "n": 3.9014712385833263,
+   "below_step_fraction": 0.054255535356951386,
+   "primary_share": 0.09927824507625875,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 14,
+   "f_H": 0.19313136672601103,
+   "n": 2.1339802760630846,
+   "below_step_fraction": 0.15442819559121804,
+   "primary_share": 0.0305029863337125,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 15,
+   "f_H": 0.07769468491896986,
+   "n": 4.7557211285457015,
+   "below_step_fraction": 0.03481611925860746,
+   "primary_share": 0.0544285909931887,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 16,
+   "f_H": 0.22739178288728,
+   "n": 2.730192666873336,
+   "below_step_fraction": 0.10673323300943842,
+   "primary_share": 0.05196264452647822,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 17,
+   "f_H": 0.12549047369509936,
+   "n": 4.179953615181148,
+   "below_step_fraction": 0.048785394154023894,
+   "primary_share": 0.0627389265564359,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 18,
+   "f_H": 0.04105356952175498,
+   "n": 1.2405685605481267,
+   "below_step_fraction": 0.28615452749152764,
+   "primary_share": 0.0034991813076624737,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 19,
+   "f_H": 0.14553322007879615,
+   "n": 5.80626005679369,
+   "below_step_fraction": 0.018551416944149628,
+   "primary_share": 0.19133798481892098,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 20,
+   "f_H": 0.17867611665278674,
+   "n": 5.150763573125005,
+   "below_step_fraction": 0.026844563905847694,
+   "primary_share": 0.16234028162971195,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 21,
+   "f_H": 0.06409903276711702,
+   "n": 1.913186646066606,
+   "below_step_fraction": 0.19791719090012205,
+   "primary_share": 0.007899218031491632,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 22,
+   "f_H": 0.08880244543775917,
+   "n": 3.5048990407958627,
+   "below_step_fraction": 0.07593399633270613,
+   "primary_share": 0.02852363115290275,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 23,
+   "f_H": 0.20767660757526754,
+   "n": 3.3832335881888866,
+   "below_step_fraction": 0.07436008805429094,
+   "primary_share": 0.06811830437712343,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 24,
+   "f_H": 0.12894777989014983,
+   "n": 1.9967070864513516,
+   "below_step_fraction": 0.17767383426601674,
+   "primary_share": 0.017701356056119777,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 25,
+   "f_H": 0.24446500843390823,
+   "n": 4.931710869073868,
+   "below_step_fraction": 0.029932132523833026,
+   "primary_share": 0.19920268549416695,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 26,
+   "f_H": 0.16260665748268366,
+   "n": 3.027349201962352,
+   "below_step_fraction": 0.09545339061439095,
+   "primary_share": 0.04154924210272194,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 27,
+   "f_H": 0.04451150719076395,
+   "n": 4.076891186647117,
+   "below_step_fraction": 0.054536904254638696,
+   "primary_share": 0.01990663994749134,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 28,
+   "f_H": 0.08119932359084486,
+   "n": 4.732381560839713,
+   "below_step_fraction": 0.035291991052979824,
+   "primary_share": 0.05611673493061705,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 29,
+   "f_H": 0.18232204055413603,
+   "n": 2.3547232188284397,
+   "below_step_fraction": 0.1381644889195207,
+   "primary_share": 0.032185397801427935,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 30,
+   "f_H": 0.2113219041004777,
+   "n": 5.606764102354646,
+   "below_step_fraction": 0.021013116644071305,
+   "primary_share": 0.24528454632610142,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 31,
+   "f_H": 0.10590252850204707,
+   "n": 1.3436630358919501,
+   "below_step_fraction": 0.2552993194781902,
+   "primary_share": 0.010117490737262185,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 32,
+   "f_H": 0.17114878438413142,
+   "n": 3.464249231852591,
+   "below_step_fraction": 0.07303416038614671,
+   "primary_share": 0.05715627553824411,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 33,
+   "f_H": 0.07002295307815075,
+   "n": 3.5865825451910496,
+   "below_step_fraction": 0.07317045667260559,
+   "primary_share": 0.023341072093985647,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 34,
+   "f_H": 0.09645056830719113,
+   "n": 1.838603163138032,
+   "below_step_fraction": 0.19977901223600594,
+   "primary_share": 0.01177527538659673,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 35,
+   "f_H": 0.20187349097803234,
+   "n": 5.07547467853874,
+   "below_step_fraction": 0.02791215516606252,
+   "primary_share": 0.17640141555166086,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 36,
+   "f_H": 0.23329091958701612,
+   "n": 5.731020932085812,
+   "below_step_fraction": 0.01985842134405892,
+   "primary_share": 0.28652944412693243,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 37,
+   "f_H": 0.11777056358754635,
+   "n": 1.1659972965717316,
+   "below_step_fraction": 0.2748395683198177,
+   "primary_share": 0.010451380010484602,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 38,
+   "f_H": 0.035060392785817386,
+   "n": 4.261615363880992,
+   "below_step_fraction": 0.048669098873391874,
+   "primary_share": 0.017570317740748492,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 39,
+   "f_H": 0.15315907703712583,
+   "n": 2.8111490039154887,
+   "below_step_fraction": 0.10934735688977035,
+   "primary_share": 0.03416257467085991,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 40,
+   "f_H": 0.0735474512167275,
+   "n": 1.4240874666720629,
+   "below_step_fraction": 0.2533116481440264,
+   "primary_share": 0.0070815546253869405,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 41,
+   "f_H": 0.18812806906178595,
+   "n": 5.686521268449724,
+   "below_step_fraction": 0.020052498656218738,
+   "primary_share": 0.22882382729340603,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 42,
+   "f_H": 0.2188529858738184,
+   "n": 2.278251544572413,
+   "below_step_fraction": 0.13884681063306956,
+   "primary_share": 0.03844436670818377,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 43,
+   "f_H": 0.09997569628059864,
+   "n": 4.656615894287825,
+   "below_step_fraction": 0.03676156607420873,
+   "primary_share": 0.06633100482383224,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 44,
+   "f_H": 0.13493804635480044,
+   "n": 4.001060849055648,
+   "below_step_fraction": 0.054141963878360136,
+   "primary_share": 0.060787818293891745,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 45,
+   "f_H": 0.23684290261939167,
+   "n": 2.9508515996858478,
+   "below_step_fraction": 0.09317386540575887,
+   "primary_share": 0.06199867458854548,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 46,
+   "f_H": 0.15671043105423452,
+   "n": 5.011484426446259,
+   "below_step_fraction": 0.02917991329135274,
+   "primary_share": 0.13098755974034437,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 47,
+   "f_H": 0.05222766615450382,
+   "n": 2.0771866515278816,
+   "below_step_fraction": 0.182845159687863,
+   "primary_share": 0.006966799220379164,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 48,
+   "f_H": 0.20451875464990735,
+   "n": 4.437033132649958,
+   "below_step_fraction": 0.04009167830873396,
+   "primary_share": 0.12442138915016773,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 49,
+   "f_H": 0.08650061713531614,
+   "n": 2.674524527043104,
+   "below_step_fraction": 0.1258183864753469,
+   "primary_share": 0.01676838504088788,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 50,
+   "f_H": 0.05964331440627575,
+   "n": 5.907013298943639,
+   "below_step_fraction": 0.016869108776284877,
+   "primary_share": 0.086235438090482,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 51,
+   "f_H": 0.17508311055600642,
+   "n": 1.028726733289659,
+   "below_step_fraction": 0.2756046706403669,
+   "primary_share": 0.015494366476941822,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 52,
+   "f_H": 0.14312855945900083,
+   "n": 1.7013681950047612,
+   "below_step_fraction": 0.2050085426925992,
+   "primary_share": 0.017028268328526584,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 53,
+   "f_H": 0.037786222863942384,
+   "n": 5.251502640545368,
+   "below_step_fraction": 0.025534261200162424,
+   "primary_share": 0.0360932781480911,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 54,
+   "f_H": 0.12178545616567135,
+   "n": 3.327588861808181,
+   "below_step_fraction": 0.08252373527648305,
+   "primary_share": 0.03599421390341496,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 55,
+   "f_H": 0.2228307145088911,
+   "n": 3.76196442078799,
+   "below_step_fraction": 0.05878851017955049,
+   "primary_share": 0.09244826002951056,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 56,
+   "f_H": 0.11035533495247364,
+   "n": 4.835759246721864,
+   "below_step_fraction": 0.03279114947122844,
+   "primary_share": 0.08208292721753595,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 57,
+   "f_H": 0.2149186597019434,
+   "n": 2.213503717444837,
+   "below_step_fraction": 0.14449004526629605,
+   "primary_share": 0.03627875207357576,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 58,
+   "f_H": 0.18548280538991094,
+   "n": 3.824765839613974,
+   "below_step_fraction": 0.058216670696550524,
+   "primary_share": 0.07770919925581757,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 59,
+   "f_H": 0.0834974023886025,
+   "n": 3.0878195203840733,
+   "below_step_fraction": 0.09848914103933876,
+   "primary_share": 0.020677629919268737,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 60,
+   "f_H": 0.04821277357637882,
+   "n": 2.4151788037270308,
+   "below_step_fraction": 0.15144572012043203,
+   "primary_share": 0.007764638748495737,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 61,
+   "f_H": 0.1671706361323595,
+   "n": 4.480280223302543,
+   "below_step_fraction": 0.039790069303116696,
+   "primary_share": 0.1024711105058257,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 62,
+   "f_H": 0.24687342019751668,
+   "n": 1.5604448961094022,
+   "below_step_fraction": 0.19671291608803057,
+   "primary_share": 0.030609596214577844,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 63,
+   "f_H": 0.13221221627667545,
+   "n": 5.510836452245712,
+   "below_step_fraction": 0.021848328465689456,
+   "primary_share": 0.14759427509221923,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 64,
+   "f_H": 0.06878084503114223,
+   "n": 2.188417640514672,
+   "below_step_fraction": 0.16922171736035094,
+   "primary_share": 0.009913512357004847,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 65,
+   "f_H": 0.17398895017802715,
+   "n": 4.8791946694254875,
+   "below_step_fraction": 0.031388643131949036,
+   "primary_share": 0.13519644392821806,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 66,
+   "f_H": 0.19869771050289273,
+   "n": 3.0333883073180914,
+   "below_step_fraction": 0.09206473048024659,
+   "primary_share": 0.05263998055217892,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 67,
+   "f_H": 0.09778669672086834,
+   "n": 3.8584064496681094,
+   "below_step_fraction": 0.0605762952974436,
+   "primary_share": 0.03937251975751752,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 68,
+   "f_H": 0.11728031031787395,
+   "n": 4.452895791269839,
+   "below_step_fraction": 0.04140626573976518,
+   "primary_share": 0.06908363559236783,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 69,
+   "f_H": 0.2355938645452261,
+   "n": 2.4560297690331936,
+   "below_step_fraction": 0.12358196657681189,
+   "primary_share": 0.0464970090486845,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 70,
+   "f_H": 0.15116504864767194,
+   "n": 5.4541259575635195,
+   "below_step_fraction": 0.02261789970973147,
+   "primary_share": 0.16301037909609475,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 71,
+   "f_H": 0.03542982267215848,
+   "n": 1.5914819752797484,
+   "below_step_fraction": 0.2411903257081352,
+   "primary_share": 0.0035828220466844474,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 72,
+   "f_H": 0.19130366595461964,
+   "n": 2.7044934164732695,
+   "below_step_fraction": 0.11222981647048531,
+   "primary_share": 0.04157489710669682,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 73,
+   "f_H": 0.07221150638535619,
+   "n": 4.378949272446334,
+   "below_step_fraction": 0.04430804485770454,
+   "primary_share": 0.03975025887415372,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 74,
+   "f_H": 0.10121756829321385,
+   "n": 1.0685095088556409,
+   "below_step_fraction": 0.29265450978252083,
+   "primary_share": 0.008435616385060442,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 75,
+   "f_H": 0.21601305611431598,
+   "n": 5.8782555013895035,
+   "below_step_fraction": 0.018374193284144188,
+   "primary_share": 0.28673972474676784,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 76,
+   "f_H": 0.23883674742653965,
+   "n": 5.2837698850780725,
+   "below_step_fraction": 0.024875371270164866,
+   "primary_share": 0.23417887754645444,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 77,
+   "f_H": 0.13456880005076527,
+   "n": 1.6458687921985984,
+   "below_step_fraction": 0.21286202178954916,
+   "primary_share": 0.015419217704047276,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 78,
+   "f_H": 0.0527176833897829,
+   "n": 3.804026477970183,
+   "below_step_fraction": 0.06457407283204973,
+   "primary_share": 0.019911972397847425,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 79,
+   "f_H": 0.1544077221304178,
+   "n": 3.3014345951378345,
+   "below_step_fraction": 0.08163655099363705,
+   "primary_share": 0.046131811760083505,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 80,
+   "f_H": 0.08676252679899335,
+   "n": 5.629696239717305,
+   "below_step_fraction": 0.02019589725254372,
+   "primary_share": 0.10478163776322515,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 81,
+   "f_H": 0.20241719292476773,
+   "n": 1.455315187573433,
+   "below_step_fraction": 0.21807108247766788,
+   "primary_share": 0.022639428618362212,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 82,
+   "f_H": 0.17727874509990216,
+   "n": 4.6290406715124846,
+   "below_step_fraction": 0.03628093786350739,
+   "primary_share": 0.11917750990814457,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 83,
+   "f_H": 0.059045737609267235,
+   "n": 2.31921689491719,
+   "below_step_fraction": 0.15851160119529767,
+   "primary_share": 0.009085391421383027,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 84,
+   "f_H": 0.03922987150028348,
+   "n": 2.8966110283508897,
+   "below_step_fraction": 0.1147011736778841,
+   "primary_share": 0.008341903604581376,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 85,
+   "f_H": 0.14006031231954694,
+   "n": 4.034586925059557,
+   "below_step_fraction": 0.05287141894227419,
+   "primary_share": 0.06461156607609284,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 86,
+   "f_H": 0.2257781907171011,
+   "n": 2.0522149596363306,
+   "below_step_fraction": 0.15591640016364278,
+   "primary_share": 0.03531883197445437,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 87,
+   "f_H": 0.12065067164599895,
+   "n": 5.054729058407247,
+   "below_step_fraction": 0.02862669443502932,
+   "primary_share": 0.10279563765623383,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 88,
+   "f_H": 0.21272326119244098,
+   "n": 3.6287591364234686,
+   "below_step_fraction": 0.06407274311703469,
+   "primary_share": 0.08097627745902568,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 89,
+   "f_H": 0.11095267571508885,
+   "n": 3.437904323451221,
+   "below_step_fraction": 0.07781313527008683,
+   "primary_share": 0.034777712180934985,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 90,
+   "f_H": 0.0832356763072312,
+   "n": 5.10793271381408,
+   "below_step_fraction": 0.02786478145466319,
+   "primary_share": 0.07285678697394159,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 91,
+   "f_H": 0.18758418353274464,
+   "n": 1.7829893752932549,
+   "below_step_fraction": 0.18749469254376214,
+   "primary_share": 0.02440188533622438,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 92,
+   "f_H": 0.16422339595854282,
+   "n": 1.2055894304066896,
+   "below_step_fraction": 0.2567873709212172,
+   "primary_share": 0.015598308700097865,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 93,
+   "f_H": 0.0493473220616579,
+   "n": 5.702377668581903,
+   "below_step_fraction": 0.019116811792134574,
+   "primary_share": 0.06295993464303776,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 94,
+   "f_H": 0.13076875122264026,
+   "n": 2.8410035083070397,
+   "below_step_fraction": 0.10964530418302314,
+   "primary_share": 0.029089086494881632,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 95,
+   "f_H": 0.24994148375466466,
+   "n": 4.203722294420004,
+   "below_step_fraction": 0.04470589529954755,
+   "primary_share": 0.1363608470262639,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 96,
+   "f_H": 0.0330172180198133,
+   "n": 4.97863675840199,
+   "below_step_fraction": 0.03053150475132926,
+   "primary_share": 0.02637596826760367,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 97,
+   "f_H": 0.14788969239220023,
+   "n": 1.975454798899591,
+   "below_step_fraction": 0.17636054256680683,
+   "primary_share": 0.020452792986481425,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 98,
+   "f_H": 0.2318968041613698,
+   "n": 4.114022226072848,
+   "below_step_fraction": 0.0475925244053512,
+   "primary_share": 0.11884260573192029,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 99,
+   "f_H": 0.11272723842412233,
+   "n": 2.9767517410218716,
+   "below_step_fraction": 0.10275632245483858,
+   "primary_share": 0.026756940827861182,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 100,
+   "f_H": 0.09462340435013175,
+   "n": 2.399369826540351,
+   "below_step_fraction": 0.1465743037139032,
+   "primary_share": 0.015745515090309175,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 101,
+   "f_H": 0.19639040341600775,
+   "n": 4.708525742404163,
+   "below_step_fraction": 0.03439310523624363,
+   "primary_share": 0.139272386326056,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 102,
+   "f_H": 0.16953865814954042,
+   "n": 1.3784957202151418,
+   "below_step_fraction": 0.2348206318074143,
+   "primary_share": 0.01760956518740173,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 103,
+   "f_H": 0.06519333083182574,
+   "n": 5.553582184016705,
+   "below_step_fraction": 0.021078530668720067,
+   "primary_share": 0.07543605694301372,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 104,
+   "f_H": 0.15810181979089977,
+   "n": 4.128144913353026,
+   "below_step_fraction": 0.049398123146570834,
+   "primary_share": 0.07806251939325343,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 105,
+   "f_H": 0.05727455887943506,
+   "n": 2.7660933919250965,
+   "below_step_fraction": 0.12221838175649781,
+   "primary_share": 0.011429872007773961,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 106,
+   "f_H": 0.13698436742648484,
+   "n": 5.783777454867959,
+   "below_step_fraction": 0.018726730721092974,
+   "primary_share": 0.17841246195685614,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 107,
+   "f_H": 0.24210830008611084,
+   "n": 1.286283208988607,
+   "below_step_fraction": 0.22628720900278904,
+   "primary_share": 0.026095511610788227,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 108,
+   "f_H": 0.22045954618602992,
+   "n": 1.8636572258546948,
+   "below_step_fraction": 0.17340716278236476,
+   "primary_share": 0.03100830447728846,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 109,
+   "f_H": 0.10480804685503245,
+   "n": 5.1892678290605545,
+   "below_step_fraction": 0.02643704724649537,
+   "primary_share": 0.0966936209591778,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 110,
+   "f_H": 0.07537860071286559,
+   "n": 3.363049341365695,
+   "below_step_fraction": 0.08374217929238774,
+   "primary_share": 0.02195431826525773,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 111,
+   "f_H": 0.19360800867900252,
+   "n": 3.553198146633804,
+   "below_step_fraction": 0.06802478557511543,
+   "primary_share": 0.06941802922600968,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 112,
+   "f_H": 0.12340228725224733,
+   "n": 1.5156137142330408,
+   "below_step_fraction": 0.2301544879188344,
+   "primary_share": 0.013077354742969801,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 113,
+   "f_H": 0.2276670678332448,
+   "n": 5.377742423675954,
+   "below_step_fraction": 0.023692178122209532,
+   "primary_share": 0.23437504497742276,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 114,
+   "f_H": 0.14494901856407522,
+   "n": 2.535841696895659,
+   "below_step_fraction": 0.12929383515547238,
+   "primary_share": 0.027343468557072363,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 115,
+   "f_H": 0.0432625793479383,
+   "n": 4.53326054289937,
+   "below_step_fraction": 0.04066321201054829,
+   "primary_share": 0.02594937315505512,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 116,
+   "f_H": 0.06104416090995073,
+   "n": 3.938792956992984,
+   "below_step_fraction": 0.058968736194169175,
+   "primary_share": 0.025248666827637614,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 117,
+   "f_H": 0.1801331405714154,
+   "n": 3.1132595418021083,
+   "below_step_fraction": 0.08932426233597415,
+   "primary_share": 0.04918586639903029,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 118,
+   "f_H": 0.20655519833788274,
+   "n": 4.802761365659535,
+   "below_step_fraction": 0.03248233311704532,
+   "primary_share": 0.15509759254743744,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 119,
+   "f_H": 0.09176329692825674,
+   "n": 2.112537160515785,
+   "below_step_fraction": 0.1728146618944599,
+   "primary_share": 0.0129510376540792,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 120,
+   "f_H": 0.24504897391423583,
+   "n": 3.226233989931643,
+   "below_step_fraction": 0.07886105456854431,
+   "primary_share": 0.07578904789582445,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 121,
+   "f_H": 0.1267390060983598,
+   "n": 3.729340549558401,
+   "below_step_fraction": 0.06431660384962067,
+   "primary_share": 0.04806216568771665,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 122,
+   "f_H": 0.046599510051310064,
+   "n": 1.7274927664548159,
+   "below_step_fraction": 0.22226529334302958,
+   "primary_share": 0.005113589255392648,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 123,
+   "f_H": 0.16233155611902475,
+   "n": 5.364840439520776,
+   "below_step_fraction": 0.0238056695749905,
+   "primary_share": 0.1663177855314352,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 124,
+   "f_H": 0.18344321375712752,
+   "n": 5.959309664554894,
+   "below_step_fraction": 0.0173903116880234,
+   "primary_share": 0.25728260689341004,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 125,
+   "f_H": 0.0782387081347406,
+   "n": 1.1500783488154411,
+   "below_step_fraction": 0.2882353815961718,
+   "primary_share": 0.0066204959413747695,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 126,
+   "f_H": 0.10895721677690744,
+   "n": 4.304328015074134,
+   "below_step_fraction": 0.04558381225833641,
+   "primary_share": 0.058299053116903116,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 127,
+   "f_H": 0.20986506376415492,
+   "n": 2.629318739287555,
+   "below_step_fraction": 0.11505296220993419,
+   "primary_share": 0.04448959847264748,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 128,
+   "f_H": 0.09825210634618997,
+   "n": 4.575442796573043,
+   "below_step_fraction": 0.03869549238982814,
+   "primary_share": 0.06192950883193541,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 129,
+   "f_H": 0.1999654207006097,
+   "n": 2.5104465885087848,
+   "below_step_fraction": 0.12432164263210013,
+   "primary_share": 0.0392305416794935,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 130,
+   "f_H": 0.1726775867305696,
+   "n": 5.4498342694714665,
+   "below_step_fraction": 0.02271655751300788,
+   "primary_share": 0.18539994250587927,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 131,
+   "f_H": 0.0683859441243112,
+   "n": 1.4993762448430061,
+   "below_step_fraction": 0.24508688767162656,
+   "primary_share": 0.006805545056026325,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 132,
+   "f_H": 0.03675365660339594,
+   "n": 2.152425827458501,
+   "below_step_fraction": 0.1777769128540835,
+   "primary_share": 0.0050424469323476885,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 133,
+   "f_H": 0.1515724462643266,
+   "n": 4.774767494760454,
+   "below_step_fraction": 0.03359781066394638,
+   "primary_share": 0.11003362600776154,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 134,
+   "f_H": 0.23514283990487456,
+   "n": 3.1830578008666635,
+   "below_step_fraction": 0.08159656291995404,
+   "primary_share": 0.07028716666433935,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 135,
+   "f_H": 0.11602695887908339,
+   "n": 3.919956725090742,
+   "below_step_fraction": 0.057610998375063505,
+   "primary_share": 0.04912127729319165,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 136,
+   "f_H": 0.217321061398834,
+   "n": 5.307706956751645,
+   "below_step_fraction": 0.024574691531091715,
+   "primary_share": 0.215689937997729,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 137,
+   "f_H": 0.10161582490429281,
+   "n": 1.757467895746231,
+   "below_step_fraction": 0.20754019752720285,
+   "primary_share": 0.011941950442821493,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 138,
+   "f_H": 0.0717494549229741,
+   "n": 3.661833493039012,
+   "below_step_fraction": 0.06972014787430644,
+   "primary_share": 0.025100157684595295,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 139,
+   "f_H": 0.19003260005265474,
+   "n": 3.2275249985978007,
+   "below_step_fraction": 0.0827673698517727,
+   "primary_share": 0.0559996224719907,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 140,
+   "f_H": 0.15485538860782982,
+   "n": 2.5744693065062165,
+   "below_step_fraction": 0.12526655774007348,
+   "primary_share": 0.030151388893347685,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 141,
+   "f_H": 0.053974390532821416,
+   "n": 4.336892370134592,
+   "below_step_fraction": 0.04592235362395802,
+   "primary_share": 0.028666835336031423,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 142,
+   "f_H": 0.13324832428246736,
+   "n": 1.084855342283845,
+   "below_step_fraction": 0.2809514875075927,
+   "primary_share": 0.01156768792246682,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 143,
+   "f_H": 0.23842599410563708,
+   "n": 5.963189898990095,
+   "below_step_fraction": 0.017829805861262794,
+   "primary_share": 0.32615431677538814,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 144,
+   "f_H": 0.05773775076493621,
+   "n": 3.0070272963494062,
+   "below_step_fraction": 0.10565159626090297,
+   "primary_share": 0.013329072852410436,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 145,
+   "f_H": 0.1768804675899446,
+   "n": 4.057189169339836,
+   "below_step_fraction": 0.0509577879915845,
+   "primary_share": 0.08466140144875751,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 146,
+   "f_H": 0.20287923905998467,
+   "n": 1.9770461963489652,
+   "below_step_fraction": 0.16641131219606375,
+   "primary_share": 0.029735202842366058,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 147,
+   "f_H": 0.08803360048681497,
+   "n": 4.911430090665817,
+   "below_step_fraction": 0.03147598393743688,
+   "primary_share": 0.06821584963796806,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 148,
+   "f_H": 0.1202029842697084,
+   "n": 5.586456501856446,
+   "below_step_fraction": 0.020868616174814877,
+   "primary_share": 0.14048751865384465,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 149,
+   "f_H": 0.22452150201424956,
+   "n": 1.3239562502130866,
+   "below_step_fraction": 0.22681900156899162,
+   "primary_share": 0.02414318975742349,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 150,
+   "f_H": 0.14138079587370156,
+   "n": 4.712715902365744,
+   "below_step_fraction": 0.0349894708998037,
+   "primary_share": 0.09855285049480048,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 151,
+   "f_H": 0.03964061949402094,
+   "n": 2.3344567455351353,
+   "below_step_fraction": 0.15987176508889372,
+   "primary_share": 0.006047624340454076,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 152,
+   "f_H": 0.18711878169327975,
+   "n": 1.2611884893849492,
+   "below_step_fraction": 0.24386257335083858,
+   "primary_share": 0.018714937111979104,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 153,
+   "f_H": 0.08196796078234911,
+   "n": 5.826260097324848,
+   "below_step_fraction": 0.017899000209291093,
+   "primary_share": 0.11169442607354617,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 154,
+   "f_H": 0.11226401826366782,
+   "n": 2.7501563485711813,
+   "below_step_fraction": 0.1176122957164144,
+   "primary_share": 0.02328112694544216,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 155,
+   "f_H": 0.213118180539459,
+   "n": 4.200537185184658,
+   "below_step_fraction": 0.045788176290037064,
+   "primary_share": 0.11352285294080296,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 156,
+   "f_H": 0.24861764449626209,
+   "n": 3.525514201261103,
+   "below_step_fraction": 0.06609964200284658,
+   "primary_share": 0.0917379399339647,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 157,
+   "f_H": 0.13036136139184235,
+   "n": 3.403247933834791,
+   "below_step_fraction": 0.07827881455868599,
+   "primary_share": 0.04061821091346896,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 158,
+   "f_H": 0.04979836514219642,
+   "n": 5.170741559937596,
+   "below_step_fraction": 0.026881580777893994,
+   "primary_share": 0.04518314163874272,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 159,
+   "f_H": 0.1654767264984548,
+   "n": 1.9337654476985335,
+   "below_step_fraction": 0.177155288644729,
+   "primary_share": 0.022782372179519995,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 160,
+   "f_H": 0.1140344044752419,
+   "n": 2.2594656506553292,
+   "below_step_fraction": 0.1558469811106505,
+   "primary_share": 0.017846524318913867,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 161,
+   "f_H": 0.23229422153905033,
+   "n": 4.637210112065077,
+   "below_step_fraction": 0.035323927833956464,
+   "primary_share": 0.1603930555825182,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 162,
+   "f_H": 0.14742848016321658,
+   "n": 1.4047216195613146,
+   "below_step_fraction": 0.23732645800114577,
+   "primary_share": 0.015151351516523227,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 163,
+   "f_H": 0.03174699135124683,
+   "n": 5.6677753096446395,
+   "below_step_fraction": 0.019453520163278736,
+   "primary_share": 0.039803431755614335,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 164,
+   "f_H": 0.06564183654263615,
+   "n": 4.992693764157593,
+   "below_step_fraction": 0.03005428013961378,
+   "primary_share": 0.05327096160818261,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 165,
+   "f_H": 0.17079620452597738,
+   "n": 2.05779517441988,
+   "below_step_fraction": 0.16475539214071108,
+   "primary_share": 0.02528452047530946,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 166,
+   "f_H": 0.19506908841431142,
+   "n": 3.9817093070596457,
+   "below_step_fraction": 0.05267481432570214,
+   "primary_share": 0.09032367185639964,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 167,
+   "f_H": 0.09421181179583073,
+   "n": 2.9321008725091815,
+   "below_step_fraction": 0.10722905272011078,
+   "primary_share": 0.021429351560055626,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 168,
+   "f_H": 0.24257287047803403,
+   "n": 1.8570767287164927,
+   "below_step_fraction": 0.16976490771852268,
+   "primary_share": 0.03485061521008605,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 169,
+   "f_H": 0.13825123839080333,
+   "n": 5.094568132422864,
+   "below_step_fraction": 0.02787585163470903,
+   "primary_share": 0.12096424777807986,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 170,
+   "f_H": 0.055964034665375945,
+   "n": 3.4833075189962983,
+   "below_step_fraction": 0.07884939108570943,
+   "primary_share": 0.017311185748655176,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 171,
+   "f_H": 0.15770775811746718,
+   "n": 3.605020944029093,
+   "below_step_fraction": 0.06781158347739612,
+   "primary_share": 0.056723799807359775,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 172,
+   "f_H": 0.19493268184363843,
+   "n": 4.280103234574199,
+   "below_step_fraction": 0.044163467056596246,
+   "primary_share": 0.10765585158044706,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 173,
+   "f_H": 0.07578683756291865,
+   "n": 2.8302376894280314,
+   "below_step_fraction": 0.11578128328597422,
+   "primary_share": 0.015965097296326447,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 174,
+   "f_H": 0.10435618298128248,
+   "n": 5.750074450857937,
+   "below_step_fraction": 0.01888313120885294,
+   "primary_share": 0.1347908208384286,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 175,
+   "f_H": 0.2192053555138409,
+   "n": 1.1844500005245209,
+   "below_step_fraction": 0.24391969317721826,
+   "primary_share": 0.021918984957967267,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 176,
+   "f_H": 0.042798016741871836,
+   "n": 3.8453517938032746,
+   "below_step_fraction": 0.06330647206277983,
+   "primary_share": 0.016488899679005214,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 177,
+   "f_H": 0.14368214227259157,
+   "n": 3.1077855862677097,
+   "below_step_fraction": 0.09251337055495264,
+   "primary_share": 0.03788038932569024,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 178,
+   "f_H": 0.22897757114842535,
+   "n": 4.855766439810395,
+   "below_step_fraction": 0.03132372971063094,
+   "primary_share": 0.1782935448648937,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 179,
+   "f_H": 0.1237963673658669,
+   "n": 2.2341307988390326,
+   "below_step_fraction": 0.1566102476896967,
+   "primary_share": 0.019279859644127765,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 180,
+   "f_H": 0.09043861843645573,
+   "n": 1.5810165451839566,
+   "below_step_fraction": 0.2300629405020184,
+   "primary_share": 0.009587897803320575,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 181,
+   "f_H": 0.20614696927368642,
+   "n": 5.530807286500931,
+   "below_step_fraction": 0.02183564356518391,
+   "primary_share": 0.23026456011357177,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 182,
+   "f_H": 0.1805850228853524,
+   "n": 2.4351907651871443,
+   "below_step_fraction": 0.13227110869059228,
+   "primary_share": 0.03329912931783377,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 183,
+   "f_H": 0.062298330683261155,
+   "n": 4.500892999581993,
+   "below_step_fraction": 0.04118296806970776,
+   "primary_share": 0.03689562824873693,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 184,
+   "f_H": 0.16102440850809216,
+   "n": 5.886734904721379,
+   "below_step_fraction": 0.01787140633566021,
+   "primary_share": 0.21976024292624635,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 185,
+   "f_H": 0.04620207177475095,
+   "n": 1.0090682273730636,
+   "below_step_fraction": 0.31772865275817685,
+   "primary_share": 0.003546673520319357,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 186,
+   "f_H": 0.12720021300017834,
+   "n": 4.41733826790005,
+   "below_step_fraction": 0.04212354095373969,
+   "primary_share": 0.07365107845334436,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 187,
+   "f_H": 0.24631920836865903,
+   "n": 2.6542097739875317,
+   "below_step_fraction": 0.10932228326679175,
+   "primary_share": 0.054954812417389816,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 188,
+   "f_H": 0.20941653715446593,
+   "n": 3.3073152359575033,
+   "below_step_fraction": 0.07764348652431899,
+   "primary_share": 0.06578427434221158,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 189,
+   "f_H": 0.10769968884065748,
+   "n": 3.7422916097566485,
+   "below_step_fraction": 0.0646668830468244,
+   "primary_share": 0.040620817878888354,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 190,
+   "f_H": 0.07956003092229366,
+   "n": 1.6816590251401067,
+   "below_step_fraction": 0.2206779699280574,
+   "primary_share": 0.008793304377926562,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 191,
+   "f_H": 0.18385480098426343,
+   "n": 5.231192655861378,
+   "below_step_fraction": 0.025648890147562067,
+   "primary_share": 0.17483265017869795,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 192,
+   "f_H": 0.23009867222979666,
+   "n": 1.0500234263017774,
+   "below_step_fraction": 0.25634833398174195,
+   "primary_share": 0.021892721712448625,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 193,
+   "f_H": 0.11463200094178319,
+   "n": 5.859168604016304,
+   "below_step_fraction": 0.017790000983032933,
+   "primary_share": 0.15716145629566192,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 194,
+   "f_H": 0.03148511447012425,
+   "n": 2.685447646304965,
+   "below_step_fraction": 0.1310706976469581,
+   "primary_share": 0.005858896267501211,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 195,
+   "f_H": 0.1495301140099764,
+   "n": 4.360504317097366,
+   "below_step_fraction": 0.04312670306512236,
+   "primary_share": 0.08456653748735828,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 196,
+   "f_H": 0.16784880043938755,
+   "n": 3.7855451637879014,
+   "below_step_fraction": 0.060358518024284095,
+   "primary_share": 0.06782593932808928,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 197,
+   "f_H": 0.06677665384486317,
+   "n": 3.282333392649889,
+   "below_step_fraction": 0.08860780110594359,
+   "primary_share": 0.018380987384142487,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 198,
+   "f_H": 0.09276818282902241,
+   "n": 5.264709809795022,
+   "below_step_fraction": 0.02526277955956549,
+   "primary_share": 0.08956411942917768,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 199,
+   "f_H": 0.19813742078840732,
+   "n": 1.627428605221212,
+   "below_step_fraction": 0.20090533984960096,
+   "primary_share": 0.024054213904155946,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 200,
+   "f_H": 0.1385128792375326,
+   "n": 3.052181949838996,
+   "below_step_fraction": 0.09606465786869639,
+   "primary_share": 0.03516759423481354,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 201,
+   "f_H": 0.24047147266566754,
+   "n": 3.87780090700835,
+   "below_step_fraction": 0.0542409922470317,
+   "primary_share": 0.10813146343603804,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 202,
+   "f_H": 0.15990312384441496,
+   "n": 2.2077757390215993,
+   "below_step_fraction": 0.153393481716816,
+   "primary_share": 0.025425305871387905,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 203,
+   "f_H": 0.05536662178114056,
+   "n": 4.897951953113079,
+   "below_step_fraction": 0.032005688574204154,
+   "primary_share": 0.04219266853657093,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 204,
+   "f_H": 0.07723023049533367,
+   "n": 5.472905294969678,
+   "below_step_fraction": 0.02220323758301493,
+   "primary_share": 0.08483736443300237,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 205,
+   "f_H": 0.19186458550393581,
+   "n": 1.610881200991571,
+   "below_step_fraction": 0.2040034966121379,
+   "primary_share": 0.022938940333843916,
+   "primary_fill_at_step": 0.04761904761904761
+  },
+  {
+   "material_id": 206,
+   "f_H": 0.22215257601812483,
+   "n": 4.472258658148348,
+   "below_step_fraction": 0.03895135712392755,
+   "primary_share": 0.13910569265656555,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 207,
+   "f_H": 0.10322154926136136,
+   "n": 2.474772747606039,
+   "below_step_fraction": 0.13924670082993862,
+   "primary_share": 0.018080132221925754,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 208,
+   "f_H": 0.1468579948693514,
+   "n": 5.128199783153832,
+   "below_step_fraction": 0.02729759691975295,
+   "primary_share": 0.13121676330764123,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 209,
+   "f_H": 0.04146192111074924,
+   "n": 1.8026556298136711,
+   "below_step_fraction": 0.21455986424964535,
+   "primary_share": 0.004713213126282686,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 210,
+   "f_H": 0.1250384950824082,
+   "n": 3.6484653260558844,
+   "below_step_fraction": 0.0676702194379526,
+   "primary_share": 0.04506737849505828,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 211,
+   "f_H": 0.22613749058917165,
+   "n": 3.4582113279029727,
+   "below_step_fraction": 0.07005411009760545,
+   "primary_share": 0.07873269024859023,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 212,
+   "f_H": 0.20814108289778233,
+   "n": 2.861284882761538,
+   "below_step_fraction": 0.10086651322732164,
+   "primary_share": 0.05033000165826683,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 213,
+   "f_H": 0.09006920821964741,
+   "n": 4.223383780568838,
+   "below_step_fraction": 0.04843431005899737,
+   "primary_share": 0.04535648291264711,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 214,
+   "f_H": 0.06278861673548818,
+   "n": 1.2252908516675234,
+   "below_step_fraction": 0.2822995958535565,
+   "primary_share": 0.005424838359562348,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 215,
+   "f_H": 0.17828215004876255,
+   "n": 5.722698978148401,
+   "below_step_fraction": 0.01961949089561691,
+   "primary_share": 0.22163394281102325,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 216,
+   "f_H": 0.04496012764051557,
+   "n": 4.608461273834109,
+   "below_step_fraction": 0.03870529625825116,
+   "primary_share": 0.02833174229491127,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 217,
+   "f_H": 0.16386430548503994,
+   "n": 2.2992383120581508,
+   "below_step_fraction": 0.1451886443210842,
+   "primary_share": 0.02752756867710146,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 218,
+   "f_H": 0.24314359180629252,
+   "n": 5.609682490117848,
+   "below_step_fraction": 0.021119239556647754,
+   "primary_share": 0.2808023220515933,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 219,
+   "f_H": 0.12853607259690764,
+   "n": 1.4347006231546402,
+   "below_step_fraction": 0.238458437116876,
+   "primary_share": 0.01314705488639771,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 220,
+   "f_H": 0.10720958637073635,
+   "n": 2.0316307935863733,
+   "below_step_fraction": 0.1780616600965764,
+   "primary_share": 0.014685182418515137,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 221,
+   "f_H": 0.21171922640874982,
+   "n": 5.034764780662954,
+   "below_step_fraction": 0.028499281098607984,
+   "primary_share": 0.18119346776074793,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 222,
+   "f_H": 0.1818609233945608,
+   "n": 2.876611583866179,
+   "below_step_fraction": 0.10248409273682056,
+   "primary_share": 0.04328117817568854,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 223,
+   "f_H": 0.07992920510470866,
+   "n": 4.013967592269182,
+   "below_step_fraction": 0.05558024267819625,
+   "primary_share": 0.03507528419260917,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 224,
+   "f_H": 0.20054953698068856,
+   "n": 5.8025275859981775,
+   "below_step_fraction": 0.018963079924991782,
+   "primary_share": 0.2579460794780323,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 225,
+   "f_H": 0.09604307685047388,
+   "n": 1.3056341549381614,
+   "below_step_fraction": 0.26270449983209154,
+   "primary_share": 0.00891691642518868,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 226,
+   "f_H": 0.0704740977846086,
+   "n": 4.147536986507475,
+   "below_step_fraction": 0.051365539846473005,
+   "primary_share": 0.033463688669651305,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 227,
+   "f_H": 0.1724022296629846,
+   "n": 2.78488465026021,
+   "below_step_fraction": 0.10907275208381212,
+   "primary_share": 0.03855163045279548,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 228,
+   "f_H": 0.1526937833800912,
+   "n": 3.3817947041243315,
+   "below_step_fraction": 0.0778951882103671,
+   "primary_share": 0.047810894415824194,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 229,
+   "f_H": 0.03379277233034372,
+   "n": 3.5725633976981044,
+   "below_step_fraction": 0.07573962631158665,
+   "primary_share": 0.01088220261195807,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 230,
+   "f_H": 0.1190818110667169,
+   "n": 1.8830636041238904,
+   "below_step_fraction": 0.19079055604383507,
+   "primary_share": 0.01522315609580843,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 231,
+   "f_H": 0.23368573075160384,
+   "n": 5.208054319024086,
+   "below_step_fraction": 0.025884867108231714,
+   "primary_share": 0.22019243698333507,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 232,
+   "f_H": 0.09952790727838874,
+   "n": 4.095570118166506,
+   "below_step_fraction": 0.05218889328910536,
+   "primary_share": 0.04651391858746295,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 233,
+   "f_H": 0.21759618243202566,
+   "n": 2.957698818296194,
+   "below_step_fraction": 0.09453270882996878,
+   "primary_share": 0.05614166807916781,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 234,
+   "f_H": 0.18944866735488175,
+   "n": 4.9595474768429995,
+   "below_step_fraction": 0.02985957075114589,
+   "primary_share": 0.15474767679305237,
+   "primary_fill_at_step": 0.04761904761904762
+  },
+  {
+   "material_id": 235,
+   "f_H": 0.0739583008363843,
+   "n": 1.9569663321599364,
+   "below_step_fraction": 0.19147138778076828,
+   "primary_share": 0.009421047274565981,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 236,
+   "f_H": 0.050919774379581215,
+   "n": 1.3600579174235463,
+   "below_step_fraction": 0.26731770699417257,
+   "primary_share": 0.004645953799843965,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 237,
+   "f_H": 0.15631226172670723,
+   "n": 5.534524492919445,
+   "below_step_fraction": 0.02163028190557813,
+   "primary_share": 0.17625725846287227,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 238,
+   "f_H": 0.23730484057217838,
+   "n": 2.3802757766097784,
+   "below_step_fraction": 0.12867716026798312,
+   "primary_share": 0.04498018862656673,
+   "primary_fill_at_step": 0.047619047619047616
+  },
+  {
+   "material_id": 239,
+   "f_H": 0.1362090249732137,
+   "n": 4.690051580779254,
+   "below_step_fraction": 0.03553699930970494,
+   "primary_share": 0.09348485818561574,
+   "primary_fill_at_step": 0.047619047619047616
+  }
+ ]
+}
