@@ -176,6 +176,7 @@ def fit_deeponet(Ft, C, Pz_np, fit_idx, seed=SEED):
             for s0 in range(0, len(Pn), 16):
                 out.append(model(Pn[s0:s0 + 16], C)[..., 0].cpu().numpy())
         return np.concatenate(out)                                # (n, 128*128) c field
+    predict.model = model          # read by dd_seed_robustness.trunk_floor; no effect here
     return predict
 
 

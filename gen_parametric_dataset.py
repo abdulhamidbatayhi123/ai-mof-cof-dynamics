@@ -174,6 +174,31 @@ MATERIAL_SPACE_V2 = {
 }
 
 
+# DESIGN v3 (2026-10-25, PREREG_DD_V3) — an isotherm family that covers real water MOFs.
+#
+# Two limits of v2 that reviewers raised, both visible in the named-framework test:
+# (1) the primary (Langmuir) sites were fixed at b_H = b_C/20, i.e. WEAKER than the
+#     cooperative sites, so they hold ~5 % of their capacity at the step, whereas the
+#     low-humidity sites of MOF-303, MIL-160 or Co2Cl2(BTDD) bind more strongly than
+#     the pore-filling ones; (2) the step steepness stopped at n = 6, while the frozen
+#     rule gives n ~ 16 for aluminium fumarate and ~ 30 for CAU-10-H.
+# v3 samples the primary-site affinity, as log10(b_H0 / b_C0) from -1.3 (the v2 value,
+# 1/20) to +1.5 (sites ~30x stronger than the step sites), widens n to [1, 32], and
+# widens capacity, heat and step position to enclose all six named frameworks.
+# Everything else (Glueckauf kinetics from d_p, Sobol sampling, the solver) is v2.
+MATERIAL_SPACE_V3 = {
+    "q_max":          (8.0, 56.0),
+    "delta_H":        (-62000.0, -40000.0),
+    "step_rh":        (0.05, 0.45),
+    "isotherm_n":     (1.0, 32.0),
+    "henry_fraction": (0.03, 0.30),
+    "henry_affinity_log10": (-1.3, 1.5),
+    "d_p":            (0.0015, 0.0050),
+    "rho_p":          (700.0, 1400.0),
+    "eps_t":          (0.30, 0.48),
+}
+
+
 def _sobol_unit(n, dim, seed):
     """n points in [0,1]^dim from a scrambled Sobol sequence.
 
@@ -248,6 +273,9 @@ def build_physics(mat, cond):
     # scoped to it.
     p.b_H_ratio = B_H_RATIO
     p.b_H0 = p.b0 / B_H_RATIO
+    if "henry_affinity_log10" in mat:          # design v3: the affinity is sampled
+        p.b_H_ratio = 10.0 ** (-mat["henry_affinity_log10"])
+        p.b_H0 = p.b0 * 10.0 ** mat["henry_affinity_log10"]
 
     # KINETICS. Legacy: k_LDF sampled independently of d_p (physically
     # inconsistent — median 10x faster than the pellet supports). v2: derived
@@ -370,7 +398,7 @@ def main():
     ap.add_argument("--out", default="data/parametric")
     ap.add_argument("--holdout-materials", type=float, default=0.20)
     ap.add_argument("--holdout-conditions", type=float, default=0.15)
-    ap.add_argument("--design", choices=["legacy", "v2"], default="legacy",
+    ap.add_argument("--design", choices=["legacy", "v2", "v3"], default="legacy",
                     help="legacy reproduces the original 988-run dataset exactly "
                          "(uniform sampling, k_LDF sampled independently of d_p). "
                          "v2 uses scrambled Sobol and derives k_LDF from a sampled "
@@ -378,8 +406,8 @@ def main():
     args = ap.parse_args()
 
     rng = np.random.default_rng(args.seed)
-    if args.design == "v2":
-        materials = sample_design(args.materials, MATERIAL_SPACE_V2,
+    if args.design in ("v2", "v3"):
+        materials = sample_design(args.materials, MATERIAL_SPACE_V2 if args.design == "v2" else MATERIAL_SPACE_V3,
                                   args.seed, "material_id")
         conditions = sample_design(args.conditions, CONDITION_SPACE,
                                    args.seed + 7, "condition_id")
@@ -533,12 +561,12 @@ def main():
         "seed": args.seed,
         "store_nz": STORE_NZ, "store_nt": STORE_NT, "solve_nz": SOLVE_NZ, "horizon": HORIZON,
         "design": args.design,
-        "material_space": (MATERIAL_SPACE_V2 if args.design == "v2" else MATERIAL_SPACE),
+        "material_space": {"v2": MATERIAL_SPACE_V2, "v3": MATERIAL_SPACE_V3}.get(args.design, MATERIAL_SPACE),
         "condition_space": CONDITION_SPACE,
         # Frozen specs that were previously implicit in the code only (B29, B31).
         "b_H_ratio": B_H_RATIO,
         "kinetics": ("glueckauf: k_LDF = 15 eps_p (D_m/tau) / (R_p^2 rho_p K), "
-                     "K = q*(c_in)/c_in" if args.design == "v2"
+                     "K = q*(c_in)/c_in" if args.design in ("v2", "v3")
                      else "k_LDF sampled independently of d_p (legacy)"),
         "glueckauf": {"D_m": D_M_WATER, "tau": TORTUOSITY, "eps_p": EPS_PELLET},
         "materials": materials, "conditions": conditions,

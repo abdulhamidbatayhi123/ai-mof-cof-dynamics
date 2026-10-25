@@ -45,9 +45,17 @@ PARAM_KEYS_V2 = (
 )
 
 
+# DESIGN v3 (PREREG_DD_V3): v2 plus the sampled primary-site affinity log10(b_H0/b_C0).
+PARAM_KEYS_V3 = (
+    "q_max", "delta_H", "step_rh", "isotherm_n",
+    "henry_fraction", "henry_affinity_log10", "d_p", "rho_p", "eps_t",   # material
+    "rh_feed", "v", "T_in",                                              # operating
+)
+
+
 def param_keys_for(man):
     """Which parameter vector this dataset uses. Read from the manifest, never guessed."""
-    return PARAM_KEYS_V2 if man.get("design") == "v2" else PARAM_KEYS
+    return {"v2": PARAM_KEYS_V2, "v3": PARAM_KEYS_V3}.get(man.get("design"), PARAM_KEYS)
 
 
 @dataclass
