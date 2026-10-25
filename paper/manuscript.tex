@@ -55,8 +55,8 @@ reduced basis can fail there because the basis cannot represent the true field, 
 the map from material parameters to basis coefficients predicts the wrong coefficients. We
 measure which of the two limits accuracy for a verified, non-isothermal packed-bed model of
 water uptake, on two pre-registered designs: \nNclustFolds\ materials with smooth isotherms,
-and \nVthreeNmat\ with MOF-like isotherms whose strong low-humidity sites and steep steps
-enclose six published frameworks. On held-out materials the map carries at least
+and \nVthreeNmat\ with MOF-like isotherms, strong low-humidity sites and steep steps, in a
+parameter range that encloses six published frameworks. On held-out materials the map carries at least
 \nShMin\,\% of the squared error from 16 modes on, for POD with gradient boosting and for
 DeepONet measured against its own trained basis; a richer basis changes nothing, while more
 training materials keep helping. A coarse finite-volume solve is \(\nScrCoRatio\times\)
@@ -107,7 +107,7 @@ Taraz found the second dominating for DeepONets on model equations
 should go, but it has not been measured for adsorption beds, or for transfer across
 materials.
 
-This work measures it. The system is a one-dimensional, non-isothermal model of water uptake
+Here we measure it. The system is a one-dimensional, non-isothermal model of water uptake
 in a packed bed, with an S-shaped isotherm that produces the two-wave breakthrough of
 real harvesting frameworks. Seven candidate explanations of the error were registered
 before the runs, each with the evidence that would eliminate it, and tested on a
@@ -125,7 +125,40 @@ equations is one of the baselines.
 The paper asks what limits accuracy on held-out materials, the basis or the map; when a
 surrogate is worth building at all, compared with a coarse solve; and whether surrogates
 rank materials correctly, including six published water-harvesting frameworks, which is
-what a screen needs. Where the model of the adsorbent is too simple, we say so.
+what a screen needs. We also state where the model of the adsorbent is too simple.
+Table~\ref{tab:terms} defines the terms used throughout.
+
+\begin{table}[!tbp]
+\centering
+\caption{Terms used in this paper.}
+\label{tab:terms}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}p{0.74\textwidth}@{}}
+\toprule
+term & meaning \\
+\midrule
+field & the concentration of water in the gas along the bed and over time, \(c(z,t)\), on a
+\(128 \times 128\) grid \\
+basis & a fixed set of stored field patterns; a field is approximated as a weighted sum of them \\
+coefficients & the weights of that sum; the \emph{coefficient map} predicts them from a
+material's parameters and the operating conditions \\
+basis floor & the error left when the best possible coefficients are used: what the basis
+alone cannot represent \\
+POD & proper orthogonal decomposition: the basis made of the dominant patterns of the training
+fields \\
+DeepONet & a neural network with a \emph{trunk} that learns the basis and a \emph{branch} that
+predicts the coefficients, trained together \\
+held-out material & a material none of whose simulations were used to fit the surrogate \\
+design & the parameter ranges from which materials are drawn; the smooth design (v2) and the
+MOF-like design (v3) differ in the isotherm \\
+nRMSE & root-mean-square error of the field, divided by the field's range \\
+cluster bootstrap & an interval that resamples whole materials, because the conditions of one
+material are not independent \\
+pre-registration & the hypothesis, analysis and verdict words, fixed and published before the
+runs \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 %% ===========================================================================
 \section{Model, reference solver and an experimental check}
@@ -196,7 +229,8 @@ against this solver.
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig7_anchor.pdf}
 \caption{The reference solver against a published MOF-303 bed \cite{lassitter2024mass},
-with no parameter fitted to the curve. Blue: the pre-registered run with the cited
+with no parameter fitted to this curve; the kinetic constant is the value the authors fitted
+in their own work. Blue: the pre-registered run with the cited
 MOF-303 isotherm. Grey: pre-declared variants of the quantities the source does not give
 (kinetic constant, pellet size, thermal coupling). Dashed: the authors' own model with
 fitted kinetics. Circles: measured outlet; squares: inlet. The half-breakthrough time is
@@ -278,9 +312,13 @@ pre-registration to its commit and states whether its order survived that rewrit
 screening and named-framework tests (Sections~\ref{sec:screening} and
 \ref{sec:frameworks}) and the MOF-like design with DeepONet's own basis floor
 (Section~\ref{sec:mechanism}) were added after the original seven explanations; each was
-registered and pushed to the public repository before it ran, and their deviations from
-the registered text are listed in Supplementary S1.
-Three early comparisons (rungs L3 and part of L5) used an earlier dataset with only
+registered and pushed to the public repository before any of its results were computed. One
+amendment, which corrected the solver for DeepONet's own floor and added the controls of
+Sections~\ref{sec:mechanism}--\ref{sec:frameworks}, was written after the first results of the
+MOF-like design and is marked as such; Supplementary S1 lists every deviation from the
+registered text.
+Three early comparisons (the Kolmogorov--Arnold comparison L3 and part of the operator
+comparison L5, Section~\ref{sec:ladder}) used an earlier dataset with only
 \nNclustLegacy\ held-out materials, where the minimum detectable effect is \nLegacyMDE\,\%;
 they are labelled exploratory wherever they appear.
 
@@ -417,7 +455,8 @@ limit as the floor falls. On the MOF-like design the steep fronts raise the floo
 on the MOF-like design its trained trunk represents the held-out fields to
 \nDonVthreeFloorSixteen\,\%, against a total error of \nDonVthreeTotalSixteen\,\%; growing
 the basis to 128 modes leaves that total at \nDonVthreeTotalHigh\,\%
-(Fig.~\ref{fig:basismap}B). Steep, MOF-like fronts do not shift the limit to the basis.
+(Fig.~\ref{fig:basismap}B). The steeper fronts of MOF-like isotherms raise the floor but do
+not move the limit to the basis.
 
 More training materials reduce the map error: on held-out materials of the smooth design
 only the leading modes are predicted well, and the number of modes whose map clears
@@ -489,8 +528,8 @@ On the smooth design both surrogates are screening-adequate (Fig.~\ref{fig:scree
 DeepONet reaches a Spearman correlation of \nScrDonSp\ (interval [\nScrDonSpLo,
 \nScrDonSpHi]) and a recall of \nScrDonRc\,\% ([\nScrDonRcLo, \nScrDonRcHi]); POD with
 gradient boosting reaches \nScrHgbSp\ ([\nScrHgbSpLo, \nScrHgbSpHi]) and \nScrHgbRc\,\%
-([\nScrHgbRcLo, \nScrHgbRcHi]), clearing the recall threshold only narrowly. Ranking by one
-scalar is easier than predicting the field. The coarse solve is better at both: it ranks
+([\nScrHgbRcLo, \nScrHgbRcHi]), clearing the recall threshold only narrowly, so ranking by a single scalar is an easier task
+than predicting the whole field. The coarse solve is better at both: it ranks
 almost perfectly (Spearman \nScrCoSp, recall \nScrCoRc\,\%), and both surrogates rank
 significantly worse than it; per hundred true top candidates, DeepONet misses between
 \nScrDonDrcLo\ and \nScrDonDrcHi\ more and POD with boosting between \nScrHgbDrcLo\ and
@@ -506,7 +545,7 @@ on half as many materials, but the smooth design's learning curve predicts only 
 \(\nLCHalfFactor\times\) larger error for that, against the \(\nVthreeOverVtwo\times\)
 observed: the harder isotherms, not the smaller training set, account for most of the drop.
 
-In both designs ranking needs a solve. Ordering the materials by their stoichiometric time,
+A ranking that needs no solve does much worse in both designs. Ordering the materials by their stoichiometric time,
 which needs only the isotherm, gives a Spearman correlation of \nBaseVtwoSp\ (smooth) and
 \nBaseVthreeSp\ (MOF-like), with recalls of \nBaseVtwoRc\ and \nBaseVthreeRc\,\%. Every arm
 is handed the run horizon, which was extended for \nExtVtwoPct\,\% of the smooth design's

@@ -105,13 +105,6 @@
   "line_at_review": 202
  },
  {
-  "key": " [Three] early comparisons (rungs L3 a",
-  "word": "Three",
-  "class": "DESIGN",
-  "reason": "the exploratory comparisons on the legacy design, fixed by the protocol",
-  "line_at_review": 221
- },
- {
   "key": "d their outcomes. Each row is [one] ",
   "word": "one",
   "class": "PROSE",
@@ -194,13 +187,6 @@
   "class": "DESIGN",
   "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
   "line_at_review": 128
- },
- {
-  "key": "enclose [six] published frameworks. On held",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 13
  },
  {
   "key": "seed; trained with them, all [six] frameworks are predicted",
@@ -483,13 +469,6 @@
   "line_at_review": 495
  },
  {
-  "key": "old only narrowly. Ranking by [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-26)",
-  "line_at_review": 446
- },
- {
   "key": "nificantly worse than it; per [hundred] true top candidates, DeepONet",
   "word": "hundred",
   "class": "PROSE",
@@ -544,5 +523,26 @@
   "class": "DESIGN",
   "reason": "the registered seed count of PREREG_DD_V3",
   "line_at_review": 574
+ },
+ {
+  "key": "parameter range that encloses [six] published frameworks. On held",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 13
+ },
+ {
+  "key": "of its results were computed. [One] ",
+  "word": "One",
+  "class": "DESIGN",
+  "reason": "the one amendment (A1) of PREREG_DD_V3",
+  "line_at_review": 269
+ },
+ {
+  "key": " [Three] early comparisons (the Kolmog",
+  "word": "Three",
+  "class": "DESIGN",
+  "reason": "the exploratory comparisons on the legacy design, fixed by the protocol",
+  "line_at_review": 274
  }
 ]

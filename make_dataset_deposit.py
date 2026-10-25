@@ -7,7 +7,7 @@ Writes deposit/ with:
   named-frameworks-*.zip            the six named frameworks under the v2 and v3 rules
   ai-mof-ladder-legacy-fields.zip   the legacy dataset at its stored resolution (rungs L3, first L5,
                                     coordinate change)
-  manifests/                        the two manifest.json files and the five-fold map
+  manifests/                        the three manifest.json files and the two five-fold maps
   sha256sums.txt                    a checksum per file
   DATA_CARD.md                      schema, units, normalisation, how the files map to the paper
 
@@ -32,6 +32,7 @@ from v2_common import FIELD_RES, FOLDS_FILE, ROOT_V2
 
 ROOT_LEG = "data/parametric"
 ROOT_V3, FOLDS_V3 = "data/parametric_v3", "results/v3_folds.json"   # PREREG_DD_V3
+MODELS = "models"                     # trained DeepONet checkpoints of PREREG_DD_V3 amendment A1
 OUT = "deposit"
 
 
@@ -73,12 +74,13 @@ def pack_once(root, zpath, resample):
     return pack(root, zpath, resample)
 
 
-def pack_dir(src, zpath):
-    """The named-framework truth fields (B2, and V6 on v3), already at 128 x 128."""
+def pack_dir(src, zpath, ext=".npy"):
+    """A directory of files with one extension: the named-framework truth fields (B2, and V6 on
+    v3, already at 128 x 128), or the DeepONet checkpoints (.pt)."""
     n = 0
     with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as z:
         for fn in sorted(os.listdir(src)):
-            if fn.endswith(".npy"):
+            if fn.endswith(ext):
                 z.write(os.path.join(src, fn), fn)
                 n += 1
     return n
@@ -91,6 +93,7 @@ def main():
     n3, man3 = pack_once(ROOT_V3, os.path.join(OUT, "ai-mof-ladder-v3-fields-128.zip"), True)
     nf2 = pack_dir("results/dd_b2_fields", os.path.join(OUT, "named-frameworks-v2-fields-128.zip"))
     nf3 = pack_dir("results/dd_b2_fields_v3", os.path.join(OUT, "named-frameworks-v3-fields-128.zip"))
+    nm = pack_dir(MODELS, os.path.join(OUT, "deeponet-checkpoints.zip"), ext=".pt")
     shutil.copy(os.path.join(ROOT_V3, "manifest.json"), os.path.join(OUT, "manifests", "manifest_v3.json"))
     shutil.copy(FOLDS_V3, os.path.join(OUT, "manifests", os.path.basename(FOLDS_V3)))
     shutil.copy(os.path.join(ROOT_V2, "manifest.json"), os.path.join(OUT, "manifests", "manifest_v2.json"))
@@ -111,6 +114,10 @@ https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 
 - `named-frameworks-v2-fields-128.zip`, `named-frameworks-v3-fields-128.zip`: {nf2} and {nf3} production
   fields of the six named frameworks (MOF-303, MOF-801, CAU-10-H, aluminium fumarate, MIL-160(Al),
   Co2Cl2(BTDD)) under the v2 and v3 parameter rules, named `<framework>_cCCCC.npy`.
+- `deeponet-checkpoints.zip`: {nm} trained DeepONet state dictionaries (PyTorch) of PREREG_DD_V3
+  amendment A1, named `<design>_p<basis size>_s<seed>_f<fold>.pt` (out-of-fold models) and
+  `fwfit_v3_deeponet_p16_s<seed>.pt` (refit on all v3 materials); load with `run_l5.DeepONet`
+  and the settings in `dd_screening_frameworks.py`.
 - `manifests/manifest_v2.json`, `manifest_v3.json`, `manifest_legacy.json`: every material, condition
   and sample, with the generator's seeds and settings; `manifests/{os.path.basename(FOLDS_FILE)}` and
   `v3_folds.json`: the five-fold maps.
@@ -119,8 +126,8 @@ https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 
 Each `mMMMM_cCCCC.npy` is float32 with shape (3, N_z, N_t): channel 0 is c/c_in, 1 is q/q_max,
 2 is T/T_in; axis 1 is z/L (inlet first), axis 2 is t/t_final. The stored solver grid is uniform
 (N points from 0 to 1); the 128-point files keep the stored points with indices
-linspace(0, N-1, 128) cast to int, so their spacing alternates between one and two stored steps
-and the coordinates are index / (N-1), not a uniform 128-point grid. MMMM is the
+linspace(0, N-1, 128) cast to int; for N = 256 that is 126 steps of two stored points and one
+step of three, so the coordinates are index / (N-1), not a uniform 128-point grid. MMMM is the
 material id and CCCC the condition id in the manifest, whose `samples` entries also give t_final
 (seconds), c_in, the horizon multiple, the Damkohler number and the split.
 

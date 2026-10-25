@@ -42,8 +42,12 @@ The original protocol (`03_LADDER_PROTOCOL.md`) is **self-attested**: the reposi
 was placed under version control after it was written, so its ordering cannot be
 verified. Every later pre-registration (`PREREG_L6_v2.md`, `PREREG_L1L2L7_v2.md`,
 `PREREG_L4b_v2.md`, `PREREG_L5_v2.md`, `PREREG_LASSITTER.md`, `PREREG_WARP_v2.md`,
-`PREREG_BASELINES.md`) was committed before the runs it governs, and that ordering is
-checkable in the git history. The paper says which is which.
+`PREREG_BASELINES.md`, `PREREG_DD_ADDITIONS.md`, `PREREG_DD_V3.md` and its amendment A1) was
+committed before the runs it governs, and that ordering is checkable in the git history and in
+GitHub's push events. Two exact caveats: `PREREG_DD_V3.md` was committed at 13:23 on
+2026-10-25 and pushed at 13:34, while generating its dataset (which involves no surrogate and no
+scoring) started at about 13:27; its first scored result is from 18:22. Amendment A1 was written
+after the first v3 results and says so. The paper says which is which.
 
 **One rewrite of the history, before publication (2026-10-05).** Three items were removed
 from every commit before the repository was made public: a third-party preprint PDF
@@ -87,7 +91,8 @@ Each was learned by getting it wrong; the ledger records each time.
 1. **No number from a failing `validate.py` category** enters a manuscript, and no
    number enters it by hand.
 2. **Matched training budget on both sides**, asserted rather than assumed.
-3. **At least three seeds**, everywhere.
+3. **At least three seeds** for every number in a table; where a pre-registration fixed one
+   seed, the extra seeds are run as a labelled robustness check and their spread is reported.
 4. **Compare against the competitor's strongest configuration.** An optimum on the
    edge of a swept grid is extended before it is believed.
 5. **Never normalise a metric by a quantity that can vanish.**

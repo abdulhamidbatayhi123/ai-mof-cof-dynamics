@@ -284,12 +284,16 @@ dominated by the first-wave timing, which no dispersion closure touches). None o
 affects a surrogate result, because every arm sees the same reference; it bounds how far
 the reference may be read as physical.
 
-\paragraph{The isotherm's low-humidity branch is too weak} The Henry fraction was
-fitted to the step position and the capacity, never to dynamics; the anchor comparison
-shows the model holds too little water below the step.
+\paragraph{The isotherm's low-humidity branch is too weak in the smooth design} In the
+anchor's MOF-303 parameterisation the Henry fraction and the step exponent were fitted to
+the published step position and capacity, never to dynamics, and the primary sites carry
+the smooth design's fixed, weak affinity (\(b_H = b_C/\nDcBH\)); the anchor comparison shows
+that this isotherm holds too little water below the step. The MOF-like design samples the
+affinity instead, up to sites stronger than the step sites (main text,
+Section~\ref{sec:model}).
 
-\paragraph{Part of the heat range is occupied by no placed framework} The sampled
-heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
+\paragraph{Part of the smooth design's heat range is occupied by no placed framework} The
+smooth design's sampled heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the
 water-harvesting frameworks we placed (Figure~\ref{fig:watermofs}) report \nWmofHeatMost\ to
 \nWmofHeatLeast. Near its least exothermic edge the sampled range gives an isosteric
 heat (\(-\Delta H + RT\)) below water's latent heat of vaporisation at room
@@ -357,6 +361,8 @@ pre-registration & governs & fixed & first results \\
 \texttt{PREREG\_L5\_v2.md} & L5 on 240 materials & 28 Sep 2026 & 4 Oct 2026 \\
 \texttt{PREREG\_BASELINES.md} & Gaussian process, coarse solve, fitted closed forms & 4 Oct 2026 & 11 Oct 2026 \\
 \texttt{PREREG\_DD\_ADDITIONS.md} & screening, named frameworks & 25 Oct 2026 (pushed) & 25 Oct 2026, after the push \\
+\texttt{PREREG\_DD\_V3.md} & MOF-like design, DeepONet's own floor & 25 Oct 2026, 13:23 (pushed 13:34) & 25 Oct 2026, 18:22 (dataset generated from 13:27, unscored) \\
+\quad amendment A1 & converged floor, controls, t90 & 26 Oct 2026, 02:16 (after the first v3 results) & 26 Oct 2026, after the push \\
 \bottomrule
 \end{tabular}
 \end{table}
