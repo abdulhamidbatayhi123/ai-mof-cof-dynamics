@@ -25,7 +25,11 @@ def _data_arg():
     return a[a.index("--data") + 1] if "--data" in a else "v3"
 
 
-if sys.argv[1:2] not in (["analyse"],):
+import multiprocessing as _mp  # noqa: E402
+
+# Only the main process checks and sets the environment: pool workers re-import this file and
+# inherit the parent's (already set) variables, which must not be mistaken for a partly set shell.
+if _mp.parent_process() is None and sys.argv[1:2] not in (["analyse"],):
     if any(k in os.environ for k in ENV):
         raise SystemExit(f"dd_v3a1: unset {ENV} in the shell; this script sets them itself")
     if _data_arg() == "v3" or sys.argv[1:2] in (["fwsens"], ["fwfit"]):
