@@ -49,25 +49,24 @@ Metallurgical Engineering, Y\i{}ld\i{}z Technical University, Istanbul, T\"urkiy
 
 \begin{abstract}
 Machine-learning surrogates could let designers of metal--organic framework (MOF) water
-harvesters screen many candidate adsorbents without solving the transport equations for
-each, but only if they work on materials they were not trained on. A surrogate built on a
-reduced basis can fail there for two reasons: the basis cannot represent the true field,
-or the map from material parameters to basis coefficients predicts the wrong
-coefficients. We measure which one limits accuracy for a one-dimensional, non-isothermal
-packed-bed model of water uptake, verified against \nLzeroNchecks{} closed-form solutions
-and compared, unfitted, with a published MOF-303 breakthrough curve. Seven explanations
-of the error were registered in advance and tested on \nNclustFolds\ held-out adsorbents
-with a cluster bootstrap that pays for choosing the best configuration on the test set.
-The map error is \(\nMtRatioEight\times\) the basis error at eight modes and
-\(\nMtRatioHigh\times\) at 128; refining the basis \(\nLfiveVtwoFloorDrop\times\) leaves it
-unchanged and improves a jointly trained DeepONet by \nLfiveVtwoGainPct\,\%, all of it by 16
-modes. More training materials still help (error \(\propto N_{\mathrm{mat}}^{-\nLCbeta}\)).
-Yet a coarse finite-volume solve is \(\nCvsRatio\times\) more accurate than the best
-surrogate and cheaper below about \nCvsBeProd\ queries, or \nCvsBeCoarse\ if the training
-data are generated coarsely too. Both surrogates still rank held-out materials well
-enough for a screen (Spearman \nScrDonSp\ for DeepONet), though the coarse solve ranks
-better; on six published frameworks they fail wherever the adsorption step is steeper
-than in any training material. For this column, a coarse solve is the screening tool;
+harvesters screen candidate adsorbents without solving the transport equations for each,
+but only if they work on materials they were not trained on. A surrogate built on a
+reduced basis can fail there because the basis cannot represent the true field, or because
+the map from material parameters to basis coefficients predicts the wrong coefficients. We
+measure which of the two limits accuracy for a verified, non-isothermal packed-bed model of
+water uptake, on two pre-registered designs: \nNclustFolds\ materials with smooth isotherms,
+and \nVthreeNmat\ with MOF-like isotherms whose strong low-humidity sites and steep steps
+enclose six published frameworks. On held-out materials the map carries at least
+\nShMin\,\% of the squared error from 16 modes on, for POD with gradient boosting and for
+DeepONet measured against its own trained basis; a richer basis changes nothing, while more
+training materials keep helping. A coarse finite-volume solve is \(\nScrCoRatio\times\)
+(smooth) and \(\nScrVthreeCoRatio\times\) (MOF-like) more accurate than the best surrogate,
+which repays its training only after about \nCostBeFit\ queries. Surrogates rank
+smooth-isotherm materials well enough for a screen (Spearman \nScrDonSp) but not MOF-like
+ones (\nScrVthreeDonSp, below the registered 0.90), where only a solve ranks reliably.
+Trained without steep steps, they fail on CAU-10-H and aluminium fumarate, with errors that
+depend strongly on the training seed; trained with them, all six frameworks are predicted
+within the held-out error. For this column a coarse solve is the screening tool, and
 surrogate effort belongs in the coefficient map and in training designs that cover real
 frameworks.
 \end{abstract}
@@ -108,11 +107,13 @@ Taraz found the second dominating for DeepONets on model equations
 should go, but it has not been measured for adsorption beds, or for transfer across
 materials.
 
-We measure it. The system is a one-dimensional, non-isothermal model of water uptake
+This work measures it. The system is a one-dimensional, non-isothermal model of water uptake
 in a packed bed, with an S-shaped isotherm that produces the two-wave breakthrough of
 real harvesting frameworks. Seven candidate explanations of the error were registered
 before the runs, each with the evidence that would eliminate it, and tested on a
-240-material design in which every material is held out once. The statistics follow the
+240-material design in which every material is held out once. The central measurement is
+then repeated on a second design whose isotherms have the strong low-humidity sites and
+steep steps of real water MOFs. The statistics follow the
 standards Digital Discovery's benchmarking work has set for materials models
 \cite{witman2025matfold,abaei2026benchmark,burark2024codbench}: materials, not samples,
 are the resampling unit, the significance level is calibrated by simulation, and choosing
@@ -121,11 +122,10 @@ strongest objection to learned surrogates is that a simple numerical method is o
 better \cite{mcgreivy2024weak,wyder2025common,dehoop2022cost,huang2026cost}, a coarse solve of the same
 equations is one of the baselines.
 
-Three questions organise the paper. What limits accuracy on held-out materials, the
-basis or the map? When is a surrogate worth building at all, against a coarse solve?
-And do the surrogates rank materials correctly, including six published water-harvesting
-frameworks, which is what a screen needs? We report negative results with the same
-weight as positive ones, and we state where our model of the adsorbent is too simple.
+The paper asks what limits accuracy on held-out materials, the basis or the map; when a
+surrogate is worth building at all, compared with a coarse solve; and whether surrogates
+rank materials correctly, including six published water-harvesting frameworks, which is
+what a screen needs. Where the model of the adsorbent is too simple, we say so.
 
 %% ===========================================================================
 \section{Model, reference solver and an experimental check}
@@ -169,18 +169,20 @@ f_H\,\frac{b_H c}{1 + b_H c}
 with both affinities sharing the heat of adsorption \(\Delta H\), so Clausius--Clapeyron
 holds at every loading, and \(b_C\) set so that the step sits at the material's step
 humidity. Single-site Langmuir cannot produce a step, and a bare Sips form violates
-Henry's law; the two-term construction follows Do and Do \cite{dodo2000model}. One choice
-in this parameterisation matters for what the parameters mean, and an earlier version of
-this work described it wrongly. The affinity of the first term is fixed at
-\(b_H = b_C/\nDcBH\), so those sites are \emph{weaker} than the cooperative ones: at the
-step they are only \nIbsFill\,\% filled, and they supply a median \nIbsShareMed\,\% of the
-uptake below the step, most of which comes from the tail of the Sips term. The parameter
-\(f_H\) is therefore the capacity fraction of weak Langmuir sites, not the fraction a
-framework takes up below its step, and in real MOF-303 the low-humidity sites bind more
-strongly than the pore-filling ones \cite{hanikel2021evolution}. This does not affect any
-surrogate-versus-solver comparison, which only needs the solver to define the target, but
-it limits how literally the materials can be read as real frameworks, and it explains the
-anchor result below.
+Henry's law; the two-term construction follows Do and Do \cite{dodo2000model}.
+
+The two designs differ in how strongly the first term binds and how steep the step can be.
+In the \emph{smooth} design (v2) the affinity of the first term is fixed at
+\(b_H = b_C/\nDcBH\), so those sites are \emph{weaker} than the cooperative ones: at the step
+they are only \nIbsFill\,\% filled and supply a median \nIbsShareMed\,\% of the uptake below
+the step, and \(n\) is sampled up to \nDcNexpHi. These isotherms give smooth breakthrough
+curves, but they are not those of real water MOFs, whose low-humidity sites bind more
+strongly than the pore-filling ones \cite{hanikel2021evolution,kalmutzki2018metal} and whose
+steps are much steeper (Section~\ref{sec:frameworks}). The \emph{MOF-like} design (v3)
+samples \(\log_{10}(b_H/b_C)\) from \nVthreeAffLo\ to \nVthreeAffHi, so primary sites up to
+\nVthreeAffHiRatio\ times stronger than the step sites, \(n\) up to \nVthreeNmax, and
+capacity up to \nVthreeQmaxHi\ mol\,kg\(^{-1}\), so that its box encloses all six named
+frameworks (Table~S1). Everything else, including the solver, is shared.
 
 \paragraph{Verification} The solver reproduces \nLzeroNchecks{} closed-form solutions, each
 isolating one term (an inert tracer against van Genuchten and Alves's third-type solution
@@ -210,34 +212,43 @@ MOF-303 breakthrough whose bed and conditions are fully specified
 plateau at \nAnchorPlateauModel\ of the feed against \nAnchorPlateauExp, with an nRMSE of
 \nAnchorNrmse\ against the effluent (the authors' own model with fitted kinetics reaches
 \nAnchorNrmseComsol; Fig.~\ref{fig:anchor}). The half-breakthrough time is largely a
-capacity check. The dynamics are not reproduced: the model's outlet leaks at
-\nAnchorTfiveModel\ minutes against \nAnchorTfiveExp\ measured. In our MOF-303
-parameterisation the low-humidity sites hold only \nIbsMofFeed\,\% of capacity at the
-feed humidity, so almost nothing retains the first wave; a stronger primary site is the
-fix, and we have not made it here. The bed is also only about \nAnchorPelletsDeep{} pellets
-deep, where the dispersion correlation overstates spreading (Supplementary S2, Section S9).
-We treat this comparison as an anchor that bounds how physically the reference can be
-read, not as a validation.
+capacity check, and the acceptance criteria declared before the run, which this run meets,
+test capacity rather than dynamics; they were too lenient. The dynamics are not
+reproduced: the model's outlet leaks at \nAnchorTfiveModel\ minutes against
+\nAnchorTfiveExp\ measured. The anchor uses the smooth design's weak primary sites, which
+hold only \nIbsMofFeed\,\% of capacity at the feed humidity, so almost nothing retains the
+first wave; this is the shortcoming the MOF-like design addresses. The run is also
+isothermal, as the authors' own model is, and takes its kinetic constant from their fitted
+values, so it tests neither the energy balance nor the pellet-derived kinetics of the
+datasets, and the bed is only about \nAnchorPelletsDeep{} pellets deep, where a
+one-dimensional continuum with a dispersion correlation is outside its range
+(Supplementary S2, Section S9). It bounds how physically the reference solver can be read;
+it is not a validation.
 
 %% ===========================================================================
 \section{Data and evaluation design}
 \label{sec:data}
 
-\paragraph{Dataset} The dataset contains \nDataNsamples\ accepted simulations: \nDataNmaterials\
-materials crossed with \nDataNconditions\ operating conditions, each set drawn by a
-scrambled Sobol sequence (Table~S1). A material is eight numbers: capacity, heat of
-adsorption, step humidity, step steepness \(n\) and \(f_H\) for the isotherm, and pellet
+\paragraph{Datasets} The smooth design contains \nDataNsamples\ accepted simulations:
+\nDataNmaterials\ materials crossed with \nDataNconditions\ operating conditions, each set
+drawn by a scrambled Sobol sequence (Table~S1). A material is eight numbers: capacity, heat
+of adsorption, step humidity, step steepness \(n\) and \(f_H\) for the isotherm, and pellet
 size, pellet density and bed porosity, which describe the formulation rather than the
-framework. The conditions are feed humidity, velocity and temperature. Fields are
+framework; the MOF-like design adds the affinity ratio as a ninth. The conditions are feed
+humidity, velocity and temperature, and the MOF-like design uses the same \nDataNconditions\
+conditions. It contains \nVthreeNsamples\ accepted simulations of \nVthreeNmat\ materials;
+\nVthreeNrejected\ draws were rejected by the same pre-solve filter as in the smooth design,
+most because a strong-site isotherm is saturated by the feed. Fields are
 stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) and scored on a
 \(128 \times 128\) grid in \(z/L\) and \(t/t_{\mathrm{final}}\).
 
-\paragraph{Held-out materials} The 240 materials are split into five folds; each surrogate is
-fitted, basis and scalers included, on four folds and scored on the fifth, so every
-material is held out once and every sample is scored out of fold. The held-out materials
-are new points drawn from the same parameter ranges as the training materials, so this is
-transfer within a design space, not to new chemistries; Section~\ref{sec:frameworks}
-tests six real frameworks, of which only MOF-303 and MIL-160(Al) lie wholly inside it.
+\paragraph{Held-out materials} In each design the materials are split into five folds; each
+surrogate is fitted, basis and scalers included, on four folds and scored on the fifth, so
+every material is held out once and every sample is scored out of fold. The held-out
+materials are new points drawn from the same parameter ranges as the training materials,
+so this is transfer within a design space, not to new chemistries;
+Section~\ref{sec:frameworks} tests six real frameworks, which lie partly outside the smooth
+design and wholly inside the MOF-like one.
 
 \paragraph{Metric and test} The primary metric is the per-sample normalised root-mean-square
 error of the concentration field,
@@ -264,8 +275,11 @@ before a verdict are dated and listed in Supplementary S1. The ordering is attes
 the repository's commit history, not by an external registry, and the history was
 rewritten once, before the repository was made public; Table~S2 maps each
 pre-registration to its commit and states whether its order survived that rewrite. The
-two additions made for this revision (Sections~\ref{sec:screening} and
-\ref{sec:frameworks}) were registered and pushed to the public repository before they ran.
+screening and named-framework tests (Sections~\ref{sec:screening} and
+\ref{sec:frameworks}) and the MOF-like design with DeepONet's own basis floor
+(Section~\ref{sec:mechanism}) were added after the original seven explanations; each was
+registered and pushed to the public repository before it ran, and their deviations from
+the registered text are listed in Supplementary S1.
 Three early comparisons (rungs L3 and part of L5) used an earlier dataset with only
 \nNclustLegacy\ held-out materials, where the minimum detectable effect is \nLegacyMDE\,\%;
 they are labelled exploratory wherever they appear.
@@ -305,8 +319,8 @@ error falls by \(\nLCratio\times\) from 12 to 192 materials and still improves
 significantly at the last step, as \(N_{\mathrm{mat}}^{-\nLCbeta}\) (exponent interval
 [\nLCbetaLo, \nLCbetaHi]). Refitting the basis on each subset changes nothing
 (\nLClargestFixed\ against \nLClargest\ at 192 materials): none of the gain is in the
-basis. A Gaussian process on the same coefficients is \nBgpVerdict\ (\nBgpGp\ against
-\nBgpMlp), so the regressor class is not the lever either.
+basis. A Gaussian process on the same coefficients finds \nBgpVerdict\ (\nBgpGp\ against
+\nBgpMlp; the smallest difference the test could detect is \nBgpMde\,\%).
 
 \paragraph{L2, more capacity: not eliminated} Of \nLtwoNconfigs\ configurations swept in both
 directions, \nLtwoNUshaped\ sweeps have interior optima, but the random forest is still
@@ -354,11 +368,16 @@ interpretable corrections fitted on the training materials it is still
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig_basismap.pdf}
-\caption{Basis error against map error on the 240-material design. \textbf{A}~The two terms
-of equation~\eqref{eq:split}, measured separately, against basis size: the basis floor
-falls by orders of magnitude while the map term does not move. \textbf{B}~DeepONet, which
-trains basis and coefficients together, against basis size. \textbf{C}~The held-out
-\(R^2\) of the map for each mode, by number of training materials.}
+\caption{Basis error against map error, on held-out materials of both designs (blue,
+smooth isotherms; red, MOF-like isotherms). \textbf{A}~POD with per-mode gradient
+boosting: the two terms of equation~\eqref{eq:split}, measured separately; the basis floor
+(dashed) falls by orders of magnitude while the map term (solid) does not move.
+\textbf{B}~DeepONet: its total error (solid) and its own floor (dashed), the error left
+when its trained trunk is kept and the coefficients are fitted to the true field.
+\textbf{C}~The share of squared error carried by the map, with cluster-bootstrap
+intervals; the registered verdict ``the map dominates'' needs at least half at every basis
+size from 16 on. \textbf{D}~Modes whose map reaches a held-out \(R^2\) above 0.2 and 0.5,
+by number of training materials (smooth design).}
 \label{fig:basismap}
 \end{figure}
 
@@ -371,50 +390,68 @@ For a surrogate whose prediction \(\hat u\) lies in the span of an orthonormal b
 \label{eq:split}
 \end{equation}
 the projection identity that underlies error analyses of POD-based networks
-\cite{bhattacharya2021model,wang2025rbdeeponet}. We measured both terms separately for POD
-with per-mode gradient boosting and with ridge regression, each regressor fixed in
-advance, so neither is chosen on the held-out materials.
+\cite{bhattacharya2021model,wang2025rbdeeponet,lanthaler2022error}. We measured both terms
+separately for POD with per-mode gradient boosting and with ridge regression, each
+regressor fixed in advance, so neither is chosen on the held-out materials. DeepONet needs
+more care: its basis is learned rather than orthonormal and is seen through a sigmoid
+output, so equation~\eqref{eq:split} does not apply to it directly (a fixed POD trunk would
+make it apply \cite{lu2022comprehensive}). We define its own floor as the error left when its
+trained trunk \(T\) is kept and the coefficients are fitted to each held-out field,
+\(\min_{\mathbf a}\lVert u - \sigma(T\mathbf a + b)\rVert\); its error above that floor is
+the error of its coefficient map. Throughout, the comparison is of shares of squared
+error, the quantity equation~\eqref{eq:split} adds, and the verdict words were fixed
+before the runs: \emph{the map dominates} if it carries at least half of the squared error,
+with the lower end of its interval above one half, at every basis size from 16 on.
 
-The map term dominates at every basis size (Fig.~\ref{fig:basismap}A). At eight modes it
-is already \(\nMtRatioEight\times\) the basis floor; at 128 modes the floor has fallen
-\(\nLfiveVtwoFloorDrop\times\) and the map term is \(\nMtRatioHigh\times\) larger. The map
-term itself barely moves with basis size (\nMtMapEight\ at \(p = 8\), \nMtMapHigh\ at
-\(p = 128\)), which for regressors fitted mode by mode is expected: the leading
-coefficients are predicted identically at every \(p\), and adding modes adds only their
-own small errors. The informative comparison is therefore the ratio of the two terms, and
-DeepONet, whose basis is trained together with its coefficients: it gains
-\nLfiveVtwoGainPct\,\% from \(p = 8\) to \(16\) and nothing after
-(Fig.~\ref{fig:basismap}B). At eight modes DeepONet is only
-\(\nLfiveVtwoXfloorEight\times\) above its own floor, so the basis does bind there; by
-128 modes it is \(\nLfiveVtwoXfloorHigh\times\) above it. Beyond the first few modes,
-accuracy on held-out materials is limited by the map.
+The map dominates for both models on both designs; all four registered verdicts agree
+(Fig.~\ref{fig:basismap}C). For POD with boosting on the smooth design the map carries
+\nShHgbVtwoEight\,\% of the squared error at eight modes and \nShHgbVtwoSixteen\,\% at
+sixteen; the floor keeps falling, to \nHgbVtwoFloorHigh\,\% at 128 modes, while the map term does
+not move (Fig.~\ref{fig:basismap}A). That flatness is expected for regressors fitted mode
+by mode, whose leading coefficients are predicted identically at every \(p\), so the
+informative quantity is the share, not the ratio of the two terms, which grows without
+limit as the floor falls. On the MOF-like design the steep fronts raise the floor
+\(\nFloorRatioVthree\times\) (to \nHgbVthreeFloorEight\,\% at eight modes), yet the map still carries
+\nShHgbVthreeSixteen\,\% at sixteen. For DeepONet against its own floor the map carries
+\nShDonVtwoSixteen\,\% (smooth) and \nShDonVthreeSixteen\,\% (MOF-like) at \(p = 16\), and
+on the MOF-like design its trained trunk represents the held-out fields to
+\nDonVthreeFloorSixteen\,\%, against a total error of \nDonVthreeTotalSixteen\,\%; growing
+the basis to 128 modes leaves that total at \nDonVthreeTotalHigh\,\%
+(Fig.~\ref{fig:basismap}B). Steep, MOF-like fronts do not shift the limit to the basis.
 
-The map is limited by data, not by the regressor class: on held-out materials only the
-leading modes are predicted well, and the number of modes whose map clears
+More training materials reduce the map error: on held-out materials of the smooth design
+only the leading modes are predicted well, and the number of modes whose map clears
 \(R^2 > 0.2\) grows from \nLCmodesSmall\ to \nLCmodesLarge\ as training materials go from 12
-to 192, still rising (Fig.~\ref{fig:basismap}C). The POD residual decays as
-\(k^{\nNwidthExpErr}\), so the basis is far from exhausted; the Kolmogorov \(n\)-width
-bound our protocol predicted would bind is real but inactive.
+to 192, still rising (Fig.~\ref{fig:basismap}D). The regressor matters too, by a constant
+factor: ridge regression has a \(\nRidgeOverHgb\times\) larger map error than boosting, and
+DeepONet's field error is \(\nHgbOverDon\times\) smaller than that of POD with boosting.
+The POD residual decays as \(k^{\nNwidthExpErr}\), so the basis is far from exhausted, and
+the \(n\)-width limit that bounds linear bases for transport-dominated problems
+\cite{lanthaler2023nonlinear} is not the active one here.
 
 \subsection{When a surrogate is worth building}
 \label{sec:cost}
 
 The relevant competitor of a surrogate is not the production solve but a cheaper solve of
-the same equations. A coarse finite-volume solve with \(N_z = \nCoarseNz\) cells costs
-\nCoarseSolveEq\ production solves and reaches \nCvsCoarse\,\% error on the held-out
-materials, against \nCvsDon\,\% for the best surrogate, DeepONet at \(p = 16\): the coarse
-solve is \(\nCvsRatio\times\) more accurate (paired interval of the difference
-[\nCvsLo, \nCvsHi], 240 materials), and \(\nCvsMlpRatio\times\) more accurate than the L1
-perceptron. Failed coarse solves are counted at the cost of one production solve, never
-dropped.
+the same equations. A production solve takes \nCostProdS\,s; a coarse finite-volume solve
+with \(N_z = \nCoarseNz\) cells takes \nCostCoarseS\,s and reaches \nScrCoNr\,\% error over
+all \nScrNsamples\ samples of the smooth design, against \nScrDonNr\,\% for the best
+surrogate, DeepONet at \(p = 16\): the coarse solve is \(\nScrCoRatio\times\) more accurate
+(paired interval of the difference [\nScrDonMinusCoLo, \nScrDonMinusCoHi] percentage
+points). On the MOF-like design the gap widens to \(\nScrVthreeCoRatio\times\)
+(\nScrVthreeCoNr\,\% against \nScrVthreeDonNr\,\%). The \nCoFailVtwo\ coarse solves that
+failed are re-solved at production resolution and charged as such; this is a policy, not an
+exclusion, and Supplementary S1 (entry B87) gives the comparison with them excluded. The
+coarse grid was not tuned: with \(N_z = 100\) cells its error falls to
+\nCostCoarseHundredErr\,\%, for \nCostCoarseHundredS\,s per solve.
 
-Accuracy aside, a surrogate repays its training set only after enough queries. Counting
-each training simulation as one production solve, the best surrogate becomes cheaper than
-coarse solving after about \nCvsBeProd\ queries; generating the training data on the
-coarse grid as well, which is legitimate because the coarse solve is the more accurate of
-the two, lowers that to about \nCvsBeCoarse. Both are lower bounds, because the fit and the
-query are not counted. A screen of a few thousand candidates on this column is therefore
-done better and more cheaply by a coarse solve. The balance can turn for two- or
+Accuracy aside, a surrogate repays its training only after enough queries. Its
+\nCostLargeSims\ training simulations and its fit (\nCostFitS\,s, the cost of about
+\nCostFitSolves\ production solves) take \nCostTrainCpuH\ CPU-hours, and it becomes cheaper
+than the coarse solve after about \nCostBeFit\ queries, even with its own query time set to
+zero. For this column the stakes are therefore small in absolute terms: either route
+screens thousands of candidates in about a CPU-hour, and the coarse solve does it more
+accurately. The balance can turn for two- or
 three-dimensional, multi-cycle device models, where a solve costs far more; we have not
 measured that case. This is the adsorption-bed instance of a pattern found for neural
 operators in general \cite{dehoop2022cost,huang2026cost}, and it agrees with the use of
@@ -426,13 +463,16 @@ reduced-physics models for rapid adsorbent screening \cite{liske2026extended}.
 \begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{../figures/Fig_screening.pdf}
-\caption{Screening and named frameworks. \textbf{A}~Spearman correlation between predicted
-and true half-breakthrough time, ranking the held-out materials within each operating
-condition (small points, one per condition), with the mean and its cluster-bootstrap
-interval (squares); the dotted line is the pre-registered threshold. \textbf{B}~Top-10\,\%
-recall, same layout. \textbf{C}~Field error on the six named frameworks (blue, DeepONet;
-orange, POD with gradient boosting; black, coarse solve); hollow markers lie outside the sampled design space, and dashed lines mark the 95th
-percentile of each surrogate's per-material error on the held-out materials.}
+\caption{Screening and named frameworks on both designs. \textbf{A}~Spearman correlation
+between predicted and true half-breakthrough time, ranking the held-out materials within
+each operating condition (small points, one per condition), with the mean and its
+cluster-bootstrap interval (squares); dotted, the registered threshold; dash-dotted,
+ranking by the stoichiometric time without any solve. \textbf{B}~Top-10\,\% recall, same
+layout. \textbf{C}~Field error on six named frameworks with surrogates trained on the
+smooth design; hollow markers lie outside that design, and the vertical bars span three
+training seeds of DeepONet. \textbf{D}~The same frameworks with surrogates trained on the
+MOF-like design, which encloses all of them. Dashed lines in C and D mark the 95th
+percentile of each surrogate's per-material error on held-out materials.}
 \label{fig:screening}
 \end{figure}
 
@@ -445,125 +485,161 @@ the arms and the verdict thresholds were registered before the runs: a surrogate
 \emph{screening-adequate} if the lower ends of its intervals reach 0.90 for Spearman and
 0.80 for recall.
 
-Both surrogates are screening-adequate (Fig.~\ref{fig:screening}A,B). DeepONet reaches a
-Spearman correlation of \nScrDonSp\ (interval [\nScrDonSpLo, \nScrDonSpHi]) and a recall of
-\nScrDonRc\,\% ([\nScrDonRcLo, \nScrDonRcHi]); POD with gradient boosting reaches \nScrHgbSp\
-([\nScrHgbSpLo, \nScrHgbSpHi]) and \nScrHgbRc\,\% ([\nScrHgbRcLo, \nScrHgbRcHi]). The field
-error that dominates the previous sections therefore does not stop a surrogate from
-ordering candidates; ranking by one scalar is an easier task than predicting the field.
-The coarse solve is better at both. It ranks almost perfectly (Spearman \nScrCoSp, recall
-\nScrCoRc\,\%, lower end \nScrCoRcLo\,\%), and both surrogates rank significantly worse
-than it: per hundred true top candidates, DeepONet misses between \nScrDonDrcLo\ and
-\nScrDonDrcHi\ more and POD with boosting between \nScrHgbDrcLo\ and \nScrHgbDrcHi\ more
-(paired intervals). Over all \nScrNsamples\ samples the field errors are \nScrDonNr\,\% for
-DeepONet, \nScrHgbNr\,\% for POD with boosting and \nScrCoNr\,\% for the coarse solve, at a
-mean cost of \nScrCoCost\ production solves per sample with failed coarse solves charged
-in full.
+On the smooth design both surrogates are screening-adequate (Fig.~\ref{fig:screening}A,B).
+DeepONet reaches a Spearman correlation of \nScrDonSp\ (interval [\nScrDonSpLo,
+\nScrDonSpHi]) and a recall of \nScrDonRc\,\% ([\nScrDonRcLo, \nScrDonRcHi]); POD with
+gradient boosting reaches \nScrHgbSp\ ([\nScrHgbSpLo, \nScrHgbSpHi]) and \nScrHgbRc\,\%
+([\nScrHgbRcLo, \nScrHgbRcHi]), clearing the recall threshold only narrowly. Ranking by one
+scalar is easier than predicting the field. The coarse solve is better at both: it ranks
+almost perfectly (Spearman \nScrCoSp, recall \nScrCoRc\,\%), and both surrogates rank
+significantly worse than it; per hundred true top candidates, DeepONet misses between
+\nScrDonDrcLo\ and \nScrDonDrcHi\ more and POD with boosting between \nScrHgbDrcLo\ and
+\nScrHgbDrcHi\ more (paired intervals). Two further training seeds leave DeepONet's mean
+Spearman between \nSeedSpMin\ and \nSeedSpMax.
+
+On the MOF-like design neither surrogate is screening-adequate. DeepONet's Spearman
+correlation falls to \nScrVthreeDonSp\ ([\nScrVthreeDonSpLo, \nScrVthreeDonSpHi]) and its
+recall to \nScrVthreeDonRc\,\% ([\nScrVthreeDonRcLo, \nScrVthreeDonRcHi]); POD with boosting
+reaches \nScrVthreeHgbSp\ and \nScrVthreeHgbRc\,\%. The coarse solve still ranks almost
+perfectly (Spearman \nScrVthreeCoSp, recall \nScrVthreeCoRc\,\%). The MOF-like design trains
+on half as many materials, but the smooth design's learning curve predicts only a
+\(\nLCHalfFactor\times\) larger error for that, against the \(\nVthreeOverVtwo\times\)
+observed: the harder isotherms, not the smaller training set, account for most of the drop.
+
+In both designs ranking needs a solve. Ordering the materials by their stoichiometric time,
+which needs only the isotherm, gives a Spearman correlation of \nBaseVtwoSp\ (smooth) and
+\nBaseVthreeSp\ (MOF-like), with recalls of \nBaseVtwoRc\ and \nBaseVthreeRc\,\%. Every arm
+is handed the run horizon, which was extended for \nExtVtwoPct\,\% of the smooth design's
+runs because breakthrough was incomplete; ranking by that horizon alone gives a Spearman
+correlation of \nLeakVtwoSp, so it carries almost none of the ranking. The intervals
+resample materials with replacement, which duplicates some and biases rank statistics
+slightly downward, so the adequacy verdicts are conservative.
 
 \subsection{Six published frameworks}
 \label{sec:frameworks}
 
-The held-out materials above are random points of the sampled box. To test real
-adsorbents, six water-harvesting frameworks were parameterised from their primary
-literature by a rule fixed before the runs: capacity, heat of adsorption and step humidity
-as the means of the stated values, and the step steepness from the stated rise interval,
-\(n = \ln 81/\ln(p_{90}/p_{10})\); the formulation parameters and \(f_H\), which are not
-framework properties in this model, take the dataset medians. Each framework was solved
-at the 17 dataset conditions (the dataset's own filter rejected \nFwNcellsFailed\ cells,
-in which the feed loads almost none of the capacity), and both surrogates were refit
-once on all 240 materials. A framework is \emph{inside the held-out error distribution}
-when its mean error is at most the 95th percentile of the same arm's per-material errors
-in the five-fold test (\nFwDonPninetyfive\,\% for DeepONet, \nFwHgbPninetyfive\,\% for POD
+The held-out materials above are random points of a sampled box. To test real adsorbents,
+six water-harvesting frameworks were parameterised from their primary literature by a rule fixed before the runs:
+capacity, heat of adsorption and step humidity as the means of the stated values, and the
+step steepness from the stated rise interval, \(n = \ln 81/\ln(p_{90}/p_{10})\), or the
+design median where no interval is stated. The formulation parameters take the design
+medians; on the MOF-like design \(f_H\) is the below-step fraction the sources report, and
+the affinity ratio is the design median. Supplementary S2 lists every input with its
+source, and Supplementary S1 the places where the rule's application departs from its
+registered wording (entry B88), none of which moves a framework across a design boundary.
+Each framework was solved at the \nDataNconditions\ dataset conditions, skipping the cells
+the dataset's own filter rejects, and both surrogates were refit once on all materials of
+a design. A framework is \emph{inside the held-out error distribution} when its mean error
+is at most the 95th percentile of the same arm's per-material errors in the five-fold test
+(on the smooth design, \nFwDonPninetyfive\,\% for DeepONet and \nFwHgbPninetyfive\,\% for POD
 with boosting).
 
 \begin{table}[!tbp]
 \centering
-\caption{Field error (nRMSE of \(c\), \%) on six named frameworks, with the parameters that
-fall outside the sampled design space. Bold: inside the held-out error distribution of
-that arm.}
+\caption{Field error (nRMSE of \(c\), \%) on six named frameworks. Smooth design: the
+parameters outside its sampled range, the step steepness the rule gives, the error of each
+arm (DeepONet: the training seed of the registered test, with the range over three seeds
+in brackets). MOF-like design: DeepONet's error, all frameworks inside the design. Bold:
+inside the held-out error distribution of that arm and design.}
 \label{tab:frameworks}
-\begin{tabular}{@{}llcccc@{}}
+\small
+\begin{tabular}{@{}llcccc@{\hspace{10pt}}c@{}}
 \toprule
-Framework & Outside the sampled range & \(n\) & DeepONet & POD + boosting & Coarse solve \\
+& \multicolumn{5}{c}{smooth design (v2)} & MOF-like (v3) \\
+\cmidrule(lr){2-6}\cmidrule(l){7-7}
+Framework & outside range & \(n\) & DeepONet & POD + boost. & coarse & DeepONet \\
 \midrule
-MOF-303 & none & \nFwNMofThree & \textbf{\nFwDonMofThree} & \textbf{\nFwHgbMofThree} & \nFwCoMofThree \\
-MIL-160(Al) & none & median & \textbf{\nFwDonMil} & \textbf{\nFwHgbMil} & \nFwCoMil \\
-MOF-801 & step, \(\Delta H\), \(n\) (all slightly) & \nFwNMofEight & \nFwDonMofEight & \textbf{\nFwHgbMofEight} & \nFwCoMofEight \\
-Co\(_2\)Cl\(_2\)(BTDD) & capacity (\nFwQmaxCo\ mol\,kg\(^{-1}\)) & median & \nFwDonCo & \textbf{\nFwHgbCo} & \nFwCoCo \\
-Al fumarate & \(n\) & \nFwNAlf & \nFwDonAlf & \nFwHgbAlf & \nFwCoAlf \\
-CAU-10-H & \(n\) & \nFwNCau & \nFwDonCau & \nFwHgbCau & \nFwCoCau \\
+MOF-303 \cite{hanikel2019rapid,fathieh2018practical} & none & \nFwNMofThree & \textbf{\nFwDonMofThree} [\nSeedMofThreeMin--\nSeedMofThreeMax] & \textbf{\nFwHgbMofThree} & \nFwCoMofThree & \textbf{\nFwVthreeDonMofThree} \\
+MIL-160(Al) \cite{solovyeva2021mil,lenzen2019metal,aumond2026adsorption} & none & median & \textbf{\nFwDonMil} [\nSeedMilMin--\nSeedMilMax] & \textbf{\nFwHgbMil} & \nFwCoMil & \textbf{\nFwVthreeDonMil} \\
+MOF-801 \cite{furukawa2014water} & step, \(\Delta H\), \(n\) (slightly) & \nFwNMofEight & \nFwDonMofEight\ [\nSeedMofEightMin--\nSeedMofEightMax] & \textbf{\nFwHgbMofEight} & \nFwCoMofEight & \textbf{\nFwVthreeDonMofEight} \\
+Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record} & capacity & median & \nFwDonCo\ [\nSeedCoMin--\nSeedCoMax] & \textbf{\nFwHgbCo} & \nFwCoCo & \textbf{\nFwVthreeDonCo} \\
+Al fumarate \cite{hanikel2019rapid,laurenz2020novel} & \(n\) & \nFwNAlf & \nFwDonAlf\ [\nSeedAlfMin--\nSeedAlfMax] & \nFwHgbAlf & \nFwCoAlf & \textbf{\nFwVthreeDonAlf} \\
+CAU-10-H \cite{solovyeva2021cau,frohlich2016water} & \(n\) & \nFwNCau & \nFwDonCau\ [\nSeedCauMin--\nSeedCauMax] & \nFwHgbCau & \nFwCoCau & \textbf{\nFwVthreeDonCau} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The result splits cleanly by the design space (Table~\ref{tab:frameworks},
-Fig.~\ref{fig:screening}C). The frameworks inside it, MOF-303 and MIL-160(Al), are
-predicted as well as the held-out materials, and DeepONet is there slightly more accurate
-than the coarse solve (\nFwDonMofThree\,\% against \nFwCoMofThree\,\% for MOF-303). Every
-framework outside it leaves DeepONet's held-out error distribution. The cause is
-mostly the step: the rule gives \(n = \nFwNAlf\) for aluminium fumarate and \(\nFwNCau\) for
-CAU-10-H against a sampled maximum of \nDcNexpHi, so the dataset contains no step as sharp
-as these well-known frameworks have. POD with boosting is less accurate everywhere but
-degrades less, so it stays inside its own, wider distribution for MOF-801 and
-Co\(_2\)Cl\(_2\)(BTDD). Field error and ranking again come apart: on CAU-10-H, DeepONet's
-field error is the largest in the table, yet its half-breakthrough time is off by only about
-\nFwCauTerrDonMin\ minutes, against \nFwCauTerrHgbH\ hours for POD with boosting. Within each
-condition, DeepONet orders the six frameworks with a mean Kendall \(\tau\) of \nFwTauDon,
-POD with boosting with \nFwTauHgb. The coarse solve stays below \nFwCoMax\,\% on every
-framework (failed coarse solves: \nFwCoFailed), because it does not depend on what was
-sampled.
-For a surrogate to screen real water-harvesting frameworks, its training design has to
-include their steep steps.
+Trained on the smooth design, the surrogates split by its boundary
+(Table~\ref{tab:frameworks}, Fig.~\ref{fig:screening}C). MOF-303 and MIL-160(Al), which lie
+inside it, are predicted as well as held-out materials, DeepONet slightly better than the
+coarse solve, and stably across training seeds. Every framework outside it leaves
+DeepONet's held-out error distribution, and there the error also depends on the seed: from
+\nSeedCauMin\ to \nSeedCauMax\,\% on CAU-10-H and from \nSeedAlfMin\ to \nSeedAlfMax\,\% on
+aluminium fumarate, against \nSeedMofThreeMin\ to \nSeedMofThreeMax\,\% on MOF-303. The rule
+gives these two frameworks \(n = \nFwNAlf\) and \(\nFwNCau\), against a sampled maximum of
+\nDcNexpHi: the smooth design has no step as sharp as theirs. Field error and ranking come
+apart again: on CAU-10-H, DeepONet's half-breakthrough time is off by about
+\nFwCauTerrDonMin\ minutes, against \nFwCauTerrHgbH\ hours for POD with boosting, and within
+each condition DeepONet orders the six frameworks with a mean Kendall \(\tau\) of
+\nFwTauDon\ (POD with boosting, \nFwTauHgb).
+
+The MOF-like design tests whether the steep steps are the cause. Trained on it, both
+surrogates predict \nFwVthreeAllInside\ six frameworks within their held-out error
+distribution (Fig.~\ref{fig:screening}D); DeepONet's error on CAU-10-H falls to
+\nFwVthreeDonCau\,\%, no framework exceeds \nFwVthreeDonMax\,\%, and its order of the six
+within a condition has a mean Kendall \(\tau\) of \nFwVthreeTauDon. The coarse solve stays
+at or below \nFwVthreeCoMax\,\% on every framework in both designs, because it does not
+depend on what was sampled. A surrogate meant to screen real water-harvesting frameworks
+therefore needs a training design that contains their steep steps.
 
 %% ===========================================================================
 \section{Discussion}
 \label{sec:discussion}
 
-\paragraph{The error budget} Three error levels sit side by side in this work: a surrogate
-against the solver (about \nCvsDon\,\% at best), a coarse solve against the solver
-(\nCvsCoarse\,\%) and the solver against a real MOF-303 bed (\nAnchorNrmse). For screening
-real frameworks the largest term is the model of the adsorbent, not the learned surrogate.
-Better isotherm and kinetic parameterisations, including stronger low-humidity sites and
-micropore-controlled kinetics \cite{hastings2024high,sircar2000why}, would do more for a
-real screen than a better surrogate of the present model.
+\paragraph{Where the uncertainty lies} Every surrogate and coarse-solve error in this work
+is measured against the reference solver, not against experiment. Against a measured
+MOF-303 bed that solver reproduces the half-breakthrough time but not the early leak
+(Section~\ref{sec:model}), so for a real screen the model of the adsorbent is a larger
+source of error than the choice between a surrogate and a coarse solve. Better isotherm and
+kinetic descriptions, including loading-dependent transport and micropore-controlled
+kinetics \cite{hastings2024high,sircar2000why}, would do more for a real screen than a
+better surrogate of the present model, and screening at the process level rather than on
+material indicators \cite{farmahini2021performance} requires them.
 
-\paragraph{What to improve} Where surrogates are worth building, the measurements point
-to the coefficient map and to the diversity of training materials, not to richer bases,
-Kolmogorov--Arnold layers or heavy physics losses. Joint training of basis and
-coefficients, as in DeepONet, is worth a constant factor over per-mode regression on the
-same coefficients, and how the parameters enter a model governs how far it extrapolates
-\cite{vantegelen2026late}; structure-aware inputs to the map, for example isotherms predicted
-from framework structure \cite{goeminne2025ab}, are the natural next lever. The
-named-framework test adds a plainer requirement: the training design must span the steep
-steps of real frameworks, since a surrogate that is accurate inside its box is not
-accurate on CAU-10-H or aluminium fumarate.
+\paragraph{What to improve} Where surrogates are worth building, the measurements point to
+the coefficient map and to the training design, not to richer bases, Kolmogorov--Arnold
+layers or heavy physics losses. Joint training of basis and coefficients, as in DeepONet,
+is worth a constant factor over per-mode regression, and how the parameters enter a model
+governs how far it extrapolates \cite{vantegelen2026late}; structure-aware inputs to the
+map, for example isotherms predicted from framework structure \cite{goeminne2025ab}, are a
+natural next lever. The training design matters at least as much as the model: the same
+architecture that fails on CAU-10-H when trained on smooth isotherms predicts it within its
+held-out error when the design contains steep steps.
 
-\paragraph{Limitations} The held-out materials are drawn from the same design space, so
-the main results are interpolation statements; the named-framework test probes
-extrapolation for six materials only. The model describes one adsorption step from a clean
-bed, near equilibrium, in one dimension, with no desorption, cycling or
-heat-transfer-limited device geometry \cite{lapotin2019adsorption}. The isotherm's
-low-humidity sites are weaker than real ones, and its step steepness range is far below
-that of real frameworks. Benchmark conclusions for MOF models can change with sample size
+\paragraph{Limitations} The held-out materials are drawn from the same design space as the
+training materials, so the main results are interpolation statements; the named-framework
+test probes extrapolation for six materials only. The model describes one adsorption step
+from a clean bed, near equilibrium, in one dimension, with no desorption, hysteresis,
+cycling or heat-transfer-limited device geometry \cite{lapotin2019adsorption,delange2015adsorption};
+the half-breakthrough time of one step is a column quantity, not a harvester's figure of
+merit such as working capacity or water yield per day. The heat of adsorption does not
+depend on loading, the bed heat capacity omits the adsorbed water, and the step is placed
+at each material's step humidity at the feed temperature, which removes the temperature
+dependence of the step position that matters for harvesting \cite{hastings2024high}. The
+framework parameters are read from the literature by a rule, not fitted to measured
+isotherms, and the MOF-like design uses one training seed except for DeepONet at
+\(p = 16\). Benchmark conclusions for MOF models can change with sample size
 \cite{abaei2026benchmark}, which is why the 12-material comparisons are labelled
-exploratory. The pre-registrations are attested by the author's own repository history,
-not an external registry.
+exploratory. The pre-registrations are attested by the authors' repository history and its
+public push events, not by an external registry.
 
 %% ===========================================================================
 \section{Conclusions}
 \label{sec:conclusions}
 
-For surrogates of a MOF water-adsorption bed, tested on held-out materials under a
-pre-registered, selection-corrected design, the error is set by the map from material
-parameters to basis coefficients: it is many times the basis error at every basis size, and
-a \(\nLfiveVtwoFloorDrop\times\) better basis does not reduce it. More training materials reduce it and are
-still paying at the largest size we could afford. For this one-dimensional column a coarse
-numerical solve is both more accurate and, for screens below a few thousand candidates,
-cheaper than the best surrogate. Surrogates nevertheless rank candidates well enough for a
-screen, and the named frameworks inside the design space, MOF-303 and MIL-160(Al), are
-predicted as accurately as the held-out materials; frameworks whose steps are steeper than
-any in the training design are not. The measurement protocol carries to
-other parametric surrogates, and the code, data and pre-registrations are public.
+For surrogates of a MOF water-adsorption bed, tested on held-out materials under
+pre-registered, selection-corrected designs, the error is set by the map from material
+parameters to basis coefficients, not by the basis. This holds for POD with gradient
+boosting and for DeepONet measured against its own trained basis, on smooth isotherms and
+on MOF-like ones with strong low-humidity sites and steep steps; more training materials
+reduce the error and are still paying at the largest size we could afford. For this
+one-dimensional column a coarse numerical solve is more accurate than the best surrogate,
+and ranks candidates reliably where the surrogates do not: surrogates rank smooth-isotherm
+materials well enough for a screen, but not MOF-like ones. Trained on a design without
+steep steps, surrogates fail on CAU-10-H and aluminium fumarate, and trained on a design
+with them, they predict all six named frameworks within their held-out error. The same
+measurements can be made for any parametric surrogate whose output is a field on a basis,
+and the code, data and pre-registrations are public.
 
 %% ===========================================================================
 \section*{Author contributions}
@@ -580,9 +656,13 @@ The code for this article, including the solver, every runner and analyser, the
 verification harness, the pre-registrations and the correction ledger, is available at
 \url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}, with its full commit
 history; the version used for this study is archived at Zenodo \cite{batayhi2026code}.
-The simulated breakthrough fields of both datasets, their manifests (every material,
-condition, seed and fold) and a data card are available at Zenodo [DATASET DOI].
-Supplementary S2 holds supporting detail and Supplementary S1 the correction ledger.
+The code is released under the MIT licence. The simulated breakthrough fields of the
+smooth, MOF-like and legacy designs and of the six named frameworks, their manifests (every
+material, condition, seed and fold) and a data card are available at Zenodo [DATASET DOI]
+under a CC BY 4.0 licence. Every number in the text is generated from a tracked results
+file by \texttt{paper/numbers.py}, which names the file and the entry each number comes
+from, and \texttt{REPRODUCE.md} maps every figure and table to its script. Supplementary S2
+holds supporting detail and Supplementary S1 the correction ledger.
 
 \section*{Acknowledgements}
 This research did not receive any specific grant from funding agencies in the public,

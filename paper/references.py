@@ -924,6 +924,51 @@ REFS = [
      "The secondary source for the Klinkenberg erf approximation and its 1954 attribution (B54). "
      "Edition record from Open Library (ISBN 9780470481837), 2026-10-12.", False),
 
+    # ------------------------------------------- asked for by the 2026-10-25 internal referees
+    ("lu2022comprehensive", V, "article", dict(
+        author="Lu Lu and Xuhui Meng and Shengze Cai and Zhiping Mao and Somdatta Goswami and "
+               "Zhongqiang Zhang and George Em Karniadakis",
+        title="A comprehensive and fair comparison of two neural operators (with practical extensions) "
+              "based on {FAIR} data",
+        journal="Computer Methods in Applied Mechanics and Engineering", volume="393", pages="114778",
+        year="2022", doi="10.1016/j.cma.2022.114778"),
+     "POD-DeepONet (fixed POD trunk, learned branch). Crossref record read 2026-10-25.", False),
+    ("lanthaler2022error", V, "article", dict(
+        author="Samuel Lanthaler and Siddhartha Mishra and George E. Karniadakis",
+        title="Error estimates for {DeepONets}: a deep learning framework in infinite dimensions",
+        journal="Transactions of Mathematics and Its Applications", volume="6", number="1",
+        pages="tnac001", year="2022", doi="10.1093/imatrm/tnac001"),
+     "Encoder/approximator/reconstructor error decomposition of DeepONet. Crossref record read "
+     "2026-10-25.", False),
+    ("kovachki2023neural", V, "article", dict(
+        author="Nikola Kovachki and Zongyi Li and Burigede Liu and Kamyar Azizzadenesheli and "
+               "Kaushik Bhattacharya and Andrew Stuart and Anima Anandkumar",
+        title="Neural operator: learning maps between function spaces with applications to {PDEs}",
+        journal="Journal of Machine Learning Research", volume="24", number="89", pages="1--97",
+        year="2023", url="https://jmlr.org/papers/v24/21-1524.html"),
+     "No DOI (JMLR). Citation metadata read from the jmlr.org article page 2026-10-25.", False),
+    ("kalmutzki2018metal", V, "article", dict(
+        author="Markus J. Kalmutzki and Christian S. Diercks and Omar M. Yaghi",
+        title="Metal--organic frameworks for water harvesting from air",
+        journal="Advanced Materials", volume="30", number="37", pages="1704304", year="2018",
+        doi="10.1002/adma.201704304"),
+     "Review of MOF water harvesting. Crossref record read 2026-10-25.", False),
+    ("delange2015adsorption", V, "article", dict(
+        author="Martijn F. de Lange and Karlijn J. F. M. Verouden and Thijs J. H. Vlugt and "
+               "Jorge Gascon and Freek Kapteijn",
+        title="Adsorption-driven heat pumps: the potential of metal--organic frameworks",
+        journal="Chemical Reviews", volume="115", number="22", pages="12205--12250", year="2015",
+        doi="10.1021/acs.chemrev.5b00059"),
+     "Water-sorption MOFs and step-shaped isotherms for heat pumps. Crossref record read 2026-10-25.",
+     False),
+    ("farmahini2021performance", V, "article", dict(
+        author="Amir H. Farmahini and Shreenath Krishnamurthy and Daniel Friedrich and Stefano Brandani "
+               "and Lev Sarkisov",
+        title="Performance-based screening of porous materials for carbon capture",
+        journal="Chemical Reviews", volume="121", number="17", pages="10666--10741", year="2021",
+        doi="10.1021/acs.chemrev.0c01266"),
+     "Process-level against material-KPI screening. Crossref record read 2026-10-25.", False),
+
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",

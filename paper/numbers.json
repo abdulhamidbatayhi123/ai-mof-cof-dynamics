@@ -575,6 +575,183 @@
     "FwCoMax": "0.9",
     "FwCoFailed": "1",
     "FwNcellsFailed": "3",
+    "ShHgbVtwoEight": "96.5",
+    "ShHgbVtwoSixteen": "99.3",
+    "ShHgbVtwoHigh": "100.0",
+    "ShHgbVthreeEight": "94.7",
+    "ShHgbVthreeSixteen": "98.4",
+    "ShHgbVthreeHigh": "100.0",
+    "ShDonVtwoSixteen": "96.7",
+    "ShDonVthreeEight": "96.5",
+    "ShDonVthreeSixteen": "98.9",
+    "ShDonVthreeHigh": "98.6",
+    "ShDonVtwoSixteenLo": "95.8",
+    "ShDonVthreeSixteenLo": "98.6",
+    "ShMin": "96.7",
+    "ShVerdicts": "all",
+    "DonVthreeTotalSixteen": "4.1",
+    "DonVthreeFloorSixteen": "0.46",
+    "DonVthreeTotalHigh": "4.2",
+    "DonVtwoTotalSixteen": "0.98",
+    "DonVtwoFloorSixteen": "0.31",
+    "HgbVthreeFloorEight": "1.3",
+    "HgbVtwoFloorHigh": "0.007",
+    "HgbVthreeFloorHigh": "0.06",
+    "HgbVthreeTotal": "6.0",
+    "BaseVtwoSp": "0.55",
+    "BaseVtwoRc": "45",
+    "BaseVthreeSp": "0.43",
+    "BaseVthreeRc": "39",
+    "LeakVtwoSp": "0.08",
+    "LeakVthreeSp": "0.06",
+    "ExtVtwoPct": "52",
+    "CostProdS": "1.8",
+    "CostCoarseS": "0.22",
+    "CostCoarseHundredS": "0.27",
+    "CostCoarseHundredErr": "0.31",
+    "CostFitS": "1,050",
+    "CostFitSolves": "590",
+    "CostTrainCpuH": "1.8",
+    "CostBeFit": "30,000",
+    "ScrVthreeDonSp": "0.87",
+    "ScrVthreeDonSpLo": "0.78",
+    "ScrVthreeDonSpHi": "0.92",
+    "ScrVthreeDonRc": "86",
+    "ScrVthreeDonRcLo": "72",
+    "ScrVthreeDonRcHi": "91",
+    "ScrVthreeHgbSp": "0.82",
+    "ScrVthreeHgbSpLo": "0.76",
+    "ScrVthreeHgbSpHi": "0.87",
+    "ScrVthreeHgbRc": "68",
+    "ScrVthreeHgbRcLo": "53",
+    "ScrVthreeHgbRcHi": "82",
+    "ScrVthreeCoSp": "0.9998",
+    "ScrVthreeCoRc": "99",
+    "ScrVthreeDonNr": "4.1",
+    "ScrVthreeHgbNr": "6.0",
+    "ScrVthreeCoNr": "0.63",
+    "ScrDonMinusCoLo": "0.25",
+    "ScrDonMinusCoHi": "0.41",
+    "FwVthreeDonPninetyfive": "8.8",
+    "FwVthreeTauDon": "0.95",
+    "FwVthreeTauHgb": "0.77",
+    "FwVthreeAllInside": "all",
+    "FwVthreeDonMax": "4.5",
+    "FwVthreeDonCau": "3.2",
+    "FwVthreeCoMax": "0.9",
+    "VthreeNsamples": "1719",
+    "VthreeNrejected": "321",
+    "VthreeNmat": "118",
+    "VthreeNmax": "32",
+    "VthreeAffLo": "-1.3",
+    "VthreeAffHi": "1.5",
+    "VthreeAffHiRatio": "32",
+    "VthreeQmaxHi": "56",
+    "CoFailVtwo": "36",
+    "VtQmaxLo": "8",
+    "VtQmaxHi": "56",
+    "VtDHLo": "-62",
+    "VtDHHi": "-40",
+    "VtStepLo": "0.05",
+    "VtStepHi": "0.45",
+    "VtNexpLo": "1",
+    "VtNexpHi": "32",
+    "VtFhLo": "0.03",
+    "VtFhHi": "0.3",
+    "VtAffLo": "-1.3",
+    "VtAffHi": "1.5",
+    "VtDpLo": "1.5",
+    "VtDpHi": "5",
+    "VtRhopLo": "700",
+    "VtRhopHi": "1400",
+    "VtEpsLo": "0.3",
+    "VtEpsHi": "0.48",
+    "InVtwoMofThreeQ": "25.6",
+    "InVtwoMofThreeDH": "52.0",
+    "InVtwoMofThreeStep": "0.135",
+    "InVtwoMofThreeN": "5.4",
+    "InVtwoMofThreeFh": "0.14",
+    "InVtwoMofEightQ": "20.0",
+    "InVtwoMofEightDH": "60.0",
+    "InVtwoMofEightStep": "0.070",
+    "InVtwoMofEightN": "6.3",
+    "InVtwoMofEightFh": "0.14",
+    "InVtwoCauQ": "18.3",
+    "InVtwoCauDH": "56.5",
+    "InVtwoCauStep": "0.205",
+    "InVtwoCauN": "30.0",
+    "InVtwoCauFh": "0.14",
+    "InVtwoAlfQ": "23.0",
+    "InVtwoAlfDH": "52.1",
+    "InVtwoAlfStep": "0.258",
+    "InVtwoAlfN": "16.5",
+    "InVtwoAlfFh": "0.14",
+    "InVtwoMilQ": "21.5",
+    "InVtwoMilDH": "50.5",
+    "InVtwoMilStep": "0.085",
+    "InVtwoMilN": "3.5",
+    "InVtwoMilFh": "0.14",
+    "InVtwoCoQ": "53.7",
+    "InVtwoCoDH": "55.0",
+    "InVtwoCoStep": "0.280",
+    "InVtwoCoN": "3.5",
+    "InVtwoCoFh": "0.14",
+    "InVthreeMofThreeQ": "25.6",
+    "InVthreeMofThreeDH": "52.0",
+    "InVthreeMofThreeStep": "0.135",
+    "InVthreeMofThreeN": "5.4",
+    "InVthreeMofThreeFh": "0.17",
+    "InVthreeMofEightQ": "20.0",
+    "InVthreeMofEightDH": "60.0",
+    "InVthreeMofEightStep": "0.070",
+    "InVthreeMofEightN": "6.3",
+    "InVthreeMofEightFh": "0.07",
+    "InVthreeCauQ": "18.3",
+    "InVthreeCauDH": "56.5",
+    "InVthreeCauStep": "0.205",
+    "InVthreeCauN": "30.0",
+    "InVthreeCauFh": "0.03",
+    "InVthreeAlfQ": "23.0",
+    "InVthreeAlfDH": "52.1",
+    "InVthreeAlfStep": "0.258",
+    "InVthreeAlfN": "16.5",
+    "InVthreeAlfFh": "0.05",
+    "InVthreeMilQ": "21.5",
+    "InVthreeMilDH": "50.5",
+    "InVthreeMilStep": "0.085",
+    "InVthreeMilN": "16.4",
+    "InVthreeMilFh": "0.06",
+    "InVthreeCoQ": "53.7",
+    "InVthreeCoDH": "55.0",
+    "InVthreeCoStep": "0.280",
+    "InVthreeCoN": "16.4",
+    "InVthreeCoFh": "0.19",
+    "FwVthreeDonMofThree": "3.1",
+    "FwVthreeDonMofEight": "4.5",
+    "FwVthreeDonAlf": "1.6",
+    "FwVthreeDonMil": "1.8",
+    "FwVthreeDonCo": "2.0",
+    "SeedCauMin": "10.5",
+    "SeedCauMax": "47.5",
+    "SeedAlfMin": "6.5",
+    "SeedAlfMax": "14.5",
+    "SeedMofThreeMin": "0.5",
+    "SeedMofThreeMax": "0.6",
+    "SeedMofEightMin": "2.4",
+    "SeedMofEightMax": "2.7",
+    "SeedMilMin": "0.4",
+    "SeedMilMax": "0.5",
+    "SeedCoMin": "2.5",
+    "SeedCoMax": "3.0",
+    "SeedSpMin": "0.991",
+    "SeedSpMax": "0.992",
+    "ScrCoRatio": "1.53",
+    "ScrVthreeCoRatio": "6.5",
+    "VthreeOverVtwo": "4.3",
+    "RidgeOverHgb": "1.5",
+    "HgbOverDon": "3.7",
+    "FloorRatioVthree": "2.1",
+    "LCHalfFactor": "1.17",
     "MtMapChangePct": "+1.8",
     "LthreeBestKanDiff": "-0.0060",
     "AnchorAspect": "0.17",
@@ -2914,6 +3091,707 @@
     "FwNcellsFailed": {
       "file": "results/dd_b2_frameworks.json",
       "path": "cells"
+    },
+    "ShHgbVtwoEight": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.hgb.by_p.8.share_map"
+    },
+    "ShHgbVtwoSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.hgb.by_p.16.share_map"
+    },
+    "ShHgbVtwoHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.hgb.by_p.128.share_map"
+    },
+    "ShHgbVthreeEight": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.8.share_map"
+    },
+    "ShHgbVthreeSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.16.share_map"
+    },
+    "ShHgbVthreeHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.128.share_map"
+    },
+    "ShDonVtwoSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.deeponet_own_floor.by_p.16.share_map"
+    },
+    "ShDonVthreeEight": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.8.share_map"
+    },
+    "ShDonVthreeSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.16.share_map"
+    },
+    "ShDonVthreeHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.128.share_map"
+    },
+    "ShDonVtwoSixteenLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.deeponet_own_floor.by_p.16.ci[0]"
+    },
+    "ShDonVthreeSixteenLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.16.ci[0]"
+    },
+    "ShMin": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split"
+    },
+    "ShVerdicts": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split"
+    },
+    "DonVthreeTotalSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.16.mean_total"
+    },
+    "DonVthreeFloorSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.16.mean_floor"
+    },
+    "DonVthreeTotalHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.deeponet_own_floor.by_p.128.mean_total"
+    },
+    "DonVtwoTotalSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.deeponet_own_floor.by_p.16.mean_total"
+    },
+    "DonVtwoFloorSixteen": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.deeponet_own_floor.by_p.16.mean_floor"
+    },
+    "HgbVthreeFloorEight": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.8.mean_floor"
+    },
+    "HgbVtwoFloorHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v2.hgb.by_p.128.mean_floor"
+    },
+    "HgbVthreeFloorHigh": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.128.mean_floor"
+    },
+    "HgbVthreeTotal": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "split.v3.hgb.by_p.16.mean_total"
+    },
+    "BaseVtwoSp": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v2.t_stoich.spearman_mean"
+    },
+    "BaseVtwoRc": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v2.t_stoich.top10_recall_mean"
+    },
+    "BaseVthreeSp": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v3.t_stoich.spearman_mean"
+    },
+    "BaseVthreeRc": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v3.t_stoich.top10_recall_mean"
+    },
+    "LeakVtwoSp": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v2.t_final_leak_check.spearman_mean"
+    },
+    "LeakVthreeSp": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v3.t_final_leak_check.spearman_mean"
+    },
+    "ExtVtwoPct": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "baseline_tstoich.v2.frac_horizon_extended"
+    },
+    "CostProdS": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.t_prod_s"
+    },
+    "CostCoarseS": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.t_coarse50_s"
+    },
+    "CostCoarseHundredS": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.t_coarse100_s"
+    },
+    "CostCoarseHundredErr": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.nrmse_coarse100"
+    },
+    "CostFitS": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.deeponet_fit_s"
+    },
+    "CostFitSolves": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.deeponet_fit_in_solves"
+    },
+    "CostTrainCpuH": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.training_cpu_h"
+    },
+    "CostBeFit": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "cost_v2.break_even_with_fit"
+    },
+    "ScrVthreeDonSp": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.spearman_mean"
+    },
+    "ScrVthreeDonSpLo": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.spearman_ci[0]"
+    },
+    "ScrVthreeDonSpHi": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.spearman_ci[1]"
+    },
+    "ScrVthreeDonRc": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.top10_recall_mean"
+    },
+    "ScrVthreeDonRcLo": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.top10_recall_ci[0]"
+    },
+    "ScrVthreeDonRcHi": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.top10_recall_ci[1]"
+    },
+    "ScrVthreeHgbSp": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.spearman_mean"
+    },
+    "ScrVthreeHgbSpLo": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.spearman_ci[0]"
+    },
+    "ScrVthreeHgbSpHi": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.spearman_ci[1]"
+    },
+    "ScrVthreeHgbRc": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.top10_recall_mean"
+    },
+    "ScrVthreeHgbRcLo": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.top10_recall_ci[0]"
+    },
+    "ScrVthreeHgbRcHi": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.top10_recall_ci[1]"
+    },
+    "ScrVthreeCoSp": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.coarse.spearman_mean"
+    },
+    "ScrVthreeCoRc": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.coarse.top10_recall_mean"
+    },
+    "ScrVthreeDonNr": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.don.field_nrmse_mean"
+    },
+    "ScrVthreeHgbNr": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.hgb.field_nrmse_mean"
+    },
+    "ScrVthreeCoNr": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b1.coarse.field_nrmse_mean"
+    },
+    "ScrDonMinusCoLo": {
+      "file": "results/dd_additions_verdict.json",
+      "path": "b1.don.arm_minus_coarse_nrmse_ci[0]"
+    },
+    "ScrDonMinusCoHi": {
+      "file": "results/dd_additions_verdict.json",
+      "path": "b1.don.arm_minus_coarse_nrmse_ci[1]"
+    },
+    "FwVthreeDonPninetyfive": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.p95_heldout_material_nrmse.deeponet_p16"
+    },
+    "FwVthreeTauDon": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.kendall_tau_framework_order.deeponet_p16"
+    },
+    "FwVthreeTauHgb": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.kendall_tau_framework_order.hgb_p16"
+    },
+    "FwVthreeAllInside": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks"
+    },
+    "FwVthreeDonMax": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks"
+    },
+    "FwVthreeDonCau": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.CAU-10-H.deeponet_p16.nrmse_c"
+    },
+    "FwVthreeCoMax": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks"
+    },
+    "VthreeNsamples": {
+      "file": "results/dataset_summary_v3.json",
+      "path": "n_samples"
+    },
+    "VthreeNrejected": {
+      "file": "results/dataset_summary_v3.json",
+      "path": "n_rejected"
+    },
+    "VthreeNmat": {
+      "file": "results/dd_b1_predictions_v3.json",
+      "path": "folds"
+    },
+    "VthreeNmax": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.isotherm_n[1]"
+    },
+    "VthreeAffLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_affinity_log10[0]"
+    },
+    "VthreeAffHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_affinity_log10[1]"
+    },
+    "VthreeAffHiRatio": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_affinity_log10[1]"
+    },
+    "VthreeQmaxHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.q_max[1]"
+    },
+    "CoFailVtwo": {
+      "file": "results/dd_coarse_all.json",
+      "path": "cells"
+    },
+    "VtQmaxLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.q_max"
+    },
+    "VtQmaxHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.q_max"
+    },
+    "VtDHLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.delta_H"
+    },
+    "VtDHHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.delta_H"
+    },
+    "VtStepLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.step_rh"
+    },
+    "VtStepHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.step_rh"
+    },
+    "VtNexpLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.isotherm_n"
+    },
+    "VtNexpHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.isotherm_n"
+    },
+    "VtFhLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_fraction"
+    },
+    "VtFhHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_fraction"
+    },
+    "VtAffLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_affinity_log10"
+    },
+    "VtAffHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.henry_affinity_log10"
+    },
+    "VtDpLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.d_p"
+    },
+    "VtDpHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.d_p"
+    },
+    "VtRhopLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.rho_p"
+    },
+    "VtRhopHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.rho_p"
+    },
+    "VtEpsLo": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.eps_t"
+    },
+    "VtEpsHi": {
+      "file": "results/dd_v3_verdict.json",
+      "path": "design_v3.eps_t"
+    },
+    "InVtwoMofThreeQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-303.q_max"
+    },
+    "InVtwoMofThreeDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-303.delta_H"
+    },
+    "InVtwoMofThreeStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-303.step_rh"
+    },
+    "InVtwoMofThreeN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-303.isotherm_n"
+    },
+    "InVtwoMofThreeFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-303.henry_fraction"
+    },
+    "InVtwoMofEightQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-801.q_max"
+    },
+    "InVtwoMofEightDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-801.delta_H"
+    },
+    "InVtwoMofEightStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-801.step_rh"
+    },
+    "InVtwoMofEightN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-801.isotherm_n"
+    },
+    "InVtwoMofEightFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MOF-801.henry_fraction"
+    },
+    "InVtwoCauQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.CAU-10-H.q_max"
+    },
+    "InVtwoCauDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.CAU-10-H.delta_H"
+    },
+    "InVtwoCauStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.CAU-10-H.step_rh"
+    },
+    "InVtwoCauN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.CAU-10-H.isotherm_n"
+    },
+    "InVtwoCauFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.CAU-10-H.henry_fraction"
+    },
+    "InVtwoAlfQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).q_max"
+    },
+    "InVtwoAlfDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).delta_H"
+    },
+    "InVtwoAlfStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).step_rh"
+    },
+    "InVtwoAlfN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).isotherm_n"
+    },
+    "InVtwoAlfFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).henry_fraction"
+    },
+    "InVtwoMilQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).q_max"
+    },
+    "InVtwoMilDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).delta_H"
+    },
+    "InVtwoMilStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).step_rh"
+    },
+    "InVtwoMilN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).isotherm_n"
+    },
+    "InVtwoMilFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).henry_fraction"
+    },
+    "InVtwoCoQ": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Co2Cl2(BTDD).q_max"
+    },
+    "InVtwoCoDH": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Co2Cl2(BTDD).delta_H"
+    },
+    "InVtwoCoStep": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Co2Cl2(BTDD).step_rh"
+    },
+    "InVtwoCoN": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Co2Cl2(BTDD).isotherm_n"
+    },
+    "InVtwoCoFh": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.Co2Cl2(BTDD).henry_fraction"
+    },
+    "InVthreeMofThreeQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-303.q_max"
+    },
+    "InVthreeMofThreeDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-303.delta_H"
+    },
+    "InVthreeMofThreeStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-303.step_rh"
+    },
+    "InVthreeMofThreeN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-303.isotherm_n"
+    },
+    "InVthreeMofThreeFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-303.henry_fraction"
+    },
+    "InVthreeMofEightQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-801.q_max"
+    },
+    "InVthreeMofEightDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-801.delta_H"
+    },
+    "InVthreeMofEightStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-801.step_rh"
+    },
+    "InVthreeMofEightN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-801.isotherm_n"
+    },
+    "InVthreeMofEightFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MOF-801.henry_fraction"
+    },
+    "InVthreeCauQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.CAU-10-H.q_max"
+    },
+    "InVthreeCauDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.CAU-10-H.delta_H"
+    },
+    "InVthreeCauStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.CAU-10-H.step_rh"
+    },
+    "InVthreeCauN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.CAU-10-H.isotherm_n"
+    },
+    "InVthreeCauFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.CAU-10-H.henry_fraction"
+    },
+    "InVthreeAlfQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).q_max"
+    },
+    "InVthreeAlfDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).delta_H"
+    },
+    "InVthreeAlfStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).step_rh"
+    },
+    "InVthreeAlfN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).isotherm_n"
+    },
+    "InVthreeAlfFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Al-fumarate (Basolite A520).henry_fraction"
+    },
+    "InVthreeMilQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).q_max"
+    },
+    "InVthreeMilDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).delta_H"
+    },
+    "InVthreeMilStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).step_rh"
+    },
+    "InVthreeMilN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).isotherm_n"
+    },
+    "InVthreeMilFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).henry_fraction"
+    },
+    "InVthreeCoQ": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Co2Cl2(BTDD).q_max"
+    },
+    "InVthreeCoDH": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Co2Cl2(BTDD).delta_H"
+    },
+    "InVthreeCoStep": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Co2Cl2(BTDD).step_rh"
+    },
+    "InVthreeCoN": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Co2Cl2(BTDD).isotherm_n"
+    },
+    "InVthreeCoFh": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.Co2Cl2(BTDD).henry_fraction"
+    },
+    "FwVthreeDonMofThree": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.MOF-303.deeponet_p16.nrmse_c"
+    },
+    "FwVthreeDonMofEight": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.MOF-801.deeponet_p16.nrmse_c"
+    },
+    "FwVthreeDonAlf": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.Al-fumarate (Basolite A520).deeponet_p16.nrmse_c"
+    },
+    "FwVthreeDonMil": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.MIL-160(Al).deeponet_p16.nrmse_c"
+    },
+    "FwVthreeDonCo": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.frameworks.Co2Cl2(BTDD).deeponet_p16.nrmse_c"
+    },
+    "SeedCauMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.CAU-10-H.min"
+    },
+    "SeedCauMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.CAU-10-H.max"
+    },
+    "SeedAlfMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.Al-fumarate (Basolite A520).min"
+    },
+    "SeedAlfMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.Al-fumarate (Basolite A520).max"
+    },
+    "SeedMofThreeMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MOF-303.min"
+    },
+    "SeedMofThreeMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MOF-303.max"
+    },
+    "SeedMofEightMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MOF-801.min"
+    },
+    "SeedMofEightMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MOF-801.max"
+    },
+    "SeedMilMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MIL-160(Al).min"
+    },
+    "SeedMilMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.MIL-160(Al).max"
+    },
+    "SeedCoMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.Co2Cl2(BTDD).min"
+    },
+    "SeedCoMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b2.deeponet_p16.Co2Cl2(BTDD).max"
+    },
+    "SeedSpMin": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b1"
+    },
+    "SeedSpMax": {
+      "file": "results/dd_seed_robustness.json",
+      "path": "summary.b1"
+    },
+    "ScrCoRatio": {
+      "derived": "DeepONet field error over the coarse solve's, all v2 samples (B1)"
+    },
+    "ScrVthreeCoRatio": {
+      "derived": "DeepONet field error over the coarse solve's, all v3 samples"
+    },
+    "VthreeOverVtwo": {
+      "derived": "DeepONet p16 held-out error on v3 over v2 (B1, all samples)"
+    },
+    "RidgeOverHgb": {
+      "derived": "map term of ridge over that of per-mode boosting, v2, p = 8 (l5_mapterm_v2)"
+    },
+    "HgbOverDon": {
+      "derived": "POD + boosting field error over DeepONet's, all v2 samples (B1)"
+    },
+    "FloorRatioVthree": {
+      "derived": "POD basis floor at p = 8, MOF-like over smooth design (PREREG_DD_V3 V1)"
+    },
+    "LCHalfFactor": {
+      "derived": "error increase the v2 learning curve predicts for half the training materials, 2^beta"
     },
     "MtMapChangePct": {
       "derived": "change of the map term (per-mode boosting) from p = 8 to p = 128, % of p = 8"

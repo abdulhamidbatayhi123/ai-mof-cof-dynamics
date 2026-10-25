@@ -66,8 +66,8 @@ _ALLOWED_PAIRS = [
     ("2", "ordinal / a term count; squares, square roots and radii (d_p/2) in the model equations and units; chemical-formula subscripts (Co_2Cl_2)"),
     ("3", "seed count and ordinal; the cube in density units (kg m^-3); the exponent of the 10^-3-of-feed Henry-region threshold drawn in the dataset figure"),
     ("4", "ordinal, and the oracle-equivalent mode count; the 4 of the wall term 4 h_w / D_in; the 4pt column gap of Table 3"),
-    ("5", "ordinal / fold count; the exponent of 1e-5 diffusivities, read from code via macros for the mantissa; the lower edge of the informative Damkohler band, a threshold declared in PREREG_L6_v2"),
-    ("10", "a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}; the source figure number of the anchor data (Lassitter et al., Fig. 10)"),
+    ("5", "the model name Claude Opus 5 in the AI statement; ordinal / fold count; the exponent of 1e-5 diffusivities, read from code via macros for the mantissa; the lower edge of the informative Damkohler band, a threshold declared in PREREG_L6_v2"),
+    ("10", "the name CAU-10-H; the top-10 % recall of PREREG_DD_ADDITIONS; log_10; a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}; the source figure number of the anchor data (Lassitter et al., Fig. 10)"),
     ("20", "a factor in a cited correlation's coefficient"),
     ("29", "an interpolation-floor percentage from a reported exclusion"),
     ("80", "the power level at which every MDE is quoted"),
@@ -85,7 +85,7 @@ _ALLOWED_PAIRS = [
     ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
     ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
-    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel B"),
+    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel D"),
     ("95", "the 95th percentile that defines 'inside the held-out error distribution' in PREREG_DD_ADDITIONS B2"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
@@ -100,7 +100,11 @@ _ALLOWED_PAIRS = [
     ("0.90", "the Spearman threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
     ("0.80", "the top-10 % recall threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
     ("81", "the 81 = (0.9/0.1)^2 of the frozen steepness rule n = ln 81 / ln(p90/p10)"),
-    ("90", "the percentile index of p_90 in the frozen steepness rule"),]
+    ("90", "the percentile index of p_90 in the frozen steepness rule"),
+    ("7", "a column index of the frameworks table (\cmidrule)"),
+    ("6", "a column index of the frameworks table (\cmidrule)"),
+    ("100", "N_z = 100, the grid of the untuned coarse-solve comparison (B-COARSE), a grid size"),
+    ("4.0", "the version of the CC BY 4.0 data licence"),]
 
 # Merge with a duplicate check: a repeated literal means two different justifications
 # were written for the same number and one of them would be lost.
@@ -120,7 +124,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 1, "0.5": 0, "0.7": 0, "1": 8, "2": 16, "3": 0, "4": 1, "5": 3, "8": 3, "10": 3, "12": 6, "16": 5, "20": 0, "24": 0, "48": 0, "50": 2, "60": 0, "64": 1, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 7, "192": 3, "240": 6, "1953": 0, "15": 0, "216": 0, "17": 2, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 1,
+    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 2, "0.5": 1, "0.7": 0, "1": 8, "2": 15, "3": 0, "4": 1, "5": 4, "8": 1, "10": 5, "12": 6, "16": 8, "20": 0, "24": 0, "48": 0, "50": 2, "60": 0, "64": 1, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 5, "192": 3, "240": 2, "1953": 0, "15": 0, "216": 0, "17": 1, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 2, "0.80": 1, "81": 1, "90": 1, "7": 2, "100": 1, "6": 1, "4.0": 1,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
     raise SystemExit("build_paper.py: ALLOWED_COUNT and _ALLOWED_PAIRS disagree on "
@@ -298,6 +302,10 @@ def main():
         "results/l4b_v3_verdict.json": "analyze_l4b_v2.py --out ... (chain_l4b_v3.sh, B72)",
         "results/l4b_v3_selection.json": "analyze_l4b_selection.py --out ... (chain_l4b_v3.sh, B72)",
         "results/l4b_v3_results.json": "run_l4b_v2.py --out ... (chain_l4b_v3.sh, B72)",
+        # PREREG_DD_V3: the frozen DD runner writes these with DD_TAG=_v3 (run_dd_v3.sh)
+        "results/dataset_summary_v3.json": "dataset_summary.py --root data/parametric_v3 --out ...",
+        "results/dd_additions_verdict_v3.json": "dd_screening_frameworks.py analyse, DD_TAG=_v3 (run_dd_v3.sh)",
+        "results/dd_b2_frameworks_v3.json": "dd_v3.py frameworks -> dd_screening_frameworks b2solve/b2fit, DD_TAG=_v3",
     }
     import glob
     import importlib.util

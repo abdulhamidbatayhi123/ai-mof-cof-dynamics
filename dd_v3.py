@@ -293,6 +293,8 @@ def phase_analyse():
         if os.path.exists(b1) and os.path.exists(os.path.join(root, "manifest.json")):
             out["baseline_tstoich"][data] = _baseline(root, b1)
     out["cost_v2"] = _cost_v2()
+    if os.path.exists(os.path.join(V3_ROOT, "manifest.json")):     # quoted in the text: the v3 design box
+        out["design_v3"] = json.load(open(os.path.join(V3_ROOT, "manifest.json")))["material_space"]
     v3 = out["split"].get("v3", {}).get("deeponet_own_floor", {}).get("verdict")
     out["title_condition"] = {"deeponet_own_floor_v3": v3, "title_kept": v3 == "the map dominates"}
     from v2_common import write_atomic

@@ -38,13 +38,42 @@ exceptions are at the edges, and one is far outside: MOF-801's step, at a relati
 \nWmofEightStep, sits just below the sampled floor of \nWmofStepLo; one reported heat
 for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled range; and
 Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
-\(\nWmofBtddRatio\times\) the largest capacity we sampled, \nWmofQmaxHi. The verdicts of this paper are therefore
-statements about frameworks like MOF-303, aluminium fumarate and MIL-160, and should
-not be carried to record-capacity materials without new data. The cooperativity
-exponent \(n\), the steepness of the step and arguably the property a harvester
-designer cares about most, is not placed: the sources report isotherms, not fitted
-step exponents, and fitting equation~\eqref{eq:isotherm} to digitised curves would be
-a new measurement, not a reading of the literature.
+\(\nWmofBtddRatio\times\) the largest capacity we sampled in the smooth design,
+\nWmofQmaxHi. The cooperativity exponent \(n\), the steepness of the step and arguably the
+property a harvester designer cares about most, is not on these axes, because the sources
+report isotherms, not fitted exponents. The named-framework test (Section~\ref{sec:frameworks})
+reads it from the stated width of the rise by a registered rule, which puts aluminium
+fumarate and CAU-10-H far above the smooth design's range; the MOF-like design was built to
+enclose all six frameworks on every axis, \(n\) included. Table~\ref{s2:tab:fwinputs} lists
+the inputs both rules produce.
+
+\begin{table}[!tbp]
+\centering
+\caption{Inputs of the six named frameworks, as the registered rules produce them
+(\texttt{results/dd\_b2\_frameworks.json} and \texttt{\_v3.json}). Capacity, heat and step
+are the means of the stated values and are the same under both rules; \(n\) comes from the
+stated rise interval, or the design median where none is stated (MIL-160(Al),
+Co\(_2\)Cl\(_2\)(BTDD)); \(f_H\) is the smooth design's median under the v2 rule and the
+sources' below-step fraction under the v3 rule. For MOF-303 and aluminium fumarate the
+rise interval was read from a published figure, and for CAU-10-H it is the stated range of
+the jump, not a 10--90\,\% width (Supplementary S1, entry B88). Pellet size, density and
+bed porosity take each design's medians.}
+\label{s2:tab:fwinputs}
+\small
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+framework & \(q_{\max}\) (mol\,kg\(^{-1}\)) & \(-\Delta H\) (kJ\,mol\(^{-1}\)) & \(\mathrm{RH}_{\mathrm{step}}\)
+ & \(n\) (v2) & \(n\) (v3) & \(f_H\) (v2) & \(f_H\) (v3) \\
+\midrule
+MOF-303 & \nInVtwoMofThreeQ & \nInVtwoMofThreeDH & \nInVtwoMofThreeStep & \nInVtwoMofThreeN & \nInVthreeMofThreeN & \nInVtwoMofThreeFh & \nInVthreeMofThreeFh \\
+MOF-801 & \nInVtwoMofEightQ & \nInVtwoMofEightDH & \nInVtwoMofEightStep & \nInVtwoMofEightN & \nInVthreeMofEightN & \nInVtwoMofEightFh & \nInVthreeMofEightFh \\
+CAU-10-H & \nInVtwoCauQ & \nInVtwoCauDH & \nInVtwoCauStep & \nInVtwoCauN & \nInVthreeCauN & \nInVtwoCauFh & \nInVthreeCauFh \\
+aluminium fumarate & \nInVtwoAlfQ & \nInVtwoAlfDH & \nInVtwoAlfStep & \nInVtwoAlfN & \nInVthreeAlfN & \nInVtwoAlfFh & \nInVthreeAlfFh \\
+MIL-160(Al) & \nInVtwoMilQ & \nInVtwoMilDH & \nInVtwoMilStep & \nInVtwoMilN & \nInVthreeMilN & \nInVtwoMilFh & \nInVthreeMilFh \\
+Co\(_2\)Cl\(_2\)(BTDD) & \nInVtwoCoQ & \nInVtwoCoDH & \nInVtwoCoStep & \nInVtwoCoN & \nInVthreeCoN & \nInVtwoCoFh & \nInVthreeCoFh \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[!tbp]
 \centering

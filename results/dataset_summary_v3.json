@@ -1,0 +1,52 @@
+{
+  "root": "data/parametric_v3",
+  "design": "v3",
+  "n_samples": 1719,
+  "n_materials": 120,
+  "n_conditions": 17,
+  "n_rejected": 321,
+  "n_held_out_materials": 23,
+  "split_counts": {
+    "train": 1228,
+    "novel_condition": 166,
+    "novel_material": 325
+  },
+  "band": [
+    5.0,
+    60.0
+  ],
+  "damkohler_source": "recorded per sample in the manifest",
+  "frac_above_band_per_sample": 0.2606166375799884,
+  "damkohler_per_sample": {
+    "denominator": "one value per SAMPLE",
+    "n": 1719,
+    "min": 4.224950399163883,
+    "median": 30.87508784471561,
+    "max": 1403.1117604419187,
+    "decades": 2.521270650056507,
+    "frac_in_band": 0.731239092495637
+  },
+  "damkohler_per_material": {
+    "denominator": "the MEDIAN over each material's own samples, one value per MATERIAL -- this is the axis L6's slope test regresses on",
+    "n": 118,
+    "min": 6.466229046969747,
+    "median": 29.26915537977267,
+    "max": 405.93640082015366,
+    "decades": 1.7978069126470135,
+    "frac_in_band": 0.7966101694915254
+  },
+  "note": "The two Damkohler summaries are different quantities, not a discrepancy. Any document quoting either must name its denominator.",
+  "damkohler_floor": {
+    "_why": "Da = k_LDF * t_final and k_LDF ~ 1/R_p^2 via Glueckauf, so Da ~ d_p^-2 at otherwise fixed conditions.",
+    "lowest_Da_sample": {
+      "Da": 4.224950399163883,
+      "d_p_m": 0.004723799905739725,
+      "k_LDF": 0.0004119646356071976
+    },
+    "d_p_sampled_min_m": 0.0015175301120616497,
+    "d_p_sampled_max_m": 0.004990553402807563,
+    "d_p_for_Da_unity_mm": 9.709621498249865,
+    "pellets_across_bed_at_that_d_p": 10.2990626378201,
+    "bed_length_m": 0.1
+  }
+}

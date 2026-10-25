@@ -50,35 +50,37 @@ the axis after the result.
 
 \begin{table}[t]
 \centering
-\caption{The parameter space of the larger dataset. A ``material'' here is the upper
-block: an idealised framework pellet described by its isotherm (capacity, step
-position, step steepness, the fraction of capacity on the low-humidity sites, heat)
-and by pellet size, density and packing. Capacity \nDcQmaxLo--\nDcQmaxHi\,mol\,kg\(^{-1}\)
-is \nDcQmaxGgLo--\nDcQmaxGgHi\,g of water per g. The step is re-anchored at each feed
-temperature so that it sits at the stated relative humidity, so one material's
-isotherm is not the same curve at every condition. All eleven parameters are sampled by
-scrambled Sobol and mapped linearly; every surrogate except rung L6 receives exactly
-these values, standardised on its own fitting set, and L6 receives observable
-descriptors instead.}
+\caption{The parameter spaces of the smooth (v2) and MOF-like (v3) designs. A ``material''
+here is the upper block: an idealised framework pellet described by its isotherm
+(capacity, step position, step steepness, the fraction of capacity on the low-humidity
+sites and, in v3, their affinity relative to the step sites, heat) and by pellet size,
+density and packing. Capacity \nDcQmaxLo--\nDcQmaxHi\,mol\,kg\(^{-1}\) is
+\nDcQmaxGgLo--\nDcQmaxGgHi\,g of water per g. The step is re-anchored at each feed
+temperature so that it sits at the stated relative humidity, so one material's isotherm
+is not the same curve at every condition. All parameters are sampled by scrambled Sobol
+and mapped linearly; both designs use the same operating conditions. Every surrogate
+except rung L6 receives exactly these values, standardised on its own fitting set, and L6
+receives observable descriptors instead.}
 \label{s2:tab:params}
-\begin{tabular}{llll}
+\begin{tabular}{lllll}
 \toprule
-parameter & symbol & units & range \\
+parameter & symbol & units & smooth (v2) & MOF-like (v3) \\
 \midrule
-\multicolumn{4}{l}{\emph{material}} \\
-saturation capacity & \(q_{\max}\) & mol\,kg\(^{-1}\) & \nDcQmaxLo--\nDcQmaxHi \\
-heat of adsorption & \(\Delta H\) & kJ\,mol\(^{-1}\) & \nDcDHLo\ to \nDcDHHi \\
-step position (relative humidity) & \(\mathrm{RH}_{\mathrm{step}}\) & -- & \nDcStepLo--\nDcStepHi \\
-cooperativity exponent & \(n\) & -- & \nDcNexpLo--\nDcNexpHi \\
-Henry-site fraction & \(f_H\) & -- & \nDcFhLo--\nDcFhHi \\
-particle diameter & \(d_p\) & mm & \nDcDpLo--\nDcDpHi \\
-particle density & \(\rho_p\) & kg\,m\(^{-3}\) & \nDcRhopLo--\nDcRhopHi \\
-bed porosity & \(\varepsilon_t\) & -- & \nDcEpsLo--\nDcEpsHi \\
+\multicolumn{5}{l}{\emph{material}} \\
+saturation capacity & \(q_{\max}\) & mol\,kg\(^{-1}\) & \nDcQmaxLo--\nDcQmaxHi & \nVtQmaxLo--\nVtQmaxHi \\
+heat of adsorption & \(\Delta H\) & kJ\,mol\(^{-1}\) & \nDcDHLo\ to \nDcDHHi & \nVtDHLo\ to \nVtDHHi \\
+step position (relative humidity) & \(\mathrm{RH}_{\mathrm{step}}\) & -- & \nDcStepLo--\nDcStepHi & \nVtStepLo--\nVtStepHi \\
+cooperativity exponent & \(n\) & -- & \nDcNexpLo--\nDcNexpHi & \nVtNexpLo--\nVtNexpHi \\
+Henry-site fraction & \(f_H\) & -- & \nDcFhLo--\nDcFhHi & \nVtFhLo--\nVtFhHi \\
+primary-site affinity & \(\log_{10}(b_H/b_C)\) & -- & fixed at \(-\log_{10}\nDcBH\) & \nVtAffLo\ to \nVtAffHi \\
+particle diameter & \(d_p\) & mm & \nDcDpLo--\nDcDpHi & \nVtDpLo--\nVtDpHi \\
+particle density & \(\rho_p\) & kg\,m\(^{-3}\) & \nDcRhopLo--\nDcRhopHi & \nVtRhopLo--\nVtRhopHi \\
+bed porosity & \(\varepsilon_t\) & -- & \nDcEpsLo--\nDcEpsHi & \nVtEpsLo--\nVtEpsHi \\
 \midrule
-\multicolumn{4}{l}{\emph{operating condition}} \\
-feed relative humidity & \(\mathrm{RH}_{\mathrm{feed}}\) & -- & \nDcRHLo--\nDcRHHi \\
-superficial velocity & \(v\) & m\,s\(^{-1}\) & \nDcVLo--\nDcVHi \\
-feed temperature & \(T_{\mathrm{in}}\) & K & \nDcTinLo--\nDcTinHi \\
+\multicolumn{5}{l}{\emph{operating condition (both designs)}} \\
+feed relative humidity & \(\mathrm{RH}_{\mathrm{feed}}\) & -- & \multicolumn{2}{l}{\nDcRHLo--\nDcRHHi} \\
+superficial velocity & \(v\) & m\,s\(^{-1}\) & \multicolumn{2}{l}{\nDcVLo--\nDcVHi} \\
+feed temperature & \(T_{\mathrm{in}}\) & K & \multicolumn{2}{l}{\nDcTinLo--\nDcTinHi} \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -1,12 +1,5 @@
 [
  {
-  "key": "uced basis can fail there for [two] reasons: the basis cannot rep",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two failure modes of a reduced-basis surrogate, a logical dichotomy",
-  "line_at_review": 9
- },
- {
   "key": "surrogate can fail in exactly [two] ways: the",
   "word": "two",
   "class": "PROSE",
@@ -21,25 +14,11 @@
   "line_at_review": 57
  },
  {
-  "key": "oefficients. We measure which [one] limits accuracy for a",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 11
- },
- {
   "key": ". Which [one] limits accuracy decides where",
   "word": "one",
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 59
- },
- {
-  "key": "blished breakthrough curve. [Seven] explanations",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the number of pre-registered rungs, fixed by the protocol",
-  "line_at_review": 13
  },
  {
   "key": "real harvesting frameworks. [Seven] candidate explanations of the",
@@ -63,20 +42,6 @@
   "line_at_review": 250
  },
  {
-  "key": " [Three] questions organise the paper.",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 76
- },
- {
-  "key": "aterials correctly, including [six] published water-harvesting",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 78
- },
- {
   "key": "{ [Six] published frameworks}",
   "word": "Six",
   "class": "DESIGN",
@@ -84,25 +49,11 @@
   "line_at_review": 382
  },
  {
-  "key": "extrapolation for [six] materials only. The model des",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 413
- },
- {
   "key": "flux conditions at the inlet, [zero] gradients at the outlet and a",
   "word": "zero",
   "class": "PROSE",
   "reason": "a boundary-condition type",
   "line_at_review": 103
- },
- {
-  "key": "truction follows Do and Do . [One] choice",
-  "word": "One",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 124
  },
  {
   "key": "isolating [one] term (an inert tracer against",
@@ -133,29 +84,8 @@
   "line_at_review": 164
  },
  {
-  "key": "nce (Table~S1). A material is [eight] numbers: capacity, heat of",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "the eight material parameters of the design",
-  "line_at_review": 180
- },
- {
-  "key": "240 materials are split into [five] folds; each surrogate is",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "fold count fixed by the design",
-  "line_at_review": 187
- },
- {
   "key": "asis and scalers included, on [four] folds and scored on the fifth",
   "word": "four",
-  "class": "DESIGN",
-  "reason": "fold count fixed by the design",
-  "line_at_review": 188
- },
- {
-  "key": "four folds and scored on the [fifth] , so every",
-  "word": "fifth",
   "class": "DESIGN",
   "reason": "fold count fixed by the design",
   "line_at_review": 188
@@ -173,13 +103,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 202
- },
- {
-  "key": " [two] additions made for this revis",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two pre-registered additions B1 and B2",
-  "line_at_review": 219
  },
  {
   "key": " [Three] early comparisons (rungs L3 a",
@@ -217,151 +140,11 @@
   "line_at_review": 299
  },
  {
-  "key": "240-material design. {A}~The [two] terms",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two terms of eq. (split)",
-  "line_at_review": 309
- },
- {
   "key": "e's error splits exactly into [two] orthogonal parts,",
   "word": "two",
   "class": "PROSE",
   "reason": "the two terms of eq. (split)",
   "line_at_review": 318
- },
- {
-  "key": "is therefore the ratio of the [two] terms, and",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two terms of eq. (split)",
-  "line_at_review": 336
- },
- {
-  "key": "very basis size (Fig.~ A). At [eight] modes it",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "basis size p = 8, an axis value",
-  "line_at_review": 330
- },
- {
-  "key": "(Fig.~ B). At [eight] modes DeepONet is only",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "basis size p = 8, an axis value",
-  "line_at_review": 339
- },
- {
-  "key": "is \\( \\) the basis error at [eight] modes and",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "basis size p = 8, an axis value",
-  "line_at_review": 16
- },
- {
-  "key": "es are counted at the cost of [one] production solve, never",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "unit cost definition",
-  "line_at_review": 360
- },
- {
-  "key": "each training simulation as [one] production solve, the best su",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "unit cost definition",
-  "line_at_review": 364
- },
- {
-  "key": "the [two] , lowers that to about . Both",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 367
- },
- {
-  "key": "lve. The balance can turn for [two] - or",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "two- or three-dimensional models",
-  "line_at_review": 369
- },
- {
-  "key": "ot counted. A screen of a few [thousand] candidates on this column is",
-  "word": "thousand",
-  "class": "PROSE",
-  "reason": "order-of-magnitude scale of a screen, compared with the break-even macros in the same paragraph",
-  "line_at_review": 368
- },
- {
-  "key": "and, for screens below a few [thousand] candidates,",
-  "word": "thousand",
-  "class": "PROSE",
-  "reason": "order-of-magnitude scale of a screen, compared with the break-even macros",
-  "line_at_review": 431
- },
- {
-  "key": "{The error budget} [Three] error levels sit side by side",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 395
- },
- {
-  "key": "als only. The model describes [one] adsorption step from a clean",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 413
- },
- {
-  "key": "bed, near equilibrium, in [one] dimension, with no desorption",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 414
- },
- {
-  "key": "better; on [six] published frameworks they fai",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 23
- },
- {
-  "key": "yout. {C}~Field error on the [six] named frameworks (blue, DeepO",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 387
- },
- {
-  "key": "adsorbents, [six] water-harvesting frameworks w",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 421
- },
- {
-  "key": "error (nRMSE of \\(c\\), \\%) on [six] named frameworks, with the pa",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 435
- },
- {
-  "key": "ondition, DeepONet orders the [six] frameworks with a mean Kendal",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 465
- },
- {
-  "key": "and true [half] -breakthrough time, ranking th",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "half-breakthrough time, a defined quantity (t50)",
-  "line_at_review": 384
  },
  {
   "key": "e held-out materials by their [half] -breakthrough time",
@@ -371,25 +154,11 @@
   "line_at_review": 394
  },
  {
-  "key": "largest in the table, yet its [half] -breakthrough time is off by o",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "half-breakthrough time, a defined quantity (t50)",
-  "line_at_review": 463
- },
- {
   "key": "hich the outlet first reaches [half] the feed concentration, and",
   "word": "half",
   "class": "DESIGN",
   "reason": "the 50 % crossing that defines t50",
   "line_at_review": 395
- },
- {
-  "key": "condition (small points, [one] per condition), with the mean",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "one point per condition, figure description",
-  "line_at_review": 385
  },
  {
   "key": "the share of the true top [tenth] that the arm also places in i",
@@ -406,31 +175,374 @@
   "line_at_review": 397
  },
  {
-  "key": "dering candidates; ranking by [one] scalar is an easier task than",
-  "word": "one",
+  "key": "measure which of the [two] limits accuracy for a verifie",
+  "word": "two",
   "class": "PROSE",
-  "reason": "grammar",
-  "line_at_review": 407
+  "reason": "the two failure modes, a logical dichotomy",
+  "line_at_review": 10
  },
  {
-  "key": "than it: per [hundred] true top candidates, DeepONet",
-  "word": "hundred",
-  "class": "PROSE",
-  "reason": "unit conversion of a recall difference to candidates per hundred",
-  "line_at_review": 410
- },
- {
-  "key": "in the [five] -fold test ( \\,\\% for DeepONet",
-  "word": "five",
+  "key": "water uptake, on [two] pre-registered designs: \\ ma",
+  "word": "two",
   "class": "DESIGN",
-  "reason": "fold count fixed by the design",
-  "line_at_review": 430
+  "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
+  "line_at_review": 11
  },
  {
-  "key": "tests [six] real frameworks, of which onl",
+  "key": "The [two] designs differ in how strongl",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
+  "line_at_review": 128
+ },
+ {
+  "key": "enclose [six] published frameworks. On held",
   "word": "six",
   "class": "DESIGN",
   "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 194
+  "line_at_review": 13
+ },
+ {
+  "key": "seed; trained with them, all [six] frameworks are predicted",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 22
+ },
+ {
+  "key": "aterials correctly, including [six] published water-harvesting fr",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 81
+ },
+ {
+  "key": "so that its box encloses all [six] named",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 138
+ },
+ {
+  "key": "Section~ tests [six] real frameworks, which lie pa",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 204
+ },
+ {
+  "key": "layout. {C}~Field error on [six] named frameworks with surroga",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 425
+ },
+ {
+  "key": " [six] water-harvesting frameworks w",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 476
+ },
+ {
+  "key": "error (nRMSE of \\(c\\), \\%) on [six] named frameworks. Smooth desi",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 493
+ },
+ {
+  "key": "condition DeepONet orders the [six] frameworks with a mean Kendal",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 527
+ },
+ {
+  "key": "surrogates predict \\ [six] frameworks within their held-",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 531
+ },
+ {
+  "key": "s \\,\\%, and its order of the [six] ",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 533
+ },
+ {
+  "key": "test probes extrapolation for [six] materials only. The model des",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 565
+ },
+ {
+  "key": "with them, they predict all [six] named frameworks within their",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 594
+ },
+ {
+  "key": "and legacy designs and of the [six] named frameworks, their manif",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 614
+ },
+ {
+  "key": "nce (Table~S1). A material is [eight] numbers: capacity, heat",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "the eight material parameters of the design",
+  "line_at_review": 188
+ },
+ {
+  "key": "the materials are split into [five] folds; each",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 199
+ },
+ {
+  "key": "four folds and scored on the [fifth] , so",
+  "word": "fifth",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 200
+ },
+ {
+  "key": "'s per-material errors in the [five] -fold test",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "fold count fixed by the design",
+  "line_at_review": 487
+ },
+ {
+  "key": "nd wholly inside the MOF-like [one] .",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 205
+ },
+ {
+  "key": "were added after the original [seven] explanations; each was",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs",
+  "line_at_review": 234
+ },
+ {
+  "key": "boosting: the [two] terms of equation~ , measured",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of eq. (split)",
+  "line_at_review": 327
+ },
+ {
+  "key": "e share, not the ratio of the [two] terms, which grows without",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two terms of eq. (split)",
+  "line_at_review": 366
+ },
+ {
+  "key": "ap dominates'' needs at least [half] at every basis",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "the registered verdict threshold (share >= 1/2), PREREG_DD_V3",
+  "line_at_review": 332
+ },
+ {
+  "key": "nates} if it carries at least [half] of the squared error,",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "the registered verdict threshold (share >= 1/2), PREREG_DD_V3",
+  "line_at_review": 357
+ },
+ {
+  "key": "wer end of its interval above [one] half, at every basis size fro",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the registered verdict threshold (share >= 1/2), PREREG_DD_V3",
+  "line_at_review": 358
+ },
+ {
+  "key": "end of its interval above one [half] , at every basis size from 16",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "the registered verdict threshold (share >= 1/2), PREREG_DD_V3",
+  "line_at_review": 358
+ },
+ {
+  "key": "h models on both designs; all [four] registered verdicts agree",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "two models x two designs, the verdicts PREREG_DD_V3 registers",
+  "line_at_review": 360
+ },
+ {
+  "key": "\\,\\% of the squared error at [eight] modes and \\,\\% at",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 362
+ },
+ {
+  "key": "\\( \\) (to \\,\\% at [eight] modes), yet the map still car",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 368
+ },
+ {
+  "key": " [sixteen] ; the floor keeps falling, to",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "basis size p = 16, an axis value",
+  "line_at_review": 363
+ },
+ {
+  "key": "\\,\\% at [sixteen] . For DeepONet against its own",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "basis size p = 16, an axis value",
+  "line_at_review": 369
+ },
+ {
+  "key": "is not the active [one] here.",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 384
+ },
+ {
+  "key": " [zero] . For this column the stakes a",
+  "word": "zero",
+  "class": "PROSE",
+  "reason": "a bound: the surrogate's query cost set to zero favours it",
+  "line_at_review": 406
+ },
+ {
+  "key": "ely. The balance can turn for [two] - or",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "two- or three-dimensional models",
+  "line_at_review": 408
+ },
+ {
+  "key": "between predicted and true [half] -breakthrough time, ranking th",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 421
+ },
+ {
+  "key": "art again: on -H, DeepONet's [half] -breakthrough time is off by a",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 525
+ },
+ {
+  "key": "ed that solver reproduces the [half] -breakthrough time but not the",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 545
+ },
+ {
+  "key": "the [half] -breakthrough time of one step",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 568
+ },
+ {
+  "key": "ting condition (small points, [one] per condition), with the mean",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "one point per condition, figure description",
+  "line_at_review": 422
+ },
+ {
+  "key": "n, and the vertical bars span [three] ",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three training seeds (42, 43, 44)",
+  "line_at_review": 426
+ },
+ {
+  "key": "red test, with the range over [three] seeds",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three training seeds (42, 43, 44)",
+  "line_at_review": 495
+ },
+ {
+  "key": "old only narrowly. Ranking by [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 446
+ },
+ {
+  "key": "nificantly worse than it; per [hundred] true top candidates, DeepONet",
+  "word": "hundred",
+  "class": "PROSE",
+  "reason": "unit conversion of a recall difference to candidates per hundred",
+  "line_at_review": 449
+ },
+ {
+  "key": "\\ more (paired intervals). [Two] further training seeds leave",
+  "word": "Two",
+  "class": "DESIGN",
+  "reason": "seeds 43 and 44 of the robustness check",
+  "line_at_review": 451
+ },
+ {
+  "key": "on [half] as many materials, but the sm",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "120 against 240 sampled materials, fixed by the two designs",
+  "line_at_review": 459
+ },
+ {
+  "key": "gives these [two] frameworks \\(n = \\) and \\( \\",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 523
+ },
+ {
+  "key": "als only. The model describes [one] adsorption step",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 565
+ },
+ {
+  "key": "ean bed, near equilibrium, in [one] dimension, with no desorption",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 566
+ },
+ {
+  "key": "the half-breakthrough time of [one] step is a column quantity, no",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar or structural usage (reviewed 2026-10-26)",
+  "line_at_review": 568
+ },
+ {
+  "key": "and the MOF-like design uses [one] training seed except for Deep",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the registered seed count of PREREG_DD_V3",
+  "line_at_review": 574
  }
 ]

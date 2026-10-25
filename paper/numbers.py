@@ -894,6 +894,136 @@ SPEC = [
      lambda d: f"{sum(r['coarse']['n_failed'] for r in d.values()):d}"),
     ("FwNcellsFailed", "results/dd_b2_frameworks.json", "cells",
      lambda d: f"{sum(1 for c in d.values() if not c['ok']):d}"),
+] + [
+    # ---------------- PREREG_DD_V3 (frozen 24e72e6): shares of SQUARED error carried by the map
+    (f"Sh{m_tag}{d_tag}{p_tag}", "results/dd_v3_verdict.json", f"split.{d}.{m}.by_p.{p}.share_map",
+     lambda x: f"{100 * x:.1f}")
+    for m_tag, m in (("Hgb", "hgb"), ("Don", "deeponet_own_floor"))
+    for d_tag, d in (("Vtwo", "v2"), ("Vthree", "v3"))
+    for p_tag, p in (("Eight", "8"), ("Sixteen", "16"), ("High", "128"))
+    if not (m == "deeponet_own_floor" and d == "v2" and p != "16")      # v2 p8/p128: added when run
+] + [
+    (f"ShDon{d_tag}SixteenLo", "results/dd_v3_verdict.json", f"split.{d}.deeponet_own_floor.by_p.16.ci[0]",
+     lambda x: f"{100 * x:.1f}") for d_tag, d in (("Vtwo", "v2"), ("Vthree", "v3"))
+] + [
+    ("ShMin", "results/dd_v3_verdict.json", "split",       # smallest map share at p >= 16, any model or design
+     lambda s: f"{100 * min(r['share_map'] for d in s.values() for m in d.values() for p, r in m['by_p'].items() if int(p) >= 16):.1f}"),
+    ("ShVerdicts", "results/dd_v3_verdict.json", "split",  # the four pre-registered verdicts must agree
+     lambda s: "all" if all(m["verdict"] == "the map dominates" for d in s.values() for m in d.values()) else "NOT ALL"),
+    ("DonVthreeTotalSixteen", "results/dd_v3_verdict.json", "split.v3.deeponet_own_floor.by_p.16.mean_total",
+     lambda x: f"{100 * x:.1f}"),
+    ("DonVthreeFloorSixteen", "results/dd_v3_verdict.json", "split.v3.deeponet_own_floor.by_p.16.mean_floor",
+     lambda x: f"{100 * x:.2f}"),
+    ("DonVthreeTotalHigh", "results/dd_v3_verdict.json", "split.v3.deeponet_own_floor.by_p.128.mean_total",
+     lambda x: f"{100 * x:.1f}"),
+    ("DonVtwoTotalSixteen", "results/dd_v3_verdict.json", "split.v2.deeponet_own_floor.by_p.16.mean_total",
+     lambda x: f"{100 * x:.2f}"),
+    ("DonVtwoFloorSixteen", "results/dd_v3_verdict.json", "split.v2.deeponet_own_floor.by_p.16.mean_floor",
+     lambda x: f"{100 * x:.2f}"),
+    ("HgbVthreeFloorEight", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.8.mean_floor", lambda x: f"{100 * x:.1f}"),
+    ("HgbVtwoFloorHigh", "results/dd_v3_verdict.json", "split.v2.hgb.by_p.128.mean_floor", lambda x: f"{100 * x:.3f}"),
+    ("HgbVthreeFloorHigh", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.128.mean_floor", lambda x: f"{100 * x:.2f}"),
+    ("HgbVthreeTotal", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.16.mean_total", lambda x: f"{100 * x:.1f}"),
+    # zero-solve baseline and the horizon leak (V5; ledger B85)
+    ("BaseVtwoSp", "results/dd_v3_verdict.json", "baseline_tstoich.v2.t_stoich.spearman_mean", "{:.2f}"),
+    ("BaseVtwoRc", "results/dd_v3_verdict.json", "baseline_tstoich.v2.t_stoich.top10_recall_mean",
+     lambda x: f"{100 * x:.0f}"),
+    ("BaseVthreeSp", "results/dd_v3_verdict.json", "baseline_tstoich.v3.t_stoich.spearman_mean", "{:.2f}"),
+    ("BaseVthreeRc", "results/dd_v3_verdict.json", "baseline_tstoich.v3.t_stoich.top10_recall_mean",
+     lambda x: f"{100 * x:.0f}"),
+    ("LeakVtwoSp", "results/dd_v3_verdict.json", "baseline_tstoich.v2.t_final_leak_check.spearman_mean", "{:.2f}"),
+    ("LeakVthreeSp", "results/dd_v3_verdict.json", "baseline_tstoich.v3.t_final_leak_check.spearman_mean", "{:.2f}"),
+    ("ExtVtwoPct", "results/dd_v3_verdict.json", "baseline_tstoich.v2.frac_horizon_extended", lambda x: f"{100 * x:.0f}"),
+    # absolute costs on v2 (ledger B87)
+    ("CostProdS", "results/dd_v3_verdict.json", "cost_v2.t_prod_s", "{:.1f}"),
+    ("CostCoarseS", "results/dd_v3_verdict.json", "cost_v2.t_coarse50_s", "{:.2f}"),
+    ("CostCoarseHundredS", "results/dd_v3_verdict.json", "cost_v2.t_coarse100_s", "{:.2f}"),
+    ("CostCoarseHundredErr", "results/dd_v3_verdict.json", "cost_v2.nrmse_coarse100", lambda x: f"{100 * x:.2f}"),
+    ("CostFitS", "results/dd_v3_verdict.json", "cost_v2.deeponet_fit_s", lambda x: f"{round(x, -1):,.0f}"),
+    ("CostFitSolves", "results/dd_v3_verdict.json", "cost_v2.deeponet_fit_in_solves", lambda x: f"{round(x, -1):,.0f}"),
+    ("CostTrainCpuH", "results/dd_v3_verdict.json", "cost_v2.training_cpu_h", "{:.1f}"),
+    ("CostBeFit", "results/dd_v3_verdict.json", "cost_v2.break_even_with_fit", lambda x: f"{round(x, -3):,.0f}"),
+    # B1 on v3 (V4)
+    ("ScrVthreeDonSp", "results/dd_additions_verdict_v3.json", "b1.don.spearman_mean", "{:.2f}"),
+    ("ScrVthreeDonSpLo", "results/dd_additions_verdict_v3.json", "b1.don.spearman_ci[0]", "{:.2f}"),
+    ("ScrVthreeDonSpHi", "results/dd_additions_verdict_v3.json", "b1.don.spearman_ci[1]", "{:.2f}"),
+    ("ScrVthreeDonRc", "results/dd_additions_verdict_v3.json", "b1.don.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeDonRcLo", "results/dd_additions_verdict_v3.json", "b1.don.top10_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeDonRcHi", "results/dd_additions_verdict_v3.json", "b1.don.top10_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeHgbSp", "results/dd_additions_verdict_v3.json", "b1.hgb.spearman_mean", "{:.2f}"),
+    ("ScrVthreeHgbSpLo", "results/dd_additions_verdict_v3.json", "b1.hgb.spearman_ci[0]", "{:.2f}"),
+    ("ScrVthreeHgbSpHi", "results/dd_additions_verdict_v3.json", "b1.hgb.spearman_ci[1]", "{:.2f}"),
+    ("ScrVthreeHgbRc", "results/dd_additions_verdict_v3.json", "b1.hgb.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeHgbRcLo", "results/dd_additions_verdict_v3.json", "b1.hgb.top10_recall_ci[0]", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeHgbRcHi", "results/dd_additions_verdict_v3.json", "b1.hgb.top10_recall_ci[1]", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeCoSp", "results/dd_additions_verdict_v3.json", "b1.coarse.spearman_mean", "{:.4f}"),
+    ("ScrVthreeCoRc", "results/dd_additions_verdict_v3.json", "b1.coarse.top10_recall_mean", lambda x: f"{100 * x:.0f}"),
+    ("ScrVthreeDonNr", "results/dd_additions_verdict_v3.json", "b1.don.field_nrmse_mean", lambda x: f"{100 * x:.1f}"),
+    ("ScrVthreeHgbNr", "results/dd_additions_verdict_v3.json", "b1.hgb.field_nrmse_mean", lambda x: f"{100 * x:.1f}"),
+    ("ScrVthreeCoNr", "results/dd_additions_verdict_v3.json", "b1.coarse.field_nrmse_mean", lambda x: f"{100 * x:.2f}"),
+    ("ScrDonMinusCoLo", "results/dd_additions_verdict.json", "b1.don.arm_minus_coarse_nrmse_ci[0]", lambda x: f"{100 * x:.2f}"),
+    ("ScrDonMinusCoHi", "results/dd_additions_verdict.json", "b1.don.arm_minus_coarse_nrmse_ci[1]", lambda x: f"{100 * x:.2f}"),
+    # B2 rule applied inside the v3 box (V6)
+    ("FwVthreeDonPninetyfive", "results/dd_additions_verdict_v3.json", "b2.p95_heldout_material_nrmse.deeponet_p16",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwVthreeTauDon", "results/dd_additions_verdict_v3.json", "b2.kendall_tau_framework_order.deeponet_p16", "{:.2f}"),
+    ("FwVthreeTauHgb", "results/dd_additions_verdict_v3.json", "b2.kendall_tau_framework_order.hgb_p16", "{:.2f}"),
+    ("FwVthreeAllInside", "results/dd_additions_verdict_v3.json", "b2.frameworks",
+     lambda d: "all" if all(r[a]["inside_heldout_distribution"] for r in d.values() for a in ("hgb_p16", "deeponet_p16"))
+     else "NOT ALL"),
+    ("FwVthreeDonMax", "results/dd_additions_verdict_v3.json", "b2.frameworks",
+     lambda d: f"{100 * max(r['deeponet_p16']['nrmse_c'] for r in d.values()):.1f}"),
+    ("FwVthreeDonCau", "results/dd_additions_verdict_v3.json", "b2.frameworks.CAU-10-H.deeponet_p16.nrmse_c",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwVthreeCoMax", "results/dd_additions_verdict_v3.json", "b2.frameworks",
+     lambda d: f"{100 * max(r['coarse']['nrmse_c'] for r in d.values()):.1f}"),
+    # the v3 dataset
+    ("VthreeNsamples", "results/dataset_summary_v3.json", "n_samples", "{:d}"),
+    ("VthreeNrejected", "results/dataset_summary_v3.json", "n_rejected", "{:d}"),
+    ("VthreeNmat", "results/dd_b1_predictions_v3.json", "folds",      # materials with accepted samples
+     lambda d: f"{len({m for r in d.values() for m in r['material_ids']}):d}"),
+    ("VthreeNmax", "results/dd_v3_verdict.json", "design_v3.isotherm_n[1]", "{:.0f}"),
+    ("VthreeAffLo", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[0]", "{:.1f}"),
+    ("VthreeAffHi", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[1]", "{:.1f}"),
+    ("VthreeAffHiRatio", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[1]",
+     lambda x: f"{10 ** x:.0f}"),
+    ("VthreeQmaxHi", "results/dd_v3_verdict.json", "design_v3.q_max[1]", "{:.0f}"),
+    ("CoFailVtwo", "results/dd_coarse_all.json", "cells",
+     lambda d: f"{sum(1 for c in d.values() if not c.get('accepted')):d}"),
+] + [  # the MOF-like (v3) design box, for the parameter table of S2
+    (f"Vt{tag}{side}", "results/dd_v3_verdict.json", f"design_v3.{key}",
+     (lambda i, sc, fmt: (lambda r: fmt.format(r[i] * sc)))(i, sc, fmt))
+    for tag, key, sc, fmt in (("Qmax", "q_max", 1, "{:g}"), ("DH", "delta_H", 1e-3, "{:g}"),
+                              ("Step", "step_rh", 1, "{:g}"), ("Nexp", "isotherm_n", 1, "{:g}"),
+                              ("Fh", "henry_fraction", 1, "{:g}"), ("Aff", "henry_affinity_log10", 1, "{:g}"),
+                              ("Dp", "d_p", 1e3, "{:g}"), ("Rhop", "rho_p", 1, "{:g}"), ("Eps", "eps_t", 1, "{:g}"))
+    for side, i in (("Lo", 0), ("Hi", 1))
+] + [  # every input of the named frameworks, both rules (S2 table)
+    (f"In{d_tag}{tag}{q_tag}", f"results/dd_b2_frameworks{d_suf}.json", f"frameworks.{fw}.{key}",
+     (lambda sc, fmt: (lambda x: fmt.format(x * sc)))(sc, fmt))
+    for d_tag, d_suf in (("Vtwo", ""), ("Vthree", "_v3"))
+    for tag, fw in (("MofThree", "MOF-303"), ("MofEight", "MOF-801"), ("Cau", "CAU-10-H"),
+                    ("Alf", "Al-fumarate (Basolite A520)"), ("Mil", "MIL-160(Al)"), ("Co", "Co2Cl2(BTDD)"))
+    for q_tag, key, sc, fmt in (("Q", "q_max", 1, "{:.1f}"), ("DH", "delta_H", -1e-3, "{:.1f}"),
+                                ("Step", "step_rh", 1, "{:.3f}"), ("N", "isotherm_n", 1, "{:.1f}"),
+                                ("Fh", "henry_fraction", 1, "{:.2f}"))
+] + [
+    (f"FwVthreeDon{tag}", "results/dd_additions_verdict_v3.json", f"b2.frameworks.{fw}.deeponet_p16.nrmse_c",
+     lambda x: f"{100 * x:.1f}")
+    for tag, fw in (("MofThree", "MOF-303"), ("MofEight", "MOF-801"), ("Alf", "Al-fumarate (Basolite A520)"),
+                    ("Mil", "MIL-160(Al)"), ("Co", "Co2Cl2(BTDD)"))
+] + [
+    # seed robustness (dd_seed_robustness.py; not pre-registered)
+    (f"Seed{tag}{side}", "results/dd_seed_robustness.json", f"summary.b2.deeponet_p16.{fw}.{side.lower()}",
+     lambda x: f"{100 * x:.1f}")
+    for tag, fw in (("Cau", "CAU-10-H"), ("Alf", "Al-fumarate (Basolite A520)"), ("MofThree", "MOF-303"),
+                    ("MofEight", "MOF-801"), ("Mil", "MIL-160(Al)"), ("Co", "Co2Cl2(BTDD)"))
+    for side in ("Min", "Max")
+] + [
+    ("SeedSpMin", "results/dd_seed_robustness.json", "summary.b1",
+     lambda d: f"{min(r['spearman_mean'] for r in d.values()):.3f}"),
+    ("SeedSpMax", "results/dd_seed_robustness.json", "summary.b1",
+     lambda d: f"{max(r['spearman_mean'] for r in d.values()):.3f}"),
 ]
 
 
@@ -903,6 +1033,21 @@ SPEC = [
 # They are derived here rather than in the prose for the same reason every other number
 # is: a ratio typed into LaTeX is a number with no script behind it (B43).
 DERIVED = [
+    # PREREG_DD_V3 / ledger B87: all-sample ratios and the training-size check
+    ("ScrCoRatio", "DeepONet field error over the coarse solve's, all v2 samples (B1)",
+     lambda r: r["ScrDonNr"] / r["ScrCoNr"], "{:.2f}"),
+    ("ScrVthreeCoRatio", "DeepONet field error over the coarse solve's, all v3 samples",
+     lambda r: r["ScrVthreeDonNr"] / r["ScrVthreeCoNr"], "{:.1f}"),
+    ("VthreeOverVtwo", "DeepONet p16 held-out error on v3 over v2 (B1, all samples)",
+     lambda r: r["ScrVthreeDonNr"] / r["ScrDonNr"], "{:.1f}"),
+    ("RidgeOverHgb", "map term of ridge over that of per-mode boosting, v2, p = 8 (l5_mapterm_v2)",
+     lambda r: r["MtRidgeEight"] / r["MtMapEight"], "{:.1f}"),
+    ("HgbOverDon", "POD + boosting field error over DeepONet's, all v2 samples (B1)",
+     lambda r: r["ScrHgbNr"] / r["ScrDonNr"], "{:.1f}"),
+    ("FloorRatioVthree", "POD basis floor at p = 8, MOF-like over smooth design (PREREG_DD_V3 V1)",
+     lambda r: r["HgbVthreeFloorEight"] / r["MtFloorEight"], "{:.1f}"),
+    ("LCHalfFactor", "error increase the v2 learning curve predicts for half the training materials, 2^beta",
+     lambda r: 2.0 ** float(r["LCbeta"]), "{:.2f}"),
     ("MtMapChangePct", "change of the map term (per-mode boosting) from p = 8 to p = 128, % of p = 8",
      lambda r: 100.0 * (r["MtMapHigh"] - r["MtMapEight"]) / r["MtMapEight"], "{:+.1f}"),
     ("LthreeBestKanDiff", "perceptron minus best KAN held-out error (both from audit_l3.py)",
