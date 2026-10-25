@@ -61,17 +61,28 @@ def load_json(p, default=None):
     return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else default
 
 
-def t50_norm(outlet):
-    """First crossing of c/c_in = 0.5 on the outlet curve, linear interpolation, in t/t_final."""
+def t_cross_norm(outlet, level):
+    """First crossing of c/c_in = level on the outlet curve, linear interpolation, in t/t_final."""
     o = np.asarray(outlet, float)
-    above = np.where(o >= 0.5)[0]
+    above = np.where(o >= level)[0]
     if len(above) == 0:
         return float("nan")
     i = int(above[0])
     if i == 0:
         return float(T_GRID[0])
     t0, t1, y0, y1 = T_GRID[i - 1], T_GRID[i], o[i - 1], o[i]
-    return float(t0 + (0.5 - y0) * (t1 - t0) / max(y1 - y0, 1e-12))
+    return float(t0 + (level - y0) * (t1 - t0) / max(y1 - y0, 1e-12))
+
+
+def t50_norm(outlet):
+    """First crossing of c/c_in = 0.5 on the outlet curve, linear interpolation, in t/t_final."""
+    return t_cross_norm(outlet, 0.5)
+
+
+def t90_norm(outlet):
+    """First crossing of c/c_in = 0.9: set by the main (pore-filling) front, not the pre-step
+    wave (PREREG_DD_V3 amendment A1, the capacity-front screening metric)."""
+    return t_cross_norm(outlet, 0.9)
 
 
 # ─────────────────────────────── coarse solves ───────────────────────────────
@@ -95,10 +106,12 @@ def _coarse_one(args):
         cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": ok,
                 "nrmse_c": float(per_variable_nrmse(f, truth)["c"]),
                 "t50_norm": t50_norm(f[0, -1]), "t50_true_norm": t50_norm(truth[0, -1]),
+                "t90_norm": t90_norm(f[0, -1]), "t90_true_norm": t90_norm(truth[0, -1]),
                 "t_final": s["t_final"]}
     except Exception as e:
         cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": False,
                 "failed": f"{type(e).__name__}: {e}", "t50_true_norm": t50_norm(truth[0, -1]),
+                "t90_true_norm": t90_norm(truth[0, -1]),
                 "t_final": s["t_final"]}
     return key, cell
 

@@ -94,3 +94,81 @@ The design size was reduced from 240 to 120 materials because of the pilot's sol
 ## What will not be done
 - No tuning on v3; no change of ranges, settings or thresholds after any v3 result is seen.
 - Any deviation goes in the correction ledger, with its date.
+
+## Amendment A1 (2026-10-26, AFTER the first v3 results and a second internal review)
+Everything above is unchanged. This amendment is written after the first PREREG_DD_V3 results
+were seen (commit c1823b1) and after three second-round internal referee reports. It registers
+corrections and additions before any of their runs. Each is in the correction ledger (B89).
+
+**Why.**
+1. **The own floor did not converge.** In the first runs, `trunk_floor` used L-BFGS: one shared
+   line search over a batch of separable problems, 60 iterations. It returned "floors" above the
+   model's own error for up to 20 % of v2 samples at p = 16, which is impossible for a minimum.
+2. **The registered runs were incomplete.** The verdicts were computed while the chain was still
+   running: v2 p = 128 and v3 p = 16 seed 43 were missing, and the analysis skipped missing cells
+   silently.
+3. **t50 often falls on the pre-step wave.** It can therefore rank materials by their weak sites,
+   not their capacity.
+4. **Two comparisons were confounded.** The v2-to-v3 comparison mixed training-set size, design
+   and framework inputs. The named-framework criterion was relative to each design's own 95th
+   percentile, which differs about fourfold between designs.
+
+**Corrected method (replaces the trunk-floor solver of B, V2).**
+- The floor is solved per sample by batched Levenberg-Marquardt with per-sample damping.
+- It starts from (a) the model's own predicted coefficients, branch(Pz), and (b) least squares on
+  logit(u), and keeps the better result.
+- Only improving steps are accepted, so the floor never exceeds the model's own error.
+- Convergence: relative gradient norm below 3e-5, a relative decrease below 1e-9, or damping at
+  its cap; at most 200 iterations.
+- Reported per cell: the converged fraction, the fraction with floor <= total, and the largest
+  difference between the own-coefficient reconstruction and the model's error (a consistency
+  check).
+- Trained models are saved (`models/`), so floors can be recomputed.
+- Code: `dd_seed_robustness.trunk_floor`, `dd_v3.py deeponet` (writes
+  `results/dd_v3a1_deeponet.json`). The first-attempt file `results/dd_v3_deeponet.json` is kept
+  as the record.
+
+**Runs (all re-run with the corrected solver, settings otherwise as registered above).**
+- **DeepONet.** v2 at p = 8, 16 and 128 (seed 42) and at p = 16 (seeds 43, 44); v3 at
+  p = 8, 16 and 128 (seed 42) and at p = 16 (seed 43).
+- **Material-matched v2 control** (`--control`): DeepONet p = 16, seed 42, on v2. Each fold's
+  training materials are subsampled (rng 20261027 + fold) to the number of materials the same v3
+  fold trains on; the held-out fold is unchanged.
+- **POD + boosting p16** per fold on v2 and v3, now also recording t90 (`dd_v3a1.py hgb90`).
+- **Coarse solve** of every sample of v2 and v3, now also recording t90 (`dd_v3a1.py coarse90`).
+- **Affinity sensitivity of the frameworks** (`dd_v3a1.py fwsens`): the six frameworks under the
+  v3 rule, re-solved with log10(b_H/b_C) = -0.5 and +1.0 instead of the median.
+- **Framework refits** (`dd_v3a1.py fwfit`): both arms refit on all v3 materials at seeds 42, 43
+  and 44, with models saved. Each refit predicts three sets:
+  - the v3-rule frameworks;
+  - the v2-rule frameworks, whose solver truth is unchanged (primary-site affinity
+    log10(1/20)), so this separates design coverage from input changes;
+  - the sensitivity frameworks.
+
+**Analyses (`dd_v3a1_analyse.py`, `results/dd_v3a1_verdict.json`).**
+- **The split verdicts of section C, recomputed from the A1 DeepONet cells at seed 42 for every
+  registered p.** A missing registered cell stops the analysis. Seeds 43 and 44 at p = 16 are
+  reported beside them.
+- **Screening, with t90 (the first crossing of c/c_in = 0.9) as a second metric beside t50.**
+  - Both metrics use the registered thresholds and words.
+  - t50 remains the registered primary; t90 is an amendment and is labelled so.
+  - Also reported: Spearman and recall within each fold, and the tie bias of the material
+    bootstrap (bootstrap mean minus point estimate).
+- **Coarse against surrogate, all samples, under both policies** (failed solves charged; failed
+  solves excluded), on both designs.
+- **Horizon-leak bound.** DeepONet's t50 ranking is re-scored with the horizon multiplier
+  predicted out of fold (gradient-boosted classifier on log t_st and the condition, both
+  solve-free) instead of the true horizon.
+- **Frameworks: absolute errors and absolute and relative t50 errors** for every set and seed,
+  beside the registered relative verdicts.
+- **Physics checks.**
+  - The Damkohler number on the stoichiometric clock, k_LDF t_st, per material.
+  - The ratio of the adsorbed water's heat capacity at saturation to the solid's.
+  - Acceptance of v3 cells by affinity quartile and by n >= 8 against n < 8.
+  - The Monte Carlo standard error of the calibrated test size (400 null simulations).
+
+**What will not be done.**
+- No setting or threshold is tuned on these results.
+- The registered verdicts of section C keep their wording.
+- The t50 screening verdicts of B1 and V4 stand as registered.
+- t90 is reported as an addition, not a replacement.

@@ -69,36 +69,90 @@ def phase_b2():
             print(f"  B2 {key}: framework nRMSE mean {nr.mean():.4f} [{time.time() - t1:.0f}s]", flush=True)
 
 
-def trunk_floor(model, C, U, iters=60, batch=64):
+def trunk_floor(model, C, U, Pz=None, iters=200, tol=1e-9):
     """DeepONet's own basis floor on the c channel: the error left when its trained trunk
     is kept and the coefficients are chosen per sample to fit the TRUE field,
         min_a || u - sigmoid(T a + b0) ||,
     the analogue of the POD projection floor for a basis seen through a sigmoid head.
-    Initialised by least squares on logit(u), refined by L-BFGS. Returns per-sample nRMSE
-    normalised as `score` does, so it is directly comparable with the surrogate's error.
+
+    Each sample is its own least-squares problem, solved by batched Levenberg-Marquardt with a
+    per-sample damping factor (PREREG_DD_V3 amendment A1). Two starts are run and the better
+    kept: the model's OWN predicted coefficients branch(Pz) (so the floor can never exceed the
+    model's error: only improving steps are accepted), and least squares on logit(u). The first
+    version (L-BFGS, one shared line search for a batch of separable problems, 60 iterations)
+    did not converge and returned "floors" above the model's own error for up to a fifth of the
+    samples (ledger B89).
+
+    Returns (floor_nrmse, converged, own_nrmse): per-sample nRMSE normalised as `score` does,
+    whether the relative gradient norm fell below sqrt(tol) or the step stalled, and the error
+    of the model's own coefficients through the same reconstruction (a check: equals the
+    surrogate's error).
     """
     import torch
     with torch.no_grad():
         T = model.trunk(C).view(C.shape[0], 3, model.p)[:, 0, :].double()   # (N, p)
         b0 = float(model.bias[0])
-    out = []
-    for s0 in range(0, len(U), batch):
-        u = torch.as_tensor(U[s0:s0 + batch], dtype=torch.float64)          # (B, N)
-        z = torch.logit(u.clamp(1e-4, 1 - 1e-4)) - b0
-        a = torch.linalg.lstsq(T, z.T).solution.T.clone().requires_grad_(True)  # (B, p)
-        opt = torch.optim.LBFGS([a], max_iter=iters, line_search_fn="strong_wolfe")
+        A_own = None
+        if Pz is not None:
+            Pt = torch.as_tensor(Pz, dtype=torch.float32)
+            A_own = torch.cat([model.branch(Pt[i:i + 256]).view(-1, 3, model.p)[:, 0, :].double()
+                               for i in range(0, len(Pt), 256)])
+    N, p = T.shape
+    batch = max(1, int(2.0e7 // (N * p)))
+    floors, conv, owns = [], [], []
 
-        def closure():
-            opt.zero_grad()
-            loss = ((torch.sigmoid(a @ T.T + b0) - u) ** 2).mean(1).sum()
-            loss.backward()
-            return loss
-        opt.step(closure)
-        with torch.no_grad():
-            rec = torch.sigmoid(a @ T.T + b0)
-            rng = (u.max(1).values - u.min(1).values).clamp_min(1e-12)
-            out.append((((rec - u) ** 2).mean(1).sqrt() / rng).numpy())
-    return np.concatenate(out)
+    def sse(A, u):
+        return ((torch.sigmoid(A @ T.T + b0) - u) ** 2).sum(1)
+
+    def lm(A, u):
+        lam = torch.full((A.shape[0],), 1e-3, dtype=torch.float64)
+        f = sse(A, u)
+        done = torch.zeros(A.shape[0], dtype=torch.bool)
+        eye = torch.eye(p, dtype=torch.float64)
+        for _ in range(iters):
+            s = torch.sigmoid(A @ T.T + b0)
+            w = s * (1 - s)                                            # (B, N)
+            r = s - u
+            g = (w * r) @ T                                           # (B, p)  J^T r
+            H = torch.einsum("bn,np,nq->bpq", w * w, T, T)            # (B, p, p) J^T J
+            gn = g.norm(dim=1) / (f.sqrt() * T.norm() + 1e-30)
+            done |= gn < tol ** 0.5
+            if bool(done.all()):
+                break
+            D = torch.diagonal(H, dim1=1, dim2=2).clamp_min(1e-12)
+            step = torch.linalg.solve(H + lam[:, None, None] * torch.diag_embed(D) + 1e-12 * eye, -g)
+            A_new = A + step
+            f_new = sse(A_new, u)
+            better = (f_new < f) & ~done
+            A = torch.where(better[:, None], A_new, A)
+            rel = (f - f_new) / f.clamp_min(1e-300)
+            done |= better & (rel < tol)                               # converged by stalled decrease
+            f = torch.where(better, f_new, f)
+            lam = torch.where(better, lam * 0.3, lam * 10.0).clamp(1e-12, 1e12)
+            done |= lam >= 1e12                                        # no descent direction left
+        return A, f, done
+
+    for s0 in range(0, len(U), batch):
+        u = torch.as_tensor(U[s0:s0 + batch], dtype=torch.float64)
+        z = torch.logit(u.clamp(1e-4, 1 - 1e-4)) - b0
+        starts = [torch.linalg.lstsq(T, z.T).solution.T.clone()]
+        if A_own is not None:
+            starts.insert(0, A_own[s0:s0 + batch].clone())
+        best_f, best_c = None, None
+        for A0 in starts:
+            _, f, c = lm(A0, u)
+            if best_f is None:
+                best_f, best_c = f, c
+            else:
+                take = f < best_f
+                best_f, best_c = torch.where(take, f, best_f), torch.where(take, c, best_c)
+        rng = (u.max(1).values - u.min(1).values).clamp_min(1e-12)
+        floors.append(((best_f / N).sqrt() / rng).numpy())
+        conv.append(best_c.numpy())
+        if A_own is not None:
+            owns.append(((sse(A_own[s0:s0 + batch], u) / N).sqrt() / rng).numpy())
+    own = np.concatenate(owns) if owns else None
+    return np.concatenate(floors), np.concatenate(conv), own
 
 
 def phase_b1():

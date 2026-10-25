@@ -38,7 +38,8 @@ import time  # noqa: E402
 
 import numpy as np  # noqa: E402
 
-OUT_DON = "results/dd_v3_deeponet.json"
+OUT_DON = "results/dd_v3_deeponet.json"          # first attempt (L-BFGS floor; ledger B89)
+OUT_DON_A1 = "results/dd_v3a1_deeponet.json"    # amendment A1
 OUT_HGB = "results/dd_v3_hgb.json"
 OUT = "results/dd_v3_verdict.json"
 ALPHA, N_BOOT, BOOT_SEED = 0.02, 4000, 20261026
@@ -58,37 +59,66 @@ def phase_folds():
           f"{np.bincount(list(m2f.values())).tolist()}")
 
 
-def phase_deeponet(data, p, seed):
+def phase_deeponet(data, p, seed, control=False):
+    """PREREG_DD_V3 V2 under amendment A1: DeepONet field error, t50 and t90, and its own floor
+    by the converged per-sample solver (dd_seed_robustness.trunk_floor), with the trained model
+    saved so the floor can be recomputed. `control`: the v2 material-matched control of A1 --
+    each fold's training materials are subsampled (rng 20261027) to the number of materials the
+    same v3 fold trains on, and the held-out fold is unchanged."""
+    import torch
     import dd_screening_frameworks as dd
     from dd_seed_robustness import trunk_floor
     from v2_common import assert_disjoint, load_folds, standardise_params, write_atomic
+    from v2_common import ROOT_V2
+    got = json.load(open(os.path.join(ROOT_V2, "manifest.json"))).get("design")
+    if got != data:                                # a partly set environment must not mislabel data
+        raise SystemExit(f"dd_v3: asked for design {data}, but {ROOT_V2} holds design {got}")
     dd.P = p                                       # basis size of fit_deeponet (module constant)
     d, C, Ft = dd.load_v2()                        # reads ADS_DATA_ROOT
     fold_of, n_folds, _ = load_folds(d.material_ids)
     X = d.fields[:, 0].reshape(len(d.fields), -1)
-    res = dd.load_json(OUT_DON, {"_what": "PREREG_DD_V3 V2: DeepONet field error and own trunk floor",
-                                 "cells": {}})
+    res = dd.load_json(OUT_DON_A1, {"_what": "PREREG_DD_V3 amendment A1: DeepONet error, t50/t90, "
+                                             "converged own floor; models in models/", "cells": {}})
+    os.makedirs("models", exist_ok=True)
+    n_train_v3 = None
+    if control:
+        man3 = json.load(open(os.path.join(V3_ROOT, "manifest.json")))
+        m2f3 = {int(k): v for k, v in json.load(open(V3_FOLDS))["material_to_fold"].items()}
+        have3 = {s["mat"] for s in man3["samples"] if s.get("ok", True)}
+        n_train_v3 = {f: sum(1 for m in have3 if m2f3[m] != f) for f in range(5)}
+    tag = f"{data}{'ctl' if control else ''}|p{p}|s{seed}"
     for f in range(n_folds):
-        key = f"{data}|p{p}|s{seed}|f{f}"
+        key = f"{tag}|f{f}"
         if key in res["cells"]:
             continue
         tr, te = np.where(fold_of != f)[0], np.where(fold_of == f)[0]
+        if control:
+            mats = np.unique(d.material_ids[tr])
+            keep = np.random.default_rng(20261027 + f).choice(mats, n_train_v3[f], replace=False)
+            tr = tr[np.isin(d.material_ids[tr], keep)]
         assert_disjoint(tr, te, key)
         Pz = standardise_params(d.params, tr)
         t1 = time.time()
         pred = dd.fit_deeponet(Ft, C, Pz, tr, seed=seed)
-        nr, t50 = dd.score(pred(Pz[te]), X[te])
-        floor = trunk_floor(pred.model, C, X[te])
-        res["cells"][key] = {"data": data, "p": p, "seed": seed, "fold": f,
+        fields = pred(Pz[te])
+        nr, t50 = dd.score(fields, X[te])
+        t90 = [dd.t90_norm(x[-1]) for x in fields.reshape(-1, dd.FIELD_RES, dd.FIELD_RES)]
+        floor, conv, own = trunk_floor(pred.model, C, X[te], Pz=Pz[te])
+        torch.save(pred.model.state_dict(), os.path.join("models", key.replace("|", "_") + ".pt"))
+        res["cells"][key] = {"data": data, "control": control, "p": p, "seed": seed, "fold": f,
+                             "n_train_materials": int(len(np.unique(d.material_ids[tr]))),
                              "material_ids": d.material_ids[te].tolist(),
                              "condition_ids": d.condition_ids[te].tolist(),
                              "t_final": d.t_final[te].tolist(),
                              "t50_true_norm": [dd.t50_norm(x[0, -1]) for x in d.fields[te]],
-                             "nrmse_c": nr.tolist(), "t50_norm": t50, "trunk_floor_c": floor.tolist(),
-                             "secs": time.time() - t1}
-        write_atomic(res, OUT_DON)
-        print(f"  {key}: nRMSE {nr.mean():.4f}, own floor {floor.mean():.5f} [{time.time() - t1:.0f}s]",
-              flush=True)
+                             "t90_true_norm": [dd.t90_norm(x[0, -1]) for x in d.fields[te]],
+                             "nrmse_c": nr.tolist(), "t50_norm": t50, "t90_norm": t90,
+                             "trunk_floor_c": floor.tolist(), "floor_converged": conv.tolist(),
+                             "own_coeff_nrmse_c": own.tolist(), "secs": time.time() - t1}
+        write_atomic(res, OUT_DON_A1)
+        print(f"  {key}: nRMSE {nr.mean():.4f}, own floor {floor.mean():.5f} "
+              f"(converged {conv.mean():.3f}, floor<=total {(floor <= nr + 1e-9).mean():.3f}) "
+              f"[{time.time() - t1:.0f}s]", flush=True)
 
 
 def phase_hgb():
@@ -308,11 +338,12 @@ if __name__ == "__main__":
     ap.add_argument("--data", default="v3", choices=["v2", "v3"])
     ap.add_argument("--p", type=int, default=16)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--control", action="store_true", help="A1 material-matched v2 control")
     a = ap.parse_args()
     if a.phase == "folds":
         phase_folds()
     elif a.phase == "deeponet":
-        phase_deeponet(a.data, a.p, a.seed)
+        phase_deeponet(a.data, a.p, a.seed, control=a.control)
     elif a.phase == "hgb":
         phase_hgb()
     elif a.phase == "frameworks":
