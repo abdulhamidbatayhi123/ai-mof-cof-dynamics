@@ -69,10 +69,30 @@ learning-rate grid; none was left at a default.
 \section{Basis size on the legacy design}
 \label{s2:sec4}
 
+\begin{figure}[!tbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig4_operators.pdf}
+\caption{Basis size on both designs. \textbf{A}~Legacy design (\nNclustLegacy\ held-out
+materials): held-out error of each operator family against basis size \(p\), with the
+basis floor; the Fourier operator has no basis size and is drawn as a level.
+\textbf{B}~Full design (\nNclustFolds\ materials, five folds): DeepONet against \(p\) (one
+faint point per fold, line through the means), the total error of POD with per-mode gradient boosting (basis floor included; the
+map term alone is in the main text, Fig.~\ref{fig:basismap}), and the basis floor. The floor
+falls by orders of magnitude; the total error does not move,
+and DeepONet improves only from \(p = 8\) to \(p = 16\). \textbf{C}~Paired differences
+against \(p = 8\), as a percentage of the error at \(p = 8\): on the legacy design
+(grey) every interval spans zero; on the full design (black) every larger basis is
+better. Per-pair intervals; the \(p = 128\) comparison also survives the
+selection adjustment (A29). DeepOKAN, a DeepONet with Kolmogorov--Arnold layers; FNO,
+Fourier neural operator.}
+\label{s2:fig:operators}
+\end{figure}
+
+
 The legacy result below is retracted as a verdict (A29) and kept as a measurement. At
 matched parameter counts and each family at its own best learning rate over
 \nLfiveNrates\ rates spanning \nLfiveDecades\ decades, DeepONet looked flat in basis
-size (Figure~\ref{fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\),
+size (Figure~\ref{s2:fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\),
 interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero. Stated as what it excludes:
 a sixteenfold increase in basis size could not have improved this arm by more than
 \nLfiveFlatImproveMax\,\% of its error. The larger design found an improvement
@@ -105,7 +125,7 @@ derived from particle size through the Glueckauf relation, so
 bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
 \nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
 one-dimensional plug-flow model is no longer the right description. This is the same
-objection Section~\ref{sec:limitations} raises against our own anchor bed. Decoupling
+objection Section~\ref{sec:discussion} raises against our own anchor bed. Decoupling
 \(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
 physical inconsistency this dataset was built to remove. The null therefore
 holds across the range a physically consistent bed of this kind can occupy, and is
@@ -130,7 +150,7 @@ conservative reading.
 \paragraph{The mode count is scoped to a sample size} An
 earlier version of the paper stated the mode count as a property of the map. It
 is not: it is what a given number of training materials buys. Measured against
-material count (Figure~\ref{fig:mechanism}), modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
+material count (Figure~\ref{fig:basismap}), modes clearing \(R^2 > 0.2\) grow from \nLCmodesSmall\ to
 \nLCmodesLarge\ over 12 to 192 materials and are still climbing. Three counts of
 modes clearing \(R^2 > 0.2\) appear in this paper, and they are the same statistic
 under different conditions: \nLfiveCountModes\ on the legacy design, and
@@ -165,13 +185,13 @@ real and inactive; this paragraph has to hold both statements together.
 \section{Monotonicity of the predicted fronts}
 \label{s2:sec8}
 
-The two-front frame of Section~\ref{sec:warp} predicts two front trajectories per
+The two-front frame of Section~\ref{s2:sec:warp} predicts two front trajectories per
 sample. The obvious first attack on its result is that the front predictor does not know the constraints the true trajectories satisfy exactly.
 It does violate them, in \nWarpNonmonoLo\,\% of samples at the lower landmark, while the true trajectories
 violate them in none. But projecting onto the constraint set changes \(R^2\) by
 at most \nWarpMonoMaxDRtwo{} and makes the reconstruction significantly
 \emph{worse}: \nMonoRawNrmse\ against \nMonoProjNrmse, a difference of
-\nMonoDiff\ with interval [\nMonoLo, \nMonoHi] (tighter than Table~\ref{tab:warp}'s
+\nMonoDiff\ with interval [\nMonoLo, \nMonoHi] (tighter than Table~\ref{s2:tab:warp}'s
 because the projected arm is a deterministic transformation of the raw arm, so the
 between-material variance cancels). The violations are frequent but negligible; the
 remaining headroom is the front predictor's raw accuracy.
