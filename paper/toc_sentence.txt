@@ -1,1 +1,1 @@
-On held-out adsorbents, surrogate error comes from predicting the basis coefficients, not from the basis; for this packed bed a coarse numerical solve is more accurate, ranks candidates better and is cheaper for screens below about 20,000.
+On held-out adsorbents, surrogate error comes from predicting basis coefficients, not from the basis, even for MOF-like isotherms; a coarse solve is more accurate and is the only method that ranks MOF-like materials reliably.
