@@ -230,16 +230,50 @@ def _baseline(root, b1_path):
     man = json.load(open(os.path.join(root, "manifest.json")))
     tst = {(s["mat"], s["cond"]): s["t_stoich"] for s in man["samples"] if s.get("ok", True)}
     b1 = json.load(open(b1_path))
-    rows = [(c, r["t50_true_norm"][i] * r["t_final"][i], tst[(m, c)])
+    rows = [(c, r["t50_true_norm"][i] * r["t_final"][i], tst[(m, c)], r["t_final"][i])
             for r in b1["folds"].values()
             for i, (m, c) in enumerate(zip(r["material_ids"], r["condition_ids"]))]
     a = np.array(rows, float)
-    sp, rc = [], []
-    for c in np.unique(a[:, 0]):
-        j = a[:, 0] == c
-        sp.append(dd.spearman(a[j, 1], a[j, 2])); rc.append(dd.topk_recall(a[j, 1], a[j, 2]))
-    return {"spearman_mean": float(np.nanmean(sp)), "top10_recall_mean": float(np.nanmean(rc)),
-            "n_conditions": int(len(sp))}
+    out = {}
+    # col 2: t_st, the zero-solve baseline (V5). col 3: t_final alone, which measures the size of
+    # the horizon leak of amendment 1 (the stored horizon is 2.5 t_st, extended when breakthrough
+    # was incomplete; a ranking by it uses no surrogate at all)
+    for name, col in (("t_stoich", 2), ("t_final_leak_check", 3)):
+        sp, rc = [], []
+        for c in np.unique(a[:, 0]):
+            j = a[:, 0] == c
+            sp.append(dd.spearman(a[j, 1], a[j, col])); rc.append(dd.topk_recall(a[j, 1], a[j, col]))
+        out[name] = {"spearman_mean": float(np.nanmean(sp)), "top10_recall_mean": float(np.nanmean(rc)),
+                     "n_conditions": int(len(sp))}
+    out["frac_horizon_extended"] = float(np.mean([s.get("horizon_extensions", 0) > 0
+                                                  for s in man["samples"] if s.get("ok", True)]))
+    return out
+
+
+def _cost_v2():
+    """Absolute costs on v2 (reviewers asked for them), all read from results files.
+
+    Break-even of DeepONet p16 against the N_z = 50 coarse solve, counting the training set at
+    production cost AND the fit (B1's measured training time, per fold), against the coarse
+    solve's per-query cost (B-COARSE single-process timing); the surrogate's own query time is
+    neglected, which favours the surrogate.
+    """
+    cb = json.load(open("results/coarse_solver_baseline.json"))["summary"]
+    b1 = json.load(open("results/dd_b1_predictions.json"))["folds"]
+    cv = json.load(open("results/coarse_vs_surrogates.json"))
+    t_prod = float(cb["t_prod_s"])
+    se50, se100 = cb["per_nz"]["50"]["solve_equivalents"], cb["per_nz"]["100"]["solve_equivalents"]
+    fit_s = float(np.mean([r["deeponet_p16"]["secs"] for r in b1.values()]))
+    n_train = float(cv["n_train_sims"]) if not isinstance(cv["n_train_sims"], (list, dict)) else \
+        float(np.mean(list(cv["n_train_sims"].values()) if isinstance(cv["n_train_sims"], dict) else cv["n_train_sims"]))
+    train_solves = n_train + fit_s / t_prod
+    return {"t_prod_s": t_prod, "t_coarse50_s": float(cb["per_nz"]["50"]["mean_wall_s"]),
+            "t_coarse100_s": float(cb["per_nz"]["100"]["mean_wall_s"]),
+            "nrmse_coarse50": float(cb["per_nz"]["50"]["mean_nrmse_c"]),
+            "nrmse_coarse100": float(cb["per_nz"]["100"]["mean_nrmse_c"]),
+            "deeponet_fit_s": fit_s, "deeponet_fit_in_solves": fit_s / t_prod, "n_train_sims": n_train,
+            "training_cpu_h": train_solves * t_prod / 3600.0,
+            "break_even_with_fit": train_solves / se50}
 
 
 def phase_analyse():
@@ -258,6 +292,7 @@ def phase_analyse():
                            ("v3", V3_ROOT, "results/dd_b1_predictions_v3.json")):
         if os.path.exists(b1) and os.path.exists(os.path.join(root, "manifest.json")):
             out["baseline_tstoich"][data] = _baseline(root, b1)
+    out["cost_v2"] = _cost_v2()
     v3 = out["split"].get("v3", {}).get("deeponet_own_floor", {}).get("verdict")
     out["title_condition"] = {"deeponet_own_floor_v3": v3, "title_kept": v3 == "the map dominates"}
     from v2_common import write_atomic
