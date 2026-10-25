@@ -354,9 +354,14 @@ def main():
               f"{', '.join(unused[:8])}{' ...' if len(unused) > 8 else ''})")
 
     if args.pdf:
+        # the author's machine keeps a pinned binary in tools/; anywhere else (a reviewer's
+        # clean clone) any tectonic on PATH does the same job
+        import shutil
         tect = os.path.join(ROOT, "tools", "tectonic.exe")
         if not os.path.exists(tect):
-            print("\n--pdf: tools/tectonic.exe not found (see CONTINUE_HERE); cannot compile.")
+            tect = shutil.which("tectonic")
+        if not tect:
+            print("\n--pdf: no tectonic found (tools/tectonic.exe or on PATH; see REPRODUCE.md).")
             sys.exit(1)
         r = subprocess.run([tect, "--keep-logs", "manuscript.tex"], cwd=os.path.join(ROOT, "paper"),
                            capture_output=True, text=True)
