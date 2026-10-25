@@ -411,7 +411,7 @@ def main():
                                   args.seed, "material_id")
         conditions = sample_design(args.conditions, CONDITION_SPACE,
                                    args.seed + 7, "condition_id")
-        print(f"design v2: scrambled Sobol; k_LDF derived from d_p (Glueckauf)")
+        print(f"design {args.design}: scrambled Sobol; k_LDF derived from d_p (Glueckauf)")
     else:
         materials = [sample_material(rng, i) for i in range(args.materials)]
         conditions = [sample_condition(rng, j) for j in range(args.conditions)]
@@ -504,10 +504,14 @@ def main():
         chunk = tasks[i:i + CHUNK]
         for attempt in range(3):
             try:
-                with ProcessPoolExecutor(max_workers=args.workers) as ex:
-                    futs = [ex.submit(run_one, t) for t in chunk]
-                    for fut in as_completed(futs):
-                        consume(fut.result())
+                # multiprocessing.Pool, not ProcessPoolExecutor: on this machine (Windows,
+                # Python 3.12) the executor's workers died at once with "WinError 6: the
+                # handle is invalid" in its call queue (2026-10-25, design v3), while Pool
+                # runs the same tasks cleanly. Each task's result is unchanged.
+                from multiprocessing import Pool
+                with Pool(args.workers) as pool:
+                    for r in pool.imap_unordered(run_one, chunk):
+                        consume(r)
                 break
             except Exception as e:                      # BrokenProcessPool, OSError, ...
                 print(f"  ! pool failed on chunk {i}-{i+len(chunk)} "

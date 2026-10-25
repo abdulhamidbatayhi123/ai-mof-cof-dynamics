@@ -33,10 +33,11 @@ LR, STEPS, SEED = 3e-3, 24000, 42
 BUDGET, DEPTH, GRIDS, BATCH, NPTS = 200_000, 3, 4, 32, 2048
 NZ_COARSE = 50
 ALPHA, N_BOOT, BOOT_SEED = 0.02, 4000, 20261025
-OUT_COARSE = "results/dd_coarse_all.json"
-OUT_B1 = "results/dd_b1_predictions.json"
-OUT_B2 = "results/dd_b2_frameworks.json"
-OUT_VERDICT = "results/dd_additions_verdict.json"
+_TAG = os.environ.get("DD_TAG", "")          # "_v3" under PREREG_DD_V3; empty for the frozen runs
+OUT_COARSE = f"results/dd_coarse_all{_TAG}.json"
+OUT_B1 = f"results/dd_b1_predictions{_TAG}.json"
+OUT_B2 = f"results/dd_b2_frameworks{_TAG}.json"
+OUT_VERDICT = f"results/dd_additions_verdict{_TAG}.json"
 STORE_NT = 256
 T_GRID = np.linspace(0, STORE_NT - 1, FIELD_RES).astype(int) / (STORE_NT - 1)   # normalised times
 
@@ -269,8 +270,8 @@ def phase_b2solve():
                     "prod_wall_s": time.perf_counter() - t1}
             if r["ok"]:
                 truth = sub(r["fields"], FIELD_RES)
-                np.save(os.path.join("results", "dd_b2_fields", f"{name.split()[0]}_c{cond['condition_id']:04d}.npy"),
-                        truth.astype(np.float32)) if os.path.isdir(os.path.join("results", "dd_b2_fields")) else None
+                np.save(os.path.join("results", f"dd_b2_fields{_TAG}", f"{name.split()[0]}_c{cond['condition_id']:04d}.npy"),
+                        truth.astype(np.float32)) if os.path.isdir(os.path.join("results", f"dd_b2_fields{_TAG}")) else None
                 p = gen.build_physics(m, cond)
                 t2 = time.perf_counter()
                 try:

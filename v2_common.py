@@ -44,8 +44,10 @@ try:
 except Exception:
     pass
 
-ROOT_V2 = "data/parametric_v2"
-FOLDS_FILE = "results/l6_v2_folds.json"
+# PREREG_DD_V3 runs the same code on design v3 by setting these two variables; unset, they
+# are the v2 values every earlier result used.
+ROOT_V2 = os.environ.get("ADS_DATA_ROOT", "data/parametric_v2")
+FOLDS_FILE = os.environ.get("ADS_FOLDS_FILE", "results/l6_v2_folds.json")
 CALIBRATION_FILE = "results/calibration_v2.json"
 FIELD_RES = 128                  # identical to L5 (run_l5.subsample) and L6-v2
 CHANNELS = ("c", "q", "T")

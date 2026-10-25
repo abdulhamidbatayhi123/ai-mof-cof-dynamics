@@ -57,7 +57,7 @@ from v2_common import assert_disjoint, load_folds, write_atomic
 
 NZ_S, NT_S = 128, 128          # identical to run_l5.subsample() and the legacy script
 CHANNEL = 0                    # c
-ROOT = "data/parametric_v2"
+ROOT = os.environ.get("ADS_DATA_ROOT", "data/parametric_v2")   # v3: PREREG_DD_V3
 OUT = "results/l5_bottleneck_v2.json"
 ALPHA = 0.02                   # the v2 five-fold calibrated level (calibration_v2)
 SEEDS = (42, 43, 44)
