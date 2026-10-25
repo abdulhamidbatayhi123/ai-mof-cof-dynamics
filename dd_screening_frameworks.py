@@ -67,39 +67,54 @@ def t50_norm(outlet):
 
 
 # ─────────────────────────────── coarse solves ───────────────────────────────
-def phase_coarse():
+def _coarse_one(args):
+    """One coarse solve; a top-level function so a process pool can run it.
+
+    Wall time is measured inside the worker, so it is the solve's own cost; with several
+    workers the machine is shared, which can only make the coarse route look slower.
+    """
+    s, mat, cond, store_nz, store_nt = args
+    low_priority()
+    key = f"m{s['mat']:04d}_c{s['cond']:04d}"
+    p = gen.build_physics(mat, cond)
+    c_in = gen.rh_to_conc(cond["rh_feed"], cond["T_in"])
+    truth = sub(np.load(os.path.join(ROOT_V2, f"{key}.npy")), FIELD_RES)
+    t1 = time.perf_counter()
+    try:
+        f, exit_ratio = solve_fields(p, c_in, s["t_final"], NZ_COARSE, store_nz, store_nt)
+        f = sub(f, FIELD_RES)
+        ok = exit_ratio >= 0.90 and bool(np.all(np.isfinite(f)))
+        cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": ok,
+                "nrmse_c": float(per_variable_nrmse(f, truth)["c"]),
+                "t50_norm": t50_norm(f[0, -1]), "t50_true_norm": t50_norm(truth[0, -1]),
+                "t_final": s["t_final"]}
+    except Exception as e:
+        cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": False,
+                "failed": f"{type(e).__name__}: {e}", "t50_true_norm": t50_norm(truth[0, -1]),
+                "t_final": s["t_final"]}
+    return key, cell
+
+
+def phase_coarse(workers=4):
+    from multiprocessing import Pool
     man = json.load(open(os.path.join(ROOT_V2, "manifest.json")))
     mats = {m["material_id"]: m for m in man["materials"]}
     conds = {c["condition_id"]: c for c in man["conditions"]}
     res = load_json(OUT_COARSE, {"_what": "N_z=50 coarse solve of every stored v2 sample (B1)", "cells": {}})
-    t_prod = load_json("results/coarse_solver_baseline.json")["summary"]["t_prod_s"]
-    res["t_prod_s"] = t_prod
+    res["t_prod_s"] = load_json("results/coarse_solver_baseline.json")["summary"]["t_prod_s"]
+    res["_timing_note"] = ("wall_s is measured inside each worker; up to %d workers shared the machine, "
+                           "so it is an upper bound on the solve's own cost" % workers)
     samples = [s for s in man["samples"] if s.get("ok", True)
                and os.path.exists(os.path.join(ROOT_V2, f"m{s['mat']:04d}_c{s['cond']:04d}.npy"))]
-    for k, s in enumerate(samples):
-        key = f"m{s['mat']:04d}_c{s['cond']:04d}"
-        if key in res["cells"]:
-            continue
-        p = gen.build_physics(mats[s["mat"]], conds[s["cond"]])
-        c_in = gen.rh_to_conc(conds[s["cond"]]["rh_feed"], conds[s["cond"]]["T_in"])
-        truth = sub(np.load(os.path.join(ROOT_V2, f"{key}.npy")), FIELD_RES)
-        t1 = time.perf_counter()
-        try:
-            f, exit_ratio = solve_fields(p, c_in, s["t_final"], NZ_COARSE, man["store_nz"], man["store_nt"])
-            f = sub(f, FIELD_RES)
-            ok = exit_ratio >= 0.90 and bool(np.all(np.isfinite(f)))
-            cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": ok,
-                    "nrmse_c": float(per_variable_nrmse(f, truth)["c"]),
-                    "t50_norm": t50_norm(f[0, -1]), "t50_true_norm": t50_norm(truth[0, -1]),
-                    "t_final": s["t_final"]}
-        except Exception as e:
-            cell = {"mat": s["mat"], "cond": s["cond"], "wall_s": time.perf_counter() - t1, "accepted": False,
-                    "failed": f"{type(e).__name__}: {e}", "t50_true_norm": t50_norm(truth[0, -1]),
-                    "t_final": s["t_final"]}
-        res["cells"][key] = cell
-        if k % 25 == 0 or k == len(samples) - 1:
-            write_atomic(res, OUT_COARSE)
-            print(f"  coarse {k + 1}/{len(samples)}", flush=True)
+    todo = [(s, mats[s["mat"]], conds[s["cond"]], man["store_nz"], man["store_nt"]) for s in samples
+            if f"m{s['mat']:04d}_c{s['cond']:04d}" not in res["cells"]]
+    print(f"  coarse: {len(samples) - len(todo)} done, {len(todo)} to go, {workers} workers", flush=True)
+    with Pool(workers) as pool:
+        for k, (key, cell) in enumerate(pool.imap_unordered(_coarse_one, todo, chunksize=4)):
+            res["cells"][key] = cell
+            if k % 50 == 0 or k == len(todo) - 1:
+                write_atomic(res, OUT_COARSE)
+                print(f"  coarse {len(res['cells'])}/{len(samples)}", flush=True)
     write_atomic(res, OUT_COARSE)
 
 
@@ -314,6 +329,9 @@ def topk_recall(true, pred, frac=0.10):
 def phase_analyse():
     b1 = load_json(OUT_B1)
     co = load_json(OUT_COARSE)
+    # cost per coarse solve: the clean single-process timing of B-COARSE, not this run's
+    # wall times, which were measured with several workers sharing the machine
+    se_base = load_json("results/coarse_solver_baseline.json")["summary"]["per_nz"][str(NZ_COARSE)]["solve_equivalents"]
     rows = []
     for f, r in b1["folds"].items():
         for i, (m, c) in enumerate(zip(r["material_ids"], r["condition_ids"])):
@@ -325,7 +343,7 @@ def phase_analyse():
                          "coarse": (cc["t50_norm"] * tf) if cc.get("accepted") else r["t50_true_norm"][i] * tf,
                          "nr_hgb": r["hgb_p16"]["nrmse_c"][i], "nr_don": r["deeponet_p16"]["nrmse_c"][i],
                          "nr_coarse": cc["nrmse_c"] if cc.get("accepted") else 0.0,
-                         "coarse_cost": (cc["wall_s"] / co["t_prod_s"]) if cc.get("accepted") else 1.0})
+                         "coarse_cost": se_base if cc.get("accepted") else 1.0})
     mats = np.array([r["mat"] for r in rows]); conds = np.array([r["cond"] for r in rows])
     arr = {k: np.array([r[k] for r in rows], float) for k in rows[0] if k not in ("mat", "cond")}
 

@@ -803,6 +803,28 @@ SPEC = [
     ("LfourbMatPolBest", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.mean_b", "{:.4f}"),
     ("LfourbMatPolLo", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.ci_low", "{:.5f}"),
     ("LfourbMatPolHi", "results/l4b_v3_verdict.json", "axes.material.polish.comparison.ci_high", "{:.5f}"),
+
+    # ------------------------- Digital Discovery revision (2026-10-25), exploratory re-analyses
+    # coarse solve against EVERY full-design surrogate, paired by sample (coarse_vs_surrogates.py);
+    # failed coarse solves re-solved at production cost, never dropped
+    ("CvsDon", "results/coarse_vs_surrogates.json", "arms.deeponet_p16.fallback.surrogate_mean_nrmse_c",
+     lambda x: f"{100 * x:.2f}"),
+    ("CvsCoarse", "results/coarse_vs_surrogates.json", "arms.deeponet_p16.fallback.coarse_mean_nrmse_c",
+     lambda x: f"{100 * x:.2f}"),
+    ("CvsRatio", "results/coarse_vs_surrogates.json", "arms.deeponet_p16.fallback.accuracy_ratio", "{:.1f}"),
+    ("CvsLo", "results/coarse_vs_surrogates.json", "arms.deeponet_p16.fallback.ci_low", "{:.4f}"),
+    ("CvsHi", "results/coarse_vs_surrogates.json", "arms.deeponet_p16.fallback.ci_high", "{:.4f}"),
+    ("CvsMlpRatio", "results/coarse_vs_surrogates.json", "arms.l1_mlp.fallback.accuracy_ratio", "{:.0f}"),
+    ("CvsBeProd", "results/coarse_vs_surrogates.json",
+     "arms.deeponet_p16.fallback.break_even_queries_production_training", lambda x: f"{round(x, -2):,.0f}"),
+    ("CvsBeCoarse", "results/coarse_vs_surrogates.json",
+     "arms.deeponet_p16.fallback.break_even_queries_coarse_training", lambda x: f"{round(x, -2):,.0f}"),
+    # what the weak primary sites hold, given b_H = b_C/20 (isotherm_belowstep.py)
+    ("IbsFill", "results/isotherm_belowstep.json", "primary_fill_at_step", lambda x: f"{100 * x:.1f}"),
+    ("IbsShareMed", "results/isotherm_belowstep.json", "primary_share_median", lambda x: f"{100 * x:.0f}"),
+    ("IbsBelowMed", "results/isotherm_belowstep.json", "below_step_fraction_median", lambda x: f"{100 * x:.1f}"),
+    ("IbsMofFeed", "results/isotherm_belowstep.json", "mof303.primary_fraction_of_qmax_at_feed",
+     lambda x: f"{100 * x:.1f}"),
 ]
 
 

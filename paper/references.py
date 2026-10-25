@@ -719,13 +719,125 @@ REFS = [
         doi="10.1007/s10450-016-9847-0"),
      "B52: Van Assche was MISSING from our list and the venue was guessed wrong. The stepped "
      "profile is FEED-CONDITION DEPENDENT, not a property of the material.", False),
-    ("lee2026scaleup", V, "misc", dict(
+    ("lee2026scaleup", V, "article", dict(
         author="Seung-Chan Lee and Chang-Gu Lee and Song-Bae Kim",
         title="Scale-up prediction of breakthrough curves via shape--timescale decomposition "
               "in a hybrid deep learning framework",
-        howpublished="SSRN preprint", year="2026", doi="10.2139/ssrn.6874257"),
+        journal="Chemical Engineering Journal", volume="549", pages="183235", year="2026",
+        doi="10.1016/j.cej.2026.183235"),
      "Closest prior art on the warp in our own domain: ONE scalar dilation, single-sigmoid "
-     "BTCs. Cite prominently and generously.", False),
+     "BTCs. Published version (Crossref 2026-10-25); the SSRN preprint 10.2139/ssrn.6874257 "
+     "was cited before.", False),
+
+    # ------------------------------------- Digital Discovery revision (Crossref 2026-10-25)
+    ("abaei2026benchmark", V, "article", dict(
+        author="Shayan Abaei and Hosein Alimardani and Mohammad Fakhroleslam and Fatemeh Eslami "
+               "and Mehrdad Asgari",
+        title="Benchmark maturity in {MOF} adsorption machine learning: when do conclusions become "
+              "scientifically reliable?",
+        journal="Digital Discovery", volume="5", number="10", pages="4541--4553", year="2026",
+        doi="10.1039/d6dd00351f"),
+     "Nearest Digital Discovery neighbour: MOF benchmark rankings stabilise only at large N.", False),
+    ("burark2024codbench", V, "article", dict(
+        author="Priyanshu Burark and Karn Tiwari and Meer Mehran Rashid and Prathosh A. P. and "
+               "N. M. Anoop Krishnan",
+        title="{CoDBench}: a critical evaluation of data-driven models for continuous dynamical systems",
+        journal="Digital Discovery", volume="3", number="6", pages="1172--1181", year="2024",
+        doi="10.1039/d4dd00028e"),
+     "The journal's operator-learning benchmark.", False),
+    ("witman2025matfold", V, "article", dict(
+        author="Matthew D. Witman and Peter Schindler",
+        title="{MatFold}: systematic insights into materials discovery models' performance through "
+              "standardized cross-validation protocols",
+        journal="Digital Discovery", volume="4", number="3", pages="625--635", year="2025",
+        doi="10.1039/d4dd00250d"),
+     "Out-of-distribution splits for materials models; our held-out split is in-distribution.", False),
+    ("choe2026extrapolation", V, "article", dict(
+        author="Jonghwi Choe and Shuan Chen and Yousung Jung",
+        title="Assessing the extrapolation capability of template-free retrosynthesis models",
+        journal="Digital Discovery", volume="5", number="6", pages="2591--2599", year="2026",
+        doi="10.1039/d6dd00072j"),
+     "A quantified negative generalisation result in Digital Discovery.", False),
+    ("zhu2026deep", V, "article", dict(
+        author="Junxiao Zhu and Shiyi Wang and Ziming Liang and Liang Qin and Chengxiao Wang and "
+               "Deyun Ma and Lin Chen",
+        title="Benchmarking machine learning for therapeutic deep eutectic solvent screening: dataset "
+              "construction, cross-source generalization failure, and applicability-boundary analysis",
+        journal="Digital Discovery", year="2026", doi="10.1039/d6dd00521g"),
+     "Advance article (no volume or pages in Crossref on 2026-10-25).", False),
+    ("dehoop2022cost", V, "article", dict(
+        author="Maarten V. de Hoop and Daniel Zhengyu Huang and Elizabeth Qian and Andrew M. Stuart",
+        title="The cost-accuracy trade-off in operator learning with neural networks",
+        journal="Journal of Machine Learning", volume="1", number="3", pages="299--341", year="2022",
+        doi="10.4208/jml.220509"),
+     "Cost against accuracy for POD-NN, DeepONet, PCA-Net and FNO: our cost section is the "
+     "adsorption-bed instance.", False),
+    ("huang2026cost", V, "misc", dict(
+        author="Daniel Zhengyu Huang and Andrew M. Stuart",
+        title="Cost-accuracy trade-offs: neural operator vs classical numerical solver",
+        howpublished="arXiv preprint", year="2026", eprint="2609.24021", archiveprefix="arXiv"),
+     "Classical solvers against neural operators at matched cost (arXiv record 2026-10-25).", False),
+    ("bhattacharya2021model", V, "article", dict(
+        author="Kaushik Bhattacharya and Bamdad Hosseini and Nikola B. Kovachki and Andrew M. Stuart",
+        title="Model reduction and neural networks for parametric {PDEs}",
+        journal="The SMAI Journal of Computational Mathematics", volume="7", pages="121--157",
+        year="2021", doi="10.5802/smai-jcm.74"),
+     "PCA-Net: the projection-plus-regression error split our eq. (split) applies.", False),
+    ("wang2025rbdeeponet", V, "misc", dict(
+        author="Yueqi Wang and Guang Lin",
+        title="Reduced-basis deep operator learning for parametric {PDEs} with independently varying "
+              "boundary and source data",
+        howpublished="arXiv preprint", year="2025", eprint="2511.18260", archiveprefix="arXiv"),
+     "Separates reduced-basis approximation error from learning error (arXiv record 2026-10-25).", False),
+    ("galanti2025towards", V, "article", dict(
+        author="Mattia Galanti and Mik Janssen and Ivo Roghair and Jean-Yves Dieulot and "
+               "Pejman Shoeibi Omrani and Jurriaan Boon and Martin van Sint Annaland",
+        title="Towards surrogate modeling for adsorption processes using physics-informed neural networks",
+        journal="Processes", volume="13", number="9", pages="2824", year="2025",
+        doi="10.3390/pr13092824"),
+     "Direct precedent for L4: PINN surrogates of adsorption processes.", False),
+    ("sircar2000why", V, "article", dict(
+        author="S. Sircar and J.R. Hufton",
+        title="Why does the linear driving force model for adsorption kinetics work?",
+        journal="Adsorption", volume="6", number="2", pages="137--147", year="2000",
+        doi="10.1023/A:1008965317983"),
+     "LDF validity for nonlinear isotherms: the scope of our kinetic closure.", False),
+    ("kim2017water", V, "article", dict(
+        author="Hyunho Kim and Sungwoo Yang and Sameer R. Rao and Shankar Narayanan and "
+               "Eugene A. Kapustin and Hiroyasu Furukawa and Ari S. Umans and Omar M. Yaghi and "
+               "Evelyn N. Wang",
+        title="Water harvesting from air with metal-organic frameworks powered by natural sunlight",
+        journal="Science", volume="356", number="6336", pages="430--434", year="2017",
+        doi="10.1126/science.aam8743"),
+     "Device-level context for MOF water harvesting.", False),
+    ("kim2018adsorption", V, "article", dict(
+        author="Hyunho Kim and Sameer R. Rao and Eugene A. Kapustin and Lin Zhao and Sungwoo Yang "
+               "and Omar M. Yaghi and Evelyn N. Wang",
+        title="Adsorption-based atmospheric water harvesting device for arid climates",
+        journal="Nature Communications", volume="9", number="1", pages="1191", year="2018",
+        doi="10.1038/s41467-018-03162-7"),
+     "Device-level context: a harvester operated in an arid climate.", False),
+    ("lapotin2019adsorption", V, "article", dict(
+        author="Alina LaPotin and Hyunho Kim and Sameer R. Rao and Evelyn N. Wang",
+        title="Adsorption-based atmospheric water harvesting: impact of material and component "
+              "properties on system-level performance",
+        journal="Accounts of Chemical Research", volume="52", number="6", pages="1588--1597",
+        year="2019", doi="10.1021/acs.accounts.9b00062"),
+     "Material-to-device screening framing.", False),
+    ("goeminne2025ab", V, "article", dict(
+        author="Ruben Goeminne and Veronique Van Speybroeck",
+        title="Ab initio predictions of adsorption in flexible metal--organic frameworks for water "
+              "harvesting applications",
+        journal="Journal of the American Chemical Society", volume="147", number="4",
+        pages="3615--3630", year="2025", doi="10.1021/jacs.4c15287"),
+     "Structure-to-isotherm models that would feed the parameter-to-coefficient map.", False),
+    ("nadeau2003inference", V, "article", dict(
+        author="Claude Nadeau and Yoshua Bengio",
+        title="Inference for the generalization error",
+        journal="Machine Learning", volume="52", number="3", pages="239--281", year="2003",
+        doi="10.1023/A:1024068626366"),
+     "Cross-validation variance has no unbiased estimator: our intervals are conditional on the "
+     "fitted models.", False),
 
     # ------------------------------------------- the secondary sources named in VIA
     ("cruz2006generalized", V, "article", dict(
