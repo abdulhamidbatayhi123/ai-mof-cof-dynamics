@@ -51,8 +51,11 @@ def main():
            label="map, ridge")
     a.set_yscale("log"); logx(a, ps)
     a.set_xlabel("basis size $p$"); a.set_ylabel("held-out nRMSE (c)")
-    a.set_title("A  The two terms of eq. (5)")
-    a.legend(loc="lower left", fontsize=7)
+    a.set_title("A  Basis floor and map error")
+    a.set_ylim(top=0.15)
+    a.text(9, 0.068, "map (ridge)", color=fs.C["orange"], fontsize=7.2)
+    a.text(9, 0.021, "map (gradient boosting)", color=fs.C["blue"], fontsize=7.2)
+    a.text(34, 1.7e-3, "basis floor", color=fs.C["dark"], fontsize=7.2)
 
     sel = v2["selected"]
     on = [sel[f"deeponet_p{p}"]["mean"] for p in ps]
@@ -64,8 +67,9 @@ def main():
     b.plot(ps, fl2, "s--", color=fs.C["dark"], ms=3, lw=1.1, label="basis floor")
     b.set_yscale("log"); logx(b, ps)
     b.set_xlabel("basis size $p$"); b.set_ylabel("held-out nRMSE (c)")
-    b.set_title("B  Joint training")
-    b.legend(loc="lower left", fontsize=7)
+    b.set_title("B  DeepONet, trained jointly")
+    b.text(9, 0.0135, "DeepONet", color=fs.ARM_COLOUR["deeponet"], fontsize=7.2)
+    b.text(34, 1.7e-3, "basis floor", color=fs.C["dark"], fontsize=7.2)
 
     n = np.array([r["n_materials"] for r in lc])
     c.plot(n, [r["modes_r2_gt_0.2"] for r in lc], "o-", color=fs.C["blue"], ms=3.2, label="$R^2$ > 0.2")
