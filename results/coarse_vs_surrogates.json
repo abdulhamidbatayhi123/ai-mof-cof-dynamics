@@ -1,0 +1,106 @@
+{
+ "_what": "The coarse-solve baseline against EVERY full-design surrogate, paired by sample.",
+ "alpha": 0.02,
+ "n_boot": 4000,
+ "coarse_nz": 50,
+ "coarse_solve_equivalents": 0.12568311828375306,
+ "n_train_sims": 3157.6,
+ "arms": {
+  "deeponet_p16": {
+   "fallback": {
+    "n_samples": 240,
+    "n_materials": 240,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.01035797441913423,
+    "coarse_mean_nrmse_c": 0.006075099791362489,
+    "accuracy_ratio": 1.7049883581930763,
+    "mean_diff": 0.004282874627771741,
+    "ci_low": 0.001756929381379094,
+    "ci_high": 0.007220905341635579,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.15118402733381026,
+    "break_even_queries_production_training": 20885.804245895,
+    "break_even_queries_coarse_training": 2624.9930054881333
+   },
+   "excluded": {
+    "n_samples": 233,
+    "n_materials": 233,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.009375411109350628,
+    "coarse_mean_nrmse_c": 0.006257613518999988,
+    "accuracy_ratio": 1.4982406760794786,
+    "mean_diff": 0.0031177975903506384,
+    "ci_low": 0.0008915735792537169,
+    "ci_high": 0.00608469734464079,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.12568311828375306,
+    "break_even_queries_production_training": 25123.50141465403,
+    "break_even_queries_coarse_training": 3157.6
+   }
+  },
+  "deeponet_p128": {
+   "fallback": {
+    "n_samples": 240,
+    "n_materials": 240,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.01161037087569841,
+    "coarse_mean_nrmse_c": 0.006075099791362489,
+    "accuracy_ratio": 1.9111407671370122,
+    "mean_diff": 0.005535271084335922,
+    "ci_low": 0.0025471766405701373,
+    "ci_high": 0.009164641216299424,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.15118402733381026,
+    "break_even_queries_production_training": 20885.804245895,
+    "break_even_queries_coarse_training": 2624.9930054881333
+   },
+   "excluded": {
+    "n_samples": 233,
+    "n_materials": 233,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.010398824541004792,
+    "coarse_mean_nrmse_c": 0.006257613518999988,
+    "accuracy_ratio": 1.661787598328156,
+    "mean_diff": 0.004141211022004805,
+    "ci_low": 0.0014106864032735953,
+    "ci_high": 0.00720383402583215,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.12568311828375306,
+    "break_even_queries_production_training": 25123.50141465403,
+    "break_even_queries_coarse_training": 3157.6
+   }
+  },
+  "l1_mlp": {
+   "fallback": {
+    "n_samples": 240,
+    "n_materials": 240,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.03133141011791529,
+    "coarse_mean_nrmse_c": 0.006075099791362489,
+    "accuracy_ratio": 5.1573490467534295,
+    "mean_diff": 0.025256310326552806,
+    "ci_low": 0.022596092455908386,
+    "ci_high": 0.028069058653072593,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.15118402733381026,
+    "break_even_queries_production_training": 20885.804245895,
+    "break_even_queries_coarse_training": 2624.9930054881333
+   },
+   "excluded": {
+    "n_samples": 233,
+    "n_materials": 233,
+    "n_coarse_failed": 7,
+    "surrogate_mean_nrmse_c": 0.030379780213665435,
+    "coarse_mean_nrmse_c": 0.006257613518999988,
+    "accuracy_ratio": 4.8548508343353785,
+    "mean_diff": 0.02412216669466545,
+    "ci_low": 0.021621707543791578,
+    "ci_high": 0.02660697404695948,
+    "coarse_more_accurate": true,
+    "coarse_solve_equivalents_per_query": 0.12568311828375306,
+    "break_even_queries_production_training": 25123.50141465403,
+    "break_even_queries_coarse_training": 3157.6
+   }
+  }
+ }
+}
