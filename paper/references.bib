@@ -696,13 +696,15 @@
 }
 
 % [VERIFIED]
-%   B38: the correct LANDMARK-registration ancestor.
+%   B38: the correct LANDMARK-registration ancestor. Pages read from the
+%   Crossref record 2026-10-25 (rsc.bst requires them).
 @article{kneip1992statistical,
   author = {Alois Kneip and Theo Gasser},
   title = {Statistical tools to analyze data representing a sample of curves},
   journal = {The Annals of Statistics},
   volume = {20},
   number = {3},
+  pages = {1266--1305},
   year = {1992},
   doi = {10.1214/aos/1176348769},
 }
@@ -1024,13 +1026,336 @@
 
 % [VERIFIED]
 %   Closest prior art on the warp in our own domain: ONE scalar dilation,
-%   single-sigmoid BTCs. Cite prominently and generously.
-@misc{lee2026scaleup,
+%   single-sigmoid BTCs. Published version (Crossref 2026-10-25); the SSRN
+%   preprint 10.2139/ssrn.6874257 was cited before.
+@article{lee2026scaleup,
   author = {Seung-Chan Lee and Chang-Gu Lee and Song-Bae Kim},
   title = {Scale-up prediction of breakthrough curves via shape--timescale decomposition in a hybrid deep learning framework},
-  howpublished = {SSRN preprint},
+  journal = {Chemical Engineering Journal},
+  volume = {549},
+  pages = {183235},
   year = {2026},
-  doi = {10.2139/ssrn.6874257},
+  doi = {10.1016/j.cej.2026.183235},
+}
+
+% [VERIFIED]
+%   Nearest Digital Discovery neighbour: MOF benchmark rankings stabilise only
+%   at large N.
+@article{abaei2026benchmark,
+  author = {Shayan Abaei and Hosein Alimardani and Mohammad Fakhroleslam and Fatemeh Eslami and Mehrdad Asgari},
+  title = {Benchmark maturity in {MOF} adsorption machine learning: when do conclusions become scientifically reliable?},
+  journal = {Digital Discovery},
+  volume = {5},
+  number = {10},
+  pages = {4541--4553},
+  year = {2026},
+  doi = {10.1039/d6dd00351f},
+}
+
+% [VERIFIED]
+%   The journal's operator-learning benchmark.
+@article{burark2024codbench,
+  author = {Priyanshu Burark and Karn Tiwari and Meer Mehran Rashid and Prathosh A. P. and N. M. Anoop Krishnan},
+  title = {{CoDBench}: a critical evaluation of data-driven models for continuous dynamical systems},
+  journal = {Digital Discovery},
+  volume = {3},
+  number = {6},
+  pages = {1172--1181},
+  year = {2024},
+  doi = {10.1039/d4dd00028e},
+}
+
+% [VERIFIED]
+%   Out-of-distribution splits for materials models; our held-out split is
+%   in-distribution.
+@article{witman2025matfold,
+  author = {Matthew D. Witman and Peter Schindler},
+  title = {{MatFold}: systematic insights into materials discovery models' performance through standardized cross-validation protocols},
+  journal = {Digital Discovery},
+  volume = {4},
+  number = {3},
+  pages = {625--635},
+  year = {2025},
+  doi = {10.1039/d4dd00250d},
+}
+
+% [VERIFIED]
+%   A quantified negative generalisation result in Digital Discovery.
+@article{choe2026extrapolation,
+  author = {Jonghwi Choe and Shuan Chen and Yousung Jung},
+  title = {Assessing the extrapolation capability of template-free retrosynthesis models},
+  journal = {Digital Discovery},
+  volume = {5},
+  number = {6},
+  pages = {2591--2599},
+  year = {2026},
+  doi = {10.1039/d6dd00072j},
+}
+
+% [VERIFIED]
+%   Advance article (no volume or pages in Crossref on 2026-10-25).
+@article{zhu2026deep,
+  author = {Junxiao Zhu and Shiyi Wang and Ziming Liang and Liang Qin and Chengxiao Wang and Deyun Ma and Lin Chen},
+  title = {Benchmarking machine learning for therapeutic deep eutectic solvent screening: dataset construction, cross-source generalization failure, and applicability-boundary analysis},
+  journal = {Digital Discovery},
+  year = {2026},
+  doi = {10.1039/d6dd00521g},
+}
+
+% [VERIFIED]
+%   Cost against accuracy for POD-NN, DeepONet, PCA-Net and FNO: our cost
+%   section is the adsorption-bed instance.
+@article{dehoop2022cost,
+  author = {Maarten V. de Hoop and Daniel Zhengyu Huang and Elizabeth Qian and Andrew M. Stuart},
+  title = {The cost-accuracy trade-off in operator learning with neural networks},
+  journal = {Journal of Machine Learning},
+  volume = {1},
+  number = {3},
+  pages = {299--341},
+  year = {2022},
+  doi = {10.4208/jml.220509},
+}
+
+% [VERIFIED]
+%   Classical solvers against neural operators at matched cost (arXiv record
+%   2026-10-25).
+@misc{huang2026cost,
+  author = {Daniel Zhengyu Huang and Andrew M. Stuart},
+  title = {Cost-accuracy trade-offs: neural operator vs classical numerical solver},
+  howpublished = {arXiv preprint},
+  year = {2026},
+  eprint = {2609.24021},
+  archiveprefix = {arXiv},
+}
+
+% [VERIFIED]
+%   PCA-Net: the projection-plus-regression error split our eq. (split)
+%   applies.
+@article{bhattacharya2021model,
+  author = {Kaushik Bhattacharya and Bamdad Hosseini and Nikola B. Kovachki and Andrew M. Stuart},
+  title = {Model reduction and neural networks for parametric {PDEs}},
+  journal = {The SMAI Journal of Computational Mathematics},
+  volume = {7},
+  pages = {121--157},
+  year = {2021},
+  doi = {10.5802/smai-jcm.74},
+}
+
+% [VERIFIED]
+%   Separates reduced-basis approximation error from learning error (arXiv
+%   record 2026-10-25).
+@misc{wang2025rbdeeponet,
+  author = {Yueqi Wang and Guang Lin},
+  title = {Reduced-basis deep operator learning for parametric {PDEs} with independently varying boundary and source data},
+  howpublished = {arXiv preprint},
+  year = {2025},
+  eprint = {2511.18260},
+  archiveprefix = {arXiv},
+}
+
+% [VERIFIED]
+%   Direct precedent for L4: PINN surrogates of adsorption processes.
+@article{galanti2025towards,
+  author = {Mattia Galanti and Mik Janssen and Ivo Roghair and Jean-Yves Dieulot and Pejman Shoeibi Omrani and Jurriaan Boon and Martin van Sint Annaland},
+  title = {Towards surrogate modeling for adsorption processes using physics-informed neural networks},
+  journal = {Processes},
+  volume = {13},
+  number = {9},
+  pages = {2824},
+  year = {2025},
+  doi = {10.3390/pr13092824},
+}
+
+% [VERIFIED]
+%   LDF validity for nonlinear isotherms: the scope of our kinetic closure.
+@article{sircar2000why,
+  author = {S. Sircar and J.R. Hufton},
+  title = {Why does the linear driving force model for adsorption kinetics work?},
+  journal = {Adsorption},
+  volume = {6},
+  number = {2},
+  pages = {137--147},
+  year = {2000},
+  doi = {10.1023/A:1008965317983},
+}
+
+% [VERIFIED]
+%   Device-level context for MOF water harvesting.
+@article{kim2017water,
+  author = {Hyunho Kim and Sungwoo Yang and Sameer R. Rao and Shankar Narayanan and Eugene A. Kapustin and Hiroyasu Furukawa and Ari S. Umans and Omar M. Yaghi and Evelyn N. Wang},
+  title = {Water harvesting from air with metal-organic frameworks powered by natural sunlight},
+  journal = {Science},
+  volume = {356},
+  number = {6336},
+  pages = {430--434},
+  year = {2017},
+  doi = {10.1126/science.aam8743},
+}
+
+% [VERIFIED]
+%   Device-level context: a harvester operated in an arid climate.
+@article{kim2018adsorption,
+  author = {Hyunho Kim and Sameer R. Rao and Eugene A. Kapustin and Lin Zhao and Sungwoo Yang and Omar M. Yaghi and Evelyn N. Wang},
+  title = {Adsorption-based atmospheric water harvesting device for arid climates},
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {1191},
+  year = {2018},
+  doi = {10.1038/s41467-018-03162-7},
+}
+
+% [VERIFIED]
+%   Material-to-device screening framing.
+@article{lapotin2019adsorption,
+  author = {Alina LaPotin and Hyunho Kim and Sameer R. Rao and Evelyn N. Wang},
+  title = {Adsorption-based atmospheric water harvesting: impact of material and component properties on system-level performance},
+  journal = {Accounts of Chemical Research},
+  volume = {52},
+  number = {6},
+  pages = {1588--1597},
+  year = {2019},
+  doi = {10.1021/acs.accounts.9b00062},
+}
+
+% [VERIFIED]
+%   Structure-to-isotherm models that would feed the parameter-to-coefficient
+%   map.
+@article{goeminne2025ab,
+  author = {Ruben Goeminne and Veronique Van Speybroeck},
+  title = {Ab initio predictions of adsorption in flexible metal--organic frameworks for water harvesting applications},
+  journal = {Journal of the American Chemical Society},
+  volume = {147},
+  number = {4},
+  pages = {3615--3630},
+  year = {2025},
+  doi = {10.1021/jacs.4c15287},
+}
+
+% [VERIFIED]
+%   Closest application overlap: an ANN surrogate of a TVSA bed over
+%   step-isotherm sorbent parameters, for scalar KPIs (SEC, productivity) and
+%   optimisation; no held-out-material error, no field surrogate, no coarse
+%   baseline (abstract via OpenAlex 2026-10-25).
+@article{nasiri2026process,
+  author = {Maryam Nasiri Ghiri and Hamid Reza Nasriani and Mohammad Bagheri and Leila Khajenoori and Samira khani Rasmussen and Andrei Chamchine},
+  title = {Process-informed optimal design principles for cooperative step-isotherm adsorbents in direct air capture using {ANN}-accelerated {TVSA} modelling},
+  journal = {Chemical Engineering Journal Advances},
+  volume = {27},
+  pages = {101283},
+  year = {2026},
+  doi = {10.1016/j.ceja.2026.101283},
+}
+
+% [VERIFIED]
+%   A recent process surrogate on a MOF sorbent (abstract via OpenAlex).
+@article{nasiri2026surrogate,
+  author = {Maryam Nasiri-ghiri and Hamid Reza Nasriani and Leila Khajenoori and Samira Khani Rasmussen and Karl Williams},
+  title = {Surrogate-assisted cyclic performance optimisation of direct air capture using amine-functionalised metal--organic frameworks},
+  journal = {Separation and Purification Technology},
+  volume = {383},
+  pages = {136177},
+  year = {2026},
+  doi = {10.1016/j.seppur.2025.136177},
+}
+
+% [VERIFIED]
+%   Reduced-physics screening model: cheap physics as the competitor of
+%   learned surrogates. Online 2026, no volume or pages in Crossref on
+%   2026-10-25.
+@article{liske2026extended,
+  author = {Gwyneth Liske and Arvind Rajendran},
+  title = {Extended batch adsorber analogue model ({e-BAAM}) for rapid evaluation of {CO$_2$} capture pressure swing adsorption cycles},
+  journal = {The Canadian Journal of Chemical Engineering},
+  year = {2026},
+  doi = {10.1002/cjce.70453},
+}
+
+% [VERIFIED]
+%   Materials-level ML for MOF water harvesting (GCMC + ML).
+@article{alkhatib2026machine,
+  author = {Nour Alkhatib and Saifeldeen Abed Alrhman and Serdal Kirmizialtin},
+  title = {Machine learning highlights chemistry as the key factor in metal--organic frameworks for atmospheric water harvesting},
+  journal = {Molecular Systems Design \& Engineering},
+  volume = {11},
+  number = {1},
+  pages = {50--61},
+  year = {2026},
+  doi = {10.1039/d5me00101c},
+}
+
+% [VERIFIED]
+%   Review of ML for MOF water harvesting; Crossref gives initials only.
+@article{arjmandi2026next,
+  author = {M. Arjmandi and E. Ayta{\c{c}} and M. Khayet and N. Hilal},
+  title = {Next-generation {MOFs} for atmospheric water harvesting: the role of machine learning techniques},
+  journal = {Coordination Chemistry Reviews},
+  volume = {548},
+  pages = {217211},
+  year = {2026},
+  doi = {10.1016/j.ccr.2025.217211},
+}
+
+% [VERIFIED]
+%   No public abstract (Crossref, OpenAlex 2026-10-25): cite only for what the
+%   title states.
+@article{han2025machine,
+  author = {Bo Han and Anutosh Chakraborty},
+  title = {Machine learning optimized adsorption heat transformations from adsorbents screening to enhanced performances},
+  journal = {Energy Conversion and Management},
+  volume = {344},
+  pages = {120272},
+  year = {2025},
+  doi = {10.1016/j.enconman.2025.120272},
+}
+
+% [VERIFIED]
+%   No public abstract: cite only for what the title states.
+@article{han2025optimizing,
+  author = {Bo Han and Mai Sheng Ng and Anutosh Chakraborty},
+  title = {Optimizing metal-organic frameworks for adsorption-based atmospheric water harvesting: a systematic evaluation of pristine and modified {MOFs} for enhanced performance in diverse climates},
+  journal = {Chemical Engineering Journal},
+  volume = {521},
+  pages = {166607},
+  year = {2025},
+  doi = {10.1016/j.cej.2025.166607},
+}
+
+% [VERIFIED]
+%   Weak baselines and reporting bias in scientific ML; hidden test sets.
+@misc{wyder2025common,
+  author = {Philippe Martin Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan P. Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J. Nathan Kutz},
+  title = {Common task framework for a critical evaluation of scientific machine learning algorithms},
+  howpublished = {arXiv preprint},
+  year = {2025},
+  eprint = {2510.23166},
+  archiveprefix = {arXiv},
+}
+
+% [VERIFIED]
+%   How parameters enter the model governs extrapolation: supports 'the map
+%   binds'.
+@misc{vantegelen2026late,
+  author = {Eva van Tegelen and Taniya Kapoor and George A. K. van Voorn and Peter van Heijster and Ioannis N. Athanasiadis},
+  title = {Late fusion neural operators for extrapolation across parameter space in partial differential equations},
+  howpublished = {arXiv preprint},
+  year = {2026},
+  eprint = {2604.16721},
+  archiveprefix = {arXiv},
+}
+
+% [VERIFIED]
+%   Cross-validation variance has no unbiased estimator: our intervals are
+%   conditional on the fitted models.
+@article{nadeau2003inference,
+  author = {Claude Nadeau and Yoshua Bengio},
+  title = {Inference for the generalization error},
+  journal = {Machine Learning},
+  volume = {52},
+  number = {3},
+  pages = {239--281},
+  year = {2003},
+  doi = {10.1023/A:1024068626366},
 }
 
 % [VERIFIED]

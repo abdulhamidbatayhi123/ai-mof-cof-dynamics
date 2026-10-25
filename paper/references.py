@@ -545,9 +545,10 @@ REFS = [
     ("kneip1992statistical", V, "article", dict(
         author="Alois Kneip and Theo Gasser",
         title="Statistical tools to analyze data representing a sample of curves",
-        journal="The Annals of Statistics", volume="20", number="3", year="1992",
+        journal="The Annals of Statistics", volume="20", number="3", pages="1266--1305", year="1992",
         doi="10.1214/aos/1176348769"),
-     "B38: the correct LANDMARK-registration ancestor.", False),
+     "B38: the correct LANDMARK-registration ancestor. Pages read from the Crossref record "
+     "2026-10-25 (rsc.bst requires them).", False),
     ("ramsay1998curve", V, "article", dict(
         author="J. O. Ramsay and Xiaochun Li", title="Curve registration",
         journal="Journal of the Royal Statistical Society: Series B (Statistical Methodology)", volume="60",
