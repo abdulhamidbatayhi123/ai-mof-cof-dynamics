@@ -54,29 +54,34 @@ def low_priority():
 def cell(X, Pz, fit_idx, eval_idx, p, seed):
     assert_disjoint(fit_idx, eval_idx, f"POD basis (p={p}, seed={seed})")
     pca = PCA(n_components=p, svd_solver="randomized", random_state=0).fit(X[fit_idx])
-    A = pca.transform(X)
-    rng = X.max(1) - X.min(1)
-    proj = pca.inverse_transform(A)
+    # Only the held-out fold is reconstructed (memory: one fold, not all 3947 fields). The
+    # numbers are identical to transforming everything and slicing, which is what
+    # l5_bottleneck_v2.fit_cell does.
+    A_fit = pca.transform(X[fit_idx])
+    Xe = X[eval_idx]
+    A_ev = pca.transform(Xe)
+    rng = Xe.max(1) - Xe.min(1)
+    proj = pca.inverse_transform(A_ev)
 
     def nr(diff):
         return np.sqrt((diff ** 2).mean(1)) / np.maximum(rng, 1e-12)
 
-    out = {"floor": nr(proj - X)[eval_idx]}
-    amu, asd = A[fit_idx].mean(0), A[fit_idx].std(0)
+    out = {"floor": nr(proj - Xe)}
+    amu, asd = A_fit.mean(0), A_fit.std(0)
     asd[asd == 0] = 1.0
-    Az = (A - amu) / asd
-    preds = {"ridge": RidgeCV(alphas=np.logspace(-4, 4, 25)).fit(Pz[fit_idx], Az[fit_idx]).predict(Pz)}
-    gb = np.zeros_like(Az)
+    Az_fit = (A_fit - amu) / asd
+    preds = {"ridge": RidgeCV(alphas=np.logspace(-4, 4, 25)).fit(Pz[fit_idx], Az_fit).predict(Pz[eval_idx])}
+    gb = np.zeros((len(eval_idx), p))
     for k in range(p):
         m = HistGradientBoostingRegressor(max_iter=400, learning_rate=0.06,
                                           early_stopping=True, random_state=seed)
-        m.fit(Pz[fit_idx], Az[fit_idx, k])
-        gb[:, k] = m.predict(Pz)
+        m.fit(Pz[fit_idx], Az_fit[:, k])
+        gb[:, k] = m.predict(Pz[eval_idx])
     preds["hgb"] = gb
     for name, Azp in preds.items():
         rec = pca.inverse_transform(Azp * asd + amu)
-        out[f"map_{name}"] = nr(rec - proj)[eval_idx]
-        out[f"total_{name}"] = nr(rec - X)[eval_idx]
+        out[f"map_{name}"] = nr(rec - proj)
+        out[f"total_{name}"] = nr(rec - Xe)
         # orthogonality check: total^2 = floor^2 + map^2 per sample (float32 data)
         gap = np.abs(out[f"total_{name}"] ** 2 - out["floor"] ** 2 - out[f"map_{name}"] ** 2)
         scale = np.maximum(out[f"total_{name}"] ** 2, 1e-12)
@@ -91,7 +96,7 @@ def main():
     ap.add_argument("--seeds", type=int, nargs="+", default=list(SEEDS))
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
-    low_priority()
+    low_priority() if os.environ.get("DD_LOW_PRIORITY") == "1" else None
 
     X, params, mat = load_c_light()
     fold_of, n_folds, fold_seed = load_folds(mat)

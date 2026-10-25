@@ -42,6 +42,13 @@ T_GRID = np.linspace(0, STORE_NT - 1, FIELD_RES).astype(int) / (STORE_NT - 1)   
 
 
 def low_priority():
+    """Lower this process's CPU priority only if DD_LOW_PRIORITY=1.
+
+    Off by default: on a saturated machine a below-normal process barely runs (the first
+    map-term run got 4 CPU-minutes in two hours), and the author made Paper 1 the priority.
+    """
+    if os.environ.get("DD_LOW_PRIORITY") != "1":
+        return
     try:
         import psutil
         psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS if os.name == "nt" else 10)
@@ -95,7 +102,7 @@ def _coarse_one(args):
     return key, cell
 
 
-def phase_coarse(workers=4):
+def phase_coarse(workers=5):
     from multiprocessing import Pool
     man = json.load(open(os.path.join(ROOT_V2, "manifest.json")))
     mats = {m["material_id"]: m for m in man["materials"]}

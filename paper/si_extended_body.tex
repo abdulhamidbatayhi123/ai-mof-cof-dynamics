@@ -274,3 +274,40 @@ constant.
 measurement on a covalent organic framework (COF) suitable for this comparison, so no
 claim is made for that class.
 
+\section{When each pre-registration was fixed}
+\label{s2:prereg}
+
+Each pre-registration is a file in the public repository, fixed by the commit that added
+it. Table~\ref{tab:prereg} gives, for each, that commit and the first commit of the results
+it governs, by author date. The repository's history was rewritten once, on 5 October 2026,
+before it was made public, to remove third-party files; the rewrite kept every author date
+and changed every commit identifier, and \texttt{COMMIT\_MAP.tsv} maps each old identifier
+to its new one. The ordering below is therefore attested by the author's own history, not by
+an external registry. The original ladder protocol is the weakest case: it was written before
+its runs but committed only when the repository was created, minutes before the first
+results files, so for the rungs it governs (L3, the first L5 sweep and the coordinate
+change, all on the exploratory 12-material design) the order rests on the author's word. The
+two additions made for the Digital Discovery revision were pushed to the public repository
+before they ran, so the push is an external timestamp.
+
+\begin{table}[!htbp]
+\centering
+\caption{Pre-registrations and the first results they govern (author dates, UTC+3).}
+\label{tab:prereg}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+pre-registration & governs & fixed & first results \\
+\midrule
+\texttt{03\_LADDER\_PROTOCOL.md} & L3, first L5 sweep, coordinate change & 30 Aug 2026, 17:50 & 30 Aug 2026, 17:57 \\
+\texttt{PREREG\_L6\_v2.md} & L6 & 1 Sep 2026 & 2 Sep 2026 \\
+\texttt{PREREG\_L1L2L7\_v2.md} & L1, L2, L7 & 2 Sep 2026 & 3 Sep 2026 (L1, L7), 5 Sep (L2) \\
+\texttt{PREREG\_L4b\_v2.md} & L4 & 2 Sep 2026 & 24 Sep 2026; corrected re-run 11 Oct \\
+\texttt{PREREG\_LASSITTER.md} & the MOF-303 anchor & 3 Sep 2026, 09:56 & 3 Sep 2026, 10:03 \\
+\texttt{PREREG\_L5\_v2.md} & L5 on 240 materials & 28 Sep 2026 & 4 Oct 2026 \\
+\texttt{PREREG\_BASELINES.md} & Gaussian process, coarse solve, fitted closed forms & 4 Oct 2026 & 11 Oct 2026 \\
+\texttt{PREREG\_DD\_ADDITIONS.md} & screening, named frameworks & 25 Oct 2026 (pushed) & after \\
+\bottomrule
+\end{tabular}
+\end{table}
+
