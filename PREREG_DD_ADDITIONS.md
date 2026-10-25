@@ -75,6 +75,18 @@ materials only, with parameters standardised on the fit set, and assert_disjoint
 - **Verdict words.** A framework is "inside the held-out error distribution" when its mean nRMSE
   is at or below the 95th percentile of the same arm's per-material out-of-fold errors in B1.
 
+## Amendment 1 (2026-10-25, before any run)
+- **t50 is ranked in seconds, not in units of t_final.** The original text said "in units of
+  t_final". But t_final is material-dependent: it is the run horizon, a multiple of the
+  stoichiometric time. A ranking in normalised time would compare materials on different
+  clocks.
+- **How it is computed.** t50 [s] is the normalised crossing time multiplied by the sample's
+  t_final. Prediction and truth both use the sample's stored t_final, as every rung's
+  normalised-time scoring already does.
+- **A known small leak, stated.** t_final carries the solver's horizon extensions for the
+  7 % of runs that were extended, so the surrogate is handed the true horizon for those
+  samples. The same is done for the coarse solve.
+
 ## What will not be done
 - No tuning on these test sets.
 - No change of arms, settings or thresholds after any result is seen.
