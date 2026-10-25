@@ -101,8 +101,8 @@ _ALLOWED_PAIRS = [
     ("0.80", "the top-10 % recall threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
     ("81", "the 81 = (0.9/0.1)^2 of the frozen steepness rule n = ln 81 / ln(p90/p10)"),
     ("90", "the percentile index of p_90 in the frozen steepness rule"),
-    ("7", "a column index of the frameworks table (\cmidrule)"),
-    ("6", "a column index of the frameworks table (\cmidrule)"),
+    ("7", "a column index of the frameworks table (cmidrule)"),
+    ("6", "a column index of the frameworks table (cmidrule)"),
     ("100", "N_z = 100, the grid of the untuned coarse-solve comparison (B-COARSE), a grid size"),
     ("4.0", "the version of the CC BY 4.0 data licence"),]
 
