@@ -1,0 +1,322 @@
+%% Moved verbatim from the main text for the Digital Discovery version (2026-10-25).
+%% Labels of moved floats carry an s2: prefix so they do not clash with the main text.
+
+\section{Fixed properties, numerics and the Damk\"ohler number}
+
+\paragraph{Fixed properties} Every run uses \(L = \nDcL\)\,m, \(D_{\mathrm{in}} =
+\nDcDin\)\,m, \(\rho_g = \nDcRhog\)\,kg\,m\(^{-3}\), \(C_{pg} = \nDcCp\) and \(C_{ps} =
+\nDcCps\)\,J\,kg\(^{-1}\)\,K\(^{-1}\), \(k_z = \nDcKz\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and
+\(h_w = \nDcHw\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial dispersion follows the packed-bed
+correlation \(D_L = 0.7D_m + 0.5\,d_p v/\varepsilon_t\) with \(D_m =
+\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the larger dataset the kinetic
+coefficient is not sampled but derived from the particle by the Glueckauf relation,
+\begin{equation}
+k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
+\qquad K = \frac{q^{*}(c_{\mathrm{in}},T_{\mathrm{in}})}{c_{\mathrm{in}}},
+\label{s2:eq:glueckauf}
+\end{equation}
+with pellet porosity \(\varepsilon_p = \nDcGlEpsp\), tortuosity \(\tau_p = \nDcGlTau\)
+and \(D_m = \nDcGlDm\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). The generator therefore uses
+two slightly different values of the molecular diffusivity, one in each correlation;
+we report both rather than reconcile them after the data were generated.
+
+\paragraph{Numerics and storage} Equations~\eqref{eq:mass}--\eqref{eq:energy} are
+discretised by the method of lines on \nGridNz\ cell-centred finite volumes
+(first-order upwind advection, central dispersion and conduction) and integrated with
+SciPy's implicit backward-differentiation-formula (BDF) method at relative and absolute tolerances
+\(10^{\nDcRtolExp}\) and \(10^{\nDcAtolExp}\) to \nDcSnapshots\ output times;
+Section~\ref{sec:model} verifies the solver. Each run is integrated to
+\nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
+the horizon is extended to \nDcHorizonExt\ stoichiometric times in turn, which
+\nDcExtendedPct\,\% of the accepted runs of the larger dataset needed. A draw is
+rejected before solving if its feed loads too little or too much of capacity, its
+Henry constant is not finite and positive, its isothermal mass-transfer zone is not
+resolved by the grid, or its stoichiometric time is implausible; \nDataNrejected\ of
+the larger dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
+stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a uniform
+grid in \(z/L\) and \(t/t_{\mathrm{final}}\), at \(\nDcStoreV\times\nDcStoreV\) for the
+larger dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
+
+\paragraph{Damk\"ohler number} The Damk\"ohler number used throughout is computed per
+sample as \(\mathrm{Da} = k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), and rung L6 regresses
+on its per-material median. Because the horizon is a multiple of the stoichiometric
+time that depends on whether it was extended, Da carries that multiple as well as the
+kinetic ratio \(k_{\mathrm{LDF}}t_{\mathrm{st}}\); for the \nDcExtendedPct\,\% of runs
+that were extended it is larger than the kinetic ratio by the extension factor. We keep the
+definition the pre-registration used and state this property rather than redefine
+the axis after the result.
+
+\section{The parameter space}
+
+\begin{table}[t]
+\centering
+\caption{The parameter space of the larger dataset. A ``material'' here is the upper
+block: an idealised framework pellet described by its isotherm (capacity, step
+position, step steepness, the fraction of capacity on the low-humidity sites, heat)
+and by pellet size, density and packing. Capacity \nDcQmaxLo--\nDcQmaxHi\,mol\,kg\(^{-1}\)
+is \nDcQmaxGgLo--\nDcQmaxGgHi\,g of water per g. The step is re-anchored at each feed
+temperature so that it sits at the stated relative humidity, so one material's
+isotherm is not the same curve at every condition. All eleven parameters are sampled by
+scrambled Sobol and mapped linearly; every surrogate except rung L6 receives exactly
+these values, standardised on its own fitting set, and L6 receives observable
+descriptors instead.}
+\label{s2:tab:params}
+\begin{tabular}{llll}
+\toprule
+parameter & symbol & units & range \\
+\midrule
+\multicolumn{4}{l}{\emph{material}} \\
+saturation capacity & \(q_{\max}\) & mol\,kg\(^{-1}\) & \nDcQmaxLo--\nDcQmaxHi \\
+heat of adsorption & \(\Delta H\) & kJ\,mol\(^{-1}\) & \nDcDHLo\ to \nDcDHHi \\
+step position (relative humidity) & \(\mathrm{RH}_{\mathrm{step}}\) & -- & \nDcStepLo--\nDcStepHi \\
+cooperativity exponent & \(n\) & -- & \nDcNexpLo--\nDcNexpHi \\
+Henry-site fraction & \(f_H\) & -- & \nDcFhLo--\nDcFhHi \\
+particle diameter & \(d_p\) & mm & \nDcDpLo--\nDcDpHi \\
+particle density & \(\rho_p\) & kg\,m\(^{-3}\) & \nDcRhopLo--\nDcRhopHi \\
+bed porosity & \(\varepsilon_t\) & -- & \nDcEpsLo--\nDcEpsHi \\
+\midrule
+\multicolumn{4}{l}{\emph{operating condition}} \\
+feed relative humidity & \(\mathrm{RH}_{\mathrm{feed}}\) & -- & \nDcRHLo--\nDcRHHi \\
+superficial velocity & \(v\) & m\,s\(^{-1}\) & \nDcVLo--\nDcVHi \\
+feed temperature & \(T_{\mathrm{in}}\) & K & \nDcTinLo--\nDcTinHi \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The surrogates of each rung}
+
+\begin{sidewaystable}
+\centering
+\caption{Surrogates by rung. Absolute errors in different rows are not comparable.
+POD, proper orthogonal decomposition; NTK, neural tangent kernel; L-BFGS, limited-memory
+Broyden--Fletcher--Goldfarb--Shanno; DeepOKAN, a DeepONet with Kolmogorov--Arnold layers;
+\(p\), basis size.}
+\label{s2:tab:rungs}
+\footnotesize
+\renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.08\textheight}>{\raggedright\arraybackslash}p{0.11\textheight}>{\raggedright\arraybackslash}p{0.2\textheight}>{\raggedright\arraybackslash}p{0.31\textheight}>{\raggedright\arraybackslash}p{0.19\textheight}@{}}
+\toprule
+rung & data, design & input \(\to\) output; encoding & architecture & training \\
+\midrule
+L1 & larger, five-fold &
+parameters \(\to\) POD coefficients per channel &
+ridge; random forest; gradient boosting; perceptron with standardised targets &
+scikit-learn; perceptron Adam with early stopping \\
+L1 curve & larger, five-fold & parameters \(\to\) \nLCpField\ POD coefficients of \(c\); training materials subsampled & one gradient-boosted regressor per mode (not the L1 perceptron) & three seeds per size \\
+L2 & larger, five-fold & as L1 &
+perceptron width and depth, boosting depth, forest leaf size, swept in both directions & as L1 \\
+L3 & legacy &
+parameters \(\to\) POD coefficients; full stored field &
+perceptron and two Kolmogorov--Arnold \cite{liu2025kan} families (Gaussian radial basis, Chebyshev), depth \nMthThreeDepth, matched to \nMthThreeBudgets\ parameters; widths \nMthThreeWidths &
+Adam, cosine schedule, \nMthThreeSteps\ steps, per-family learning-rate grid \\
+L4 & larger; time axis and single split &
+(parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head &
+one perceptron, \nMthFourDepth\ layers of \nMthFourWidth\ (\nMthFourParams\ parameters); data-only twin and physics-weighted arms (fixed, gradient-norm, NTK, self-adaptive); residual of equations \eqref{eq:mass}--\eqref{eq:energy} with the Danckwerts inlet conditions, corrected (B72) &
+Adam, cosine schedule, \nMthFourSteps\ steps of \nMthFourSup\ data, \nMthFourColloc\ collocation and \nMthFourBc\ boundary points; then L-BFGS (polish) \\
+L5 & legacy &
+parameters \(\to\) \(c\) field, subsampled from the stored field &
+DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; all matched to \nMthFiveBudget\ parameters &
+Adam, cosine schedule, \nMthFiveSteps\ steps, per-arm learning-rate grid \\
+L5 basis size & larger, five-fold & as L5 & DeepONet over basis size \(p\), matched parameters &
+as L5, step budget tripled \\
+L5 basis vs.\ map & legacy; larger, five-fold &
+parameters \(\to\) POD coefficients of \(c\) over basis size &
+one gradient-boosted regressor per mode & one seed (legacy), three seeds (larger) \\
+L6 & larger, five-fold &
+\nMthSixNdesc\ observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
+joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; both \nMthSixBudget\ parameters, depth \nMthSixDepth &
+Adam, cosine schedule, \nMthSixSteps\ steps \\
+L7 & larger, five-fold, paired with L1 &
+parameters \(\to\) outlet curve &
+equilibrium shock, Klinkenberg, constant pattern; nothing fitted & none \\
+Warp & legacy &
+parameters \(\to\) \(c\), in a fixed frame or the two-front frame of equation~\eqref{s2:eq:warp} &
+POD plus one gradient-boosted regressor per mode; front trajectories from a POD of the landmark curves &
+three seeds; oracle arm given the true fronts \\
+\bottomrule
+\end{tabular}
+\end{sidewaystable}
+
+\section{The coordinate change, and where the obstruction moved}
+
+\label{s2:sec:warp}
+
+\begin{figure}[!tbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/Fig6_warp.pdf}
+\caption{The two-front frame (legacy design). \textbf{A}~Modes needed for 99.9\,\% of
+training variance in each frame: aligning one front raises the count, aligning both
+lowers it. Tick labels give the level of \(c/c_{\mathrm{in}}\) at which each aligned
+front is located (one level, or a pair); the hatched pair was excluded by its
+interpolation guard. \textbf{B}~Held-out error: with predicted fronts the two-front frame is not
+distinguishable from the fixed frame (the interval runs from
+\nWarpPredImproveMax\,\% better to \nWarpPredDegradeMax\,\% worse, \nWarpNmat\
+materials); handed the true fronts (hollow) it is better, an upper bound rather than a
+result.}
+\label{s2:fig:warp}
+\end{figure}
+
+\subsection{Scope and prior art}
+
+Aligning multiple transports is not new, and none of it is claimed here. The
+two-transport case is the founding example of the shifted POD \cite{reiss2018shifted},
+multi-front variants follow
+\cite{nair2019transported,mendible2020dimensionality,krah2025robust,krah2023front,zorawski2024neural},
+a neural-network shifted decomposition predates the last of these
+\cite{papapicco2022nnspod}, and breakthrough curves have been decomposed with a single
+characteristic time \cite{lee2026scaleup}. Our two-landmark linear warp is piecewise
+landmark registration from functional data analysis \cite{kneip1992statistical} (a
+landmark-free alternative is in \cite{ramsay1998curve}); Zucatti and Zahr
+\cite{zucatti2026model} apply the same primitive to shock features in reduced-order
+models of convection-dominated problems, and registration-based reduction is an
+established family \cite{taddei2020registration,taddei2026erratum}. What is ours is the
+measurement.
+
+\subsection{One shift makes it worse; two make it much better}
+
+The standard remedy for a transport-dominated \(n\)-width is to factor the front
+position out before projecting \cite{reiss2018shifted}. We warped each field onto its own local arrival time
+and swept the alignment level. \emph{It makes the \(n\)-width worse}: aligning on
+the half-height crossing takes the modes needed for 99.9\,\% of training variance
+from \nNwidthOriginal\ to \nNwidthSingle. It does not help accuracy even given
+the exact front trajectory for free: handed the oracle warp, the co-moving frame
+still loses to the fixed frame. The reason was measured before it was invoked: the separation between the two waves spans a factor of \nGapRange, and one shift cannot align
+two waves whose separation varies that much.
+
+Using \emph{two} shifts, one per wave, and normalising the interval between them (Figure~\ref{s2:fig:warp}),
+\begin{equation}
+\sigma(z,t) = \frac{t - t_{\mathrm{lo}}(z)}{t_{\mathrm{hi}}(z) - t_{\mathrm{lo}}(z)},
+\label{s2:eq:warp}
+\end{equation}
+collapses the \(n\)-width where one shift inflated it: \nNwidthOriginal\ \(\to\)
+\nNwidthTwoWaveA\ modes, or \nNwidthTwoWaveB\ for the wider landmark pair. A third
+pair was excluded because a narrow window divides by a small span and its
+interpolation floor reached \nComovingFloorPct\,\% of the fixed-frame error it is judged
+against, above the guard's threshold of \(10\,\%\).
+
+\subsection{The verdict, what it can resolve, and the relocation}
+
+Table~\ref{s2:tab:warp} gives the result: three seeds for every stochastic component, both
+arms computed in the same run, and a paired cluster bootstrap by material.
+
+\begin{table}[t]
+\centering
+\caption{The two-front frame against the fixed frame (legacy design). Differences are
+the fixed frame's nRMSE minus the arm's, so positive means the arm is better; CI is the
+cluster-bootstrap confidence interval. The oracle arm is handed the true front
+trajectories and is \emph{not} comparable with any arm that is not; it sizes the
+remaining headroom and is not a result.}
+\label{s2:tab:warp}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrl}
+\toprule
+arm & held-out nRMSE & verdict vs.\ the fixed frame \\
+\midrule
+fixed frame & \nWarpFixed & reference \\
+two-front, predicted fronts & \nWarpPredicted & \nWarpPredDiff, CI [\nWarpPredLo, \nWarpPredHi]: no difference \\
+two-front, oracle fronts & \nWarpOracle & \nWarpOracleDiff, CI [\nWarpOracleLo, \nWarpOracleHi]: significant \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The predicted-front arm does not beat the fixed frame. Given the true front
+trajectories, the same POD-plus-regressor arm is \nWarpHeadroomFixed{}\(\times\) better
+than the fixed frame, which is what perfect front location would buy, and
+\nWarpHeadroom{}\(\times\) better than with predicted fronts. On \nWarpNmat\ held-out
+materials the predicted-front interval admits anything from a \nWarpPredImproveMax\,\%
+improvement to a \nWarpPredDegradeMax\,\% degradation; it rules out the oracle's gain,
+not a modest one. With that scope, this is a relocation of the obstruction. Through L1--L5 the obstruction was the
+parameter-to-coefficient map, at the number of modes a given training set supports. It
+is now ``two smooth monotone one-dimensional curves are not located accurately
+enough'', a better-posed problem, with a target a front-locating model can be held
+to. The oracle's gain is not unique to this route: the Fourier operator of L5 reaches a
+comparable error on the same held-out materials without any oracle.
+
+\paragraph{Monotonicity is not the lever} The predicted fronts violate the
+constraints the true ones satisfy in \nWarpNonmonoLo\,\% of samples, but projecting
+them onto the constraint set makes the reconstruction slightly worse
+(Supplementary S2, Section S8); the remaining headroom is the front predictor's raw
+accuracy.
+
+\paragraph{Relation to constant-pattern behaviour} Equation~\eqref{s2:eq:warp} is not
+constant-pattern scaling \cite{knox2016limitations}: when the two fronts move at
+different rates and their separation varies \nGapRange-fold, no single scale factor
+aligns both, which is why the second landmark does the work.
+
+%% ===========================================================================
+
+\section{The accuracy--cost frontier}
+
+\begin{table}[t]
+\centering
+\caption{The accuracy--cost frontier, in solve-equivalents. Each row is a point on
+the learning curve of Section~\ref{sec:ladder}, priced; its error is that of the curve's
+per-mode gradient-boosting learner, and the fit and query times quoted in the text are
+those of the L1 perceptron. The last column is a \emph{lower} bound on the number of
+screening queries at which the surrogate becomes cheaper than the reference; it needs
+only the data cost, so it holds for either learner and whatever a query costs.}
+\label{s2:tab:cost}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{rrrr}
+\toprule
+training materials & training simulations & held-out nRMSE & break-even queries \(\geq\) \\
+\midrule
+12  & \nCostSmallSims & \nLCsmallest & \nCostSmallBreakEven \\
+24  & \nCostSimsB     & \nCostErrB   & \nCostBeB \\
+48  & \nCostSimsC     & \nCostErrC   & \nCostBeC \\
+96  & \nCostSimsD     & \nCostErrD   & \nCostBeD \\
+192 & \nCostLargeSims & \nLClargest  & \nCostBreakEven \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Second, the learning curve is a price list: going from 12 to 192 training materials
+multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
+\nLCratio{}\(\times\). The rows are priced for the curve's per-mode regressor; the L1
+perceptron is already more accurate, and L2 found a configuration
+\(\nLtwoVsLonePct\,\%\) better still, so a better learner shifts the whole frontier
+down. The exchange rate between data and error is the transferable part.
+
+Third, the eliminated rungs are interventions that add cost without buying accuracy: a
+Kolmogorov--Arnold map costs fit time and nothing else, and the closed forms are
+cheaper but worse even when fitted. Of the levers that remain, only training materials
+cost simulations; a better configuration, a small residual weight
+(\nLfourbMatGainPct\,\%) or a different operator cost fit time or collocation points.
+Every statement here is cost \emph{at a stated accuracy}: the reference answers exactly,
+the surrogate with the held-out error in the third column.
+
+%% ===========================================================================
+
+\section{Corrections and retractions}
+
+\label{s2:sec:corrections}
+
+\nLedgerA\ claims made in this project were withdrawn and \nLedgerB\ further defects
+were caught and corrected; Supplementary S1 lists every entry, and the text cites them
+by code (A for a withdrawn claim, B for a defect). We report them because six reversed
+a headline verdict, and a reader who does not know which numbers moved cannot evaluate
+the ones that did not; disclosed self-correction is also what lets a reader judge the
+rest \cite{rohrer2021loss}.
+
+\paragraph{Six that reversed a headline} Two reversed the physics-as-a-loss rung: its
+legacy claim that the residual hurts did not survive a sweep of weightings (B69), and
+every one of its verdicts was then withdrawn when the residual proved to be the wrong
+equation (B72, A28), until the corrected re-run reported the small benefit of
+rung L4 (Section~\ref{sec:ladder}). A17 withdrew the explanatory role of the Kolmogorov
+\(n\)-width; A22 turned a null described as decisive into one that excludes only very
+large effects (A25 later corrected its power simulation in the opposite direction);
+A29 retracted the flat-in-basis verdict of L5 on its \nNclustFolds-material
+re-measurement; and A30 revised the cost case once the coarse-solver baseline proved
+more accurate than the perceptron surrogates. B75, which removed ``significantly'' from
+the Fourier operator's advantage over DeepONet once the choice of both arms was paid
+for, is not counted: the direction of that comparison stands.
+
+The errors recur in five classes: a property measured at one sample size and stated as
+intrinsic (A18, A21, A26, A29); normalising by a quantity that can vanish (A15, B34,
+B41); comparison against a weak configuration of the competitor (A20, B14, B22, B23);
+undertrained arms scored as architectures (A19, B24); and power and calibration (A13,
+A22, A25).
+
+
+%% ===========================================================================
+

@@ -831,6 +831,75 @@ REFS = [
         journal="Journal of the American Chemical Society", volume="147", number="4",
         pages="3615--3630", year="2025", doi="10.1021/jacs.4c15287"),
      "Structure-to-isotherm models that would feed the parameter-to-coefficient map.", False),
+    ("nasiri2026process", V, "article", dict(
+        author="Maryam Nasiri Ghiri and Hamid Reza Nasriani and Mohammad Bagheri and Leila Khajenoori "
+               "and Samira khani Rasmussen and Andrei Chamchine",
+        title="Process-informed optimal design principles for cooperative step-isotherm adsorbents in "
+              "direct air capture using {ANN}-accelerated {TVSA} modelling",
+        journal="Chemical Engineering Journal Advances", volume="27", pages="101283", year="2026",
+        doi="10.1016/j.ceja.2026.101283"),
+     "Closest application overlap: an ANN surrogate of a TVSA bed over step-isotherm sorbent "
+     "parameters, for scalar KPIs (SEC, productivity) and optimisation; no held-out-material "
+     "error, no field surrogate, no coarse baseline (abstract via OpenAlex 2026-10-25).", False),
+    ("nasiri2026surrogate", V, "article", dict(
+        author="Maryam Nasiri-ghiri and Hamid Reza Nasriani and Leila Khajenoori and "
+               "Samira Khani Rasmussen and Karl Williams",
+        title="Surrogate-assisted cyclic performance optimisation of direct air capture using "
+              "amine-functionalised metal--organic frameworks",
+        journal="Separation and Purification Technology", volume="383", pages="136177", year="2026",
+        doi="10.1016/j.seppur.2025.136177"),
+     "A recent process surrogate on a MOF sorbent (abstract via OpenAlex).", False),
+    ("liske2026extended", V, "article", dict(
+        author="Gwyneth Liske and Arvind Rajendran",
+        title="Extended batch adsorber analogue model ({e-BAAM}) for rapid evaluation of {CO$_2$} "
+              "capture pressure swing adsorption cycles",
+        journal="The Canadian Journal of Chemical Engineering", year="2026", doi="10.1002/cjce.70453"),
+     "Reduced-physics screening model: cheap physics as the competitor of learned surrogates. "
+     "Online 2026, no volume or pages in Crossref on 2026-10-25.", False),
+    ("alkhatib2026machine", V, "article", dict(
+        author="Nour Alkhatib and Saifeldeen Abed Alrhman and Serdal Kirmizialtin",
+        title="Machine learning highlights chemistry as the key factor in metal--organic frameworks "
+              "for atmospheric water harvesting",
+        journal="Molecular Systems Design \\& Engineering", volume="11", number="1", pages="50--61",
+        year="2026", doi="10.1039/d5me00101c"),
+     "Materials-level ML for MOF water harvesting (GCMC + ML).", False),
+    ("arjmandi2026next", V, "article", dict(
+        author="M. Arjmandi and E. Ayta{\\c{c}} and M. Khayet and N. Hilal",
+        title="Next-generation {MOFs} for atmospheric water harvesting: the role of machine learning "
+              "techniques",
+        journal="Coordination Chemistry Reviews", volume="548", pages="217211", year="2026",
+        doi="10.1016/j.ccr.2025.217211"),
+     "Review of ML for MOF water harvesting; Crossref gives initials only.", False),
+    ("han2025machine", V, "article", dict(
+        author="Bo Han and Anutosh Chakraborty",
+        title="Machine learning optimized adsorption heat transformations from adsorbents screening to "
+              "enhanced performances",
+        journal="Energy Conversion and Management", volume="344", pages="120272", year="2025",
+        doi="10.1016/j.enconman.2025.120272"),
+     "No public abstract (Crossref, OpenAlex 2026-10-25): cite only for what the title states.", False),
+    ("han2025optimizing", V, "article", dict(
+        author="Bo Han and Mai Sheng Ng and Anutosh Chakraborty",
+        title="Optimizing metal-organic frameworks for adsorption-based atmospheric water harvesting: a "
+              "systematic evaluation of pristine and modified {MOFs} for enhanced performance in diverse "
+              "climates",
+        journal="Chemical Engineering Journal", volume="521", pages="166607", year="2025",
+        doi="10.1016/j.cej.2025.166607"),
+     "No public abstract: cite only for what the title states.", False),
+    ("wyder2025common", V, "misc", dict(
+        author="Philippe Martin Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and "
+               "Stefano Riva and Jan P. Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto "
+               "and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and "
+               "J. Nathan Kutz",
+        title="Common task framework for a critical evaluation of scientific machine learning algorithms",
+        howpublished="arXiv preprint", year="2025", eprint="2510.23166", archiveprefix="arXiv"),
+     "Weak baselines and reporting bias in scientific ML; hidden test sets.", False),
+    ("vantegelen2026late", V, "misc", dict(
+        author="Eva van Tegelen and Taniya Kapoor and George A. K. van Voorn and Peter van Heijster and "
+               "Ioannis N. Athanasiadis",
+        title="Late fusion neural operators for extrapolation across parameter space in partial "
+              "differential equations",
+        howpublished="arXiv preprint", year="2026", eprint="2604.16721", archiveprefix="arXiv"),
+     "How parameters enter the model governs extrapolation: supports 'the map binds'.", False),
     ("nadeau2003inference", V, "article", dict(
         author="Claude Nadeau and Yoshua Bengio",
         title="Inference for the generalization error",

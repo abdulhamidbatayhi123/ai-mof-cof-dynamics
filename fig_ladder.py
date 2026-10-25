@@ -160,7 +160,7 @@ def build_rows():
         c = {**c, "ci_low": sel["sim_lo"], "ci_high": sel["sim_hi"],
              "significant": sel["significant_simultaneous"]}
         add("L4", "physics as a loss",
-            "best weight vs data-only twin, unseen materials†",
+            "best weight vs data-only twin, held-out materials†",
             effect(c, control_is_a=(c["arm_a"] == "data_only")),
             ax["verdict"].split(" (")[0],   # the pre-declared words, verbatim: PHYSICS HELPS once correctly weighted
             "larger or adaptive weights hurt; no difference on the time axis",
@@ -221,8 +221,9 @@ def build_rows():
     else:
         missing.append("L7-v2 verdict")
 
-    # The coordinate change: the honest arm, then the oracle upper bound.
-    if warp:
+    # The coordinate change (exploratory, 12 materials) is reported in the ESI for the
+    # Digital Discovery version; its rows are drawn only when WARP_ROWS=1.
+    if warp and os.environ.get("WARP_ROWS") == "1":
         add("Two-front frame", "predicted fronts", "vs the fixed frame",
             effect(warp["fixed_vs_two_wave"], control_is_a=True), "NO DIFFERENCE",
             "the n-width collapses 31 -> 13 modes, and none of it survives front-location error")
@@ -231,7 +232,7 @@ def build_rows():
             "HEADROOM %.2f× over the fixed frame" % (warp["means"]["fixed"] / warp["means"]["two_wave_oracle"]),
             "NOT comparable with any arm not also handed the warp: it sizes the prize, it is not a result",
             leak=True)
-    else:
+    elif not warp:
         missing.append("warp verdict")
 
     return rows, missing
@@ -260,8 +261,9 @@ def panel_ladder(a, rows):
         else:
             a.plot([r["lo"], r["hi"]], [yi, yi], color=col, lw=1.8, solid_capstyle="butt", alpha=0.95)
             a.plot([r["lo"], r["hi"]], [yi, yi], "|", color=col, ms=5)
+            hollow = r["leak"] or r.get("n") == 12      # oracle, or exploratory (12 materials)
             a.plot([r["e"]], [yi], "o", ms=5, zorder=3,
-                   **({"mfc": "white", "mec": col, "mew": 1.4} if r["leak"] else {"color": col}))
+                   **({"mfc": "white", "mec": col, "mew": 1.4} if hollow else {"color": col}))
         if r["mde"]:
             a.plot([-r["mde"], r["mde"]], [yi - 0.32, yi - 0.32], color="0.5", lw=1.1, ls=(0, (2, 1.6)))
             a.text(r["mde"] + 1.0, yi - 0.32, f"MDE {r['mde']:.0f} %", va="center", fontsize=7.2, color="0.45")
@@ -283,13 +285,13 @@ def panel_ladder(a, rows):
                fontsize=7.2, va="center", fontweight="bold", color="0.12")
         a.text(1.03, f(-0.19), f"{r['inter']} ({r['n']} materials)", transform=a.transAxes,
                fontsize=7.2, va="center", color="0.38")
-    a.set_title("A  Seven pre-registered hypotheses, and the two-front frame")
+    a.set_title("A  Seven pre-registered explanations of the error")
     a.legend(handles=[
         Line2D([], [], color=C_MOVES, lw=2.4, label="reduces the error, significantly"),
         Line2D([], [], color=C_HURTS, lw=2.4, label="increases it, significantly"),
         Line2D([], [], color=C_NULL, lw=2.4, label="no detectable difference"),
-        Line2D([], [], color=C_LEAK, lw=2.4, marker="o", mfc="white",
-               label="oracle arm: an upper bound, not a comparable result"),
+        Line2D([], [], color="0.3", lw=0, marker="o", mfc="white", mec="0.3",
+               label="open: exploratory, 12 held-out materials"),
     ], fontsize=7.2, loc="upper left", bbox_to_anchor=(-0.42, -0.16), ncol=2, columnspacing=1.2)
 
 
@@ -373,7 +375,7 @@ def main():
 
     fs.apply()
     H = 0.30 * len(rows) + 3.3
-    fig = plt.figure(figsize=(7.2, H))
+    fig = plt.figure(figsize=(6.73, H))          # RSC double column, 17.1 cm
     top = fig.add_gridspec(1, 1, left=0.26, right=0.59, top=0.965, bottom=1.0 - (0.30 * len(rows) + 0.4) / H)
     bot = fig.add_gridspec(1, 1, left=0.12, right=0.97, top=0.24, bottom=0.07)
     panel_ladder(fig.add_subplot(top[0]), rows)
