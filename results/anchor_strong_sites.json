@@ -1,0 +1,80 @@
+{
+ "_what": "Exploratory (NOT pre-registered): does a strong primary site fix the anchor's early leak?",
+ "experiment": {
+  "t05_min": 85.6408226744186,
+  "t50_min": 287.09272713130053,
+  "t95_min": 354.1150224215248,
+  "plateau_150_250_frac": 0.26665307551518447,
+  "has_plateau": true,
+  "plateau_duration_min": 179.64970809007505,
+  "nrmse_vs_effluent": 0.0037412113671530453
+ },
+ "runs": {
+  "aff-1.3_fh0.06": {
+   "affinity_log10": -1.30103,
+   "f_H": 0.06,
+   "t05_min": 1.7170990366239114,
+   "t50_min": 303.32528140743113,
+   "t95_min": 431.0947340842309,
+   "plateau_150_250_frac": 0.3359120195289561,
+   "has_plateau": true,
+   "plateau_duration_min": 253.21100917431193,
+   "nrmse_vs_effluent": 0.12813913277901037
+  },
+  "aff-1.3_fh0.17": {
+   "affinity_log10": -1.30103,
+   "f_H": 0.17,
+   "t05_min": 2.9755434226232387,
+   "t50_min": 270.4926278942058,
+   "t95_min": 387.56640932382487,
+   "plateau_150_250_frac": 0.3658375729773116,
+   "has_plateau": true,
+   "plateau_duration_min": 224.18682235195996,
+   "nrmse_vs_effluent": 0.09987761304783781
+  },
+  "aff+0.1_fh0.06": {
+   "affinity_log10": 0.1,
+   "f_H": 0.06,
+   "t05_min": 14.373150087632371,
+   "t50_min": 312.2923916752741,
+   "t95_min": 443.5435406690691,
+   "plateau_150_250_frac": 0.32632017954447995,
+   "has_plateau": true,
+   "plateau_duration_min": 248.7072560467056,
+   "nrmse_vs_effluent": 0.13569208510975161
+  },
+  "aff+0.1_fh0.17": {
+   "affinity_log10": 0.1,
+   "f_H": 0.17,
+   "t05_min": 34.03785025825236,
+   "t50_min": 296.51525508087445,
+   "t95_min": 423.44417826592957,
+   "plateau_150_250_frac": 0.33138141548730565,
+   "has_plateau": true,
+   "plateau_duration_min": 212.67723102585487,
+   "nrmse_vs_effluent": 0.1052750613375072
+  },
+  "aff+1.0_fh0.06": {
+   "affinity_log10": 1.0,
+   "f_H": 0.06,
+   "t05_min": 37.40774298975125,
+   "t50_min": 312.92790439570166,
+   "t95_min": 439.73871697887716,
+   "plateau_150_250_frac": 0.32368511359881397,
+   "has_plateau": true,
+   "plateau_duration_min": 235.69641367806506,
+   "nrmse_vs_effluent": 0.13045826481314957
+  },
+  "aff+1.0_fh0.17": {
+   "affinity_log10": 1.0,
+   "f_H": 0.17,
+   "t05_min": 84.2832246670147,
+   "t50_min": 300.15658922280943,
+   "t95_min": 414.4095042206029,
+   "plateau_150_250_frac": 0.3185327468558221,
+   "has_plateau": true,
+   "plateau_duration_min": 181.65137614678898,
+   "nrmse_vs_effluent": 0.09372982748235933
+  }
+ }
+}
