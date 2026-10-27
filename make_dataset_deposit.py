@@ -7,7 +7,8 @@ Writes deposit/ with:
   named-frameworks-*.zip            the six named frameworks under the v2 and v3 rules
   ai-mof-ladder-legacy-fields.zip   the legacy dataset at its stored resolution (rungs L3, first L5,
                                     coordinate change)
-  manifests/                        the three manifest.json files and the two five-fold maps
+  manifests.zip                     the three manifest.json files and the two five-fold maps
+  deeponet-checkpoints.zip          the trained DeepONet models of PREREG_DD_V3 amendment A1
   sha256sums.txt                    a checksum per file
   DATA_CARD.md                      schema, units, normalisation, how the files map to the paper
 
@@ -87,18 +88,22 @@ def pack_dir(src, zpath, ext=".npy"):
 
 
 def main():
-    os.makedirs(os.path.join(OUT, "manifests"), exist_ok=True)
+    os.makedirs(OUT, exist_ok=True)
     n2, man2 = pack_once(ROOT_V2, os.path.join(OUT, "ai-mof-ladder-v2-fields-128.zip"), True)
     nl, manl = pack_once(ROOT_LEG, os.path.join(OUT, "ai-mof-ladder-legacy-fields.zip"), False)
     n3, man3 = pack_once(ROOT_V3, os.path.join(OUT, "ai-mof-ladder-v3-fields-128.zip"), True)
     nf2 = pack_dir("results/dd_b2_fields", os.path.join(OUT, "named-frameworks-v2-fields-128.zip"))
     nf3 = pack_dir("results/dd_b2_fields_v3", os.path.join(OUT, "named-frameworks-v3-fields-128.zip"))
     nm = pack_dir(MODELS, os.path.join(OUT, "deeponet-checkpoints.zip"), ext=".pt")
-    shutil.copy(os.path.join(ROOT_V3, "manifest.json"), os.path.join(OUT, "manifests", "manifest_v3.json"))
-    shutil.copy(FOLDS_V3, os.path.join(OUT, "manifests", os.path.basename(FOLDS_V3)))
-    shutil.copy(os.path.join(ROOT_V2, "manifest.json"), os.path.join(OUT, "manifests", "manifest_v2.json"))
-    shutil.copy(os.path.join(ROOT_LEG, "manifest.json"), os.path.join(OUT, "manifests", "manifest_legacy.json"))
-    shutil.copy(FOLDS_FILE, os.path.join(OUT, "manifests", os.path.basename(FOLDS_FILE)))
+    # one zip, because Zenodo keeps no folders; the names inside keep the manifests/ prefix
+    with zipfile.ZipFile(os.path.join(OUT, "manifests.zip"), "w", compression=zipfile.ZIP_DEFLATED) as z:
+        for src, name in ((os.path.join(ROOT_V2, "manifest.json"), "manifest_v2.json"),
+                          (os.path.join(ROOT_V3, "manifest.json"), "manifest_v3.json"),
+                          (os.path.join(ROOT_LEG, "manifest.json"), "manifest_legacy.json"),
+                          (FOLDS_FILE, os.path.basename(FOLDS_FILE)), (FOLDS_V3, os.path.basename(FOLDS_V3))):
+            z.write(src, f"manifests/{name}")
+    if os.path.isdir(os.path.join(OUT, "manifests")):     # loose copies from an earlier build
+        shutil.rmtree(os.path.join(OUT, "manifests"))
     card = f"""# Data card: simulated water-adsorption breakthrough fields
 
 Companion dataset of "The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials". Code and every result:
@@ -121,9 +126,9 @@ https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 
   standard deviation of the training folds for an out-of-fold model
   (`v2_common.standardise_params`) and of all v3 samples for a refit model
   (`dd_v3a1.phase_fwfit`); a parameter with zero spread is divided by one.
-- `manifests/manifest_v2.json`, `manifest_v3.json`, `manifest_legacy.json`: every material, condition
-  and sample, with the generator's seeds and settings; `manifests/{os.path.basename(FOLDS_FILE)}` and
-  `v3_folds.json`: the five-fold maps.
+- `manifests.zip`, which unzips to `manifests/`: `manifest_v2.json`, `manifest_v3.json` and
+  `manifest_legacy.json` (every material, condition and sample, with the generator's seeds and
+  settings), and `{os.path.basename(FOLDS_FILE)}` and `v3_folds.json` (the five-fold maps).
 
 ## Schema
 Each `mMMMM_cCCCC.npy` is float32 with shape (3, N_z, N_t): channel 0 is c/c_in, 1 is q/q_max,

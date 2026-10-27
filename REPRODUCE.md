@@ -48,8 +48,9 @@ Gates that need the field arrays report SKIP without them; that is expected in T
 ## Tier 1: with the dataset, a few CPU hours
 
 Download the dataset record (DOI in the paper's data availability statement) and check its
-SHA-256 sums (`sha256sums.txt`). Unzip the fields into place and copy each manifest next to
-them under the name the scripts read:
+SHA-256 sums (`sha256sums.txt`). Unzip the fields into place, unzip `manifests.zip` (it
+creates `manifests/`) and copy each manifest next to its fields under the name the scripts
+read:
 
 | In the record | Put it at |
 |---|---|
