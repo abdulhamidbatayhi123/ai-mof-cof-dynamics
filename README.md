@@ -1,8 +1,8 @@
 # The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23323685.svg)](https://doi.org/10.5281/zenodo.23323685)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23699712.svg)](https://doi.org/10.5281/zenodo.23699712)
 
-Archived release: Zenodo, doi:[10.5281/zenodo.23323685](https://doi.org/10.5281/zenodo.23323685) (v1.0.5; the first version, v1.0-preprint, is doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587)). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
+Archived release: Zenodo, doi:[10.5281/zenodo.23699712](https://doi.org/10.5281/zenodo.23699712) (v2.0.0, the Digital Discovery version; v1.0.5, the CMAME preprint version, is doi:[10.5281/zenodo.23323685](https://doi.org/10.5281/zenodo.23323685); the first version, v1.0-preprint, is doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587)). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
 
 Dataset (simulated breakthrough fields of both designs, the named frameworks, manifests, trained DeepONet models): Zenodo, doi:[10.5281/zenodo.23683358](https://doi.org/10.5281/zenodo.23683358). See [REPRODUCE.md](REPRODUCE.md), Tier 1.
 

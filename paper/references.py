@@ -1042,11 +1042,12 @@ REFS = [
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",
-        title="{[dataset]} {Code, results and pre-registrations for: The coefficient map, not the basis, limits how machine-learning surrogates of metal--organic framework water-adsorption beds transfer to unseen materials}",
-        howpublished="Zenodo", note="Version v1.0.5", year="2026",
-        doi="10.5281/zenodo.23323685"),
-     "The archived release of this repository. DataCite record read from the Zenodo API "
-     "2026-10-12 (v1.0.5: creator, title, version; v1.0.4 is 10.5281/zenodo.23312204, v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
+        title="{[dataset]} {Code, results and pre-registrations for: The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials}",
+        howpublished="Zenodo", note="Version v2.0.0", year="2026",
+        doi="10.5281/zenodo.23699712"),
+     "The archived release of this repository used for the Digital Discovery submission: v2.0.0, "
+     "record read from the Zenodo API 2026-10-27 (title, creator, version, DOI). Earlier releases "
+     "(read 2026-10-12: v1.0.5 is 10.5281/zenodo.23323685; v1.0.4 is 10.5281/zenodo.23312204, v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
      "10.5281/zenodo.23302586 resolves to the latest version. The [dataset] tag is the "
      "guide's marker for production and is removed in the published article.", False),
     ("batayhi2026codeconcept", V, "misc", dict(
