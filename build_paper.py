@@ -70,7 +70,7 @@ _ALLOWED_PAIRS = [
     ("10", "the name CAU-10-H; the top-10 % recall of PREREG_DD_ADDITIONS; log_10; a percentage threshold declared in the pre-registration; the base of scientific notation 10^{macro}; the source figure number of the anchor data (Lassitter et al., Fig. 10)"),
     ("20", "a factor in a cited correlation's coefficient"),
     ("29", "an interpolation-floor percentage from a reported exclusion"),
-    ("80", "the power level at which every MDE is quoted"),
+    ("80", "the power level at which every MDE is quoted; the registered recall threshold 0.80 written as a percentage"),
     ("99.9", "the training-variance level at which n-widths are counted"),
     # citation years and identifiers
     ("1953", "citation year"),
@@ -86,7 +86,7 @@ _ALLOWED_PAIRS = [
     ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
     ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel D; the affinity value -0.5 of the registered sensitivity (A1)"),
-    ("95", "the 95th percentile that defines 'inside the held-out error distribution' in PREREG_DD_ADDITIONS B2"),
+    ("95", "the 95th percentile that defines 'inside the held-out error distribution' in PREREG_DD_ADDITIONS B2; the 95 % breakthrough time, a defined event"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
     ("0.2", "the R-squared threshold at which usable coefficient modes are counted"),
@@ -125,7 +125,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 2, "0.5": 2, "0.7": 0, "1": 8, "2": 15, "3": 0, "4": 1, "5": 4, "8": 1, "10": 5, "12": 4, "16": 5, "20": 0, "24": 0, "48": 0, "50": 5, "60": 0, "64": 0, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 7, "192": 2, "240": 1, "1953": 0, "15": 0, "216": 0, "17": 1, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 5, "7": 2, "100": 1, "6": 1, "4.0": 1, "1.0": 1,
+    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 2, "0.5": 2, "0.7": 0, "1": 8, "2": 17, "3": 0, "4": 1, "5": 4, "8": 1, "10": 4, "12": 4, "16": 8, "20": 0, "24": 0, "48": 0, "50": 5, "60": 0, "64": 0, "76": 0, "79": 0, "80": 1, "95": 3, "96": 0, "99.9": 0, "128": 7, "192": 2, "240": 1, "1953": 0, "15": 0, "216": 0, "17": 1, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 5, "7": 2, "100": 1, "6": 1, "4.0": 1, "1.0": 1,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
     raise SystemExit("build_paper.py: ALLOWED_COUNT and _ALLOWED_PAIRS disagree on "

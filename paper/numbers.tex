@@ -602,6 +602,10 @@
 \newcommand{\nDonVthreeTotalEight}{4.28}
 \newcommand{\nDonVthreeTotalSixteen}{4.11}
 \newcommand{\nDonVthreeTotalHigh}{4.17}
+\newcommand{\nPerSampleMedVtwo}{90}
+\newcommand{\nPerSampleMedVthree}{99}
+\newcommand{\nFloorDomVtwo}{2.2}
+\newcommand{\nFloorDomVthree}{0.1}
 \newcommand{\nShVerdictsHgb}{all}
 \newcommand{\nShVerdictsDon}{all}
 \newcommand{\nDonConverged}{100}
@@ -669,6 +673,13 @@
 \newcommand{\nExclVtwo}{1.45}
 \newcommand{\nExclVthree}{6.42}
 \newcommand{\nCoFailVthree}{8}
+\newcommand{\nLeakFixedVtwoSp}{0.987}
+\newcommand{\nLeakFixedVtwoRc}{96}
+\newcommand{\nLeakFixedVthreeSp}{0.879}
+\newcommand{\nLeakFixedVthreeRc}{90}
+\newcommand{\nLeakVtwoMajAcc}{52}
+\newcommand{\nTieBiasRcMax}{0.026}
+\newcommand{\nBonfFlips}{v2 t50|hgb}
 \newcommand{\nCtlNr}{1.43}
 \newcommand{\nCtlOverVtwo}{1.5}
 \newcommand{\nVthreeOverCtl}{2.9}
@@ -710,6 +721,20 @@
 \newcommand{\nFwAVtwoDonCoMax}{4.4}
 \newcommand{\nFwASensMofEightMax}{10.4}
 \newcommand{\nFwASensOtherMax}{4.1}
+\newcommand{\nFwATfiftyDonRelMin}{7}
+\newcommand{\nFwATfiftyDonRelMax}{80}
+\newcommand{\nFwATfiftyDonMofThreeMin}{37}
+\newcommand{\nFwATfiftyDonMofThreeMax}{57}
+\newcommand{\nFwATfiftyHgbMofThreeMax}{156}
+\newcommand{\nFwAHgbVthreeMin}{4.3}
+\newcommand{\nFwAHgbVthreeMax}{7.8}
+\newcommand{\nFwVthreeHgbPninetyfive}{10.2}
+\newcommand{\nFwNMed}{16.4}
+\newcommand{\nFwASensWeakMax}{4.5}
+\newcommand{\nFwASensStrongNmin}{2}
+\newcommand{\nFwASensStrongNmax}{17}
+\newcommand{\nFwASensStrongWellMax}{4.1}
+\newcommand{\nFwASensMofEightN}{1}
 \newcommand{\nFwAVtwoRuleMax}{4.7}
 \newcommand{\nHgbVthreeFloorEight}{1.3}
 \newcommand{\nHgbVtwoFloorHigh}{0.007}
@@ -764,6 +789,38 @@
 \newcommand{\nAnchorStrongNrmse}{0.094}
 \newcommand{\nAnchorStrongAff}{+1}
 \newcommand{\nAnchorStrongFh}{0.17}
+\newcommand{\nAncWeakLowTfive}{2}
+\newcommand{\nAncWeakLowTfifty}{303}
+\newcommand{\nAncWeakLowTnine}{431}
+\newcommand{\nAncWeakLowPlat}{0.336}
+\newcommand{\nAncWeakLowNr}{0.128}
+\newcommand{\nAncWeakHighTfive}{3}
+\newcommand{\nAncWeakHighTfifty}{270}
+\newcommand{\nAncWeakHighTnine}{388}
+\newcommand{\nAncWeakHighPlat}{0.366}
+\newcommand{\nAncWeakHighNr}{0.100}
+\newcommand{\nAncMidLowTfive}{14}
+\newcommand{\nAncMidLowTfifty}{312}
+\newcommand{\nAncMidLowTnine}{444}
+\newcommand{\nAncMidLowPlat}{0.326}
+\newcommand{\nAncMidLowNr}{0.136}
+\newcommand{\nAncMidHighTfive}{34}
+\newcommand{\nAncMidHighTfifty}{297}
+\newcommand{\nAncMidHighTnine}{423}
+\newcommand{\nAncMidHighPlat}{0.331}
+\newcommand{\nAncMidHighNr}{0.105}
+\newcommand{\nAncStrongLowTfive}{37}
+\newcommand{\nAncStrongLowTfifty}{313}
+\newcommand{\nAncStrongLowTnine}{440}
+\newcommand{\nAncStrongLowPlat}{0.324}
+\newcommand{\nAncStrongLowNr}{0.130}
+\newcommand{\nAncStrongHighTfive}{84}
+\newcommand{\nAncStrongHighTfifty}{300}
+\newcommand{\nAncStrongHighTnine}{414}
+\newcommand{\nAncStrongHighPlat}{0.319}
+\newcommand{\nAncStrongHighNr}{0.094}
+\newcommand{\nAnchorExpTninefive}{354}
+\newcommand{\nAnchorExpPlat}{0.267}
 \newcommand{\nVthreeNmax}{32}
 \newcommand{\nVthreeAffLo}{\ensuremath{-}1.3}
 \newcommand{\nVthreeAffHi}{1.5}
@@ -880,6 +937,8 @@
 \newcommand{\nHgbOverDon}{3.7}
 % FloorRatioVthree: POD basis floor at p = 8, MOF-like over smooth design (PREREG_DD_V3 V1)
 \newcommand{\nFloorRatioVthree}{2.1}
+% BarRatio: DeepONet's held-out 95th-percentile bar, MOF-like over smooth design
+\newcommand{\nBarRatio}{4.3}
 % ShMin: smallest map share of squared error at p >= 16, both models, both designs (V1 and A1)
 \newcommand{\nShMin}{98.4}
 % LCHalfFactor: error increase the v2 learning curve predicts for half the training materials, 2^beta

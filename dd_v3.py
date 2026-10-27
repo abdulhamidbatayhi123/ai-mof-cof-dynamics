@@ -59,6 +59,28 @@ def phase_folds():
           f"{np.bincount(list(m2f.values())).tolist()}")
 
 
+class _file_lock:
+    """An exclusive lock held by creating a file with O_EXCL; waits while another process holds it."""
+
+    def __init__(self, path, timeout=600):
+        self.path, self.timeout = path, timeout
+
+    def __enter__(self):
+        t0 = time.time()
+        while True:
+            try:
+                self.fd = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+                return self
+            except FileExistsError:
+                if time.time() - t0 > self.timeout:
+                    raise SystemExit(f"lock {self.path} held for over {self.timeout} s; remove it if stale")
+                time.sleep(0.5)
+
+    def __exit__(self, *exc):
+        os.close(self.fd)
+        os.remove(self.path)
+
+
 def _load_model(dd, n_params, p, path):
     """A saved model of fit_deeponet, rebuilt with the same width rule and settings."""
     import torch
@@ -142,11 +164,13 @@ def phase_deeponet(data, p, seed, control=False, from_checkpoint=False):
                              "trunk_floor_c": floor.tolist(), "floor_converged": conv.tolist(),
                              "own_coeff_nrmse_c": own.tolist(), "secs": time.time() - t1,
                              "from_checkpoint": bool(from_checkpoint)}
-        # merge-on-write: re-read the file and add only this cell, so processes running in
-        # parallel cannot overwrite each other's cells (ledger B90)
-        res = dd.load_json(OUT_DON_A1, res)
-        res["cells"][key] = cell
-        write_atomic(res, OUT_DON_A1)
+        # merge-on-write under a lock file: re-read the file and add only this cell, so processes
+        # running in parallel can neither overwrite each other's cells (ledger B90) nor interleave
+        # a read and a write (the window the third data review pointed out)
+        with _file_lock(OUT_DON_A1 + ".lock"):
+            res = dd.load_json(OUT_DON_A1, res)
+            res["cells"][key] = cell
+            write_atomic(res, OUT_DON_A1)
         print(f"  {key}: nRMSE {nr.mean():.4f}, own floor {floor.mean():.5f} "
               f"(converged {conv.mean():.3f}, floor<=total {(floor <= nr + 1e-9).mean():.3f}) "
               f"[{time.time() - t1:.0f}s]", flush=True)

@@ -115,8 +115,12 @@ https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 
   Co2Cl2(BTDD)) under the v2 and v3 parameter rules, named `<framework>_cCCCC.npy`.
 - `deeponet-checkpoints.zip`: {nm} trained DeepONet state dictionaries (PyTorch) of PREREG_DD_V3
   amendment A1, named `<design>_p<basis size>_s<seed>_f<fold>.pt` (out-of-fold models) and
-  `fwfit_v3_deeponet_p16_s<seed>.pt` (refit on all v3 materials); load with `run_l5.DeepONet`
-  and the settings in `dd_screening_frameworks.py`.
+  `fwfit_v3_deeponet_p16_s<seed>.pt` (refit on all v3 materials); `dd_v3._load_model` rebuilds
+  one (`run_l5.DeepONet` with the width rule and settings of `dd_screening_frameworks.py`). The
+  inputs are the manifest's material and condition parameters, standardised with the mean and
+  standard deviation of the training folds for an out-of-fold model
+  (`v2_common.standardise_params`) and of all v3 samples for a refit model
+  (`dd_v3a1.phase_fwfit`); a parameter with zero spread is divided by one.
 - `manifests/manifest_v2.json`, `manifest_v3.json`, `manifest_legacy.json`: every material, condition
   and sample, with the generator's seeds and settings; `manifests/{os.path.basename(FOLDS_FILE)}` and
   `v3_folds.json`: the five-fold maps.

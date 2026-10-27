@@ -47,8 +47,11 @@ def share_record(floor, total, mats):
     f2, t2, mats = np.square(floor), np.square(total), np.asarray(mats)
     by = {m: np.where(mats == m)[0] for m in np.unique(mats)}
     bs = _boot(lambda i: 1 - f2[i].sum() / t2[i].sum(), by, np.random.default_rng(BOOT_SEED))
+    per = 1 - f2 / np.maximum(t2, 1e-300)            # per-sample share (the pooled share weights large errors)
     return {"share_map": float(1 - f2.sum() / t2.sum()), "ci": _q(bs),
-            "mean_floor": float(np.mean(floor)), "mean_total": float(np.mean(total))}
+            "mean_floor": float(np.mean(floor)), "mean_total": float(np.mean(total)),
+            "per_sample_median_share": float(np.median(per)),
+            "frac_samples_floor_dominated": float(np.mean(per < 0.5))}
 
 
 def verdict(by_p):
@@ -164,6 +167,19 @@ def screening(data, don):
                     "ratio_excluded": float(rows["nr_don"][ok].mean() / rows["nr_coarse"][ok].mean()),
                     "n_coarse_failed": int((~ok).sum()), "n": int(len(ok))}
     out["leak_bound"] = leak_bound(rows)
+    # Family-wise check (added after the third internal review, ledger B91): the eight surrogate
+    # adequacy verdicts (2 arms x 2 designs x 2 times) at a Bonferroni level alpha / 8, with 4000
+    # draws so the 0.125 % tails are resolved; the verdict rule is otherwise the registered one.
+    a_bonf = ALPHA / 8
+    out["bonferroni"] = {}
+    for which in ("t50", "t90"):
+        for arm in ("don", "hgb"):
+            bs = np.array(_boot(lambda i: np.array(_rank_metrics(rows, arm, which, i)), by,
+                                np.random.default_rng(BOOT_SEED + 7), n=N_BOOT))
+            lo_sp = float(np.percentile(bs[:, 0], 100 * a_bonf / 2))
+            lo_rc = float(np.percentile(bs[:, 1], 100 * a_bonf / 2))
+            out["bonferroni"][f"{which}|{arm}"] = {"spearman_lo": lo_sp, "recall_lo": lo_rc,
+                                                  "screening_adequate": bool(lo_sp >= 0.90 and lo_rc >= 0.80)}
     return out
 
 
@@ -184,9 +200,23 @@ def leak_bound(rows):
     sp_true, rc_true = _rank_metrics(rows, "don", "t50", np.arange(len(mult)))
     r2 = dict(rows, don_t50=t50_free)
     sp_free, rc_free = _rank_metrics(r2, "don", "t50", np.arange(len(mult)))
-    return {"spearman_true_horizon": sp_true, "spearman_predicted_horizon": sp_free,
-            "recall_true_horizon": rc_true, "recall_predicted_horizon": rc_free,
-            "multiplier_accuracy": float((pred_mult == mult).mean())}
+    out = {"spearman_true_horizon": sp_true, "spearman_predicted_horizon": sp_free,
+           "recall_true_horizon": rc_true, "recall_predicted_horizon": rc_free,
+           "multiplier_accuracy": float((pred_mult == mult).mean()),
+           "majority_class_accuracy": float(np.bincount(lab).max() / len(lab))}
+    # A second solve-free horizon, added after the third internal review (ledger B91): one fixed
+    # multiple of the stoichiometric time for every sample. Within a condition the multiple drops
+    # out of the ranking, so this ranks by predicted t50/t_final times t_st, with no classifier.
+    by = {m: np.where(rows["mat"] == m)[0] for m in np.unique(rows["mat"])}
+    for arm in ("don", "hgb"):
+        r3 = dict(rows, **{f"{arm}_t50": rows[f"{arm}_t50"] / rows["tf"] * rows["tst"]})
+        sp, rc = _rank_metrics(r3, arm, "t50", np.arange(len(mult)))
+        bs = np.array(_boot(lambda i: np.array(_rank_metrics(r3, arm, "t50", i)), by,
+                            np.random.default_rng(BOOT_SEED), n=1000))
+        out[f"{arm}_fixed_multiple"] = {"spearman": sp, "spearman_ci": _q(bs[:, 0]), "recall": rc,
+                                        "recall_ci": _q(bs[:, 1]),
+                                        "screening_adequate": bool(_q(bs[:, 0])[0] >= 0.90 and _q(bs[:, 1])[0] >= 0.80)}
+    return out
 
 
 # ─────────────────────────────── control, frameworks, physics checks ─────────
@@ -219,9 +249,12 @@ def frameworks():
         for fw, seeds in fws.items():
             for s, r in seeds.items():
                 seeds[s] = {"nrmse": float(np.mean(r["nr"])), "abs_t50_err_min": float(np.nanmean(r["dt"])),
-                            "rel_t50_err": float(np.nanmean(r["rel"]))}
+                            "rel_t50_err": float(np.nanmean(r["rel"])), "n_conditions": len(r["nr"])}
             vals = [v["nrmse"] for v in seeds.values()]
-            fws[fw] = {"per_seed": seeds, "min": min(vals), "max": max(vals)}
+            # how many accepted conditions each number rests on (ledger B91: at affinity +1.0 the
+            # feed saturates most isotherms, and a mean over one or two conditions is not comparable)
+            fws[fw] = {"per_seed": seeds, "min": min(vals), "max": max(vals),
+                       "n_conditions": min(v["n_conditions"] for v in seeds.values())}
     return out
 
 

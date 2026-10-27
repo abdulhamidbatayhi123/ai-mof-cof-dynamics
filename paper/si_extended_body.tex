@@ -33,7 +33,9 @@ aluminium fumarate \cite{hanikel2019rapid,laurenz2020novel}, MIL-160(Al)
 Co\(_2\)Cl\(_2\)(BTDD) \cite{rieth2017record}; each point spans the values its
 sources report, which differ in sample, temperature and in how the step is defined,
 and the below-step fractions are mostly read from published figures and are rough.
-Of the \nWmofN\ frameworks, \nWmofInside\ lie inside the sampled ranges on every axis. The
+Of the \nWmofN\ frameworks, \nWmofInside\ lie inside the smooth design's sampled ranges on
+these four axes (the step steepness, which also puts aluminium fumarate outside, is
+discussed below). The
 exceptions are at the edges, and one is far outside: MOF-801's step, at a relative humidity of about
 \nWmofEightStep, sits just below the sampled floor of \nWmofStepLo; one reported heat
 for CAU-10-H, \nWmofCauHeat\,kJ\,mol\(^{-1}\), lies just beyond the sampled range; and
@@ -154,7 +156,7 @@ derived from particle size through the Glueckauf relation, so
 bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
 \nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
 one-dimensional plug-flow model is no longer the right description. This is the same
-objection Section~\ref{sec:discussion} raises against our own anchor bed. Decoupling
+objection Section~\ref{sec:model} raises against our own anchor bed. Decoupling
 \(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
 physical inconsistency this dataset was built to remove. The null therefore
 holds across the range a physically consistent bed of this kind can occupy, and is
@@ -290,7 +292,37 @@ the published step position and capacity, never to dynamics, and the primary sit
 the smooth design's fixed, weak affinity (\(b_H = b_C/\nDcBH\)); the anchor comparison shows
 that this isotherm holds too little water below the step. The MOF-like design samples the
 affinity instead, up to sites stronger than the step sites (main text,
-Section~\ref{sec:model}).
+Section~\ref{sec:model}). Table~\ref{s2:tab:anchorgrid} lists every run of the
+exploratory grid behind that statement (\texttt{anchor\_strong\_sites.py}; not
+pre-registered). Only the primary-site affinity and the Henry fraction change; nothing is
+fitted. The main text plots the run closest to the measured curve.
+
+\begin{table}[!htbp]
+\centering
+\caption{Exploratory anchor grid (not pre-registered): the pre-registered primary
+configuration re-solved with the primary-site affinity \(\log_{10}(b_H/b_C)\) at the smooth
+design's value, the MOF-like design's median and a strong site, and the Henry fraction
+\(f_H\) at the cited MOF-303 form and at the below-step fraction its source reports. Times
+are minutes to 5, 50 and 95\,\% of the inlet; ``plateau'' is the mean outlet fraction from
+150 to 250\,min; nRMSE is against the digitised effluent. The authors' COMSOL line has an
+nRMSE of \nAnchorNrmseComsol.}
+\label{s2:tab:anchorgrid}
+\small
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+\(\log_{10}(b_H/b_C)\) & \(f_H\) & \(t_{5}\) & \(t_{50}\) & \(t_{95}\) & plateau & nRMSE \\
+\midrule
+\(-1.3\) & 0.06 & \nAncWeakLowTfive & \nAncWeakLowTfifty & \nAncWeakLowTnine & \nAncWeakLowPlat & \nAncWeakLowNr \\
+\(-1.3\) & 0.17 & \nAncWeakHighTfive & \nAncWeakHighTfifty & \nAncWeakHighTnine & \nAncWeakHighPlat & \nAncWeakHighNr \\
+\(+0.1\) & 0.06 & \nAncMidLowTfive & \nAncMidLowTfifty & \nAncMidLowTnine & \nAncMidLowPlat & \nAncMidLowNr \\
+\(+0.1\) & 0.17 & \nAncMidHighTfive & \nAncMidHighTfifty & \nAncMidHighTnine & \nAncMidHighPlat & \nAncMidHighNr \\
+\(+1.0\) & 0.06 & \nAncStrongLowTfive & \nAncStrongLowTfifty & \nAncStrongLowTnine & \nAncStrongLowPlat & \nAncStrongLowNr \\
+\(+1.0\) & 0.17 & \nAncStrongHighTfive & \nAncStrongHighTfifty & \nAncStrongHighTnine & \nAncStrongHighPlat & \nAncStrongHighNr \\
+\midrule
+\multicolumn{2}{@{}l}{measured} & \nAnchorTfiveExp & \nAnchorTfiftyExp & \nAnchorExpTninefive & \nAnchorExpPlat & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Part of the smooth design's heat range is occupied by no placed framework} The
 smooth design's sampled heat of adsorption runs from \nDcDHLo\ to \nDcDHHi\,kJ\,mol\(^{-1}\); the

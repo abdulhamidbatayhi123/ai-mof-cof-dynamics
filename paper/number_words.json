@@ -7,13 +7,6 @@
   "line_at_review": 54
  },
  {
-  "key": "real harvesting frameworks. [Seven] candidate explanations of the",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the number of pre-registered rungs, fixed by the protocol",
-  "line_at_review": 65
- },
- {
   "key": "{The [seven] pre-registered explanations a",
   "word": "seven",
   "class": "DESIGN",
@@ -168,13 +161,6 @@
   "line_at_review": 527
  },
  {
-  "key": "test probes extrapolation for [six] materials only. The model des",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 565
- },
- {
   "key": "and legacy designs and of the [six] named frameworks, their manif",
   "word": "six",
   "class": "DESIGN",
@@ -301,20 +287,6 @@
   "line_at_review": 384
  },
  {
-  "key": " [zero] . For this column the stakes a",
-  "word": "zero",
-  "class": "PROSE",
-  "reason": "a bound: the surrogate's query cost set to zero favours it",
-  "line_at_review": 406
- },
- {
-  "key": "ely. The balance can turn for [two] - or",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "two- or three-dimensional models",
-  "line_at_review": 408
- },
- {
   "key": "art again: on -H, DeepONet's [half] -breakthrough time is off by a",
   "word": "half",
   "class": "PROSE",
@@ -371,20 +343,6 @@
   "line_at_review": 523
  },
  {
-  "key": "als only. The model describes [one] adsorption step",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-26)",
-  "line_at_review": 565
- },
- {
-  "key": "ean bed, near equilibrium, in [one] dimension, with no desorption",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-26)",
-  "line_at_review": 566
- },
- {
   "key": "the half-breakthrough time of [one] step is a column quantity, no",
   "word": "one",
   "class": "PROSE",
@@ -413,13 +371,6 @@
   "line_at_review": 10
  },
  {
-  "key": "rained with them they predict [six] published frameworks within t",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 19
- },
- {
   "key": "seen adsorbents, validated on [two] ",
   "word": "two",
   "class": "CITED",
@@ -446,13 +397,6 @@
   "class": "PROSE",
   "reason": "half-breakthrough time, a defined quantity (t50)",
   "line_at_review": 209
- },
- {
-  "key": "nfirms it: with primary sites [ten] times stronger than the step",
-  "word": "ten",
-  "class": "DESIGN",
-  "reason": "the exploratory input log10(b_H/b_C) = +1, i.e. a ratio of ten (anchor_strong_sites.py)",
-  "line_at_review": 227
  },
  {
   "key": " [Three] directions follow. Coefficien",
@@ -539,13 +483,6 @@
   "line_at_review": 532
  },
  {
-  "key": "rrogates, however, are handed [one] ",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar",
-  "line_at_review": 551
- },
- {
   "key": "range over [three] refit seeds. Bold: inside the",
   "word": "three",
   "class": "DESIGN",
@@ -600,5 +537,159 @@
   "class": "DESIGN",
   "reason": "the two corrections fitted in the closed-form arm, fixed by its pre-registration",
   "line_at_review": 348
+ },
+ {
+  "key": "ained with them, they predict [six] published frameworks within t",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 20
+ },
+ {
+  "key": "frameworks. [Seven] candidate explanations of the",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 71
+ },
+ {
+  "key": "The paper asks [three] questions. What limits accura",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "the structure of the paper, not a quantity",
+  "line_at_review": 84
+ },
+ {
+  "key": "reports and primary sites [ten] times stronger than the step",
+  "word": "ten",
+  "class": "DESIGN",
+  "reason": "the strong end of the exploratory anchor grid, log ratio +1, a chosen setting",
+  "line_at_review": 210
+ },
+ {
+  "key": "work, and making those sites [ten] times stronger than the step",
+  "word": "ten",
+  "class": "DESIGN",
+  "reason": "the strong end of the exploratory anchor grid, log ratio +1, a chosen setting",
+  "line_at_review": 234
+ },
+ {
+  "key": "exploratory grid of [six] runs (listed in Supplementary",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the size of the exploratory grid (3 affinities x 2 Henry fractions), fixed before it ran",
+  "line_at_review": 211
+ },
+ {
+  "key": " [six] re-runs, all listed in Supple",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the size of the exploratory grid (3 affinities x 2 Henry fractions), fixed before it ran",
+  "line_at_review": 232
+ },
+ {
+  "key": "move the limit to the basis. [Two] qualifications apply.",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "a count of the caveats that follow, not a quantity",
+  "line_at_review": 423
+ },
+ {
+  "key": "query time set to [zero] . For this column the stakes a",
+  "word": "zero",
+  "class": "DESIGN",
+  "reason": "an idealisation stated as such: query time taken as zero",
+  "line_at_review": 461
+ },
+ {
+  "key": "ate. The balance can turn for [two] - or",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "two- or three-dimensional models, a geometry class",
+  "line_at_review": 463
+ },
+ {
+  "key": "rrogate's predicted times use [one] quantity that needed a",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a single named quantity (the run horizon)",
+  "line_at_review": 538
+ },
+ {
+  "key": " [Three] further checks leave the verd",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "a count of the checks that follow",
+  "line_at_review": 549
+ },
+ {
+  "key": "recalls by at most . And the [eight] surrogate verdicts",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 553
+ },
+ {
+  "key": "( [two] arms, two designs, two times)",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 554
+ },
+ {
+  "key": "(two arms, [two] designs, two times) are each",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 554
+ },
+ {
+  "key": "(two arms, two designs, [two] times) are each made at the r",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 554
+ },
+ {
+  "key": "onferroni correction over the [eight] , the narrowest pass, the",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 555
+ },
+ {
+  "key": "the frameworks with at least [four] accepted conditions stay at o",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "a reporting cut stated in the sentence itself, with the excluded frameworks named",
+  "line_at_review": 639
+ },
+ {
+  "key": " [half] -breakthrough times for the fr",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "the name of a defined event (50 % breakthrough)",
+  "line_at_review": 643
+ },
+ {
+  "key": "test probes extrapolation for [six] materials only on the smooth",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 687
+ },
+ {
+  "key": "ses them. The model describes [one] adsorption",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a modelling scope statement (a single adsorption column)",
+  "line_at_review": 688
+ },
+ {
+  "key": "n bed, with fast kinetics, in [one] dimension, with no desorption",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a modelling scope statement (1-D model)",
+  "line_at_review": 689
  }
 ]

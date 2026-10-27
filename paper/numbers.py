@@ -123,6 +123,13 @@ def sig(x, n=3):
     return f"{x:.{d}f}"
 
 
+def _expect(value, wanted):
+    """A result the text states in words rather than as a number: refuse if it changes."""
+    if value != wanted:
+        raise ValueError(f"the text states {wanted!r}, the results give {value!r}")
+    return value
+
+
 # key -> (file, dotted path, formatter). The dotted path may index lists with [i].
 SPEC = [
     # ---------------------------------------------------------------- L0
@@ -917,6 +924,15 @@ SPEC = [
     for q_tag, q in (("Floor", "floor"), ("Total", "total"))
     for p_tag, p in (("Eight", "8"), ("Sixteen", "16"), ("High", "128"))
 ] + [
+] + [
+    (f"PerSampleMed{d_tag}", "results/dd_v3a1_verdict.json",
+     f"split_deeponet_own_floor.{d}.by_p.16.per_sample_median_share", lambda x: f"{100 * x:.0f}")
+    for d_tag, d in (("Vtwo", "v2"), ("Vthree", "v3"))
+] + [
+    (f"FloorDom{d_tag}", "results/dd_v3a1_verdict.json",
+     f"split_deeponet_own_floor.{d}.by_p.16.frac_samples_floor_dominated", lambda x: f"{100 * x:.1f}")
+    for d_tag, d in (("Vtwo", "v2"), ("Vthree", "v3"))
+] + [
     ("ShVerdictsHgb", "results/dd_v3_verdict.json", "split",
      lambda s: "all" if all(s[d]["hgb"]["verdict"] == "the map dominates" for d in s) else "NOT ALL"),
     ("ShVerdictsDon", "results/dd_v3a1_verdict.json", "split_deeponet_own_floor",
@@ -969,6 +985,24 @@ SPEC = [
     for d_tag, d in (("Vtwo", "v2"), ("Vthree", "v3"))
 ] + [
     ("CoFailVthree", "results/dd_v3a1_verdict.json", "screening.v3.field.n_coarse_failed", "{:d}"),
+    # the solve-free fixed-multiple horizon (B91) and the registered classifier's baseline
+    ("LeakFixedVtwoSp", "results/dd_v3a1_verdict.json", "screening.v2.leak_bound.don_fixed_multiple.spearman", "{:.3f}"),
+    ("LeakFixedVtwoRc", "results/dd_v3a1_verdict.json", "screening.v2.leak_bound.don_fixed_multiple.recall",
+     lambda x: f"{100 * x:.0f}"),
+    ("LeakFixedVthreeSp", "results/dd_v3a1_verdict.json", "screening.v3.leak_bound.don_fixed_multiple.spearman", "{:.3f}"),
+    ("LeakFixedVthreeRc", "results/dd_v3a1_verdict.json", "screening.v3.leak_bound.don_fixed_multiple.recall",
+     lambda x: f"{100 * x:.0f}"),
+    ("LeakVtwoMajAcc", "results/dd_v3a1_verdict.json", "screening.v2.leak_bound.majority_class_accuracy",
+     lambda x: f"{100 * x:.0f}"),
+    ("TieBiasRcMax", "results/dd_v3a1_verdict.json", "screening",
+     lambda s: f"{max(abs(r['tie_bias_recall']) for d in s.values() for w in ('t50', 't90') for k, r in d[w].items() if k != 'baseline_tstoich'):.3f}"),
+    # adequacy verdicts that change at alpha / 8; the text names exactly one (POD + boosting, v2,
+    # t50 recall), so any other outcome refuses the build instead of leaving the sentence wrong
+    ("BonfFlips", "results/dd_v3a1_verdict.json", "screening",
+     lambda s: _expect(", ".join(f"{d} {k}" for d in s for k, b in s[d]["bonferroni"].items()
+                                 if b["screening_adequate"]
+                                 != s[d][k.split("|")[0]][k.split("|")[1]]["screening_adequate"]) or "none",
+                       "v2 t50|hgb")),
     ("CtlNr", "results/dd_v3a1_verdict.json", "control.v2ctl.nrmse", lambda x: f"{100 * x:.2f}"),
     ("CtlOverVtwo", "results/dd_v3a1_verdict.json", "control.v2ctl_over_v2", "{:.1f}"),
     ("VthreeOverCtl", "results/dd_v3a1_verdict.json", "control.v3_over_v2ctl", "{:.1f}"),
@@ -1001,6 +1035,35 @@ SPEC = [
      lambda x: f"{100 * x:.1f}"),
     ("FwASensOtherMax", "results/dd_v3a1_verdict.json", "frameworks.by",
      lambda b: f"{100 * max(r['max'] for tag in ('deeponet_p16|sens|a+1.0', 'deeponet_p16|sens|a-0.5') for n, r in b[tag].items() if n != 'MOF-801'):.1f}"),
+    # t50 errors of the v3-trained surrogates on the v3-rule frameworks (over three refit seeds)
+    ("FwATfiftyDonRelMin", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v3rule",
+     lambda b: f"{100 * min(s['rel_t50_err'] for r in b.values() for s in r['per_seed'].values()):.0f}"),
+    ("FwATfiftyDonRelMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v3rule",
+     lambda b: f"{100 * max(s['rel_t50_err'] for r in b.values() for s in r['per_seed'].values()):.0f}"),
+    ("FwATfiftyDonMofThreeMin", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v3rule.MOF-303.per_seed",
+     lambda d: f"{min(s['abs_t50_err_min'] for s in d.values()):.0f}"),
+    ("FwATfiftyDonMofThreeMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v3rule.MOF-303.per_seed",
+     lambda d: f"{max(s['abs_t50_err_min'] for s in d.values()):.0f}"),
+    ("FwATfiftyHgbMofThreeMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|v3rule.MOF-303.per_seed",
+     lambda d: f"{max(s['abs_t50_err_min'] for s in d.values()):.0f}"),
+    ("FwAHgbVthreeMin", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|v3rule",
+     lambda b: f"{100 * min(r['min'] for r in b.values()):.1f}"),
+    ("FwAHgbVthreeMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|v3rule",
+     lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
+    ("FwVthreeHgbPninetyfive", "results/dd_additions_verdict_v3.json", "b2.p95_heldout_material_nrmse.hgb_p16",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwNMed", "results/dd_b2_frameworks_v3.json", "frameworks.MIL-160(Al).isotherm_n", "{:.1f}"),
+    # affinity sensitivity, with the number of accepted conditions each value rests on (B91)
+    ("FwASensWeakMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a-0.5",
+     lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
+    ("FwASensStrongNmin", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a+1.0",
+     lambda b: f"{min(r['n_conditions'] for n, r in b.items() if n != 'MOF-801'):d}"),
+    ("FwASensStrongNmax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a+1.0",
+     lambda b: f"{max(r['n_conditions'] for n, r in b.items() if n != 'MOF-801'):d}"),
+    ("FwASensStrongWellMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a+1.0",
+     lambda b: f"{100 * max(r['max'] for r in b.values() if r['n_conditions'] >= 4):.1f}"),
+    ("FwASensMofEightN", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a+1.0.MOF-801.n_conditions",
+     "{:d}"),
     ("FwAVtwoRuleMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v2rule",
      lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
     ("HgbVthreeFloorEight", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.8.mean_floor", lambda x: f"{100 * x:.1f}"),
@@ -1071,6 +1134,16 @@ SPEC = [
     ("AnchorStrongNrmse", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.nrmse_vs_effluent", "{:.3f}"),
     ("AnchorStrongAff", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.affinity_log10", "{:+.0f}"),
     ("AnchorStrongFh", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.f_H", "{:.2f}"),
+] + [  # every run of the exploratory anchor grid (S2 table), not only the closest
+    (f"Anc{a_tag}{f_tag}{q_tag}", "results/anchor_strong_sites.json", f"runs.aff{a}_fh{fh}.{q}", fmt)
+    for a_tag, a in (("Weak", "-1.3"), ("Mid", "+0.1"), ("Strong", "+1.0"))
+    for f_tag, fh in (("Low", "0.06"), ("High", "0.17"))
+    for q_tag, q, fmt in (("Tfive", "t05_min", "{:.0f}"), ("Tfifty", "t50_min", "{:.0f}"),
+                          ("Tnine", "t95_min", "{:.0f}"), ("Plat", "plateau_150_250_frac", "{:.3f}"),
+                          ("Nr", "nrmse_vs_effluent", "{:.3f}"))
+] + [
+    ("AnchorExpTninefive", "results/anchor_strong_sites.json", "experiment.t95_min", "{:.0f}"),
+    ("AnchorExpPlat", "results/anchor_strong_sites.json", "experiment.plateau_150_250_frac", "{:.3f}"),
     ("VthreeNmax", "results/dd_v3_verdict.json", "design_v3.isotherm_n[1]", "{:.0f}"),
     ("VthreeAffLo", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[0]", "{:.1f}"),
     ("VthreeAffHi", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[1]", "{:.1f}"),
@@ -1135,6 +1208,8 @@ DERIVED = [
      lambda r: r["ScrHgbNr"] / r["ScrDonNr"], "{:.1f}"),
     ("FloorRatioVthree", "POD basis floor at p = 8, MOF-like over smooth design (PREREG_DD_V3 V1)",
      lambda r: r["HgbVthreeFloorEight"] / r["MtFloorEight"], "{:.1f}"),
+    ("BarRatio", "DeepONet's held-out 95th-percentile bar, MOF-like over smooth design",
+     lambda r: r["FwVthreeDonPninetyfive"] / r["FwDonPninetyfive"], "{:.1f}"),
     ("ShMin", "smallest map share of squared error at p >= 16, both models, both designs (V1 and A1)",
      lambda r: 100 * min(r[f"Sh{m}{d}{p}"] for m in ("Hgb", "Don") for d in ("Vtwo", "Vthree")
                          for p in ("Sixteen", "High")), "{:.1f}"),

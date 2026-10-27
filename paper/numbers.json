@@ -601,6 +601,10 @@
     "DonVthreeTotalEight": "4.28",
     "DonVthreeTotalSixteen": "4.11",
     "DonVthreeTotalHigh": "4.17",
+    "PerSampleMedVtwo": "90",
+    "PerSampleMedVthree": "99",
+    "FloorDomVtwo": "2.2",
+    "FloorDomVthree": "0.1",
     "ShVerdictsHgb": "all",
     "ShVerdictsDon": "all",
     "DonConverged": "100",
@@ -668,6 +672,13 @@
     "ExclVtwo": "1.45",
     "ExclVthree": "6.42",
     "CoFailVthree": "8",
+    "LeakFixedVtwoSp": "0.987",
+    "LeakFixedVtwoRc": "96",
+    "LeakFixedVthreeSp": "0.879",
+    "LeakFixedVthreeRc": "90",
+    "LeakVtwoMajAcc": "52",
+    "TieBiasRcMax": "0.026",
+    "BonfFlips": "v2 t50|hgb",
     "CtlNr": "1.43",
     "CtlOverVtwo": "1.5",
     "VthreeOverCtl": "2.9",
@@ -709,6 +720,20 @@
     "FwAVtwoDonCoMax": "4.4",
     "FwASensMofEightMax": "10.4",
     "FwASensOtherMax": "4.1",
+    "FwATfiftyDonRelMin": "7",
+    "FwATfiftyDonRelMax": "80",
+    "FwATfiftyDonMofThreeMin": "37",
+    "FwATfiftyDonMofThreeMax": "57",
+    "FwATfiftyHgbMofThreeMax": "156",
+    "FwAHgbVthreeMin": "4.3",
+    "FwAHgbVthreeMax": "7.8",
+    "FwVthreeHgbPninetyfive": "10.2",
+    "FwNMed": "16.4",
+    "FwASensWeakMax": "4.5",
+    "FwASensStrongNmin": "2",
+    "FwASensStrongNmax": "17",
+    "FwASensStrongWellMax": "4.1",
+    "FwASensMofEightN": "1",
     "FwAVtwoRuleMax": "4.7",
     "HgbVthreeFloorEight": "1.3",
     "HgbVtwoFloorHigh": "0.007",
@@ -763,6 +788,38 @@
     "AnchorStrongNrmse": "0.094",
     "AnchorStrongAff": "+1",
     "AnchorStrongFh": "0.17",
+    "AncWeakLowTfive": "2",
+    "AncWeakLowTfifty": "303",
+    "AncWeakLowTnine": "431",
+    "AncWeakLowPlat": "0.336",
+    "AncWeakLowNr": "0.128",
+    "AncWeakHighTfive": "3",
+    "AncWeakHighTfifty": "270",
+    "AncWeakHighTnine": "388",
+    "AncWeakHighPlat": "0.366",
+    "AncWeakHighNr": "0.100",
+    "AncMidLowTfive": "14",
+    "AncMidLowTfifty": "312",
+    "AncMidLowTnine": "444",
+    "AncMidLowPlat": "0.326",
+    "AncMidLowNr": "0.136",
+    "AncMidHighTfive": "34",
+    "AncMidHighTfifty": "297",
+    "AncMidHighTnine": "423",
+    "AncMidHighPlat": "0.331",
+    "AncMidHighNr": "0.105",
+    "AncStrongLowTfive": "37",
+    "AncStrongLowTfifty": "313",
+    "AncStrongLowTnine": "440",
+    "AncStrongLowPlat": "0.324",
+    "AncStrongLowNr": "0.130",
+    "AncStrongHighTfive": "84",
+    "AncStrongHighTfifty": "300",
+    "AncStrongHighTnine": "414",
+    "AncStrongHighPlat": "0.319",
+    "AncStrongHighNr": "0.094",
+    "AnchorExpTninefive": "354",
+    "AnchorExpPlat": "0.267",
     "VthreeNmax": "32",
     "VthreeAffLo": "-1.3",
     "VthreeAffHi": "1.5",
@@ -872,6 +929,7 @@
     "RidgeOverHgb": "1.5",
     "HgbOverDon": "3.7",
     "FloorRatioVthree": "2.1",
+    "BarRatio": "4.3",
     "ShMin": "98.4",
     "LCHalfFactor": "1.17",
     "MtMapChangePct": "+1.8",
@@ -3318,6 +3376,22 @@
       "file": "results/dd_v3a1_verdict.json",
       "path": "split_deeponet_own_floor.v3.by_p.128.mean_total"
     },
+    "PerSampleMedVtwo": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "split_deeponet_own_floor.v2.by_p.16.per_sample_median_share"
+    },
+    "PerSampleMedVthree": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "split_deeponet_own_floor.v3.by_p.16.per_sample_median_share"
+    },
+    "FloorDomVtwo": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "split_deeponet_own_floor.v2.by_p.16.frac_samples_floor_dominated"
+    },
+    "FloorDomVthree": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "split_deeponet_own_floor.v3.by_p.16.frac_samples_floor_dominated"
+    },
     "ShVerdictsHgb": {
       "file": "results/dd_v3_verdict.json",
       "path": "split"
@@ -3586,6 +3660,34 @@
       "file": "results/dd_v3a1_verdict.json",
       "path": "screening.v3.field.n_coarse_failed"
     },
+    "LeakFixedVtwoSp": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening.v2.leak_bound.don_fixed_multiple.spearman"
+    },
+    "LeakFixedVtwoRc": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening.v2.leak_bound.don_fixed_multiple.recall"
+    },
+    "LeakFixedVthreeSp": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening.v3.leak_bound.don_fixed_multiple.spearman"
+    },
+    "LeakFixedVthreeRc": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening.v3.leak_bound.don_fixed_multiple.recall"
+    },
+    "LeakVtwoMajAcc": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening.v2.leak_bound.majority_class_accuracy"
+    },
+    "TieBiasRcMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening"
+    },
+    "BonfFlips": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "screening"
+    },
     "CtlNr": {
       "file": "results/dd_v3a1_verdict.json",
       "path": "control.v2ctl.nrmse"
@@ -3749,6 +3851,62 @@
     "FwASensOtherMax": {
       "file": "results/dd_v3a1_verdict.json",
       "path": "frameworks.by"
+    },
+    "FwATfiftyDonRelMin": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|v3rule"
+    },
+    "FwATfiftyDonRelMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|v3rule"
+    },
+    "FwATfiftyDonMofThreeMin": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|v3rule.MOF-303.per_seed"
+    },
+    "FwATfiftyDonMofThreeMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|v3rule.MOF-303.per_seed"
+    },
+    "FwATfiftyHgbMofThreeMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|v3rule.MOF-303.per_seed"
+    },
+    "FwAHgbVthreeMin": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|v3rule"
+    },
+    "FwAHgbVthreeMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|v3rule"
+    },
+    "FwVthreeHgbPninetyfive": {
+      "file": "results/dd_additions_verdict_v3.json",
+      "path": "b2.p95_heldout_material_nrmse.hgb_p16"
+    },
+    "FwNMed": {
+      "file": "results/dd_b2_frameworks_v3.json",
+      "path": "frameworks.MIL-160(Al).isotherm_n"
+    },
+    "FwASensWeakMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a-0.5"
+    },
+    "FwASensStrongNmin": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a+1.0"
+    },
+    "FwASensStrongNmax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a+1.0"
+    },
+    "FwASensStrongWellMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a+1.0"
+    },
+    "FwASensMofEightN": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a+1.0.MOF-801.n_conditions"
     },
     "FwAVtwoRuleMax": {
       "file": "results/dd_v3a1_verdict.json",
@@ -3965,6 +4123,134 @@
     "AnchorStrongFh": {
       "file": "results/anchor_strong_sites.json",
       "path": "runs.aff+1.0_fh0.17.f_H"
+    },
+    "AncWeakLowTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.06.t05_min"
+    },
+    "AncWeakLowTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.06.t50_min"
+    },
+    "AncWeakLowTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.06.t95_min"
+    },
+    "AncWeakLowPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.06.plateau_150_250_frac"
+    },
+    "AncWeakLowNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.06.nrmse_vs_effluent"
+    },
+    "AncWeakHighTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.17.t05_min"
+    },
+    "AncWeakHighTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.17.t50_min"
+    },
+    "AncWeakHighTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.17.t95_min"
+    },
+    "AncWeakHighPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.17.plateau_150_250_frac"
+    },
+    "AncWeakHighNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff-1.3_fh0.17.nrmse_vs_effluent"
+    },
+    "AncMidLowTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.06.t05_min"
+    },
+    "AncMidLowTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.06.t50_min"
+    },
+    "AncMidLowTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.06.t95_min"
+    },
+    "AncMidLowPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.06.plateau_150_250_frac"
+    },
+    "AncMidLowNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.06.nrmse_vs_effluent"
+    },
+    "AncMidHighTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.17.t05_min"
+    },
+    "AncMidHighTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.17.t50_min"
+    },
+    "AncMidHighTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.17.t95_min"
+    },
+    "AncMidHighPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.17.plateau_150_250_frac"
+    },
+    "AncMidHighNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+0.1_fh0.17.nrmse_vs_effluent"
+    },
+    "AncStrongLowTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.06.t05_min"
+    },
+    "AncStrongLowTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.06.t50_min"
+    },
+    "AncStrongLowTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.06.t95_min"
+    },
+    "AncStrongLowPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.06.plateau_150_250_frac"
+    },
+    "AncStrongLowNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.06.nrmse_vs_effluent"
+    },
+    "AncStrongHighTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.t05_min"
+    },
+    "AncStrongHighTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.t50_min"
+    },
+    "AncStrongHighTnine": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.t95_min"
+    },
+    "AncStrongHighPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.plateau_150_250_frac"
+    },
+    "AncStrongHighNr": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.nrmse_vs_effluent"
+    },
+    "AnchorExpTninefive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "experiment.t95_min"
+    },
+    "AnchorExpPlat": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "experiment.plateau_150_250_frac"
     },
     "VthreeNmax": {
       "file": "results/dd_v3_verdict.json",
@@ -4395,6 +4681,9 @@
     },
     "FloorRatioVthree": {
       "derived": "POD basis floor at p = 8, MOF-like over smooth design (PREREG_DD_V3 V1)"
+    },
+    "BarRatio": {
+      "derived": "DeepONet's held-out 95th-percentile bar, MOF-like over smooth design"
     },
     "ShMin": {
       "derived": "smallest map share of squared error at p >= 16, both models, both designs (V1 and A1)"

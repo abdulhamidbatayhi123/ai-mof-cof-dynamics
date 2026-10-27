@@ -36,12 +36,13 @@ Gates that need the field arrays report SKIP without them; that is expected in T
 | Fig. 1 (schematic) | `fig_schematic.py` | `results/schematic_sample.json`, `schematic_modes.json` | `schematic_modes.py` |
 | Fig. 2 (MOF-303 anchor) | `compare_lassitter.py` (re-solves, about 2 min) | `refs/Lassitter2024_fig10_digitised.csv` | itself |
 | Fig. 3 (ladder) | `fig_ladder.py` | the rung verdict files in its docstring | the rung runners |
-| Fig. 4 (basis against map, both designs) | `fig_basismap.py` | `results/l5_mapterm_v2.json`, `l5_mapterm_v3.json`, `dd_v3_deeponet.json`, `dd_seed_robustness.json`, `dd_v3_verdict.json`, `learning_curve_v2_verdict.json` | `l5_mapterm_v2.py`, `dd_v3.py`, `dd_seed_robustness.py` |
-| Fig. 5 (screening, named frameworks) | `fig_screening.py` | `results/dd_b1_predictions*.json`, `dd_coarse_all*.json`, `dd_additions_verdict*.json`, `dd_v3_verdict.json`, `dd_seed_robustness.json` | `dd_screening_frameworks.py`, `dd_v3.py` |
+| Fig. 4 (basis against map, both designs) | `fig_basismap.py` | `results/l5_mapterm_v2.json`, `l5_mapterm_v3.json`, `dd_v3a1_deeponet.json`, `dd_v3_verdict.json`, `dd_v3a1_verdict.json`, `learning_curve_v2_verdict.json` | `l5_mapterm_v2.py`, `dd_v3.py`, `dd_v3a1.py` |
+| Fig. 5 (screening, both metrics) | `fig_screening.py` | `results/dd_v3a1_verdict.json` | `dd_v3a1.py analyse` |
 | Table 1 (named frameworks) | `paper/numbers.py` | `results/dd_additions_verdict*.json`, `dd_seed_robustness.json` | as above |
 | Table of contents graphic | `fig_toc.py` | `results/l5_mapterm_v2.json`, `dd_additions_verdict.json` | as above |
 | Verdicts of PREREG_DD_ADDITIONS | `dd_screening_frameworks.py analyse` | `results/dd_b1_predictions.json`, `dd_coarse_all.json`, `dd_b2_frameworks.json` | its other phases |
 | Verdicts of PREREG_DD_V3 | `dd_v3.py analyse` | the files above, both designs | `run_dd_v3.sh` |
+| Verdicts of PREREG_DD_V3 amendment A1 | `dd_v3a1.py analyse` | `results/dd_v3a1_deeponet.json`, `dd_v3a1_hgb.json`, `dd_v3a1_coarse_v*.json`, `dd_v3a1_fw*.json`, and the V3 files | `run_dd_v3a1.sh` |
 | Supplementary figures | `fig_dataset_v2.py`, `fig_water_mofs.py`, `fig_operators.py`, `fig_warp.py`, `fig_rungs.py`, `fig_mechanism.py` | their docstrings | the rung runners |
 
 ## Tier 1: with the dataset, a few CPU hours
@@ -71,7 +72,14 @@ python dd_screening_frameworks.py b2fit                         # surrogates ref
 python dd_screening_frameworks.py analyse
 python dd_seed_robustness.py b2 && python dd_seed_robustness.py b1 && python dd_seed_robustness.py summary
 bash run_dd_v3.sh                                               # the whole MOF-like design (PREREG_DD_V3)
+bash run_dd_v3a1.sh                                             # amendment A1: own floors, t90, frameworks (two streams)
 ```
+
+The DeepONet checkpoints of amendment A1 are in the record as `deeponet-checkpoints.zip`;
+unzip it to `models/` and `python dd_v3.py deeponet --data v2 --p 16 --seed 42 --from-checkpoint`
+(and likewise for any other cell) rescores a cell, own floor included, in minutes instead of
+retraining it. `python -m pytest tests` runs the unit tests (the solver for DeepONet's own
+floor, the share statistic, the verdict rule and the refusal on missing cells).
 
 Each script writes its results file; compare it with the tracked one. Floating-point reduction
 order differs across BLAS builds, so agreement is to about three significant figures, not bit
@@ -83,5 +91,7 @@ Generating the smooth design took about 18 worker-hours and the MOF-like design 
 on six workers (`gen_parametric_dataset.py --design v2` / `--design v3`, with `ADS_STORE_NZ=256`);
 training every arm of the ladder took several CPU days. The scripts are resumable and named by
 rung (`run_l1_v2.py`, `run_l2_v2.py`, `run_l5_v2.py`, `run_l6_v2.py`, `run_l7_v2.py`,
-`chain_l4b_v3.sh`, which runs `run_l4b_v2.py` with the corrected residual). `autorun.sh` and
-`run_dd_v3.sh` are the sequences that were actually run.
+`chain_l4b_v3.sh`, which runs `run_l4b_v2.py` with the corrected residual). `autorun.sh`,
+`run_dd_v3.sh` and `run_dd_v3a1.sh` are the sequences that were actually run; A1 was
+interrupted twice (ledger B90 and a worker-import guard), and `run_dd_v3a1_rest.sh`,
+`run_dd_v3a1_b2.sh` and `run_dd_v3a1_final.sh` are the resumptions, which skip finished cells.
