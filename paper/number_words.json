@@ -1,24 +1,10 @@
 [
  {
-  "key": "surrogate can fail in exactly [two] ways: the",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two failure modes, a logical dichotomy",
-  "line_at_review": 54
- },
- {
   "key": "{The [seven] pre-registered explanations a",
   "word": "seven",
   "class": "DESIGN",
   "reason": "the number of pre-registered rungs, fixed by the protocol",
   "line_at_review": 242
- },
- {
-  "key": "{ [Six] published frameworks}",
-  "word": "Six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 382
  },
  {
   "key": "flux conditions at the inlet, [zero] gradients at the outlet and a",
@@ -294,13 +280,6 @@
   "line_at_review": 449
  },
  {
-  "key": "\\ more (paired intervals). [Two] further training seeds leave",
-  "word": "Two",
-  "class": "DESIGN",
-  "reason": "seeds 43 and 44 of the robustness check",
-  "line_at_review": 451
- },
- {
   "key": "the half-breakthrough time of [one] step is a column quantity, no",
   "word": "one",
   "class": "PROSE",
@@ -329,25 +308,11 @@
   "line_at_review": 10
  },
  {
-  "key": "seen adsorbents, validated on [two] ",
-  "word": "two",
-  "class": "CITED",
-  "reason": "the two zeolites of Pai et al. 2022, as reported by the cited paper",
-  "line_at_review": 39
- },
- {
   "key": " [two] , and",
   "word": "two",
   "class": "PROSE",
   "reason": "the two error sources (basis, map), a logical dichotomy",
   "line_at_review": 59
- },
- {
-  "key": "found to dominate . How the [two] divide",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two error sources (basis, map), a logical dichotomy",
-  "line_at_review": 61
  },
  {
   "key": " [half] -breakthrough time is reproduc",
@@ -441,13 +406,6 @@
   "line_at_review": 532
  },
  {
-  "key": "range over [three] refit seeds. Bold: inside the",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "three refit seeds (42, 43, 44) of A1",
-  "line_at_review": 588
- },
- {
   "key": "n, both surrogates predict \\ [six] frameworks",
   "word": "six",
   "class": "DESIGN",
@@ -490,39 +448,11 @@
   "line_at_review": 348
  },
  {
-  "key": "frameworks. [Seven] candidate explanations of the",
-  "word": "Seven",
-  "class": "DESIGN",
-  "reason": "the number of pre-registered rungs, fixed by the protocol",
-  "line_at_review": 71
- },
- {
-  "key": "The paper asks [three] questions. What limits accura",
-  "word": "three",
-  "class": "PROSE",
-  "reason": "the structure of the paper, not a quantity",
-  "line_at_review": 84
- },
- {
   "key": "reports and primary sites [ten] times stronger than the step",
   "word": "ten",
   "class": "DESIGN",
   "reason": "the strong end of the exploratory anchor grid, log ratio +1, a chosen setting",
   "line_at_review": 210
- },
- {
-  "key": "work, and making those sites [ten] times stronger than the step",
-  "word": "ten",
-  "class": "DESIGN",
-  "reason": "the strong end of the exploratory anchor grid, log ratio +1, a chosen setting",
-  "line_at_review": 234
- },
- {
-  "key": "exploratory grid of [six] runs (listed in Supplementary",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the size of the exploratory grid (3 affinities x 2 Henry fractions), fixed before it ran",
-  "line_at_review": 211
  },
  {
   "key": " [six] re-runs, all listed in Supple",
@@ -553,13 +483,6 @@
   "line_at_review": 538
  },
  {
-  "key": "the frameworks with at least [four] accepted conditions stay at o",
-  "word": "four",
-  "class": "DESIGN",
-  "reason": "a reporting cut stated in the sentence itself, with the excluded frameworks named",
-  "line_at_review": 639
- },
- {
   "key": " [half] -breakthrough times for the fr",
   "word": "half",
   "class": "PROSE",
@@ -586,20 +509,6 @@
   "class": "PROSE",
   "reason": "a modelling scope statement (1-D model)",
   "line_at_review": 689
- },
- {
-  "key": "Trained with them, they keep [six] published frameworks within t",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 20
- },
- {
-  "key": "\\,\\%), but miss their [half] -breakthrough times by up to",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "the name of a defined event (50 % breakthrough)",
-  "line_at_review": 22
  },
  {
   "key": "but those criteria, like the [half] -breakthrough time, test capac",
@@ -693,13 +602,6 @@
   "line_at_review": 567
  },
  {
-  "key": "d \\ for recall. Finally, the [eight] surrogate verdicts (two arms,",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 568
- },
- {
   "key": "the eight surrogate verdicts ( [two] arms, two designs,",
   "word": "two",
   "class": "DESIGN",
@@ -747,5 +649,222 @@
   "class": "DESIGN",
   "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
   "line_at_review": 765
+ },
+ {
+  "key": "n fail on such a material for [two] ",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two failure modes named in the same sentence, a logical dichotomy",
+  "line_at_review": 8
+ },
+ {
+  "key": "ts, is wrong. We separate the [two] for a",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two error sources just named",
+  "line_at_review": 10
+ },
+ {
+  "key": "trained with them, they keep [six] ",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 20
+ },
+ {
+  "key": "seen adsorbents, validated on [two] zeolites ,",
+  "word": "two",
+  "class": "CITED",
+  "reason": "the two zeolites of the cited validation (Pai et al.)",
+  "line_at_review": 45
+ },
+ {
+  "key": "the error divides between the [two] when whole materials are held",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two error sources named before",
+  "line_at_review": 68
+ },
+ {
+  "key": "rvesting frameworks (Fig.~ ). [Seven] candidate explanations of the",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 75
+ },
+ {
+  "key": "equations. The design answers [three] practical questions: what lim",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "the structure of the paper, not a quantity",
+  "line_at_review": 86
+ },
+ {
+  "key": "{The study at a glance. {A}~ [Two] pre-registered designs, one w",
+  "word": "Two",
+  "class": "DESIGN",
+  "reason": "the two pre-registered designs",
+  "line_at_review": 104
+ },
+ {
+  "key": "}~Two pre-registered designs, [one] with smooth and one",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "enumeration of the two designs",
+  "line_at_review": 104
+ },
+ {
+  "key": "designs, one with smooth and [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "enumeration of the two designs",
+  "line_at_review": 104
+ },
+ {
+  "key": "are split into [five] folds by material, so that ev",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the protocol",
+  "line_at_review": 106
+ },
+ {
+  "key": "asis surrogates are fitted on [four] folds and tested on the fifth",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "four training folds of five, fixed by the protocol",
+  "line_at_review": 107
+ },
+ {
+  "key": "four folds and tested on the [fifth] . The Results",
+  "word": "fifth",
+  "class": "DESIGN",
+  "reason": "the held-out fold of five",
+  "line_at_review": 107
+ },
+ {
+  "key": "answer [five] questions, each in the sectio",
+  "word": "five",
+  "class": "PROSE",
+  "reason": "the five boxes of the figure, a count of panels",
+  "line_at_review": 108
+ },
+ {
+  "key": "in the section named. {B--E}~ [One] held-out field of the",
+  "word": "One",
+  "class": "PROSE",
+  "reason": "a single example field",
+  "line_at_review": 108
+ },
+ {
+  "key": "sum of 16 POD basis modes (C, [three] shown). With",
+  "word": "three",
+  "class": "PROSE",
+  "reason": "three panels drawn",
+  "line_at_review": 109
+ },
+ {
+  "key": "eld (D) differs from the true [one] only by the basis",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 110
+ },
+ {
+  "key": "t concentration first reaches [half] and",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "the definition of t50 (half of the feed)",
+  "line_at_review": 144
+ },
+ {
+  "key": "igns, median \\ in the smooth [one] ), and a single",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 187
+ },
+ {
+  "key": "exploratory grid of [six] runs to this curve (selected,",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the size of the exploratory grid (3 affinities x 2 Henry fractions), fixed before it ran",
+  "line_at_review": 237
+ },
+ {
+  "key": "ve (selected, not fitted; all [six] in Supplementary S2,",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the size of the exploratory grid (3 affinities x 2 Henry fractions), fixed before it ran",
+  "line_at_review": 237
+ },
+ {
+  "key": "\\ minutes; making those sites [ten] times stronger than the step",
+  "word": "ten",
+  "class": "DESIGN",
+  "reason": "the strong end of the exploratory anchor grid, log ratio +1, a chosen setting",
+  "line_at_review": 263
+ },
+ {
+  "key": "{ [Seven] pre-registered explanations p",
+  "word": "Seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs, fixed by the protocol",
+  "line_at_review": 359
+ },
+ {
+  "key": "the [two] comparisons of the operator r",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two registered comparisons of rung L5",
+  "line_at_review": 371
+ },
+ {
+  "key": "factor: at [eight] modes, ridge regression has a",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, a sweep point fixed by the protocol",
+  "line_at_review": 477
+ },
+ {
+  "key": " [half] -breakthrough times by up to",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "the name of a defined event (50 % breakthrough)",
+  "line_at_review": 22
+ },
+ {
+  "key": "more (paired intervals). Over [three] training seeds DeepONet's mea",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three training seeds of the robustness check, fixed by the protocol",
+  "line_at_review": 557
+ },
+ {
+  "key": "ints for recall. Finally, the [eight] surrogate verdicts (two arms,",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 605
+ },
+ {
+  "key": "e design, with the range over [three] refit seeds;",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three refit seeds of amendment A1",
+  "line_at_review": 637
+ },
+ {
+  "key": "over [three] seeds, around its bar of \\,\\",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "the three refit seeds of amendment A1",
+  "line_at_review": 700
+ },
+ {
+  "key": "the frameworks with at least [four] accepted conditions",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "a reporting cut stated in the sentence itself, with the excluded frameworks named",
+  "line_at_review": 701
  }
 ]

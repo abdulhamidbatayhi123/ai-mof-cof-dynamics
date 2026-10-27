@@ -101,6 +101,13 @@ def _rank_metrics(rows, arm, which, idx, within_fold=False):
     return float(np.nanmean(sp)), float(np.nanmean(rc))
 
 
+def _beyond(t_norm):
+    """A predicted crossing that never happens within the run is ranked at the horizon, the
+    lower bound it is known to exceed, not dropped (ledger B93: dropping it scored the arms
+    on different samples and flattered DeepONet's t90 ranking)."""
+    return 1.0 if t_norm is None or not np.isfinite(t_norm) else t_norm
+
+
 def screening_rows(data, don):
     man = json.load(open(os.path.join(ROOTS[data], "manifest.json")))
     samp = {(s["mat"], s["cond"]): s for s in man["samples"] if s.get("ok", True)}
@@ -118,10 +125,10 @@ def screening_rows(data, don):
             ok = bool(cc.get("accepted"))
             vals = {"mat": m, "cond": k, "fold": c["fold"], "tf": tf, "tst": s["t_stoich"], "mult": s["horizon_mult"],
                     "true_t50": c["t50_true_norm"][i] * tf, "true_t90": c["t90_true_norm"][i] * tf,
-                    "don_t50": c["t50_norm"][i] * tf, "don_t90": c["t90_norm"][i] * tf,
-                    "hgb_t50": h["t50_norm"][i] * tf, "hgb_t90": h["t90_norm"][i] * tf,
-                    "coarse_t50": (cc["t50_norm"] if ok else c["t50_true_norm"][i]) * tf,
-                    "coarse_t90": (cc.get("t90_norm") if ok else c["t90_true_norm"][i]) * tf,
+                    "don_t50": _beyond(c["t50_norm"][i]) * tf, "don_t90": _beyond(c["t90_norm"][i]) * tf,
+                    "hgb_t50": _beyond(h["t50_norm"][i]) * tf, "hgb_t90": _beyond(h["t90_norm"][i]) * tf,
+                    "coarse_t50": _beyond(cc["t50_norm"] if ok else c["t50_true_norm"][i]) * tf,
+                    "coarse_t90": _beyond(cc.get("t90_norm") if ok else c["t90_true_norm"][i]) * tf,
                     "nr_don": c["nrmse_c"][i], "nr_hgb": h["nrmse_c"][i],
                     "nr_coarse": cc["nrmse_c"] if ok else 0.0, "coarse_ok": ok, "don_t50_norm": c["t50_norm"][i]}
             for kk, v in vals.items():
@@ -139,7 +146,7 @@ def screening(data, don):
         for arm in ("don", "hgb", "coarse"):
             sp, rc = _rank_metrics(rows, arm, which, idx_all)
             bs = _boot(lambda i: np.array(_rank_metrics(rows, arm, which, i)), by,
-                       np.random.default_rng(BOOT_SEED), n=1000)
+                       np.random.default_rng(BOOT_SEED), n=N_BOOT)        # registered: 4000 (B93)
             bs = np.array(bs)
             r = {"spearman": sp, "spearman_ci": _q(bs[:, 0]), "recall": rc, "recall_ci": _q(bs[:, 1]),
                  "tie_bias_spearman": float(bs[:, 0].mean() - sp), "tie_bias_recall": float(bs[:, 1].mean() - rc)}
@@ -212,7 +219,7 @@ def leak_bound(rows):
         r3 = dict(rows, **{f"{arm}_t50": rows[f"{arm}_t50"] / rows["tf"] * rows["tst"]})
         sp, rc = _rank_metrics(r3, arm, "t50", np.arange(len(mult)))
         bs = np.array(_boot(lambda i: np.array(_rank_metrics(r3, arm, "t50", i)), by,
-                            np.random.default_rng(BOOT_SEED), n=1000))
+                            np.random.default_rng(BOOT_SEED), n=N_BOOT))
         out[f"{arm}_fixed_multiple"] = {"spearman": sp, "spearman_ci": _q(bs[:, 0]), "recall": rc,
                                         "recall_ci": _q(bs[:, 1]),
                                         "screening_adequate": bool(_q(bs[:, 0])[0] >= 0.90 and _q(bs[:, 1])[0] >= 0.80)}

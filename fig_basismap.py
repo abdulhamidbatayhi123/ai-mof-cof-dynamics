@@ -91,7 +91,7 @@ def main():
 
     for ax in (a, b):
         ax.set_yscale("log"); logx(ax, PS)
-        ax.set_xlabel("basis size $p$"); ax.set_ylabel("held-out nRMSE (c)")
+        ax.set_xlabel("basis size $p$"); ax.set_ylabel("held-out nRMSE of c")
     a.set_title("A  POD + gradient boosting", loc="left")
     b.set_title("B  DeepONet", loc="left")
     a.set_ylim(top=0.4); a.text(9, 0.13, "map term (solid)", fontsize=7, color="0.3")

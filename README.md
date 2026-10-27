@@ -1,4 +1,4 @@
-# The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
+# Machine-learning surrogates of MOF water-adsorption beds: the coefficient map, not the basis, limits accuracy on unseen materials
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23699712.svg)](https://doi.org/10.5281/zenodo.23699712)
 

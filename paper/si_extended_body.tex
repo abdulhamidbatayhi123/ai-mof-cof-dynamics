@@ -45,7 +45,11 @@ Co\(_2\)Cl\(_2\)(BTDD), at about \nWmofBtddQ\,mol\,kg\(^{-1}\), holds
 property a harvester designer cares about most, is not on these axes, because the sources
 report isotherms, not fitted exponents. The named-framework test (Section~\ref{sec:frameworks})
 reads it from the stated width of the rise by a registered rule, which puts aluminium
-fumarate and CAU-10-H far above the smooth design's range; the MOF-like design was built to
+fumarate and CAU-10-H far above the smooth design's range and MOF-801 (\(n =
+\nFwNMofEight\)) just above it. This section places each framework as the range of values
+its sources report, so one extreme report can sit outside; Table~\ref{tab:frameworks} of
+the main text classifies by the rule's mean inputs instead, which is why it lists CAU-10-H
+as outside on \(n\) only and MOF-801 on its step, heat and \(n\); the MOF-like design was built to
 enclose all six frameworks on every axis, \(n\) included. Table~\ref{s2:tab:fwinputs} lists
 the inputs both rules produce.
 
@@ -145,7 +149,7 @@ accurate as an oracle handed the true coefficients of its first
 
 L6 predicted that the benefit of a separate kinetic object grows as the Damk\"ohler
 number falls, and the main text finds no support for it. Kinetic control means Damk\"ohler well below unity, and this dataset never
-goes there: its lowest per-material value is \nDaMatMin. The hypothesis predicted
+goes there: its lowest per-material value is \nDaMatMin\ on the run horizon (\(k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), the axis of the L6 test) and \nDaStMin\ on the stoichiometric time. The hypothesis predicted
 that separating the kinetic object pays most where kinetics dominate, and we have
 found no support for it over a range whose slow-kinetics end is merely \emph{less fast}, not
 slow. A design that sampled \(\mathrm{Da} < 1\) could in principle recover the
@@ -155,8 +159,8 @@ derived from particle size through the Glueckauf relation, so
 \(\mathrm{Da} \propto d_p^{-2}\) and reaching \(\mathrm{Da} = 1\) from our slowest
 bed would take a pellet of about \nDaPelletForUnity\,\si{\milli\metre}. That is
 \nDaPelletsAcross\ pellet diameters along the \nDataBedLenCm\,\si{\centi\metre} column, where a
-one-dimensional plug-flow model is no longer the right description. This is the same
-objection Section~\ref{sec:model} raises against our own anchor bed. Decoupling
+one-dimensional plug-flow model is approaching the limit of its validity, the regime
+Section~\ref{sec:model} raises against our own, shallower anchor bed. Decoupling
 \(k_{\mathrm{LDF}}\) from \(d_p\) to reach that regime would restore precisely the
 physical inconsistency this dataset was built to remove. The null therefore
 holds across the range a physically consistent bed of this kind can occupy, and is
@@ -372,29 +376,30 @@ an external registry. The original ladder protocol is the weakest case: it was w
 its runs but committed only when the repository was created, minutes before the first
 results files, so for the rungs it governs (L3, the first L5 sweep and the coordinate
 change, all on the exploratory 12-material design) the order rests on the author's word. The
-two additions made for the Digital Discovery revision were pushed to the public repository
-before they ran, so the push is an external timestamp.
+two pre-registrations added for this submission were pushed to the public repository before
+anything was fitted or scored, so the push is an external timestamp; data generation for
+the MOF-like design began seven minutes before its push.
 
 \begin{table}[!htbp]
 \centering
-\caption{Pre-registrations and the first results they govern (author dates, UTC+3).}
+\caption{Pre-registrations and the first results they govern (author dates, UTC+3). Commit identifiers are those after the history rewrite of 5 October 2026 (\texttt{COMMIT\_MAP.tsv} maps them to the originals); for the rows fixed before that date the order rests on the author dates, for the later rows also on the public push.}
 \label{s2:tab:prereg}
 \small
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{3.9cm}
                 >{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{3.0cm}@{}}
 \toprule
-pre-registration & governs & fixed & first results \\
+pre-registration & governs & commit, fixed & first results \\
 \midrule
-\texttt{03\_LADDER\_PROTOCOL.md} & L3, first L5 sweep, coordinate change & 30 Aug 2026, 17:50 & 30 Aug 2026, 17:57 \\
-\texttt{PREREG\_L6\_v2.md} & L6 & 1 Sep 2026 & 2 Sep 2026 \\
-\texttt{PREREG\_L1L2L7\_v2.md} & L1, L2, L7 & 2 Sep 2026 & 3 Sep 2026 (L1, L7), 5 Sep (L2) \\
-\texttt{PREREG\_L4b\_v2.md} & L4 & 2 Sep 2026 & 24 Sep 2026; corrected re-run 11 Oct \\
-\texttt{PREREG\_LASSITTER.md} & the MOF-303 anchor & 3 Sep 2026, 09:56 & 3 Sep 2026, 10:03 \\
-\texttt{PREREG\_L5\_v2.md} & L5 on 240 materials & 28 Sep 2026 & 4 Oct 2026 \\
-\texttt{PREREG\_BASELINES.md} & Gaussian process, coarse solve, fitted closed forms & 4 Oct 2026 & 11 Oct 2026 \\
-\texttt{PREREG\_DD\_ADDITIONS.md} & screening, named frameworks & 25 Oct 2026 (pushed) & 25 Oct 2026, after the push \\
-\texttt{PREREG\_DD\_V3.md} & MOF-like design, DeepONet's own floor & 25 Oct 2026, 13:23 (pushed 13:34) & 25 Oct 2026, 18:22 (dataset generated from 13:27, unscored) \\
-\quad amendment A1 & converged floor, controls, t90 & 26 Oct 2026, 02:16 (after the first v3 results) & 26 Oct 2026, after the push \\
+\texttt{03\_LADDER\_PROTOCOL.md} & L3, first L5 sweep, coordinate change & 81295d4, 30 Aug 2026, 17:50 & 30 Aug 2026, 17:57 \\
+\texttt{PREREG\_L6\_v2.md} & L6 & 02c6cf1, 1 Sep 2026 & 2 Sep 2026 \\
+\texttt{PREREG\_L1L2L7\_v2.md} & L1, L2, L7 & db7093b, 2 Sep 2026 & 3 Sep 2026 (L1, L7), 5 Sep (L2) \\
+\texttt{PREREG\_L4b\_v2.md} & L4 & 4389c07, 2 Sep 2026 & 24 Sep 2026; corrected re-run 11 Oct \\
+\texttt{PREREG\_LASSITTER.md} & the MOF-303 anchor & 5dfdf50, 3 Sep 2026, 09:56 & 3 Sep 2026, 10:03 \\
+\texttt{PREREG\_L5\_v2.md} & L5 on 240 materials & 4ecc5d9, 28 Sep 2026 & 4 Oct 2026 \\
+\texttt{PREREG\_BASELINES.md} & Gaussian process, coarse solve, fitted closed forms & 073ad4d, 4 Oct 2026 & 11 Oct 2026 \\
+\texttt{PREREG\_DD\_ADDITIONS.md} & screening, named frameworks & 071ca9a, 25 Oct 2026 (pushed) & 25 Oct 2026, after the push \\
+\texttt{PREREG\_DD\_V3.md} & MOF-like design, DeepONet's own floor & 24e72e6, 25 Oct 2026, 13:23 (pushed 13:34) & 25 Oct 2026, 18:22 (dataset generated from 13:27, nothing fitted or scored before 18:22) \\
+\quad amendment 1 & converged floor, controls, t90 & e1433b3, 26 Oct 2026, 02:16 (after the first v3 results) & 26 Oct 2026, after the push \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: >-
-  Code, results and pre-registrations for: The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
+  Code, results and pre-registrations for: Machine-learning surrogates of MOF water-adsorption beds: the coefficient map, not the basis, limits accuracy on unseen materials
 message: If you use this software or its results, please cite it.
 type: software
 authors:

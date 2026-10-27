@@ -106,7 +106,7 @@ def main():
         shutil.rmtree(os.path.join(OUT, "manifests"))
     card = f"""# Data card: simulated water-adsorption breakthrough fields
 
-Companion dataset of "The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials". Code and every result:
+Companion dataset of "Machine-learning surrogates of MOF water-adsorption beds: the coefficient map, not the basis, limits accuracy on unseen materials". Code and every result:
 https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 10.5281/zenodo.23302586).
 
 ## Files

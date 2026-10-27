@@ -160,7 +160,9 @@ def main():
     fs.apply()
     # The figure carries no title (the journal puts it in the caption), and the legend
     # sits beside the axes so that no label covers a curve.
-    fig, ax = plt.subplots(figsize=(7.2, 3.3))
+    plt.rcParams["savefig.bbox"] = "standard"       # exactly the printed width, 17.1 cm
+    fig, ax = plt.subplots(figsize=(6.73, 3.1))
+    fig.subplots_adjust(left=0.085, right=0.635, bottom=0.15, top=0.97)
     for key, (t_min, frac) in curves.items():
         if key != pk:
             ax.plot(t_min, frac * RH_IN * 100, color="0.78", lw=0.6, zorder=1)
@@ -175,14 +177,15 @@ def main():
         r = json.load(open(strong))["runs"].get("aff+1.0_fh0.17", {})
         if "t_min" in r:
             ax.plot(r["t_min"], np.array(r["exit_frac"]) * RH_IN * 100, color=fs.C["orange"], lw=1.6,
-                    ls="-.", zorder=3, label="same, with strong primary sites\n(exploratory, nothing fitted)")
+                    ls="-.", zorder=3, label="strong primary sites: closest of\nsix exploratory runs (Table S2)")
     ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--", zorder=2,
             label="authors' COMSOL model\n(fitted kinetics)")
     ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", zorder=4, label="experiment, outlet (digitised)")
     ax.plot(inl[:, 0], inl[:, 1], "s", ms=3, mfc="none", mec="0.5", zorder=4, label="experiment, inlet (digitised)")
     ax.set_xlim(0, HORIZON_MIN); ax.set_ylim(0, 36)
     ax.set_xlabel("time (min)"); ax.set_ylabel("relative humidity (%)")
-    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), labelspacing=0.9)
+    ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5), labelspacing=0.8, fontsize=7.6,
+              handlelength=2.2, borderaxespad=0.0)
     os.makedirs("figures", exist_ok=True)
     for ext in ("png", "pdf"):
         fig.savefig(f"figures/Fig7_anchor.{ext}", dpi=300)

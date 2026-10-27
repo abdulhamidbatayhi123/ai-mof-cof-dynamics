@@ -1019,13 +1019,81 @@ REFS = [
         doi="10.48550/arXiv.2507.21269"),
      "A differentiable finite-difference model with learned coefficients beats FNO by one to two "
      "orders of magnitude, in and out of distribution (arXiv abstract read 2026-10-27).", False),
-    ("glover2026accelerating", V, "misc", dict(
+    ("glover2026accelerating", V, "article", dict(
         author="Alex Glover and Maria M. Papathanasiou and Ronny Pini",
         title="Accelerating simulation and optimisation of cyclic adsorption processes with "
               "differentiable programming",
-        howpublished="arXiv preprint", year="2026", eprint="2606.21523", archiveprefix="arXiv",
-        doi="10.48550/arXiv.2606.21523"),
-     "Speeds up the mechanistic adsorption solver itself (about 20x to cyclic steady state).", False),
+        journal="Computers \\& Chemical Engineering", volume="216", pages="109904", year="2027",
+        doi="10.1016/j.compchemeng.2026.109904"),
+     "Speeds up the mechanistic adsorption solver itself (about 20x to cyclic steady state). Published "
+     "version (January 2027 issue), Crossref record read 2026-10-27; earlier arXiv:2606.21523.", False),
+    ("charalambous2024holistic", V, "article", dict(
+        author="Charithea Charalambous and Elias Moubarak and Johannes Schilling and "
+               "{Sanchez Fernandez}, Eva and Jin-Yu Wang and Laura Herraiz and Fergus Mcilwaine and "
+               "Shing Bo Peh and Matthew Garvin and Kevin Maik Jablonka and Seyed Mohamad Moosavi and "
+               "{Van Herck}, Joren and {Yurdusen Ozturk}, Aysu and Alireza Pourghaderi and Ah-Young Song "
+               "and Georges Mouchaham and Christian Serre and Jeffrey A. Reimer and Andr{\\'e} Bardow and "
+               "Berend Smit and Susana Garcia",
+        title="A holistic platform for accelerating sorbent-based carbon capture",
+        journal="Nature", volume="632", number="8023", pages="89--94", year="2024",
+        doi="10.1038/s41586-024-07683-8"),
+     "PrISMa: process-informed screening of sorbents, including MOFs, with process design, "
+     "techno-economics and life-cycle assessment. Crossref record and abstract read 2026-10-27.", False),
+    ("wang2026bridging", V, "article", dict(
+        author="Yiqi Wang and Yongchul G. Chung and Weixiong Wu and Wei Li and Song Li",
+        title="Bridging the gap between materials and engineering: large-scale screening of "
+              "metal--organic frameworks for adsorption cooling from device level",
+        journal="Advanced Energy Materials", volume="16", number="5", pages="e04672", year="2026",
+        doi="10.1002/aenm.202504672"),
+     "MOF screening for adsorption cooling that integrates device-level heat and mass transport. "
+     "Crossref record and abstract read 2026-10-27 (online 2025, issue 2026).", False),
+    ("harriman2025optimizing", V, "article", dict(
+        author="Charles Harriman and Qia Ke and Thijs J. H. Vlugt and Ashlee J. Howarth and Cory M. Simon",
+        title="Optimizing mixtures of metal--organic frameworks for robust and bespoke passive "
+              "atmospheric water harvesting",
+        journal="ACS Engineering Au", volume="5", number="6", pages="707--725", year="2025",
+        doi="10.1021/acsengineeringau.5c00051"),
+     "Water delivery of MOF adsorbent beds for passive harvesting, from water isotherms and "
+     "weather conditions. Crossref record and abstract read 2026-10-27.", False),
+    ("li2025probing", V, "article", dict(
+        author="Kangming Li and Andre Niyongabo Rubungo and Xiangyun Lei and Daniel Persaud and "
+               "Kamal Choudhary and Brian DeCost and Adji Bousso Dieng and Jason Hattrick-Simpers",
+        title="Probing out-of-distribution generalization in machine learning for materials",
+        journal="Communications Materials", volume="6", pages="9", year="2025",
+        doi="10.1038/s43246-024-00731-w"),
+     "Many supposedly out-of-distribution materials splits are interpolation. Crossref record read "
+     "2026-10-27.", False),
+    ("omee2024structure", V, "article", dict(
+        author="Sadman Sadeed Omee and Nihang Fu and Rongzhi Dong and Ming Hu and Jianjun Hu",
+        title="Structure-based out-of-distribution ({OOD}) materials property prediction: a benchmark study",
+        journal="npj Computational Materials", volume="10", pages="144", year="2024",
+        doi="10.1038/s41524-024-01316-4"),
+     "Materials-specific evidence that random splits overstate performance. Crossref record read "
+     "2026-10-27.", False),
+    ("michalopoulou2024assessment", V, "article", dict(
+        author="Foteini Michalopoulou and Maria M. Papathanasiou",
+        title="Assessment of data-driven modeling approaches for chromatographic separation processes",
+        journal="AIChE Journal", volume="70", number="12", pages="e18600", year="2024",
+        doi="10.1002/aic.18600"),
+     "Neural surrogates of a chromatographic column judged on accuracy, interpolation and "
+     "simulation time against the high-fidelity model. Crossref record and abstract read 2026-10-27.",
+     False),
+    ("zhang2024blending", V, "article", dict(
+        author="Enrui Zhang and Adar Kahana and Alena Kopani{\\v{c}}{\\'a}kov{\\'a} and Eli Turkel and "
+               "Rishikesh Ranade and Jay Pathak and George Em Karniadakis",
+        title="Blending neural operators and relaxation methods in {PDE} numerical solvers",
+        journal="Nature Machine Intelligence", volume="6", number="11", pages="1303--1313", year="2024",
+        doi="10.1038/s42256-024-00910-x"),
+     "A neural operator inside an iterative solver, accelerating it rather than replacing it. "
+     "Crossref record read 2026-10-27.", False),
+    ("kovachki2024operator", V, "incollection", dict(
+        author="Nikola B. Kovachki and Samuel Lanthaler and Andrew M. Stuart",
+        title="Operator learning: algorithms and analysis",
+        booktitle="Handbook of Numerical Analysis", publisher="Elsevier", pages="419--467", year="2024",
+        doi="10.1016/bs.hna.2024.05.009"),
+     "Standard review of operator learning, including the encoder--decoder error split. Crossref "
+     "record read 2026-10-27 (title 'Operator learning', pages 419-467, no author list in Crossref); "
+     "authors and full title from arXiv:2402.15715.", False),
     ("koehler2025neural", V, "inproceedings", dict(
         author="Felix Koehler and Nils Thuerey",
         title="Neural emulator superiority: when machine learning for {PDEs} surpasses its training data",
@@ -1061,8 +1129,8 @@ REFS = [
      "Title to be re-read from the record after the release that accompanies this version.", False),
     ("batayhi2026data", V, "misc", dict(
         author="Abdulhamid Batayhi and H. Cankurt",
-        title="{[dataset]} {Dataset for: The coefficient map, not the basis, limits machine-learning "
-              "surrogates of MOF water-adsorption beds on unseen materials}",
+        title="{[dataset]} {Dataset for: Machine-learning surrogates of MOF water-adsorption beds: the "
+              "coefficient map, not the basis, limits accuracy on unseen materials}",
         howpublished="Zenodo", year="2026", doi="10.5281/zenodo.23683358"),
      "Our own dataset record. DOI reserved in the Zenodo draft on 2026-10-27 (read from the "
      "upload form); it resolves once the record is published, which must happen before submission. "

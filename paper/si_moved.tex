@@ -48,6 +48,10 @@ the axis after the result.
 
 \section{The parameter space}
 
+Table~\ref{s2:tab:params} lists the sampled ranges of both designs; the legacy design of
+the exploratory comparisons sampled the kinetic constant directly instead of deriving it
+from the pellet size (Section~\ref{s2:sec5}).
+
 \begin{table}[t]
 \centering
 \caption{The parameter spaces of the smooth (v2) and MOF-like (v3) designs. A ``material''
@@ -86,6 +90,12 @@ feed temperature & \(T_{\mathrm{in}}\) & K & \multicolumn{2}{l}{\nDcTinLo--\nDcT
 \end{table}
 
 \section{The surrogates of each rung}
+
+Table~\ref{s2:tab:rungs} gives the architecture, training and selection of every surrogate
+of the seven explanations. The analyses added for this submission use the settings of the
+rungs they extend: POD with gradient boosting and DeepONet at \(p = 16\) as in L5, the coarse
+solve of the baselines pre-registration, and the floor solver of the main text
+(Section~\ref{sec:mechanism}).
 
 \begin{sidewaystable}
 \centering
@@ -237,7 +247,7 @@ comparable error on the same held-out materials without any oracle.
 \paragraph{Monotonicity is not the lever} The predicted fronts violate the
 constraints the true ones satisfy in \nWarpNonmonoLo\,\% of samples, but projecting
 them onto the constraint set makes the reconstruction slightly worse
-(Supplementary S2, Section S8); the remaining headroom is the front predictor's raw
+(Section~\ref{s2:sec:warp}); the remaining headroom is the front predictor's raw
 accuracy.
 
 \paragraph{Relation to constant-pattern behaviour} Equation~\eqref{s2:eq:warp} is not
@@ -253,10 +263,11 @@ aligns both, which is why the second landmark does the work.
 \centering
 \caption{The accuracy--cost frontier, in solve-equivalents. Each row is a point on
 the learning curve of Section~\ref{sec:ladder}, priced; its error is that of the curve's
-per-mode gradient-boosting learner, and the fit and query times quoted in the text are
-those of the L1 perceptron. The last column is a \emph{lower} bound on the number of
-screening queries at which the surrogate becomes cheaper than the reference; it needs
-only the data cost, so it holds for either learner and whatever a query costs.}
+per-mode gradient-boosting learner. The last column is a \emph{lower} bound on the number of
+screening queries at which a surrogate becomes cheaper than the production solve; it needs
+only the data cost, so it holds for any learner and whatever a query costs. The main text
+(Section~\ref{sec:cost}) prices DeepONet's fit and compares against the coarse solve, which
+moves the break-even point to about \nCostBeFit\ queries.}
 \label{s2:tab:cost}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{rrrr}
@@ -272,20 +283,21 @@ training materials & training simulations & held-out nRMSE & break-even queries 
 \end{tabular}}
 \end{table}
 
-Second, the learning curve is a price list: going from 12 to 192 training materials
+The learning curve is a price list: going from 12 to 192 training materials
 multiplies the data cost by \nCostDataRatio{}\(\times\) and divides the error by
 \nLCratio{}\(\times\). The rows are priced for the curve's per-mode regressor; the L1
 perceptron is already more accurate, and L2 found a configuration
 \(\nLtwoVsLonePct\,\%\) better still, so a better learner shifts the whole frontier
 down. The exchange rate between data and error is the transferable part.
 
-Third, the eliminated rungs are interventions that add cost without buying accuracy: a
+The eliminated rungs are interventions that add cost without buying accuracy: a
 Kolmogorov--Arnold map costs fit time and nothing else, and the closed forms are
 cheaper but worse even when fitted. Of the levers that remain, only training materials
 cost simulations; a better configuration, a small residual weight
 (\nLfourbMatGainPct\,\%) or a different operator cost fit time or collocation points.
-Every statement here is cost \emph{at a stated accuracy}: the reference answers exactly,
-the surrogate with the held-out error in the third column.
+Every statement here is cost \emph{at a stated accuracy}: the production solve answers
+exactly, the surrogate with the held-out error in the third column, and the coarse solve of
+the main text with \nScrCoNr\,\% at a fraction of the production cost.
 
 %% ===========================================================================
 
@@ -330,8 +342,8 @@ Moved verbatim from the main text (Section~\ref{sec:ladder}), which summarises t
 explanation was tested on the smooth design (v2) or, where marked exploratory, on the
 legacy design.
 
-Figure~\ref{fig:ladder} of the main text summarises the seven explanations; each verdict below is in the
-wording fixed before its run.
+Figure~\ref{fig:ladder} of the main text summarises the seven explanations in the verdict words fixed
+before each run; the headings below paraphrase them, and the pre-registrations give them in full.
 
 \paragraph{L1, more training materials: not eliminated} The best fixed-basis surrogate, a
 multilayer perceptron on 64 POD coefficients per channel, reaches \nLoneMLP\ and beats

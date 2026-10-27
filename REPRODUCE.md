@@ -33,7 +33,7 @@ Gates that need the field arrays report SKIP without them; that is expected in T
 
 | Figure or table | Script (Tier 0, from results files) | Results it reads | Written by (Tier 1/2) |
 |---|---|---|---|
-| Fig. 1 (schematic) | `fig_schematic.py` | `results/schematic_sample.json`, `schematic_modes.json` | `schematic_modes.py` |
+| Fig. 1 (workflow and worked example) | `fig_workflow.py` | `results/dataset_summary.json`, `dataset_summary_v3.json`, `workflow_example_v3.json` | `dataset_summary.py`, `workflow_example.py` (needs the v3 fields, about 2 min) |
 | Fig. 2 (MOF-303 anchor) | `compare_lassitter.py` (re-solves, about 2 min) | `refs/Lassitter2024_fig10_digitised.csv` | itself |
 | Fig. 3 (ladder) | `fig_ladder.py` | the rung verdict files in its docstring | the rung runners |
 | Fig. 4 (basis against map, both designs) | `fig_basismap.py` | `results/l5_mapterm_v2.json`, `l5_mapterm_v3.json`, `dd_v3a1_deeponet.json`, `dd_v3_verdict.json`, `dd_v3a1_verdict.json`, `learning_curve_v2_verdict.json` | `l5_mapterm_v2.py`, `dd_v3.py`, `dd_v3a1.py` |

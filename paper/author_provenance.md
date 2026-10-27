@@ -119,6 +119,14 @@ Each row is the author list the registry returned, verbatim.
 | abdelwadood2026ai | Crossref 10.1039/d6ta01583b | AI-driven discovery of high-performance metal–organic frameworks for next-gen atmospheric water harvesting | Samar Abdelwadood; Seda Rouxel; Samuel Mao; Ludovic F. Dumée |
 | chatain2025numerical | arXiv 2507.21269 | Numerical PDE solvers outperform neural PDE solvers | Patrick Chatain; Michael Rizvi-Martel; Guillaume Rabusseau; Adam Oberman |
 | glover2026accelerating | arXiv 2606.21523 | Accelerating Simulation and Optimisation of Cyclic Adsorption Processes with Differentiable Programming | Alex Glover; Maria M. Papathanasiou; Ronny Pini |
+| charalambous2024holistic | Crossref 10.1038/s41586-024-07683-8 | A holistic platform for accelerating sorbent-based carbon capture | Charithea Charalambous; Elias Moubarak; Johannes Schilling; Eva Sanchez Fernandez; Jin-Yu Wang; Laura Herraiz; Fergus Mcilwaine; Shing Bo Peh; Matthew Garvin; Kevin Maik Jablonka; Seyed Mohamad Moosavi; Joren Van Herck; Aysu Yurdusen Ozturk; Alireza Pourghaderi; Ah-Young Song; Georges Mouchaham; Christian Serre; Jeffrey A. Reimer; André Bardow; Berend Smit; Susana Garcia |
+| wang2026bridging | Crossref 10.1002/aenm.202504672 | Bridging the Gap Between Materials and Engineering: Large‐Scale Screening of Metal–Organic Frameworks for Adsorption Cooling From Device Level | Yiqi Wang; Yongchul G. Chung; Weixiong Wu; Wei Li; Song Li |
+| harriman2025optimizing | Crossref 10.1021/acsengineeringau.5c00051 | Optimizing Mixtures of Metal–Organic Frameworks for Robust and Bespoke Passive Atmospheric Water Harvesting | Charles Harriman; Qia Ke; Thijs J. H. Vlugt; Ashlee J. Howarth; Cory M. Simon |
+| li2025probing | Crossref 10.1038/s43246-024-00731-w | Probing out-of-distribution generalization in machine learning for materials | Kangming Li; Andre Niyongabo Rubungo; Xiangyun Lei; Daniel Persaud; Kamal Choudhary; Brian DeCost; Adji Bousso Dieng; Jason Hattrick-Simpers |
+| omee2024structure | Crossref 10.1038/s41524-024-01316-4 | Structure-based out-of-distribution (OOD) materials property prediction: a benchmark study | Sadman Sadeed Omee; Nihang Fu; Rongzhi Dong; Ming Hu; Jianjun Hu |
+| michalopoulou2024assessment | Crossref 10.1002/aic.18600 | Assessment of data‐driven modeling approaches for chromatographic separation processes | Foteini Michalopoulou; Maria M. Papathanasiou |
+| zhang2024blending | Crossref 10.1038/s42256-024-00910-x | Blending neural operators and relaxation methods in PDE numerical solvers | Enrui Zhang; Adar Kahana; Alena Kopaničáková; Eli Turkel; Rishikesh Ranade; Jay Pathak; George Em Karniadakis |
+| kovachki2024operator | Crossref 10.1016/bs.hna.2024.05.009 | Operator learning | (no author list returned) |
 | koehler2025neural | Crossref 10.52202/085713-5521 | Neural Emulator Superiority: When Machine Learning for PDEs Surpasses its Training Data | Felix Koehler; Nils Thuerey |
 | kapoor2023leakage | Crossref 10.1016/j.patter.2023.100804 | Leakage and the reproducibility crisis in machine-learning-based science | Sayash Kapoor; Arvind Narayanan |
 
@@ -130,3 +138,4 @@ Each row is the author list the registry returned, verbatim.
 - kovachki2023neural
 - batayhi2026code (fetch failed: HTTP Error 404: Not Found)
 - batayhi2026codeconcept (fetch failed: HTTP Error 404: Not Found)
+- batayhi2026data (fetch failed: HTTP Error 404: Not Found)

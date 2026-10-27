@@ -42,6 +42,8 @@
     "LClargestFixed": "0.0348",
     "LCsmallestFixed": "0.0657",
     "LCratio": "1.88",
+    "LCsizeMin": "12",
+    "LCsizeMax": "192",
     "LClastDiff": "0.00534",
     "LClastLo": "0.00439",
     "LClastHi": "0.00637",
@@ -300,9 +302,9 @@
     "DaLegacyMedian": "625.6",
     "DaLegacyAbove": "98.9",
     "LedgerA": "30",
-    "LedgerB": "78",
-    "LedgerTotal": "108",
-    "LedgerOwn": "39",
+    "LedgerB": "93",
+    "LedgerTotal": "123",
+    "LedgerOwn": "48",
     "LfourbVerdictMaterial": "PHYSICS HELPS once correctly weighted (pi-fixed-w1e-5, fixed weights over 6 decades, gradient-norm balancing at 3 target ratios, NTK weighting; 2 further arms (pi-fixed-w1, pi-sa) abandoned the data fit and are excluded as failed-to-train rather than averaged in, per PREREG \u00a74.1); the legacy claim is RETRACTED as a weighting artefact.",
     "LfourbTimeTwin": "0.0131",
     "LfourbTimeBest": "0.0132",
@@ -618,8 +620,8 @@
     "SnVtwoFiftyHgbRc": "87",
     "SnVtwoFiftyCoSp": "1.000",
     "SnVtwoFiftyCoRc": "99",
-    "SnVtwoNinetyDonSp": "0.984",
-    "SnVtwoNinetyDonRc": "92",
+    "SnVtwoNinetyDonSp": "0.983",
+    "SnVtwoNinetyDonRc": "91",
     "SnVtwoNinetyHgbSp": "0.944",
     "SnVtwoNinetyHgbRc": "72",
     "SnVtwoNinetyCoSp": "1.000",
@@ -630,24 +632,24 @@
     "SnVthreeFiftyHgbRc": "68",
     "SnVthreeFiftyCoSp": "1.000",
     "SnVthreeFiftyCoRc": "99",
-    "SnVthreeNinetyDonSp": "0.950",
-    "SnVthreeNinetyDonRc": "76",
+    "SnVthreeNinetyDonSp": "0.949",
+    "SnVthreeNinetyDonRc": "75",
     "SnVthreeNinetyHgbSp": "0.934",
     "SnVthreeNinetyHgbRc": "68",
     "SnVthreeNinetyCoSp": "1.000",
     "SnVthreeNinetyCoRc": "99",
-    "SnVtwoNinetyDonSpLo": "0.978",
+    "SnVtwoNinetyDonSpLo": "0.977",
     "SnVtwoNinetyDonSpHi": "0.987",
-    "SnVtwoNinetyDonRcLo": "88",
+    "SnVtwoNinetyDonRcLo": "87",
     "SnVtwoNinetyDonRcHi": "94",
     "SnVtwoNinetyHgbSpLo": "0.929",
-    "SnVtwoNinetyHgbSpHi": "0.952",
+    "SnVtwoNinetyHgbSpHi": "0.953",
     "SnVtwoNinetyHgbRcLo": "65",
-    "SnVtwoNinetyHgbRcHi": "78",
-    "SnVthreeNinetyDonSpLo": "0.931",
+    "SnVtwoNinetyHgbRcHi": "77",
+    "SnVthreeNinetyDonSpLo": "0.930",
     "SnVthreeNinetyDonSpHi": "0.959",
-    "SnVthreeNinetyDonRcLo": "64",
-    "SnVthreeNinetyDonRcHi": "84",
+    "SnVthreeNinetyDonRcLo": "63",
+    "SnVthreeNinetyDonRcHi": "83",
     "SnVthreeNinetyHgbSpLo": "0.907",
     "SnVthreeNinetyHgbSpHi": "0.947",
     "SnVthreeNinetyHgbRcLo": "57",
@@ -678,7 +680,7 @@
     "LeakFixedVthreeSp": "0.879",
     "LeakFixedVthreeRc": "90",
     "LeakVtwoMajAcc": "52",
-    "TieBiasRcMax": "0.026",
+    "TieBiasRcMax": "2.9",
     "BonfFlips": "v2 t50|hgb",
     "CtlNr": "1.43",
     "CtlOverVtwo": "1.5",
@@ -736,6 +738,11 @@
     "FwASensStrongWellMax": "4.1",
     "FwASensMofEightN": "1",
     "FwAVtwoRuleMax": "4.7",
+    "FwAHgbVtwoRuleMax": "6.9",
+    "FwAHgbSensWeakMax": "6.7",
+    "FwAHgbSensStrongWellMax": "10.0",
+    "FwAHgbSensMofEightMax": "11.5",
+    "FwASensMofEightMin": "8.3",
     "HgbVthreeFloorEight": "1.3",
     "HgbVtwoFloorHigh": "0.007",
     "HgbVthreeFloorHigh": "0.06",
@@ -1142,6 +1149,14 @@
     "LCratio": {
       "file": "results/learning_curve_v2_verdict.json",
       "path": "axes.materials.ratio_first_to_last"
+    },
+    "LCsizeMin": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[0].size"
+    },
+    "LCsizeMax": {
+      "file": "results/learning_curve_v2_verdict.json",
+      "path": "axes.materials.rows[4].size"
     },
     "LClastDiff": {
       "file": "results/learning_curve_v2_verdict.json",
@@ -3725,7 +3740,7 @@
     },
     "DaStMin": {
       "file": "results/dd_v3a1_verdict.json",
-      "path": "physics.v2.da_stoich_per_material_min"
+      "path": "physics"
     },
     "DaStMed": {
       "file": "results/dd_v3a1_verdict.json",
@@ -3918,6 +3933,26 @@
     "FwAVtwoRuleMax": {
       "file": "results/dd_v3a1_verdict.json",
       "path": "frameworks.by.deeponet_p16|v2rule"
+    },
+    "FwAHgbVtwoRuleMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|v2rule"
+    },
+    "FwAHgbSensWeakMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|sens|a-0.5"
+    },
+    "FwAHgbSensStrongWellMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|sens|a+1.0"
+    },
+    "FwAHgbSensMofEightMax": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.hgb_p16|sens|a+1.0.MOF-801.max"
+    },
+    "FwASensMofEightMin": {
+      "file": "results/dd_v3a1_verdict.json",
+      "path": "frameworks.by.deeponet_p16|sens|a+1.0.MOF-801.min"
     },
     "HgbVthreeFloorEight": {
       "file": "results/dd_v3_verdict.json",

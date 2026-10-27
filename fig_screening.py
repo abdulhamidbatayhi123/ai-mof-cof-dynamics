@@ -47,12 +47,16 @@ def main():
             for x, (k, _) in enumerate(ARMS):
                 xx = g * 4 + x
                 vals = np.asarray(rec[k][f"per_condition_{metric}"], float)
-                ax.plot(np.full(len(vals), xx) + np.linspace(-0.18, 0.18, len(vals)), vals, "o", ms=1.8,
-                        color=COL[k], alpha=0.4, mec="none")
+                ax.plot(np.full(len(vals), xx) + np.linspace(-0.18, 0.18, len(vals)), vals, "o", ms=2.6,
+                        color=COL[k], alpha=0.6, mec="none")
                 m = rec[k][metric]
                 lo, hi = rec[k][f"{metric}_ci"]
-                ax.errorbar([xx], [m], yerr=[[max(m - lo, 0)], [max(hi - m, 0)]], fmt="s", color=COL[k],
-                            ms=3.6, capsize=2.5, zorder=3)
+                # the interval is drawn as computed, not clipped to the point: for the near-perfect
+                # coarse solve it can lie just below the observed value, because a bootstrap draw
+                # that repeats a material ties its ranks
+                ax.vlines(xx, lo, hi, color=COL[k], lw=1.2, zorder=3)
+                ax.hlines([lo, hi], xx - 0.12, xx + 0.12, color=COL[k], lw=1.0, zorder=3)
+                ax.plot([xx], [m], "s", color=COL[k], ms=3.6, zorder=4)
             bl = rec["baseline_tstoich"][metric]
             ax.plot([g * 4 - 0.4, g * 4 + 2.4], [bl, bl], color="0.55", lw=0.9, ls="-.")
         ax.axhline(thr, color="0.4", lw=0.8, ls=":")

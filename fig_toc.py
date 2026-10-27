@@ -1,6 +1,7 @@
 """Table-of-contents graphic for Digital Discovery (8 cm x 4 cm), read from results files.
 
-New artwork, not a panel of any figure in the paper.
+New artwork, not a panel of any figure in the paper. Printed at exactly 8 x 4 cm, so no text
+is smaller than 6.5 pt.
 
   left   a surrogate as two steps, parameters -> coefficients (the map) -> field (the basis),
          each labelled with its share of DeepONet's squared held-out error at 16 modes on the
@@ -25,12 +26,13 @@ import figstyle as fs
 
 CM = 1 / 2.54
 P = "16"
+T = 6.6            # smallest text, in points, at the printed size
 
 
 def _box(ax, x, y, w, h, text):
     ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h, boxstyle="round,pad=0.02,rounding_size=0.06",
                                 fc="white", ec=fs.C["grey"], lw=0.7))
-    ax.text(x, y, text, ha="center", va="center", fontsize=4.9, linespacing=1.1)
+    ax.text(x, y, text, ha="center", va="center", fontsize=T, linespacing=1.05)
 
 
 def _arrow(ax, x0, x1, y, colour, lw):
@@ -47,37 +49,38 @@ def main():
     b3 = json.load(open("results/dd_additions_verdict_v3.json"))["b1"]
 
     fig = plt.figure(figsize=(8 * CM, 4 * CM))
-    a = fig.add_axes([0.01, 0.0, 0.58, 1.0])
-    b = fig.add_axes([0.705, 0.2, 0.275, 0.6])
+    a = fig.add_axes([0.0, 0.0, 0.6, 1.0])
+    b = fig.add_axes([0.70, 0.25, 0.28, 0.58])
 
     a.set_xlim(0, 6); a.set_ylim(0, 3.2); a.axis("off")
-    a.text(3.0, 2.9, "Where a surrogate's error comes from", ha="center", va="center", fontsize=6,
+    a.text(3.0, 2.92, "Where the error comes from", ha="center", va="center", fontsize=T + 0.6,
            weight="bold")
-    y = 1.75
-    _box(a, 0.85, y, 1.6, 0.8, "material +\nconditions")
-    _box(a, 3.0, y, 1.6, 0.8, "basis\ncoefficients")
-    _box(a, 5.15, y, 1.6, 0.8, "breakthrough\nfield")
-    _arrow(a, 1.67, 2.18, y, fs.C["red"], 1.8)
-    _arrow(a, 3.82, 4.33, y, fs.C["grey"], 0.9)
-    a.text(1.9, y + 0.55, "coefficient map", ha="center", fontsize=5.2, color=fs.C["red"])
-    a.text(4.1, y + 0.55, "basis", ha="center", fontsize=5.2, color=fs.C["dark"])
-    a.text(1.9, y - 0.95, f"{map_pct:.0f} %", ha="center", fontsize=9, weight="bold", color=fs.C["red"])
-    a.text(4.1, y - 0.95, f"{100 - map_pct:.0f} %", ha="center", fontsize=9, color=fs.C["dark"])
-    a.text(3.0, 0.22, "share of held-out squared error, MOF-like isotherms", ha="center", fontsize=4.8,
-           color=fs.C["dark"])
+    y = 1.85
+    _box(a, 0.9, y, 1.7, 0.78, "material")
+    _box(a, 3.0, y, 1.85, 0.78, "coefficients")
+    _box(a, 5.1, y, 1.7, 0.78, "field")
+    _arrow(a, 1.76, 2.06, y, fs.C["red"], 1.8)
+    _arrow(a, 3.94, 4.24, y, fs.C["grey"], 0.9)
+    a.text(1.92, y + 0.52, "map", ha="center", fontsize=T, color=fs.C["red"], weight="bold")
+    a.text(4.08, y + 0.52, "basis", ha="center", fontsize=T, color=fs.C["dark"])
+    a.text(1.92, y - 1.05, f"{map_pct:.0f} %", ha="center", fontsize=10, weight="bold", color=fs.C["red"])
+    a.text(4.08, y - 1.05, f"{100 - map_pct:.0f} %", ha="center", fontsize=10, color=fs.C["dark"])
+    a.text(3.0, 0.22, "of the held-out error", ha="center", fontsize=T, color=fs.C["dark"])
 
-    x = [0, 1]
-    w = 0.36
     don = [100 * b2["don"]["field_nrmse_mean"], 100 * b3["don"]["field_nrmse_mean"]]
     co = [100 * b2["coarse"]["field_nrmse_mean"], 100 * b3["coarse"]["field_nrmse_mean"]]
-    b.bar([i - w / 2 for i in x], don, w, color=fs.ARM_COLOUR["deeponet"], label="best surrogate")
-    b.bar([i + w / 2 for i in x], co, w, color=fs.C["dark"], label="coarse solve")
-    b.set_xticks(x); b.set_xticklabels(["smooth", "MOF-like"], fontsize=5.2)
-    b.set_ylabel("held-out error (%)", fontsize=5.5, labelpad=1)
-    b.set_title("A coarse solve wins", fontsize=5.6, pad=4, weight="bold")
-    b.tick_params(labelsize=5, length=2, pad=1)
-    b.legend(fontsize=4.6, frameon=False, loc="upper left", handlelength=0.9, borderaxespad=0.1)
-    b.set_ylim(0, 1.45 * max(don))
+    w = 0.38
+    b.bar([-w / 2, 1 - w / 2], don, w, color=fs.ARM_COLOUR["deeponet"])
+    b.bar([w / 2, 1 + w / 2], co, w, color=fs.C["dark"])
+    b.text(1 - w / 2, don[1] * 1.03, "surrogate", ha="center", va="bottom", fontsize=T,
+           color=fs.ARM_COLOUR["deeponet"])
+    b.text(w / 2, co[0] + 0.3, "coarse\nsolve", ha="center", va="bottom", fontsize=T,
+           color=fs.C["dark"], linespacing=1.0)
+    b.set_xticks([0, 1]); b.set_xticklabels(["smooth", "MOF-like"], fontsize=T)
+    b.set_ylabel("error (%)", fontsize=T, labelpad=1)
+    b.set_title("Coarse solve wins", fontsize=T + 0.6, pad=4, weight="bold", loc="right")
+    b.tick_params(labelsize=T, length=2, pad=1)
+    b.set_ylim(0, 1.25 * max(don))
     b.grid(False, axis="x")
     for s in ("top", "right"):
         b.spines[s].set_visible(False)

@@ -180,6 +180,8 @@ SPEC = [
     ("LClargestFixed", "results/learning_curve_v2_verdict.json", "axes.materials.rows[4].fixed", "{:.4f}"),
     ("LCsmallestFixed", "results/learning_curve_v2_verdict.json", "axes.materials.rows[0].fixed", "{:.4f}"),
     ("LCratio", "results/learning_curve_v2_verdict.json", "axes.materials.ratio_first_to_last", "{:.2f}"),
+    ("LCsizeMin", "results/learning_curve_v2_verdict.json", "axes.materials.rows[0].size", "{:d}"),
+    ("LCsizeMax", "results/learning_curve_v2_verdict.json", "axes.materials.rows[4].size", "{:d}"),
     ("LClastDiff", "results/learning_curve_v2_verdict.json", "axes.materials.steps[3].mean_diff", "{:.5f}"),
     ("LClastLo", "results/learning_curve_v2_verdict.json", "axes.materials.steps[3].ci_low", "{:.5f}"),
     ("LClastHi", "results/learning_curve_v2_verdict.json", "axes.materials.steps[3].ci_high", "{:.5f}"),
@@ -941,9 +943,9 @@ SPEC = [
     ("DonOwnCheck", "results/dd_v3a1_verdict.json", "split_deeponet_own_floor",
      lambda s: f"{max(x['max_abs_own_minus_total'] for r in s.values() for x in r['diagnostics'].values()):.0e}"),
     ("ShDonSeedMin", "results/dd_v3a1_verdict.json", "split_deeponet_own_floor",
-     lambda s: f"{100 * min(x['share_map'] for r in s.values() for x in r['seeds_p16'].values()):.1f}"),
+     lambda s: f"{100 * min(x['share_map'] for x in s['v2']['seeds_p16'].values()):.1f}"),   # smooth design only
     ("ShDonSeedMax", "results/dd_v3a1_verdict.json", "split_deeponet_own_floor",
-     lambda s: f"{100 * max(x['share_map'] for r in s.values() for x in r['seeds_p16'].values()):.1f}"),
+     lambda s: f"{100 * max(x['share_map'] for x in s['v2']['seeds_p16'].values()):.1f}"),
     # ---- amendment A1 (dd_v3a1_verdict.json): screening with t90, the solve-free horizon, the
     # coarse policies on all samples, the material-matched control, frameworks, physics checks
 ] + [
@@ -994,7 +996,7 @@ SPEC = [
     ("LeakVtwoMajAcc", "results/dd_v3a1_verdict.json", "screening.v2.leak_bound.majority_class_accuracy",
      lambda x: f"{100 * x:.0f}"),
     ("TieBiasRcMax", "results/dd_v3a1_verdict.json", "screening",
-     lambda s: f"{max(abs(r['tie_bias_recall']) for d in s.values() for w in ('t50', 't90') for k, r in d[w].items() if k != 'baseline_tstoich'):.3f}"),
+     lambda s: f"{100 * max(abs(r['tie_bias_recall']) for d in s.values() for w in ('t50', 't90') for k, r in d[w].items() if k != 'baseline_tstoich'):.1f}"),   # percentage points
     # adequacy verdicts that change at alpha / 8; the text names exactly one (POD + boosting, v2,
     # t50 recall), so any other outcome refuses the build instead of leaving the sentence wrong
     ("BonfFlips", "results/dd_v3a1_verdict.json", "screening",
@@ -1010,7 +1012,8 @@ SPEC = [
     ("AlphaSe", "results/dd_v3a1_verdict.json", "physics.alpha_calibration.mc_se_pct", "{:.1f}"),
     ("AlphaTrials", "results/dd_v3a1_verdict.json", "physics.alpha_calibration.trials", "{:d}"),
     ("AlphaSeNominal", "results/dd_v3a1_verdict.json", "physics.alpha_calibration.mc_se_005_pct", "{:.1f}"),
-    ("DaStMin", "results/dd_v3a1_verdict.json", "physics.v2.da_stoich_per_material_min", "{:.1f}"),
+    ("DaStMin", "results/dd_v3a1_verdict.json", "physics",            # the lower of the two designs
+     lambda p: f"{min(p[d]['da_stoich_per_material_min'] for d in ('v2', 'v3')):.1f}"),
     ("DaStMed", "results/dd_v3a1_verdict.json", "physics.v2.da_stoich_per_material_median", "{:.1f}"),
     ("CpRatioVtwo", "results/dd_v3a1_verdict.json", "physics.v2.adsorbed_cp_over_solid_median", "{:.1f}"),
     ("CpRatioVthree", "results/dd_v3a1_verdict.json", "physics.v3.adsorbed_cp_over_solid_median", "{:.1f}"),
@@ -1065,6 +1068,17 @@ SPEC = [
      "{:d}"),
     ("FwAVtwoRuleMax", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|v2rule",
      lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
+    # POD + boosting on the same checks, against its own (wider) v3 bar
+    ("FwAHgbVtwoRuleMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|v2rule",
+     lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
+    ("FwAHgbSensWeakMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|sens|a-0.5",
+     lambda b: f"{100 * max(r['max'] for r in b.values()):.1f}"),
+    ("FwAHgbSensStrongWellMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|sens|a+1.0",
+     lambda b: f"{100 * max(r['max'] for r in b.values() if r['n_conditions'] >= 4):.1f}"),
+    ("FwAHgbSensMofEightMax", "results/dd_v3a1_verdict.json", "frameworks.by.hgb_p16|sens|a+1.0.MOF-801.max",
+     lambda x: f"{100 * x:.1f}"),
+    ("FwASensMofEightMin", "results/dd_v3a1_verdict.json", "frameworks.by.deeponet_p16|sens|a+1.0.MOF-801.min",
+     lambda x: f"{100 * x:.1f}"),
     ("HgbVthreeFloorEight", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.8.mean_floor", lambda x: f"{100 * x:.1f}"),
     ("HgbVtwoFloorHigh", "results/dd_v3_verdict.json", "split.v2.hgb.by_p.128.mean_floor", lambda x: f"{100 * x:.3f}"),
     ("HgbVthreeFloorHigh", "results/dd_v3_verdict.json", "split.v3.hgb.by_p.128.mean_floor", lambda x: f"{100 * x:.2f}"),

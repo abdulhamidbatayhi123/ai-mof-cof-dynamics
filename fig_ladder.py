@@ -32,6 +32,7 @@ is normalising or re-scaling a quantity into a frame it does not belong in.
 from __future__ import annotations
 
 import json
+import textwrap
 import os
 
 import matplotlib
@@ -180,7 +181,7 @@ def build_rows():
         sel = load("results/l5_fno_selection.json")["selected"]
         c = {**l5["deeponet_vs_fno"], "ci_low": sel["sim_lo"], "ci_high": sel["sim_hi"],
              "significant": sel["significant_simultaneous"]}   # a = DeepONet (control), b = FNO
-        add("L5", "nonlinear reconstruction", "FNO vs the best DeepONet†",
+        add("L5a", "nonlinear reconstruction", "FNO vs the best DeepONet†",
             effect(c, control_is_a=True), "NOT SIGNIFICANT once selected",
             f"the direction the theory names, not significant after selection (B75); "
             f"{l5['fno_best']['mean'] / l5['pod_floor_p128']:.0f}x above the POD floor")
@@ -196,7 +197,7 @@ def build_rows():
         c = {**c, "ci_low": a3["sim_lo"], "ci_high": a3["sim_hi"],
              "significant": a3["significant_simultaneous"]}
         f = l5v["pod_floor_pooled"]
-        add("L5", "a bigger basis", "DeepONet p = 128 vs p = 8†",
+        add("L5b", "a bigger basis", "DeepONet p = 128 vs p = 8†",
             effect(c, control_is_a=True), "BASIS SIZE HELPS DeepONet",   # pre-declared words, PREREG_L5_v2 §3
             f"gain complete by p=16; its own basis floor falls {f['8'] / f['128']:.0f}x")
     else:
@@ -281,10 +282,11 @@ def panel_ladder(a, rows):
     # is (y - ylim0) / (ylim1 - ylim0) = (y + 0.85) / (len + 0.60).
     for yi, r in zip(y, rows):
         f = lambda dy: (yi + 0.85 + dy) / (len(rows) + 0.60)
-        a.text(1.03, f(+0.17), sentence_case(r["verdict"]), transform=a.transAxes,
+        # wrapped to the column so the saved figure stays at the printed width (17.1 cm)
+        a.text(1.03, f(+0.30), sentence_case(r["verdict"]), transform=a.transAxes,
                fontsize=7.2, va="center", fontweight="bold", color="0.12")
-        a.text(1.03, f(-0.19), f"{r['inter']} ({r['n']} materials)", transform=a.transAxes,
-               fontsize=7.2, va="center", color="0.38")
+        a.text(1.03, f(+0.10), textwrap.fill(f"{r['inter']} ({r['n']} materials)", 52),
+               transform=a.transAxes, fontsize=7.0, va="top", color="0.38", linespacing=1.1)
     a.set_title("A  Seven pre-registered explanations of the error")
     a.legend(handles=[
         Line2D([], [], color=C_MOVES, lw=2.4, label="reduces the error, significantly"),
@@ -317,18 +319,18 @@ def panel_slope(b):
     st = v["slope_test"]
     b.scatter(x, yv, s=5, alpha=0.45, color=fs.C["blue"], edgecolors="none")
     xs = np.linspace(x.min(), x.max(), 50)
-    b.plot(xs, st["intercept"] + st["slope"] * xs, color=fs.C["red"], lw=1.5, label="fitted slope")
+    b.plot(xs, st["intercept"] + st["slope"] * xs, color=fs.C["dark"], lw=1.3, label="fitted slope")   # not the "worse" red of panel A
     mid = 0.5 * (x.min() + x.max())
     # the slope's confidence band, pivoting about the mid-range point
     lo_line = (st["intercept"] + st["slope"] * mid) + st["ci_low"] * (xs - mid)
     hi_line = (st["intercept"] + st["slope"] * mid) + st["ci_high"] * (xs - mid)
     b.fill_between(xs, np.minimum(lo_line, hi_line), np.maximum(lo_line, hi_line),
-                   color=fs.C["red"], alpha=0.18, lw=0, label="slope interval")
+                   color="0.5", alpha=0.25, lw=0, label="slope interval")
     b.axhline(0, color="k", lw=0.8)
     # head- and foot-room for the two annotations, so neither covers a data point
     lo, hi = yv.min(), yv.max()
     span = hi - lo
-    b.set_ylim(lo - 0.40 * span, hi + 0.40 * span)
+    b.set_ylim(lo - 0.75 * span, hi + 0.45 * span)    # foot-room: the statistics sit below every point
     # k_LDF t_final, the run horizon included: not the k_LDF t_st of the main text's Methods
     b.set_xlabel("$\\log_{10}$ Damköhler number on the run horizon, $k_{\\mathrm{LDF}}\\,t_{\\mathrm{final}}$"
                  " (median per material)")
@@ -376,9 +378,10 @@ def main():
         print(f"  ! no results file for: {m}")
 
     fs.apply()
-    H = 0.30 * len(rows) + 3.3
+    plt.rcParams["savefig.bbox"] = "standard"      # exactly the printed width, never wider
+    H = 0.36 * len(rows) + 3.3
     fig = plt.figure(figsize=(6.73, H))          # RSC double column, 17.1 cm
-    top = fig.add_gridspec(1, 1, left=0.26, right=0.59, top=0.965, bottom=1.0 - (0.30 * len(rows) + 0.4) / H)
+    top = fig.add_gridspec(1, 1, left=0.26, right=0.59, top=0.965, bottom=1.0 - (0.36 * len(rows) + 0.4) / H)
     bot = fig.add_gridspec(1, 1, left=0.12, right=0.97, top=0.24, bottom=0.07)
     panel_ladder(fig.add_subplot(top[0]), rows)
     panel_slope(fig.add_subplot(bot[0]))
