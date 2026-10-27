@@ -63,7 +63,10 @@ def main():
     if not 50 <= n_abs <= 250:
         refuse(f"abstract has about {n_abs} words; the guideline asks for around 50 to 250")
     if "[DATASET DOI]" in tex or "[CODE VERSION DOI]" in tex:
-        refuse("a DOI placeholder is still in the manuscript (data statement)")
+        if "--draft" in sys.argv:          # a rehearsal of everything else before the DOIs exist
+            print("DRAFT: a DOI placeholder is still in the manuscript; this package is not for submission")
+        else:
+            refuse("a DOI placeholder is still in the manuscript (data statement)")
     toc = open(os.path.join(PAPER, "toc_sentence.txt"), encoding="utf-8").read().strip()
     if len(toc) > 250:
         refuse(f"TOC text has {len(toc)} characters; the limit is 250")
@@ -86,7 +89,8 @@ def main():
     for f, new in mapping.items():
         src_tex = src_tex.replace("{" + f + "}", "{" + new + "}")
     open(os.path.join(OUT, "manuscript.tex"), "w", encoding="utf-8", newline="\n").write(src_tex)
-    inputs = [n if n.endswith(".tex") else n + ".tex" for n in re.findall(r"\\input\{([^}]*)\}", src_tex)]
+    inputs = [n if n.endswith(".tex") else n + ".tex"
+              for n in re.findall(r"\\(?:input|InputIfFileExists)\{([^}]*)\}", src_tex)]
     for name in inputs + ["references.bib", "rsc.bst"]:
         s = os.path.join(PAPER, name)
         if os.path.exists(s):
@@ -133,6 +137,10 @@ def main():
                ("undefined" in ln.lower() and ("reference" in ln.lower() or "citation" in ln.lower()))]
         if r.returncode != 0 or bad:
             refuse("the package does not compile on its own:\n  " + "\n  ".join(bad[:10] or [r.stderr[-600:]]))
+        import fitz
+        text = "".join(p.get_text() for p in fitz.open(os.path.join(tmp, "manuscript.pdf")))
+        if "S??" in text or "[PENDING]" in text:
+            refuse("the standalone PDF has an unresolved supplementary reference (S??) or a PENDING value")
 
     zpath = os.path.join(ROOT, "submission_dd.zip")
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
