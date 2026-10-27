@@ -50,15 +50,12 @@ PENDING_TEXT = r"\textbf{[PENDING]}"
 # counted as pending. Added 2026-09-28: the material-axis L4b verdict read "PHYSICS
 # HELPS" from the analyser while PREREG §4.2 still required another decade (w1e-6),
 # and the Conclusions interpolated it -- a provisional verdict one build from the PDF.
+#
+# Empty since 2026-10-27. The last four entries waited on L3_FINAL_PAIR_DONE in
+# l3_final_pair.log (written 2026-10-04) and L4B_V3_DONE in l4b_v3.log (2026-10-10). Both
+# runs had finished, but logs are not tracked, so a fresh clone reported the keys PENDING
+# for ever. A gate on an untracked file cannot be checked by anyone but its author.
 GATED = {
-    "LthreeBestKanSig": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
-                         "B71: re-derivation of the paired interval (autorun job 2c)"),
-    "LthreeBestKanLo": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
-                        "B71: re-derivation of the paired interval (autorun job 2c)"),
-    "LthreeBestKanHi": ("l3_final_pair.log", "L3_FINAL_PAIR_DONE",
-                        "B71: re-derivation of the paired interval (autorun job 2c)"),
-    "LfourbVerdictMaterial": ("l4b_v3.log", "L4B_V3_DONE",
-                              "second PREREG 4.2 edge extension (w1e-6, material axis)"),
 }
 
 
@@ -885,6 +882,8 @@ SPEC = [
     ("FwNMofEight", "results/dd_b2_frameworks.json", "frameworks.MOF-801.isotherm_n", "{:.1f}"),
     ("FwNCau", "results/dd_b2_frameworks.json", "frameworks.CAU-10-H.isotherm_n", "{:.0f}"),
     ("FwNAlf", "results/dd_b2_frameworks.json", "frameworks.Al-fumarate (Basolite A520).isotherm_n", "{:.1f}"),
+    # no stated step width: the rule takes the design median (smooth design; FwNMed is the v3 one)
+    ("FwNMedVtwo", "results/dd_b2_frameworks.json", "frameworks.MIL-160(Al).isotherm_n", "{:.1f}"),
     ("FwQmaxCo", "results/dd_b2_frameworks.json", "frameworks.Co2Cl2(BTDD).q_max", "{:.1f}"),
     ("FwCauTerrDonMin", "results/dd_additions_verdict.json", "b2.frameworks.CAU-10-H.deeponet_p16.abs_t50_err_s",
      lambda x: f"{x / 60:.0f}"),
@@ -1126,6 +1125,7 @@ SPEC = [
     # the v3 dataset
     ("VthreeNsamples", "results/dataset_summary_v3.json", "n_samples", "{:d}"),
     ("VthreeNrejected", "results/dataset_summary_v3.json", "n_rejected", "{:d}"),
+    ("VthreeNdrawn", "results/dataset_summary_v3.json", "n_materials", "{:d}"),   # drawn, before the filter
     ("VthreeNmat", "results/dd_b1_predictions_v3.json", "folds",      # materials with accepted samples
      lambda d: f"{len({m for r in d.values() for m in r['material_ids']}):d}"),
     # exploratory: the MOF-303 anchor with strong primary sites (anchor_strong_sites.py)
@@ -1210,6 +1210,8 @@ DERIVED = [
      lambda r: r["HgbVthreeFloorEight"] / r["MtFloorEight"], "{:.1f}"),
     ("BarRatio", "DeepONet's held-out 95th-percentile bar, MOF-like over smooth design",
      lambda r: r["FwVthreeDonPninetyfive"] / r["FwDonPninetyfive"], "{:.1f}"),
+    ("LsixPct", "L6 separate-heads gain as a percentage of the joint arm's error",
+     lambda r: 100 * r["LsixDiff"] / r["LsixJoint"], "{:.1f}"),
     ("ShMin", "smallest map share of squared error at p >= 16, both models, both designs (V1 and A1)",
      lambda r: 100 * min(r[f"Sh{m}{d}{p}"] for m in ("Hgb", "Don") for d in ("Vtwo", "Vthree")
                          for p in ("Sixteen", "High")), "{:.1f}"),

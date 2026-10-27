@@ -600,7 +600,7 @@ REFS = [
         author="E. Glueckauf and J. I. Coates",
         title="Theory of chromatography. {Part} {IV}. {The} influence of incomplete equilibrium "
               "on the front boundary of chromatograms and on the effectiveness of separation",
-        journal="Journal of the Chemical Society (Resumed)", pages="1315{.\\ }", year="1947",   # no volume in 1947: the style omits the separator
+        journal="Journal of the Chemical Society (Resumed)", pages="1315", year="1947",   # no volume in 1947
         doi="10.1039/jr9470001315"),
      "Coates is the co-author most often dropped -- B35's failure mode.", False),
     ("klinkenberg1948numerical", P, "article", dict(
@@ -826,15 +826,15 @@ REFS = [
         year="2019", doi="10.1021/acs.accounts.9b00062"),
      "Material-to-device screening framing.", False),
     ("goeminne2025ab", V, "article", dict(
-        author="Ruben Goeminne and Veronique Van Speybroeck",
+        author="Ruben Goeminne and {Van Speybroeck}, Veronique",
         title="Ab initio predictions of adsorption in flexible metal--organic frameworks for water "
               "harvesting applications",
         journal="Journal of the American Chemical Society", volume="147", number="4",
         pages="3615--3630", year="2025", doi="10.1021/jacs.4c15287"),
      "Structure-to-isotherm models that would feed the parameter-to-coefficient map.", False),
     ("nasiri2026process", V, "article", dict(
-        author="Maryam Nasiri Ghiri and Hamid Reza Nasriani and Mohammad Bagheri and Leila Khajenoori "
-               "and Samira khani Rasmussen and Andrei Chamchine",
+        author="{Nasiri Ghiri}, Maryam and Hamid Reza Nasriani and Mohammad Bagheri and Leila Khajenoori "
+               "and Samira Khani Rasmussen and Andrei Chamchine",
         title="Process-informed optimal design principles for cooperative step-isotherm adsorbents in "
               "direct air capture using {ANN}-accelerated {TVSA} modelling",
         journal="Chemical Engineering Journal Advances", volume="27", pages="101283", year="2026",
@@ -843,7 +843,7 @@ REFS = [
      "parameters, for scalar KPIs (SEC, productivity) and optimisation; no held-out-material "
      "error, no field surrogate, no coarse baseline (abstract via OpenAlex 2026-10-25).", False),
     ("nasiri2026surrogate", V, "article", dict(
-        author="Maryam Nasiri-ghiri and Hamid Reza Nasriani and Leila Khajenoori and "
+        author="{Nasiri Ghiri}, Maryam and Hamid Reza Nasriani and Leila Khajenoori and "
                "Samira Khani Rasmussen and Karl Williams",
         title="Surrogate-assisted cyclic performance optimisation of direct air capture using "
               "amine-functionalised metal--organic frameworks",
@@ -1119,7 +1119,7 @@ def main():
     unprovenanced = []
     for key, _, _, fields, _, _ in emitted:
         for name in re.split(r"\s+and\s+", fields.get("author", "")):
-            toks = re.sub(r"[{}\\\"'`^~]", "", name).split()
+            toks = re.sub(r"[{}\\\"'`^~,]", "", name).split()     # "Last, First" form too
             for tok in toks[:-1]:
                 if len(tok) > 1 and not tok.endswith(".") and tok[0].isupper() \
                         and not re.search(rf"\b({re.escape(tok)}|{re.escape(tok.upper())})\b", prov):

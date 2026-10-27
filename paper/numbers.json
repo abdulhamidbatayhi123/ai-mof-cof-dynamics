@@ -567,6 +567,7 @@
     "FwNMofEight": "6.3",
     "FwNCau": "30",
     "FwNAlf": "16.5",
+    "FwNMedVtwo": "3.5",
     "FwQmaxCo": "53.7",
     "FwCauTerrDonMin": "9",
     "FwCauTerrHgbH": "4.6",
@@ -782,6 +783,7 @@
     "FwVthreeCoMax": "0.9",
     "VthreeNsamples": "1719",
     "VthreeNrejected": "321",
+    "VthreeNdrawn": "120",
     "VthreeNmat": "118",
     "AnchorStrongTfive": "84",
     "AnchorStrongTfifty": "300",
@@ -930,6 +932,7 @@
     "HgbOverDon": "3.7",
     "FloorRatioVthree": "2.1",
     "BarRatio": "4.3",
+    "LsixPct": "3.7",
     "ShMin": "98.4",
     "LCHalfFactor": "1.17",
     "MtMapChangePct": "+1.8",
@@ -3240,6 +3243,10 @@
       "file": "results/dd_b2_frameworks.json",
       "path": "frameworks.Al-fumarate (Basolite A520).isotherm_n"
     },
+    "FwNMedVtwo": {
+      "file": "results/dd_b2_frameworks.json",
+      "path": "frameworks.MIL-160(Al).isotherm_n"
+    },
     "FwQmaxCo": {
       "file": "results/dd_b2_frameworks.json",
       "path": "frameworks.Co2Cl2(BTDD).q_max"
@@ -4100,6 +4107,10 @@
       "file": "results/dataset_summary_v3.json",
       "path": "n_rejected"
     },
+    "VthreeNdrawn": {
+      "file": "results/dataset_summary_v3.json",
+      "path": "n_materials"
+    },
     "VthreeNmat": {
       "file": "results/dd_b1_predictions_v3.json",
       "path": "folds"
@@ -4684,6 +4695,9 @@
     },
     "BarRatio": {
       "derived": "DeepONet's held-out 95th-percentile bar, MOF-like over smooth design"
+    },
+    "LsixPct": {
+      "derived": "L6 separate-heads gain as a percentage of the joint arm's error"
     },
     "ShMin": {
       "derived": "smallest map share of squared error at p >= 16, both models, both designs (V1 and A1)"

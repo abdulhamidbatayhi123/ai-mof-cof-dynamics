@@ -38,7 +38,37 @@ def main():
         compile_in(paper, "manuscript")
         compile_in(paper, "si_extended")
         shutil.copy(os.path.join(paper, "si_extended.pdf"), os.path.join(ROOT, "paper", "si_extended.pdf"))
+        changed = write_si_labels(os.path.join(paper, "si_extended.aux"))
     print("wrote paper/si_extended.pdf (Supplementary S2), references resolved against the main text")
+    if changed:
+        sys.exit("REFUSED: S2's numbering changed, so paper/si_labels.tex was rewritten; "
+                 "run build_paper.py --pdf and make_si.py again")
+
+
+def write_si_labels(aux):
+    """The main text cites S2 tables and sections by \\SIref{label}; their numbers are read from
+    S2's own .aux into paper/si_labels.tex, so they cannot drift when S2 gains a table. A hand-
+    typed 'Table S2' went stale exactly that way. Returns True if the file changed."""
+    import re
+    labels = {}
+    for ln in open(aux, encoding="utf-8", errors="replace"):
+        m = re.match(r"\\newlabel\{(s2:[^}]*)\}\{\{([^}]*)\}", ln)
+        if m:
+            labels[m.group(1)] = m.group(2)
+    used = set(re.findall(r"\\SIref\{([^}]*)\}",
+                          open(os.path.join(ROOT, "paper", "manuscript.tex"), encoding="utf-8").read()))
+    missing = sorted(used - set(labels))
+    if missing:
+        sys.exit(f"REFUSED: the main text cites S2 labels that S2 does not define: {missing}")
+    body = "".join(f"\\expandafter\\def\\csname SIn@{k}\\endcsname{{{labels[k]}}}\n" for k in sorted(used))
+    text = ("% written by make_si.py from si_extended.aux; do not edit\n"
+            "\\makeatletter\n" + body + "\\makeatother\n")
+    path = os.path.join(ROOT, "paper", "si_labels.tex")
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    if old != text:
+        open(path, "w", encoding="utf-8").write(text)
+        return True
+    return False
 
 
 if __name__ == "__main__":

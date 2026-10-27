@@ -38,8 +38,8 @@ Gates that need the field arrays report SKIP without them; that is expected in T
 | Fig. 3 (ladder) | `fig_ladder.py` | the rung verdict files in its docstring | the rung runners |
 | Fig. 4 (basis against map, both designs) | `fig_basismap.py` | `results/l5_mapterm_v2.json`, `l5_mapterm_v3.json`, `dd_v3a1_deeponet.json`, `dd_v3_verdict.json`, `dd_v3a1_verdict.json`, `learning_curve_v2_verdict.json` | `l5_mapterm_v2.py`, `dd_v3.py`, `dd_v3a1.py` |
 | Fig. 5 (screening, both metrics) | `fig_screening.py` | `results/dd_v3a1_verdict.json` | `dd_v3a1.py analyse` |
-| Table 1 (named frameworks) | `paper/numbers.py` | `results/dd_additions_verdict*.json`, `dd_seed_robustness.json` | as above |
-| Table of contents graphic | `fig_toc.py` | `results/l5_mapterm_v2.json`, `dd_additions_verdict.json` | as above |
+| Table 2 (named frameworks) | `paper/numbers.py` | `results/dd_additions_verdict*.json`, `dd_seed_robustness.json` | as above |
+| Table of contents graphic | `fig_toc.py` | `results/dd_v3a1_verdict.json`, `dd_additions_verdict.json`, `dd_additions_verdict_v3.json` | `dd_v3a1.py analyse`, `dd_screening_frameworks.py analyse` |
 | Verdicts of PREREG_DD_ADDITIONS | `dd_screening_frameworks.py analyse` | `results/dd_b1_predictions.json`, `dd_coarse_all.json`, `dd_b2_frameworks.json` | its other phases |
 | Verdicts of PREREG_DD_V3 | `dd_v3.py analyse` | the files above, both designs | `run_dd_v3.sh` |
 | Verdicts of PREREG_DD_V3 amendment A1 | `dd_v3a1.py analyse` | `results/dd_v3a1_deeponet.json`, `dd_v3a1_hgb.json`, `dd_v3a1_coarse_v*.json`, `dd_v3a1_fw*.json`, and the V3 files | `run_dd_v3a1.sh` |

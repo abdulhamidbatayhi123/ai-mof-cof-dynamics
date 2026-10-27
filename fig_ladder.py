@@ -329,7 +329,9 @@ def panel_slope(b):
     lo, hi = yv.min(), yv.max()
     span = hi - lo
     b.set_ylim(lo - 0.40 * span, hi + 0.40 * span)
-    b.set_xlabel("$\\log_{10}$ Damköhler number (median per material)")
+    # k_LDF t_final, the run horizon included: not the k_LDF t_st of the main text's Methods
+    b.set_xlabel("$\\log_{10}$ Damköhler number on the run horizon, $k_{\\mathrm{LDF}}\\,t_{\\mathrm{final}}$"
+                 " (median per material)")
     b.set_ylabel("separate minus joint\n(nRMSE per material)")
     b.set_title("B  L6, primary estimand: no detectable dependence on Damköhler")
     b.text(0.985, 0.05,

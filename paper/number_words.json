@@ -42,13 +42,6 @@
   "line_at_review": 138
  },
  {
-  "key": "; Fig.~ ). The [half] -breakthrough time is largely",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "half-breakthrough time, a defined quantity (t50)",
-  "line_at_review": 164
- },
- {
   "key": "asis and scalers included, on [four] folds and scored on the fifth",
   "word": "four",
   "class": "DESIGN",
@@ -161,20 +154,6 @@
   "line_at_review": 527
  },
  {
-  "key": "and legacy designs and of the [six] named frameworks, their manif",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 614
- },
- {
-  "key": "nce (Table~S1). A material is [eight] numbers: capacity, heat",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "the eight material parameters of the design",
-  "line_at_review": 188
- },
- {
   "key": "the materials are split into [five] folds; each",
   "word": "five",
   "class": "DESIGN",
@@ -266,25 +245,11 @@
   "line_at_review": 362
  },
  {
-  "key": "\\( \\) (to \\,\\% at [eight] modes), yet the map still car",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "basis size p = 8, an axis value",
-  "line_at_review": 368
- },
- {
   "key": " [sixteen] ; the floor keeps falling, to",
   "word": "sixteen",
   "class": "DESIGN",
   "reason": "basis size p = 16, an axis value",
   "line_at_review": 363
- },
- {
-  "key": "is not the active [one] here.",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-26)",
-  "line_at_review": 384
  },
  {
   "key": "art again: on -H, DeepONet's [half] -breakthrough time is off by a",
@@ -334,13 +299,6 @@
   "class": "DESIGN",
   "reason": "seeds 43 and 44 of the robustness check",
   "line_at_review": 451
- },
- {
-  "key": "gives these [two] frameworks \\(n = \\) and \\( \\",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-26)",
-  "line_at_review": 523
  },
  {
   "key": "the half-breakthrough time of [one] step is a column quantity, no",
@@ -511,13 +469,6 @@
   "line_at_review": 626
  },
  {
-  "key": "accuracy on milder isotherms. [Two] checks tie the gain to covera",
-  "word": "Two",
-  "class": "PROSE",
-  "reason": "enumeration",
-  "line_at_review": 631
- },
- {
   "key": "-of-fold MOF-like results use [one] training",
   "word": "one",
   "class": "DESIGN",
@@ -537,13 +488,6 @@
   "class": "DESIGN",
   "reason": "the two corrections fitted in the closed-form arm, fixed by its pre-registration",
   "line_at_review": 348
- },
- {
-  "key": "ained with them, they predict [six] published frameworks within t",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 20
  },
  {
   "key": "frameworks. [Seven] candidate explanations of the",
@@ -595,13 +539,6 @@
   "line_at_review": 423
  },
  {
-  "key": "query time set to [zero] . For this column the stakes a",
-  "word": "zero",
-  "class": "DESIGN",
-  "reason": "an idealisation stated as such: query time taken as zero",
-  "line_at_review": 461
- },
- {
   "key": "ate. The balance can turn for [two] - or",
   "word": "two",
   "class": "PROSE",
@@ -614,48 +551,6 @@
   "class": "PROSE",
   "reason": "a single named quantity (the run horizon)",
   "line_at_review": 538
- },
- {
-  "key": " [Three] further checks leave the verd",
-  "word": "Three",
-  "class": "PROSE",
-  "reason": "a count of the checks that follow",
-  "line_at_review": 549
- },
- {
-  "key": "recalls by at most . And the [eight] surrogate verdicts",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 553
- },
- {
-  "key": "( [two] arms, two designs, two times)",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 554
- },
- {
-  "key": "(two arms, [two] designs, two times) are each",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 554
- },
- {
-  "key": "(two arms, two designs, [two] times) are each made at the r",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 554
- },
- {
-  "key": "onferroni correction over the [eight] , the narrowest pass, the",
-  "word": "eight",
-  "class": "DESIGN",
-  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
-  "line_at_review": 555
  },
  {
   "key": "the frameworks with at least [four] accepted conditions stay at o",
@@ -691,5 +586,166 @@
   "class": "PROSE",
   "reason": "a modelling scope statement (1-D model)",
   "line_at_review": 689
+ },
+ {
+  "key": "Trained with them, they keep [six] published frameworks within t",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 20
+ },
+ {
+  "key": "\\,\\%), but miss their [half] -breakthrough times by up to",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "the name of a defined event (50 % breakthrough)",
+  "line_at_review": 22
+ },
+ {
+  "key": "but those criteria, like the [half] -breakthrough time, test capac",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "the name of a defined event (50 % breakthrough)",
+  "line_at_review": 227
+ },
+ {
+  "key": "2:tab:params}). A material is [eight] numbers: capacity, heat",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "the eight sampled material parameters, fixed by the design",
+  "line_at_review": 255
+ },
+ {
+  "key": "\\ materials, \\ have at least [one] accepted",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "a threshold of existence (any accepted simulation), not a measured count",
+  "line_at_review": 260
+ },
+ {
+  "key": "age points). Intervals on the [two] designs are at",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two pre-registered designs",
+  "line_at_review": 290
+ },
+ {
+  "key": "oth design hold out all \\ by [five] -fold",
+  "word": "five",
+  "class": "DESIGN",
+  "reason": "five folds, fixed by the protocol",
+  "line_at_review": 342
+ },
+ {
+  "key": "\\) (to an nRMSE of \\,\\% at [eight] modes), yet the map still car",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, a sweep point fixed by the protocol",
+  "line_at_review": 425
+ },
+ {
+  "key": "the active [one] here.",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 450
+ },
+ {
+  "key": "query time set to [zero] and without counting the hype",
+  "word": "zero",
+  "class": "DESIGN",
+  "reason": "an idealisation stated as such: query time taken as zero",
+  "line_at_review": 473
+ },
+ {
+  "key": " [Two] further checks leave the verd",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "a count of the checks that follow",
+  "line_at_review": 563
+ },
+ {
+  "key": "the verdicts unchanged, and a [third] changes one. Ranking within",
+  "word": "third",
+  "class": "PROSE",
+  "reason": "ordinal for the third check",
+  "line_at_review": 563
+ },
+ {
+  "key": "nchanged, and a third changes [one] . Ranking within",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "the one verdict named later in the paragraph (Bonferroni flip, guarded by numbers.py _expect)",
+  "line_at_review": 563
+ },
+ {
+  "key": "ootstrap draws some materials [twice] , which ties their ranks;",
+  "word": "twice",
+  "class": "PROSE",
+  "reason": "how a bootstrap draw with replacement duplicates a material",
+  "line_at_review": 566
+ },
+ {
+  "key": "lue differs from the observed [one] by at most \\ for Spearman",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "pronoun",
+  "line_at_review": 567
+ },
+ {
+  "key": "d \\ for recall. Finally, the [eight] surrogate verdicts (two arms,",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 568
+ },
+ {
+  "key": "the eight surrogate verdicts ( [two] arms, two designs,",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 568
+ },
+ {
+  "key": "surrogate verdicts (two arms, [two] designs,",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 568
+ },
+ {
+  "key": " [two] times) are each made at the r",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 569
+ },
+ {
+  "key": "onferroni correction over the [eight] , the narrowest pass, the smoo",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "2 arms x 2 designs x 2 times, fixed by PREREG_DD_V3 and A1",
+  "line_at_review": 570
+ },
+ {
+  "key": ")(BTDD) inside it but not the [two] steep-step frameworks. The ru",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two named steep-step frameworks (CAU-10-H, aluminium fumarate)",
+  "line_at_review": 630
+ },
+ {
+  "key": "milder isotherms. [Two] checks tie the gain to covera",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "a count of the checks that follow",
+  "line_at_review": 646
+ },
+ {
+  "key": "r (legacy) dataset and of the [six] named frameworks, their manif",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 765
  }
 ]
