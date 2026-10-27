@@ -1058,6 +1058,14 @@ REFS = [
      "Concept DOI of the Zenodo record (DataCite; listed in the v1.0.5 record read 2026-10-12). The "
      "Digital Discovery guidelines ask for the DOIs of both the most recent and the archived version. "
      "Title to be re-read from the record after the release that accompanies this version.", False),
+    ("batayhi2026data", V, "misc", dict(
+        author="Abdulhamid Batayhi and H. Cankurt",
+        title="{[dataset]} {Dataset for: The coefficient map, not the basis, limits machine-learning "
+              "surrogates of MOF water-adsorption beds on unseen materials}",
+        howpublished="Zenodo", year="2026", doi="10.5281/zenodo.23683358"),
+     "Our own dataset record. DOI reserved in the Zenodo draft on 2026-10-27 (read from the "
+     "upload form); it resolves once the record is published, which must happen before submission. "
+     "Title and creators as entered in that form.", False),
 ]
 
 
@@ -1071,6 +1079,11 @@ def bibtex(key, kind, fields):
         kind = "misc"
         fields = {k: v for k, v in fields.items() if k != "journal"}
         fields["howpublished"] = f"arXiv preprint, arXiv:{fields['eprint']}"
+    # rsc.bst prints no DOI, which for a data or code record is the only way to find it
+    # (the journal's data reviewer needs both code DOIs and the dataset DOI in the list)
+    if kind == "misc" and fields.get("howpublished") == "Zenodo" and fields.get("doi"):
+        fields = dict(fields)
+        fields["howpublished"] = f"Zenodo, DOI: {fields['doi']}"
     lines = [f"@{kind}{{{key},"]
     for k, v in fields.items():
         lines.append(f"  {k} = {{{v}}},")

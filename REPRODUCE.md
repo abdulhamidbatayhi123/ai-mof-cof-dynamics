@@ -47,7 +47,7 @@ Gates that need the field arrays report SKIP without them; that is expected in T
 
 ## Tier 1: with the dataset, a few CPU hours
 
-Download the dataset record (DOI in the paper's data availability statement) and check its
+Download the dataset record (Zenodo, doi:10.5281/zenodo.23683358) and check its
 SHA-256 sums (`sha256sums.txt`). Unzip the fields into place, unzip `manifests.zip` (it
 creates `manifests/`) and copy each manifest next to its fields under the name the scripts
 read:
