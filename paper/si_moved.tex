@@ -322,3 +322,62 @@ A22, A25).
 
 %% ===========================================================================
 
+
+\section{The seven pre-registered explanations in full}
+\label{s2:sec:ladder}
+
+Moved verbatim from the main text (Section~\ref{sec:ladder}), which summarises them.
+
+Figure~\ref{fig:ladder} of the main text summarises the seven explanations; each verdict below is in the
+wording fixed before its run.
+
+\paragraph{L1, more training materials: not eliminated} The best fixed-basis surrogate, a
+multilayer perceptron on 64 POD coefficients per channel, reaches \nLoneMLP\ and beats
+gradient boosting in all five folds. On a learning curve over training materials, held-out
+error falls by \(\nLCratio\times\) from 12 to 192 materials and still improves
+significantly at the last step, as \(N_{\mathrm{mat}}^{-\nLCbeta}\) (exponent interval
+[\nLCbetaLo, \nLCbetaHi]). Refitting the basis on each subset changes nothing
+(\nLClargestFixed\ against \nLClargest\ at 192 materials): none of the gain is in the
+basis. A Gaussian process on the same coefficients finds \nBgpVerdict\ (\nBgpGp\ against
+\nBgpMlp; the smallest difference the test could detect is \nBgpMde\,\%).
+
+\paragraph{L2, more capacity: not eliminated} Of \nLtwoNconfigs\ configurations swept in both
+directions, \nLtwoNUshaped\ sweeps have interior optima, but the random forest is still
+improving at its fully grown limit, so the pre-registered rule keeps capacity open. The
+best configuration, \nLtwoBestName, is \(\nLtwoVsLonePct\,\%\) better than the L1 setting,
+\(\nLtwoSelLo\)--\(\nLtwoSelHi\,\%\) once its selection is paid for.
+
+\paragraph{L3, Kolmogorov--Arnold maps: eliminated (exploratory)} At matched parameter counts,
+the perceptron beats both Kolmogorov--Arnold \cite{liu2025kan} families at every budget,
+\nLthreeSigSim\ of \nLthreePairs\ comparisons surviving the selection adjustment and none
+reversed, on the 12-material design. The literature is split on this comparison
+\cite{shukla2024comprehensive,wang2025kinn,rigas2026training}; our statement is narrow.
+
+\paragraph{L4, the governing equations as a training loss: helps at small weights} A fixed
+residual weight of \(10^{\nLfourbBestWeightExp}\) improves transfer to \nLfourbMatNmat\
+held-out materials by \nLfourbMatGainPct\,\% over an identical data-only network (interval
+over every weighting tried: [\nLfourbMatSelLo, \nLfourbMatSelHi]); every larger weight and
+every adaptive weighting scheme is worse, and minimising the residual at inference makes
+predictions about \nLfourbRefTwinFactor\ times worse. Physics-informed surrogates of
+adsorption processes gain most when data are scarce \cite{galanti2025towards}; with the
+training data used here the gain is small, and the result rests on a single split.
+
+\paragraph{L5, a better operator: a small gain from the basis, complete by 16 modes}
+DeepONet improves by \nLfiveVtwoGainPct\,\% from \(p = 8\) to \(p = 128\) on the 240-material
+design, interval [\nLfiveVtwoSelLo, \nLfiveVtwoSelHi] after paying for the learning-rate
+choice, and the whole gain is reached by \(p = 16\). A Fourier neural operator
+\cite{li2021fourier} is more accurate by point estimate on the 12-material design, but not
+significantly once its selection is paid for (exploratory).
+
+\paragraph{L6, separating kinetics from equilibrium: a real benefit, not the predicted one}
+Separate equilibrium, kinetic and transport heads beat a joint network by \nLsixDiff\
+(interval [\nLsixLo, \nLsixHi]), in all folds and seeds, but the benefit shows no
+dependence on Damk\"ohler number, which is what the hypothesis predicted; the dataset never
+reaches kinetic control, so that null is scoped to near-equilibrium beds.
+
+\paragraph{L7, closed forms: eliminated} Unfitted, the best classical approximation
+(Klinkenberg's \cite{klinkenberg1948numerical,klinkenberg1954heat}) is
+\(\nLsevenRatio\times\) worse than learning on the outlet curve; with two physically
+interpretable corrections fitted on the training materials it is still
+\(\nBfitRatio\times\) worse.
+

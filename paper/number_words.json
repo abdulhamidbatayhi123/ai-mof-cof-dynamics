@@ -21,13 +21,6 @@
   "line_at_review": 242
  },
  {
-  "key": "Figure~ summarises the [seven] explanations; each verdict be",
-  "word": "seven",
-  "class": "DESIGN",
-  "reason": "the number of pre-registered rungs, fixed by the protocol",
-  "line_at_review": 250
- },
- {
   "key": "{ [Six] published frameworks}",
   "word": "Six",
   "class": "DESIGN",
@@ -89,27 +82,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-10-25)",
   "line_at_review": 242
- },
- {
-  "key": "gradient boosting in all [five] folds. On a learning curve ov",
-  "word": "five",
-  "class": "DESIGN",
-  "reason": "all folds, the fold count fixed by the design",
-  "line_at_review": 255
- },
- {
-  "key": "al benefit, not the predicted [one] }",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 291
- },
- {
-  "key": "ing on the outlet curve; with [two] physically",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two corrections fitted in the closed-form arm, fixed by its pre-registration",
-  "line_at_review": 299
  },
  {
   "key": "e's error splits exactly into [two] orthogonal parts,",
@@ -614,5 +586,19 @@
   "class": "DESIGN",
   "reason": "the registered seed count of PREREG_DD_V3",
   "line_at_review": 682
+ },
+ {
+  "key": "Figure~ summarises the [seven] explanations, each judged in",
+  "word": "seven",
+  "class": "DESIGN",
+  "reason": "the number of pre-registered rungs",
+  "line_at_review": 331
+ },
+ {
+  "key": "learning even with [two] fitted corrections. The patte",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two corrections fitted in the closed-form arm, fixed by its pre-registration",
+  "line_at_review": 348
  }
 ]
