@@ -3,10 +3,10 @@
 Every series is read from results files; no model is evaluated here.
   A  results/l5_mapterm_v2.json, results/l5_mapterm_v3.json: the two terms of eq. (split) for
      POD with per-mode gradient boosting (seed 42), against basis size p, pooled out of fold.
-  B  results/dd_v3_deeponet.json and results/dd_seed_robustness.json: DeepONet's held-out error
-     and its own floor (trained trunk kept, coefficients fitted per sample), against p.
-  C  results/dd_v3_verdict.json: the share of squared error carried by the map, with its
-     cluster-bootstrap interval (PREREG_DD_V3), for both models on both designs.
+  B  results/dd_v3a1_deeponet.json (PREREG_DD_V3 amendment A1): DeepONet's held-out error and its
+     own floor (trained trunk kept, coefficients fitted per sample by the converged solver), against p.
+  C  results/dd_v3_verdict.json (POD + boosting) and results/dd_v3a1_verdict.json (DeepONet, A1):
+     the share of squared error carried by the map, with its cluster-bootstrap interval.
   D  results/learning_curve_v2_verdict.json: modes whose map clears R^2 = 0.2 and 0.5, against
      the number of training materials (design v2).
 
@@ -43,14 +43,12 @@ def mapterm(path):
 
 
 def deeponet(data):
-    cells = json.load(open("results/dd_v3_deeponet.json"))["cells"]
+    """Amendment A1 cells (converged own floor), seed 42, every registered basis size."""
+    cells = json.load(open("results/dd_v3a1_deeponet.json"))["cells"]
     out = {}
     for p in (8, 16, 128):
         cs = [c for k, c in cells.items() if k.startswith(f"{data}|p{p}|s42|")]
-        if data == "v2" and p == 16:          # v2, p = 16: the seed-robustness runs (seeds 43, 44)
-            sr = json.load(open("results/dd_seed_robustness.json"))["b1"]
-            cs = [c for k, c in sr.items() if k.split("|")[1] in ("43", "44")]
-        if len(cs) >= 5:
+        if len(cs) == 5:
             out[p] = (np.mean(np.concatenate([c["nrmse_c"] for c in cs])),
                       np.mean(np.concatenate([c["trunk_floor_c"] for c in cs])))
     return out
@@ -64,7 +62,10 @@ def logx(ax, xs):
 
 def main():
     fs.apply()
-    v = json.load(open("results/dd_v3_verdict.json"))["split"]
+    v = json.load(open("results/dd_v3_verdict.json"))["split"]          # POD + boosting (V1)
+    a1 = json.load(open("results/dd_v3a1_verdict.json"))["split_deeponet_own_floor"]   # DeepONet (A1)
+    for d in v:
+        v[d]["deeponet_own_floor"] = a1[d]
     lc = json.load(open("results/learning_curve_v2_verdict.json"))["axes"]["materials"]["rows"]
     fig, ((a, b), (c, d)) = plt.subplots(2, 2, figsize=(6.73, 4.9))
     fig.subplots_adjust(wspace=0.3, hspace=0.55, left=0.09, right=0.985, bottom=0.09, top=0.88)
@@ -95,9 +96,9 @@ def main():
     b.set_title("B  DeepONet", loc="left")
     a.set_ylim(top=0.4); a.text(9, 0.13, "map term (solid)", fontsize=7, color="0.3")
     a.text(20, 1.5e-4, "basis floor (dashed)", fontsize=7, color="0.3")
-    b.set_ylim(1.5e-3, 0.12)
+    b.set_ylim(4e-4, 0.12)
     b.text(9, 0.06, "total error (solid)", fontsize=7, color="0.3")
-    b.text(20, 1.9e-3, "its own floor (dashed)", fontsize=7, color="0.3")
+    b.text(24, 5.2e-4, "its own floor (dashed)", fontsize=7, color="0.3")
 
     logx(c, PS)
     c.set_ylim(90, 100.5)

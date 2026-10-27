@@ -59,7 +59,18 @@ def phase_folds():
           f"{np.bincount(list(m2f.values())).tolist()}")
 
 
-def phase_deeponet(data, p, seed, control=False):
+def _load_model(dd, n_params, p, path):
+    """A saved model of fit_deeponet, rebuilt with the same width rule and settings."""
+    import torch
+    from run_l5 import DEVICE, DeepONet, solve_width
+    w, _ = solve_width(n_params, p, dd.DEPTH, dd.BUDGET, False, dd.GRIDS)
+    m = DeepONet(n_params, p=p, width=w, depth=dd.DEPTH, kan=False, grids=dd.GRIDS).to(DEVICE)
+    m.load_state_dict(torch.load(path, map_location=DEVICE))
+    m.eval()
+    return m
+
+
+def phase_deeponet(data, p, seed, control=False, from_checkpoint=False):
     """PREREG_DD_V3 V2 under amendment A1: DeepONet field error, t50 and t90, and its own floor
     by the converged per-sample solver (dd_seed_robustness.trunk_floor), with the trained model
     saved so the floor can be recomputed. `control`: the v2 material-matched control of A1 --
@@ -99,13 +110,28 @@ def phase_deeponet(data, p, seed, control=False):
         assert_disjoint(tr, te, key)
         Pz = standardise_params(d.params, tr)
         t1 = time.time()
-        pred = dd.fit_deeponet(Ft, C, Pz, tr, seed=seed)
-        fields = pred(Pz[te])
+        ckpt = os.path.join("models", key.replace("|", "_") + ".pt")
+        if from_checkpoint:
+            # recover a cell whose JSON record was lost (ledger B90): the saved model, not a retrain
+            model = _load_model(dd, Pz.shape[1], p, ckpt)
+            with torch.no_grad():
+                Pn = torch.as_tensor(Pz[te], dtype=torch.float32)
+                fields = np.concatenate([model(Pn[s0:s0 + 16], C)[..., 0].cpu().numpy()
+                                         for s0 in range(0, len(Pn), 16)])
+
+            class _P:                                  # same interface as fit_deeponet's predictor
+                pass
+            pred = _P()
+            pred.model = model
+        else:
+            pred = dd.fit_deeponet(Ft, C, Pz, tr, seed=seed)
+            fields = pred(Pz[te])
         nr, t50 = dd.score(fields, X[te])
         t90 = [dd.t90_norm(x[-1]) for x in fields.reshape(-1, dd.FIELD_RES, dd.FIELD_RES)]
         floor, conv, own = trunk_floor(pred.model, C, X[te], Pz=Pz[te])
-        torch.save(pred.model.state_dict(), os.path.join("models", key.replace("|", "_") + ".pt"))
-        res["cells"][key] = {"data": data, "control": control, "p": p, "seed": seed, "fold": f,
+        if not from_checkpoint:
+            torch.save(pred.model.state_dict(), ckpt)
+        cell = {"data": data, "control": control, "p": p, "seed": seed, "fold": f,
                              "n_train_materials": int(len(np.unique(d.material_ids[tr]))),
                              "material_ids": d.material_ids[te].tolist(),
                              "condition_ids": d.condition_ids[te].tolist(),
@@ -114,7 +140,12 @@ def phase_deeponet(data, p, seed, control=False):
                              "t90_true_norm": [dd.t90_norm(x[0, -1]) for x in d.fields[te]],
                              "nrmse_c": nr.tolist(), "t50_norm": t50, "t90_norm": t90,
                              "trunk_floor_c": floor.tolist(), "floor_converged": conv.tolist(),
-                             "own_coeff_nrmse_c": own.tolist(), "secs": time.time() - t1}
+                             "own_coeff_nrmse_c": own.tolist(), "secs": time.time() - t1,
+                             "from_checkpoint": bool(from_checkpoint)}
+        # merge-on-write: re-read the file and add only this cell, so processes running in
+        # parallel cannot overwrite each other's cells (ledger B90)
+        res = dd.load_json(OUT_DON_A1, res)
+        res["cells"][key] = cell
         write_atomic(res, OUT_DON_A1)
         print(f"  {key}: nRMSE {nr.mean():.4f}, own floor {floor.mean():.5f} "
               f"(converged {conv.mean():.3f}, floor<=total {(floor <= nr + 1e-9).mean():.3f}) "
@@ -339,11 +370,13 @@ if __name__ == "__main__":
     ap.add_argument("--p", type=int, default=16)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--control", action="store_true", help="A1 material-matched v2 control")
+    ap.add_argument("--from-checkpoint", action="store_true",
+                    help="rebuild missing cells from models/ instead of training (ledger B90)")
     a = ap.parse_args()
     if a.phase == "folds":
         phase_folds()
     elif a.phase == "deeponet":
-        phase_deeponet(a.data, a.p, a.seed, control=a.control)
+        phase_deeponet(a.data, a.p, a.seed, control=a.control, from_checkpoint=a.from_checkpoint)
     elif a.phase == "hgb":
         phase_hgb()
     elif a.phase == "frameworks":

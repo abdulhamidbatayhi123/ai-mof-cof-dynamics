@@ -175,13 +175,6 @@
   "line_at_review": 204
  },
  {
-  "key": "layout. {C}~Field error on [six] named frameworks with surroga",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 425
- },
- {
   "key": " [six] water-harvesting frameworks w",
   "word": "six",
   "class": "DESIGN",
@@ -201,20 +194,6 @@
   "class": "DESIGN",
   "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
   "line_at_review": 527
- },
- {
-  "key": "surrogates predict \\ [six] frameworks within their held-",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 531
- },
- {
-  "key": "s \\,\\%, and its order of the [six] ",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 533
  },
  {
   "key": "test probes extrapolation for [six] materials only. The model des",
@@ -343,13 +322,6 @@
   "line_at_review": 363
  },
  {
-  "key": "\\,\\% at [sixteen] . For DeepONet against its own",
-  "word": "sixteen",
-  "class": "DESIGN",
-  "reason": "basis size p = 16, an axis value",
-  "line_at_review": 369
- },
- {
   "key": "is not the active [one] here.",
   "word": "one",
   "class": "PROSE",
@@ -369,13 +341,6 @@
   "class": "PROSE",
   "reason": "two- or three-dimensional models",
   "line_at_review": 408
- },
- {
-  "key": "between predicted and true [half] -breakthrough time, ranking th",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "half-breakthrough time, a defined quantity (t50)",
-  "line_at_review": 421
  },
  {
   "key": "art again: on -H, DeepONet's [half] -breakthrough time is off by a",
@@ -406,13 +371,6 @@
   "line_at_review": 422
  },
  {
-  "key": "n, and the vertical bars span [three] ",
-  "word": "three",
-  "class": "DESIGN",
-  "reason": "three training seeds (42, 43, 44)",
-  "line_at_review": 426
- },
- {
   "key": "red test, with the range over [three] seeds",
   "word": "three",
   "class": "DESIGN",
@@ -432,13 +390,6 @@
   "class": "DESIGN",
   "reason": "seeds 43 and 44 of the robustness check",
   "line_at_review": 451
- },
- {
-  "key": "on [half] as many materials, but the sm",
-  "word": "half",
-  "class": "DESIGN",
-  "reason": "120 against 240 sampled materials, fixed by the two designs",
-  "line_at_review": 459
  },
  {
   "key": "gives these [two] frameworks \\(n = \\) and \\( \\",
@@ -467,13 +418,6 @@
   "class": "PROSE",
   "reason": "grammar or structural usage (reviewed 2026-10-26)",
   "line_at_review": 568
- },
- {
-  "key": "and the MOF-like design uses [one] training seed except for Deep",
-  "word": "one",
-  "class": "DESIGN",
-  "reason": "the registered seed count of PREREG_DD_V3",
-  "line_at_review": 574
  },
  {
   "key": "of its results were computed. [One] ",
@@ -544,5 +488,131 @@
   "class": "PROSE",
   "reason": "enumeration of outlook items",
   "line_at_review": 655
+ },
+ {
+  "key": "rm: \\,\\% of the cells in the [quarter] of the design with",
+  "word": "quarter",
+  "class": "DESIGN",
+  "reason": "quartiles of the affinity range, the acceptance check of A1",
+  "line_at_review": 252
+ },
+ {
+  "key": " [quarters] , and \\,\\% of those with \\(n",
+  "word": "quarters",
+  "class": "DESIGN",
+  "reason": "quartiles of the affinity range, the acceptance check of A1",
+  "line_at_review": 254
+ },
+ {
+  "key": "sigmoid the [two] parts are not orthogonal, so",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two parts of the error (floor, remainder)",
+  "line_at_review": 422
+ },
+ {
+  "key": "\\,\\% at [sixteen] . DeepONet, whose basis is tra",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "basis size p = 16, an axis value",
+  "line_at_review": 438
+ },
+ {
+  "key": "\\,\\% at [eight] modes to \\,\\% at 128, while",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 440
+ },
+ {
+  "key": " [eight] , sixteen and 128 modes. On th",
+  "word": "eight",
+  "class": "DESIGN",
+  "reason": "basis size p = 8, an axis value",
+  "line_at_review": 443
+ },
+ {
+  "key": "eight, [sixteen] and 128 modes. On the smooth",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "basis size p = 16, an axis value",
+  "line_at_review": 443
+ },
+ {
+  "key": "\\ and \\,\\%, and [two] further training seeds give",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "seeds 43 and 44",
+  "line_at_review": 444
+ },
+ {
+  "key": "-- \\,\\% at [sixteen] modes. The steeper fronts of",
+  "word": "sixteen",
+  "class": "DESIGN",
+  "reason": "basis size p = 16, an axis value",
+  "line_at_review": 445
+ },
+ {
+  "key": "between predicted and true [half] -breakthrough time \\(t_{50}\\),",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 496
+ },
+ {
+  "key": "on [half] as many materials, so a contr",
+  "word": "half",
+  "class": "DESIGN",
+  "reason": "120 against 240 sampled materials, fixed by the two designs",
+  "line_at_review": 532
+ },
+ {
+  "key": "rrogates, however, are handed [one] ",
+  "word": "one",
+  "class": "PROSE",
+  "reason": "grammar",
+  "line_at_review": 551
+ },
+ {
+  "key": "range over [three] refit seeds. Bold: inside the",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three refit seeds (42, 43, 44) of A1",
+  "line_at_review": 588
+ },
+ {
+  "key": "n, both surrogates predict \\ [six] frameworks",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 623
+ },
+ {
+  "key": "\\,\\% ( -- \\,\\% over [three] seeds), with",
+  "word": "three",
+  "class": "DESIGN",
+  "reason": "three refit seeds (42, 43, 44) of A1",
+  "line_at_review": 625
+ },
+ {
+  "key": "\\) of \\ for the order of the [six] within a condition. The",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 626
+ },
+ {
+  "key": "accuracy on milder isotherms. [Two] checks tie the gain to covera",
+  "word": "Two",
+  "class": "PROSE",
+  "reason": "enumeration",
+  "line_at_review": 631
+ },
+ {
+  "key": "-of-fold MOF-like results use [one] training",
+  "word": "one",
+  "class": "DESIGN",
+  "reason": "the registered seed count of PREREG_DD_V3",
+  "line_at_review": 682
  }
 ]

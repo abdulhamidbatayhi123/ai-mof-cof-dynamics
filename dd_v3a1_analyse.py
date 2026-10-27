@@ -141,9 +141,21 @@ def screening(data, don):
             r = {"spearman": sp, "spearman_ci": _q(bs[:, 0]), "recall": rc, "recall_ci": _q(bs[:, 1]),
                  "tie_bias_spearman": float(bs[:, 0].mean() - sp), "tie_bias_recall": float(bs[:, 1].mean() - rc)}
             r["screening_adequate"] = bool(r["spearman_ci"][0] >= 0.90 and r["recall_ci"][0] >= 0.80)
+            per_sp, per_rc = [], []                    # one value per condition, for the figure
+            for cnd in np.unique(rows["cond"]):
+                j = idx_all[rows["cond"] == cnd]
+                per_sp.append(dd.spearman(rows[f"true_{which}"][j], rows[f"{arm}_{which}"][j]))
+                per_rc.append(dd.topk_recall(rows[f"true_{which}"][j], rows[f"{arm}_{which}"][j]))
+            r["per_condition_spearman"], r["per_condition_recall"] = per_sp, per_rc
             if arm != "coarse":
                 r["within_fold_spearman"], r["within_fold_recall"] = _rank_metrics(rows, arm, which, idx_all, True)
             rec[arm] = r
+        sp_b, rc_b = [], []                            # zero-solve baseline: rank by t_st
+        for cnd in np.unique(rows["cond"]):
+            j = idx_all[rows["cond"] == cnd]
+            sp_b.append(dd.spearman(rows[f"true_{which}"][j], rows["tst"][j]))
+            rc_b.append(dd.topk_recall(rows[f"true_{which}"][j], rows["tst"][j]))
+        rec["baseline_tstoich"] = {"spearman": float(np.nanmean(sp_b)), "recall": float(np.nanmean(rc_b))}
         out[which] = rec
     ok = rows["coarse_ok"] > 0.5
     out["field"] = {"don": float(rows["nr_don"].mean()), "hgb": float(rows["nr_hgb"].mean()),
@@ -159,14 +171,15 @@ def leak_bound(rows):
     """Re-score DeepONet's t50 ranking with a horizon predicted out of fold from the parameters
     (a gradient-boosted classifier of the extension multiplier), instead of the true horizon."""
     from sklearn.ensemble import HistGradientBoostingClassifier
-    mult = np.round(rows["mult"], 3)
+    mult = np.round(rows["mult"], 2)                 # the horizon is one of a few fixed multiples
+    classes, lab = np.unique(mult, return_inverse=True)
     pred_mult = np.empty_like(mult)
     # parameters are not in the rows; the classifier sees log t_st and the condition, both solve-free
     X = np.column_stack([np.log(rows["tst"]), rows["cond"]])
     for f in np.unique(rows["fold"]):
         tr, te = rows["fold"] != f, rows["fold"] == f
-        clf = HistGradientBoostingClassifier(max_iter=200, random_state=0).fit(X[tr], mult[tr])
-        pred_mult[te] = clf.predict(X[te])
+        clf = HistGradientBoostingClassifier(max_iter=200, random_state=0).fit(X[tr], lab[tr])
+        pred_mult[te] = classes[clf.predict(X[te])]
     t50_free = rows["don_t50_norm"] * pred_mult * rows["tst"]
     sp_true, rc_true = _rank_metrics(rows, "don", "t50", np.arange(len(mult)))
     r2 = dict(rows, don_t50=t50_free)
@@ -263,7 +276,7 @@ def main():
     s = out["split_deeponet_own_floor"]
     for d in s:
         print(d, s[d]["verdict"], {p: round(v["share_map"], 4) for p, v in s[d]["by_p"].items()}, s[d]["diagnostics"])
-    print(json.dumps({d: {w: {a: (round(r["spearman"], 3), round(r["recall"], 3), r["screening_adequate"])
+    print(json.dumps({d: {w: {a: (round(r["spearman"], 3), round(r["recall"], 3), r.get("screening_adequate"))
                               for a, r in out["screening"][d][w].items()} for w in ("t50", "t90")}
                       for d in out["screening"]}, indent=1))
     print("control", out["control"])

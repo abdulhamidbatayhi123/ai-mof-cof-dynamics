@@ -46,7 +46,7 @@ NUMBERS_PY = os.path.join(ROOT, "paper", "numbers.py")
 _ALLOWED_PAIRS = [
     # structural constants of the experimental design, which name axes rather than
     # report outcomes; they are fixed by the protocol, not measured
-    ("8", "basis size p, an axis label"),
+    ("8", "basis size p, an axis label; the n >= 8 split of the v3 acceptance check (PREREG_DD_V3 A1)"),
     ("16", "basis size p, an axis label (the L5-v2 sweep point where the gain completes)"),
     ("12", "the smallest training-material count, an axis label"),
     ("24", "a mode index naming where per-mode R^2 crosses zero"),
@@ -85,7 +85,7 @@ _ALLOWED_PAIRS = [
     ("76", "the denominator of McGreivy & Hakim's 60-of-76"),
     ("15", "the Glueckauf linear-driving-force factor 15 in equation (glueckauf), a textbook constant"),
     ("0.7", "the leading coefficient of the Wakao-Funazkri dispersion correlation, as cited"),
-    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel D"),
+    ("0.5", "the second coefficient of the Wakao-Funazkri dispersion correlation, as cited; the R^2 > 0.5 threshold drawn in the mechanism figure, panel D; the affinity value -0.5 of the registered sensitivity (A1)"),
     ("95", "the 95th percentile that defines 'inside the held-out error distribution' in PREREG_DD_ADDITIONS B2"),
     # thresholds and definitions fixed by the protocol, not measured
     ("50", "the 50 % crossing, which DEFINES the t50 breakthrough time"),
@@ -100,11 +100,12 @@ _ALLOWED_PAIRS = [
     ("0.90", "the Spearman threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
     ("0.80", "the top-10 % recall threshold of 'screening-adequate', fixed in PREREG_DD_ADDITIONS"),
     ("81", "the 81 = (0.9/0.1)^2 of the frozen steepness rule n = ln 81 / ln(p90/p10)"),
-    ("90", "the percentile index of p_90 in the frozen steepness rule"),
+    ("90", "the percentile index of p_90 in the frozen steepness rule; the 90 % crossing that defines t90 (PREREG_DD_V3 A1)"),
     ("7", "a column index of the frameworks table (cmidrule)"),
     ("6", "a column index of the frameworks table (cmidrule)"),
     ("100", "N_z = 100, the grid of the untuned coarse-solve comparison (B-COARSE), a grid size"),
-    ("4.0", "the version of the CC BY 4.0 data licence"),]
+    ("4.0", "the version of the CC BY 4.0 data licence"),
+    ("1.0", "the affinity value log10(b_H/b_C) = +1.0 of the registered sensitivity (PREREG_DD_V3 A1)"),]
 
 # Merge with a duplicate check: a repeated literal means two different justifications
 # were written for the same number and one of them would be lost.
@@ -124,7 +125,7 @@ for _k, _why in _ALLOWED_PAIRS:
 # looks at the new sentence and re-states why it is not a result. A count of 0 marks
 # a reason whose sentence has gone: the literal may not come back unreviewed.
 ALLOWED_COUNT = {
-    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 2, "0.5": 1, "0.7": 0, "1": 8, "2": 15, "3": 0, "4": 1, "5": 4, "8": 1, "10": 6, "12": 6, "16": 7, "20": 0, "24": 0, "48": 0, "50": 2, "60": 0, "64": 1, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 7, "192": 3, "240": 2, "1953": 0, "15": 0, "216": 0, "17": 1, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 1, "7": 2, "100": 1, "6": 1, "4.0": 1,
+    "0": 0, "0009": 0, "0007": 0, "0374": 0, "6755": 0, "34349": 0, "0.2": 2, "0.5": 2, "0.7": 0, "1": 8, "2": 15, "3": 0, "4": 1, "5": 4, "8": 2, "10": 6, "12": 6, "16": 6, "20": 0, "24": 0, "48": 0, "50": 5, "60": 0, "64": 1, "76": 0, "79": 0, "80": 0, "95": 2, "96": 0, "99.9": 0, "128": 8, "192": 3, "240": 2, "1953": 0, "15": 0, "216": 0, "17": 1, "3947": 0, "2000": 0, "29": 0, "1959": 0, "1908": 0, "11": 0, "5.5": 2, "0.90": 1, "0.80": 1, "81": 1, "90": 5, "7": 2, "100": 1, "6": 1, "4.0": 1, "1.0": 1,
 }
 if set(ALLOWED_COUNT) != set(ALLOWED):
     raise SystemExit("build_paper.py: ALLOWED_COUNT and _ALLOWED_PAIRS disagree on "
