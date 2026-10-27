@@ -982,6 +982,12 @@ SPEC = [
     ("VthreeNrejected", "results/dataset_summary_v3.json", "n_rejected", "{:d}"),
     ("VthreeNmat", "results/dd_b1_predictions_v3.json", "folds",      # materials with accepted samples
      lambda d: f"{len({m for r in d.values() for m in r['material_ids']}):d}"),
+    # exploratory: the MOF-303 anchor with strong primary sites (anchor_strong_sites.py)
+    ("AnchorStrongTfive", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.t05_min", "{:.0f}"),
+    ("AnchorStrongTfifty", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.t50_min", "{:.0f}"),
+    ("AnchorStrongNrmse", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.nrmse_vs_effluent", "{:.3f}"),
+    ("AnchorStrongAff", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.affinity_log10", "{:+.0f}"),
+    ("AnchorStrongFh", "results/anchor_strong_sites.json", "runs.aff+1.0_fh0.17.f_H", "{:.2f}"),
     ("VthreeNmax", "results/dd_v3_verdict.json", "design_v3.isotherm_n[1]", "{:.0f}"),
     ("VthreeAffLo", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[0]", "{:.1f}"),
     ("VthreeAffHi", "results/dd_v3_verdict.json", "design_v3.henry_affinity_log10[1]", "{:.1f}"),

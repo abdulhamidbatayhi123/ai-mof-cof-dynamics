@@ -1,8 +1,6 @@
 cff-version: 1.2.0
 title: >-
-  Code, results and pre-registrations for: The coefficient map, not the basis,
-  limits how machine-learning surrogates of metal–organic framework
-  water-adsorption beds transfer to unseen materials
+  Code, results and pre-registrations for: The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
 message: If you use this software or its results, please cite it.
 type: software
 authors:
@@ -39,8 +37,7 @@ license: MIT
 preferred-citation:
   type: article
   title: >-
-    The coefficient map, not the basis, limits how machine-learning surrogates
-    of metal–organic framework water-adsorption beds transfer to unseen materials
+    The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
   authors:
     - given-names: Abdulhamid
       family-names: Batayhi

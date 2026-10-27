@@ -1322,14 +1322,15 @@
 }
 
 % [VERIFIED]
-%   Weak baselines and reporting bias in scientific ML; hidden test sets.
-@misc{wyder2025common,
-  author = {Philippe Martin Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan P. Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J. Nathan Kutz},
+%   Version of record (NeurIPS 38), Crossref record read 2026-10-27; earlier
+%   cited as arXiv:2510.23166.
+@inproceedings{wyder2025common,
+  author = {Philippe Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan Williams and David Zoro and Amy Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and Nathan Kutz},
   title = {Common task framework for a critical evaluation of scientific machine learning algorithms},
-  howpublished = {arXiv preprint},
+  booktitle = {Advances in Neural Information Processing Systems 38 (Datasets and Benchmarks Track)},
+  pages = {188884--188901},
   year = {2025},
-  eprint = {2510.23166},
-  archiveprefix = {arXiv},
+  doi = {10.52202/085713-5677},
 }
 
 % [VERIFIED]
@@ -1469,6 +1470,138 @@
 }
 
 % [VERIFIED]
+%   In-distribution precedent: POD projection error keeps falling while
+%   POD-GPR prediction error flattens, attributed to the coefficients.
+@article{halder2022non,
+  author = {Rakesh Halder and Krzysztof J. Fidkowski and Kevin J. Maki},
+  title = {Non-intrusive reduced-order modeling using convolutional autoencoders},
+  journal = {International Journal for Numerical Methods in Engineering},
+  volume = {123},
+  number = {21},
+  pages = {5369--5390},
+  year = {2022},
+  doi = {10.1002/nme.7072},
+}
+
+% [VERIFIED]
+%   POD projection error tiny; the branch net is responsible for the error (in
+%   distribution).
+@article{franco2023mesh,
+  author = {Nicola Rares Franco and Andrea Manzoni and Paolo Zunino},
+  title = {Mesh-informed neural networks for operator learning in finite element spaces},
+  journal = {Journal of Scientific Computing},
+  volume = {97},
+  number = {2},
+  pages = {35},
+  year = {2023},
+  doi = {10.1007/s10915-023-02331-1},
+}
+
+% [VERIFIED]
+%   Theory separating POD-dimension error from network and sampling error.
+@article{brivio2024error,
+  author = {Simone Brivio and Stefania Fresca and Nicola Rares Franco and Andrea Manzoni},
+  title = {Error estimates for {POD-DL-ROMs}: a deep learning framework for reduced order modeling of nonlinear parametrized {PDEs} enhanced by proper orthogonal decomposition},
+  journal = {Advances in Computational Mathematics},
+  volume = {50},
+  number = {3},
+  pages = {33},
+  year = {2024},
+  doi = {10.1007/s10444-024-10110-1},
+}
+
+% [VERIFIED]
+%   Reduced-physics model with an ML correction used for sorbent screening.
+@article{grimm2022machine,
+  author = {Alexa Grimm and Matteo Gazzani},
+  title = {A machine learning-aided equilibrium model of {VTSA} processes for sorbents screening applied to {CO2} capture from diluted sources},
+  journal = {Industrial \& Engineering Chemistry Research},
+  volume = {61},
+  number = {37},
+  pages = {14004--14019},
+  year = {2022},
+  doi = {10.1021/acs.iecr.2c01695},
+}
+
+% [VERIFIED]
+%   Isotherm-shape-driven cycling comparison of water-harvesting MOFs.
+@article{bezrukov2023metal,
+  author = {Andrey A. Bezrukov and Daniel J. O'Hearn and Victoria Gasc{\'o}n-P{\'e}rez and Shaza Darwish and Amrit Kumar and Suresh Sanda and Naveen Kumar and Kurt Francis and Michael J. Zaworotko},
+  title = {Metal--organic frameworks as regeneration optimized sorbents for atmospheric water harvesting},
+  journal = {Cell Reports Physical Science},
+  volume = {4},
+  number = {2},
+  pages = {101252},
+  year = {2023},
+  doi = {10.1016/j.xcrp.2023.101252},
+}
+
+% [VERIFIED]
+%   Leave-one-MOF-out ML for water uptake, not bed dynamics.
+@article{abdelwadood2026ai,
+  author = {Samar Abdelwadood and Seda Rouxel and Samuel Mao and Ludovic F. Dum{\'e}e},
+  title = {{AI}-driven discovery of high-performance metal--organic frameworks for next-gen atmospheric water harvesting},
+  journal = {Journal of Materials Chemistry A},
+  volume = {14},
+  number = {38},
+  pages = {25349--25364},
+  year = {2026},
+  doi = {10.1039/d6ta01583b},
+}
+
+% [VERIFIED]
+%   A differentiable finite-difference model with learned coefficients beats
+%   FNO by one to two orders of magnitude, in and out of distribution (arXiv
+%   abstract read 2026-10-27).
+@misc{chatain2025numerical,
+  author = {Patrick Chatain and Michael Rizvi-Martel and Guillaume Rabusseau and Adam Oberman},
+  title = {Numerical {PDE} solvers outperform neural {PDE} solvers},
+  howpublished = {arXiv preprint},
+  year = {2025},
+  eprint = {2507.21269},
+  archiveprefix = {arXiv},
+  doi = {10.48550/arXiv.2507.21269},
+}
+
+% [VERIFIED]
+%   Speeds up the mechanistic adsorption solver itself (about 20x to cyclic
+%   steady state).
+@misc{glover2026accelerating,
+  author = {Alex Glover and Maria M. Papathanasiou and Ronny Pini},
+  title = {Accelerating simulation and optimisation of cyclic adsorption processes with differentiable programming},
+  howpublished = {arXiv preprint},
+  year = {2026},
+  eprint = {2606.21523},
+  archiveprefix = {arXiv},
+  doi = {10.48550/arXiv.2606.21523},
+}
+
+% [VERIFIED]
+%   Counterpoint: an emulator trained on low-fidelity data can beat that
+%   solver.
+@inproceedings{koehler2025neural,
+  author = {Felix Koehler and Nils Thuerey},
+  title = {Neural emulator superiority: when machine learning for {PDEs} surpasses its training data},
+  booktitle = {Advances in Neural Information Processing Systems 38},
+  pages = {183610--183652},
+  year = {2025},
+  doi = {10.52202/085713-5521},
+}
+
+% [VERIFIED]
+%   Leakage taxonomy; supports splitting and resampling by material.
+@article{kapoor2023leakage,
+  author = {Sayash Kapoor and Arvind Narayanan},
+  title = {Leakage and the reproducibility crisis in machine-learning-based science},
+  journal = {Patterns},
+  volume = {4},
+  number = {9},
+  pages = {100804},
+  year = {2023},
+  doi = {10.1016/j.patter.2023.100804},
+}
+
+% [VERIFIED]
 %   The archived release of this repository. DataCite record read from the
 %   Zenodo API 2026-10-12 (v1.0.5: creator, title, version; v1.0.4 is
 %   10.5281/zenodo.23312204, v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is
@@ -1483,5 +1616,19 @@
   note = {Version v1.0.5},
   year = {2026},
   doi = {10.5281/zenodo.23323685},
+}
+
+% [VERIFIED]
+%   Concept DOI of the Zenodo record (DataCite; listed in the v1.0.5 record
+%   read 2026-10-12). The Digital Discovery guidelines ask for the DOIs of
+%   both the most recent and the archived version. Title to be re-read from
+%   the record after the release that accompanies this version.
+@misc{batayhi2026codeconcept,
+  author = {Abdulhamid Batayhi},
+  title = {{Code, results and pre-registrations for: The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials} (all versions)},
+  howpublished = {Zenodo},
+  note = {Concept record; resolves to the most recent version},
+  year = {2026},
+  doi = {10.5281/zenodo.23302586},
 }
 

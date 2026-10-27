@@ -7,20 +7,6 @@
   "line_at_review": 54
  },
  {
-  "key": "the [two] in principle , and Heinlein",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 57
- },
- {
-  "key": ". Which [one] limits accuracy decides where",
-  "word": "one",
-  "class": "PROSE",
-  "reason": "grammar or structural usage (reviewed 2026-10-25)",
-  "line_at_review": 59
- },
- {
   "key": "real harvesting frameworks. [Seven] candidate explanations of the",
   "word": "Seven",
   "class": "DESIGN",
@@ -68,13 +54,6 @@
   "class": "PROSE",
   "reason": "a boundary-condition type (third-type)",
   "line_at_review": 138
- },
- {
-  "key": "d outlet; squares: inlet. The [half] -breakthrough time is",
-  "word": "half",
-  "class": "PROSE",
-  "reason": "half-breakthrough time, a defined quantity (t50)",
-  "line_at_review": 152
  },
  {
   "key": "; Fig.~ ). The [half] -breakthrough time is largely",
@@ -168,32 +147,11 @@
   "line_at_review": 397
  },
  {
-  "key": "measure which of the [two] limits accuracy for a verifie",
-  "word": "two",
-  "class": "PROSE",
-  "reason": "the two failure modes, a logical dichotomy",
-  "line_at_review": 10
- },
- {
-  "key": "water uptake, on [two] pre-registered designs: \\ ma",
-  "word": "two",
-  "class": "DESIGN",
-  "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
-  "line_at_review": 11
- },
- {
   "key": "The [two] designs differ in how strongl",
   "word": "two",
   "class": "DESIGN",
   "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
   "line_at_review": 128
- },
- {
-  "key": "seed; trained with them, all [six] frameworks are predicted",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 22
  },
  {
   "key": "aterials correctly, including [six] published water-harvesting fr",
@@ -264,13 +222,6 @@
   "class": "DESIGN",
   "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
   "line_at_review": 565
- },
- {
-  "key": "with them, they predict all [six] named frameworks within their",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 594
  },
  {
   "key": "and legacy designs and of the [six] named frameworks, their manif",
@@ -525,13 +476,6 @@
   "line_at_review": 574
  },
  {
-  "key": "parameter range that encloses [six] published frameworks. On held",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 13
- },
- {
   "key": "of its results were computed. [One] ",
   "word": "One",
   "class": "DESIGN",
@@ -544,5 +488,61 @@
   "class": "DESIGN",
   "reason": "the exploratory comparisons on the legacy design, fixed by the protocol",
   "line_at_review": 274
+ },
+ {
+  "key": "bed model of water uptake, on [two] pre-registered designs: smoot",
+  "word": "two",
+  "class": "DESIGN",
+  "reason": "the two designs (v2, v3), fixed by PREREG_DD_V3",
+  "line_at_review": 10
+ },
+ {
+  "key": "rained with them they predict [six] published frameworks within t",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 19
+ },
+ {
+  "key": "seen adsorbents, validated on [two] ",
+  "word": "two",
+  "class": "CITED",
+  "reason": "the two zeolites of Pai et al. 2022, as reported by the cited paper",
+  "line_at_review": 39
+ },
+ {
+  "key": " [two] , and",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two error sources (basis, map), a logical dichotomy",
+  "line_at_review": 59
+ },
+ {
+  "key": "found to dominate . How the [two] divide",
+  "word": "two",
+  "class": "PROSE",
+  "reason": "the two error sources (basis, map), a logical dichotomy",
+  "line_at_review": 61
+ },
+ {
+  "key": " [half] -breakthrough time is reproduc",
+  "word": "half",
+  "class": "PROSE",
+  "reason": "half-breakthrough time, a defined quantity (t50)",
+  "line_at_review": 209
+ },
+ {
+  "key": "nfirms it: with primary sites [ten] times stronger than the step",
+  "word": "ten",
+  "class": "DESIGN",
+  "reason": "the exploratory input log10(b_H/b_C) = +1, i.e. a ratio of ten (anchor_strong_sites.py)",
+  "line_at_review": 227
+ },
+ {
+  "key": " [Three] directions follow. Coefficien",
+  "word": "Three",
+  "class": "PROSE",
+  "reason": "enumeration of outlook items",
+  "line_at_review": 655
  }
 ]

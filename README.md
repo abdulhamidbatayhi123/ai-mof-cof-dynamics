@@ -1,10 +1,10 @@
-# The coefficient map, not the basis, limits how machine-learning surrogates of metal–organic framework water-adsorption beds transfer to unseen materials
+# The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23323685.svg)](https://doi.org/10.5281/zenodo.23323685)
 
 Archived release: Zenodo, doi:[10.5281/zenodo.23323685](https://doi.org/10.5281/zenodo.23323685) (v1.0.5; the first version, v1.0-preprint, is doi:[10.5281/zenodo.23302587](https://doi.org/10.5281/zenodo.23302587)). The concept DOI [10.5281/zenodo.23302586](https://doi.org/10.5281/zenodo.23302586) always resolves to the latest version.
 
-Paper 1: *The coefficient map, not the basis, limits how machine-learning surrogates of metal–organic framework water-adsorption beds transfer to unseen materials* (preprint: ChemRxiv, doi:[10.26434/chemrxiv.15010365/v1](https://doi.org/10.26434/chemrxiv.15010365/v1)). A revised version is in preparation. Paper 2, a
+Paper 1: *The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials* (preprint: ChemRxiv, doi:[10.26434/chemrxiv.15010365/v1](https://doi.org/10.26434/chemrxiv.15010365/v1)). A revised version is in preparation. Paper 2, a
 pre-registered study, *when can AI discover adsorption kinetics?*, has its own repository
 (see the table below).
 

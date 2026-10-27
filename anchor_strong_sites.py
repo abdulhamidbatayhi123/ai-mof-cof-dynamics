@@ -39,7 +39,10 @@ def main():
             p.b_H_ratio = 10.0 ** (-a)
             t_min, frac, _ = cl.solve(p, c_in, 500)
             d = cl.describe(t_min, frac, eff)
-            out["runs"][f"aff{a:+.1f}_fh{fh:.2f}"] = {"affinity_log10": a, "f_H": fh, **d}
+            idx = np.linspace(0, len(t_min) - 1, 400).astype(int)         # the curve, for the figure
+            out["runs"][f"aff{a:+.1f}_fh{fh:.2f}"] = {"affinity_log10": a, "f_H": fh, **d,
+                                                    "t_min": t_min[idx].round(3).tolist(),
+                                                    "exit_frac": frac[idx].round(5).tolist()}
             print(f"  affinity {a:+.2f} f_H {fh:.2f}: t05 {d['t05_min']:.1f}  t50 {d['t50_min']:.1f}  "
                   f"plateau {d['plateau_150_250_frac']:.3f}  nRMSE {d['nrmse_vs_effluent']:.4f}", flush=True)
     print(f"  experiment: t05 {exp['t05_min']:.1f}  t50 {exp['t50_min']:.1f}  plateau {exp['plateau_150_250_frac']:.3f}")

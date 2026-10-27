@@ -642,6 +642,11 @@
     "VthreeNsamples": "1719",
     "VthreeNrejected": "321",
     "VthreeNmat": "118",
+    "AnchorStrongTfive": "84",
+    "AnchorStrongTfifty": "300",
+    "AnchorStrongNrmse": "0.094",
+    "AnchorStrongAff": "+1",
+    "AnchorStrongFh": "0.17",
     "VthreeNmax": "32",
     "VthreeAffLo": "-1.3",
     "VthreeAffHi": "1.5",
@@ -3359,6 +3364,26 @@
     "VthreeNmat": {
       "file": "results/dd_b1_predictions_v3.json",
       "path": "folds"
+    },
+    "AnchorStrongTfive": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.t05_min"
+    },
+    "AnchorStrongTfifty": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.t50_min"
+    },
+    "AnchorStrongNrmse": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.nrmse_vs_effluent"
+    },
+    "AnchorStrongAff": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.affinity_log10"
+    },
+    "AnchorStrongFh": {
+      "file": "results/anchor_strong_sites.json",
+      "path": "runs.aff+1.0_fh0.17.f_H"
     },
     "VthreeNmax": {
       "file": "results/dd_v3_verdict.json",

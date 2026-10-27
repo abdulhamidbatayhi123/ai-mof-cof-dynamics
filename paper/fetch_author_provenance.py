@@ -71,9 +71,11 @@ def main():
             rows.append(prev[key])
             continue
         try:
-            if f.get("doi"):
+            if f.get("doi") and not (f.get("eprint") and f["doi"].lower().startswith("10.48550/")):
                 src, (auth, title) = "Crossref " + f["doi"], crossref(f["doi"])
             elif f.get("eprint"):
+                # arXiv DOIs (10.48550) are registered at DataCite, not Crossref, which answers 404;
+                # the arXiv API is the primary record for a preprint
                 src, (auth, title) = "arXiv " + f["eprint"], arxiv(f["eprint"])
                 time.sleep(20)
             else:

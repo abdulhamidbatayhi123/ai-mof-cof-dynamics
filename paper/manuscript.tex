@@ -30,10 +30,12 @@
   {1.2ex \@plus .4ex \@minus .2ex}{-0.6em}{\normalfont\normalsize\bfseries}}
 \makeatother
 
+% references cited only in Supplementary S2, listed in this article as the journal asks
+\AtBeginDocument{\nocite{edwards1968gas,kneip1992statistical,knox2016limitations,krah2023front,krah2025robust,lee2026scaleup,levan2019adsorption,mendible2020dimensionality,nair2019transported,ohlberger2016reduced,papapicco2022nnspod,ramsay1998curve,reiss2018shifted,rohrer2021loss,taddei2020registration,taddei2026erratum,wakao1978effect,zorawski2024neural,zucatti2026model}}
 \input{numbers}
 
-\title{The coefficient map, not the basis, limits how machine-learning surrogates of
-metal--organic framework water-adsorption beds transfer to unseen materials}
+\title{The coefficient map, not the basis, limits machine-learning surrogates of MOF
+water-adsorption beds on unseen materials}
 \author{Abdulhamid Batayhi\textsuperscript{a} and Hasan Cankurt\textsuperscript{b,*}\\[0.6em]
 \parbox{0.92\textwidth}{\centering\small
 \textsuperscript{a}Department of Mechatronics Engineering, Faculty of Mechanical
@@ -48,27 +50,23 @@ Metallurgical Engineering, Y\i{}ld\i{}z Technical University, Istanbul, T\"urkiy
 \maketitle
 
 \begin{abstract}
-Machine-learning surrogates could let designers of metal--organic framework (MOF) water
-harvesters screen candidate adsorbents without solving the transport equations for each,
-but only if they work on materials they were not trained on. A surrogate built on a
-reduced basis can fail there because the basis cannot represent the true field, or because
-the map from material parameters to basis coefficients predicts the wrong coefficients. We
-measure which of the two limits accuracy for a verified, non-isothermal packed-bed model of
-water uptake, on two pre-registered designs: \nNclustFolds\ materials with smooth isotherms,
-and \nVthreeNmat\ with MOF-like isotherms, strong low-humidity sites and steep steps, in a
-parameter range that encloses six published frameworks. On held-out materials the map carries at least
-\nShMin\,\% of the squared error from 16 modes on, for POD with gradient boosting and for
-DeepONet measured against its own trained basis; a richer basis changes nothing, while more
-training materials keep helping. A coarse finite-volume solve is \(\nScrCoRatio\times\)
-(smooth) and \(\nScrVthreeCoRatio\times\) (MOF-like) more accurate than the best surrogate,
-which repays its training only after about \nCostBeFit\ queries. Surrogates rank
-smooth-isotherm materials well enough for a screen (Spearman \nScrDonSp) but not MOF-like
-ones (\nScrVthreeDonSp, below the registered 0.90), where only a solve ranks reliably.
-Trained without steep steps, they fail on CAU-10-H and aluminium fumarate, with errors that
-depend strongly on the training seed; trained with them, all six frameworks are predicted
-within the held-out error. For this column a coarse solve is the screening tool, and
-surrogate effort belongs in the coefficient map and in training designs that cover real
-frameworks.
+Machine-learning surrogates could let designers of water-harvesting metal--organic
+frameworks (MOFs) screen candidates without solving the transport equations for each, but
+only if they work on materials they were not trained on. A surrogate built on a reduced
+basis fails there either because the basis cannot represent the true field or because the
+map from material parameters to basis coefficients is wrong. We measure which, for a
+verified packed-bed model of water uptake, on two pre-registered designs: smooth isotherms,
+and MOF-like isotherms with strong low-humidity sites and steep steps. On held-out
+materials the coefficient map carries at least \nShMin\,\% of the squared error, for proper
+orthogonal decomposition with gradient boosting and for DeepONet measured against its own
+trained basis; a richer basis changes nothing, while more training materials help. A coarse
+finite-volume solve is \nScrCoRatio\ to \nScrVthreeCoRatio\ times more accurate than the best
+surrogate, which repays its training only after about \nCostBeFit\ queries. Surrogates rank
+smooth-isotherm materials well enough for a screen but not MOF-like ones, where only a solve
+ranks reliably. Trained without steep steps they fail on CAU-10-H and aluminium fumarate;
+trained with them they predict six published frameworks within their held-out error.
+Surrogate effort should go into the coefficient map and into training designs that cover
+real frameworks.
 \end{abstract}
 
 %% ===========================================================================
@@ -84,13 +82,18 @@ isotherm, the heat released and the kinetics together
 \cite{lapotin2019adsorption}. Answering that question for many candidates means solving
 transport equations many times, and machine-learning surrogates promise to replace those
 solves for materials that have never been simulated
-\cite{pai2020generalized,leperi2019development,burns2020prediction,han2025machine,han2025optimizing}.
-Machine learning already ranks frameworks by their water uptake from structure
-\cite{alkhatib2026machine,arjmandi2026next}, and the closest process-level work trains a
-neural network on simulations of a CO\(_2\) capture cycle to map step-isotherm parameters to
-energy use and productivity \cite{nasiri2026process,nasiri2026surrogate}; neither tests
-transfer to held-out materials or compares against a cheaper solve. Structure-to-isotherm
-models are making the isotherm itself predictable from a framework's structure
+\cite{leperi2019development,burns2020prediction,han2025machine,han2025optimizing}. An
+adsorbent-agnostic network already takes isotherm parameters as input and predicts the
+performance indicators of cyclic processes for unseen adsorbents, validated on two
+zeolites \cite{pai2020generalized,pai2022experimental}, and DeepONets have been trained on
+cyclic adsorption with travelling fronts \cite{ceccanti2026deep}. For water-harvesting
+frameworks, machine learning ranks materials by their uptake from structure
+\cite{alkhatib2026machine,arjmandi2026next,abdelwadood2026ai}, isotherm shape has been
+linked to regeneration in a cycling model \cite{bezrukov2023metal}, and the closest
+process-level surrogate maps step-isotherm parameters of a CO\(_2\) capture cycle to energy
+use and productivity \cite{nasiri2026process,nasiri2026surrogate}. None of these predicts
+the breakthrough field of held-out materials or compares against a cheaper solve.
+Structure-to-isotherm models are making the isotherm itself predictable
 \cite{goeminne2025ab}; what a surrogate then has to do is map those isotherm and bed
 parameters to the dynamic behaviour of the bed.
 
@@ -100,12 +103,13 @@ decomposition (POD) with a regressor \cite{hesthaven2018non,bhattacharya2021mode
 neural operators with a linear reconstruction such as DeepONet \cite{lu2021learning}. On a
 material the model has not seen, such a surrogate can fail in exactly two ways: the
 basis cannot represent the true field, or the predicted weights are wrong. Theory bounds
-the first for transport-dominated problems \cite{lanthaler2023nonlinear} and separates
-the two in principle \cite{bhattacharya2021model,wang2025rbdeeponet}, and Heinlein and
-Taraz found the second dominating for DeepONets on model equations
-\cite{heinlein2026error}. Which one limits accuracy decides where method development
-should go, but it has not been measured for adsorption beds, or for transfer across
-materials.
+the first for transport-dominated problems \cite{lanthaler2023nonlinear} and separates the
+two \cite{bhattacharya2021model,lanthaler2022error,brivio2024error,wang2025rbdeeponet}, and
+for held-out parameter values of single model problems the coefficient error has been
+found to dominate \cite{halder2022non,franco2023mesh,heinlein2026error}. How the two divide
+when the held-out unit is a material has not been measured, for adsorption beds or for any
+breakthrough model whose isotherms have the low-humidity sites and steep steps of real
+water-harvesting frameworks.
 
 Here we measure it. The system is a one-dimensional, non-isothermal model of water uptake
 in a packed bed, with an S-shaped isotherm that produces the two-wave breakthrough of
@@ -116,17 +120,27 @@ then repeated on a second design whose isotherms have the strong low-humidity si
 steep steps of real water MOFs. The statistics follow the
 standards Digital Discovery's benchmarking work has set for materials models
 \cite{witman2025matfold,abaei2026benchmark,burark2024codbench}: materials, not samples,
-are the resampling unit, the significance level is calibrated by simulation, and choosing
-the best configuration on the test materials is paid for in the interval. Because the
-strongest objection to learned surrogates is that a simple numerical method is often
-better \cite{mcgreivy2024weak,wyder2025common,dehoop2022cost,huang2026cost}, a coarse solve of the same
-equations is one of the baselines.
+are the resampling and splitting unit \cite{kapoor2023leakage}, the significance level is
+calibrated by simulation, and choosing the best configuration on the test materials is
+paid for in the interval. Because the strongest objection to learned surrogates is that a
+simple numerical method is often better
+\cite{mcgreivy2024weak,wyder2025common,chatain2025numerical,huang2026cost}, though not always
+\cite{koehler2025neural}, a coarse solve of the same equations is one of the baselines.
 
 The paper asks what limits accuracy on held-out materials, the basis or the map; when a
 surrogate is worth building at all, compared with a coarse solve; and whether surrogates
 rank materials correctly, including six published water-harvesting frameworks, which is
 what a screen needs. We also state where the model of the adsorbent is too simple.
 Table~\ref{tab:terms} defines the terms used throughout.
+
+The answers matter to anyone building a computational screen for water-harvesting
+frameworks. For a one-dimensional column, a coarse solve already ranks thousands of
+candidates in about a CPU-hour, more reliably than any surrogate tested here. Where
+surrogates are needed, for device models whose solves cost far more, accuracy on new
+materials will come from better coefficient maps and from training designs that contain
+the strong sites and steep steps of real frameworks, not from richer bases. And the
+diagnostic itself, measuring the basis floor and the map error separately on held-out
+materials, applies to any surrogate that builds its output from a basis.
 
 \begin{table}[!tbp]
 \centering
@@ -161,7 +175,10 @@ runs \\
 \end{table}
 
 %% ===========================================================================
-\section{Model, reference solver and an experimental check}
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Model, reference solver and an experimental check}
 \label{sec:model}
 
 \paragraph{Governing equations} The bed is a one-dimensional column with axial
@@ -233,9 +250,12 @@ with no parameter fitted to this curve; the kinetic constant is the value the au
 in their own work. Blue: the pre-registered run with the cited
 MOF-303 isotherm. Grey: pre-declared variants of the quantities the source does not give
 (kinetic constant, pellet size, thermal coupling). Dashed: the authors' own model with
-fitted kinetics. Circles: measured outlet; squares: inlet. The half-breakthrough time is
-reproduced; the first leak arrives far too early, because the weak low-humidity sites of
-equation~\eqref{eq:isotherm} hold almost no water at the feed.}
+fitted kinetics. Dash-dotted: the same run with strong primary sites,
+\(\log_{10}(b_H/b_C) = \nAnchorStrongAff\) and the below-step fraction the MOF-303 source
+reports (exploratory, not pre-registered, nothing fitted). Circles: measured outlet;
+squares: inlet. With the weak low-humidity sites of equation~\eqref{eq:isotherm} the
+half-breakthrough time is reproduced but the first leak arrives far too early; strong
+sites move it to the measured time.}
 \label{fig:anchor}
 \end{figure}
 
@@ -251,7 +271,11 @@ test capacity rather than dynamics; they were too lenient. The dynamics are not
 reproduced: the model's outlet leaks at \nAnchorTfiveModel\ minutes against
 \nAnchorTfiveExp\ measured. The anchor uses the smooth design's weak primary sites, which
 hold only \nIbsMofFeed\,\% of capacity at the feed humidity, so almost nothing retains the
-first wave; this is the shortcoming the MOF-like design addresses. The run is also
+first wave; this is the shortcoming the MOF-like design addresses. An exploratory re-run
+confirms it: with primary sites ten times stronger than the step sites and the below-step
+fraction the MOF-303 source reports (\(f_H = \nAnchorStrongFh\)), still with nothing fitted,
+the first leak moves to \nAnchorStrongTfive\ minutes against \nAnchorTfiveExp\ measured and
+the error against the effluent falls to \nAnchorStrongNrmse\ (Fig.~\ref{fig:anchor}). The run is also
 isothermal, as the authors' own model is, and takes its kinetic constant from their fitted
 values, so it tests neither the energy balance nor the pellet-derived kinetics of the
 datasets, and the bed is only about \nAnchorPelletsDeep{} pellets deep, where a
@@ -260,7 +284,7 @@ one-dimensional continuum with a dispersion correlation is outside its range
 it is not a validation.
 
 %% ===========================================================================
-\section{Data and evaluation design}
+\subsection{Data and evaluation design}
 \label{sec:data}
 
 \paragraph{Datasets} The smooth design contains \nDataNsamples\ accepted simulations:
@@ -377,9 +401,9 @@ residual weight of \(10^{\nLfourbBestWeightExp}\) improves transfer to \nLfourbM
 held-out materials by \nLfourbMatGainPct\,\% over an identical data-only network (interval
 over every weighting tried: [\nLfourbMatSelLo, \nLfourbMatSelHi]); every larger weight and
 every adaptive weighting scheme is worse, and minimising the residual at inference makes
-predictions about \nLfourbRefTwinFactor\ times worse. This agrees with physics-informed
-surrogates of adsorption processes reported elsewhere \cite{galanti2025towards} and rests
-on a single split.
+predictions about \nLfourbRefTwinFactor\ times worse. Physics-informed surrogates of
+adsorption processes gain most when data are scarce \cite{galanti2025towards}; with the
+training data used here the gain is small, and the result rests on a single split.
 
 \paragraph{L5, a better operator: a small gain from the basis, complete by 16 modes}
 DeepONet improves by \nLfiveVtwoGainPct\,\% from \(p = 8\) to \(p = 128\) on the 240-material
@@ -427,8 +451,8 @@ For a surrogate whose prediction \(\hat u\) lies in the span of an orthonormal b
 \qquad c_k = \langle u, \phi_k \rangle ,
 \label{eq:split}
 \end{equation}
-the projection identity that underlies error analyses of POD-based networks
-\cite{bhattacharya2021model,wang2025rbdeeponet,lanthaler2022error}. We measured both terms
+the projection identity behind error decompositions of POD-based networks and neural
+operators \cite{bhattacharya2021model,lanthaler2022error,brivio2024error,wang2025rbdeeponet}. We measured both terms
 separately for POD with per-mode gradient boosting and with ridge regression, each
 regressor fixed in advance, so neither is chosen on the held-out materials. DeepONet needs
 more care: its basis is learned rather than orthonormal and is seen through a sigmoid
@@ -492,9 +516,11 @@ zero. For this column the stakes are therefore small in absolute terms: either r
 screens thousands of candidates in about a CPU-hour, and the coarse solve does it more
 accurately. The balance can turn for two- or
 three-dimensional, multi-cycle device models, where a solve costs far more; we have not
-measured that case. This is the adsorption-bed instance of a pattern found for neural
-operators in general \cite{dehoop2022cost,huang2026cost}, and it agrees with the use of
-reduced-physics models for rapid adsorbent screening \cite{liske2026extended}.
+measured that case. The comparison follows the cost--accuracy framing of operator learning
+\cite{dehoop2022cost} and agrees with comparisons of neural and numerical solvers at
+matched accuracy \cite{huang2026cost,chatain2025numerical}; it also agrees with screening by
+reduced-physics models \cite{liske2026extended,grimm2022machine} and with making the solver
+itself faster rather than replacing it \cite{glover2026accelerating}.
 
 \subsection{Do surrogates rank materials correctly?}
 \label{sec:screening}
@@ -666,19 +692,21 @@ public push events, not by an external registry.
 \section{Conclusions}
 \label{sec:conclusions}
 
-For surrogates of a MOF water-adsorption bed, tested on held-out materials under
-pre-registered, selection-corrected designs, the error is set by the map from material
-parameters to basis coefficients, not by the basis. This holds for POD with gradient
-boosting and for DeepONet measured against its own trained basis, on smooth isotherms and
-on MOF-like ones with strong low-humidity sites and steep steps; more training materials
-reduce the error and are still paying at the largest size we could afford. For this
-one-dimensional column a coarse numerical solve is more accurate than the best surrogate,
-and ranks candidates reliably where the surrogates do not: surrogates rank smooth-isotherm
-materials well enough for a screen, but not MOF-like ones. Trained on a design without
-steep steps, surrogates fail on CAU-10-H and aluminium fumarate, and trained on a design
-with them, they predict all six named frameworks within their held-out error. The same
-measurements can be made for any parametric surrogate whose output is a field on a basis,
-and the code, data and pre-registrations are public.
+The basis error and the map error of a surrogate on held-out materials can be measured
+separately, and for a MOF water-adsorption bed they are far apart: the coefficient map is
+the limit, on smooth and on MOF-like isotherms alike, and a richer basis buys nothing. For
+a one-dimensional column the practical consequence is that a coarse numerical solve is the
+better screening tool. Surrogates earn their place only where a solve is expensive, and
+there their accuracy on real frameworks depends on whether the training design contains
+the strong sites and steep steps those frameworks have.
+
+Three directions follow. Coefficient maps that receive isotherms predicted from structure,
+rather than fitted parameters, could carry information the parameters lack. Device models
+with desorption, cycling and heat transfer are where the cost balance could turn, and where
+the same diagnostic should be repeated. And the model of the adsorbent itself, with
+loading-dependent heat and transport and a step that moves with temperature, limits a real
+screen more than any surrogate does. The protocol, data and code are public, so each of
+these can be tested in the same way.
 
 %% ===========================================================================
 \section*{Author contributions}
@@ -694,14 +722,18 @@ There are no conflicts to declare.
 The code for this article, including the solver, every runner and analyser, the
 verification harness, the pre-registrations and the correction ledger, is available at
 \url{https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics}, with its full commit
-history; the version used for this study is archived at Zenodo \cite{batayhi2026code}.
-The code is released under the MIT licence. The simulated breakthrough fields of the
+history. The version used for this study is archived at Zenodo \cite{batayhi2026code}, and
+the record's concept DOI resolves to the most recent version \cite{batayhi2026codeconcept};
+the code is released under the MIT licence. The simulated breakthrough fields of the
 smooth, MOF-like and legacy designs and of the six named frameworks, their manifests (every
-material, condition, seed and fold) and a data card are available at Zenodo [DATASET DOI]
-under a CC BY 4.0 licence. Every number in the text is generated from a tracked results
-file by \texttt{paper/numbers.py}, which names the file and the entry each number comes
-from, and \texttt{REPRODUCE.md} maps every figure and table to its script. Supplementary S2
-holds supporting detail and Supplementary S1 the correction ledger.
+material, condition, seed and fold), the trained DeepONet models and a data card are
+available at Zenodo [DATASET DOI] under a CC BY 4.0 licence. Every number in the text is
+generated from a tracked results file by \texttt{paper/numbers.py}, which names the file
+and the entry each number comes from; \texttt{REPRODUCE.md} maps every figure and table to
+its script, and rebuilds every number and figure from the tracked results in minutes,
+without the dataset. Supplementary S2 holds supporting detail and Supplementary S1 the
+correction ledger; references cited only in the supplements are included in the reference
+list of this article.
 
 \section*{Acknowledgements}
 This research did not receive any specific grant from funding agencies in the public,

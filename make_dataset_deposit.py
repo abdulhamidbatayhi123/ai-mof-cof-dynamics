@@ -101,8 +101,7 @@ def main():
     shutil.copy(FOLDS_FILE, os.path.join(OUT, "manifests", os.path.basename(FOLDS_FILE)))
     card = f"""# Data card: simulated water-adsorption breakthrough fields
 
-Companion dataset of "The coefficient map, not the basis, limits how machine-learning surrogates of
-metal-organic framework water-adsorption beds transfer to unseen materials". Code and every result:
+Companion dataset of "The coefficient map, not the basis, limits machine-learning surrogates of MOF water-adsorption beds on unseen materials". Code and every result:
 https://github.com/abdulhamidbatayhi123/ai-mof-cof-dynamics (Zenodo concept DOI 10.5281/zenodo.23302586).
 
 ## Files

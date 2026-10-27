@@ -168,6 +168,14 @@ def main():
     t_min, frac = curves[pk]
     ax.plot(t_min, frac * RH_IN * 100, color=fs.C["blue"], lw=2.0, zorder=3,
             label="reference solver, cited MOF-303\nparameters (primary)")
+    # Exploratory, not pre-registered (anchor_strong_sites.py): the same run with strong primary
+    # sites, log10(b_H/b_C) = +1, and the below-step fraction the MOF-303 source reports
+    strong = "results/anchor_strong_sites.json"
+    if os.path.exists(strong):
+        r = json.load(open(strong))["runs"].get("aff+1.0_fh0.17", {})
+        if "t_min" in r:
+            ax.plot(r["t_min"], np.array(r["exit_frac"]) * RH_IN * 100, color=fs.C["orange"], lw=1.6,
+                    ls="-.", zorder=3, label="same, with strong primary sites\n(exploratory, nothing fitted)")
     ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--", zorder=2,
             label="authors' COMSOL model\n(fitted kinetics)")
     ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", zorder=4, label="experiment, outlet (digitised)")

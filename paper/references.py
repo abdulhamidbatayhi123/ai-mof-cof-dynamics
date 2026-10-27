@@ -886,14 +886,15 @@ REFS = [
         journal="Chemical Engineering Journal", volume="521", pages="166607", year="2025",
         doi="10.1016/j.cej.2025.166607"),
      "No public abstract: cite only for what the title states.", False),
-    ("wyder2025common", V, "misc", dict(
-        author="Philippe Martin Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and "
-               "Stefano Riva and Jan P. Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto "
-               "and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and "
-               "J. Nathan Kutz",
+    ("wyder2025common", V, "inproceedings", dict(
+        author="Philippe Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva "
+               "and Jan Williams and David Zoro and Amy Rude and Matteo Tomasetto and Joe Germany and "
+               "Joseph Bakarji and Georg Maierhofer and Miles Cranmer and Nathan Kutz",
         title="Common task framework for a critical evaluation of scientific machine learning algorithms",
-        howpublished="arXiv preprint", year="2025", eprint="2510.23166", archiveprefix="arXiv"),
-     "Weak baselines and reporting bias in scientific ML; hidden test sets.", False),
+        booktitle="Advances in Neural Information Processing Systems 38 (Datasets and Benchmarks Track)",
+        pages="188884--188901", year="2025", doi="10.52202/085713-5677"),
+     "Version of record (NeurIPS 38), Crossref record read 2026-10-27; earlier cited as "
+     "arXiv:2510.23166.", False),
     ("vantegelen2026late", V, "misc", dict(
         author="Eva van Tegelen and Taniya Kapoor and George A. K. van Voorn and Peter van Heijster and "
                "Ioannis N. Athanasiadis",
@@ -969,6 +970,75 @@ REFS = [
         doi="10.1021/acs.chemrev.0c01266"),
      "Process-level against material-KPI screening. Crossref record read 2026-10-25.", False),
 
+    # ------------------------------- 2026-10-27 literature check (Crossref / arXiv records read that day)
+    ("halder2022non", V, "article", dict(
+        author="Rakesh Halder and Krzysztof J. Fidkowski and Kevin J. Maki",
+        title="Non-intrusive reduced-order modeling using convolutional autoencoders",
+        journal="International Journal for Numerical Methods in Engineering", volume="123", number="21",
+        pages="5369--5390", year="2022", doi="10.1002/nme.7072"),
+     "In-distribution precedent: POD projection error keeps falling while POD-GPR prediction error "
+     "flattens, attributed to the coefficients.", False),
+    ("franco2023mesh", V, "article", dict(
+        author="Nicola Rares Franco and Andrea Manzoni and Paolo Zunino",
+        title="Mesh-informed neural networks for operator learning in finite element spaces",
+        journal="Journal of Scientific Computing", volume="97", number="2", pages="35", year="2023",
+        doi="10.1007/s10915-023-02331-1"),
+     "POD projection error tiny; the branch net is responsible for the error (in distribution).", False),
+    ("brivio2024error", V, "article", dict(
+        author="Simone Brivio and Stefania Fresca and Nicola Rares Franco and Andrea Manzoni",
+        title="Error estimates for {POD-DL-ROMs}: a deep learning framework for reduced order modeling of "
+              "nonlinear parametrized {PDEs} enhanced by proper orthogonal decomposition",
+        journal="Advances in Computational Mathematics", volume="50", number="3", pages="33", year="2024",
+        doi="10.1007/s10444-024-10110-1"),
+     "Theory separating POD-dimension error from network and sampling error.", False),
+    ("grimm2022machine", V, "article", dict(
+        author="Alexa Grimm and Matteo Gazzani",
+        title="A machine learning-aided equilibrium model of {VTSA} processes for sorbents screening applied "
+              "to {CO2} capture from diluted sources",
+        journal="Industrial \\& Engineering Chemistry Research", volume="61", number="37",
+        pages="14004--14019", year="2022", doi="10.1021/acs.iecr.2c01695"),
+     "Reduced-physics model with an ML correction used for sorbent screening.", False),
+    ("bezrukov2023metal", V, "article", dict(
+        author="Andrey A. Bezrukov and Daniel J. O'Hearn and Victoria Gasc{\\'o}n-P{\\'e}rez and Shaza Darwish "
+               "and Amrit Kumar and Suresh Sanda and Naveen Kumar and Kurt Francis and Michael J. Zaworotko",
+        title="Metal--organic frameworks as regeneration optimized sorbents for atmospheric water harvesting",
+        journal="Cell Reports Physical Science", volume="4", number="2", pages="101252", year="2023",
+        doi="10.1016/j.xcrp.2023.101252"),
+     "Isotherm-shape-driven cycling comparison of water-harvesting MOFs.", False),
+    ("abdelwadood2026ai", V, "article", dict(
+        author="Samar Abdelwadood and Seda Rouxel and Samuel Mao and Ludovic F. Dum{\\'e}e",
+        title="{AI}-driven discovery of high-performance metal--organic frameworks for next-gen atmospheric "
+              "water harvesting",
+        journal="Journal of Materials Chemistry A", volume="14", number="38", pages="25349--25364", year="2026",
+        doi="10.1039/d6ta01583b"),
+     "Leave-one-MOF-out ML for water uptake, not bed dynamics.", False),
+    ("chatain2025numerical", V, "misc", dict(
+        author="Patrick Chatain and Michael Rizvi-Martel and Guillaume Rabusseau and Adam Oberman",
+        title="Numerical {PDE} solvers outperform neural {PDE} solvers",
+        howpublished="arXiv preprint", year="2025", eprint="2507.21269", archiveprefix="arXiv",
+        doi="10.48550/arXiv.2507.21269"),
+     "A differentiable finite-difference model with learned coefficients beats FNO by one to two "
+     "orders of magnitude, in and out of distribution (arXiv abstract read 2026-10-27).", False),
+    ("glover2026accelerating", V, "misc", dict(
+        author="Alex Glover and Maria M. Papathanasiou and Ronny Pini",
+        title="Accelerating simulation and optimisation of cyclic adsorption processes with "
+              "differentiable programming",
+        howpublished="arXiv preprint", year="2026", eprint="2606.21523", archiveprefix="arXiv",
+        doi="10.48550/arXiv.2606.21523"),
+     "Speeds up the mechanistic adsorption solver itself (about 20x to cyclic steady state).", False),
+    ("koehler2025neural", V, "inproceedings", dict(
+        author="Felix Koehler and Nils Thuerey",
+        title="Neural emulator superiority: when machine learning for {PDEs} surpasses its training data",
+        booktitle="Advances in Neural Information Processing Systems 38", pages="183610--183652",
+        year="2025", doi="10.52202/085713-5521"),
+     "Counterpoint: an emulator trained on low-fidelity data can beat that solver.", False),
+    ("kapoor2023leakage", V, "article", dict(
+        author="Sayash Kapoor and Arvind Narayanan",
+        title="Leakage and the reproducibility crisis in machine-learning-based science",
+        journal="Patterns", volume="4", number="9", pages="100804", year="2023",
+        doi="10.1016/j.patter.2023.100804"),
+     "Leakage taxonomy; supports splitting and resampling by material.", False),
+
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",
@@ -979,6 +1049,15 @@ REFS = [
      "2026-10-12 (v1.0.5: creator, title, version; v1.0.4 is 10.5281/zenodo.23312204, v1.0.3 is 10.5281/zenodo.23311637, v1.0.2 is 10.5281/zenodo.23306131, v1.0.1-cmame is 10.5281/zenodo.23305298); first version 10.5281/zenodo.23302587; concept DOI "
      "10.5281/zenodo.23302586 resolves to the latest version. The [dataset] tag is the "
      "guide's marker for production and is removed in the published article.", False),
+    ("batayhi2026codeconcept", V, "misc", dict(
+        author="Abdulhamid Batayhi",
+        title="{Code, results and pre-registrations for: The coefficient map, not the basis, limits "
+              "machine-learning surrogates of MOF water-adsorption beds on unseen materials} (all versions)",
+        howpublished="Zenodo", note="Concept record; resolves to the most recent version", year="2026",
+        doi="10.5281/zenodo.23302586"),
+     "Concept DOI of the Zenodo record (DataCite; listed in the v1.0.5 record read 2026-10-12). The "
+     "Digital Discovery guidelines ask for the DOIs of both the most recent and the archived version. "
+     "Title to be re-read from the record after the release that accompanies this version.", False),
 ]
 
 
