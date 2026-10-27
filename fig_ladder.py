@@ -146,10 +146,10 @@ def build_rows():
     # that moved the gas at the wrong velocity (B72) and are WITHDRAWN as evidence about
     # physics (A28): the figure draws ONLY the corrected re-run, once its completion marker
     # exists. (A first version drew the withdrawn result as PHYSICS HELPS -- caught by the
-    # round-2 referee review.)
-    _mk = "l4b_v3.log"
-    v3_done = os.path.exists(_mk) and "L4B_V3_DONE" in open(_mk, errors="replace").read()
-    l4c = load("results/l4b_v3_verdict.json") if v3_done else None
+    # round-2 referee review.) The re-run finished on 2026-10-10; the figure no longer waits
+    # for its completion marker, which lived in an untracked log, so a fresh clone drew the
+    # row as "in flight" (ledger B92).
+    l4c = load("results/l4b_v3_verdict.json")
     ax = (l4c or {}).get("axes", {}).get("material", {})
     c = ax.get("best_pi_vs_data_only")
     if c:
