@@ -444,9 +444,9 @@ are scarce \cite{galanti2025towards}, and separate kinetic and equilibrium heads
 \nLsixPct\,\%, but without the dependence on the Damk\"ohler number the hypothesis predicted.
 Kolmogorov--Arnold maps lose to the perceptron at matched size (L3, exploratory; the
 literature is split \cite{liu2025kan,shukla2024comprehensive,wang2025kinn,rigas2026training}),
-a richer DeepONet basis (L5) gains \nLfiveVtwoGainPct\,\% from 8 to 128 modes, nearly all of it by \(p = 16\), with a
+a richer DeepONet basis (L5b) gains \nLfiveVtwoGainPct\,\% from 8 to 128 modes, nearly all of it by \(p = 16\), with a
 Fourier neural operator \cite{li2021fourier} not significantly better once its selection is
-paid for (exploratory), and classical closed
+paid for (L5a, exploratory), and classical closed
 forms\cite{klinkenberg1948numerical,klinkenberg1954heat} (L7) are \(\nBfitRatio\times\) worse than
 learning even with two fitted corrections. The pattern points away from the basis and the
 model class and towards the map and the training data, which the next section measures
@@ -525,7 +525,7 @@ errors most: per sample, the median share at 16 modes is \nPerSampleMedVtwo\,\%
 
 More training materials reduce the map error: on held-out materials of the smooth design
 only the leading modes are predicted well, and the number of modes whose map clears
-\(R^2 > 0.2\) grows from \nLCmodesSmall\ to \nLCmodesLarge\ as training materials go from \nLCsizeMin
+\(R^2 > 0.2\) grows from \nLCmodesSmall\ to \nLCmodesLarge\ as training materials go from \nLCsizeMin\
 to \nLCsizeMax, still rising (Fig.~\ref{fig:basismap}D). The regressor matters too, by a constant
 factor: at eight modes, ridge regression has a \(\nRidgeOverHgb\times\) larger map error than boosting, and
 DeepONet's field error is \(\nHgbOverDon\times\) smaller than that of POD with boosting.
