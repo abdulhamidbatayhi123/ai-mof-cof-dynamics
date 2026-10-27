@@ -94,10 +94,10 @@ def main():
                     label=f"same correlation, full form\n(Pe = {er['Pe']:.1f})")
     t_min, frac = curves["bruggeman_k0.2"]
     h_b1, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["orange"], lw=1.6, ls="-.",
-                    label=f"authors' Bruggeman $D_e$\n(Pe = {brg['Pe']:.1f}), $k$ = 0.2 s$^{-1}$")
+                    label=f"authors' Bruggeman $D_e$\n(Pe = {brg['Pe']:.1f}), $k$ = 0.2$\\,\\mathrm{{s}}^{{-1}}$")
     t_min, frac = curves["bruggeman_k0.011"]
     h_b2, = ax.plot(t_min, frac * RH_IN * 100, color=fs.C["green"], lw=1.4, ls=":",
-                    label="Bruggeman $D_e$, $k$ = 0.011 s$^{-1}$\n(step minimum)")
+                    label="Bruggeman $D_e$, $k$ = 0.011$\\,\\mathrm{s}^{-1}$\n(step minimum)")
     h_com, = ax.plot(com[:, 0], com[:, 1], color=fs.C["red"], lw=1.0, ls="--",
                      label="authors' COMSOL model\n(fitted kinetics)")
     h_eff, = ax.plot(eff[:, 0], eff[:, 1], "o", ms=4, mfc="none", mec="k", label="experiment, outlet (digitised)")

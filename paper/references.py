@@ -740,7 +740,7 @@ REFS = [
         doi="10.1039/d6dd00351f"),
      "Nearest Digital Discovery neighbour: MOF benchmark rankings stabilise only at large N.", False),
     ("burark2024codbench", V, "article", dict(
-        author="Priyanshu Burark and Karn Tiwari and Meer Mehran Rashid and Prathosh A. P. and "
+        author="Priyanshu Burark and Karn Tiwari and Meer Mehran Rashid and {Prathosh A. P.} and "
                "N. M. Anoop Krishnan",
         title="{CoDBench}: a critical evaluation of data-driven models for continuous dynamical systems",
         journal="Digital Discovery", volume="3", number="6", pages="1172--1181", year="2024",
@@ -854,7 +854,8 @@ REFS = [
         author="Gwyneth Liske and Arvind Rajendran",
         title="Extended batch adsorber analogue model ({e-BAAM}) for rapid evaluation of {CO$_2$} "
               "capture pressure swing adsorption cycles",
-        journal="The Canadian Journal of Chemical Engineering", year="2026", doi="10.1002/cjce.70453"),
+        journal="The Canadian Journal of Chemical Engineering", year="2026", doi="10.1002/cjce.70453",
+        note="DOI: 10.1002/cjce.70453"),
      "Reduced-physics screening model: cheap physics as the competitor of learned surrogates. "
      "Online 2026, no volume or pages in Crossref on 2026-10-25.", False),
     ("alkhatib2026machine", V, "article", dict(
@@ -889,7 +890,7 @@ REFS = [
     ("wyder2025common", V, "inproceedings", dict(
         author="Philippe Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva "
                "and Jan Williams and David Zoro and Amy Rude and Matteo Tomasetto and Joe Germany and "
-               "Joseph Bakarji and Georg Maierhofer and Miles Cranmer and Nathan Kutz",
+               "Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J. Nathan Kutz",
         title="Common task framework for a critical evaluation of scientific machine learning algorithms",
         booktitle="Advances in Neural Information Processing Systems 38 (Datasets and Benchmarks Track)",
         pages="188884--188901", year="2025", doi="10.52202/085713-5677"),
@@ -1089,7 +1090,7 @@ REFS = [
     ("kovachki2024operator", V, "incollection", dict(
         author="Nikola B. Kovachki and Samuel Lanthaler and Andrew M. Stuart",
         title="Operator learning: algorithms and analysis",
-        booktitle="Handbook of Numerical Analysis", publisher="Elsevier", pages="419--467", year="2024",
+        booktitle="Numerical Analysis Meets Machine Learning, Handbook of Numerical Analysis", publisher="Elsevier", pages="419--467", year="2024",
         doi="10.1016/bs.hna.2024.05.009"),
      "Standard review of operator learning, including the encoder--decoder error split. Crossref "
      "record read 2026-10-27 (title 'Operator learning', pages 419-467, no author list in Crossref); "
@@ -1110,7 +1111,7 @@ REFS = [
     # ------------------------------------------------- the data reference (guide, Option C)
     ("batayhi2026code", V, "misc", dict(
         author="Abdulhamid Batayhi",
-        title="{[dataset]} {Code, results and pre-registrations for: Machine-learning surrogates of MOF water-adsorption beds: the coefficient map, not the basis, limits accuracy on unseen materials}",
+        title="{Code, results and pre-registrations for: Machine-learning surrogates of MOF water-adsorption beds: the coefficient map, not the basis, limits accuracy on unseen materials}",
         howpublished="Zenodo", note="Version v2.0.1", year="2026",
         doi="10.5281/zenodo.23704400"),
      "The archived release of this repository used for the Digital Discovery submission: v2.0.1, "
@@ -1129,7 +1130,7 @@ REFS = [
      "Title to be re-read from the record after the release that accompanies this version.", False),
     ("batayhi2026data", V, "misc", dict(
         author="Abdulhamid Batayhi and H. Cankurt",
-        title="{[dataset]} {Dataset for: Machine-learning surrogates of MOF water-adsorption beds: the "
+        title="{Dataset for: Machine-learning surrogates of MOF water-adsorption beds: the "
               "coefficient map, not the basis, limits accuracy on unseen materials}",
         howpublished="Zenodo", year="2026", doi="10.5281/zenodo.23683358"),
      "Our own dataset record. DOI reserved in the Zenodo draft on 2026-10-27 (read from the "
@@ -1150,6 +1151,11 @@ def bibtex(key, kind, fields):
         fields["howpublished"] = f"arXiv preprint, arXiv:{fields['eprint']}"
     # rsc.bst prints no DOI, which for a data or code record is the only way to find it
     # (the journal's data reviewer needs both code DOIs and the dataset DOI in the list)
+    # an early-view article (no volume, no pages yet) is found by its DOI, as RSC prints it:
+    # "Journal, 2026, DOI: 10.xxxx"; rsc.bst prints no note, so the DOI goes where the pages sit
+    if kind == "article" and fields.get("doi") and not fields.get("volume") and not fields.get("pages"):
+        fields = {k: v for k, v in fields.items() if k != "note"}
+        fields["pages"] = f"DOI: {fields['doi']}"
     if kind == "misc" and fields.get("howpublished") == "Zenodo" and fields.get("doi"):
         fields = dict(fields)
         fields["howpublished"] = f"Zenodo, DOI: {fields['doi']}"

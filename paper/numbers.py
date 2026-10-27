@@ -1098,7 +1098,7 @@ SPEC = [
     ("CostCoarseS", "results/dd_v3_verdict.json", "cost_v2.t_coarse50_s", "{:.2f}"),
     ("CostCoarseHundredS", "results/dd_v3_verdict.json", "cost_v2.t_coarse100_s", "{:.2f}"),
     ("CostCoarseHundredErr", "results/dd_v3_verdict.json", "cost_v2.nrmse_coarse100", lambda x: f"{100 * x:.2f}"),
-    ("CostFitS", "results/dd_v3_verdict.json", "cost_v2.deeponet_fit_s", lambda x: f"{round(x, -1):,.0f}"),
+    ("CostFitS", "results/dd_v3_verdict.json", "cost_v2.deeponet_fit_s", lambda x: f"{round(x, -1):.0f}"),   # no thousands comma below 10000
     ("CostFitSolves", "results/dd_v3_verdict.json", "cost_v2.deeponet_fit_in_solves", lambda x: f"{round(x, -1):,.0f}"),
     ("CostTrainCpuH", "results/dd_v3_verdict.json", "cost_v2.training_cpu_h", "{:.1f}"),
     ("CostBeFit", "results/dd_v3_verdict.json", "cost_v2.break_even_with_fit", lambda x: f"{round(x, -3):,.0f}"),

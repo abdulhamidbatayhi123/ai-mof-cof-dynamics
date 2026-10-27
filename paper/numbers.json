@@ -758,7 +758,7 @@
     "CostCoarseS": "0.22",
     "CostCoarseHundredS": "0.27",
     "CostCoarseHundredErr": "0.31",
-    "CostFitS": "1,050",
+    "CostFitS": "1050",
     "CostFitSolves": "590",
     "CostTrainCpuH": "1.8",
     "CostBeFit": "30,000",

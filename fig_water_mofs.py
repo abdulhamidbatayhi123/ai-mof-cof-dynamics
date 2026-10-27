@@ -58,7 +58,7 @@ def draw(ax, d, xk, yk, sx=1.0):
         ax.errorbar(sx * mid(x), mid(y), xerr=[[sx * (mid(x) - x["lo"])], [sx * (x["hi"] - mid(x))]],
                     yerr=[[mid(y) - y["lo"]], [y["hi"] - mid(y)]], fmt=mk, ms=4.5, capsize=2,
                     lw=0.9, color=col, zorder=3)
-        ax.annotate(key.replace("Co2Cl2", "Co$_2$Cl$_2$"), (sx * mid(x), mid(y)), textcoords="offset points",
+        ax.annotate(key.replace("Co2Cl2", "Co$_2$Cl$_2$").replace("Al-fumarate", "Al fumarate"), (sx * mid(x), mid(y)), textcoords="offset points",
                     xytext=OFFSET.get((xk, key), (6, 4)), fontsize=7.2, color=col,
                     # a label moved far from a crowded point gets a leader line
                     arrowprops=(dict(arrowstyle="-", lw=0.5, color=col, shrinkA=1, shrinkB=3)

@@ -84,7 +84,7 @@ def main():
     b.plot(ps2, on2, "s-", color=fs.ARM_COLOUR["deeponet"], ms=3)
     b.set_yscale("log"); xaxis(b)
     b.set_ylabel("held-out nRMSE (c)")
-    b.set_title("B  Full (240 materials)")
+    b.set_title("B  Smooth design (v2, 240 materials)")
     b.text(0.04, 0.04, f"DeepONet over\nthe floor:\n{on2[0] / floor2[0]:.1f}× at $p$ = 8\n"
                        f"{on2[-1] / floor2[-1]:.0f}× at $p$ = 128",
            transform=b.transAxes, ha="left", va="bottom", fontsize=7.2, color="0.25")
@@ -116,7 +116,7 @@ def main():
                plt.Line2D([], [], color=fs.ARM_COLOUR["fno"], ls="-.", label="Fourier neural operator"),
                plt.Line2D([], [], color=fs.C["dark"], ls="--", marker="o", ms=3, label="basis floor"),
                plt.Line2D([], [], color="0.55", lw=2, marker="o", mfc="white", ms=4.5, label="C: legacy design"),
-               plt.Line2D([], [], color=fs.C["dark"], lw=2, marker="o", ms=4.5, label="C: full design")]
+               plt.Line2D([], [], color=fs.C["dark"], lw=2, marker="o", ms=4.5, label="C: smooth design (v2)")]
     fig.legend(handles=handles, loc="upper center", ncol=4, bbox_to_anchor=(0.5, 1.03),
                fontsize=7.2, columnspacing=1.0, handlelength=1.8)
 

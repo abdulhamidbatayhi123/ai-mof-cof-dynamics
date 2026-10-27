@@ -490,13 +490,6 @@
   "line_at_review": 643
  },
  {
-  "key": "test probes extrapolation for [six] materials only on the smooth",
-  "word": "six",
-  "class": "DESIGN",
-  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
-  "line_at_review": 687
- },
- {
   "key": "ses them. The model describes [one] adsorption",
   "word": "one",
   "class": "PROSE",
@@ -866,5 +859,19 @@
   "class": "DESIGN",
   "reason": "a reporting cut stated in the sentence itself, with the excluded frameworks named",
   "line_at_review": 701
+ },
+ {
+  "key": "test probes extrapolation for [four] of the six materials, and onl",
+  "word": "four",
+  "class": "DESIGN",
+  "reason": "the frameworks Table 2 marks outside the smooth design, fixed by the registered rule before any surrogate ran",
+  "line_at_review": 749
+ },
+ {
+  "key": "extrapolation for four of the [six] materials, and only on the sm",
+  "word": "six",
+  "class": "DESIGN",
+  "reason": "the six named frameworks fixed in PREREG_DD_ADDITIONS",
+  "line_at_review": 749
  }
 ]

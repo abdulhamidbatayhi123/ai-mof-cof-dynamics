@@ -118,6 +118,7 @@ def main():
     cl = os.path.join(ROOT, "outreach", "cover_letter_dd.md")
     if os.path.exists(cl):
         text = open(cl, encoding="utf-8").read().split("\n---\n")[0]     # drop the private notes
+        text = "\n".join(ln for ln in text.splitlines() if not ln.startswith("# ")).strip()   # and the draft heading
         if "[" in text and "DOI]" in text:
             print("NOTE: the cover letter still has a DOI placeholder")
         open(os.path.join(OUT, "Cover_letter.txt"), "w", encoding="utf-8").write(text.strip() + "\n")
