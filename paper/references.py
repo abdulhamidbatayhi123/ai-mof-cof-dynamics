@@ -1062,6 +1062,15 @@ REFS = [
 
 
 def bibtex(key, kind, fields):
+    # rsc.bst ignores eprint and drops article titles, so an arXiv preprint printed as
+    # "arXiv preprint, 2026." with nothing a reader could look up. Every arXiv entry is
+    # written as a titled record that names its identifier.
+    venue = fields.get("journal") or fields.get("howpublished") or ""
+    if fields.get("archiveprefix") == "arXiv" and fields.get("eprint") and venue.startswith("arXiv") \
+            and "booktitle" not in fields:          # a published paper keeps its venue
+        kind = "misc"
+        fields = {k: v for k, v in fields.items() if k != "journal"}
+        fields["howpublished"] = f"arXiv preprint, arXiv:{fields['eprint']}"
     lines = [f"@{kind}{{{key},"]
     for k, v in fields.items():
         lines.append(f"  {k} = {{{v}}},")
