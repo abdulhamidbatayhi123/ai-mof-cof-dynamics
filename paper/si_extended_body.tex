@@ -4,7 +4,7 @@
 \subsection{Henry's law holds everywhere; the region where it dominates does not}
 
 Across all \nIsoNmat\ sampled materials, \(n > 1\) strictly for every material, so the cooperative term
-is \(o(c)\) at the origin and the Henry constant is finite and positive everywhere.
+vanishes faster than \(c\) at zero concentration and the Henry constant is finite and positive everywhere.
 But the Henry constant \(K_H = q_{\max} f_H b_H\), the slope of
 equation~\eqref{eq:isotherm} at the origin, spans \nIsoKHmin--\nIsoKHmax\ \si{\mole\per\kilo\gram} per
 \si{\mole\per\metre\cubed}, \nIsoKHdec\ decades, median \nIsoKHmed. The
@@ -116,7 +116,7 @@ map term alone is in the main text, Fig.~\ref{fig:basismap}), and the basis floo
 falls by orders of magnitude; the total error does not move,
 and DeepONet improves only from \(p = 8\) to \(p = 16\). \textbf{C}~Paired differences
 against \(p = 8\), as a percentage of the error at \(p = 8\): on the legacy design
-(grey) every interval spans zero; on the full design (black) every larger basis is
+(grey) every interval spans zero; on the smooth design (v2, black) every larger basis is
 better. Per-pair intervals; the \(p = 128\) comparison also survives the
 selection adjustment (A29). DeepOKAN, a DeepONet with Kolmogorov--Arnold layers; FNO,
 Fourier neural operator.}
@@ -130,7 +130,7 @@ matched parameter counts and each family at its own best learning rate over
 size (Figure~\ref{s2:fig:operators}): \nLfiveFlatDiff\ from \(p = 8\) to \(p = 128\),
 interval [\nLfiveFlatLo, \nLfiveFlatHi], which spans zero. Stated as what it excludes:
 a sixteenfold increase in basis size could not have improved this arm by more than
-\nLfiveFlatImproveMax\,\% of its error. The larger design found an improvement
+\nLfiveFlatImproveMax\,\% of its error. The smooth design (v2) found an improvement
 well inside that bound, which is exactly why a null on \nNclustLegacy\ held-out
 materials could not be the last word. Meanwhile its own POD
 floor falls from \nLfiveFloorSmall\ to \nLfiveFloorLarge, a factor of
@@ -174,7 +174,7 @@ deviation of the arm difference fell to \nLsixBetweenSD, or
 \nLsixBetweenOverBase\,\% of the base error, from \nLsixLegacyBetweenOverBase\,\% previously, a \(\nLsixNoiseDrop\times\) noise reduction from Sobol sampling and physically consistent
 kinetics. With \nNclustFolds\ clusters instead of \nNclustLegacy, that is what turned an unanswerable
 question into an answerable one. Power is \nLsixPowerFour\,\% at a 4\,\% effect and
-\nLsixPowerTwo\,\% at 2\,\%, with size at the null \nLsixSizeNull\,\%; the minimum
+\nLsixPowerTwo\,\% at 2\,\%, with a size at the null of \nLsixSizeNull\,\% in this rung's own power simulation; the minimum
 detectable effect at 80\,\% power is \nLsixMDE\,\%. The observed effect sits just
 under it, so the point estimate may be optimistic and the lower bound is the
 conservative reading.
@@ -189,18 +189,17 @@ material count (Figure~\ref{fig:basismap}), modes clearing \(R^2 > 0.2\) grow fr
 \nLCmodesLarge\ over 12 to 192 materials and are still climbing. Three counts of
 modes clearing \(R^2 > 0.2\) appear in this paper, and they are the same statistic
 under different conditions: \nLfiveCountModes\ on the legacy design, and
-\nLCmodesLarge\ and \nLfiveVtwoModes\ on the larger one at the same number of training
+\nLCmodesLarge\ and \nLfiveVtwoModes\ on the smooth design (v2) at the same number of training
 materials, the first for the learning-curve learner on its own basis and the second for the
 decomposition's regressor on the largest basis. They agree on what matters here:
-a learner predicts a modest set of mostly leading modes and little beyond it. The retraction is
-A21, and it withdrew the replacement text for an earlier retraction: the same
-inference, made twice.
+a learner predicts a modest set of mostly leading modes and little beyond it. A21 withdrew the earlier claim; the text that had replaced an
+earlier retraction repeated the same inference.
 
 \paragraph{The \(n\)-width is real and was not what binds} The residual
 \emph{energy} of this snapshot family decays algebraically, as
 \(k^{\nNwidthExpC}\) in the number of modes \(k\), with \(R^2 = \nNwidthRtwoC\) over
-\(k = 8\)--64. The Kolmogorov \(n\)-width, whose \(n\) is this mode count, is the
-residual \emph{norm}, the square root of that, so it decays as \(k^{\nNwidthExpErr}\)
+\(k = 8\)--64. The residual \emph{norm}, the square root of that and an average-case proxy for the
+Kolmogorov \(n\)-width (a worst case over all subspaces of that size), decays as \(k^{\nNwidthExpErr}\)
 and halving the error requires
 \(\nNwidthHalving\times\) the modes. We separate the two because an
 earlier draft quoted the energy exponent and called it the \(n\)-width, next to a
@@ -211,11 +210,10 @@ the central result of the ladder and predicted that DeepONet would track it.
 The prediction was wrong: the bound is real, and it is inactive. Withdrawing it is
 A17. For transport-dominated problems the slow decay is established: Ohlberger
 and Rave \cite{ohlberger2016reduced} prove a \emph{lower} bound of \(\tfrac12 k^{-1/2}\) for linear advection
-with jump discontinuities, which is a bound and not a rate. Our measured decay is faster than that bound, and the reason is the
-hypothesis: their fields carry jump discontinuities, ours are smoothed by axial
-dispersion and by finite-rate kinetics, so the worst case their theorem
-constructs does not occur here. That is also why the bound can be simultaneously
-real and inactive; this paragraph has to hold both statements together.
+with jump discontinuities, which is a bound and not a rate. Our measured decay is faster, which is consistent with it:
+the theorem covers fields with jump discontinuities, while ours are smoothed by axial
+dispersion and by finite-rate kinetics, so the worst case it constructs does not occur
+here. That is also why the bound can be real and inactive at the same time.
 
 \section{Monotonicity of the predicted fronts}
 \label{s2:sec8}
@@ -340,7 +338,7 @@ weight that region as heavily as the occupied one.
 
 \paragraph{Not every sample reaches the step} A harvester is operated above its
 step by design; the sampled space is not. \nChemBelowStepPct\,\% of the accepted
-samples of the larger dataset (\nChemBelowStepLegPct\,\% of the legacy one) are fed
+samples of the smooth (v2) dataset (\nChemBelowStepLegPct\,\% of the legacy one) are fed
 below their material's step humidity, so the feed never reaches pore filling and the
 breakthrough is the primary-site front alone. These samples are in every verdict; a
 surrogate built only for harvesting conditions would not need them.
@@ -356,8 +354,8 @@ the temperature dependence of the step.
 
 \paragraph{Three parameters are not measurements} Pellet density and bed porosity
 are packing values, not MOF-303 measurements \cite{hanikel2021evolution}. No citable measured heat capacity for
-MOF-303 was found, so it is reported as a sensitivity band rather than as a cited
-constant.
+MOF-303 was found, so it is reported as a sensitivity band (the grey thermal variants of
+Figure~\ref{fig:anchor} of the main text) rather than as a cited constant.
 
 \paragraph{No covalent organic framework case} We found no published breakthrough
 measurement on a covalent organic framework (COF) suitable for this comparison, so no

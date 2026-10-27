@@ -8,7 +8,7 @@
 \nDcCps\)\,J\,kg\(^{-1}\)\,K\(^{-1}\), \(k_z = \nDcKz\)\,W\,m\(^{-1}\)\,K\(^{-1}\) and
 \(h_w = \nDcHw\)\,W\,m\(^{-2}\)\,K\(^{-1}\). Axial dispersion follows the packed-bed
 correlation \(D_L = 0.7D_m + 0.5\,d_p v/\varepsilon_t\) with \(D_m =
-\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the larger dataset the kinetic
+\nDcDmDisp\times10^{-5}\)\,m\(^2\)\,s\(^{-1}\). In the smooth (v2) dataset the kinetic
 coefficient is not sampled but derived from the particle by the Glueckauf relation,
 \begin{equation}
 k_{\mathrm{LDF}} = \frac{15\,\varepsilon_p D_m/\tau_p}{(d_p/2)^2\,\rho_p\,K},
@@ -28,14 +28,14 @@ SciPy's implicit backward-differentiation-formula (BDF) method at relative and a
 Section~\ref{sec:model} verifies the solver. Each run is integrated to
 \nDcHorizon\ stoichiometric times; if the outlet has not reached the acceptance level
 the horizon is extended to \nDcHorizonExt\ stoichiometric times in turn, which
-\nDcExtendedPct\,\% of the accepted runs of the larger dataset needed. A draw is
+\nDcExtendedPct\,\% of the accepted runs of the smooth (v2) dataset needed. A draw is
 rejected before solving if its feed loads too little or too much of capacity, its
 Henry constant is not finite and positive, its isothermal mass-transfer zone is not
 resolved by the grid, or its stoichiometric time is implausible; \nDataNrejected\ of
-the larger dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
+the smooth (v2) dataset's draws were rejected and \nDataNsamples\ accepted. Fields are
 stored as \(c/c_{\mathrm{in}}\), \(q/q_{\max}\) and \(T/T_{\mathrm{in}}\) on a uniform
 grid in \(z/L\) and \(t/t_{\mathrm{final}}\), at \(\nDcStoreV\times\nDcStoreV\) for the
-larger dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
+smooth (v2) dataset and \(\nDcStoreLegZ\times\nDcStoreLegT\) for the legacy one.
 
 \paragraph{Damk\"ohler number} The Damk\"ohler number used throughout is computed per
 sample as \(\mathrm{Da} = k_{\mathrm{LDF}}\,t_{\mathrm{final}}\), and rung L6 regresses
@@ -110,18 +110,18 @@ Broyden--Fletcher--Goldfarb--Shanno; DeepOKAN, a DeepONet with Kolmogorov--Arnol
 \toprule
 rung & data, design & input \(\to\) output; encoding & architecture & training \\
 \midrule
-L1 & larger, five-fold &
+L1 & smooth (v2), five-fold &
 parameters \(\to\) POD coefficients per channel &
 ridge; random forest; gradient boosting; perceptron with standardised targets &
 scikit-learn; perceptron Adam with early stopping \\
-L1 curve & larger, five-fold & parameters \(\to\) \nLCpField\ POD coefficients of \(c\); training materials subsampled & one gradient-boosted regressor per mode (not the L1 perceptron) & three seeds per size \\
-L2 & larger, five-fold & as L1 &
+L1 curve & smooth (v2), five-fold & parameters \(\to\) \nLCpField\ POD coefficients of \(c\); training materials subsampled & one gradient-boosted regressor per mode (not the L1 perceptron) & three seeds per size \\
+L2 & smooth (v2), five-fold & as L1 &
 perceptron width and depth, boosting depth, forest leaf size, swept in both directions & as L1 \\
 L3 & legacy &
 parameters \(\to\) POD coefficients; full stored field &
 perceptron and two Kolmogorov--Arnold \cite{liu2025kan} families (Gaussian radial basis, Chebyshev), depth \nMthThreeDepth, matched to \nMthThreeBudgets\ parameters; widths \nMthThreeWidths &
 Adam, cosine schedule, \nMthThreeSteps\ steps, per-family learning-rate grid \\
-L4 & larger; time axis and single split &
+L4 & smooth (v2); time axis and single split &
 (parameters, \(z\), \(t\)) \(\to\) \((c,q,T)\) pointwise, bounded output head &
 one perceptron, \nMthFourDepth\ layers of \nMthFourWidth\ (\nMthFourParams\ parameters); data-only twin and physics-weighted arms (fixed, gradient-norm, NTK, self-adaptive); residual of equations \eqref{eq:mass}--\eqref{eq:energy} with the Danckwerts inlet conditions, corrected (B72) &
 Adam, cosine schedule, \nMthFourSteps\ steps of \nMthFourSup\ data, \nMthFourColloc\ collocation and \nMthFourBc\ boundary points; then L-BFGS (polish) \\
@@ -129,16 +129,16 @@ L5 & legacy &
 parameters \(\to\) \(c\) field, subsampled from the stored field &
 DeepONet and DeepOKAN over basis size \(p\); Fourier neural operator over mode count; all matched to \nMthFiveBudget\ parameters &
 Adam, cosine schedule, \nMthFiveSteps\ steps, per-arm learning-rate grid \\
-L5 basis size & larger, five-fold & as L5 & DeepONet over basis size \(p\), matched parameters &
+L5 basis size & smooth (v2), five-fold & as L5 & DeepONet over basis size \(p\), matched parameters &
 as L5, step budget tripled \\
-L5 basis vs.\ map & legacy; larger, five-fold &
+L5 basis vs.\ map & legacy; smooth (v2), five-fold &
 parameters \(\to\) POD coefficients of \(c\) over basis size &
-one gradient-boosted regressor per mode & one seed (legacy), three seeds (larger) \\
-L6 & larger, five-fold &
+one gradient-boosted regressor per mode & one seed (legacy), three seeds (smooth v2) \\
+L6 & smooth (v2), five-fold &
 \nMthSixNdesc\ observable descriptors (isotherm at three temperatures, bed and operating values), \(z\), \(t\) \(\to\) \((c,q,T)\) &
 joint perceptron versus separate equilibrium, kinetic and transport heads, with \(q\) from equation~\eqref{eq:ldf}; both \nMthSixBudget\ parameters, depth \nMthSixDepth &
 Adam, cosine schedule, \nMthSixSteps\ steps \\
-L7 & larger, five-fold, paired with L1 &
+L7 & smooth (v2), five-fold, paired with L1 &
 parameters \(\to\) outlet curve &
 equilibrium shock, Klinkenberg, constant pattern; nothing fitted & none \\
 Warp & legacy &
